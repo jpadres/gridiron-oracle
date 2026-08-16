@@ -1,0 +1,98 @@
+name: Predicciones semanales
+
+on:
+  schedule:
+    # Miércoles a las 11:00 UTC. Después del lunes por la noche (todos los
+    # partidos jugados, ratings actualizados) y con margen antes del jueves.
+    - cron: "0 11 * * 3"
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Temporada a publicar (vacío = automática)"
+        required: false
+      week:
+        description: "Jornada a publicar (vacío = la primera sin jugar)"
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  # Dos ejecuciones a la vez se pisarían al escribir web/data/model.b64.js.
+  group: weekly-predictions
+  cancel-in-progress: false
+
+jobs:
+  regenerate:
+    name: Regenerar y publicar
+    runs-on: ubuntu-latest
+    # La descarga de nflverse son ~480 MB y el walk-forward tarda unos minutos.
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Instalar
+        run: pip install -e ".[dev]"
+
+      # Los datos no se versionan (~490 MB, en .gitignore): se reconstruyen
+      # desde cero en cada ejecución. Se cachean entre semanas porque sólo
+      # cambian las temporadas recientes.
+      - name: Caché de nflverse
+        uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: nflverse-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: nflverse-${{ runner.os }}-
+
+      - name: Descargar datos
+        run: oracle refresh
+
+      - name: Construir features
+        run: oracle features
+
+      - name: Board de draft de fantasy
+        run: python scripts/fantasy_build.py
+
+      - name: Ranking semanal de fantasy
+        run: |
+          args=""
+          if [ -n "${{ inputs.season }}" ]; then args="--season ${{ inputs.season }}"; fi
+          if [ -n "${{ inputs.week }}" ]; then args="$args --week ${{ inputs.week }}"; fi
+          if [ -n "$args" ]; then
+            python scripts/fantasy_weekly_build.py $args
+          else
+            echo "Sin jornada explícita: la resuelve export_web_data.py."
+          fi
+        continue-on-error: true
+
+      # ESTE es el paso que se olvida al hacerlo a mano: sin él la web sigue
+      # mostrando los datos anteriores y no da ningún error.
+      - name: Exportar y COMPRIMIR el payload de la web
+        run: |
+          args=""
+          if [ -n "${{ inputs.season }}" ]; then args="--season ${{ inputs.season }}"; fi
+          if [ -n "${{ inputs.week }}" ]; then args="$args --week ${{ inputs.week }}"; fi
+          python scripts/export_web_data.py $args
+
+      - name: Comprobar que la web sigue construyendo
+        working-directory: web
+        run: |
+          npm ci
+          npm run build
+
+      - name: Publicar
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/data/model.b64.js
+          if git diff --cached --quiet; then
+            echo "El payload no ha cambiado; no hay nada que publicar."
+            exit 0
+          fi
+          git commit -m "datos: regenerar payload de la web"
+          git push

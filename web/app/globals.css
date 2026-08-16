@@ -1,0 +1,93 @@
+/* Sin fuentes externas: la CSP no permite dominios de fuera y no hace falta
+   ninguna. La pila del sistema se ve bien en todas partes y no cuesta ni una
+   petición. */
+
+:root {
+  --bg: #ffffff;
+  --fg: #16181d;
+  --muted: #5b6472;
+  --line: #e3e5ea;
+  --accent: #1d4ed8;
+  --warn-bg: #fffbeb;
+  --warn-line: #b45309;
+  --surface: #f6f7f9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101216;
+    --fg: #e8eaee;
+    --muted: #98a1b0;
+    --line: #262a32;
+    --accent: #7ea2ff;
+    --warn-bg: #241f11;
+    --warn-line: #d08a1f;
+    --surface: #171a20;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+}
+
+.shell { max-width: 62rem; margin: 0 auto; padding: 0 1.25rem 4rem; }
+
+nav.top {
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.25rem;
+  align-items: baseline;
+}
+nav.top .brand { font-weight: 700; letter-spacing: -0.01em; margin-right: auto; }
+nav.top a { color: var(--muted); text-decoration: none; font-size: 0.94rem; }
+nav.top a:hover, nav.top a:focus { color: var(--accent); text-decoration: underline; }
+
+h1 { font-size: 1.9rem; letter-spacing: -0.02em; margin: 1.5rem 0 0.5rem; }
+h2 { font-size: 1.3rem; margin: 2.25rem 0 0.5rem; }
+h3 { font-size: 1.05rem; margin: 1.5rem 0 0.35rem; }
+p { margin: 0.75rem 0; }
+a { color: var(--accent); }
+code { background: var(--surface); padding: 0.1rem 0.3rem; border-radius: 3px; font-size: 0.9em; }
+
+.lede { font-size: 1.1rem; color: var(--muted); }
+.caption { font-size: 0.85rem; color: var(--muted); }
+
+.callout {
+  border-left: 3px solid var(--warn-line);
+  background: var(--warn-bg);
+  padding: 0.85rem 1.1rem;
+  margin: 1.5rem 0;
+  border-radius: 0 4px 4px 0;
+}
+.callout h3 { margin-top: 0; }
+
+/* Las tablas anchas hacen scroll dentro de su contenedor: el cuerpo de la
+   página nunca se desplaza en horizontal, ni siquiera en un móvil estrecho. */
+.table-wrap { overflow-x: auto; margin: 1rem 0; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; min-width: 32rem; }
+th, td { border-bottom: 1px solid var(--line); padding: 0.45rem 0.65rem; text-align: right;
+         white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { background: var(--surface); font-weight: 600; position: sticky; top: 0; }
+tbody tr:hover { background: var(--surface); }
+
+.grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+        margin: 1.5rem 0; }
+.stat { border: 1px solid var(--line); border-radius: 6px; padding: 0.85rem 1rem; }
+.stat .value { font-size: 1.5rem; font-weight: 650; letter-spacing: -0.02em; }
+.stat .label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase;
+               letter-spacing: 0.04em; }
+
+footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25rem;
+         font-size: 0.85rem; color: var(--muted); }

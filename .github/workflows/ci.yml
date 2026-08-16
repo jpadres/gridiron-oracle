@@ -1,0 +1,157 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  schedule:
+    # Los lunes a las 06:00 UTC. Las auditorías de dependencias tienen que
+    # correr aunque el repo esté quieto: un aviso de seguridad puede salir
+    # semanas después del último commit.
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Tests y lint (Python)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Instalar
+        run: pip install -e ".[dev]"
+
+      - name: Lint
+        run: ruff check src tests scripts
+
+      # Los tests usan datos sintéticos (tests/conftest.py). No descargan los
+      # ~490 MB de nflverse: un test que sólo pasa si alguien corrió `oracle
+      # refresh` a mano no es un test.
+      - name: Tests
+        run: pytest -q
+
+  web:
+    name: Build y cabeceras (web)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Instalar
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Las cabeceras se comprueban CONTRA EL SERVIDOR REAL, no leyendo
+      # next.config.mjs. La distinción importa: un config puede ser correcto y
+      # no aplicarse, y entonces la comprobación estaría mirando el sitio
+      # equivocado.
+      - name: Verificar cabeceras de seguridad
+        run: |
+          npm run start &
+          server_pid=$!
+          trap 'kill $server_pid 2>/dev/null || true' EXIT
+
+          for attempt in $(seq 1 30); do
+            if curl -sf -o /dev/null http://localhost:3000/; then break; fi
+            sleep 1
+          done
+
+          headers=$(curl -sI http://localhost:3000/)
+          echo "$headers"
+
+          fail=0
+          require() {
+            if ! grep -iq "$1" <<< "$headers"; then
+              echo "FALTA la cabecera: $1"
+              fail=1
+            fi
+          }
+          require "content-security-policy:"
+          require "x-frame-options: DENY"
+          require "x-content-type-options: nosniff"
+          require "referrer-policy:"
+          require "permissions-policy:"
+          require "strict-transport-security: max-age=63072000"
+
+          # Sin X-Powered-By: no hay motivo para anunciar la versión del framework.
+          if grep -iq "x-powered-by:" <<< "$headers"; then
+            echo "SOBRA la cabecera X-Powered-By"
+            fail=1
+          fi
+
+          # La CSP no puede listar dominios externos: el sitio no carga nada de fuera.
+          csp=$(grep -i "content-security-policy:" <<< "$headers")
+          if grep -Eq "https?://[a-z]" <<< "$csp"; then
+            echo "La CSP contiene dominios externos: $csp"
+            fail=1
+          fi
+
+          exit $fail
+
+      # El sitio no debe tener ni una petición de red en runtime ni HTML crudo.
+      - name: Prohibir fetch en runtime y dangerouslySetInnerHTML
+        run: |
+          if grep -rn "dangerouslySetInnerHTML" app data; then
+            echo "dangerouslySetInnerHTML no está permitido en este proyecto."
+            exit 1
+          fi
+          if grep -rEn "\bfetch\(|XMLHttpRequest|new WebSocket" app data; then
+            echo "Los datos se hornean en el build: no hay peticiones en runtime."
+            exit 1
+          fi
+
+  dependencies:
+    name: Auditoría de dependencias
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: pip-audit
+        run: |
+          pip install pip-audit
+          pip install -e ".[dev]"
+          pip-audit --strict
+
+      - name: npm audit
+        working-directory: web
+        run: npm audit --audit-level=moderate
+
+  secrets:
+    name: Escaneo de credenciales
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # El historial COMPLETO, no el último commit. Una clave borrada sigue
+          # viva en los commits anteriores, y es justo la que se escapa.
+          fetch-depth: 0
+
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

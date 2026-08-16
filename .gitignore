@@ -1,0 +1,31 @@
+# Datos: ~490 MB descargados de nflverse. Se reconstruyen con `oracle refresh`.
+data/raw/
+data/processed/
+out/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node / Next.js
+node_modules/
+web/.next/
+web/out/
+web/.vercel/
+
+# Artefactos generados que sí se versionan van en web/data/ (ver export_web_data.py),
+# pero el JSON sin comprimir es intermedio y no aporta nada al diff.
+web/data/model.json
+
+# Sistema
+.DS_Store
+*.log
