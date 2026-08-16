@@ -23,6 +23,7 @@ import argparse
 import base64
 import gzip
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -146,11 +147,39 @@ def _load_optional(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _finite(value):
+    """Convierte NaN e infinitos a null, recursivamente.
+
+    **Esto no es opcional.** `json.dumps` de Python emite `NaN` e `Infinity` tal
+    cual, y son extensiones que JavaScript **no** acepta: `JSON.parse` revienta
+    con el payload entero, no sólo con el campo afectado.
+
+    El fallo es especialmente traicionero porque no se ve en Python (que relee
+    su propio NaN sin quejarse) y en la web se manifiesta como «todavía no hay
+    datos generados» en *todas* las secciones — que parece un problema de
+    generación, no de serialización. Un solo jugador sin fecha de nacimiento
+    (`age`) basta para tumbar la página entera.
+    """
+    if isinstance(value, dict):
+        return {k: _finite(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_finite(v) for v in value]
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    return value
+
+
 def write_payload(web_data: Path, payload: dict) -> Path:
     """Escribe el JSON y su versión comprimida en base64."""
     web_data.mkdir(parents=True, exist_ok=True)
 
-    raw = json.dumps(payload, ensure_ascii=False, default=str, separators=(",", ":"))
+    # allow_nan=False convierte en excepción ruidosa cualquier no-finito que se
+    # escape a `_finite`. Preferimos que falle el script a publicar una web que
+    # se queda muda.
+    raw = json.dumps(
+        _finite(payload), ensure_ascii=False, default=str, separators=(",", ":"),
+        allow_nan=False,
+    )
     (web_data / "model.json").write_text(raw, encoding="utf-8")
 
     # mtime=0 para que el gzip sea reproducible: si no, cada ejecución produce
