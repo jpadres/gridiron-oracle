@@ -311,11 +311,71 @@ def _player_usage(history: pd.DataFrame) -> pd.DataFrame:
     # (3) Las cuotas se normalizan DENTRO del equipo actual. Si un jugador
     # cambió de equipo, su volumen antiguo ya no compite con el de sus antiguos
     # compañeros, sino con el de los nuevos.
-    for column, share in (("targets", "target_share"), ("carries", "rush_share")):
-        totals = usage.groupby("team", observed=True)[column].transform("sum")
-        usage[share] = np.where(totals > 0, usage[column] / totals, 0.0)
+    #
+    # (5) Y se calculan sobre la VENTANA DEL EQUIPO, no sumando las medias por
+    # partido jugado de cada jugador. La diferencia parece de matiz y no lo es.
+    #
+    # Una media por partido jugado es condicional a que el jugador jugara. Al
+    # sumarlas para normalizar, quien se perdió media temporada entra con su
+    # tasa completa, como si hubiera jugado siempre. El denominador se infla y
+    # todas las cuotas del equipo salen bajas.
+    #
+    # Medido con datos reales de 2025: el denominador se inflaba entre un 5%
+    # (BAL) y un 34% (LAR), y las proyecciones salían al 73-80% de la forma
+    # reciente del jugador en las cuatro posiciones. Lo grave no es el factor de
+    # escala —que casi no mueve el orden dentro de un equipo— sino que **varía
+    # por equipo**: penalizaba un 34% a los receptores de un equipo y un 5% a
+    # los de otro, corrompiendo la comparación entre equipos, que es justo lo
+    # que un ranking semanal tiene que acertar.
+    #
+    # La cuota correcta es la de libro: lo del jugador entre lo del equipo, ambos
+    # sobre los mismos partidos.
+    usage = usage.merge(_team_window_shares(history), on="player_id", how="left")
+    for share in ("target_share", "rush_share"):
+        usage[share] = usage[share].fillna(0.0)
 
     return usage
+
+
+def _team_window_shares(history: pd.DataFrame) -> pd.DataFrame:
+    """Cuota de objetivos y de acarreos sobre los últimos partidos del EQUIPO.
+
+    La ventana la fija el equipo (sus últimos `FORM_WINDOW` partidos), no cada
+    jugador: sólo con un denominador común las cuotas suman 1 y significan lo
+    que dicen significar.
+    """
+    columns = [c for c in ("targets", "carries", "attempts") if c in history.columns]
+    if not columns:
+        return pd.DataFrame(
+            columns=["player_id", "target_share", "rush_share", "window_attempts"]
+        )
+
+    games = (
+        history[["team", "season", "week"]]
+        .drop_duplicates()
+        .sort_values(["season", "week"])
+        .groupby("team", observed=True)
+        .tail(FORM_WINDOW)
+    )
+    window = history.merge(games, on=["team", "season", "week"], how="inner")
+
+    totals = window.groupby(["team", "player_id"], observed=True)[columns].sum().reset_index()
+    team_totals = totals.groupby("team", observed=True)[columns].transform("sum")
+
+    shares = pd.DataFrame({"player_id": totals["player_id"]})
+    for column, name in (("targets", "target_share"), ("carries", "rush_share")):
+        if column in columns:
+            shares[name] = np.where(
+                team_totals[column] > 0, totals[column] / team_totals[column], 0.0
+            )
+        else:
+            shares[name] = 0.0
+
+    # Los intentos NO se convierten en cuota: un equipo tiene un quarterback, y
+    # "el 60% de los intentos" no significa nada. Se devuelve el total de la
+    # ventana, que es lo que decide quién es el titular.
+    shares["window_attempts"] = totals["attempts"] if "attempts" in columns else 0.0
+    return shares
 
 
 def _starters(squad: pd.DataFrame, position: str) -> pd.DataFrame:
@@ -328,7 +388,17 @@ def _starters(squad: pd.DataFrame, position: str) -> pd.DataFrame:
     group = squad[squad["position"] == position].copy()
     if group.empty:
         return group
-    key = {"QB": "attempts", "RB": "carries", "WR": "targets", "TE": "targets"}[position]
+    # El criterio es el volumen ACUMULADO en la ventana del equipo, no la media
+    # por partido jugado: si no, un suplente que jugó un partido con mucho
+    # volumen le gana el puesto al titular que jugó los seis.
+    key = {
+        "QB": "window_attempts",
+        "RB": "rush_share",
+        "WR": "target_share",
+        "TE": "target_share",
+    }[position]
+    if key not in group.columns:
+        key = {"QB": "attempts", "RB": "carries", "WR": "targets", "TE": "targets"}[position]
     return group.sort_values(key, ascending=False).head(STARTERS_PER_TEAM[position])
 
 

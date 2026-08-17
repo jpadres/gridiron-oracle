@@ -1,4 +1,5 @@
 import { model, num, pct } from "../../data/model.js";
+import { CalibrationPlot } from "../charts.jsx";
 import { Callout, NoDataYet, Table } from "../ui.jsx";
 
 export const metadata = {
@@ -96,10 +97,11 @@ export default function Validacion() {
 
       <h2>Calibración</h2>
       <p className="caption">
-        Probabilidad predicha frente a frecuencia observada. Si las dos columnas se separan, el
-        modelo miente aunque su Brier sea bueno — y para poner precio a una apuesta, la
-        probabilidad importa más que el ranking.
+        Probabilidad predicha frente a frecuencia observada. Si las dos se separan, el modelo
+        miente aunque su Brier sea bueno — y para poner precio a una apuesta, la probabilidad
+        importa más que el ranking.
       </p>
+      <CalibrationPlot rows={calibration} />
       <Table columns={CALIBRATION_COLUMNS} rows={calibration} />
     </>
   );

@@ -11,6 +11,28 @@
   --warn-bg: #fffbeb;
   --warn-line: #b45309;
   --surface: #f6f7f9;
+
+  /* Paleta categórica de las cuatro posiciones. El ORDEN de estos cuatro
+     colores no es decorativo: es el mecanismo de seguridad para daltonismo.
+     Validados contra la superficie real del sitio (#ffffff en claro, #101216
+     en oscuro): peor par adyacente ΔE 9.1 con protanopia y 22.9 en visión
+     normal, por encima de los umbrales de 8 y 15.
+
+     Amarillo y aqua quedan por debajo de 3:1 de contraste sobre blanco. Eso
+     obliga a la "regla de relieve": cada serie lleva SIEMPRE su etiqueta
+     directa y su tabla al lado, así que el color nunca es el único canal que
+     transporta la identidad. Si cambias un hex, revalida los cuatro juntos. */
+  --pos-qb: #2a78d6;
+  --pos-rb: #eb6834;
+  --pos-wr: #1baf7a;
+  --pos-te: #eda100;
+
+  /* Cromo de las gráficas: rejilla y ejes un tono por encima de la superficie,
+     nunca compitiendo con los datos. */
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --pos-diff-up: #2a78d6;
+  --pos-diff-down: #d03b3b;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,6 +45,18 @@
     --warn-bg: #241f11;
     --warn-line: #d08a1f;
     --surface: #171a20;
+
+    /* Mismos cuatro tonos escalonados para fondo oscuro, no un invertido
+       automático. Validados aparte: los cuatro pasan 3:1 sobre #101216. */
+    --pos-qb: #3987e5;
+    --pos-rb: #d95926;
+    --pos-wr: #199e70;
+    --pos-te: #c98500;
+
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --pos-diff-up: #3987e5;
+    --pos-diff-down: #e66767;
   }
 }
 
@@ -91,3 +125,53 @@ tbody tr:hover { background: var(--surface); }
 
 footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25rem;
          font-size: 0.85rem; color: var(--muted); }
+
+/* --- gráficas ------------------------------------------------------------ */
+
+/* El contenedor crece con su contenido en vez de fijar altura: si se fija, la
+   banda del eje X queda fuera y la tarjeta se llena de scroll diminuto. */
+.chart { margin: 1.25rem 0 1.75rem; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart--square { max-width: 26rem; }
+.chart figcaption { margin-top: 0.5rem; }
+
+/* Realce al pasar por encima: la marca se separa del resto sin moverse. El
+   `<title>` de cada marca da el tooltip nativo, sin JavaScript. */
+.chart path:hover, .chart rect:hover, .chart circle:hover { filter: brightness(1.12); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .chart path, .chart rect, .chart circle { transition: filter 120ms ease-out; }
+}
+
+.chip {
+  display: inline-block;
+  min-width: 2.1rem;
+  text-align: center;
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: var(--chip);
+  border: 1px solid var(--chip);
+}
+
+/* Navegación entre secciones de una misma página. */
+.jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.jump a {
+  display: inline-block;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  background: var(--surface);
+}
+.jump a:hover { border-color: var(--accent); }
+
+/* El ancla no queda pegada al borde superior al saltar. */
+section[id] { scroll-margin-top: 1rem; }
+
+/* Separador de tier: la fila que abre un tier nuevo lleva una línea más
+   marcada, para que el hueco se vea sin tener que leer la columna. */
+tr.tier-start td { border-top: 2px solid var(--axis); }

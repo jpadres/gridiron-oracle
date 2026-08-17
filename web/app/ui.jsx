@@ -46,7 +46,8 @@ export function Table({ columns, rows, empty = "Sin datos todavía." }) {
         </thead>
         <tbody>
           {rows.map((row, index) => (
-            <tr key={row.id ?? row.game_id ?? row.player_id ?? index}>
+            <tr key={row.id ?? row.game_id ?? row.player_id ?? index}
+                className={row._rowClass}>
               {columns.map((column) => (
                 <td key={column.key}>
                   {column.format ? column.format(row[column.key], row) : row[column.key] ?? "—"}

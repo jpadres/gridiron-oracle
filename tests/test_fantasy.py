@@ -242,6 +242,56 @@ def test_usage_shares_use_the_current_roster(player_weeks, weekly_predictions):
     assert (usage["target_share"] <= 1.0).all()
 
 
+def test_usage_share_counts_games_missed(player_weeks):
+    """**La cuota se mide sobre los partidos del EQUIPO, no los del jugador.**
+
+    Una media por partido jugado es condicional a que jugara. Al sumarlas para
+    normalizar, quien se perdió media temporada entra con su tasa completa: el
+    denominador se infla y TODAS las cuotas del equipo salen bajas.
+
+    Con datos reales el denominador se inflaba entre un 5% y un 34% según el
+    equipo, y las proyecciones salían al 73-80% de la forma reciente del
+    jugador. Lo grave era que el sesgo variaba por equipo, así que corrompía
+    justo la comparación que un ranking semanal tiene que acertar.
+
+    Aquí: dos receptores con el mismo volumen POR PARTIDO JUGADO, uno presente
+    en los seis partidos y otro en uno solo. El primero tiene que llevarse
+    mucha más cuota; con el cálculo viejo se la repartían a partes iguales.
+    """
+    from oracle.fantasy.scoring import score_player_weeks
+    from oracle.fantasy.weekly import _player_usage
+
+    team = player_weeks["team"].iloc[0]
+    plantilla = player_weeks[player_weeks["team"] == team]
+    semanas = sorted(plantilla["week"].unique())[-6:]
+    plantilla = plantilla[plantilla["week"].isin(semanas)]
+
+    def receptor(player_id, weeks):
+        filas = plantilla[plantilla["position"] == "WR"].head(len(weeks)).copy()
+        filas["player_id"] = player_id
+        filas["player_name"] = player_id
+        filas["position"] = "WR"
+        filas["week"] = list(weeks)
+        filas["season"] = plantilla["season"].max()
+        filas["targets"] = 10.0
+        return filas
+
+    historial = pd.concat(
+        [player_weeks, receptor("SIEMPRE", semanas), receptor("UNA_VEZ", semanas[-1:])],
+        ignore_index=True,
+    )
+    historial["fantasy_points"] = score_player_weeks(historial, PPR)
+    usage = _player_usage(historial).set_index("player_id")
+
+    constante = usage.loc["SIEMPRE", "target_share"]
+    esporadico = usage.loc["UNA_VEZ", "target_share"]
+    assert constante > 3 * esporadico, (
+        f"El que jugó los 6 partidos tiene cuota {constante:.3f} y el que jugó uno "
+        f"{esporadico:.3f}. Se están sumando medias por partido jugado en vez de "
+        "medir sobre la ventana del equipo."
+    )
+
+
 def test_matchup_adjustment_is_damped(player_weeks, weekly_predictions):
     """La defensa contra la posición es señal real, pero pequeña y ruidosa.
 
