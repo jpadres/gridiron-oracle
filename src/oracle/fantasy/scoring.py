@@ -45,9 +45,15 @@ STANDARD = ScoringRules(reception=0.0)
 
 # Nombres de columna de nflverse -> atributo de las reglas. Se mantiene aquí y
 # no en línea para que añadir un mercado nuevo sea una fila, no una expresión.
+#
+# `passing_interceptions` e `interceptions` son el mismo dato con dos nombres:
+# nflverse lo renombró al pasar de `player_stats` a `stats_player_week`. Están
+# los dos porque el histórico descargado puede mezclar ambos esquemas, y sólo
+# se suma el que exista — nunca los dos a la vez (ver el aserto de abajo).
 _STAT_COLUMNS: dict[str, str] = {
     "passing_yards": "passing_yards",
     "passing_tds": "passing_td",
+    "passing_interceptions": "interception",
     "interceptions": "interception",
     "rushing_yards": "rushing_yards",
     "rushing_tds": "rushing_td",
@@ -55,6 +61,10 @@ _STAT_COLUMNS: dict[str, str] = {
     "receiving_tds": "receiving_td",
     "receptions": "reception",
 }
+
+# Grupos de alias: si un DataFrame trajese los dos nombres, sumar ambos contaría
+# las intercepciones dos veces y penalizaría a los quarterbacks el doble.
+_ALIAS_GROUPS: tuple[tuple[str, ...], ...] = (("passing_interceptions", "interceptions"),)
 
 
 def score_player_weeks(stats: pd.DataFrame, rules: ScoringRules = PPR) -> pd.Series:
@@ -66,8 +76,9 @@ def score_player_weeks(stats: pd.DataFrame, rules: ScoringRules = PPR) -> pd.Ser
     """
     points = pd.Series(0.0, index=stats.index)
 
+    skip = _redundant_aliases(stats.columns)
     for column, attribute in _STAT_COLUMNS.items():
-        if column in stats.columns:
+        if column in stats.columns and column not in skip:
             points += stats[column].fillna(0.0) * getattr(rules, attribute)
 
     # Las pérdidas de balón vienen repartidas en varias columnas según la
@@ -89,6 +100,21 @@ def score_player_weeks(stats: pd.DataFrame, rules: ScoringRules = PPR) -> pd.Ser
         points += (stats["receiving_yards"].fillna(0) >= 100) * rules.receiving_100_bonus
 
     return points
+
+
+def _redundant_aliases(columns) -> set[str]:
+    """De cada grupo de alias presente, conserva el primero y descarta el resto.
+
+    Sin esto, un DataFrame que mezcle esquemas de nflverse (por ejemplo tras
+    concatenar temporadas descargadas antes y después del renombrado) sumaría
+    las intercepciones dos veces.
+    """
+    present = set(columns)
+    skip: set[str] = set()
+    for group in _ALIAS_GROUPS:
+        found = [c for c in group if c in present]
+        skip.update(found[1:])
+    return skip
 
 
 def rules_from_name(name: str) -> ScoringRules:

@@ -257,13 +257,55 @@ def test_matchup_adjustment_is_damped(player_weeks, weekly_predictions):
     assert multipliers.between(0.65, 1.35).all()
 
 
+# Rango en el que tiene que caer el MEJOR de cada posición en una jornada, en
+# PPR. No son cifras de adorno: si el titular de una posición se proyecta fuera
+# de esta banda, el ranking no sirve para decidir una alineación.
+TOP_PROJECTION_BANDS = {"QB": (12.0, 32.0), "RB": (10.0, 30.0),
+                        "WR": (10.0, 30.0), "TE": (6.0, 22.0)}
+
+
 def test_weekly_projection_is_in_a_plausible_range(player_weeks, weekly_predictions):
-    """Cordura básica: nadie proyecta 80 puntos ni −5."""
+    """El mejor de cada posición tiene que caer en una banda realista.
+
+    La versión laxa de este test (sólo «entre 0 y 45») **no detectó** que las
+    proyecciones salían aplastadas contra el suelo con datos reales: el mejor
+    receptor de la jornada se proyectaba a 7,8 puntos en vez de ~18, porque las
+    cuotas de uso se normalizaban sobre 25 años de plantillas. Comprobar sólo
+    que un número «no es absurdo» deja pasar justo el fallo que importa.
+    """
     rankings = weekly_rankings(player_weeks, weekly_predictions, season=2024, week=14)
     assert rankings["projected_points"].between(0, 45).all()
-    for position in ("QB", "RB", "WR", "TE"):
+
+    for position, (low, high) in TOP_PROJECTION_BANDS.items():
         group = rankings[rankings["position"] == position]
-        assert group["projected_points"].mean() > 1.0, position
+        assert not group.empty, position
+        best = group["projected_points"].max()
+        assert low <= best <= high, (
+            f"El mejor {position} se proyecta a {best:.1f}, fuera de [{low}, {high}]. "
+            "Suele significar que las cuotas de uso se están normalizando sobre el "
+            "conjunto de jugadores equivocado."
+        )
+
+
+def test_only_recent_players_are_ranked(player_weeks, weekly_predictions):
+    """Un jugador que no juega desde hace temporadas no puede aparecer.
+
+    Su último equipo y sus últimos seis partidos siguen en el historial; lo que
+    no siguen es siendo relevantes. Con datos reales esto sacaba a Gronkowski
+    entre los mejores tight ends de 2026.
+    """
+    retired = player_weeks[player_weeks["player_id"].str.endswith("WR1")].head(20).copy()
+    retired["player_id"] = "RETIRADO_WR"
+    retired["player_name"] = "Retirado"
+    retired["season"] = 2015  # hace nueve temporadas
+    # Volumen enorme, para que sólo la ventana de plantilla pueda excluirlo.
+    retired["targets"] = 20.0
+    retired["receptions"] = 15.0
+    retired["receiving_yards"] = 220.0
+
+    combined = pd.concat([player_weeks, retired], ignore_index=True)
+    rankings = weekly_rankings(combined, weekly_predictions, season=2024, week=14)
+    assert "RETIRADO_WR" not in set(rankings["player_id"])
 
 
 def test_weekly_uses_no_future_information(player_weeks, weekly_predictions):

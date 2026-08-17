@@ -42,6 +42,17 @@ from oracle.pipeline import Oracle
 # descargable. A partir de ~200 KB el primer render se nota.
 SIZE_WARNING_KB = 200
 
+# Columnas que la web pinta de cada tabla de fantasy. Cualquier otra cosa que
+# lleve el artefacto de `out/` es intermedio del modelo y no viaja al bundle.
+DRAFT_COLUMNS = (
+    "overall_rank", "player_name", "position", "position_rank", "tier",
+    "projected_points", "vor",
+)
+WEEKLY_COLUMNS = (
+    "position_rank", "player_name", "position", "team", "opponent",
+    "projected_points", "baseline_points", "matchup_multiplier",
+)
+
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Genera web/data/model.b64.js")
@@ -58,7 +69,7 @@ def main(argv: list[str] | None = None) -> int:
     oracle = Oracle.train(args.root)
 
     payload: dict = {
-        "generated_at": pd.Timestamp.utcnow().isoformat(),
+        "generated_at": pd.Timestamp.now("UTC").isoformat(),
         "placeholder": False,
     }
 
@@ -105,8 +116,17 @@ def main(argv: list[str] | None = None) -> int:
     payload["ratings"] = _round_frame(oracle.team_ratings()).to_dict(orient="records")
 
     # --- fantasy ------------------------------------------------------------
-    payload["fantasy"] = _load_optional(paths.out / "fantasy_draft.json")
-    payload["fantasy_weekly"] = _load_optional(paths.out / "fantasy_weekly.json")
+    # Se recortan a las columnas que la web pinta. Los artefactos de `out/`
+    # llevan además los intermedios del modelo (ppg_shrunk, weighted_games,
+    # age_factor...), que son imprescindibles para depurar y no pintan nada en
+    # la página. Dejarlos dentro triplica el payload, y el payload viaja en el
+    # bundle de cada página.
+    payload["fantasy"] = _trim_records(
+        _load_optional(paths.out / "fantasy_draft.json"), "board", DRAFT_COLUMNS
+    )
+    payload["fantasy_weekly"] = _trim_records(
+        _load_optional(paths.out / "fantasy_weekly.json"), "rankings", WEEKLY_COLUMNS
+    )
 
     write_payload(paths.web_data, payload)
     return 0
@@ -145,6 +165,21 @@ def _load_optional(path: Path) -> object:
         print(f"  (aviso) falta {path.name}: la sección saldrá vacía en la web.")
         return None
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _trim_records(section: object, key: str, columns: tuple[str, ...]) -> object:
+    """Deja en `section[key]` sólo las columnas indicadas.
+
+    Tolera que la sección no exista (los artefactos de fantasy son opcionales) y
+    que a una fila le falte alguna columna: se omite en vez de fallar, porque un
+    board generado con una versión anterior del script sigue siendo publicable.
+    """
+    if not isinstance(section, dict) or key not in section:
+        return section
+    section[key] = [
+        {c: row[c] for c in columns if c in row} for row in section[key]
+    ]
+    return section
 
 
 def _finite(value):

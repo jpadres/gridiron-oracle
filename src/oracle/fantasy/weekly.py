@@ -82,6 +82,24 @@ FORM_DECAY = 0.85
 # volumen es adivinar.
 STARTERS_PER_TEAM = {"QB": 1, "RB": 2, "WR": 4, "TE": 1}
 
+# Temporadas hacia atrás que definen "plantilla actual". Con 1, para la semana 1
+# de 2026 sólo cuentan los jugadores que jugaron en 2025.
+#
+# **Sin esta ventana el ranking es inservible, de dos formas a la vez.** El
+# historial llega a 1999, así que:
+#
+# 1. Las cuotas de uso se normalizan sobre *todos* los jugadores que han pasado
+#    por el equipo en 25 años. El target share del receptor titular se divide
+#    entre cientos de personas y sale ~2% en vez de ~25%, de modo que todas las
+#    proyecciones salen aplastadas contra el suelo.
+# 2. Aparecen jugadores **retirados**: su "último equipo" y sus "últimos seis
+#    partidos" siguen existiendo, sólo que fueron hace una década.
+#
+# Los dos fallos se veían a la vez en la primera ejecución contra datos reales:
+# Gronkowski y Dennis Pitta rankeados entre los mejores TE de 2026, con
+# proyecciones de 3 puntos.
+ROSTER_LOOKBACK_SEASONS = 1
+
 
 @dataclass(frozen=True)
 class WeeklyCalibration:
@@ -128,6 +146,16 @@ def weekly_rankings(
     ].copy()
     if history.empty:
         raise ValueError(f"No hay historial anterior a {season} semana {week}.")
+
+    # Ventana de plantilla actual. Va ANTES de calcular nada: las cuotas de uso
+    # sólo significan algo si se normalizan entre los jugadores que compiten hoy
+    # por ese volumen. Ver la nota de ROSTER_LOOKBACK_SEASONS.
+    history = history[history["season"] >= season - ROSTER_LOOKBACK_SEASONS]
+    if history.empty:
+        raise ValueError(
+            f"No hay actividad en las últimas {ROSTER_LOOKBACK_SEASONS + 1} temporadas "
+            f"antes de {season} semana {week}."
+        )
     history["fantasy_points"] = score_player_weeks(history, rules)
 
     # (3) El roster ACTUAL se resuelve antes de nada. Todas las cuotas se

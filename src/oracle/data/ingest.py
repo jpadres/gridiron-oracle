@@ -23,10 +23,20 @@ from ..config import FIRST_PBP_SEASON, Paths
 NFLVERSE = "https://github.com/nflverse/nflverse-data/releases/download"
 PBP_URL = NFLVERSE + "/pbp/play_by_play_{season}.parquet"
 ROSTER_URL = NFLVERSE + "/weekly_rosters/roster_weekly_{season}.parquet"
-PLAYER_STATS_URL = NFLVERSE + "/player_stats/player_stats_{season}.parquet"
+# nflverse renombró este dataset: era `player_stats/player_stats_{season}` y
+# ahora es `stats_player/stats_player_week_{season}`. El nombre viejo sigue
+# publicado hasta 2024 y deja de existir en 2025, así que apuntar al antiguo no
+# falla al clonar — falla meses después, justo con la temporada en curso.
+PLAYER_STATS_URL = NFLVERSE + "/stats_player/stats_player_week_{season}.parquet"
 # El calendario con líneas de mercado vive en otro repo (nfldata) y es un único
 # CSV con todas las temporadas, no uno por año.
-SCHEDULE_URL = "https://github.com/nflverse/nfldata/raw/master/data/games.csv"
+#
+# Se apunta a raw.githubusercontent.com y no a `github.com/.../raw/...`: la
+# segunda es una redirección a la primera, y hay entornos (proxies corporativos,
+# runners con el acceso a GitHub restringido por repo) que la cortan con un 403
+# mientras que la URL directa pasa sin problema. Sin redirección hay menos
+# cosas que puedan fallar.
+SCHEDULE_URL = "https://raw.githubusercontent.com/nflverse/nfldata/master/data/games.csv"
 
 # Reubicaciones y alias. La política es colapsar la franquicia a su abreviatura
 # actual: los ratings siguen a la organización, no a la ciudad. STL y LAR son el
@@ -81,32 +91,81 @@ def normalize_team_series(series: pd.Series) -> pd.Series:
     return series.map(normalize_team)
 
 
-def _download(url: str, dest: Path, force: bool = False) -> Path:
-    """Descarga con caché en disco. nflverse reescribe los ficheros de la
-    temporada en curso cada semana, así que `force` existe para refrescarlos."""
+def _download(
+    url: str, dest: Path, force: bool = False, optional: bool = False
+) -> Path | None:
+    """Descarga con caché en disco.
+
+    nflverse reescribe los ficheros de la temporada en curso cada semana, así
+    que `force` existe para refrescarlos.
+
+    `optional=True` devuelve None ante un 404 en vez de propagar el error. No es
+    laxitud: **la cobertura de nflverse no es la misma en todos los datasets.**
+    El play-by-play llega a 1999, pero los rosters semanales empiezan en 2002.
+    Sin esto, una descarga de 27 temporadas aborta en la primera y hay que
+    descubrir a mano cuál faltaba.
+    """
     dest.parent.mkdir(parents=True, exist_ok=True)
     if dest.exists() and not force:
         return dest
     tmp = dest.with_suffix(dest.suffix + ".part")
-    with urllib.request.urlopen(url) as response, open(tmp, "wb") as handle:
-        handle.write(response.read())
+    try:
+        with urllib.request.urlopen(url) as response, open(tmp, "wb") as handle:
+            handle.write(response.read())
+    except urllib.error.HTTPError as error:
+        tmp.unlink(missing_ok=True)
+        if optional and error.code == 404:
+            return None
+        raise
     # Rename atómico: un Ctrl-C a media descarga no deja un parquet truncado en
     # la caché, que luego falla al leer de forma incomprensible.
     tmp.replace(dest)
     return dest
 
 
-def download_season(season: int, paths: Paths, force: bool = False) -> dict[str, Path]:
-    """Descarga los tres datasets de una temporada."""
-    files = {
-        "pbp": paths.raw / f"pbp_{season}.parquet",
-        "roster": paths.raw / f"roster_{season}.parquet",
-        "player_stats": paths.raw / f"player_stats_{season}.parquet",
+# Primera temporada de cada dataset. La cobertura de nflverse no es uniforme:
+# el play-by-play llega a 1999, los rosters semanales empiezan en 2002.
+FIRST_SEASON_BY_DATASET = {"pbp": 1999, "roster": 2002, "player_stats": 1999}
+
+
+def _is_optional(dataset: str, season: int, current_season: int) -> bool:
+    """Si la ausencia de este fichero es esperable en vez de un error.
+
+    Dos casos legítimos, y ninguno debe abortar una descarga de 27 temporadas:
+
+    1. **Demasiado antiguo.** El dataset no llega tan atrás (rosters < 2002).
+    2. **Demasiado nuevo.** Entre febrero y septiembre, la temporada que viene
+       ya tiene calendario y líneas publicadas, pero **todavía no se ha jugado
+       ningún partido**: no existe su play-by-play ni su estadística. Es el
+       caso normal de la pretemporada, que es justo cuando se quiere predecir
+       la semana 1.
+    """
+    return season < FIRST_SEASON_BY_DATASET[dataset] or season >= current_season
+
+
+def download_season(
+    season: int, paths: Paths, force: bool = False, current_season: int | None = None
+) -> dict[str, Path | None]:
+    """Descarga los tres datasets de una temporada.
+
+    Un valor None en el resultado significa "no publicado", no "falló": las
+    funciones de agregación ya saltan los ficheros que no existen.
+    """
+    current_season = current_season if current_season is not None else _current_season()
+    urls = {
+        "pbp": (PBP_URL, f"pbp_{season}.parquet"),
+        "roster": (ROSTER_URL, f"roster_{season}.parquet"),
+        "player_stats": (PLAYER_STATS_URL, f"player_stats_{season}.parquet"),
     }
-    _download(PBP_URL.format(season=season), files["pbp"], force)
-    _download(ROSTER_URL.format(season=season), files["roster"], force)
-    _download(PLAYER_STATS_URL.format(season=season), files["player_stats"], force)
-    return files
+    return {
+        dataset: _download(
+            url.format(season=season),
+            paths.raw / filename,
+            force,
+            optional=_is_optional(dataset, season, current_season),
+        )
+        for dataset, (url, filename) in urls.items()
+    }
 
 
 def download_schedules(paths: Paths, force: bool = False) -> Path:
@@ -125,11 +184,15 @@ def refresh(
     en curso cambia cada semana y la caché la dejaría congelada en la semana 1.
     """
     paths.ensure()
-    last_season = last_season or _current_season()
-    seasons = range(first_season, last_season + 1)
-    for season in seasons:
+    current_season = _current_season()
+    last_season = last_season or current_season
+    for season in range(first_season, last_season + 1):
         force = season > last_season - force_last
-        download_season(season, paths, force=force)
+        download_season(season, paths, force=force, current_season=current_season)
+
+    # El calendario se refresca SIEMPRE, y es el único dataset imprescindible
+    # para la temporada que viene: entre febrero y septiembre trae ya sus
+    # partidos con líneas, mucho antes de que exista un solo play-by-play.
     download_schedules(paths, force=True)
 
     games = build_games(paths, first_season, last_season)
