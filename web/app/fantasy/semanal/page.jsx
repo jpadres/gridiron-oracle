@@ -1,6 +1,8 @@
 import { model, num } from "../../../data/model.js";
 import { DeltaBars, POSITIONS, PositionChip } from "../../charts.jsx";
-import { Callout, ImpactTag, MachineWritten, NoDataYet, Sources, Table } from "../../ui.jsx";
+import {
+  Callout, ImpactTag, MachineWritten, NoDataYet, RankTable, Sources,
+} from "../../ui.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — ranking semanal",
@@ -8,23 +10,15 @@ export const metadata = {
     "Ranking de fantasy global y por posición, construido sobre el guion de juego proyectado por el modelo de partidos.",
 };
 
-const GLOBAL_COLUMNS = [
-  { key: "overall_rank", label: "#" },
-  { key: "player_name", label: "Jugador" },
-  { key: "position", label: "Pos", format: (v) => <PositionChip position={v} /> },
-  { key: "position_rank", label: "Pos #" },
-  { key: "team", label: "Equipo" },
-  { key: "opponent", label: "Rival" },
+const COLUMNS = [
   { key: "projected_points", label: "Proyección", format: (v) => num(v, 1) },
   { key: "baseline_points", label: "Últimos 6", format: (v) => num(v, 1) },
   { key: "delta", label: "Dif.", format: (v) => (v > 0 ? `+${num(v, 1)}` : num(v, 1)) },
 ];
 
-const POSITION_COLUMNS = GLOBAL_COLUMNS.filter(
-  (column) => !["position", "overall_rank"].includes(column.key)
-).concat({
+const POSITION_COLUMNS = COLUMNS.concat({
   key: "matchup_multiplier",
-  label: "Emparejamiento",
+  label: "Empar.",
   format: (v) => num(v, 2),
 });
 
@@ -38,6 +32,20 @@ const POSITION_COLUMNS = GLOBAL_COLUMNS.filter(
 function extremes(rows, n) {
   const sorted = [...rows].sort((a, b) => b.delta - a.delta);
   return [...sorted.slice(0, n), ...sorted.slice(-n)];
+}
+
+/** Renumera dentro de la lista que se enseña, para que la de WR empiece en 1. */
+function numbered(rows) {
+  return rows.map((row, index) => ({ ...row, rank: index + 1 }));
+}
+
+/** Jugadores con prensa reciente, para marcar su fila en la tabla. */
+function playersWithNews(research) {
+  const flagged = {};
+  for (const item of research?.items ?? []) {
+    for (const id of item.player_ids ?? []) flagged[id] = true;
+  }
+  return flagged;
 }
 
 /**
@@ -106,6 +114,7 @@ export default function Semanal() {
   const weekly = model.fantasy_weekly;
   const notes = model.narrative?.player_notes ?? {};
   const research = model.research;
+  const newsByPlayer = playersWithNews(research);
 
   if (!weekly) {
     return (
@@ -122,7 +131,7 @@ export default function Semanal() {
   const rankings = (weekly.rankings ?? [])
     .map((row) => ({ ...row, delta: row.projected_points - row.baseline_points }))
     .sort((a, b) => b.projected_points - a.projected_points)
-    .map((row, index) => ({ ...row, overall_rank: index + 1 }));
+    .map((row, index) => ({ ...row, rank: index + 1 }));
 
   return (
     <>
@@ -165,7 +174,8 @@ export default function Semanal() {
 
       <section id="global">
         <h2>Global</h2>
-        <Table columns={GLOBAL_COLUMNS} rows={rankings.slice(0, 60)} />
+        <RankTable rows={rankings.slice(0, 60)} columns={COLUMNS}
+                   notes={notes} news={newsByPlayer} />
       </section>
 
       {POSITIONS.map((position) => {
@@ -176,7 +186,8 @@ export default function Semanal() {
             <h2>
               <PositionChip position={position} /> {position}
             </h2>
-            <Table columns={POSITION_COLUMNS} rows={group.slice(0, 40)} />
+            <RankTable rows={numbered(group.slice(0, 40))} columns={POSITION_COLUMNS}
+                       notes={notes} news={newsByPlayer} />
             <WhyBlock rows={group.slice(0, 40)} notes={notes} />
             <NewsBlock rows={group} research={research} />
           </section>

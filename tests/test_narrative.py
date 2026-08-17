@@ -216,6 +216,33 @@ def test_dedupe_collapses_the_same_story_from_two_beats():
     assert len(research.dedupe(items)) == 2
 
 
+def test_liveblog_url_does_not_collapse_unrelated_news():
+    """Un tracker cubre veinte historias bajo una sola URL.
+
+    Encontrado publicando: dos noticias de Chicago sin nada que ver salían del
+    mismo liveblog de Bleacher Report y el deduplicador se comió una. Compartir
+    enlace es indicio de duplicado, no prueba.
+    """
+    liveblog = [{"outlet": "B/R", "title": "Live", "url": "https://br.com/liveblog"}]
+    first = _item(team="CHI", headline="Burden III se pierde la pretemporada por la ingle",
+                  players=["Luther Burden III"], sources=liveblog)
+    second = _item(team="CHI", headline="Bryant fuera diez semanas por la rodilla",
+                   players=["Coby Bryant"], sources=liveblog)
+    items = [research._clean(row, "b") for row in (first, second)]
+    assert len(research.dedupe(items)) == 2
+
+
+def test_same_url_and_same_story_still_collapses():
+    """El caso que la URL sí resuelve: mismo enlace y titular reformulado."""
+    source = [{"outlet": "ESPN", "title": "t", "url": "https://espn.com/nota"}]
+    first = _item(team="CHI", headline="Burden III se pierde la pretemporada por la ingle",
+                  sources=source)
+    second = _item(team="CHI", headline="Burden III se pierde la pretemporada entera",
+                   sources=source)
+    items = [research._clean(row, "b") for row in (first, second)]
+    assert len(research.dedupe(items)) == 1
+
+
 def test_every_division_is_covered():
     """32 equipos, sin repetir ni faltar. Un equipo fuera es un equipo sin cubrir."""
     teams = [team for group in research.DIVISIONS.values() for team in group]

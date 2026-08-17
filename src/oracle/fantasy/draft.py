@@ -210,16 +210,23 @@ def _age_factor(position: str, age: float) -> float:
     return float(max(1.0 - slope * abs(distance), 0.55))
 
 
+# Un tier es un grupo entre el que da igual a quién coges. Con menos de dos
+# jugadores eso no significa nada: «tier 38, un jugador» es ruido con nombre de
+# información.
+MIN_TIER_SIZE = 2
+
+# Jugadores por tier al que se apunta. Doce es aproximadamente una ronda de
+# draft, que es la unidad en la que se decide de verdad («¿aguanta hasta mi
+# siguiente turno?»).
+PLAYERS_PER_TIER = 12
+TIER_RANGE = (6, 16)
+
+
 def draft_board(
     projections: pd.DataFrame,
     settings: LeagueSettings | None = None,
-    tier_threshold: float = 0.6,
 ) -> pd.DataFrame:
-    """Ordena por VOR y agrupa en tiers.
-
-    `tier_threshold` está en desviaciones típicas del hueco entre jugadores
-    consecutivos: un corte cuando el hueco es claramente mayor de lo normal.
-    """
+    """Ordena por VOR y agrupa en tiers."""
     settings = settings or LeagueSettings()
     board = projections.copy()
 
@@ -236,22 +243,57 @@ def draft_board(
     board["position_rank"] = board.groupby("position", observed=True)["vor"].rank(
         ascending=False, method="first"
     ).astype(int)
-    board["tier"] = _tiers(board["vor"].to_numpy(dtype=float), tier_threshold)
+    board["tier"] = _tiers(board["vor"].to_numpy(dtype=float))
     return board
 
 
-def _tiers(vor: np.ndarray, threshold: float) -> np.ndarray:
-    """Corta en tiers donde el hueco entre jugadores consecutivos es anómalo."""
-    if vor.size == 0:
+def _tiers(vor: np.ndarray) -> np.ndarray:
+    """Corta en tiers por los huecos más grandes, con el número de tiers acotado.
+
+    ## Por qué no vale un umbral sobre la media
+
+    La versión anterior cortaba donde el hueco superaba `media + 0.6·σ`. Suena
+    razonable y **no funciona**: la distribución de huecos entre 559 jugadores
+    está muy sesgada a la derecha —casi todos diminutos, unos pocos enormes— y
+    ese umbral se cruza sin parar. El resultado eran 41 tiers en los primeros
+    123 jugadores, varios de un solo nombre.
+
+    El fallo llevaba ahí desde el principio y no se veía, porque la tabla
+    marcaba el corte con un borde un poco más grueso. Se destapó al dibujar cada
+    tier con su banda y su número: entonces «TIER 38» encima de una sola fila es
+    imposible de ignorar. Es la segunda vez en este proyecto que un fallo real
+    aparece al enseñar el dato en vez de al medirlo.
+
+    ## Lo que hace ahora
+
+    Se apunta a un tier por cada doce jugadores (una ronda de draft), acotado
+    entre 6 y 16, y se cortan los huecos más grandes que dejen al menos dos
+    jugadores por grupo. Sigue siendo «los huecos reales» —no se parte la lista
+    en trozos iguales— pero el número de cortes está acotado, que es lo que
+    convierte los tiers en algo utilizable.
+    """
+    total = int(vor.size)
+    if total == 0:
         return np.array([], dtype=int)
     gaps = -np.diff(vor)
     if gaps.size == 0:
         return np.ones(1, dtype=int)
-    cut = gaps.mean() + threshold * gaps.std()
-    tiers = np.ones(vor.size, dtype=int)
-    current = 1
-    for i, gap in enumerate(gaps):
-        if gap > cut:
-            current += 1
-        tiers[i + 1] = current
+
+    wanted = int(np.clip(round(total / PLAYERS_PER_TIER), *TIER_RANGE))
+    cuts: list[int] = []
+    # `index` es la frontera entre el jugador `index` y el `index + 1`.
+    for index in np.argsort(-gaps):
+        if len(cuts) >= wanted - 1:
+            break
+        if gaps[index] <= 0:
+            break  # a partir de aquí no hay hueco que separe nada
+        if index + 1 < MIN_TIER_SIZE or total - index - 1 < MIN_TIER_SIZE:
+            continue
+        if any(abs(int(index) - cut) < MIN_TIER_SIZE for cut in cuts):
+            continue
+        cuts.append(int(index))
+
+    tiers = np.ones(total, dtype=int)
+    for cut in sorted(cuts):
+        tiers[cut + 1 :] += 1
     return tiers

@@ -1,6 +1,6 @@
 import { model, num } from "../../data/model.js";
 import { POSITIONS, PositionChip, VorCurve } from "../charts.jsx";
-import { Callout, NoDataYet, Table } from "../ui.jsx";
+import { Callout, NoDataYet, RankTable, Table } from "../ui.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — board de draft",
@@ -8,18 +8,12 @@ export const metadata = {
     "Board global por valor sobre reemplazo y rankings por posición, con la curva de VOR que enseña dónde está el acantilado de cada puesto.",
 };
 
-const GLOBAL_COLUMNS = [
-  { key: "overall_rank", label: "#" },
-  { key: "player_name", label: "Jugador" },
-  { key: "position", label: "Pos", format: (v) => <PositionChip position={v} /> },
-  { key: "position_rank", label: "Pos #" },
-  { key: "tier", label: "Tier" },
+// Sólo números comparables: el nombre, la posición y el equipo van apilados en
+// la celda del jugador, que es donde se leen juntos.
+const BOARD_COLUMNS = [
   { key: "projected_points", label: "Proyección", format: (v) => num(v, 1) },
   { key: "vor", label: "VOR", format: (v) => num(v, 1) },
 ];
-
-// Dentro de una posición, la columna de posición sobra: todos comparten valor.
-const POSITION_COLUMNS = GLOBAL_COLUMNS.filter((c) => c.key !== "position");
 
 const VALIDATION_COLUMNS = [
   { key: "position", label: "Posición", format: (v) => <PositionChip position={v} /> },
@@ -29,16 +23,15 @@ const VALIDATION_COLUMNS = [
 ];
 
 /**
- * Marca la primera fila de cada tier para que el corte se vea sin leer la
- * columna. El hueco entre tiers es la información que importa de un board.
+ * Numera dentro de la lista que se está enseñando.
+ *
+ * En el global el número es el orden global; dentro de una posición es el
+ * orden de esa posición. Reusar `overall_rank` en la lista de receptores daría
+ * un «#47» en la primera fila, que es exactamente la clase de detalle que hace
+ * dudar de todo lo demás.
  */
-function withTierBreaks(rows) {
-  let previous = null;
-  return rows.map((row) => {
-    const start = previous !== null && row.tier !== previous;
-    previous = row.tier;
-    return { ...row, _rowClass: start ? "tier-start" : undefined };
-  });
+function numbered(rows) {
+  return rows.map((row, index) => ({ ...row, rank: index + 1 }));
 }
 
 export default function Fantasy() {
@@ -84,8 +77,8 @@ export default function Fantasy() {
         </p>
         <p>
           Los tiers salen de los huecos reales en VOR, no de cortar la lista en trozos de
-          doce. En las tablas, la línea gruesa marca dónde empieza un tier nuevo: si el
-          jugador que quieres está justo antes de una, no puedes esperar otra ronda.
+          doce. En las tablas, cada tier abre con su propia banda: si el jugador que quieres
+          es el último de un tier, no puedes esperar otra ronda.
         </p>
       </Callout>
 
@@ -95,7 +88,7 @@ export default function Fantasy() {
           Las cuatro posiciones en una sola lista, ordenadas por VOR. Puntuación{" "}
           {fantasy.scoring}, liga de {fantasy.teams} equipos.
         </p>
-        <Table columns={GLOBAL_COLUMNS} rows={withTierBreaks(board)} />
+        <RankTable rows={numbered(board)} columns={BOARD_COLUMNS} tiers />
       </section>
 
       {POSITIONS.map((position) => {
@@ -106,7 +99,7 @@ export default function Fantasy() {
             <h2>
               <PositionChip position={position} /> {position}
             </h2>
-            <Table columns={POSITION_COLUMNS} rows={withTierBreaks(group)} />
+            <RankTable rows={numbered(group)} columns={BOARD_COLUMNS} tiers />
           </section>
         );
       })}

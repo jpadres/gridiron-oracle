@@ -4,6 +4,8 @@
  * así que no hay motivo para enviar JavaScript de estos.
  */
 
+import { Fragment } from "react";
+
 export function Callout({ title, children }) {
   return (
     <div className="callout">
@@ -125,6 +127,100 @@ export function Sources({ sources }) {
       ))}
     </p>
   );
+}
+
+/**
+ * Tabla de ranking en el formato que usa la gente que juega a esto.
+ *
+ * La diferencia con `Table` no es estética. Una tabla genérica gasta una columna
+ * por dato y obliga a barrer en horizontal para saber quién es un jugador;
+ * aquí el nombre, su posición, su equipo y su rival van **en una sola celda**,
+ * apilados, y las columnas que quedan son sólo números comparables. Es el
+ * formato de FantasyPros y de cualquier board que se lea rápido, y el motivo es
+ * que se consulta de arriba abajo buscando un nombre, no de izquierda a derecha
+ * leyendo campos.
+ *
+ * Las bandas de tier son filas de verdad y no un borde más grueso: el hueco
+ * entre tiers es la información que más importa de un board —dice si puedes
+ * esperar otra ronda— y merece una línea propia con su nombre.
+ *
+ * `notes` y `news` son opcionales: marcan las filas que tienen explicación del
+ * modelo o prensa reciente. El punto es un segundo canal, nunca el único: lleva
+ * `title` y la sección de debajo repite el contenido en texto.
+ */
+export function RankTable({ rows, columns, notes = {}, news = {}, tiers = false }) {
+  if (!rows || rows.length === 0) {
+    return <p className="caption">Sin datos todavía.</p>;
+  }
+  let lastTier = null;
+  return (
+    <div className="table-wrap">
+      <table className="rank-table">
+        <thead>
+          <tr>
+            <th className="rk">#</th>
+            <th>Jugador</th>
+            {columns.map((column) => (
+              <th key={column.key}>{column.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, index) => {
+            const band = tiers && row.tier !== lastTier ? row.tier : null;
+            lastTier = row.tier;
+            const hasNote = Boolean(notes[row.player_id]);
+            const hasNews = Boolean(news[row.player_id]);
+            return (
+              <Fragment key={row.player_id ?? index}>
+                {band !== null && band !== undefined ? (
+                  <tr className="tier-band">
+                    <td colSpan={columns.length + 2}>Tier {band}</td>
+                  </tr>
+                ) : null}
+                <tr>
+                  <td className="rk">{row.rank ?? index + 1}</td>
+                  <td className="who">
+                    <span className="nm">
+                      {row.player_name}
+                      {hasNote ? (
+                        <span className="mark mark--why" title="El modelo explica esta posición más abajo">
+                          ?
+                        </span>
+                      ) : null}
+                      {hasNews ? (
+                        <span className="mark mark--news" title="Hay prensa reciente sobre este jugador">
+                          !
+                        </span>
+                      ) : null}
+                    </span>
+                    <span className="meta">
+                      {row.position ? <PositionTag position={row.position} /> : null}
+                      {row.team}
+                      {row.position_rank ? ` · ${row.position}${row.position_rank}` : null}
+                      {row.opponent ? ` · vs ${row.opponent}` : null}
+                    </span>
+                  </td>
+                  {columns.map((column) => (
+                    <td key={column.key}>
+                      {column.format
+                        ? column.format(row[column.key], row)
+                        : row[column.key] ?? "—"}
+                    </td>
+                  ))}
+                </tr>
+              </Fragment>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/** Cuadrito de posición dentro de la línea de metadatos. */
+function PositionTag({ position }) {
+  return <span className={`ptag ptag--${position.toLowerCase()}`}>{position}</span>;
 }
 
 /**

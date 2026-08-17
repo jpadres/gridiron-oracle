@@ -297,32 +297,44 @@ def _clamp(value: object) -> int:
 # jugador, que es el error caro: perder la segunda.
 SIMILARITY = 0.6
 
+# Umbral más laxo cuando además comparten URL. Compartir enlace es indicio de
+# duplicado, pero **no es prueba**: los liveblogs y los trackers de lesiones
+# cubren veinte historias distintas bajo una sola dirección. Esto se descubrió
+# publicando: dos noticias de Chicago sin nada que ver —un receptor con una
+# lesión de ingle y un safety fuera diez semanas— salían de la misma página de
+# Bleacher Report y el deduplicador se comió una.
+URL_SIMILARITY = 0.3
+
 
 def dedupe(items: list[dict]) -> list[dict]:
     """Quita repetidos entre beats.
 
     La misma noticia llega por dos caminos: la división del equipo y el beat de
-    insiders. Se colapsa por URL compartida y, si no, por parecido del titular
-    dentro del mismo equipo — dos medios cubriendo lo mismo son dos URLs y una
-    sola noticia.
+    insiders. Se colapsa por parecido del titular dentro del mismo equipo, con
+    el umbral más bajo si además comparten enlace.
 
     Se conserva la de mayor relevancia, por eso se ordena antes.
     """
-    seen_urls: set[str] = set()
-    kept: list[tuple[str, frozenset[str]]] = []
+    kept: list[tuple[str, frozenset[str], set[str]]] = []
     out: list[dict] = []
     for item in sorted(items, key=lambda row: -row.get("fantasy_relevance", 1)):
         urls = {source["url"] for source in item["sources"]}
         words = _content_words(item["headline"])
-        if urls & seen_urls:
+        if any(_is_duplicate(item["team"], words, urls, other) for other in kept):
             continue
-        if any(team == item["team"] and _jaccard(words, other) >= SIMILARITY
-               for team, other in kept):
-            continue
-        seen_urls |= urls
-        kept.append((item["team"], words))
+        kept.append((item["team"], words, urls))
         out.append(item)
     return out
+
+
+def _is_duplicate(team, words, urls, other) -> bool:
+    other_team, other_words, other_urls = other
+    if team != other_team:
+        return False
+    overlap = _jaccard(words, other_words)
+    if overlap >= SIMILARITY:
+        return True
+    return bool(urls & other_urls) and overlap >= URL_SIMILARITY
 
 
 def _content_words(headline: str) -> frozenset[str]:

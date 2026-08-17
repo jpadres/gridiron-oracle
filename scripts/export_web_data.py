@@ -45,8 +45,8 @@ SIZE_WARNING_KB = 200
 # Columnas que la web pinta de cada tabla de fantasy. Cualquier otra cosa que
 # lleve el artefacto de `out/` es intermedio del modelo y no viaja al bundle.
 DRAFT_COLUMNS = (
-    "overall_rank", "player_name", "position", "position_rank", "tier",
-    "projected_points", "vor",
+    "player_id", "overall_rank", "player_name", "position", "team", "position_rank",
+    "tier", "projected_points", "vor",
 )
 WEEKLY_COLUMNS = (
     "player_id", "position_rank", "player_name", "position", "team", "opponent",

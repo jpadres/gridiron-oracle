@@ -165,6 +165,25 @@ def test_tiers_come_from_real_gaps(player_weeks):
     assert board["tier"].nunique() > 1
 
 
+def test_no_tier_has_a_single_player(player_weeks):
+    """Un tier de uno no es un tier: es ruido con nombre de información.
+
+    El umbral anterior (media + 0.6·σ del hueco) producía 41 tiers en los
+    primeros 123 jugadores del board real, varios de un solo nombre. No se veía
+    porque la tabla marcaba el corte con un borde algo más grueso; apareció al
+    dibujar cada tier con su banda y su número.
+    """
+    board = draft_board(project_season(player_weeks, season=2025))
+    sizes = board.groupby("tier").size()
+    assert sizes.min() >= 2, f"tiers de un solo jugador: {list(sizes[sizes < 2].index)}"
+
+
+def test_tier_count_stays_usable(player_weeks):
+    """Entre 6 y 16 tiers. Ni uno solo para todo, ni uno por ronda de nada."""
+    board = draft_board(project_season(player_weeks, season=2025))
+    assert 6 <= board["tier"].nunique() <= 16
+
+
 # ---------------------------------------------------------------------------
 # Ranking semanal — los cuatro errores caros
 # ---------------------------------------------------------------------------

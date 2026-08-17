@@ -1,0 +1,420 @@
+{
+ "date": "2026-08-17",
+ "items": [
+  {
+   "beat": "NFC Oeste",
+   "team": "SF",
+   "players": [
+    "Ricky Pearsall"
+   ],
+   "kind": "lesion",
+   "headline": "Pearsall se pierde toda la temporada 2026 tras operarse el LCP",
+   "summary": "El general manager John Lynch anunció que el receptor se opera del ligamento cruzado posterior de la rodilla derecha y no jugará esta temporada. La rodilla se le hinchó de forma persistente durante el campamento, arrastrando una lesión de la temporada pasada. Su volumen de objetivos queda libre para el resto del cuerpo de receptores.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "fantasy_relevance": 5,
+   "published": "2026-08-15",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "Niners WR Ricky Pearsall to undergo knee surgery, will miss 2026 season",
+     "url": "https://www.nfl.com/news/niners-wr-ricky-pearsall-knee-surgery-will-miss-2026-season"
+    },
+    {
+     "outlet": "CBS Sports",
+     "title": "Ricky Pearsall injury: 49ers receiver to undergo season-ending surgery on lingering PCL",
+     "url": "https://www.cbssports.com/nfl/news/ricky-pearsall-injury-49ers-receiver-season-ending-surgery/"
+    }
+   ],
+   "date": "2026-08-17"
+  },
+  {
+   "beat": "NFC Este",
+   "team": "NYG",
+   "players": [
+    "Malik Nabers"
+   ],
+   "kind": "lesion",
+   "headline": "Nabers evita la lista PUP y apunta a estar en la jornada 1",
+   "summary": "El receptor se ha librado de empezar el campamento en la lista de físicamente incapacitados mientras se recupera del cruzado anterior que se rompió en la jornada 4 de 2025. Apunta a llegar al estreno contra Dallas. Su estado había sido la mayor incógnita del ataque de los Giants todo el verano.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 5,
+   "published": "2026-08-14",
+   "sources": [
+    {
+     "outlet": "CBS Sports",
+     "title": "NFL injury updates 2026: Latest on Patrick Mahomes, Malik Nabers before training camp",
+     "url": "https://www.cbssports.com/nfl/news/nfl-injury-updates-2026-patrick-mahomes-malik-nabers-training-camp/"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Malik Nabers injury update: Giants return timeline after surgery",
+     "url": "https://www.si.com/nfl/malik-nabers-injury-update-giants-return-timeline-after-surgery"
+    }
+   ],
+   "date": "2026-08-17"
+  },
+  {
+   "beat": "NFC Sur",
+   "team": "ATL",
+   "players": [
+    "Tua Tagovailoa",
+    "Michael Penix Jr."
+   ],
+   "kind": "depth_chart",
+   "headline": "Tagovailoa figura como titular en el depth chart; Penix aparece como lesionado",
+   "summary": "El depth chart oficial de los Falcons pone a Tagovailoa de titular, con Cooper Rush de suplente, y a Penix fuera de la lista como jugador lesionado. Kevin Stefanski le dio la titularidad del primer partido de pretemporada pero evitó nombrarlo titular de la temporada.",
+   "impact": "alza",
+   "confidence": "confirmado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-13",
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "title": "Falcons' QB depth chart has Tua Tagovailoa as starter, Michael Penix Jr. omitted as injured player",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-qb-depth-chart-has-tua-tagovailoa-as-starter-michael-penix-jr-omitted-as-injured-player"
+    },
+    {
+     "outlet": "The Falcoholic",
+     "title": "Tua Tagovailoa named starting QB for preseason Week 1 against Broncos",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-preseason/95069/tua-tagovailoa-named-starting-qb-for-preseason-week-1-against-broncos-michael-penix-jr"
+    }
+   ],
+   "date": "2026-08-17"
+  },
+  {
+   "beat": "NFC Sur",
+   "team": "ATL",
+   "players": [
+    "Michael Penix Jr."
+   ],
+   "kind": "lesion",
+   "headline": "Penix dice que la autorización médica completa puede tardar cuatro semanas",
+   "summary": "El quarterback sigue sin participar en las series de once contra once mientras se recupera del cruzado anterior de noviembre. Con ese plazo, llegar a la jornada 1 como titular se ve improbable.",
+   "impact": "baja",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-12",
+   "sources": [
+    {
+     "outlet": "The Falcoholic",
+     "title": "Michael Penix Jr. injury: QB says full medical clearance could still be four weeks away",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-training-camp/94675/michael-penix-jr-injury-qb-says-full-medical-clearance-could-still-be-four-weeks-away-tua-tagovailoa"
+    }
+   ],
+   "date": "2026-08-17"
+  },
+  {
+   "beat": "NFC Sur",
+   "team": "CAR",
+   "players": [
+    "Jonathon Brooks",
+    "Chuba Hubbard"
+   ],
+   "kind": "campamento",
+   "headline": "Brooks se gana repeticiones con el primer equipo y aprieta a Hubbard",
+   "summary": "Dave Canales destacó su velocidad y su resistencia mental tras dos roturas de cruzado. Podría quedarse el puesto de titular por delante de Hubbard, que el año pasado no llegó a cuatro yardas por acarreo.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-12",
+   "sources": [
+    {
+     "outlet": "FantasyPros",
+     "title": "Fantasy Football: 4 NFL Training Camp Risers & Fallers (2026)",
+     "url": "https://www.fantasypros.com/2026/07/fantasy-football-4-nfl-training-camp-risers-fallers-2026/"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "2026 Fantasy Football Training Camp Battles To Watch: Running Backs",
+     "url": "https://www.si.com/fantasy/2026-football-training-camp-battles-running-back"
+    }
+   ],
+   "date": "2026-08-17"
+  },
+  {
+   "beat": "NFC Norte",
+   "team": "DET",
+   "players": [
+    "Isiah Pacheco"
+   ],
+   "kind": "lesion",
+   "headline": "Pacheco arrastra un esguince de ligamento lateral interno, pero cuentan con él para el estreno",
+   "summary": "Lleva cuatro sesiones seguidas sin entrenar. Dan Campbell dijo que se sienten bien con el plazo y que esperan tenerlo listo para el primer partido. Fichado en marzo para jugar por detrás de Jahmyr Gibbs, así que el reparto de acarreos de Detroit no cambia por arriba.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-10",
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "title": "Isiah Pacheco has an MCL sprain, but should be ready for Week 1",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/isiah-pacheco-has-an-mcl-sprain-but-should-be-ready-for-week-1"
+    },
+    {
+     "outlet": "The Detroit News",
+     "title": "Detroit Lions' Isiah Pacheco injury update: MCL sprain holding RB back",
+     "url": "https://www.detroitnews.com/story/sports/nfl/lions/2026/08/10/detroit-lions-isiah-pacheco-injury-update-mcl-sprain-dan-campbell/91240791007/"
+    }
+   ],
+   "date": "2026-08-17"
+  },
+  {
+   "beat": "NFC Norte",
+   "team": "CHI",
+   "players": [
+    "Luther Burden III"
+   ],
+   "kind": "lesion",
+   "headline": "Burden III se pierde la pretemporada por una lesión en la ingle",
+   "summary": "Chicago confía en tenerlo para la jornada 1, pero se pierde todo el trabajo de pretemporada. Para un receptor joven, perder esas repeticiones suele costar cuota de uso en las primeras semanas aunque llegue sano.",
+   "impact": "baja",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-11",
+   "sources": [
+    {
+     "outlet": "Bleacher Report",
+     "title": "2026 NFL Training Camp Live Updates, Rumors and Highlights",
+     "url": "https://bleacherreport.com/liveblogs/25461050-2026-nfl-training-camp-live-updates-rumors-and-highlights-august-3"
+    }
+   ],
+   "date": "2026-08-17"
+  },
+  {
+   "beat": "NFC Sur",
+   "team": "TB",
+   "players": [
+    "Mike Evans"
+   ],
+   "kind": "lesion",
+   "headline": "Evans se pierde un entrenamiento por una distensión en el cuádriceps",
+   "summary": "Ausencia de una sesión, sin plazo comunicado. En un receptor de su edad, cualquier problema muscular en pretemporada merece seguimiento aunque el equipo no le dé importancia.",
+   "impact": "baja",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-11",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFL Training Camp Injury Report: Tracking the latest news, updates for 2026 fantasy football",
+     "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html"
+    }
+   ],
+   "date": "2026-08-17"
+  },
+  {
+   "beat": "AFC Este",
+   "team": "NE",
+   "players": [
+    "Rhamondre Stevenson",
+    "TreVeyon Henderson"
+   ],
+   "kind": "depth_chart",
+   "headline": "El reparto de acarreos en Nueva Inglaterra sigue sin resolverse",
+   "summary": "Los Patriots se apoyaron mucho en Stevenson el año pasado, pero la duda es si Henderson lo lleva a un reparto igualado o incluso se queda el papel principal. Un reparto a dos hunde el valor de los dos en fantasy.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-09",
+   "sources": [
+    {
+     "outlet": "RotoWire",
+     "title": "What to Watch in 2026 NFL Training Camp Battles for Starting Lineups",
+     "url": "https://www.rotowire.com/football/article/training-camp-battles-2026-nfl-starting-lineups-125055"
+    }
+   ],
+   "date": "2026-08-17"
+  },
+  {
+   "beat": "AFC Sur",
+   "team": "TEN",
+   "players": [
+    "Elic Ayomanor"
+   ],
+   "kind": "campamento",
+   "headline": "Ayomanor es de lo más destacado del campamento de Tennessee en su segundo año",
+   "summary": "Su quarterback lo describe como un problema de emparejamiento por velocidad y fuerza, con capacidad de separarse arriba del recorrido. Elegido en cuarta ronda en 2025, es el tipo de receptor que el modelo infravalora: poco historial, mucho cambio de papel.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-14",
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Titans WR Elic Ayomanor standing out in training camp, can he break out in Year 2?",
+     "url": "https://www.espn.com/nfl/story/_/id/49574642/tennessee-titans-wr-elic-ayomanor-stand-training-camp-year-2"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "4 Players Who Stood Out on Day 2 of Tennessee Titans Training Camp",
+     "url": "https://www.si.com/nfl/titans/onsi/4-players-who-stood-out-on-day-2-of-tennessee-titans-training-camp"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Sur",
+   "team": "JAX",
+   "players": [
+    "Parker Washington"
+   ],
+   "kind": "campamento",
+   "headline": "Washington se consolida en el slot de Jacksonville",
+   "summary": "Elogiado sin descanso por los cronistas desde el arranque del campamento. El slot es el puesto donde la cuota de objetivos se estabiliza antes, así que es de los cambios de papel que sí se notan pronto.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-13",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "2026 NFL training camp: Early takeaways for all 32 teams",
+     "url": "https://www.nfl.com/news/2026-nfl-training-camp-early-takeaways-for-all-32-teams"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Oeste",
+   "team": "SF",
+   "players": [
+    "De'Zhaun Stribling"
+   ],
+   "kind": "campamento",
+   "headline": "Stribling encadena jugadas y puede jugar en las tres posiciones de receptor",
+   "summary": "Versatilidad que el ataque de Kyle Shanahan aprovecha. Con Pearsall fuera toda la temporada, San Francisco tiene objetivos que repartir y este es uno de los candidatos.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-13",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "2026 NFL training camp: Early takeaways for all 32 teams",
+     "url": "https://www.nfl.com/news/2026-nfl-training-camp-early-takeaways-for-all-32-teams"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Este",
+   "team": "NYJ",
+   "players": [
+    "Kenyon Sadiq"
+   ],
+   "kind": "lesion",
+   "headline": "Sadiq sufre un retroceso tras la operación de hernia",
+   "summary": "El ala cerrada novato había enseñado todo su repertorio en un entrenamiento y el coordinador ofensivo Frank Reich hablaba de buscarle jugadas. El retroceso complica que tenga impacto inmediato.",
+   "impact": "baja",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-12",
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "2026 New York Jets training camp: Latest intel, updates",
+     "url": "https://www.espn.com/nfl/story/_/id/49419756/new-york-jets-training-camp-2026-intel-updates"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Sur",
+   "team": "CAR",
+   "players": [
+    "Xavier Legette",
+    "David Moore"
+   ],
+   "kind": "depth_chart",
+   "headline": "Legette bien situado para quedarse el tercer puesto de receptor",
+   "summary": "Compite con David Moore por el WR3 junto a Tetairoa McMillan y Jalen Coker. Elegido en primera ronda en 2024, parte con ventaja.",
+   "impact": "alza",
+   "confidence": "rumor",
+   "fantasy_relevance": 2,
+   "published": "2026-08-13",
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "2026 NFL training camp: Position battles on each depth chart",
+     "url": "https://www.espn.com/nfl/story/_/id/49513914/2026-nfl-training-camp-position-battles-afc-nfc"
+    }
+   ],
+   "date": "2026-08-17"
+  },
+  {
+   "beat": "AFC Este",
+   "team": "NE",
+   "players": [
+    "Efton Chism III",
+    "Eli Raridon"
+   ],
+   "kind": "campamento",
+   "headline": "Chism III se gana repeticiones con los titulares y Raridon destaca desde los minicamps",
+   "summary": "El receptor de slot lleva un buen arranque de campamento con el ataque titular, y el ala cerrada novato viene destacando desde los entrenamientos organizados de primavera.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 2,
+   "published": "2026-08-12",
+   "sources": [
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Biggest Patriots Training Camp Risers: Slot WR Earning First-Team Reps, TEs Shining",
+     "url": "https://www.si.com/nfl/patriots/onsi/biggest-patriots-training-camp-risers-slot-wr-earning-first-team-reps-tes-shining"
+    }
+   ]
+  },
+  {
+   "beat": "insiders",
+   "team": "CIN",
+   "players": [
+    "Shemar Stewart"
+   ],
+   "kind": "lesion",
+   "headline": "La rodilla de Stewart es una hiperextensión, sin daño de ligamentos",
+   "summary": "Adam Schefter e Ian Rapoport coinciden en que no hay rotura. Es un ala defensiva, así que no toca ninguna alineación de fantasy, pero cambia la ecuación de la presión al quarterback de Cincinnati.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 1,
+   "published": "2026-08-12",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFL news, live updates: training camp 2026",
+     "url": "https://sports.yahoo.com/nfl/live/nfl-news-live-updates-training-camp-2026-schedule-injury-news-174255317.html"
+    }
+   ],
+   "date": "2026-08-17"
+  },
+  {
+   "beat": "insiders",
+   "team": "CHI",
+   "players": [
+    "Coby Bryant"
+   ],
+   "kind": "lesion",
+   "headline": "Bryant, entre ocho y diez semanas fuera por la rodilla",
+   "summary": "El safety se lesionó en el entrenamiento del lunes. No toca ninguna alineación de fantasy, pero una baja larga en la secundaria cambia el emparejamiento de los receptores rivales durante media temporada.",
+   "impact": "baja",
+   "confidence": "informado",
+   "fantasy_relevance": 1,
+   "published": "2026-08-11",
+   "sources": [
+    {
+     "outlet": "Bleacher Report",
+     "title": "2026 NFL Training Camp Live Updates, Rumors and Highlights",
+     "url": "https://bleacherreport.com/liveblogs/25461050-2026-nfl-training-camp-live-updates-rumors-and-highlights-august-3"
+    }
+   ]
+  }
+ ],
+ "model": "busqueda-web-manual",
+ "beats": [
+  "AFC Este",
+  "AFC Sur",
+  "NFC Este",
+  "NFC Norte",
+  "NFC Oeste",
+  "NFC Sur",
+  "insiders"
+ ],
+ "failed_beats": [],
+ "generated_at": "2026-08-17T12:00:00+00:00"
+}

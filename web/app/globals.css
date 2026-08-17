@@ -245,3 +245,85 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 /* Nota por jugador debajo de la tabla de su posición. */
 .why { margin: 0.35rem 0; font-size: 0.88rem; }
 .why strong { color: var(--fg); }
+
+/* --- tabla de ranking ----------------------------------------------------- */
+
+/* Filas más juntas y rayado alterno: una lista de sesenta nombres se recorre
+   con el dedo, y el rayado es lo que evita saltar de fila al leer los números
+   de la derecha. */
+.rank-table { font-size: 0.9rem; min-width: 26rem; }
+.rank-table th, .rank-table td { padding: 0.35rem 0.6rem; vertical-align: middle; }
+.rank-table tbody tr:nth-child(even of :not(.tier-band)) { background: var(--surface); }
+.rank-table tbody tr:hover { background: var(--warn-bg); }
+
+/* El número de orden es referencia, no dato: grande para localizarlo de un
+   vistazo, apagado para no competir con las proyecciones. */
+.rank-table .rk {
+  text-align: right;
+  width: 2.6rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* Nombre y contexto apilados en una celda. Ahorra tres columnas y es como se
+   lee de verdad: primero el nombre, y el equipo y el rival sólo si hace falta. */
+.rank-table .who { text-align: left; white-space: normal; min-width: 11rem; }
+.rank-table .who .nm { display: block; font-weight: 600; line-height: 1.2; }
+.rank-table .who .meta {
+  display: block;
+  font-size: 0.76rem;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+  margin-top: 0.1rem;
+}
+
+.ptag {
+  display: inline-block;
+  margin-right: 0.35rem;
+  padding: 0 0.28rem;
+  border-radius: 3px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #fff;
+}
+/* Los cuatro tonos de posición son los mismos que en las gráficas: el color de
+   una posición significa lo mismo en toda la web o no significa nada. */
+.ptag--qb { background: var(--pos-qb); }
+.ptag--rb { background: var(--pos-rb); }
+.ptag--wr { background: var(--pos-wr); }
+/* El amarillo del TE no da contraste con texto blanco; aquí lleva texto oscuro. */
+.ptag--te { background: var(--pos-te); color: #1a1400; }
+
+/* Banda de tier: el hueco entre tiers es la información que decide si puedes
+   esperar otra ronda, así que ocupa una fila entera con su nombre. */
+.tier-band td {
+  background: var(--warn-bg);
+  border-top: 2px solid var(--warn-line);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--warn-line);
+  text-align: left !important;
+  padding: 0.3rem 0.6rem !important;
+}
+
+/* Marcas de "hay explicación" y "hay prensa". Llevan `title` y el contenido se
+   repite en texto debajo de la tabla: nunca son el único canal. */
+.mark {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  margin-left: 0.3rem;
+  border-radius: 50%;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: text-top;
+  cursor: help;
+}
+.mark--why { background: var(--accent); color: var(--bg); }
+.mark--news { background: var(--warn-line); color: var(--bg); }
