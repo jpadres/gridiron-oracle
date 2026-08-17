@@ -62,6 +62,72 @@ export function Table({ columns, rows, empty = "Sin datos todavía." }) {
 }
 
 /**
+ * Marca de que el texto lo escribió un modelo de lenguaje.
+ *
+ * Va en **todos** los bloques generados, sin excepción y sin letra pequeña. El
+ * lector tiene que poder saber, de un vistazo y sin buscarlo, qué párrafos son
+ * texto calculado y cuáles son texto redactado por una máquina sobre ese
+ * cálculo. Es la misma razón por la que el proyecto publica que no bate al
+ * mercado: si hay que esconderlo, no debería publicarse.
+ */
+export function MachineWritten({ children, at }) {
+  return (
+    <div className="machine">
+      <p className="machine-tag">
+        Texto redactado por Claude sobre los números del modelo. Cada cifra que aparece se
+        verifica contra los datos antes de publicarse; si no cuadra, el texto se descarta y
+        esta sección sale vacía.
+        {at ? <> Generado el {new Date(at).toLocaleDateString("es-ES")}.</> : null}
+      </p>
+      {children}
+    </div>
+  );
+}
+
+/**
+ * Etiqueta de dirección de una noticia.
+ *
+ * Vive aquí y no en la página de research porque la misma etiqueta aparece
+ * debajo de las tablas del ranking semanal. Dos copias de este diccionario se
+ * desincronizan a la primera, y el síntoma es que en una página pone «alza» y
+ * en la otra «▲ Al alza».
+ *
+ * El triángulo no es decoración: es el segundo canal. Quien no distinga el azul
+ * del rojo lee la flecha y el texto.
+ */
+export const IMPACT = { alza: "▲ Al alza", baja: "▼ A la baja", neutro: "= Neutro" };
+
+export function ImpactTag({ impact }) {
+  return <span className={`tag tag--${impact}`}>{IMPACT[impact] ?? IMPACT.neutro}</span>;
+}
+
+/**
+ * Fila de fuentes de una nota de prensa.
+ *
+ * Cada ficha de research lleva su enlace obligatoriamente: sin fuente
+ * comprobable no se publica. Que el enlace esté a la vista es lo que separa
+ * «esto lo dice ESPN» de «esto lo dice el sitio».
+ */
+export function Sources({ sources }) {
+  if (!sources || sources.length === 0) return null;
+  return (
+    <p className="sources">
+      {sources.map((source, index) => (
+        <a
+          key={source.url ?? index}
+          href={source.url}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+          title={source.title}
+        >
+          {source.outlet}
+        </a>
+      ))}
+    </p>
+  );
+}
+
+/**
  * Aviso de que aún no se han generado los datos.
  *
  * El repo se clona sin `data/` (son ~490 MB y van en .gitignore), así que la

@@ -37,7 +37,7 @@ jobs:
           cache: pip
 
       - name: Instalar
-        run: pip install -e ".[dev]"
+        run: pip install -e ".[dev,narrative]"
 
       # Los datos no se versionan (~490 MB, en .gitignore): se reconstruyen
       # desde cero en cada ejecución. Se cachean entre semanas porque sólo
@@ -73,11 +73,16 @@ jobs:
       # ESTE es el paso que se olvida al hacerlo a mano: sin él la web sigue
       # mostrando los datos anteriores y no da ningún error.
       - name: Exportar y COMPRIMIR el payload de la web
+        # `--with-narrative` redacta el resumen de la jornada y las
+        # explicaciones por jugador. Sin el secret no falla: avisa y publica los
+        # números sin texto, que es lo que importa.
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           args=""
           if [ -n "${{ inputs.season }}" ]; then args="--season ${{ inputs.season }}"; fi
           if [ -n "${{ inputs.week }}" ]; then args="$args --week ${{ inputs.week }}"; fi
-          python scripts/export_web_data.py $args
+          python scripts/export_web_data.py --with-narrative $args
 
       - name: Comprobar que la web sigue construyendo
         working-directory: web

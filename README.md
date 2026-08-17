@@ -272,17 +272,68 @@ src/oracle/
   backtest/             walk-forward y métricas
   betting/              de-vig (Shin), EV y Kelly fraccionado
   fantasy/              puntuación configurable, proyecciones y VOR
+  narrative/            textos generados y barrido de prensa (opcional)
+research/               archivo diario de las notas de prensa, un fichero por día
 web/                    app Next.js desplegada en Vercel
 ```
+
+## Research y textos generados
+
+Dos cosas opcionales que necesitan `ANTHROPIC_API_KEY` y que **no tocan el
+modelo**:
+
+| Qué | Cuándo | Dónde acaba |
+|---|---|---|
+| Resumen de la jornada y explicación de por qué el modelo prefiere a un jugador | Con la regeneración semanal | Portada y ranking semanal |
+| Barrido de prensa, insiders y campamentos de los 32 equipos | A diario, 12:00 UTC | Página de research y avisos bajo cada tabla |
+
+La frontera entre los dos primeros y el tercero es la regla del módulo. **Los
+textos de resumen sólo pueden citar números que estén en los datos del modelo**,
+y hay un verificador que extrae todas las cifras del texto generado y descarta el
+texto entero si alguna no cuadra. Un resumen ausente se nota y se arregla; uno
+con una cifra inventada se lee, se cree, y no se distingue de uno bueno.
+
+El barrido de prensa es otra cosa: son afirmaciones de terceros, cada una con su
+enlace y con una etiqueta de fiabilidad (confirmado / informado / rumor). **No
+entran en ningún cálculo.** El modelo se construye con una pasada cronológica
+sobre nflverse y su garantía es que ninguna fila ve el futuro; en el momento en
+que un titular de hoy moviera una proyección, esa garantía dejaría de poder
+demostrarse — y con ella todas las métricas de validación. Las noticias van al
+lado de los números, nunca dentro.
+
+```bash
+pip install -e ".[narrative]"
+export ANTHROPIC_API_KEY=...                        # nunca en un fichero del repo
+
+python scripts/research_build.py                    # barrido diario, ~5 min
+python scripts/research_build.py --beats insiders --max-searches 4   # más barato
+python scripts/research_patch.py                    # mete el research en el payload
+python scripts/export_web_data.py --with-narrative  # resumen y explicaciones
+```
+
+Sin clave no falla nada: los scripts avisan y el sitio se construye sin esas
+secciones, igual que se construye sin los artefactos de fantasy.
+
+**Lo que cuesta.** Once llamadas diarias con búsqueda web a Opus 5 salen por unos
+3-5 $ al día, que es con diferencia el mayor gasto del proyecto — el resto es CPU
+gratuita de GitHub Actions. `--beats`, `--max-searches` y
+`ORACLE_NARRATIVE_MODEL=claude-sonnet-5` lo bajan.
 
 ## Seguridad
 
 La superficie de ataque de este proyecto es deliberadamente diminuta, y eso vale
 más que cualquier lista de mitigaciones: **0 endpoints de API, 0 formularios, 0
 subidas de archivos, 0 cookies, 0 sesiones, 0 base de datos, 0 peticiones de red
-en runtime, 0 variables de entorno.** El sitio son seis páginas estáticas con los
-datos horneados en el build. No hay login que forzar, ni consultas que inyectar,
-ni registros ajenos que leer, porque no hay usuarios ni registros.
+en runtime.** El sitio son siete páginas estáticas con los datos horneados en el
+build. No hay login que forzar, ni consultas que inyectar, ni registros ajenos que
+leer, porque no hay usuarios ni registros.
+
+**Hay una credencial, y sólo una.** `ANTHROPIC_API_KEY`, para los textos
+generados y el barrido de prensa. Vive únicamente como secret de GitHub Actions:
+el SDK la lee del entorno, el código nunca la nombra, y no viaja al bundle de la
+web — para cuando el navegador ve la página, los textos ya son HTML. El resto del
+proyecto (modelo, backtest, fantasy, web) funciona entero sin ella; por eso es un
+extra de instalación y no una dependencia.
 
 Lo que sí se aplica, porque protege al proyecto y no a usuarios inexistentes:
 
@@ -290,7 +341,8 @@ Lo que sí se aplica, porque protege al proyecto y no a usuarios inexistentes:
 |---|---|
 | Cabeceras de seguridad | CSP estricta (sin dominios externos), `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`. Verificadas en CI contra el servidor real, no solo leídas del config. |
 | HTTPS forzado | HSTS a dos años con `includeSubDomains; preload`, más `upgrade-insecure-requests` en la CSP. |
-| Sin fugas de credenciales | El proyecto no usa ni una sola clave: nflverse es público y sin autenticación. Gitleaks revisa el **historial completo** en cada push — una clave borrada sigue viva en los commits anteriores. |
+| Sin fugas de credenciales | nflverse es público y sin autenticación; la única clave del proyecto sólo existe como secret de CI y nunca se escribe en un fichero. Gitleaks revisa el **historial completo** en cada push — una clave commiteada no se arregla borrándola, hay que rotarla, porque sigue viva en los commits anteriores. |
+| Contenido de terceros | Las notas de prensa traen texto y URLs de fuera. React escapa todo el texto (no hay `dangerouslySetInnerHTML` en el proyecto) y los enlaces se filtran por esquema antes de publicarse: sólo `http` y `https` con dominio. Salen con `rel="noopener noreferrer nofollow"`. |
 | Dependencias sin vulnerabilidades | `npm audit` y `pip-audit` en CI, y también cada lunes por si sale un aviso mientras el repo está quieto. Dependabot abre los PR de actualización. |
 | Validación de entrada | La CLI valida temporada, semana, bankroll y umbral. No es defensa contra un atacante — es para que un dedazo falle en el segundo cero y no a los cuatro minutos. |
 | Superficie mínima | Sin `X-Powered-By`, sin `dangerouslySetInnerHTML`, sin `fetch` en runtime, 3 dependencias npm. |

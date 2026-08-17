@@ -63,6 +63,35 @@ peticiones de red en runtime. No añadas auth, rate limiting, sanitización de
 entrada de usuario ni RLS: no hay usuarios ni datos que proteger. Lo que sí se
 mantiene está en la sección de Seguridad del README y verificado en CI.
 
+La excepción es `ANTHROPIC_API_KEY`, que sí es una credencial de verdad: vive
+sólo como secret de GitHub Actions, el código nunca la nombra (la lee el SDK del
+entorno) y no viaja al bundle. Si acaba en un fichero, gitleaks lo caza — y
+entonces hay que **rotarla**, no borrarla, porque sigue viva en el historial.
+
+### 5. La prensa no toca el modelo
+
+`src/oracle/narrative/research.py` barre noticias a diario. Nada de eso entra en
+un cálculo, ni como feature ni como ajuste ni como multiplicador. Se publica al
+lado de los rankings, con su fuente y su etiqueta de fiabilidad.
+
+No es purismo: la garantía anti-fuga se demuestra recalculando features con el
+historial truncado. Una noticia de agosto no tiene fecha comprobable dentro de esa
+pasada, así que en cuanto moviera un número, esa demostración deja de valer — y
+con ella todas las métricas de validación del proyecto.
+
+### 6. Un número generado que no está en los datos es un fallo, no un matiz
+
+Los textos que redacta Claude sobre el modelo (`narrative/weekly.py`) pasan por
+`narrative/factcheck.py`: se extraen todas las cifras del texto y se comprueban
+contra los datos que se le pasaron. Si alguna no cuadra, se reintenta una vez
+señalándola y, si vuelve a fallar, **el texto se descarta**. La web sale sin esa
+sección y no pasa nada.
+
+Si añades un campo al contexto del prompt, estás ampliando lo que el texto puede
+citar. Si el texto necesita una cantidad derivada (una diferencia, un
+porcentaje), **calcúlala en Python y métela en el contexto** — no esperes que el
+modelo la deduzca, porque el validador la rechazará por correcta que sea.
+
 ---
 
 ## Arquitectura
@@ -79,11 +108,17 @@ src/oracle/
   backtest/              walk-forward y métricas
   betting/               de-vig (Shin), EV, Kelly fraccionado
   fantasy/               puntuación, proyecciones de draft, ranking semanal
+  narrative/             textos generados y barrido de prensa (opcional, con clave)
   pipeline.py            Oracle.train() -> predict() -> value_bets()
   cli.py                 comando `oracle`
-web/                     Next.js 16, 6 páginas estáticas, datos horneados
+research/                archivo diario de prensa, un JSON por día — SÍ se versiona
+web/                     Next.js 16, 7 páginas estáticas, datos horneados
 scripts/                 generación de artefactos y utilidades
 ```
+
+`research/` se versiona al revés que `data/` y `out/`: son unos kilobytes de
+texto que **no se pueden reconstruir**. Si mañana se cae el enlace o el medio
+reescribe la nota, lo que se publicó hoy sólo existe si se guardó hoy.
 
 **El flujo de datos de la web:** los scripts de Python generan
 `web/data/model.json`, que se comprime a `web/data/model.b64.js` (gzip+base64,
@@ -112,7 +147,12 @@ python scripts/fantasy_weekly_calibrate.py     # recalibra y valida: ~7 min
 python scripts/export_web_data.py              # regenera el payload de la web
 python scripts/make_report.py                  # informe HTML de validación
 
-pytest -q          # 76 tests, sobre datos sintéticos (no requieren `oracle refresh`)
+# Opcionales, necesitan ANTHROPIC_API_KEY (pip install -e ".[narrative]")
+python scripts/research_build.py               # barrido diario de prensa: ~5 min
+python scripts/research_patch.py               # mete el research en el payload sin reentrenar
+python scripts/export_web_data.py --with-narrative   # resumen y explicaciones
+
+pytest -q          # 107 tests, sobre datos sintéticos (no requieren `oracle refresh`)
 ruff check src tests scripts
 cd web && npx next build
 ```
@@ -139,6 +179,8 @@ comentario está para que no los reintroduzcas.
 | Cuotas calculadas con el equipo del año pasado | `fantasy/weekly.py` | El roster se aplica **antes** de calcular target share, no después |
 | `AZ` vs `ARI` entre fuentes | `data/ingest.py` | nflverse no es consistente entre datasets. Todo pasa por `normalize_team` |
 | Shin al revés | `betting/devig.py` | Shin da **menos** probabilidad al no favorito, no más (sesgo favorito-longshot) |
+| Suma de medias por jugador como denominador | `fantasy/weekly.py` | La cuota de uso se calcula sobre los partidos del **equipo**, no sumando promedios condicionales: inflaba el denominador entre un 5% y un 34% **según el equipo**, que es lo que rompe la comparación entre equipos. Se descubrió dibujando la gráfica, no con un test |
+| El validador de cifras rechazaba textos correctos | `narrative/factcheck.py` | «Cae 4,9 puntos» con el dato en -4.9. Se admite el valor absoluto: en prosa el signo lo lleva el verbo. Un validador con falsos positivos acaba desactivado |
 
 ---
 

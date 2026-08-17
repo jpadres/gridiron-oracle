@@ -175,3 +175,73 @@ section[id] { scroll-margin-top: 1rem; }
 /* Separador de tier: la fila que abre un tier nuevo lleva una línea más
    marcada, para que el hueco se vea sin tener que leer la columna. */
 tr.tier-start td { border-top: 2px solid var(--axis); }
+
+/* --- research y textos generados ---------------------------------------- */
+
+/* El bloque de texto generado va marcado en el diseño, no sólo en la copia:
+   fondo de superficie y barra lateral en el color de acento. Un párrafo escrito
+   por una máquina no puede parecer idéntico a uno escrito sobre el cálculo. */
+.machine {
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  padding: 0.85rem 1.1rem;
+  margin: 1.5rem 0;
+  border-radius: 0 4px 4px 0;
+}
+.machine-tag {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+  text-transform: none;
+}
+.machine p:last-child { margin-bottom: 0; }
+.machine ul { margin-bottom: 0; }
+
+.note {
+  border: 1px solid var(--line);
+  border-left-width: 3px;
+  border-radius: 0 6px 6px 0;
+  padding: 0.75rem 1rem;
+  margin: 0.9rem 0;
+}
+/* El borde de color repite lo que ya dice la etiqueta de texto: es refuerzo,
+   nunca el único canal. Quien no distinga el azul del rojo lee "▲ Al alza". */
+.note--alza { border-left-color: var(--pos-diff-up); }
+.note--baja { border-left-color: var(--pos-diff-down); }
+.note--neutro { border-left-color: var(--axis); }
+.note h3 { margin: 0 0 0.4rem; font-size: 1rem; line-height: 1.35; }
+.note p { margin: 0.4rem 0; }
+
+.note-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.note-players { font-size: 0.82rem; color: var(--muted); }
+
+.tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.tag--alza { color: var(--pos-diff-up); border-color: currentColor; }
+.tag--baja { color: var(--pos-diff-down); border-color: currentColor; }
+.tag--confirmado { color: var(--fg); border-color: var(--fg); }
+.tag--rumor { font-style: italic; }
+
+.sources { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem !important; }
+.sources a { font-size: 0.8rem; color: var(--muted); }
+.sources a:hover { color: var(--accent); }
+
+/* `capitalize` pondría «Lunes, 17 De Agosto»: en español sólo va en mayúscula
+   la primera letra, y toLocaleDateString devuelve el día en minúscula. */
+.day { margin-top: 1.75rem; color: var(--muted);
+       font-size: 0.9rem; letter-spacing: 0.04em; border-bottom: 1px solid var(--line);
+       padding-bottom: 0.3rem; }
+.day::first-letter { text-transform: uppercase; }
+
+/* Nota por jugador debajo de la tabla de su posición. */
+.why { margin: 0.35rem 0; font-size: 0.88rem; }
+.why strong { color: var(--fg); }

@@ -28,6 +28,8 @@ const EMPTY = {
   validation: null,
   fantasy: null,
   fantasy_weekly: null,
+  research: null,
+  narrative: null,
 };
 
 function decode() {

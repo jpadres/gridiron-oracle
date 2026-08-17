@@ -1,6 +1,6 @@
 import { model, num } from "../../../data/model.js";
 import { DeltaBars, POSITIONS, PositionChip } from "../../charts.jsx";
-import { Callout, NoDataYet, Table } from "../../ui.jsx";
+import { Callout, ImpactTag, MachineWritten, NoDataYet, Sources, Table } from "../../ui.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — ranking semanal",
@@ -40,8 +40,72 @@ function extremes(rows, n) {
   return [...sorted.slice(0, n), ...sorted.slice(-n)];
 }
 
+/**
+ * Por qué el modelo pone a cada jugador donde lo pone.
+ *
+ * Va debajo de la tabla y no dentro: la explicación es una frase, y una frase
+ * dentro de una celda convierte una tabla que se lee de un vistazo en un muro.
+ */
+function WhyBlock({ rows, notes }) {
+  const explained = rows.filter((row) => notes[row.player_id]);
+  if (explained.length === 0) return null;
+  return (
+    <MachineWritten>
+      {explained.map((row) => (
+        <p className="why" key={row.player_id}>
+          <strong>{row.player_name}</strong> — {notes[row.player_id]}
+        </p>
+      ))}
+    </MachineWritten>
+  );
+}
+
+/**
+ * Noticias de la semana sobre jugadores de esta posición.
+ *
+ * **El modelo no las ha visto.** Aparecen aquí para que el ajuste lo haga quien
+ * alinea: si un titular está lesionado, la proyección de arriba sigue contando
+ * con él porque su única fuente es el historial de partidos jugados.
+ */
+function NewsBlock({ rows, research }) {
+  const names = new Map(rows.map((row) => [row.player_id, row.player_name]));
+  const related = (research?.items ?? [])
+    .map((item) => ({
+      ...item,
+      // Quién de ESTA lista aparece en la noticia. Se resuelve con el nombre del
+      // ranking y no con el de la fuente: si el titular dice «Ja'Marr Chase» y
+      // la tabla de arriba dice «J.Chase», el lector tiene que poder unirlos.
+      affected: (item.player_ids ?? []).map((id) => names.get(id)).filter(Boolean),
+    }))
+    .filter((item) => item.affected.length > 0);
+  if (related.length === 0) return null;
+  return (
+    <div className="callout">
+      <h3>Lo que el modelo no sabe</h3>
+      <p className="caption">
+        Prensa de los últimos días sobre jugadores de esta lista. No entra en la proyección:
+        el ranking sale del historial de partidos, y una noticia de ayer no está en él.
+      </p>
+      {related.slice(0, 6).map((item, index) => (
+        <div className="why" key={`${item.headline}-${index}`}>
+          <p>
+            <ImpactTag impact={item.impact} /> <strong>{item.affected.join(", ")}</strong> —{" "}
+            {item.headline}
+          </p>
+          <Sources sources={item.sources} />
+        </div>
+      ))}
+      <p className="caption">
+        Todas las fichas, con su fecha y su fiabilidad, en <a href="/research">Research</a>.
+      </p>
+    </div>
+  );
+}
+
 export default function Semanal() {
   const weekly = model.fantasy_weekly;
+  const notes = model.narrative?.player_notes ?? {};
+  const research = model.research;
 
   if (!weekly) {
     return (
@@ -113,6 +177,8 @@ export default function Semanal() {
               <PositionChip position={position} /> {position}
             </h2>
             <Table columns={POSITION_COLUMNS} rows={group.slice(0, 40)} />
+            <WhyBlock rows={group.slice(0, 40)} notes={notes} />
+            <NewsBlock rows={group} research={research} />
           </section>
         );
       })}

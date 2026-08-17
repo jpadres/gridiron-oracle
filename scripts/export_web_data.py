@@ -49,7 +49,7 @@ DRAFT_COLUMNS = (
     "projected_points", "vor",
 )
 WEEKLY_COLUMNS = (
-    "position_rank", "player_name", "position", "team", "opponent",
+    "player_id", "position_rank", "player_name", "position", "team", "opponent",
     "projected_points", "baseline_points", "matchup_multiplier",
 )
 
@@ -62,6 +62,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--from", dest="first_season", type=int, default=DEFAULT_BACKTEST_START)
     parser.add_argument("--skip-backtest", action="store_true",
                         help="Reutiliza el backtest anterior (útil al iterar el diseño).")
+    parser.add_argument("--with-narrative", action="store_true",
+                        help="Genera resumen y explicaciones con Claude (necesita ANTHROPIC_API_KEY).")
     args = parser.parse_args(argv)
 
     paths = resolve_paths(args.root).ensure()
@@ -128,8 +130,133 @@ def main(argv: list[str] | None = None) -> int:
         _load_optional(paths.out / "fantasy_weekly.json"), "rankings", WEEKLY_COLUMNS
     )
 
+    # --- research (prensa e insiders) ---------------------------------------
+    # Viaja aparte de todo lo anterior a propósito: son afirmaciones de terceros
+    # con su fuente al lado, no salidas del modelo, y no entran en ningún cálculo.
+    payload["research"] = _research(paths, payload)
+
+    # --- textos generados ---------------------------------------------------
+    if args.with_narrative:
+        payload["narrative"] = _narrative(payload)
+
     write_payload(paths.web_data, payload)
     return 0
+
+
+def _research(paths, payload: dict) -> dict | None:
+    """La sección de prensa: del artefacto del día si está, y si no, del archivo.
+
+    La segunda vía no es un lujo. `out/` no se versiona, así que la
+    regeneración semanal corre sobre un checkout limpio donde `research.json` no
+    existe — y sin reconstruirla desde `research/`, la sección de prensa
+    desaparecería de la web cada miércoles.
+    """
+    cached = paths.out / "research.json"
+    if cached.exists():
+        return json.loads(cached.read_text(encoding="utf-8"))
+
+    from oracle.narrative import archive
+
+    weekly = payload.get("fantasy_weekly") or {}
+    section = archive.consolidate(paths.root, days=10, players=weekly.get("rankings", []))
+    if section is None:
+        print("  (aviso) sin research: la sección saldrá vacía en la web.")
+    return section
+
+
+def _narrative(payload: dict) -> dict | None:
+    """Resumen de la jornada y explicaciones, verificados contra los propios datos.
+
+    Se hace aquí y no en un script aparte porque el contexto que necesita el
+    texto —predicciones, validación y ranking de la semana— ya está montado en
+    memoria en este punto. Un script independiente tendría que reentrenar el
+    modelo para reconstruirlo.
+    """
+    from oracle.narrative import weekly as narrative_weekly
+    from oracle.narrative.client import NarrativeUnavailable, available
+
+    if not available():
+        print("  (aviso) sin ANTHROPIC_API_KEY: la web sale sin resumen ni explicaciones.")
+        return None
+
+    context = _narrative_context(payload)
+    try:
+        print("Redactando el resumen de la jornada...")
+        summary = narrative_weekly.week_summary(context)
+        players = _players_to_explain(payload)
+        print(f"Explicando {len(players)} jugadores...")
+        notes = narrative_weekly.player_notes(players, context["semana"]) if players else []
+    except NarrativeUnavailable as error:
+        print(f"  (aviso) la API no respondió: {error}. La web sale sin textos.")
+        return None
+
+    if not summary and not notes:
+        return None
+    return {
+        "generated_at": pd.Timestamp.now("UTC").isoformat(),
+        "summary": summary,
+        "player_notes": {note["player_id"]: note["text"] for note in notes},
+    }
+
+
+def _narrative_context(payload: dict) -> dict:
+    """El material que ve el redactor: sólo números del modelo, y pocos.
+
+    Recortado a conciencia. Cada número que entra aquí es un número que el texto
+    puede citar —el verificador de `factcheck` lo autoriza— así que meter la
+    tabla entera no es generosidad, es ampliar la superficie de error.
+    """
+    predictions = sorted(
+        payload.get("predictions", []),
+        key=lambda row: -abs(row.get("edge_vs_line") or 0),
+    )[:6]
+    weekly = payload.get("fantasy_weekly") or {}
+    rankings = weekly.get("rankings", [])
+    return {
+        "jornada": payload.get("week"),
+        "validacion": (payload.get("validation") or {}).get("overall"),
+        "partidos_donde_mas_se_separa_del_mercado": predictions,
+        "semana": {
+            "jornada": payload.get("week"),
+            "jugadores": _with_delta(rankings)[:40],
+        },
+    }
+
+
+def _players_to_explain(payload: dict) -> list[dict]:
+    """Los que valen una explicación: los mejores de cada puesto y los que más se mueven.
+
+    No todo el ranking. Explicar al número 34 de receptores cuesta lo mismo que
+    explicar al primero y no lo lee nadie.
+    """
+    weekly = payload.get("fantasy_weekly") or {}
+    rows = _with_delta(weekly.get("rankings", []))
+    chosen: dict[str, dict] = {}
+    for position in ("QB", "RB", "WR", "TE"):
+        group = [row for row in rows if row.get("position") == position]
+        top = sorted(group, key=lambda row: -(row.get("projected_points") or 0))[:3]
+        movers = sorted(group, key=lambda row: -abs(row.get("delta") or 0))[:2]
+        for row in top + movers:
+            chosen[str(row.get("player_id"))] = row
+    return list(chosen.values())[:20]
+
+
+def _with_delta(rows: list[dict]) -> list[dict]:
+    """Añade la diferencia con el listón.
+
+    El texto la va a mencionar seguro, y `factcheck` sólo deja citar números que
+    estén en los datos. Calcularla aquí es lo que evita que el modelo tenga que
+    restar de cabeza — y que el validador lo rechace por hacerlo bien.
+    """
+    out = []
+    for row in rows:
+        projected = row.get("projected_points")
+        baseline = row.get("baseline_points")
+        enriched = dict(row)
+        if projected is not None and baseline is not None:
+            enriched["delta"] = round(projected - baseline, 2)
+        out.append(enriched)
+    return out
 
 
 def _resolve_week(oracle: Oracle, season: int | None, week: int | None) -> tuple[int, int]:

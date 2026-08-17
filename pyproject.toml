@@ -23,6 +23,10 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=7.4", "pytest-cov>=4.1", "ruff>=0.4"]
 api = ["fastapi>=0.110", "uvicorn>=0.29"]
+# Textos generados y barrido de prensa. Extra y no dependencia: el modelo, el
+# backtest y la web funcionan enteros sin esto, y quien clone el repo para mirar
+# los números no tiene por qué instalarse un SDK que no va a poder usar sin clave.
+narrative = ["anthropic>=0.122"]
 
 [project.scripts]
 oracle = "oracle.cli:main"

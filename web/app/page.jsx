@@ -1,5 +1,5 @@
 import { model, num } from "../data/model.js";
-import { Callout, Stat } from "./ui.jsx";
+import { Callout, MachineWritten, Stat } from "./ui.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — resumen",
@@ -8,6 +8,8 @@ export const metadata = {
 
 export default function Home() {
   const overall = model.validation?.overall;
+  const summary = model.narrative?.summary;
+  const week = model.week;
 
   return (
     <>
@@ -53,6 +55,26 @@ export default function Home() {
           <Stat label="Acierto directo" value={`${num(overall.accuracy * 100, 1)}%`}
                 hint="Ganador del partido" />
         </div>
+      ) : null}
+
+      {summary ? (
+        <section id="jornada">
+          <h2>
+            {week ? `La jornada ${week.week} de ${week.season}` : "La jornada"} — {summary.headline}
+          </h2>
+          <MachineWritten at={model.narrative?.generated_at}>
+            {summary.paragraphs?.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+            {summary.watch?.length ? (
+              <ul>
+                {summary.watch.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            ) : null}
+          </MachineWritten>
+        </section>
       ) : null}
 
       <h2>Dónde está el edge real, y por qué no está aquí todavía</h2>

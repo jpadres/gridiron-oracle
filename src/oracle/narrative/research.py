@@ -1,0 +1,336 @@
+"""Barrido diario de prensa, insiders y campamentos.
+
+## Qué es y qué no es
+
+Es un lector de prensa, no una fuente de datos. Recorre lo que se publica sobre
+los 32 equipos —periódicos, ESPN, blogs de equipo, los insiders de la NFL— y
+devuelve fichas con **su fuente al lado**. Nada de esto entra en el modelo.
+
+Esa frontera es la regla dura del proyecto y aquí es donde más fácil sería
+cruzarla. El modelo se construye con una pasada cronológica sobre nflverse y su
+garantía es que ninguna fila ve el futuro; en el momento en que un titular de
+agosto moviera un proyección, esa garantía dejaría de poder demostrarse. Las
+noticias se publican **al lado** del ranking, con su fecha y su enlace, para que
+el ojo humano haga el ajuste que el modelo no hace.
+
+## Cómo se organiza
+
+Un «beat» es una llamada: una división (4 equipos) o un tema transversal. Once
+beats al día. Cada uno recibe los titulares de los últimos días para no volver a
+contar lo mismo, y devuelve sólo lo nuevo.
+
+## Lo que cuesta
+
+Once llamadas con búsqueda web, a Opus 5, salen por unos 3-5 $ al día. Es el
+gasto más grande del proyecto con diferencia — el resto es CPU gratis de GitHub
+Actions. `--beats` y `--max-searches` existen para bajarlo, y
+`ORACLE_NARRATIVE_MODEL=claude-sonnet-5` lo reduce a algo menos de la mitad.
+"""
+
+from __future__ import annotations
+
+from urllib.parse import urlparse
+
+from oracle.narrative.client import ask_json, web_tools
+
+# Divisiones con los códigos de nflverse. Se barre por división y no equipo a
+# equipo porque el reportaje de prensa es divisional (el mismo periodista cubre
+# el rival) y porque 32 llamadas al día cuestan tres veces lo que 8.
+DIVISIONS: dict[str, tuple[str, ...]] = {
+    "AFC Este": ("BUF", "MIA", "NE", "NYJ"),
+    "AFC Norte": ("BAL", "CIN", "CLE", "PIT"),
+    "AFC Sur": ("HOU", "IND", "JAX", "TEN"),
+    "AFC Oeste": ("DEN", "KC", "LV", "LAC"),
+    "NFC Este": ("DAL", "NYG", "PHI", "WAS"),
+    "NFC Norte": ("CHI", "DET", "GB", "MIN"),
+    "NFC Sur": ("ATL", "CAR", "NO", "TB"),
+    "NFC Oeste": ("ARI", "LAR", "SF", "SEA"),
+}
+
+# Beats transversales. No se pueden repartir por división porque la noticia
+# aparece antes en el hilo del insider que en la prensa local del equipo.
+LEAGUE_BEATS: dict[str, str] = {
+    "insiders": (
+        "Reportes de los insiders de NFL con más recorrido — Adam Schefter, Ian Rapoport, "
+        "Tom Pelissero, Mike Garafolo, Jeremy Fowler, Dianna Russini, Albert Breer. "
+        "Traspasos, cortes, fichajes de agentes libres, contratos, suspensiones, "
+        "designaciones de lesionados y todo lo que cambie una plantilla."
+    ),
+    "campamentos": (
+        "Crónicas de los entrenamientos y de la pretemporada: quién la está rompiendo, "
+        "quién ha subido o bajado en el depth chart, reparto de repeticiones con los "
+        "titulares, novatos que se están ganando un puesto, veteranos que lo están perdiendo."
+    ),
+    "fantasy": (
+        "Análisis de fantasy football de la semana en medios y podcasts con reputación: "
+        "movimientos de ADP, jugadores infravalorados y sobrevalorados, reparto de "
+        "cuotas de uso proyectado, avisos sobre trampas de volumen."
+    ),
+}
+
+# Esquema de salida. `additionalProperties: False` y `required` completo obligan
+# al modelo a rellenar todos los campos: un `impact` ausente se convertiría en
+# «neutro» silenciosamente y perderíamos la única señal ordenable de la ficha.
+ITEM_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "team": {
+            "type": "string",
+            "description": "Código nflverse del equipo (KC, SF, LAR...) o LIGA si es transversal.",
+        },
+        "players": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Nombres completos de los jugadores implicados, como los escribe la fuente.",
+        },
+        "kind": {
+            "type": "string",
+            "enum": [
+                "lesion",
+                "transaccion",
+                "depth_chart",
+                "campamento",
+                "contrato",
+                "disciplina",
+                "esquema",
+                "otro",
+            ],
+        },
+        "headline": {"type": "string", "description": "Titular en español, máximo 90 caracteres."},
+        "summary": {
+            "type": "string",
+            "description": "Dos o tres frases en español. Qué pasó y qué cambia para el fantasy.",
+        },
+        "impact": {"type": "string", "enum": ["alza", "baja", "neutro"]},
+        "confidence": {
+            "type": "string",
+            "enum": ["confirmado", "informado", "rumor"],
+            "description": (
+                "confirmado = anuncio oficial del equipo o de la liga. "
+                "informado = un insider con nombre lo reporta. "
+                "rumor = especulación, 'se espera que', fuentes sin identificar."
+            ),
+        },
+        "fantasy_relevance": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "5 = cambia una alineación esta semana. 1 = contexto, no cambia nada.",
+        },
+        "published": {"type": "string", "description": "Fecha de publicación YYYY-MM-DD, o vacío."},
+        "sources": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "outlet": {"type": "string"},
+                    "title": {"type": "string"},
+                    "url": {"type": "string"},
+                },
+                "required": ["outlet", "title", "url"],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": [
+        "team", "players", "kind", "headline", "summary", "impact",
+        "confidence", "fantasy_relevance", "published", "sources",
+    ],
+    "additionalProperties": False,
+}
+
+SWEEP_SCHEMA = {
+    "type": "object",
+    "properties": {"items": {"type": "array", "items": ITEM_SCHEMA}},
+    "required": ["items"],
+    "additionalProperties": False,
+}
+
+SYSTEM = """Eres el documentalista de un proyecto de modelos de NFL. Tu trabajo es
+leer prensa y devolver fichas verificables, no escribir columnas de opinión.
+
+Reglas que no se negocian:
+
+1. **Cada ficha necesita al menos una fuente con URL real** de las que has
+   encontrado buscando. Si no tienes el enlace, la ficha no existe. No inventes
+   URLs ni las reconstruyas de memoria.
+2. **No repitas una cifra que no hayas leído.** Si la fuente no da el número, la
+   ficha va sin número.
+3. **Distingue lo confirmado de lo reportado y de lo rumoreado**, y sé duro con
+   esa clasificación. «Se espera que» es un rumor aunque lo escriba Schefter.
+   Un anuncio oficial del equipo es lo único que es «confirmado».
+4. **Nada de contenido antiguo.** Si la noticia tiene más de una semana, no vale
+   salvo que haya novedad hoy.
+5. **Escribe en español**, con los nombres propios y los términos de la NFL en
+   inglés (depth chart, snap, target share).
+6. **Prefiere lo que cambia una decisión** a lo que sólo llena espacio. Un
+   corredor que pasa a titular vale más que quince declaraciones de un
+   entrenador.
+
+Si no encuentras nada que cumpla esto, devuelve la lista vacía. Es una respuesta
+perfectamente válida y mucho mejor que rellenar."""
+
+
+def sweep(
+    beat: str,
+    focus: str,
+    *,
+    today: str,
+    known_headlines: list[str],
+    max_items: int = 8,
+    max_searches: int = 8,
+    effort: str = "medium",
+    model: str | None = None,
+) -> list[dict]:
+    """Un beat: busca, filtra y devuelve fichas ya limpias."""
+    seen = "\n".join(f"- {headline}" for headline in known_headlines[:60]) or "- (nada todavía)"
+    user = f"""Hoy es {today}.
+
+Busca en internet lo publicado en los últimos dos días sobre: {focus}
+
+Fuentes que valen: ESPN, NFL.com, The Athletic, Yahoo Sports, CBS Sports, Pro
+Football Talk, los diarios locales de cada ciudad, los blogs de la red SB Nation,
+las cuentas de los insiders y las notas oficiales de los equipos.
+
+Ya hemos publicado estos titulares en los últimos días. **No los repitas**; sólo
+tráelos de vuelta si hay una novedad real encima:
+
+{seen}
+
+Devuelve como mucho {max_items} fichas, ordenadas de más a menos relevante para
+fantasy. Menos fichas buenas es mejor que más fichas de relleno."""
+
+    payload = ask_json(
+        SYSTEM,
+        user,
+        SWEEP_SCHEMA,
+        tools=web_tools(max_searches),
+        effort=effort,
+        max_tokens=12000,
+        model=model,
+    )
+    items = payload.get("items", []) if isinstance(payload, dict) else []
+    return [item for item in (_clean(item, beat) for item in items) if item]
+
+
+def beats(selection: list[str] | None = None) -> dict[str, str]:
+    """Los beats a barrer hoy. Sin selección, los once."""
+    everything = {
+        f"{name}": (
+            f"los equipos de la {name} de la NFL ({', '.join(teams)}): "
+            "lesiones, movimientos de plantilla, depth chart y crónicas del campamento"
+        )
+        for name, teams in DIVISIONS.items()
+    }
+    everything.update(LEAGUE_BEATS)
+    if not selection:
+        return everything
+    return {name: focus for name, focus in everything.items() if name in selection}
+
+
+def _clean(item: object, beat: str) -> dict | None:
+    """Descarta lo que no cumple el contrato. Silencioso a propósito.
+
+    El modelo puede devolver una ficha sin fuente utilizable pese a que el
+    esquema pida una: el esquema garantiza que el campo existe, no que la URL
+    sea real. Aquí es donde se cae esa ficha, y es mejor perderla que publicarla
+    sin poder comprobarla.
+    """
+    if not isinstance(item, dict):
+        return None
+    sources = [source for source in item.get("sources", []) if _valid_source(source)]
+    if not sources:
+        return None
+    headline = str(item.get("headline", "")).strip()
+    summary = str(item.get("summary", "")).strip()
+    if not headline or not summary:
+        return None
+    return {
+        "beat": beat,
+        "team": str(item.get("team", "LIGA")).strip().upper()[:4] or "LIGA",
+        "players": [str(name).strip() for name in item.get("players", []) if str(name).strip()],
+        "kind": str(item.get("kind", "otro")),
+        "headline": headline[:140],
+        "summary": summary[:600],
+        "impact": item.get("impact") if item.get("impact") in ("alza", "baja", "neutro") else "neutro",
+        "confidence": (
+            item.get("confidence")
+            if item.get("confidence") in ("confirmado", "informado", "rumor")
+            else "rumor"
+        ),
+        "fantasy_relevance": _clamp(item.get("fantasy_relevance", 1)),
+        "published": str(item.get("published", ""))[:10],
+        "sources": sources[:3],
+    }
+
+
+def _valid_source(source: object) -> dict | None:
+    if not isinstance(source, dict):
+        return None
+    url = str(source.get("url", "")).strip()
+    parsed = urlparse(url)
+    # Sólo http(s) y con dominio: sin esto, un `javascript:` generado acabaría de
+    # href en la web. No hay usuarios que atacar aquí, pero el enlace tiene que
+    # llevar a algún sitio comprobable para que la ficha sirva de algo.
+    if parsed.scheme not in ("http", "https") or not parsed.netloc:
+        return None
+    return {
+        "outlet": str(source.get("outlet", parsed.netloc)).strip()[:60] or parsed.netloc,
+        "title": str(source.get("title", "")).strip()[:160],
+        "url": url[:400],
+    }
+
+
+def _clamp(value: object) -> int:
+    try:
+        return max(1, min(5, int(value)))
+    except (TypeError, ValueError):
+        return 1
+
+
+# Solape de palabras a partir del cual dos titulares del mismo equipo se
+# consideran la misma noticia. 0.6 sale de la forma en que se repiten de verdad:
+# «Rice limitado en el entrenamiento» y «Rice limitado en el entrenamiento del
+# martes» comparten todo menos una palabra. Comparar el titular exacto no sirve
+# —nunca coinciden— y bajar de 0.5 empieza a fundir noticias distintas del mismo
+# jugador, que es el error caro: perder la segunda.
+SIMILARITY = 0.6
+
+
+def dedupe(items: list[dict]) -> list[dict]:
+    """Quita repetidos entre beats.
+
+    La misma noticia llega por dos caminos: la división del equipo y el beat de
+    insiders. Se colapsa por URL compartida y, si no, por parecido del titular
+    dentro del mismo equipo — dos medios cubriendo lo mismo son dos URLs y una
+    sola noticia.
+
+    Se conserva la de mayor relevancia, por eso se ordena antes.
+    """
+    seen_urls: set[str] = set()
+    kept: list[tuple[str, frozenset[str]]] = []
+    out: list[dict] = []
+    for item in sorted(items, key=lambda row: -row.get("fantasy_relevance", 1)):
+        urls = {source["url"] for source in item["sources"]}
+        words = _content_words(item["headline"])
+        if urls & seen_urls:
+            continue
+        if any(team == item["team"] and _jaccard(words, other) >= SIMILARITY
+               for team, other in kept):
+            continue
+        seen_urls |= urls
+        kept.append((item["team"], words))
+        out.append(item)
+    return out
+
+
+def _content_words(headline: str) -> frozenset[str]:
+    """Palabras con carga del titular. Se caen artículos y preposiciones."""
+    return frozenset(word.strip(".,;:«»\"'") for word in headline.lower().split() if len(word) > 3)
+
+
+def _jaccard(left: frozenset[str], right: frozenset[str]) -> float:
+    if not left or not right:
+        return 0.0
+    return len(left & right) / len(left | right)

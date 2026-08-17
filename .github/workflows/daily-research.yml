@@ -1,0 +1,78 @@
+name: Research diario
+
+on:
+  schedule:
+    # Todos los días a las 12:00 UTC. Después de que cierren las crónicas de la
+    # mañana en la costa este y antes de los entrenamientos de la tarde.
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+    inputs:
+      beats:
+        description: "Beats a barrer, separados por comas (vacío = los once)"
+        required: false
+      effort:
+        description: "Profundidad: low, medium, high"
+        required: false
+        default: medium
+
+permissions:
+  contents: write
+
+concurrency:
+  # Dos barridos a la vez escribirían el mismo fichero del día y se pisarían al
+  # hacer push.
+  group: daily-research
+  cancel-in-progress: false
+
+jobs:
+  research:
+    name: Barrer prensa e insiders
+    runs-on: ubuntu-latest
+    # Once beats con búsqueda web dentro. Con reintentos, media hora sobra.
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Instalar
+        run: pip install -e ".[narrative]"
+
+      # La clave sólo existe aquí. No está en el repo, no viaja al bundle de la
+      # web y no aparece en ningún log: el SDK la lee del entorno y el código
+      # nunca la nombra.
+      - name: Barrido diario
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          args=""
+          if [ -n "${{ inputs.beats }}" ]; then args="--beats ${{ inputs.beats }}"; fi
+          if [ -n "${{ inputs.effort }}" ]; then args="$args --effort ${{ inputs.effort }}"; fi
+          python scripts/research_build.py $args
+
+      # El payload de la web se regenera SIN reentrenar el modelo: el barrido no
+      # toca los números, sólo añade la sección de prensa. Reentrenar aquí a
+      # diario serían cuatro minutos de CPU para cambiar texto.
+      - name: Refrescar la sección de research del payload
+        run: python scripts/research_patch.py
+
+      - name: Comprobar que la web sigue construyendo
+        working-directory: web
+        run: |
+          npm ci
+          npm run build
+
+      - name: Publicar
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research web/data/model.b64.js
+          if git diff --cached --quiet; then
+            echo "Sin novedades hoy; no hay nada que publicar."
+            exit 0
+          fi
+          git commit -m "research: barrido del $(date -u +%Y-%m-%d)"
+          git push
