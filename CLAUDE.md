@@ -109,10 +109,11 @@ src/oracle/
   betting/               de-vig (Shin), EV, Kelly fraccionado
   fantasy/               puntuación, proyecciones de draft, ranking semanal
   narrative/             textos generados y barrido de prensa (opcional, con clave)
+  survivor/              plan de survivor: asignación lineal sobre log-probabilidades
   pipeline.py            Oracle.train() -> predict() -> value_bets()
   cli.py                 comando `oracle`
-research/                archivo diario de prensa, un JSON por día — SÍ se versiona
-web/                     Next.js 16, 7 páginas estáticas, datos horneados
+research/                archivo diario de prensa + dossier curado — SÍ se versiona
+web/                     Next.js 16, 8 páginas estáticas, datos horneados
 scripts/                 generación de artefactos y utilidades
 ```
 
@@ -123,7 +124,7 @@ reescribe la nota, lo que se publicó hoy sólo existe si se guardó hoy.
 **El flujo de datos de la web:** los scripts de Python generan
 `web/data/model.json`, que se comprime a `web/data/model.b64.js` (gzip+base64,
 ~24 KB). `web/data/model.js` lo descomprime en el servidor **en build time**. Por
-eso las 6 páginas son estáticas y el sitio no hace ni una petición de red.
+eso las 8 páginas son estáticas y el sitio no hace ni una petición de red.
 
 Si regeneras los datos, **hay que recomprimir**. El paso está en
 `.github/workflows/weekly-predictions.yml`; cópialo de ahí si lo haces a mano.
@@ -144,6 +145,8 @@ oracle bets --season 2026 --week 1 --bankroll 1000
 python scripts/fantasy_build.py                # rankings de draft: ~5 min
 python scripts/fantasy_weekly_build.py --season 2026 --week 1
 python scripts/fantasy_weekly_calibrate.py     # recalibra y valida: ~7 min
+python scripts/survivor_build.py               # plan de survivor: ~1 min
+python scripts/dossier_import.py libro.xlsx    # importa el dossier curado
 python scripts/export_web_data.py              # regenera el payload de la web
 python scripts/make_report.py                  # informe HTML de validación
 
@@ -152,7 +155,7 @@ python scripts/research_build.py               # barrido diario de prensa: ~5 mi
 python scripts/research_patch.py               # mete el research en el payload sin reentrenar
 python scripts/export_web_data.py --with-narrative   # resumen y explicaciones
 
-pytest -q          # 107 tests, sobre datos sintéticos (no requieren `oracle refresh`)
+pytest -q          # 126 tests, sobre datos sintéticos (no requieren `oracle refresh`)
 ruff check src tests scripts
 cd web && npx next build
 ```

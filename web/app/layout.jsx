@@ -6,7 +6,7 @@ export const metadata = {
     "Modelo de pronóstico NFL y rankings de fantasy sobre datos públicos, con validación walk-forward y resultados reportados sin maquillaje.",
 };
 
-// Las siete páginas del sitio. Todas estáticas, con los datos horneados.
+// Las ocho páginas del sitio. Todas estáticas, con los datos horneados.
 const PAGES = [
   { href: "/", label: "Resumen" },
   { href: "/modelo", label: "Modelo" },
@@ -14,6 +14,7 @@ const PAGES = [
   { href: "/predicciones", label: "Predicciones" },
   { href: "/fantasy", label: "Draft" },
   { href: "/fantasy/semanal", label: "Semanal" },
+  { href: "/survivor", label: "Survivor" },
   { href: "/research", label: "Research" },
 ];
 

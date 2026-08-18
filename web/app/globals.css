@@ -365,3 +365,22 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .beat ul { margin: 0; padding-left: 1rem; font-size: 0.85rem; }
 .beat li { margin: 0.1rem 0; }
 .beat .outlet { color: var(--muted); }
+
+/* --- plan de survivor ----------------------------------------------------- */
+
+/* La secuencia de picks se lee como una línea de tiempo, no como una tabla: lo
+   que importa es el orden y que se vea de un golpe hasta dónde llega. */
+.plan { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.75rem 0 1.5rem; }
+.plan .step {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 0.2rem 0.45rem;
+  min-width: 3.1rem;
+  background: var(--surface);
+}
+.plan .wk { font-size: 0.63rem; color: var(--muted); letter-spacing: 0.06em; }
+.plan .tm { font-weight: 700; font-size: 0.9rem; line-height: 1.2; }
+.plan .pb { font-size: 0.68rem; color: var(--muted); font-variant-numeric: tabular-nums; }

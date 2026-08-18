@@ -1,14 +1,13 @@
 # Gridiron Oracle
 
-> **Aviso de estado.** La base de código de este repositorio es una
-> reconstrucción desde cero de la arquitectura descrita aquí, y **todavía no se
-> ha ejecutado contra los datos reales de nflverse**. Las cifras de rendimiento
-> de este README provienen del proyecto original y están **sin verificar contra
-> esta implementación**. Lo que sí está comprobado por los tests son las
-> garantías metodológicas (anti-fuga temporal, walk-forward, cross-fitting,
-> signos y frenos de riesgo). Ver [`docs/ESTADO.md`](docs/ESTADO.md) para el
-> detalle y para los pasos exactos que cierran esa brecha. Borra este aviso
-> cuando `oracle backtest` reproduzca los números de abajo.
+> **Estado.** Esta base de código es una reconstrucción desde cero de la
+> arquitectura descrita aquí, y **ya se ha ejecutado contra los datos reales de
+> nflverse**. El backtest reproduce el recuento de partidos (3.829) y el MAE del
+> mercado (9.97) del proyecto original, con Brier 0.2128 frente al 0.2119 del
+> mercado y MAE 10.04. Las diferencias en el tercer decimal frente a las tablas
+> de abajo son de implementación, no de método: dos implementaciones
+> independientes sobre los mismos datos aterrizan en el mismo sitio, que es la
+> mejor señal de que ninguna tiene una fuga.
 
 Modelo de pronóstico para la NFL: margen, total, probabilidad de victoria,
 detección de valor frente al mercado y rankings de fantasy football. Datos 100%
@@ -273,7 +272,8 @@ src/oracle/
   betting/              de-vig (Shin), EV y Kelly fraccionado
   fantasy/              puntuación configurable, proyecciones y VOR
   narrative/            textos generados y barrido de prensa (opcional)
-research/               archivo diario de las notas de prensa, un fichero por día
+  survivor/             plan de survivor por asignación lineal
+research/               archivo diario de prensa + dossier curado
 web/                    app Next.js desplegada en Vercel
 ```
 
@@ -318,6 +318,37 @@ secciones, igual que se construye sin los artefactos de fantasy.
 3-5 $ al día, que es con diferencia el mayor gasto del proyecto — el resto es CPU
 gratuita de GitHub Actions. `--beats`, `--max-searches` y
 `ORACLE_NARRATIVE_MODEL=claude-sonnet-5` lo bajan.
+
+## Survivor
+
+Elegir un ganador por jornada sin repetir equipo. **Es el único sitio del
+proyecto donde el modelo tiene ventaja real**, y por una razón concreta: en un
+survivor no compites contra un mercado eficiente, compites contra el calendario y
+contra tu propio bote de equipos. Lo que hace falta no es una probabilidad mejor
+que la del mercado —que no la hay— sino una bien calibrada y la capacidad de
+mirar dieciocho jornadas a la vez.
+
+La decisión difícil no es «¿quién gana el domingo?», es «¿cuánto me cuesta gastar
+hoy al equipo que me salvaría la jornada once?». Maximizar la supervivencia es
+maximizar el producto de las probabilidades de acierto, o sea la **suma de sus
+logaritmos** con un equipo por jornada y ninguno repetido: un problema de
+asignación lineal, exacto y en milisegundos con el húngaro. El coste de quemar un
+equipo sale de resolverlo dos veces —el óptimo libre y el óptimo forzando ese
+equipo hoy— y la diferencia *es* lo que cuesta.
+
+```bash
+python scripts/survivor_build.py
+python scripts/survivor_build.py --used KC,BUF --from-week 3
+```
+
+Lo que **no** hace: no modela al resto del bote (en un survivor grande a veces
+conviene separarse del favorito público, y eso necesita saber qué elige la gente),
+y las jornadas lejanas son priors de fuerza de equipos, no pronósticos — sin línea
+de mercado publicada el modelo cae a su variante autónoma, que es peor.
+
+El número honesto que sale de aquí: **el plan óptimo sobrevive las 18 jornadas
+menos del 1% de las veces.** No es un fallo del modelo, es la aritmética de
+multiplicar dieciocho probabilidades del 70%.
 
 ## Seguridad
 

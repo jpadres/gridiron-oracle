@@ -31,6 +31,7 @@ const EMPTY = {
   research: null,
   narrative: null,
   dossier: null,
+  survivor: null,
 };
 
 function decode() {

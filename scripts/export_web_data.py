@@ -140,6 +140,12 @@ def main(argv: list[str] | None = None) -> int:
     # la web lo dice donde se enseña. Ver `narrative/dossier.py`.
     payload["dossier"] = _dossier(paths, payload)
 
+    # --- survivor -----------------------------------------------------------
+    # Lo genera `scripts/survivor_build.py`. Es el único sitio del proyecto
+    # donde el modelo tiene ventaja real: no compite contra un mercado, compite
+    # contra el calendario.
+    payload["survivor"] = _load_optional(paths.out / "survivor.json")
+
     # --- textos generados ---------------------------------------------------
     if args.with_narrative:
         payload["narrative"] = _narrative(payload)
