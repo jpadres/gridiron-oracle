@@ -105,3 +105,32 @@ def test_accents_survive_the_round_trip(tmp_path):
     """El proyecto está en español: el payload no puede escapar los acentos."""
     write_payload(tmp_path, {"placeholder": False, "nota": "validación y calibración"})
     assert json.loads(_decode(tmp_path))["nota"] == "validación y calibración"
+
+
+def test_research_section_has_no_wall_clock(tmp_path):
+    """El payload diario no puede llevar la hora a la que se generó.
+
+    Con un `generated_at` de reloj, el fichero comprimido cambia todos los días
+    aunque el archivo de research sea idéntico — y entonces el «sin novedades
+    hoy, no publico» del workflow diario no se cumple nunca y se commitea ruido
+    a diario. Se detectó en el primer commit automático del workflow.
+    """
+    import sys
+    from datetime import date
+    from pathlib import Path as _Path
+
+    sys.path.insert(0, str(_Path(__file__).resolve().parents[1] / "src"))
+    from oracle.narrative import archive
+
+    item = {
+        "team": "KC", "players": [], "kind": "otro", "headline": "Titular",
+        "summary": "Resumen.", "impact": "neutro", "confidence": "rumor",
+        "fantasy_relevance": 1, "published": "2026-08-17", "beat": "x",
+        "sources": [{"outlet": "E", "title": "t", "url": "https://e.com/x"}],
+    }
+    archive.save_day(tmp_path, date(2026, 8, 17), [item])
+
+    first = archive.consolidate(tmp_path, days=5, today=date(2026, 8, 17))
+    second = archive.consolidate(tmp_path, days=5, today=date(2026, 8, 17))
+    assert first == second, "la ventana consolidada debe ser byte a byte igual entre ejecuciones"
+    assert "generated_at" not in first

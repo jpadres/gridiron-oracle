@@ -153,7 +153,11 @@ def _publish(root: Path, out: Path, today: date, window: int) -> None:
         print("No hay archivo de research todavía; no se escribe out/research.json.")
         return
 
-    payload["generated_at"] = datetime.now(timezone.utc).isoformat()
+    # SIN marca de tiempo a propósito. Un `generated_at` de reloj hace que el
+    # payload comprimido cambie cada día aunque el archivo sea idéntico, y
+    # entonces el «sin novedades hoy, no publico» del workflow no se cumple
+    # nunca: se commitea ruido a diario. La fecha que importa —cuándo se barrió
+    # por última vez— ya está en las fichas, y de ahí la saca la web.
     (out / "research.json").write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
     linked = sum(1 for item in payload["items"] if item["player_ids"])
     print(
