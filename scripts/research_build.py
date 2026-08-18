@@ -81,6 +81,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     memory = archive.known_headlines(paths.root, MEMORY_DAYS, today)
+    reporters = _reporters(paths.root)
     print(f"Barrido de {today} con {resolve_model(args.model)} — {len(todo)} beats, "
           f"{len(memory)} titulares en memoria.")
 
@@ -94,6 +95,7 @@ def main(argv: list[str] | None = None) -> int:
                 focus,
                 today=today.isoformat(),
                 known_headlines=memory,
+                reporters=reporters,
                 max_items=args.max_items,
                 max_searches=args.max_searches,
                 effort=args.effort,
@@ -127,6 +129,14 @@ def main(argv: list[str] | None = None) -> int:
 
     _publish(paths.root, paths.out, today, args.window)
     return 0
+
+
+def _reporters(root: Path) -> list[dict]:
+    """El directorio del beat, si está. Orienta la búsqueda a quien está allí."""
+    path = root / "research" / "dossier.json"
+    if not path.exists():
+        return []
+    return json.loads(path.read_text(encoding="utf-8")).get("reporters", [])
 
 
 def _publish(root: Path, out: Path, today: date, window: int) -> None:

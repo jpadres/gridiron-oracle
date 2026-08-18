@@ -148,7 +148,9 @@ export function Sources({ sources }) {
  * modelo o prensa reciente. El punto es un segundo canal, nunca el único: lleva
  * `title` y la sección de debajo repite el contenido en texto.
  */
-export function RankTable({ rows, columns, notes = {}, news = {}, tiers = false }) {
+export function RankTable({
+  rows, columns, notes = {}, news = {}, availability = {}, tiers = false,
+}) {
   if (!rows || rows.length === 0) {
     return <p className="caption">Sin datos todavía.</p>;
   }
@@ -171,6 +173,7 @@ export function RankTable({ rows, columns, notes = {}, news = {}, tiers = false 
             lastTier = row.tier;
             const hasNote = Boolean(notes[row.player_id]);
             const hasNews = Boolean(news[row.player_id]);
+            const health = availability[row.player_id];
             return (
               <Fragment key={row.player_id ?? index}>
                 {band !== null && band !== undefined ? (
@@ -193,6 +196,7 @@ export function RankTable({ rows, columns, notes = {}, news = {}, tiers = false 
                           !
                         </span>
                       ) : null}
+                      {health ? <AvailabilityTag entry={health} /> : null}
                     </span>
                     <span className="meta">
                       {row.position ? <PositionTag position={row.position} /> : null}
@@ -215,6 +219,28 @@ export function RankTable({ rows, columns, notes = {}, news = {}, tiers = false 
         </tbody>
       </table>
     </div>
+  );
+}
+
+/**
+ * Etiqueta de disponibilidad al lado del nombre.
+ *
+ * Es lo único de esta tabla que el modelo **no sabe**: la proyección sale del
+ * historial de partidos y cuenta con un jugador aunque esté descartado. Va
+ * pegada al nombre y no en una columna aparte justamente por eso — un dato que
+ * invalida la fila de al lado no puede estar a seis columnas de distancia.
+ *
+ * `title` lleva la situación, quién lo dijo y cuándo. La etiqueta mide
+ * DISPONIBILIDAD, no gravedad.
+ */
+function AvailabilityTag({ entry }) {
+  return (
+    <span
+      className={`avail avail--${entry.level.toLowerCase()}`}
+      title={`${entry.situation} — ${entry.status} (${entry.source}, ${entry.date})`}
+    >
+      {entry.level}
+    </span>
   );
 }
 

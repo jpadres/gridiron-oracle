@@ -1,0 +1,2926 @@
+{
+ "generated": "2026-08-17",
+ "source": "79f6e64e-Gridiron_Oracle_PPR.xlsx",
+ "medical": [
+  {
+   "team": "DEN",
+   "level": "FUERA",
+   "player": "Matt Henningsen",
+   "position": "DL",
+   "situation": "Rotura del tendon de Aquiles",
+   "status": "IR, temporada terminada",
+   "source": "Mile High Huddle",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "TEN",
+   "level": "FUERA",
+   "player": "Jaylen Harrell",
+   "position": "DE",
+   "situation": "Rotura de ACL",
+   "status": "IR, fuera por la temporada",
+   "source": "Pro Football Rumors / PFT",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "MIN",
+   "level": "FUERA",
+   "player": "Jamal Adams",
+   "position": "S/LB",
+   "situation": "Lesion sin contacto en la rodilla derecha vs Giants; salio en carrito",
+   "status": "Rotura del tendon del cuadriceps. Rapoport reporta que pierde toda la temporada 2026. O'Connell: \"las examenes iniciales no se ven bien\"",
+   "source": "Vikings.com / NFL Network (Rapoport)",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "NE",
+   "level": "FUERA",
+   "player": "Ben Brown",
+   "position": "OL",
+   "situation": "Lesionado en el juego de pretemporada; elegible para IR",
+   "status": "Vrabel: \"Ben's gonna be a few weeks. Four to six... eight, 10, 12\"",
+   "source": "NBC Sports Boston (Michael Hurley)",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "HOU",
+   "level": "FUERA",
+   "player": "Graham Mertz",
+   "position": "QB",
+   "situation": "Lesion de rodilla sin contacto en pretemporada",
+   "status": "DeMeco Ryans: \"looking at a knee injury, ACL\". Reporte posterior lo da fuera por la temporada",
+   "source": "Heavy.com (Josh Buckhalter)",
+   "date": "2026-08-14"
+  },
+  {
+   "team": "DET",
+   "level": "FUERA",
+   "player": "Kendrick Law",
+   "position": "WR",
+   "situation": "Rotura de ACL",
+   "status": "IR; pierde toda su temporada de novato",
+   "source": "Lions On SI",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "SEA",
+   "level": "FUERA",
+   "player": "Robbie Ouzts",
+   "position": "FB",
+   "situation": "IR; el equipo no divulgo la lesion",
+   "status": "Field Gulls reporta cuello y temporada completa; no confirmado por el equipo",
+   "source": "seahawks.com",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "PHI",
+   "level": "FUERA",
+   "player": "Elijah Mitchell",
+   "position": "RB",
+   "situation": "Lesion no especificada",
+   "status": "IR desde el 10/8",
+   "source": "PhillyVoice",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "WAS",
+   "level": "FUERA",
+   "player": "Laremy Tunsil",
+   "position": "LT",
+   "situation": "Rotura de triceps que requiere cirugia, en un drill 1-on-1",
+   "status": "Dan Quinn: fuera indefinidamente. Brandon Coleman asume el tackle izquierdo",
+   "source": "Fox / The Washington Post",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "SF",
+   "level": "FUERA",
+   "player": "Ricky Pearsall",
+   "position": "WR",
+   "situation": "Lesion de PCL arrastrada de 2025",
+   "status": "Cirugia que termina su temporada, segun John Lynch",
+   "source": "CBS Sports / 49ers.com",
+   "date": "2026-08-08"
+  },
+  {
+   "team": "CLE",
+   "level": "FUERA",
+   "player": "Jamari Thrash",
+   "position": "WR",
+   "situation": "Lesion de rodilla; waivers con designacion de lesionado",
+   "status": "Confirmado por transaccion",
+   "source": "Dawg Pound Daily",
+   "date": "2026-08-07"
+  },
+  {
+   "team": "DAL",
+   "level": "FUERA",
+   "player": "Princeton Fant",
+   "position": "TE",
+   "situation": "Rotura de ACL y desgarro parcial de MCL en practica",
+   "status": "Confirmado por Schottenheimer: fuera de la temporada",
+   "source": "dallascowboys.com",
+   "date": "2026-08-06"
+  },
+  {
+   "team": "ATL",
+   "level": "FUERA",
+   "player": "Jalon Walker",
+   "position": "OLB",
+   "situation": "Rotura de ACL en practica",
+   "status": "Confirmado por el equipo: fuera toda la temporada",
+   "source": "atlantafalcons.com (Will McFadden)",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "NO",
+   "level": "FUERA",
+   "player": "Bryan Bresee",
+   "position": "DT",
+   "situation": "Desgarro de ACL en campamento",
+   "status": "Cirugia que termina su temporada",
+   "source": "ESPN",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "CAR",
+   "level": "FUERA",
+   "player": "Ikem Ekwonu",
+   "position": "LT",
+   "situation": "PUP; el rastreador reporta tendon rotuliano desgarrado",
+   "status": "PUP confirmado; el pronostico de \"fuera toda la temporada\" es del reportero, no del equipo",
+   "source": "SI / Panthers On SI",
+   "date": "2026-07-29"
+  },
+  {
+   "team": "CAR",
+   "level": "FUERA",
+   "player": "Chris Brazzell II",
+   "position": "WR",
+   "situation": "Desgarro moderado del LCL izquierdo con cirugia",
+   "status": "Termina su temporada; el diagnostico lo reporto The Athletic, no el equipo",
+   "source": "Panthers.com / The Athletic",
+   "date": "2026-07-29"
+  },
+  {
+   "team": "CAR",
+   "level": "FUERA",
+   "player": "Nic Scourton",
+   "position": "Edge",
+   "situation": "Rotura de ACL derecha",
+   "status": "IR; fuera toda la temporada",
+   "source": "CBS Sports / Panthers On SI, via Dave Canales",
+   "date": "2026-07-23"
+  },
+  {
+   "team": "NE",
+   "level": "FUERA",
+   "player": "Julian Hill",
+   "position": "TE",
+   "situation": "Colocado en IR al inicio del campamento",
+   "status": "Confirmado por transaccion",
+   "source": "SI NFL Injury Tracker",
+   "date": "2026-07-23"
+  },
+  {
+   "team": "ATL",
+   "level": "DUDA",
+   "player": "Michael Penix Jr.",
+   "position": "QB",
+   "situation": "Protocolo de retorno tras cirugia de ACL de nov 2025",
+   "status": "Al 17/8 hace individuales, 1-on-1 y 7-on-7, NO 11-on-11. El primer depth chart lo omitio como \"injured player\"",
+   "source": "atlantafalcons.com (Tori McElhaney) / PFT",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "BAL",
+   "level": "DUDA",
+   "player": "Teddye Buchanan",
+   "position": "ILB",
+   "situation": "Activado de PUP ocho meses despues de rotura de ACL",
+   "status": "Confirmado por transaccion",
+   "source": "baltimoreravens.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "DEN",
+   "level": "DUDA",
+   "player": "Marvin Mims Jr.",
+   "position": "WR",
+   "situation": "Molestia en la parte interna de la pierna izquierda",
+   "status": "Seguia en el campo lateral el 17/8",
+   "source": "Mile High Huddle",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "IND",
+   "level": "DUDA",
+   "player": "Alec Pierce",
+   "position": "WR",
+   "situation": "Cirugia de tobillo en marzo; sigue en PUP",
+   "status": "No vuelve para las conjuntas con Atlanta. Ballard anticipa Semana 1",
+   "source": "IndyStar (Nathan Brown / Joel A. Erickson)",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "IND",
+   "level": "DUDA",
+   "player": "DJ Giddens",
+   "position": "RB",
+   "situation": "Isquiotibial; volvio al walk-through",
+   "status": "En regreso",
+   "source": "IndyStar",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "IND",
+   "level": "DUDA",
+   "player": "Charvarius Ward",
+   "position": "CB",
+   "situation": "Dolor de espalda",
+   "status": "Fuera de practica; no viajo a la conjunta con NE",
+   "source": "IndyStar",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "JAX",
+   "level": "DUDA",
+   "player": "Jack Kiser",
+   "position": "LB",
+   "situation": "Rodilla desde el dia 1",
+   "status": "Semana a semana; sin volver al 17/8",
+   "source": "jaguars.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "LA",
+   "level": "DUDA",
+   "player": "Puka Nacua",
+   "position": "WR",
+   "situation": "Dolor en el psoas / molestia leve en la ingle",
+   "status": "McVay: dia a dia; probablemente pierda la siguiente semana de practica",
+   "source": "AP via FOX Sports / Rams On SI",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "NYG",
+   "level": "DUDA",
+   "player": "Malik Nabers",
+   "position": "WR",
+   "situation": "Regreso de rotura de ACL y menisco (sem 4 de 2025, cirugia 28/9)",
+   "status": "El 17/8 hizo 7-on-7 y algo de 11-on-11 con jersey de no contacto. Harbaugh NO comprometio la Semana 1: \"estoy rezando por ello, pero ya veremos\"",
+   "source": "AP / Big Blue Interactive",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "NYG",
+   "level": "DUDA",
+   "player": "Jalin Hyatt",
+   "position": "WR",
+   "situation": "Pierna/tobillo; descartado del juego del 13/8",
+   "status": "No practico el 17/8",
+   "source": "Big Blue Interactive",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "NYG",
+   "level": "DUDA",
+   "player": "JuJu Smith-Schuster",
+   "position": "WR",
+   "situation": "Rodilla; manejo de carga por edad/desgaste",
+   "status": "No practico el 17/8",
+   "source": "Big Blue Interactive",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "NYJ",
+   "level": "DUDA",
+   "player": "Breece Hall",
+   "position": "RB",
+   "situation": "Salio temprano de la practica del 17/8, lesion sin contacto reportada como ingle",
+   "status": "Aaron Glenn: \"no creo que sea gran cosa, pero quiero la evaluacion\"",
+   "source": "newyorkjets.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "NYJ",
+   "level": "DUDA",
+   "player": "Garrett Wilson",
+   "position": "WR",
+   "situation": "No practico por enfermedad",
+   "status": "Confirmado en el reporte oficial",
+   "source": "newyorkjets.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "NYJ",
+   "level": "DUDA",
+   "player": "Qwan'tez Stiggers",
+   "position": "CB",
+   "situation": "Protocolo de conmocion",
+   "status": "Confirmado en el reporte oficial",
+   "source": "newyorkjets.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "NYJ",
+   "level": "DUDA",
+   "player": "T'Vondre Sweat",
+   "position": "DT",
+   "situation": "Abrio en NFI; activado el 16/8 con snaps limitados",
+   "status": "Glenn: \"no queria salir del campo\"",
+   "source": "newyorkjets.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "PHI",
+   "level": "DUDA",
+   "player": "DeVonta Smith",
+   "position": "WR",
+   "situation": "Distension de isquiotibiales desde el 4/8",
+   "status": "Participacion limitada el 17/8 (solo individuales)",
+   "source": "The Philadelphia Inquirer (Jeff McLane)",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "PHI",
+   "level": "DUDA",
+   "player": "Tank Bigsby",
+   "position": "RB",
+   "situation": "Dedo del pie, salido del juego vs Baltimore",
+   "status": "No practico el 17/8",
+   "source": "The Philadelphia Inquirer",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "PHI",
+   "level": "DUDA",
+   "player": "Dameon Pierce",
+   "position": "RB",
+   "situation": "Isquiotibiales desde el 10/8",
+   "status": "Sigue sin practicar",
+   "source": "The Philadelphia Inquirer / PhillyVoice",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "PHI",
+   "level": "DUDA",
+   "player": "Grant Calcaterra",
+   "position": "TE",
+   "situation": "Espalda, salido del juego vs Baltimore",
+   "status": "No practico el 17/8",
+   "source": "The Philadelphia Inquirer",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "SEA",
+   "level": "DUDA",
+   "player": "Jadarian Price",
+   "position": "RB",
+   "situation": "Dolor en tren inferior; se perdio el primer juego de pretemporada",
+   "status": "Volvio a practicar el 17/8",
+   "source": "seahawks.com (John Boyle)",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "SEA",
+   "level": "DUDA",
+   "player": "Nick Emmanwori",
+   "position": "S",
+   "situation": "PUP por cirugia de tobillo que arrastra desde el Super Bowl",
+   "status": "Paso el fisico el 11/8 pero seguia apartado el 17/8, sin fecha",
+   "source": "seahawks.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "TB",
+   "level": "DUDA",
+   "player": "Tristan Wirfs",
+   "position": "LT",
+   "situation": "Isquiotibial en la prueba de acondicionamiento del dia 1",
+   "status": "Regreso a practicar el 17/8. Bowles: \"es hora de subirle la carga\"",
+   "source": "buccaneers.com (Scott Smith)",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "TB",
+   "level": "DUDA",
+   "player": "Emeka Egbuka",
+   "position": "WR",
+   "situation": "Salio cojeando de la conjunta con los Jets; esguince de dedo del pie segun PewterReport",
+   "status": "Dia a dia al 17/8; Bowles no aseguro su disponibilidad para el inicio de temporada",
+   "source": "PewterReport (Matt Matera) / buccaneers.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "TB",
+   "level": "DUDA",
+   "player": "Jalen McMillan",
+   "position": "WR",
+   "situation": "Rodilla",
+   "status": "Participacion limitada, dia a dia",
+   "source": "buccaneers.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "ARI",
+   "level": "DUDA",
+   "player": "Jeremiyah Love",
+   "position": "RB",
+   "situation": "Esguince de tobillo alto tras su debut de pretemporada; novato de 1a ronda",
+   "status": "LaFleur: fuera esta semana. El diagnostico de esguince alto lo reporto ESPN",
+   "source": "azcardinals.com (Zach Gershman)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "ARI",
+   "level": "DUDA",
+   "player": "Carson Beck",
+   "position": "QB",
+   "situation": "Costillas adoloridas tras una captura",
+   "status": "Dia a dia; no esta lanzando en practica",
+   "source": "azcardinals.com",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "CHI",
+   "level": "DUDA",
+   "player": "Zavion Thomas",
+   "position": "WR",
+   "situation": "Lesion no especificada",
+   "status": "No practico el 16/8",
+   "source": "Shaw Local",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "HOU",
+   "level": "DUDA",
+   "player": "Jaylin Noel",
+   "position": "WR",
+   "situation": "Dedo menique e isquiotibial",
+   "status": "Fuera de la practica del 15/8",
+   "source": "Heavy.com",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "NE",
+   "level": "DUDA",
+   "player": "Christian Gonzalez",
+   "position": "CB",
+   "situation": "Lesionado en practica; reportes hablan de isquiotibial, el equipo no detalla",
+   "status": "Vrabel el 16/8: \"no esta listo para volver\". En paralelo negocia extension",
+   "source": "The Boston Globe (Nicole Yang)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "PIT",
+   "level": "DUDA",
+   "player": "Joey Porter Jr.",
+   "position": "CB",
+   "situation": "PUP activa desde el inicio; no ha practicado",
+   "status": "Observado corriendo a casi velocidad completa aparte",
+   "source": "Steelers Depot (Joe Clark / Alex Kozora)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "PIT",
+   "level": "DUDA",
+   "player": "Jalen Ramsey",
+   "position": "S/DB",
+   "situation": "PUP activa, rodilla reportada desde el minicamp",
+   "status": "Trabajo aparte; mas rehabilitacion que Porter",
+   "source": "Steelers Depot",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "WAS",
+   "level": "DUDA",
+   "player": "Marcus Mariota",
+   "position": "QB",
+   "situation": "Esguince de MCL derecho en pretemporada; solo jugo cuatro snaps",
+   "status": "Fuera el resto de la pretemporada. Diagnostico confirmado por Schefter. Semana 1 sin definir",
+   "source": "Commanders On SI / Schefter (ESPN)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "WAS",
+   "level": "DUDA",
+   "player": "John Bates",
+   "position": "TE",
+   "situation": "Isquiotibiales desde el 1/8",
+   "status": "Quinn reporto \"good progress\"",
+   "source": "Yahoo Sports",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "ARI",
+   "level": "DUDA",
+   "player": "James Conner",
+   "position": "RB",
+   "situation": "No ha tomado un solo rep de 11-on-11 desde el inicio del campamento",
+   "status": "LaFleur: \"no es return to play, es return to performance\"",
+   "source": "azcardinals.com (Darren Urban)",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "ARI",
+   "level": "DUDA",
+   "player": "Trey Benson",
+   "position": "RB",
+   "situation": "Flare-up en la rodilla operada",
+   "status": "LaFleur: \"es una lastima porque se sentia muy bien\". Seguia apartado el 15/8",
+   "source": "azcardinals.com",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "CIN",
+   "level": "DUDA",
+   "player": "B.J. Hill",
+   "position": "DT",
+   "situation": "Procedimiento de pie; en PUP desde el 25/7, activado",
+   "status": "Confirmado por transaccion",
+   "source": "SI OnSI All Bengals",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "NYG",
+   "level": "DUDA",
+   "player": "Jaxson Dart",
+   "position": "QB",
+   "situation": "Evaluacion por conmocion",
+   "status": "Confirmado por Harbaugh: dado de alta",
+   "source": "giants.com",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "BUF",
+   "level": "DUDA",
+   "player": "Tyrell Shavers",
+   "position": "WR",
+   "situation": "Rotura de ACL en playoffs; abrio el campamento en PUP activa",
+   "status": "Confirmado por el equipo; seguia en PUP el 14/8",
+   "source": "SI OnSI Bills Central (Randy Gurzi)",
+   "date": "2026-08-14"
+  },
+  {
+   "team": "BUF",
+   "level": "DUDA",
+   "player": "Ty Johnson",
+   "position": "RB",
+   "situation": "Molestia de tren inferior; no practico",
+   "status": "Observacion de reportero",
+   "source": "SI OnSI Bills Central",
+   "date": "2026-08-14"
+  },
+  {
+   "team": "BUF",
+   "level": "DUDA",
+   "player": "Maxwell Hairston",
+   "position": "CB",
+   "situation": "Molestia de tren inferior; no practico",
+   "status": "Observacion de reportero",
+   "source": "SI OnSI Bills Central",
+   "date": "2026-08-14"
+  },
+  {
+   "team": "NO",
+   "level": "DUDA",
+   "player": "Jordyn Tyson",
+   "position": "WR",
+   "situation": "Isquiotibial en la conjunta con Jaguars; seleccion global No. 8 de 2026",
+   "status": "Moore: \"no vamos a saltar a conclusiones\". Podria alargarse a la temporada regular; el plazo de dos meses es de prensa",
+   "source": "NBC Sports PFT / ESPN",
+   "date": "2026-08-14"
+  },
+  {
+   "team": "CAR",
+   "level": "DUDA",
+   "player": "Chuba Hubbard",
+   "position": "RB",
+   "situation": "Distension de isquiotibial",
+   "status": "Semana a semana; se perdio el primer juego de pretemporada",
+   "source": "CBS Sports tracker",
+   "date": "2026-08-13"
+  },
+  {
+   "team": "ATL",
+   "level": "DUDA",
+   "player": "Bralen Trice",
+   "position": "Edge",
+   "situation": "Re-desgarro del ACL izquierdo",
+   "status": "En rehabilitacion; no practico el 17/8",
+   "source": "ClutchPoints citando a Kevin Stefanski",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "CAR",
+   "level": "DUDA",
+   "player": "Jonathon Brooks",
+   "position": "RB",
+   "situation": "Primer partido desde 2024 tras dos ACL",
+   "status": "Canales confirmo que alterna con Hubbard en el primer grupo",
+   "source": "Panthers.com (Kassidy Hill / Darin Gantt)",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "DET",
+   "level": "DUDA",
+   "player": "Isiah Pacheco",
+   "position": "RB",
+   "situation": "Esguince de MCL",
+   "status": "Probable baja de pretemporada, con expectativa de volver para la temporada",
+   "source": "Lions On SI",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "BAL",
+   "level": "DUDA",
+   "player": "Zay Flowers",
+   "position": "WR",
+   "situation": "Contusion de cuadriceps tras choque en 7-on-7; perdio una practica",
+   "status": "Jesse Minter: \"volvera a ser Zay pronto\"",
+   "source": "SI OnSI Raven Country (Josh Reed)",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "BAL",
+   "level": "DUDA",
+   "player": "Travis Jones",
+   "position": "NT",
+   "situation": "Lesion pectoral; abrio en PUP, ya de vuelta",
+   "status": "Confirmado por transaccion",
+   "source": "SI OnSI Raven Country",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "CIN",
+   "level": "DUDA",
+   "player": "Dax Hill",
+   "position": "CB",
+   "situation": "Molestia de tejido blando (isquiotibial); limitado",
+   "status": "Taylor lo descarto del opener de pretemporada",
+   "source": "SI OnSI All Bengals",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "CIN",
+   "level": "DUDA",
+   "player": "Joe Burrow / Ja'Marr Chase / Tee Higgins",
+   "position": "QB/WR",
+   "situation": "Plan de carga: series limitadas en pretemporada",
+   "status": "Taylor: \"limited series\". No es lesion",
+   "source": "SI OnSI All Bengals",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "GB",
+   "level": "DUDA",
+   "player": "Micah Parsons",
+   "position": "Edge",
+   "situation": "Rotura de ACL el 14/12/2025; cirugia el 29/12 con procedimiento de menisco",
+   "status": "Sigue en PUP. Gutekunst: sacarlo durante el campamento \"seria improbable\". Parsons dijo que la semana 6 \"es muy realista\" — eso es del jugador, no del equipo",
+   "source": "Lombardi Ave / Packers On SI (Bill Huber)",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "GB",
+   "level": "DUDA",
+   "player": "Josh Jacobs",
+   "position": "RB",
+   "situation": "Ingle",
+   "status": "Sigue fuera de las practicas al 11/8",
+   "source": "Packers On SI",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "GB",
+   "level": "DUDA",
+   "player": "Luke Musgrave",
+   "position": "TE",
+   "situation": "Cuello",
+   "status": "En PUP al 11/8",
+   "source": "Packers On SI",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "SF",
+   "level": "DUDA",
+   "player": "Christian McCaffrey",
+   "position": "RB",
+   "situation": "Tension muscular no especificada; perdio dos practicas",
+   "status": "Shanahan: no esta preocupado, lo espera para Semana 1",
+   "source": "49ers Webzone / NBC Sports Bay Area",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "SF",
+   "level": "DUDA",
+   "player": "George Kittle",
+   "position": "TE",
+   "situation": "PUP, rehabilitacion de Aquiles",
+   "status": "Al 11/8 se le describia como cerca de volver",
+   "source": "SI NFL Injury Tracker / NBC Sports Bay Area",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "SF",
+   "level": "DUDA",
+   "player": "Nick Bosa",
+   "position": "DE",
+   "situation": "Dolor y tendinitis en la rodilla operada",
+   "status": "Shanahan: \"es bastante normal con los ACL\". Listo para Semana 1",
+   "source": "49ers Webzone",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "HOU",
+   "level": "DUDA",
+   "player": "Tank Dell",
+   "position": "WR",
+   "situation": "Regreso de la lesion multiple de rodilla de dic 2024",
+   "status": "El 10/8 trabajo con hombreras; volvio a faltar el 15-16/8. Semana 1 incierta",
+   "source": "SI OnSI Texans Daily (Jared Koch)",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "NO",
+   "level": "DUDA",
+   "player": "Cameron Jordan",
+   "position": "DE",
+   "situation": "Distension de isquiotibial",
+   "status": "Moore: los medicos aun recaban informacion sobre la severidad",
+   "source": "WWL/Audacy (Jeff Nowak)",
+   "date": "2026-08-09"
+  },
+  {
+   "team": "NO",
+   "level": "DUDA",
+   "player": "Kendre Miller",
+   "position": "RB",
+   "situation": "Espalda",
+   "status": "No practico el 9/8",
+   "source": "WWL/Audacy",
+   "date": "2026-08-09"
+  },
+  {
+   "team": "NO",
+   "level": "DUDA",
+   "player": "Devin Neal",
+   "position": "RB",
+   "situation": "Isquiotibial",
+   "status": "Trabajando con entrenadores, cerca de volver",
+   "source": "WWL/Audacy",
+   "date": "2026-08-09"
+  },
+  {
+   "team": "SF",
+   "level": "DUDA",
+   "player": "Jordan James",
+   "position": "RB",
+   "situation": "Fractura de costilla",
+   "status": "Perdera tiempo, sin calendario",
+   "source": "CBS Sports / 49ers.com",
+   "date": "2026-08-08"
+  },
+  {
+   "team": "SF",
+   "level": "DUDA",
+   "player": "Christian Kirk",
+   "position": "WR",
+   "situation": "Pantorrilla",
+   "status": "Sin practicar en el dia 9",
+   "source": "49ers.com",
+   "date": "2026-08-08"
+  },
+  {
+   "team": "BUF",
+   "level": "DUDA",
+   "player": "Tyler Bass",
+   "position": "K",
+   "situation": "Primera vez pateando desde 2025 tras cirugia de hernia deportiva",
+   "status": "Regreso confirmado en practica",
+   "source": "SI OnSI Bills Central",
+   "date": "2026-08-06"
+  },
+  {
+   "team": "DAL",
+   "level": "DUDA",
+   "player": "Jalen Thompson",
+   "position": "S",
+   "situation": "Cadera / flexor; en grupo de rehabilitacion",
+   "status": "Carga limitada, sin fecha",
+   "source": "dallascowboys.com",
+   "date": "2026-08-06"
+  },
+  {
+   "team": "CLE",
+   "level": "DUDA",
+   "player": "Maliek Collins",
+   "position": "DT",
+   "situation": "PUP activa en el dia 7; vuelve de cuadriceps",
+   "status": "Confirmado por transaccion",
+   "source": "Dawg Pound Daily",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "PHI",
+   "level": "DUDA",
+   "player": "Jonathan Greenard",
+   "position": "Edge",
+   "situation": "Lesion pectoral en una sesion de pesas antes del campamento",
+   "status": "PUP. Fangio: \"se va a perder buena parte del campamento\"; sobre Semana 1, \"remains to be seen\". Roseman lo llamo \"not long-term\" — versiones distintas",
+   "source": "NBC Sports Philadelphia (Reuben Frank)",
+   "date": "2026-07-30"
+  },
+  {
+   "team": "DET",
+   "level": "DUDA",
+   "player": "Brian Branch",
+   "position": "S",
+   "situation": "Rotura del tendon de Aquiles de dic 2025",
+   "status": "PUP. Campbell espera verlo al final del campamento o inicios de septiembre",
+   "source": "detroitlions.com",
+   "date": "2026-07-29"
+  },
+  {
+   "team": "DET",
+   "level": "DUDA",
+   "player": "Kerby Joseph",
+   "position": "S",
+   "situation": "Rodilla; se perdio 11 juegos en 2025",
+   "status": "PUP. Campbell: \"si lo tenemos para el primer juego seria un bonus\"",
+   "source": "detroitlions.com",
+   "date": "2026-07-29"
+  },
+  {
+   "team": "TB",
+   "level": "DUDA",
+   "player": "Vita Vea",
+   "position": "DL",
+   "situation": "Molestia en la espalda",
+   "status": "Bowles: dia a dia",
+   "source": "buccaneers.com",
+   "date": "2026-07-29"
+  },
+  {
+   "team": "SEA",
+   "level": "DUDA",
+   "player": "Zach Charbonnet",
+   "position": "RB",
+   "situation": "PUP, rehabilitando rotura de ACL de finales de 2025",
+   "status": "Macdonald: \"ha hecho un trabajo fenomenal\". Sin fecha de retorno",
+   "source": "seahawks.com",
+   "date": "2026-07-25"
+  },
+  {
+   "team": "SEA",
+   "level": "DUDA",
+   "player": "Kenny McIntosh",
+   "position": "RB",
+   "situation": "PUP tras rotura de ACL en el campamento del ano anterior",
+   "status": "Sin calendario",
+   "source": "seahawks.com",
+   "date": "2026-07-25"
+  },
+  {
+   "team": "ARI",
+   "level": "DUDA",
+   "player": "Tip Reiman",
+   "position": "TE",
+   "situation": "PUP por el tobillo",
+   "status": "Confirmado por el equipo",
+   "source": "azcardinals.com",
+   "date": "2026-07-23"
+  },
+  {
+   "team": "MIA",
+   "level": "DUDA",
+   "player": "Chris Bell",
+   "position": "WR",
+   "situation": "Lesion de ACL; abrio en NFI",
+   "status": "Confirmado por transaccion",
+   "source": "SI NFL Injury Tracker",
+   "date": "2026-07-23"
+  },
+  {
+   "team": "NE",
+   "level": "DUDA",
+   "player": "Harold Landry III",
+   "position": "Edge",
+   "situation": "Abrio en PUP activa",
+   "status": "Confirmado por transaccion",
+   "source": "SI NFL Injury Tracker",
+   "date": "2026-07-23"
+  },
+  {
+   "team": "NE",
+   "level": "DUDA",
+   "player": "Terrell Jennings",
+   "position": "RB",
+   "situation": "Abrio en NFI",
+   "status": "Confirmado por transaccion",
+   "source": "SI NFL Injury Tracker",
+   "date": "2026-07-23"
+  },
+  {
+   "team": "CLE",
+   "level": "DUDA",
+   "player": "Jeremiah Owusu-Koramoah",
+   "position": "LB",
+   "situation": "Lesion grave de cuello de 2024; Reserva/PUP",
+   "status": "Fuera en 2026, segunda temporada seguida. Berry no esperaba que volviera a jugar",
+   "source": "BrownsZone (Scott Petrak)",
+   "date": "2026-05-08"
+  },
+  {
+   "team": "NO",
+   "level": "SEGUIR",
+   "player": "Travis Etienne",
+   "position": "RB",
+   "situation": "Se lleva la mayoria de reps de early down; Kamara a terceros downs",
+   "status": "Reparto de roles explicito",
+   "source": "NFL.com (Kevin Patra)",
+   "date": "2026-08"
+  },
+  {
+   "team": "ATL",
+   "level": "SEGUIR",
+   "player": "Jessie Bates III",
+   "position": "S",
+   "situation": "No participo el 5/8; el 17/8 solo individuales y participacion minima",
+   "status": "Observacion de reporteros, sin diagnostico del equipo",
+   "source": "atlantafalcons.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "BAL",
+   "level": "SEGUIR",
+   "player": "Rasheen Ali",
+   "position": "RB",
+   "situation": "Molestias no especificadas",
+   "status": "Minter: no deberia perder mucho tiempo",
+   "source": "baltimoreravens.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "BAL",
+   "level": "SEGUIR",
+   "player": "Nate Wiggins",
+   "position": "CB",
+   "situation": "Lesion en la parte baja de la pierna; regreso al 11-on-11",
+   "status": "Confirmado en el reporte oficial",
+   "source": "baltimoreravens.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "BAL",
+   "level": "SEGUIR",
+   "player": "Marlon Humphrey",
+   "position": "CB",
+   "situation": "Regreso a practicar tras lesion no especificada",
+   "status": "Confirmado en el reporte oficial",
+   "source": "baltimoreravens.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "DEN",
+   "level": "SEGUIR",
+   "player": "Jaylen Waddle",
+   "position": "WR",
+   "situation": "Tension muscular en la pierna",
+   "status": "Payton lo esperaba en 4-5 dias; regreso a practicar el 17/8",
+   "source": "Mile High Huddle (Chad Jensen)",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "DEN",
+   "level": "SEGUIR",
+   "player": "J.K. Dobbins",
+   "position": "RB",
+   "situation": "Lesion de tejido blando",
+   "status": "Payton: \"va a estar bien, estamos siendo inteligentes\". Regreso el 17/8",
+   "source": "Mile High Huddle",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "IND",
+   "level": "SEGUIR",
+   "player": "Anthony Gould",
+   "position": "WR",
+   "situation": "Ingle",
+   "status": "Perdio las ultimas dos practicas",
+   "source": "IndyStar",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "JAX",
+   "level": "SEGUIR",
+   "player": "Travis Hunter",
+   "position": "WR/CB",
+   "situation": "Volvio al campo; el 17/8 tomo el 100% de sus reps de 11-on-11 solo en defensa",
+   "status": "Practicando. Hunter: \"necesitaba quitarme el oxido\"",
+   "source": "Jaguar Report (John Shipley)",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "JAX",
+   "level": "SEGUIR",
+   "player": "Patrick Mekari",
+   "position": "OL",
+   "situation": "Arrastra lesiones de 2025; sin reps de equipo",
+   "status": "Coen: \"estamos siendo inteligentes\"",
+   "source": "Jaguar Report",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "KC",
+   "level": "SEGUIR",
+   "player": "Trey Smith",
+   "position": "G",
+   "situation": "Cadera; trabajando aparte",
+   "status": "Reid: \"se esta acercando\". No se vistio en pretemporada",
+   "source": "Arrowhead Pride",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "KC",
+   "level": "SEGUIR",
+   "player": "Drue Tranquill",
+   "position": "LB",
+   "situation": "Espasmos en la espalda baja",
+   "status": "Carga reducida; sin participar el 17/8",
+   "source": "Arrowhead Pride",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "KC",
+   "level": "SEGUIR",
+   "player": "L'Jarius Sneed",
+   "position": "CB",
+   "situation": "Rodilla",
+   "status": "No se vistio en pretemporada ni participo el 17/8",
+   "source": "Arrowhead Pride",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "LA",
+   "level": "SEGUIR",
+   "player": "Myles Garrett",
+   "position": "Edge",
+   "situation": "Inflamacion intermitente en la rodilla",
+   "status": "McVay: \"erramos del lado de la precaucion\". Vuelta esperada la semana siguiente",
+   "source": "AP via FOX Sports",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "NYJ",
+   "level": "SEGUIR",
+   "player": "Isaiah Davis",
+   "position": "RB",
+   "situation": "Lesion de rodilla; fuera. Relevante si Hall pierde tiempo",
+   "status": "Confirmado en el reporte oficial",
+   "source": "newyorkjets.com",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "TEN",
+   "level": "SEGUIR",
+   "player": "Tony Pollard",
+   "position": "RB",
+   "situation": "Pie adolorido",
+   "status": "Saleh esperaba su regreso el lunes",
+   "source": "A to Z Sports Nashville",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "TEN",
+   "level": "SEGUIR",
+   "player": "Nick Singleton",
+   "position": "RB",
+   "situation": "Molestias y golpes menores",
+   "status": "Segunda practica seguida sin participar",
+   "source": "A to Z Sports Nashville",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "TEN",
+   "level": "SEGUIR",
+   "player": "Kalel Mullings",
+   "position": "RB",
+   "situation": "Cadera; ausente desde el scrimmage del 7/8",
+   "status": "Sin participar",
+   "source": "A to Z Sports Nashville / CBS Sports",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "TEN",
+   "level": "SEGUIR",
+   "player": "Carnell Tate",
+   "position": "WR",
+   "situation": "Evaluado por mareo tras un golpe fuerte",
+   "status": "Saleh: \"no estoy preocupado por el\"",
+   "source": "A to Z Sports Nashville",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "TEN",
+   "level": "SEGUIR",
+   "player": "Mitch Trubisky",
+   "position": "QB",
+   "situation": "Lesion de biceps; no termino la practica",
+   "status": "En evaluacion, segun Saleh",
+   "source": "A to Z Sports Nashville",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "CHI",
+   "level": "SEGUIR",
+   "player": "Kyle Monangai",
+   "position": "RB",
+   "situation": "Aparente lesion de rodilla; abandono la practica del 16/8",
+   "status": "Sin diagnostico oficial. Joe Thuney: \"ojala no sea nada muy significativo\"",
+   "source": "Shaw Local (Michal Dwojak)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "CHI",
+   "level": "SEGUIR",
+   "player": "Braxton Jones",
+   "position": "LT",
+   "situation": "Lesion de rodilla",
+   "status": "Regreso a practicar el 16/8",
+   "source": "Shaw Local",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "HOU",
+   "level": "SEGUIR",
+   "player": "Jawhar Jordan",
+   "position": "RB",
+   "situation": "Flexor de cadera distendido",
+   "status": "Fuera de la practica del 15/8",
+   "source": "Heavy.com",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "HOU",
+   "level": "SEGUIR",
+   "player": "Brevin Jordan",
+   "position": "TE",
+   "situation": "Rodilla",
+   "status": "Fuera de la practica del 15/8",
+   "source": "Heavy.com",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "WAS",
+   "level": "SEGUIR",
+   "player": "Jeremy McNichols",
+   "position": "RB",
+   "situation": "Cuadriceps",
+   "status": "Quinn: fuera \"a few weeks\"",
+   "source": "Yahoo Sports",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "WAS",
+   "level": "SEGUIR",
+   "player": "Jayden Daniels",
+   "position": "QB",
+   "situation": "Sin lesion reportada",
+   "status": "Fue uno de los 26 descansados en pretemporada",
+   "source": "Commanders On SI",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "DET",
+   "level": "SEGUIR",
+   "player": "Sione Vaki",
+   "position": "RB",
+   "situation": "Ojo golpeado y nariz rota",
+   "status": "Regreso a practicar; podria usar visor",
+   "source": "Lions On SI",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "NYG",
+   "level": "SEGUIR",
+   "player": "Cam Skattebo",
+   "position": "RB",
+   "situation": "Regreso de la grave lesion de tobillo de oct 2025",
+   "status": "Segun Harbaugh, dado de alta y jugando",
+   "source": "giants.com",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "PIT",
+   "level": "SEGUIR",
+   "player": "DK Metcalf",
+   "position": "WR",
+   "situation": "Lesion no revelada del sabado; ya venia golpeado",
+   "status": "McCarthy: \"hard-pressed to work this week\"",
+   "source": "SI OnSI All Steelers (Jack Markowski)",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "PIT",
+   "level": "SEGUIR",
+   "player": "Michael Pittman Jr.",
+   "position": "WR",
+   "situation": "Lesion de tren inferior en la practica del 8/8",
+   "status": "McCarthy: \"hard-pressed to work this week\". Sin sus dos WR, no uso a Rodgers en pretemporada",
+   "source": "SI OnSI All Steelers",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "LA",
+   "level": "SEGUIR",
+   "player": "Matthew Stafford",
+   "position": "QB",
+   "situation": "Sin lesion; practica en dias alternos en su ano 18",
+   "status": "Manejo de carga confirmado por McVay",
+   "source": "Rams On SI",
+   "date": "2026-08-14"
+  },
+  {
+   "team": "CLE",
+   "level": "SEGUIR",
+   "player": "Cedric Tillman",
+   "position": "WR",
+   "situation": "Nueva ausencia tras haber sido participante completo",
+   "status": "Observacion de reportero",
+   "source": "Dawg Pound Daily citando a Daniel Oyefusi (ESPN)",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "CLE",
+   "level": "SEGUIR",
+   "player": "Elgton Jenkins",
+   "position": "C",
+   "situation": "Nueva ausencia en el dia 13",
+   "status": "Observacion de reportero",
+   "source": "Dawg Pound Daily citando a Oyefusi",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "LAC",
+   "level": "SEGUIR",
+   "player": "Rashawn Slater",
+   "position": "OT",
+   "situation": "Molestia en la rodilla operada (tendon rotuliano 2025)",
+   "status": "Cuatro practicas seguidas fuera. Slater: \"nada realmente preocupante\"",
+   "source": "Charger Report (Thomas Martinez)",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "LAC",
+   "level": "SEGUIR",
+   "player": "Quentin Johnston",
+   "position": "WR",
+   "situation": "Contratiempo menor no especificado",
+   "status": "Fuera de la practica del 12/8, segun Harbaugh",
+   "source": "Charger Report",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "LAC",
+   "level": "SEGUIR",
+   "player": "Tuli Tuipulotu",
+   "position": "Edge",
+   "situation": "Molestia no especificada mientras hace ramp-up",
+   "status": "Harbaugh: \"working through\"",
+   "source": "Charger Report (Chris Roling)",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "MIA",
+   "level": "SEGUIR",
+   "player": "Zach Sieler",
+   "position": "DT",
+   "situation": "Lesion no revelada; fuera de la practica conjunta",
+   "status": "Jeff Hafley: \"week to week\"",
+   "source": "Heavy Sports (Debayan Biswas)",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "CAR",
+   "level": "SEGUIR",
+   "player": "Xavier Legette",
+   "position": "WR",
+   "situation": "Versiones en conflicto: stinger y regreso a practica vs jugador retirado en carrito el 11/8",
+   "status": "Parcialmente confirmado; severidad no clara",
+   "source": "Panthers On SI / WCNC",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "GB",
+   "level": "SEGUIR",
+   "player": "Jayden Reed",
+   "position": "WR",
+   "situation": "Tobillo",
+   "status": "Regreso a 11-on-11 el 11/8",
+   "source": "Packers On SI",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "GB",
+   "level": "SEGUIR",
+   "player": "Matthew Golden",
+   "position": "WR",
+   "situation": "Dedo del pie, lesionado en la practica 9",
+   "status": "Regreso a individuales el 11/8",
+   "source": "Packers On SI",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "DEN",
+   "level": "SEGUIR",
+   "player": "Contexto de equipo",
+   "position": "",
+   "situation": "Payton se mostro frustrado por la cantidad de lesiones de tejido blando",
+   "status": "Payton: hay que \"get a handle on soft tissue injuries\"",
+   "source": "Denver Gazette",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "GB",
+   "level": "SEGUIR",
+   "player": "Tucker Kraft",
+   "position": "TE",
+   "situation": "Rodilla",
+   "status": "Regreso a practicar",
+   "source": "Packers On SI",
+   "date": "2026-08-09"
+  },
+  {
+   "team": "JAX",
+   "level": "SEGUIR",
+   "player": "Quintin Morris",
+   "position": "TE",
+   "situation": "Lesionado al final del scrimmage",
+   "status": "Ausente",
+   "source": "Jaguar Report",
+   "date": "2026-08-09"
+  },
+  {
+   "team": "CHI",
+   "level": "SEGUIR",
+   "player": "Coby Bryant",
+   "position": "S",
+   "situation": "Lesion no especificada",
+   "status": "Reportado fuera al menos dos meses",
+   "source": "Chicago Sun-Times (Patrick Finley)",
+   "date": "2026-08-08"
+  },
+  {
+   "team": "CHI",
+   "level": "SEGUIR",
+   "player": "Cam Lewis",
+   "position": "S",
+   "situation": "Lesion de pierna y cadera; salio en carrito",
+   "status": "Sin timeline publicado",
+   "source": "Chicago Sun-Times",
+   "date": "2026-08-08"
+  },
+  {
+   "team": "CIN",
+   "level": "SEGUIR",
+   "player": "Shemar Stewart",
+   "position": "DE",
+   "situation": "Rodilla hiperextendida; se perderia toda la pretemporada",
+   "status": "Taylor: \"no le pondremos fecha\". La opcion de Semana 1 es proyeccion del reportero",
+   "source": "A to Z Sports (John Sheeran)",
+   "date": "2026-08-08"
+  },
+  {
+   "team": "LV",
+   "level": "SEGUIR",
+   "player": "Kwity Paye",
+   "position": "DE",
+   "situation": "Salidas intermitentes de practica",
+   "status": "Sin actualizacion posterior al 11/8",
+   "source": "Just Blog Baby",
+   "date": "2026-08-08"
+  },
+  {
+   "team": "LV",
+   "level": "SEGUIR",
+   "player": "Jalen Nailor",
+   "position": "WR",
+   "situation": "Molestia menor",
+   "status": "Kubiak: estan siendo precavidos",
+   "source": "Just Blog Baby",
+   "date": "2026-08-07"
+  },
+  {
+   "team": "BUF",
+   "level": "SEGUIR",
+   "player": "C.J. Gardner-Johnson",
+   "position": "S",
+   "situation": "Distension de pantorrilla el dia 3; volvio el dia 6 sin limitaciones",
+   "status": "Joe Brady dijo que el equipo fue \"afortunado\"",
+   "source": "SI OnSI Bills Central",
+   "date": "2026-08-06"
+  },
+  {
+   "team": "DAL",
+   "level": "SEGUIR",
+   "player": "DeMarvion Overshown",
+   "position": "LB",
+   "situation": "Molestia en la pierna tras volver de la rodilla de 2024",
+   "status": "Regreso a practicar",
+   "source": "dallascowboys.com",
+   "date": "2026-08-06"
+  },
+  {
+   "team": "DAL",
+   "level": "SEGUIR",
+   "player": "Tyler Guyton",
+   "position": "OL",
+   "situation": "Codo adolorido",
+   "status": "Regreso a practicar",
+   "source": "dallascowboys.com",
+   "date": "2026-08-06"
+  },
+  {
+   "team": "LV",
+   "level": "SEGUIR",
+   "player": "Michael Mayer",
+   "position": "TE",
+   "situation": "Se rompio la nariz en practica el 3/8",
+   "status": "Kubiak dijo que estaria bien; regreso el 6/8",
+   "source": "Just Blog Baby citando a Ryan McFadden (ESPN)",
+   "date": "2026-08-06"
+  },
+  {
+   "team": "MIN",
+   "level": "SEGUIR",
+   "player": "Christian Darrisaw",
+   "position": "LT",
+   "situation": "Seguimiento tras la lesion de rodilla",
+   "status": "Reportado como noticia positiva; sin restriccion anunciada",
+   "source": "Vikings Territory",
+   "date": "2026-08-06"
+  },
+  {
+   "team": "ATL",
+   "level": "SEGUIR",
+   "player": "Tua Tagovailoa",
+   "position": "QB",
+   "situation": "Tension en la espalda al inicio del campamento",
+   "status": "Volvio a reps de titular en 11-on-11; aparece como titular en el depth chart",
+   "source": "atlantafalcons.com",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "KC",
+   "level": "SEGUIR",
+   "player": "Rashee Rice",
+   "position": "WR",
+   "situation": "Recuperacion de rodilla",
+   "status": "Volvio a 11-on-11 durante el campamento",
+   "source": "SI Arrowhead Report",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "KC",
+   "level": "SEGUIR",
+   "player": "Xavier Worthy",
+   "position": "WR",
+   "situation": "Hombro",
+   "status": "Reid: \"esta progresando en el hombro\"",
+   "source": "A to Z Sports (Charles Goldman)",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "MIA",
+   "level": "SEGUIR",
+   "player": "Greg Dulcich",
+   "position": "TE",
+   "situation": "Lesion no especificada",
+   "status": "Hafley espera su regreso hacia el juego vs Washington",
+   "source": "DolphinsTalk",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "MIA",
+   "level": "SEGUIR",
+   "player": "Austin Jackson",
+   "position": "OT",
+   "situation": "Molestia no especificada",
+   "status": "Hafley: \"day to day\", no de largo plazo",
+   "source": "DolphinsTalk",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "MIA",
+   "level": "SEGUIR",
+   "player": "Rene Konga",
+   "position": "LB",
+   "situation": "Lesion de campamento que le cuesta la temporada",
+   "status": "Hafley lo llamo \"redshirt year\"",
+   "source": "DolphinsTalk",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "MIN",
+   "level": "SEGUIR",
+   "player": "Jordan Addison",
+   "position": "WR",
+   "situation": "Se golpeo el pulgar corriendo rutas",
+   "status": "O'Connell: imagenes limpias, sin dano estructural, nada de que preocuparse",
+   "source": "vikings.com",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "LA",
+   "level": "SEGUIR",
+   "player": "Davis Allen",
+   "position": "TE",
+   "situation": "Tejido blando en el cuadriceps",
+   "status": "McVay: \"no quieres apurarlo\"",
+   "source": "Rams On SI",
+   "date": "2026-08-03"
+  },
+  {
+   "team": "DET",
+   "level": "SEGUIR",
+   "player": "Tyler Conklin",
+   "position": "TE",
+   "situation": "Pantorrilla lesionada en OTAs",
+   "status": "Campbell estimo ~2 semanas al inicio del campamento",
+   "source": "detroitlions.com",
+   "date": "2026-07-29"
+  },
+  {
+   "team": "LV",
+   "level": "SEGUIR",
+   "player": "Cobertura",
+   "position": "",
+   "situation": "El beat diario de los Raiders es el mas delgado de la liga tras varios recortes",
+   "status": "Vacio informativo, reportado explicitamente",
+   "source": "Raider Ramble",
+   "date": "2026-02-05"
+  }
+ ],
+ "camp": [
+  {
+   "team": "NO",
+   "substance": "alta",
+   "player": "Travis Etienne",
+   "position": "RB",
+   "report": "Se ha llevado la mayoría de las reps de early down en team drills, con Alvin Kamara relegado a terceros downs y situaciones de pase. Es un reparto de roles explícito, no una jugada aislada.",
+   "source": "Kevin Patra (NFL.com, early takeaways 32 equipos)",
+   "date": "2026-08"
+  },
+  {
+   "team": "MIN",
+   "substance": "alta",
+   "player": "Kyler Murray",
+   "position": "QB",
+   "report": "Tomó bastantes mas snaps que J.J. McCarthy en las prácticas recientes y parece haberse separado en la pelea por la titularidad. El 17/8 trabajó con la primera unidad en 7-on-7 y team, con tres TD de zona roja a T.J. Hockenson.",
+   "source": "Kevin Patra (NFL.com) + Rob Kleifield (Vikings.com, camp observations)",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "LV",
+   "substance": "alta",
+   "player": "Malik Benson",
+   "position": "WR",
+   "report": "Levi Edwards (16/ago): el novato de 6a ronda 'se gano reps aumentados con la PRIMERA unidad', confirmado por el head coach Kubiak: 'Malik se ha metido... se ha ganado esos reps, pero que se mantenga humilde'. Hizo 'posiblemente la atrapada del dia' ganando el balon en lo alto en una ruta go de Fernando Mendoza. El 4/ago el coach de receptores Zach Azzanni ya lo habia llamado 'un robo'. Ascenso de rol confirmado por el entrenador.",
+   "source": "Levi Edwards (Raiders.com)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "CAR",
+   "substance": "alta",
+   "player": "Jonathon Brooks",
+   "position": "RB",
+   "report": "HC Dave Canales confirmó que jugaría con el primer grupo ofensivo en Buffalo, alternando con Chuba Hubbard: 'he'll play with the first group, he'll mix in and out with Chuba'. Primer partido desde 2024 tras dos ACL. Ha participado a plenitud en el campamento.",
+   "source": "Kassidy Hill y Darin Gantt (Panthers.com, camp observations)",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "CLE",
+   "substance": "alta",
+   "player": "Shedeur Sanders",
+   "position": "QB",
+   "report": "12/ago (dia 13, ultima practica abierta antes del debut de pretemporada): Sanders tomo TODOS los reps con la primera unidad; Deshaun Watson quedo con la mayoria de snaps del segundo equipo y Dillon Gabriel rotando. Sanders lanzo TD en carrera a Blake Whiteheart en zona roja, conecto con Isaiah Bond en 11-vs-11 y dirigio un drill de dos minutos exitoso con pases a Harold Fannin Jr., Denzel Boston y Bond. Cameron Wolfe reporto que Sanders y Watson alternaran como titulares de pretemporada. Cambio verificable de reps con la primera unidad.",
+   "source": "Brian D'Aguanno (ClevelandBrowns.com); Cameron Wolfe",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "ATL",
+   "substance": "alta",
+   "player": "Tua Tagovailoa",
+   "position": "QB",
+   "report": "Confirmado como titular del primer juego de pretemporada vs Denver, con Cooper Rush y Jack Strand rotando. Michael Penix Jr. sigue sin poder hacer 11-on-11 (solo mayoría de reps en 7-on-7) y no vistió para ese juego. QB coach Alex Van Pelt: 'the last three or four days he's really come on.'",
+   "source": "Will McFadden (AtlantaFalcons.com, camp report)",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "IND",
+   "substance": "alta",
+   "player": "Daniel Jones",
+   "position": "QB",
+   "report": "Patra: 'se vio excelente' a ocho meses de la cirugia de Aquiles y esta tomando TODOS los reps con la primera unidad. Michael Greene (10/ago) confirma que encabeza el primer depth chart no oficial, con Riley Leonard y Anthony Richardson Sr. co-listados de suplentes, y que Jones se sento en el juego del jueves vs New England precisamente para que los suplentes se separaran. QB1 confirmado.",
+   "source": "Kevin Patra (NFL.com); Michael Greene (SI/Horseshoe Huddle)",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "LAC",
+   "substance": "media",
+   "player": "Omarion Hampton",
+   "position": "RB",
+   "report": "Patra: el coordinador ofensivo Mike McDaniel dijo que Hampton ha tenido 'tanto crecimiento como cualquier jugador, si no el que mas'. Cita directa de coordinador sobre el corredor titular. Es respaldo al rol existente, no un ascenso; ningun reporte de practica del equipo aporto detalle de reps.",
+   "source": "Kevin Patra (NFL.com)",
+   "date": "2026-08 (a"
+  },
+  {
+   "team": "NYG",
+   "substance": "media",
+   "player": "Malachi Fields",
+   "position": "WR",
+   "report": "Novato de 3a ronda. Trabajó ampliamente con la ofensiva titular el 17/8 y fue objetivo frecuente de Jaxson Dart. En el debut de pretemporada: 3 recepciones, 34 yardas y TD de 15. Dart destacó su capacidad de atrapar balones disputados.",
+   "source": "Eric Kennedy (Big Blue Interactive) + Giants.com Training Camp Tracker",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "NYG",
+   "substance": "media",
+   "player": "Malik Nabers",
+   "position": "WR",
+   "report": "Con peto de no contacto: individuales, 7-on-7 y 11-on-11 limitado. Atrapó 3 pases en 7-on-7 incluyendo recepción de 20 yardas en salto; corrió rutas extra con el cuerpo médico. Apunta a Semana 1.",
+   "source": "Eric Kennedy (Big Blue Interactive)",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "NYJ",
+   "substance": "media",
+   "player": "Braelon Allen",
+   "position": "RB",
+   "report": "17/ago: Breece Hall salio temprano de la practica con lesion en la ingle y Allen paso a ser el corredor principal el resto de la sesion, con 2 TD en el periodo de zona roja y la mayoria de la carga. Aaron Glenn minimizo: 'No creo que sea gran cosa, pero quiero asegurarme de tener la evaluacion'. Hall iba a estudios de imagen. Ascenso real pero contingente a una lesion que el HC resto importancia.",
+   "source": "Amanda Vogt y Eric Allen (NewYorkJets.com)",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "NYJ",
+   "substance": "media",
+   "player": "Adonai Mitchell",
+   "position": "WR",
+   "report": "17/ago: multiples conexiones con Geno Smith, con targets aumentados porque Garrett Wilson estaba enfermo. El 11/ago, en practica conjunta vs Tampa Bay, Matt Verderame reporto que 'se solto abierto multiples veces' pese a la imprecision de Smith. Dos reportes consistentes, pero el volumen esta inflado por la ausencia de Wilson.",
+   "source": "Amanda Vogt y Eric Allen (NewYorkJets.com); Matt Verderame (SI)",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "SEA",
+   "substance": "media",
+   "player": "Jadarian Price",
+   "position": "RB",
+   "report": "Novato del que el cuerpo técnico dijo 'nobody has covered him yet' por su capacidad como receptor. Se perdió el debut de pretemporada por molestia de tren inferior (menor) y volvió a entrenar el lunes 17/8. Macdonald: 'He's on his return plan. It's good to see him out there.'",
+   "source": "Kevin Patra (NFL.com) + John Boyle (Seahawks.com)",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "CHI",
+   "substance": "media",
+   "player": "Kaden Davis",
+   "position": "WR",
+   "report": "Lideró a Chicago con 4 recepciones para 88 yardas (incluida una de 41) en el debut de pretemporada vs Cleveland, ademas de bloquear downfield. Recibió TD de 70+ yardas de Tyson Bagent en la práctica del jueves. OC Press Taylor: 'He continues to produce with the opportunities he's been given.'",
+   "source": "Larry Mayer (ChicagoBears.com, camp report)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "CHI",
+   "substance": "media",
+   "player": "Sam Roush",
+   "position": "TE",
+   "report": "Novato de 3a ronda: fue titular y jugó 23 snaps en el debut de pretemporada, 2 recepciones para 15 yardas. Press Taylor dijo que 'made his presence felt in the run game' pero marcó margen de mejora como receptor.",
+   "source": "Larry Mayer (ChicagoBears.com, camp report)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "DET",
+   "substance": "media",
+   "player": "Isaac TeSlaa",
+   "position": "WR",
+   "report": "TD en salto en zona roja con dos defensivos encima (Rakestraw y Harper) en el Dia 13; dos días antes había conectado dos recepciones con Goff en el periodo situacional de dos minutos.",
+   "source": "John Maakaron (SI/onSI Lions) + Tim Twentyman (DetroitLions.com)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "GB",
+   "substance": "media",
+   "player": "Tucker Kraft",
+   "position": "TE",
+   "report": "Volvió a 11-on-11 tras nueve meses fuera (ACL de noviembre): atrapó los cinco balones que le lanzaron, incluido TD de 12 yardas de Jordan Love en slant. El plan del equipo es aumentar su conteo de snaps semana a semana.",
+   "source": "Wes Hodkiewicz (Packers.com, 5 things learned)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "LV",
+   "substance": "media",
+   "player": "Fernando Mendoza",
+   "position": "QB",
+   "report": "Seleccion global 1. Reps en aumento desde el 8/ago y el 16/ago produjo varias jugadas largas, incluidas dos conexiones con Benson, aunque tambien tuvo un snap mal manejado y estuvo cerca de una intercepcion. Patra es claro: Kirk Cousins SIGUE siendo el titular. Progresion real, sin cambio de titularidad.",
+   "source": "Levi Edwards (Raiders.com); Kevin Patra (NFL.com)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "NE",
+   "substance": "media",
+   "player": "Kyle Williams",
+   "position": "WR",
+   "report": "Conor Ryan (16/ago): paso buena parte del inicio de campamento con la TERCERA unidad, pero Vrabel lo defendio publicamente: 'Se muy bien que Kyle nos va a ayudar. Su velocidad nos va a ayudar... se que va a ser una parte grande de lo que vamos a hacer'. Tras el debut de pretemporada vs Indianapolis (2 recepciones, 37 yardas, TD) Vrabel remato: 'Todos ustedes se reian cuando se los dije el otro dia'. Rol declarado por el entrenador, pero sin ascenso todavia en el depth chart.",
+   "source": "Conor Ryan (Boston.com)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "NYG",
+   "substance": "media",
+   "player": "Cam Skattebo",
+   "position": "RB",
+   "report": "Regresó del esguince grave de tobillo (26/10/2025) y jugó el debut de pretemporada: 4 acarreos, 19 yardas. HC John Harbaugh: 'I thought I saw the Cam Skattebo that you guys all know and saw last year.'",
+   "source": "Giants.com Training Camp Tracker",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "PIT",
+   "substance": "media",
+   "player": "Germie Bernard",
+   "position": "WR",
+   "report": "Teresa Varley (16/ago): el novato de 2a ronda esta recibiendo REPS AUMENTADOS con Aaron Rodgers por las lesiones de DK Metcalf y Michael Pittman Jr. Es un aumento real de reps con el titular, pero abierto por ausencias y probablemente temporal. Contraste: el 4/ago Kozora lo describia con un arranque 'silencioso' de campamento.",
+   "source": "Teresa Varley (Steelers.com); Alex Kozora (Steelers Depot)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "SF",
+   "substance": "media",
+   "player": "Mike Evans",
+   "position": "WR",
+   "report": "Nuevo en San Francisco: conexión de 11 yardas con Brock Purdy por la banda en zona roja y atrapada por encima del hombro entre dos defensivos en el Dia 13. OC Klay Kubiak: 'Mike has the right mindset that he's just out there to get better.'",
+   "source": "Aubrie Tolliver y Brooke Evans (49ers.com, Dia 13)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "LA",
+   "substance": "media",
+   "player": "Max Klare",
+   "position": "TE",
+   "report": "Novato: lideró al equipo en objetivos (8) con 7 recepciones para 37 yardas en el debut de pretemporada vs Kansas City. Descrito como blanco confiable dentro del cuerpo de TE.",
+   "source": "Stu Jackson (TheRams.com, 5 takeaways)",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "LA",
+   "substance": "media",
+   "player": "Ty Simpson",
+   "position": "QB",
+   "report": "Novato: 21 de 25 para 190 yardas y 2 TD en su debut de pretemporada; antes, en la práctica conjunta con Dallas, lanzó TD desde el pie trasero. Stetson Bennett IV había sido el titular designado de ese juego y lanzó dos INT en la conjunta. Stafford sigue siendo el titular.",
+   "source": "Stu Jackson y Zach Edwards (TheRams.com)",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "TEN",
+   "substance": "media",
+   "player": "Elic Ayomanor",
+   "position": "WR",
+   "report": "Patra: descrito como 'la estrella del campamento' por multiples reporteros, antes de que surgieran preocupaciones por un hombro. Corroborado en cancha por Jim Wyatt el 15/ago: varios TD, incluido un balon profundo en el que 'dejo atras al cornerback Alontae Taylor'. Senal consistente entre varios reporteros, con bandera de salud.",
+   "source": "Kevin Patra (NFL.com); Jim Wyatt (TennesseeTitans.com)",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "TEN",
+   "substance": "media",
+   "player": "Cam Ward",
+   "position": "QB",
+   "report": "Jim Wyatt (15/ago): su mejor dia de practica, 21 de 25 con cinco pases de TD y tres anotaciones consecutivas en zona roja. Patra anade que juega 'futbol sin errores', mejoria respecto al ano pasado. Es el titular indiscutido, asi que no hay ascenso: es evidencia de progreso.",
+   "source": "Jim Wyatt (TennesseeTitans.com); Kevin Patra (NFL.com)",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "SF",
+   "substance": "media",
+   "player": "De'Zhaun Stribling",
+   "position": "WR",
+   "report": "Primera selección del draft 2026 (pick 33). Debut de pretemporada: 7 recepciones para 63 yardas, TODAS en la primera mitad, y salió del juego con casi 8 minutos por jugarse del 2do cuarto. Recepción de 32 yardas por la banda y conversión de 3er down con pies dentro. Shanahan: 'I liked how his hands looked out there and played physical.'",
+   "source": "Briana Jeannel (49ers.com)",
+   "date": "2026-08-14"
+  },
+  {
+   "team": "DAL",
+   "substance": "media",
+   "player": "Camden Brown",
+   "position": "WR",
+   "report": "UDFA. Se ganó reps con la primera unidad el jueves y atrapó su primer pase de Dak Prescott; contribuyente constante en zona roja con varios TD desde el inicio del campamento.",
+   "source": "Tommy Yarrish (DallasCowboys.com, Practice Points)",
+   "date": "2026-08-13"
+  },
+  {
+   "team": "PHI",
+   "substance": "media",
+   "player": "Elijah Moore",
+   "position": "WR",
+   "report": "TD de 50 yardas en ruta post profunda de Jalen Hurts con la primera unidad, superando a Andre' Sam. Zangaro escribe que ha superado a Hollywood Brown en el campamento.",
+   "source": "Dave Zangaro (NBC Sports Philadelphia, Dia 10)",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "BAL",
+   "substance": "media",
+   "player": "Ja'Kobi Lane",
+   "position": "WR",
+   "report": "Ryan Mink (10/ago): atrapadas de highlight casi a diario; una recepcion con una mano acumulo 2.2 millones de vistas y repitio otra el sabado; provoco interferencia de pase sobre Marlon Humphrey en un balon profundo; recepcion tendida en ruta out; y un bloqueo en la periferia para una carrera de Derrick Henry. El OC Declan Doyle lo comparo con Michael Thomas ('radio de recepcion enorme, gran manos, muy pegajoso'). ESPN lo situa como favorito al rol de WR3. Novato de 3a ronda. Enorme volumen de senal, pero sin titularidad confirmada.",
+   "source": "Ryan Mink (BaltimoreRavens.com); Kevin Patra (NFL.com); ESPN via Roto Street Journal",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "DEN",
+   "substance": "media",
+   "player": "Jonah Coleman",
+   "position": "RB",
+   "report": "Susanna Weir (10/ago, dia 9, con enfasis en juego terrestre): el novato estuvo 'muy involucrado' y Sean Payton lo llamo 'una sorpresa agradable'. En la misma practica J.K. Dobbins salio temprano por un problema de tejido blando y RJ Harvey trabajo con la segunda unidad. Elogio directo del head coach mas oportunidad abierta por lesion.",
+   "source": "Susanna Weir (DenverBroncos.com)",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "IND",
+   "substance": "media",
+   "player": "Tyler Warren",
+   "position": "TE",
+   "report": "Encabeza un grupo de seis TE en el primer depth chart. Patra lo proyecta con una 'cuota de targets masiva' porque el cuerpo de receptores esta diezmado: Alec Pierce, Josh Downs y Laquon Treadwell han perdido tiempo de practica. La oportunidad es estructural y verificable, aunque la proyeccion de volumen sigue siendo del redactor.",
+   "source": "Kevin Patra (NFL.com); Michael Greene (SI/Horseshoe Huddle)",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "IND",
+   "substance": "media",
+   "player": "Ashton Dulin",
+   "position": "WR",
+   "report": "Michael Greene (10/ago): aparece sorpresivamente como tercer WR titular en el primer depth chart no oficial, por delante de Nick Westbrook-Ikhine, con profundidad mayormente inexperta detras. Es un dato de depth chart, pero abierto por lesiones y de un documento de pretemporada notoriamente poco fiable.",
+   "source": "Michael Greene (SI/Horseshoe Huddle)",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "MIA",
+   "substance": "media",
+   "player": "Malik Willis",
+   "position": "QB",
+   "report": "Con Tua Tagovailoa ya en Atlanta, Willis dirige la ofensiva en los notebooks de practica: dia 9 (8/ago) dos pases de 20+ yardas escapando de la bolsa y TD terrestre; dia 10 (10/ago) completo en cobertura cerrada y conecto con el novato Caleb Douglas en un bootleg a la derecha con presion. Aparece al frente del primer depth chart de pretemporada. No hay confirmacion explicita del staff de que sea el QB1 de Semana 1.",
+   "source": "Travis Wingfield (MiamiDolphins.com)",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "NYJ",
+   "substance": "media",
+   "player": "Mason Taylor",
+   "position": "TE",
+   "report": "Figura como TE titular en el primer depth chart no oficial (10/ago, Eric Allen) y el camino se le despejo porque Kenyon Sadiq (seleccion global 16) no practica tras cirugia de hernia. En la practica conjunta vs Bucs atrapo un TD de salto en zona roja y el coach de receptores Shawn Jefferson dijo que 'sera un muy buen Robin de nuestro Batman'. El 17/ago casi anota otra vez, empujado fuera en la yarda 1.",
+   "source": "Eric Allen (NewYorkJets.com); Matt Verderame (SI)",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "ATL",
+   "substance": "media",
+   "player": "Jahan Dotson",
+   "position": "WR",
+   "report": "Reportado como 'clearly the WR2' del equipo. En la práctica 8 conectó varias veces en zona roja con Penix y recibió un profundo de Tua de mas de 20 yardas 'well-located'.",
+   "source": "Kevin Patra (NFL.com) + Daniel Flick (AJC)",
+   "date": "2026-08-07"
+  },
+  {
+   "team": "CIN",
+   "substance": "media",
+   "player": "Chase Brown",
+   "position": "RB",
+   "report": "The Athletic reporto que lo estan desplegando en multiples formaciones al estilo de un receptor estrella: slot, jet sweeps y distintas alineaciones de backfield. Se corroboro en cancha el 4/ago, cuando ejecuto un jet sweep desde formacion de dos backs (Dan Hoard). Es un cambio de USO, no de titularidad, pero es el tipo de detalle que si mueve la aguja para fantasy.",
+   "source": "The Athletic via Roto Street Journal; Dan Hoard (Bengals.com)",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "HOU",
+   "substance": "media",
+   "player": "Tank Dell",
+   "position": "WR",
+   "report": "Aaron Wilson reporto que Dell volvio a practicar CON PADS por primera vez desde su lesion de 2024. DeMeco Ryans: 'Tank va en el plan correcto. Cada dia depende de como se sienta'. Hito real de salud, pero sin rol ni reps con la primera unidad confirmados.",
+   "source": "Aaron Wilson via Roto Street Journal; Kevin Patra (NFL.com)",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "WAS",
+   "substance": "media",
+   "player": "Kaytron Allen",
+   "position": "RB",
+   "report": "Novato. En práctica del 5/8 rebotó de tres defensivos distintos antes de entrar a las diagonales en team drills; ademas recibió TD de Mariota. Anotó TD en yarda corta en el debut de pretemporada.",
+   "source": "Zach Selby (Commanders.com, training camp notebook)",
+   "date": "2026-08-05"
+  },
+  {
+   "team": "BUF",
+   "substance": "media",
+   "player": "DJ Moore",
+   "position": "WR",
+   "report": "Patra: ha impresionado a diario y le da a Josh Allen el objetivo consistente que no tenia desde Diggs. El 4/ago (dia 5, primera practica con pads) conecto TD de 50 yardas con Allen venciendo doble cobertura; Shakir: 'parece falso, que bonita fue esa jugada'. Es adquisicion de offseason ya proyectada como WR1: confirmacion, no ascenso.",
+   "source": "Kevin Patra (NFL.com); Alec White y Mike Maynard (BuffaloBills.com)",
+   "date": "2026-08-04"
+  },
+  {
+   "team": "KC",
+   "substance": "media",
+   "player": "Cyrus Allen",
+   "position": "WR",
+   "report": "Ray Garvin (4/ago): el novato tomaba snaps con Patrick Mahomes y la PRIMERA unidad ofensiva, y 'Andy Reid dice que Allen ya se gano la confianza de Mahomes'. Pero fue sacado en carrito el 1/ago con contusion osea en la espinilla y sigue de dia a dia; Patra lo confirma fuera junto a Xavier Worthy (hombro). Reps de primera unidad mas cita del head coach, interrumpidos por lesion.",
+   "source": "Ray Garvin (Yahoo Sports); Kevin Patra (NFL.com)",
+   "date": "2026-08-04"
+  },
+  {
+   "team": "PIT",
+   "substance": "media",
+   "player": "Rico Dowdle",
+   "position": "RB",
+   "report": "Patra: 'parece posicionado para liderar el backfield por encima de Jaylen Warren'. OJO: es una lectura del redactor y hay contradiccion, porque el 4/ago Alex Kozora reporto a Warren rindiendo bien en yarda corta y a Dowdle solo 'competente' en varios periodos, y el camp blog del 16/ago no ofrece ninguna definicion de jerarquia. Sin depth chart que lo respalde.",
+   "source": "Kevin Patra (NFL.com); Alex Kozora (Steelers Depot)",
+   "date": "2026-08-04"
+  },
+  {
+   "team": "TB",
+   "substance": "media",
+   "player": "Tez Johnson",
+   "position": "WR",
+   "report": "Segundo año. El OC Zac Robinson dijo que está 'making explosive plays every single day' y que tiene 'great juice'. Elogio del coordinador, sin cambio confirmado de depth chart.",
+   "source": "Scott Smith y Brianna Dix (Buccaneers.com, camp updates)",
+   "date": "2026-08-04"
+  },
+  {
+   "team": "MIN",
+   "substance": "media",
+   "player": "Jordan Mason",
+   "position": "RB",
+   "report": "Persigue el rol de RB1 por encima de Aaron Jones. HC Kevin O'Connell sobre su transformación física: 'You guys can probably even tell just the way he looks. He's in unbelievable shape right now.'",
+   "source": "Kyler Wolff (Athlon Sports)",
+   "date": "2026-08-03"
+  },
+  {
+   "team": "DAL",
+   "substance": "baja",
+   "player": "Jaydon Blue",
+   "position": "RB",
+   "report": "Segundo año. Sigue mostrando explosividad y es señalado como candidato a breakout, pero no hay cambio confirmado de depth chart por el cuerpo técnico.",
+   "source": "Kevin Patra (NFL.com, early takeaways 32 equipos)",
+   "date": "2026-08"
+  },
+  {
+   "team": "GB",
+   "substance": "baja",
+   "player": "Matthew Golden",
+   "position": "WR",
+   "report": "Descrito como 'catching everything thrown his way' en busca del salto de segundo año. Es elogio de campamento sin detalle de reps ni cambio de rol.",
+   "source": "Kevin Patra (NFL.com, early takeaways 32 equipos)",
+   "date": "2026-08"
+  },
+  {
+   "team": "CIN",
+   "substance": "baja",
+   "player": "Colbie Young",
+   "position": "WR",
+   "report": "Patra: el novato de 4a ronda 'podria rebasar a Andrei Iosivas si sigue haciendo jugadas'. Es una proyeccion del redactor, no un reporte de reps ni una cita del cuerpo tecnico. Especulativo.",
+   "source": "Kevin Patra (NFL.com)",
+   "date": "2026-08 (a"
+  },
+  {
+   "team": "JAX",
+   "substance": "baja",
+   "player": "Parker Washington",
+   "position": "WR",
+   "report": "Patra reporta 'elogios implacables' hacia el mientras asciende como receptor de slot. NO encontre ningun reporte diario de practica de Jacksonville que lo respalde: los articulos del equipo de agosto son de juego de pretemporada y no lo mencionan. Cita de segunda mano sin detalle de reps ni de unidad.",
+   "source": "Kevin Patra (NFL.com)",
+   "date": "2026-08 (a"
+  },
+  {
+   "team": "JAX",
+   "substance": "baja",
+   "player": "Travis Hunter",
+   "position": "WR/CB",
+   "report": "Patra: mantiene el rol de doble via, con una intercepcion y una recepcion de 35 yardas mostrando versatilidad. Es continuidad de un rol ya conocido, no un ascenso. Sin detalle de reparto de snaps ofensivos.",
+   "source": "Kevin Patra (NFL.com)",
+   "date": "2026-08 (a"
+  },
+  {
+   "team": "PHI",
+   "substance": "baja",
+   "player": "Darius Cooper",
+   "position": "WR",
+   "report": "Etiquetado como 'the training camp standout'. Zafó a Kelee Ringo en uno-contra-uno y atrapó un balon bajo de Hurts. Tambien está en la rotación de kick returner. Sigue siendo pelea por roster, no por targets.",
+   "source": "Dave Zangaro (NBC Sports Philadelphia, Dias 10 y 12)",
+   "date": "2026-08-17"
+  },
+  {
+   "team": "LAC",
+   "substance": "baja",
+   "player": "Amar Johnson",
+   "position": "WR",
+   "report": "Eric Smith (16/ago, dia 14): atrapo un TD de 20 yardas de Justin Herbert en trabajo de zona roja, junto a otro TD de 12 yardas de Ladd McConkey. Una jugada en practica; sin informacion de unidad ni de reps.",
+   "source": "Eric Smith (Chargers.com)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "LAC",
+   "substance": "baja",
+   "player": "Brenen Thompson",
+   "position": "WR",
+   "report": "Eric Smith (16/ago): recepcion de mas de 40 yardas de Herbert en periodo de equipos completos, pero perdio el balon despues de caer sin ser tocado y el staff lo uso como momento de ensenanza. Jugada llamativa con asterisco.",
+   "source": "Eric Smith (Chargers.com)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "LV",
+   "substance": "baja",
+   "player": "Ashton Jeanty",
+   "position": "RB",
+   "report": "16/ago: varias ganancias largas apoyado en el bloqueo del fullback Connor Heyward, que tuvo 13 snaps en el debut de pretemporada. Es una nota de esquema (mas formaciones con fullback), no un cambio en su rol: ya es el corredor titular.",
+   "source": "Levi Edwards (Raiders.com)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "NO",
+   "substance": "baja",
+   "player": "Zach Wilson",
+   "position": "QB",
+   "report": "Debut de pretemporada con 145 yardas, 1 TD y cero pérdidas de balón en la derrota 24-20 vs Jacksonville. Sin declaración del cuerpo técnico que altere la jerarquía de QB.",
+   "source": "NewOrleansSaints.com (Morning Break)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "PIT",
+   "substance": "baja",
+   "player": "Robert Tonyan",
+   "position": "TE",
+   "report": "Firmado recientemente y elogiado por Mike McCarthy: 'esta teniendo un campamento brutal' y lo llamo 'una excelente firma'; Pat Freiermuth lo respaldo como veterano. Sigue siendo TE2 detras de Freiermuth: irrelevante para fantasy salvo lesion.",
+   "source": "Teresa Varley (Steelers.com)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "SF",
+   "substance": "baja",
+   "player": "Jacob Cowing",
+   "position": "WR",
+   "report": "Regresó de una lesión de flexor de cadera y atrapó un profundo de Purdy en 11-on-11 con cobertura encima, ademas de una recepción de Mac Jones en uno-contra-uno. Jugada llamativa, sin cambio de rol.",
+   "source": "Aubrie Tolliver y Brooke Evans (49ers.com, Dia 13)",
+   "date": "2026-08-16"
+  },
+  {
+   "team": "LA",
+   "substance": "baja",
+   "player": "Dean Connors",
+   "position": "RB",
+   "report": "Recibió los dos pases de TD de Ty Simpson en el debut de pretemporada. Producción con unidades de reserva.",
+   "source": "Stu Jackson (TheRams.com, 5 takeaways)",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "SEA",
+   "substance": "baja",
+   "player": "Montorie Foster Jr.",
+   "position": "WR",
+   "report": "Lideró a Seattle con 5 recepciones para 36 yardas y TD de 5 yardas en el debut de pretemporada (derrota 17-7 vs Dallas). Drew Lock: 'He's had a great summer', y añadió que debió anotar dos veces porque le pasó largo un profundo de 68 yardas.",
+   "source": "John Boyle (Seahawks.com)",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "TB",
+   "substance": "baja",
+   "player": "Dean Patterson",
+   "position": "WR",
+   "report": "UDFA: lideró al equipo con 5 recepciones en la victoria 24-16 sobre los Jets; en campamento hizo 'a nifty grab in the back of the end zone' en zona roja el 7/8. Pelea de roster.",
+   "source": "Scott Smith y Brianna Dix (Buccaneers.com, camp updates)",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "TEN",
+   "substance": "baja",
+   "player": "Carnell Tate",
+   "position": "WR",
+   "report": "Ray Garvin (4/ago): la quimica con Cam Ward se traslado de los OTAs al campamento. Wyatt (15/ago): recibio dos pases de TD de Ward en zona roja. Buen novato en una sala que tambien tiene a Ayomanor, Calvin Ridley y Wan'Dale Robinson; sin cambio de rol reportado.",
+   "source": "Ray Garvin (Yahoo Sports); Jim Wyatt (TennesseeTitans.com)",
+   "date": "2026-08-15"
+  },
+  {
+   "team": "WAS",
+   "substance": "baja",
+   "player": "Robert Henry Jr.",
+   "position": "RB",
+   "report": "UDFA (UTSA). Lideró al equipo con 174 yardas por tierra y TD de 22 yardas en la serie inicial vs Miami. Selby destaca 'burst, decisiveness and quickness'. Sin confirmación de subida en el depth chart.",
+   "source": "Zach Selby (Commanders.com, 5 takeaways preseason W1)",
+   "date": "2026-08-14"
+  },
+  {
+   "team": "KC",
+   "substance": "baja",
+   "player": "Rashee Rice",
+   "position": "WR",
+   "report": "Matt McMullen (13/ago): fue la estrella ofensiva del dia, 'buscado temprano y con frecuencia, sobre todo en lanzamientos intermedios por el centro del campo', con timing afilado con Mahomes. Es el WR1 esperado y la fuente es el sitio del equipo: confirma salud y quimica, no un ascenso.",
+   "source": "Matt McMullen (Chiefs.com)",
+   "date": "2026-08-13"
+  },
+  {
+   "team": "CAR",
+   "substance": "baja",
+   "player": "Jimmy Horn Jr.",
+   "position": "WR",
+   "report": "Segundo año: 4 recepciones para 44 yardas en el Hall of Fame game, incluida conversión en 3ro y 15. Canales elogió su competitividad y velocidad. Es segundo en el depth chart de retornos detras de Trevor Etienne.",
+   "source": "Kassidy Hill y Darin Gantt (Panthers.com, camp observations)",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "CLE",
+   "substance": "baja",
+   "player": "Isaiah Bond",
+   "position": "WR",
+   "report": "12/ago: recepcion de Sanders por el centro en 11-vs-11 y otra por la banda en el drill de dos minutos con la primera unidad. Son jugadas sueltas de una sola practica, sin declaracion del staff ni cambio de depth chart.",
+   "source": "Brian D'Aguanno (ClevelandBrowns.com)",
+   "date": "2026-08-12"
+  },
+  {
+   "team": "ATL",
+   "substance": "baja",
+   "player": "Tyler Goodson",
+   "position": "RB",
+   "report": "'One of the most explosive players on the field so far in camp' con varias carreras largas, agilidad lateral y velocidad de home-run. Sigue siendo complemento detras de Bijan Robinson y Brian Robinson Jr.",
+   "source": "Will McFadden (AtlantaFalcons.com, camp report)",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "BUF",
+   "substance": "baja",
+   "player": "Joshua Palmer",
+   "position": "WR",
+   "report": "Dia 10 (11/ago): dos recepciones profundas de Allen, una por la banda derecha para TD sin ser tocado y otra por el seam, mostrando recuperacion de lesion. El coordinador Jim Leonhard lo llamo 'absolute playmaker'. Sin cambio de depth chart: es un buen dia de practica de un veterano que vuelve de lesion.",
+   "source": "Alec White y Mike Maynard (BuffaloBills.com)",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "CIN",
+   "substance": "baja",
+   "player": "Tahj Brooks",
+   "position": "RB",
+   "report": "Dia 10 (11/ago): atrapo un TD de Joe Flacco y mostro mejoria como receptor. El mismo dijo: 'Hacer fallar a los rivales en espacio, ser explosivo despues de la recepcion... es un foco para dar otro paso'. Detras de Chase Brown, sin reps con la primera unidad reportados.",
+   "source": "Dan Hoard (Bengals.com)",
+   "date": "2026-08-11"
+  },
+  {
+   "team": "DEN",
+   "substance": "baja",
+   "player": "Bo Nix",
+   "position": "QB",
+   "report": "Patra: luce sano y 'bien' bajo el nuevo coordinador Davis Webb. El 10/ago mostro movilidad con una carrera al exterior y conecto con Pat Bryant y Troy Franklin. Titular establecido, sin cambio alguno: es status quo.",
+   "source": "Kevin Patra (NFL.com); Susanna Weir (DenverBroncos.com)",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "IND",
+   "substance": "baja",
+   "player": "Seth McGowan",
+   "position": "RB",
+   "report": "Novato listado tercero detras de Jonathan Taylor y DJ Giddens (este ultimo con problemas de isquiotibial). Greene lo describe como 'un punto brillante' del campamento a seguir de cerca. Sin reps de primera unidad ni cita del staff.",
+   "source": "Michael Greene (SI/Horseshoe Huddle)",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "MIA",
+   "substance": "baja",
+   "player": "A.J. Henning",
+   "position": "WR",
+   "report": "Dia 10 (10/ago): atrapo los 4 reps que le tocaron en uno-contra-uno, un TD profundo de Willis y una recepcion dificil en trafico en periodo de equipos. Todo en practica, sin reps confirmados con la primera unidad ni cambio de rol. Ruido de campamento clasico.",
+   "source": "Travis Wingfield (MiamiDolphins.com)",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "MIN",
+   "substance": "baja",
+   "player": "Gavin Bartholomew",
+   "position": "TE",
+   "report": "Sexta ronda de 2025 de vuelta tras lesión de espalda que le costó su año de novato. Recepciones constantes de varios QB; el OC Wes Phillips lo llama 'really good athlete' y 'a football guy'. Perfil de TE2.",
+   "source": "Craig Peters / Rob Kleifield / Lindsey Young (Vikings.com, takeaways)",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "NE",
+   "substance": "baja",
+   "player": "Kayshon Boutte",
+   "position": "WR",
+   "report": "Ha sido foco de la ofensiva en practicas y Drake Maye lo elogio ('sigue haciendo las cosas bien'); Vrabel dijo estar abierto a quedarse con siete receptores. Pero Patra precisa que Boutte esta PERDIENDO reps por la llegada de A.J. Brown. Sigue luciendo en el balon profundo, sin ascenso real.",
+   "source": "Kevin Patra (NFL.com); Musket Fire camp tracker",
+   "date": "2026-08-10"
+  },
+  {
+   "team": "CHI",
+   "substance": "baja",
+   "player": "Colston Loveland",
+   "position": "TE",
+   "report": "Dos TD de zona roja el 8/8 saltando sobre defensivos, con pases de Caleb Williams y Bagent. Es hype continuo, sin cambio de rol reportado.",
+   "source": "Larry Mayer (ChicagoBears.com, camp report)",
+   "date": "2026-08-08"
+  },
+  {
+   "team": "DET",
+   "substance": "baja",
+   "player": "Jackson Meeks",
+   "position": "TE",
+   "report": "Receptor reconvertido a TE: dos buenas recepciones el martes y buena separación el viernes, pero con la SEGUNDA unidad ofensiva y 'a work in progress as a blocker'.",
+   "source": "Tim Twentyman (DetroitLions.com)",
+   "date": "2026-08-08"
+  },
+  {
+   "team": "MIA",
+   "substance": "baja",
+   "player": "Caleb Douglas",
+   "position": "WR",
+   "report": "Novato. Receptor del mejor lanzamiento de Willis el 10/ago, pero el 8/ago el CB Jason Marshall Jr. le gano varios duelos con pases desviados. Patra ademas reporta que el grupo de WR sigue sin definirse y que la pretemporada aclarara el orden. Senal mixta.",
+   "source": "Travis Wingfield (MiamiDolphins.com); Kevin Patra (NFL.com)",
+   "date": "2026-08-08"
+  },
+  {
+   "team": "CLE",
+   "substance": "baja",
+   "player": "Denzel Boston",
+   "position": "WR",
+   "report": "Ray Garvin (4/ago): opera como principal amenaza vertical y desarrolla quimica con Shedeur Sanders, pero trabaja con el SEGUNDO equipo cuando dividen campos. El 12/ago aparecio en el drill de dos minutos de Sanders. Buen novato, pero sigue en la segunda unidad.",
+   "source": "Ray Garvin (Yahoo Sports); Brian D'Aguanno (ClevelandBrowns.com)",
+   "date": "2026-08-04"
+  },
+  {
+   "team": "PIT",
+   "substance": "baja",
+   "player": "Roman Wilson",
+   "position": "WR",
+   "report": "Alex Kozora (4/ago, dia 6): su mejor dia del campamento, por fin 'encendiendose con jugadas de alto impacto' tras ser buscado con frecuencia; dos TD de Rodgers en el periodo de zona roja. Un dia bueno en practica, nada mas.",
+   "source": "Alex Kozora (Steelers Depot)",
+   "date": "2026-08-04"
+  },
+  {
+   "team": "HOU",
+   "substance": "baja",
+   "player": "Jared Wayne",
+   "position": "WR",
+   "report": "Jared Koch (3/ago, primera practica con pads): TD consecutivos, incluido uno en zona roja con C.J. Stroud rodando a la derecha. Receptor de segundo ano; sin reps con la primera unidad confirmados ni comentario del staff sobre su rol.",
+   "source": "Jared Koch (SI/Texans Daily)",
+   "date": "2026-08-03"
+  }
+ ],
+ "reporters": [
+  {
+   "team": "ARI",
+   "name": "Darren Urban",
+   "outlet": "AZCardinals.com (oficial)",
+   "handle": "@Cardschatter"
+  },
+  {
+   "team": "ARI",
+   "name": "Donnie Druin",
+   "outlet": "Arizona Cardinals On SI",
+   "handle": ""
+  },
+  {
+   "team": "ARI",
+   "name": "Zach Gershman",
+   "outlet": "AZCardinals.com (oficial)",
+   "handle": ""
+  },
+  {
+   "team": "ATL",
+   "name": "Josh Kendall",
+   "outlet": "The Athletic",
+   "handle": "@JoshTheAthletic"
+  },
+  {
+   "team": "ATL",
+   "name": "Ken Sugiura",
+   "outlet": "The Atlanta Journal-Constitution",
+   "handle": "@ksugiuraajc"
+  },
+  {
+   "team": "ATL",
+   "name": "Tori McElhaney",
+   "outlet": "AtlantaFalcons.com (oficial)",
+   "handle": "@tori_mcelhaney"
+  },
+  {
+   "team": "BAL",
+   "name": "Jamison Hensley",
+   "outlet": "ESPN",
+   "handle": "@jamisonhensley"
+  },
+  {
+   "team": "BAL",
+   "name": "Jeff Zrebiec",
+   "outlet": "The Athletic",
+   "handle": "@jeffzrebiec"
+  },
+  {
+   "team": "BAL",
+   "name": "Jonas Shaffer",
+   "outlet": "The Baltimore Banner",
+   "handle": "@jonas_shaffer"
+  },
+  {
+   "team": "BUF",
+   "name": "Alaina Getzenberg",
+   "outlet": "ESPN",
+   "handle": "@agetzenberg"
+  },
+  {
+   "team": "BUF",
+   "name": "Jay Skurski",
+   "outlet": "The Buffalo News",
+   "handle": "@JaySkurski"
+  },
+  {
+   "team": "BUF",
+   "name": "Sal Capaccio",
+   "outlet": "WGR 550 SportsRadio (Audacy)",
+   "handle": "@SalSports"
+  },
+  {
+   "team": "CAR",
+   "name": "Alex Zietlow",
+   "outlet": "The Charlotte Observer",
+   "handle": "@alexzietlow05"
+  },
+  {
+   "team": "CAR",
+   "name": "Darin Gantt",
+   "outlet": "Panthers.com (oficial)",
+   "handle": "@daringantt"
+  },
+  {
+   "team": "CAR",
+   "name": "Joe Person",
+   "outlet": "The Athletic",
+   "handle": "@josephperson"
+  },
+  {
+   "team": "CHI",
+   "name": "Courtney Cronin",
+   "outlet": "ESPN",
+   "handle": "@CourtneyRCronin"
+  },
+  {
+   "team": "CHI",
+   "name": "Jason Lieser",
+   "outlet": "Chicago Sun-Times",
+   "handle": "@JasonLieser"
+  },
+  {
+   "team": "CHI",
+   "name": "Kevin Fishbain",
+   "outlet": "The Athletic",
+   "handle": "@kfishbain"
+  },
+  {
+   "team": "CHI",
+   "name": "Patrick Finley",
+   "outlet": "Chicago Sun-Times",
+   "handle": "@patrickfinley"
+  },
+  {
+   "team": "CIN",
+   "name": "Ben Baby",
+   "outlet": "ESPN",
+   "handle": "@Ben_Baby"
+  },
+  {
+   "team": "CIN",
+   "name": "Kelsey Conway",
+   "outlet": "The Cincinnati Enquirer",
+   "handle": "@KelseyLConway"
+  },
+  {
+   "team": "CIN",
+   "name": "Paul Dehner Jr.",
+   "outlet": "The Athletic",
+   "handle": "@pauldehnerjr"
+  },
+  {
+   "team": "CLE",
+   "name": "Daniel Oyefusi",
+   "outlet": "ESPN",
+   "handle": "@DanielOyefusi"
+  },
+  {
+   "team": "CLE",
+   "name": "Mary Kay Cabot",
+   "outlet": "cleveland.com / The Plain Dealer",
+   "handle": "@MaryKayCabot"
+  },
+  {
+   "team": "CLE",
+   "name": "Zac Jackson",
+   "outlet": "The Athletic",
+   "handle": "@AkronJackson"
+  },
+  {
+   "team": "DAL",
+   "name": "Calvin Watkins",
+   "outlet": "The Dallas Morning News",
+   "handle": "@calvinwatkins"
+  },
+  {
+   "team": "DAL",
+   "name": "Jon Machota",
+   "outlet": "The Athletic",
+   "handle": "@jonmachota"
+  },
+  {
+   "team": "DAL",
+   "name": "Nick Harris",
+   "outlet": "Fort Worth Star-Telegram",
+   "handle": "@NickHarrisFWST"
+  },
+  {
+   "team": "DAL",
+   "name": "Todd Archer",
+   "outlet": "ESPN",
+   "handle": "@toddarcher"
+  },
+  {
+   "team": "DEN",
+   "name": "Chris Tomasson",
+   "outlet": "The Denver Gazette",
+   "handle": "@christomasson"
+  },
+  {
+   "team": "DEN",
+   "name": "Mike Klis",
+   "outlet": "9NEWS (KUSA-TV)",
+   "handle": "@mikeklis9news"
+  },
+  {
+   "team": "DEN",
+   "name": "Parker Gabriel",
+   "outlet": "The Denver Post",
+   "handle": "@ParkerJGabriel"
+  },
+  {
+   "team": "DET",
+   "name": "Colton Pouncy",
+   "outlet": "The Athletic",
+   "handle": "@colton_pouncy"
+  },
+  {
+   "team": "DET",
+   "name": "Dave Birkett",
+   "outlet": "Detroit Free Press",
+   "handle": "@davebirkett"
+  },
+  {
+   "team": "DET",
+   "name": "Eric Woodyard",
+   "outlet": "ESPN",
+   "handle": "@E_Woodyard"
+  },
+  {
+   "team": "DET",
+   "name": "Tim Twentyman",
+   "outlet": "DetroitLions.com (oficial)",
+   "handle": "@ttwentyman"
+  },
+  {
+   "team": "GB",
+   "name": "Bill Huber",
+   "outlet": "Packers On SI",
+   "handle": ""
+  },
+  {
+   "team": "GB",
+   "name": "Matt Schneidman",
+   "outlet": "The Athletic",
+   "handle": "@mattschneidman"
+  },
+  {
+   "team": "GB",
+   "name": "Rob Demovsky",
+   "outlet": "ESPN",
+   "handle": "@RobDemovsky"
+  },
+  {
+   "team": "GB",
+   "name": "Ryan Wood",
+   "outlet": "Green Bay Press-Gazette",
+   "handle": "@ByRyanWood"
+  },
+  {
+   "team": "HOU",
+   "name": "Aaron Wilson",
+   "outlet": "KPRC 2 Houston",
+   "handle": "@AaronWilson_NFL"
+  },
+  {
+   "team": "HOU",
+   "name": "DJ Bien-Aime",
+   "outlet": "ESPN",
+   "handle": "@Djbienaime"
+  },
+  {
+   "team": "HOU",
+   "name": "Drew Dougherty",
+   "outlet": "HoustonTexans.com (oficial)",
+   "handle": "@DrewDoughertyTX"
+  },
+  {
+   "team": "IND",
+   "name": "JJ Stankevitz",
+   "outlet": "Colts.com (oficial)",
+   "handle": "@JJStankevitz"
+  },
+  {
+   "team": "IND",
+   "name": "Joel A. Erickson",
+   "outlet": "The Indianapolis Star",
+   "handle": "@JoelAErickson"
+  },
+  {
+   "team": "IND",
+   "name": "Nathan Brown",
+   "outlet": "The Indianapolis Star",
+   "handle": "@By_NathanBrown"
+  },
+  {
+   "team": "IND",
+   "name": "Stephen Holder",
+   "outlet": "ESPN",
+   "handle": "@HolderStephen"
+  },
+  {
+   "team": "JAX",
+   "name": "Demetrius Harvey",
+   "outlet": "The Florida Times-Union",
+   "handle": "@Demetrius82"
+  },
+  {
+   "team": "JAX",
+   "name": "John Oehser",
+   "outlet": "Jaguars.com (oficial)",
+   "handle": "@JohnOehser"
+  },
+  {
+   "team": "JAX",
+   "name": "John Shipley",
+   "outlet": "Jaguar Report (SI)",
+   "handle": "@_John_Shipley"
+  },
+  {
+   "team": "KC",
+   "name": "Herbie Teope",
+   "outlet": "The Kansas City Star",
+   "handle": "@HerbieTeope"
+  },
+  {
+   "team": "KC",
+   "name": "Matt McMullen",
+   "outlet": "Chiefs.com (oficial)",
+   "handle": "@MattMcMullen13"
+  },
+  {
+   "team": "KC",
+   "name": "Nate Taylor",
+   "outlet": "The Athletic",
+   "handle": "@ByNateTaylor"
+  },
+  {
+   "team": "KC",
+   "name": "Pete Sweeney",
+   "outlet": "Arrowhead Pride (SB Nation)",
+   "handle": "@pgsween"
+  },
+  {
+   "team": "LA",
+   "name": "Gary Klein",
+   "outlet": "Los Angeles Times",
+   "handle": "@LATimesklein"
+  },
+  {
+   "team": "LA",
+   "name": "Jourdan Rodrigue",
+   "outlet": "The Athletic",
+   "handle": ""
+  },
+  {
+   "team": "LA",
+   "name": "Stu Jackson",
+   "outlet": "TheRams.com (oficial)",
+   "handle": "@StuJRams"
+  },
+  {
+   "team": "LAC",
+   "name": "Daniel Popper",
+   "outlet": "The Athletic",
+   "handle": "@danielrpopper"
+  },
+  {
+   "team": "LAC",
+   "name": "Eric Smith",
+   "outlet": "Chargers.com (oficial)",
+   "handle": "@Eric_L_Smith"
+  },
+  {
+   "team": "LAC",
+   "name": "Jeff Miller",
+   "outlet": "Los Angeles Times",
+   "handle": ""
+  },
+  {
+   "team": "LAC",
+   "name": "Kris Rhim",
+   "outlet": "ESPN",
+   "handle": "@KrisRhim"
+  },
+  {
+   "team": "LV",
+   "name": "Levi Edwards",
+   "outlet": "Raiders.com (oficial)",
+   "handle": "@Levi_Edwards_"
+  },
+  {
+   "team": "LV",
+   "name": "Ryan McFadden",
+   "outlet": "ESPN",
+   "handle": "@ryanmcfadden_"
+  },
+  {
+   "team": "LV",
+   "name": "Sam Warren",
+   "outlet": "The Athletic",
+   "handle": "@samwarren83"
+  },
+  {
+   "team": "LV",
+   "name": "Vincent Bonsignore",
+   "outlet": "Columnista (dejo el beat diario en 2026)",
+   "handle": "@VinnyBonsignore"
+  },
+  {
+   "team": "MIA",
+   "name": "Barry Jackson",
+   "outlet": "Miami Herald",
+   "handle": "@flasportsbuzz"
+  },
+  {
+   "team": "MIA",
+   "name": "David Furones",
+   "outlet": "South Florida Sun Sentinel",
+   "handle": "@DavidFurones_"
+  },
+  {
+   "team": "MIA",
+   "name": "Marcel Louis-Jacques",
+   "outlet": "ESPN",
+   "handle": "@Marcel_LJ"
+  },
+  {
+   "team": "MIN",
+   "name": "Alec Lewis",
+   "outlet": "The Athletic",
+   "handle": "@alec_lewis"
+  },
+  {
+   "team": "MIN",
+   "name": "Andrew Krammer",
+   "outlet": "Star Tribune",
+   "handle": "@KrammerStrib"
+  },
+  {
+   "team": "MIN",
+   "name": "Ben Goessling",
+   "outlet": "Star Tribune",
+   "handle": "@GoesslingStrib"
+  },
+  {
+   "team": "MIN",
+   "name": "Kevin Seifert",
+   "outlet": "ESPN",
+   "handle": "@SeifertESPN"
+  },
+  {
+   "team": "NE",
+   "name": "Doug Kyed",
+   "outlet": "Boston Herald",
+   "handle": "@DougKyed"
+  },
+  {
+   "team": "NE",
+   "name": "Mike Reiss",
+   "outlet": "ESPN",
+   "handle": "@MikeReiss"
+  },
+  {
+   "team": "NE",
+   "name": "Nicole Yang",
+   "outlet": "The Boston Globe",
+   "handle": "@nicolecyang"
+  },
+  {
+   "team": "NO",
+   "name": "Jeff Nowak",
+   "outlet": "WWL / Audacy New Orleans",
+   "handle": ""
+  },
+  {
+   "team": "NO",
+   "name": "Katherine Terrell",
+   "outlet": "ESPN",
+   "handle": "@Kat_Terrell"
+  },
+  {
+   "team": "NO",
+   "name": "Matthew Paras",
+   "outlet": "The Times-Picayune / NOLA.com",
+   "handle": ""
+  },
+  {
+   "team": "NYG",
+   "name": "Art Stapleton",
+   "outlet": "The Record / NorthJersey.com",
+   "handle": "@art_stapleton"
+  },
+  {
+   "team": "NYG",
+   "name": "Dan Duggan",
+   "outlet": "The Athletic",
+   "handle": "@DDuggan21"
+  },
+  {
+   "team": "NYG",
+   "name": "Jordan Raanan",
+   "outlet": "ESPN",
+   "handle": "@JordanRaanan"
+  },
+  {
+   "team": "NYG",
+   "name": "Pat Leonard",
+   "outlet": "New York Daily News",
+   "handle": "@PLeonardNYDN"
+  },
+  {
+   "team": "NYJ",
+   "name": "Brian Costello",
+   "outlet": "New York Post",
+   "handle": "@BrianCostello"
+  },
+  {
+   "team": "NYJ",
+   "name": "Rich Cimini",
+   "outlet": "ESPN",
+   "handle": "@RichCimini"
+  },
+  {
+   "team": "NYJ",
+   "name": "Zack Rosenblatt",
+   "outlet": "The Athletic",
+   "handle": "@ZackBlatt"
+  },
+  {
+   "team": "PHI",
+   "name": "Dave Zangaro",
+   "outlet": "NBC Sports Philadelphia",
+   "handle": "@DZangaroNBCS"
+  },
+  {
+   "team": "PHI",
+   "name": "Jeff McLane",
+   "outlet": "The Philadelphia Inquirer",
+   "handle": "@Jeff_McLane"
+  },
+  {
+   "team": "PHI",
+   "name": "Reuben Frank",
+   "outlet": "NBC Sports Philadelphia",
+   "handle": "@RoobNBCS"
+  },
+  {
+   "team": "PHI",
+   "name": "Tim McManus",
+   "outlet": "ESPN",
+   "handle": "@Tim_McManus"
+  },
+  {
+   "team": "PHI",
+   "name": "Zach Berman",
+   "outlet": "PHLY Sports",
+   "handle": "@ZBerm"
+  },
+  {
+   "team": "PIT",
+   "name": "Alex Kozora",
+   "outlet": "Steelers Depot",
+   "handle": "@Alex_Kozora"
+  },
+  {
+   "team": "PIT",
+   "name": "Brooke Pryor",
+   "outlet": "ESPN",
+   "handle": "@bepryor"
+  },
+  {
+   "team": "PIT",
+   "name": "Gerry Dulac",
+   "outlet": "Pittsburgh Post-Gazette",
+   "handle": "@gerrydulac"
+  },
+  {
+   "team": "SEA",
+   "name": "Bob Condotta",
+   "outlet": "The Seattle Times",
+   "handle": "@bcondotta"
+  },
+  {
+   "team": "SEA",
+   "name": "Brady Henderson",
+   "outlet": "ESPN",
+   "handle": "@BradyHenderson"
+  },
+  {
+   "team": "SEA",
+   "name": "John Boyle",
+   "outlet": "Seahawks.com (oficial)",
+   "handle": "@johnpboyle"
+  },
+  {
+   "team": "SF",
+   "name": "David Bonilla",
+   "outlet": "49ers Webzone",
+   "handle": ""
+  },
+  {
+   "team": "SF",
+   "name": "Matt Barrows",
+   "outlet": "The Athletic",
+   "handle": "@mattbarrows"
+  },
+  {
+   "team": "SF",
+   "name": "Nick Wagoner",
+   "outlet": "ESPN",
+   "handle": "@nwagoner"
+  },
+  {
+   "team": "TB",
+   "name": "Matt Matera",
+   "outlet": "PewterReport.com",
+   "handle": ""
+  },
+  {
+   "team": "TB",
+   "name": "Rick Stroud",
+   "outlet": "Tampa Bay Times",
+   "handle": "@NFLSTROUD"
+  },
+  {
+   "team": "TB",
+   "name": "Scott Smith",
+   "outlet": "Buccaneers.com (oficial)",
+   "handle": "@ScottSBucs"
+  },
+  {
+   "team": "TEN",
+   "name": "Jim Wyatt",
+   "outlet": "TennesseeTitans.com (oficial)",
+   "handle": "@jwyattsports"
+  },
+  {
+   "team": "TEN",
+   "name": "Nick Suss",
+   "outlet": "The Tennessean",
+   "handle": "@nicksuss"
+  },
+  {
+   "team": "TEN",
+   "name": "Paul Kuharsky",
+   "outlet": "PaulKuharsky.com / 104.5 The Zone",
+   "handle": "@PaulKuharskyNFL"
+  },
+  {
+   "team": "WAS",
+   "name": "Ben Standig",
+   "outlet": "The Athletic",
+   "handle": "@BenStandig"
+  },
+  {
+   "team": "WAS",
+   "name": "John Keim",
+   "outlet": "ESPN",
+   "handle": "@john_keim"
+  },
+  {
+   "team": "WAS",
+   "name": "Nicki Jhabvala",
+   "outlet": "The Washington Post",
+   "handle": "@NickiJhabvala"
+  },
+  {
+   "team": "WAS",
+   "name": "Zach Selby",
+   "outlet": "Commanders.com (oficial)",
+   "handle": "@ZachSelby"
+  }
+ ]
+}

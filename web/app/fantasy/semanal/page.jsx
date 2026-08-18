@@ -1,4 +1,4 @@
-import { model, num } from "../../../data/model.js";
+import { availabilityByPlayer, model, num } from "../../../data/model.js";
 import { DeltaBars, POSITIONS, PositionChip } from "../../charts.jsx";
 import {
   Callout, ImpactTag, MachineWritten, NoDataYet, RankTable, Sources,
@@ -115,6 +115,7 @@ export default function Semanal() {
   const notes = model.narrative?.player_notes ?? {};
   const research = model.research;
   const newsByPlayer = playersWithNews(research);
+  const availability = availabilityByPlayer(model.dossier);
 
   if (!weekly) {
     return (
@@ -175,7 +176,7 @@ export default function Semanal() {
       <section id="global">
         <h2>Global</h2>
         <RankTable rows={rankings.slice(0, 60)} columns={COLUMNS}
-                   notes={notes} news={newsByPlayer} />
+                   notes={notes} news={newsByPlayer} availability={availability} />
       </section>
 
       {POSITIONS.map((position) => {
@@ -187,7 +188,7 @@ export default function Semanal() {
               <PositionChip position={position} /> {position}
             </h2>
             <RankTable rows={numbered(group.slice(0, 40))} columns={POSITION_COLUMNS}
-                       notes={notes} news={newsByPlayer} />
+                       notes={notes} news={newsByPlayer} availability={availability} />
             <WhyBlock rows={group.slice(0, 40)} notes={notes} />
             <NewsBlock rows={group} research={research} />
           </section>

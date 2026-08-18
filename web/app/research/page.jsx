@@ -68,11 +68,94 @@ function Note({ item, showDate = false }) {
   );
 }
 
+/**
+ * Parte médico, campamento y directorio de reporteros.
+ *
+ * Van en secciones propias y no mezclados con las fichas de prensa porque **la
+ * fiabilidad no es la misma**: estas entradas están atribuidas a un periodista
+ * con nombre, medio y fecha, pero no llevan enlace. Las fichas de arriba sí lo
+ * llevan, y esa diferencia importa lo suficiente como para que no compartan
+ * caja.
+ */
+function Medical({ entries }) {
+  return (
+    <>
+      {entries.map((entry, index) => (
+        <article className="dossier" key={`${entry.player}-${index}`}>
+          <h4>
+            <span className={`avail avail--${entry.level.toLowerCase()}`}>{entry.level}</span>{" "}
+            {entry.player} <span className="attrib">{entry.position} · {entry.team}</span>
+          </h4>
+          <p>{entry.situation}. {entry.status}</p>
+          <p className="attrib">
+            {entry.source}
+            {entry.date ? ` · ${entry.date}` : null}
+          </p>
+        </article>
+      ))}
+    </>
+  );
+}
+
+function Camp({ entries }) {
+  return (
+    <>
+      {entries.map((entry, index) => (
+        <article className="dossier" key={`${entry.player}-${index}`}>
+          <h4>
+            {entry.player} <span className="attrib">{entry.position} · {entry.team}</span>{" "}
+            <span className={`tag tag--${entry.substance === "alta" ? "confirmado" : "rumor"}`}>
+              sustancia {entry.substance}
+            </span>
+          </h4>
+          <p>{entry.report}</p>
+          <p className="attrib">
+            {entry.source}
+            {entry.date ? ` · ${entry.date}` : null}
+          </p>
+        </article>
+      ))}
+    </>
+  );
+}
+
+/** Directorio del beat: a quién seguir para enterarse antes que el modelo. */
+function Beat({ reporters }) {
+  const byTeam = new Map();
+  for (const reporter of reporters) {
+    if (!byTeam.has(reporter.team)) byTeam.set(reporter.team, []);
+    byTeam.get(reporter.team).push(reporter);
+  }
+  return (
+    <div className="beat">
+      {[...byTeam.entries()].map(([team, people]) => (
+        <div className="team" key={team}>
+          <h4>{team}</h4>
+          <ul>
+            {people.map((person, index) => (
+              <li key={index}>
+                {person.name} <span className="outlet">— {person.outlet}</span>
+                {person.handle ? <span className="outlet"> {person.handle}</span> : null}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function Research() {
   const research = model.research;
   const items = research?.items ?? [];
+  const dossier = model.dossier;
+  const medical = dossier?.medical ?? [];
+  const camp = dossier?.camp ?? [];
+  const out = medical.filter((entry) => entry.level === "FUERA");
+  const doubt = medical.filter((entry) => entry.level === "DUDA");
+  const campHigh = camp.filter((entry) => entry.substance === "alta");
 
-  if (items.length === 0) {
+  if (items.length === 0 && medical.length === 0) {
     return (
       <>
         <h1>Research</h1>
@@ -177,6 +260,65 @@ export default function Research() {
             </section>
           ))}
         </>
+      ) : null}
+
+      {medical.length > 0 ? (
+        <section id="medico">
+          <h2>Parte médico</h2>
+          <p className="caption">
+            {medical.length} situaciones de los 32 equipos, cada una con quién lo dijo y
+            cuándo. La etiqueta mide <strong>disponibilidad, no gravedad</strong>: lo que
+            decide una alineación no es lo fea que suene la lesión, es si juega. Y la pone
+            quien compiló el dossier leyendo la cita, no un diagnóstico médico.
+          </p>
+          <p className="caption">
+            Estas entradas van <strong>atribuidas y fechadas, pero sin enlace</strong>, al
+            revés que las fichas de arriba. Por eso están en su propia sección: forzarlas al
+            mismo formato obligaría a relajar la regla del enlace, y una garantía que se
+            relaja para que quepa el dato nuevo deja de ser una garantía.
+          </p>
+          <h3>Fuera ({out.length})</h3>
+          <Medical entries={out} />
+          <h3>En duda ({doubt.length})</h3>
+          <Medical entries={doubt.slice(0, 30)} />
+          {doubt.length > 30 ? (
+            <p className="caption">
+              Y {doubt.length - 30} más. El listado completo va en{" "}
+              <code>research/dossier.json</code>.
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {camp.length > 0 ? (
+        <section id="campamento">
+          <h2>Campamento</h2>
+          <p className="caption">
+            Los reportes de campamento son de los datos <strong>menos predictivos</strong> que
+            existen en este deporte, y por eso el nivel de sustancia va delante y no
+            escondido: <em>alta</em> es una cita de un entrenador o un cambio confirmado de
+            papel; <em>baja</em> es un elogio suelto en agosto. De {camp.length} reportes,
+            sólo {campHigh.length} son de sustancia alta — esa proporción es el dato.
+          </p>
+          <Camp entries={campHigh} />
+          <p className="caption">
+            Los de sustancia media y baja quedan en <code>research/dossier.json</code>. No se
+            publican aquí porque enseñarlos al lado de los otros los iguala, y no son iguales.
+          </p>
+        </section>
+      ) : null}
+
+      {dossier?.reporters?.length ? (
+        <section id="reporteros">
+          <h2>A quién seguir</h2>
+          <p className="caption">
+            {dossier.reporters.length} periodistas de cobertura diaria, por equipo. El beat
+            local suele ir por delante del nacional en lo que pasa dentro de un entrenamiento:
+            está allí todos los días. Esta lista también es la que orienta el barrido diario —
+            no se busca «noticias de la NFL», se busca lo que publican estos.
+          </p>
+          <Beat reporters={dossier.reporters} />
+        </section>
       ) : null}
 
       <h2>Qué esperar de esto</h2>

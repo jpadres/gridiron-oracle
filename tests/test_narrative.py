@@ -316,3 +316,51 @@ def test_no_key_means_no_narrative(monkeypatch):
     """
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     assert available() is False
+
+
+# --- dossier curado ----------------------------------------------------------
+
+def test_worst_medical_situation_wins_not_the_most_recent():
+    """Si un jugador arrastra dos avisos, para alinear manda el peor.
+
+    Con el criterio «el más reciente» un FUERA del lunes quedaría tapado por un
+    SEGUIR del martes, y la fila del ranking diría que se puede alinear a
+    alguien descartado.
+    """
+    from oracle.narrative import dossier
+
+    data = {"medical": [
+        {"player_id": "00-1", "level": "SEGUIR", "date": "2026-08-17"},
+        {"player_id": "00-1", "level": "FUERA", "date": "2026-08-10"},
+        {"player_id": "00-2", "level": "DUDA", "date": "2026-08-16"},
+    ]}
+    worst = dossier.availability_by_player(data)
+    assert worst["00-1"]["level"] == "FUERA"
+    assert worst["00-2"]["level"] == "DUDA"
+
+
+def test_unknown_labels_fall_back_to_the_least_alarming():
+    """Una etiqueta desconocida no puede inventarse una alarma.
+
+    Al revés sí sería grave: convertir un valor raro en FUERA sacaría del
+    ranking a alguien que juega.
+    """
+    from oracle.narrative import dossier
+
+    assert dossier.normalise_level("cuestionable") == "SEGUIR"
+    assert dossier.normalise_level("FUERA") == "FUERA"
+    assert dossier.normalise_substance("altísima") == "baja"
+    assert dossier.normalise_substance("alta") == "alta"
+
+
+def test_dossier_entries_without_a_ranked_player_are_left_unlinked():
+    """El parte médico cubre los 32 equipos enteros; el board sólo QB/RB/WR/TE."""
+    from oracle.narrative import dossier
+
+    entries = [
+        {"player": "Patrick Mahomes", "team": "KC"},
+        {"player": "Un Liniero Defensivo", "team": "KC"},
+    ]
+    dossier.attach_players(entries, [{"player_id": "00-9", "player_name": "P.Mahomes", "team": "KC"}])
+    assert entries[0]["player_id"] == "00-9"
+    assert entries[1]["player_id"] is None

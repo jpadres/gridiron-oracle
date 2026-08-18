@@ -1,4 +1,4 @@
-import { model, num } from "../../data/model.js";
+import { availabilityByPlayer, model, num } from "../../data/model.js";
 import { POSITIONS, PositionChip, VorCurve } from "../charts.jsx";
 import { Callout, NoDataYet, RankTable, Table } from "../ui.jsx";
 
@@ -47,6 +47,7 @@ export default function Fantasy() {
   }
 
   const board = fantasy.board ?? [];
+  const availability = availabilityByPlayer(model.dossier);
 
   return (
     <>
@@ -88,7 +89,7 @@ export default function Fantasy() {
           Las cuatro posiciones en una sola lista, ordenadas por VOR. Puntuación{" "}
           {fantasy.scoring}, liga de {fantasy.teams} equipos.
         </p>
-        <RankTable rows={numbered(board)} columns={BOARD_COLUMNS} tiers />
+        <RankTable rows={numbered(board)} columns={BOARD_COLUMNS} availability={availability} tiers />
       </section>
 
       {POSITIONS.map((position) => {
@@ -99,7 +100,7 @@ export default function Fantasy() {
             <h2>
               <PositionChip position={position} /> {position}
             </h2>
-            <RankTable rows={numbered(group)} columns={BOARD_COLUMNS} tiers />
+            <RankTable rows={numbered(group)} columns={BOARD_COLUMNS} availability={availability} tiers />
           </section>
         );
       })}
@@ -123,7 +124,12 @@ export default function Fantasy() {
       <h2>Limitaciones</h2>
       <ul>
         <li>Los rookies no aparecen: sin partidos NFL no hay historial que proyectar.</li>
-        <li>No hay parte de lesiones; el titular se deduce del volumen reciente.</li>
+        <li>
+          <strong>La proyección no descuenta lesiones.</strong> Sale del historial de
+          partidos y cuenta con el jugador aunque esté descartado. La etiqueta de
+          disponibilidad al lado del nombre viene del dossier y es un dato{" "}
+          <em>paralelo</em>: no toca el número de la derecha, lo contradice cuando toca.
+        </li>
         <li>El reparto interno de un backfield nuevo se hereda del año anterior.</li>
         <li>
           Se proyectan 15,5 partidos para todos: el riesgo de lesión individual no está

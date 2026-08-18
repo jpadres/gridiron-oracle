@@ -327,3 +327,41 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 }
 .mark--why { background: var(--accent); color: var(--bg); }
 .mark--news { background: var(--warn-line); color: var(--bg); }
+
+/* Disponibilidad. Va pegada al nombre porque es el único dato de la fila que
+   contradice a los números de al lado: la proyección cuenta con un jugador
+   aunque esté descartado. El texto («FUERA», «DUDA») es el canal principal; el
+   color sólo lo refuerza. */
+.avail {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0 0.3rem;
+  border-radius: 3px;
+  font-size: 0.63rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  vertical-align: text-top;
+  border: 1px solid currentColor;
+  cursor: help;
+}
+.avail--fuera { color: var(--pos-diff-down); }
+.avail--duda { color: var(--warn-line); }
+/* SEGUIR es «hay algo anotado», no una alarma: se queda en gris. */
+.avail--seguir { color: var(--muted); }
+
+/* Fichas del dossier: atribuidas y fechadas, sin enlace. Se distinguen de las
+   de research a propósito — la diferencia de fiabilidad es real. */
+.dossier { border: 1px solid var(--line); border-radius: 6px; padding: 0.6rem 0.85rem;
+           margin: 0.7rem 0; }
+.dossier h4 { margin: 0 0 0.25rem; font-size: 0.95rem; }
+.dossier p { margin: 0.3rem 0; }
+.dossier .attrib { font-size: 0.78rem; color: var(--muted); }
+
+/* Directorio de reporteros: columnas que se recolocan solas. */
+.beat { column-width: 15rem; column-gap: 1.5rem; margin: 1rem 0; }
+.beat .team { break-inside: avoid; margin-bottom: 0.9rem; }
+.beat .team h4 { margin: 0 0 0.2rem; font-size: 0.85rem; letter-spacing: 0.06em;
+                 color: var(--muted); }
+.beat ul { margin: 0; padding-left: 1rem; font-size: 0.85rem; }
+.beat li { margin: 0.1rem 0; }
+.beat .outlet { color: var(--muted); }

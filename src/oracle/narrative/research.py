@@ -178,6 +178,7 @@ def sweep(
     *,
     today: str,
     known_headlines: list[str],
+    reporters: list[dict] | None = None,
     max_items: int = 8,
     max_searches: int = 8,
     effort: str = "medium",
@@ -185,6 +186,7 @@ def sweep(
 ) -> list[dict]:
     """Un beat: busca, filtra y devuelve fichas ya limpias."""
     seen = "\n".join(f"- {headline}" for headline in known_headlines[:60]) or "- (nada todavía)"
+    beat_writers = _reporter_block(reporters, beat)
     user = f"""Hoy es {today}.
 
 Busca en internet lo publicado en los últimos dos días sobre: {focus}
@@ -192,6 +194,7 @@ Busca en internet lo publicado en los últimos dos días sobre: {focus}
 Fuentes que valen: ESPN, NFL.com, The Athletic, Yahoo Sports, CBS Sports, Pro
 Football Talk, los diarios locales de cada ciudad, los blogs de la red SB Nation,
 las cuentas de los insiders y las notas oficiales de los equipos.
+{beat_writers}
 
 Ya hemos publicado estos titulares en los últimos días. **No los repitas**; sólo
 tráelos de vuelta si hay una novedad real encima:
@@ -212,6 +215,31 @@ fantasy. Menos fichas buenas es mejor que más fichas de relleno."""
     )
     items = payload.get("items", []) if isinstance(payload, dict) else []
     return [item for item in (_clean(item, beat) for item in items) if item]
+
+
+def _reporter_block(reporters: list[dict] | None, beat: str) -> str:
+    """Los periodistas de cobertura diaria de los equipos de este beat.
+
+    El beat local va por delante del nacional en lo que pasa dentro de un
+    entrenamiento: está allí todos los días. Nombrarlos cambia la búsqueda de
+    «noticias de los Chiefs» a «qué publicó hoy quien cubre a los Chiefs», que
+    es una consulta mucho mejor.
+    """
+    if not reporters:
+        return ""
+    teams = set(DIVISIONS.get(beat, ()))
+    chosen = [r for r in reporters if not teams or r.get("team") in teams]
+    if not chosen:
+        return ""
+    lines = "\n".join(
+        f"- {r['name']} ({r.get('outlet', '')}{', ' + r['handle'] if r.get('handle') else ''})"
+        f" — {r['team']}"
+        for r in chosen[:40]
+    )
+    return (
+        "\nEstos son los periodistas de cobertura diaria de estos equipos. "
+        "Busca lo que han publicado ellos antes que lo agregado:\n" + lines
+    )
 
 
 def beats(selection: list[str] | None = None) -> dict[str, str]:

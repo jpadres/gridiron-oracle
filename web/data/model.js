@@ -30,6 +30,7 @@ const EMPTY = {
   fantasy_weekly: null,
   research: null,
   narrative: null,
+  dossier: null,
 };
 
 function decode() {
@@ -58,4 +59,27 @@ export function num(value, digits = 2) {
 export function pct(value, digits = 1) {
   if (value === null || value === undefined || Number.isNaN(value)) return "—";
   return `${(Number(value) * 100).toFixed(digits)}%`;
+}
+
+/**
+ * Índice `player_id` -> peor situación médica conocida del dossier.
+ *
+ * Peor y no la más reciente: si un jugador arrastra dos avisos y uno dice
+ * FUERA, para alinear manda el FUERA aunque el otro sea de ayer.
+ *
+ * Vive aquí y no en cada página porque lo usan el board de draft y el ranking
+ * semanal, y dos copias del mismo criterio se desincronizan a la primera.
+ */
+const LEVELS = ["FUERA", "DUDA", "SEGUIR"];
+
+export function availabilityByPlayer(dossier) {
+  const worst = {};
+  for (const entry of dossier?.medical ?? []) {
+    if (!entry.player_id) continue;
+    const current = worst[entry.player_id];
+    if (!current || LEVELS.indexOf(entry.level) < LEVELS.indexOf(current.level)) {
+      worst[entry.player_id] = entry;
+    }
+  }
+  return worst;
 }

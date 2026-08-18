@@ -135,6 +135,11 @@ def main(argv: list[str] | None = None) -> int:
     # con su fuente al lado, no salidas del modelo, y no entran en ningún cálculo.
     payload["research"] = _research(paths, payload)
 
+    # --- dossier curado (parte médico, campamento, reporteros) ---------------
+    # Atribuido y fechado, pero SIN enlace: por eso viaja aparte del research y
+    # la web lo dice donde se enseña. Ver `narrative/dossier.py`.
+    payload["dossier"] = _dossier(paths, payload)
+
     # --- textos generados ---------------------------------------------------
     if args.with_narrative:
         payload["narrative"] = _narrative(payload)
@@ -162,6 +167,32 @@ def _research(paths, payload: dict) -> dict | None:
     if section is None:
         print("  (aviso) sin research: la sección saldrá vacía en la web.")
     return section
+
+
+def _dossier(paths, payload: dict) -> dict | None:
+    """El dossier curado, con cada entrada colgada de su jugador del ranking."""
+    path = paths.root / "research" / "dossier.json"
+    if not path.exists():
+        return None
+
+    from oracle.narrative import dossier as dossier_module
+
+    data = json.loads(path.read_text(encoding="utf-8"))
+    players = (payload.get("fantasy_weekly") or {}).get("rankings", [])
+    board = (payload.get("fantasy") or {}).get("board", [])
+    # Se busca en las dos listas: el board de draft tiene 250 jugadores y el
+    # ranking semanal sólo a los titulares, así que un suplente lesionado sólo
+    # aparece en el primero — y es justo el que interesa marcar.
+    dossier_module.attach_players(data.get("medical", []), players + board)
+    dossier_module.attach_players(data.get("camp", []), players + board)
+    # El parte médico viaja entero porque la etiqueta de disponibilidad de cada
+    # fila del board se saca de él. Los reportes de campamento, no: sólo se
+    # pintan los de sustancia alta, y los otros 71 son 18 KB de bundle que nadie
+    # ve. Siguen en `research/dossier.json`, que es el archivo.
+    data["camp"] = [entry for entry in data.get("camp", []) if entry["substance"] == "alta"]
+    linked = sum(1 for entry in data.get("medical", []) if entry.get("player_id"))
+    print(f"  dossier: {len(data.get('medical', []))} avisos médicos, {linked} sobre un jugador del board.")
+    return data
 
 
 def _narrative(payload: dict) -> dict | None:
