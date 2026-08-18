@@ -149,7 +149,8 @@ export function Sources({ sources }) {
  * `title` y la sección de debajo repite el contenido en texto.
  */
 export function RankTable({
-  rows, columns, notes = {}, news = {}, availability = {}, tiers = false,
+  rows, columns, notes = {}, news = {}, availability = {}, briefs = {},
+  risk = false, tiers = false,
 }) {
   if (!rows || rows.length === 0) {
     return <p className="caption">Sin datos todavía.</p>;
@@ -174,6 +175,7 @@ export function RankTable({
             const hasNote = Boolean(notes[row.player_id]);
             const hasNews = Boolean(news[row.player_id]);
             const health = availability[row.player_id];
+            const brief = briefs[row.player_id];
             return (
               <Fragment key={row.player_id ?? index}>
                 {band !== null && band !== undefined ? (
@@ -197,6 +199,9 @@ export function RankTable({
                         </span>
                       ) : null}
                       {health ? <AvailabilityTag entry={health} /> : null}
+                      {risk && row.risk_label && row.risk_label !== "Normal" ? (
+                        <RiskTag row={row} />
+                      ) : null}
                     </span>
                     <span className="meta">
                       {row.position ? <PositionTag position={row.position} /> : null}
@@ -204,6 +209,7 @@ export function RankTable({
                       {row.position_rank ? ` · ${row.position}${row.position_rank}` : null}
                       {row.opponent ? ` · vs ${row.opponent}` : null}
                     </span>
+                    {brief ? <span className="brief">{brief}</span> : null}
                   </td>
                   {columns.map((column) => (
                     <td key={column.key}>
@@ -240,6 +246,35 @@ function AvailabilityTag({ entry }) {
       title={`${entry.situation} — ${entry.status} (${entry.source}, ${entry.date})`}
     >
       {entry.level}
+    </span>
+  );
+}
+
+/**
+ * Etiqueta de riesgo, con su descomposición en el tooltip.
+ *
+ * La etiqueta sola sería un oráculo. Enseñando de qué está hecha —muestra,
+ * cuánto encogió el modelo la tasa bruta, dependencia del touchdown— se puede
+ * discrepar de un motivo concreto, que es la única forma de discutir un número.
+ */
+// Nombre de clase en ASCII y no derivado de la etiqueta: `"Volátil".toLowerCase()`
+// da `.risk--volátil`, que funciona hasta que alguien le quita la tilde a la
+// etiqueta y el estilo desaparece sin que falle nada.
+const RISK_CLASS = { "Volátil": "high", "Estable": "low", Normal: "mid" };
+
+function RiskTag({ row }) {
+  const parts = [
+    `muestra ${Math.round((row.risk_sample ?? 0) * 100)}`,
+    `encogimiento ${Math.round((row.risk_shrink ?? 0) * 100)}`,
+    `touchdown ${Math.round((row.risk_touchdown ?? 0) * 100)}`,
+  ].join(" · ");
+  const why = row.risk_reasons?.length ? `${row.risk_reasons.join("; ")}. ` : "";
+  return (
+    <span
+      className={`risk risk--${RISK_CLASS[row.risk_label] ?? "mid"}`}
+      title={`${why}Componentes sobre 100: ${parts}`}
+    >
+      {row.risk_label}
     </span>
   );
 }

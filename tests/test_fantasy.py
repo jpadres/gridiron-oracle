@@ -410,3 +410,71 @@ def weekly_predictions() -> pd.DataFrame:
             }
         )
     return pd.DataFrame(rows)
+
+
+# ---------------------------------------------------------------------------
+# Volatilidad de la proyección
+# ---------------------------------------------------------------------------
+
+def test_risk_labels_do_not_clash_with_availability():
+    """«Estable/Volátil», nunca «Seguro/Riesgo».
+
+    Las etiquetas de disponibilidad del dossier son FUERA / DUDA / SEGUIR, y en
+    la misma fila del board pueden aparecer las dos. «DUDA» junto a «Seguro» se
+    lee como una contradicción aunque hablen de cosas distintas. Se vio mirando
+    una captura, no con un test — este existe para que no vuelva.
+    """
+    from oracle.fantasy import risk
+
+    assert risk.LABELS == ("Estable", "Normal", "Volátil")
+    assert "Seguro" not in risk.LABELS
+
+
+def test_a_reason_that_fires_for_everyone_is_not_a_reason(player_weeks):
+    """Un motivo que sale en los 250 jugadores no informa de nada.
+
+    Pasó dos veces: «muestra corta» con el umbral de saturación por encima del
+    máximo alcanzable, y «desconfía de su tasa bruta» con el corte demasiado
+    bajo. La mayoría del board debe salir sin ningún motivo.
+    """
+    import pandas as pd
+
+    from oracle.fantasy import risk
+    from oracle.fantasy.draft import _td_points, draft_board, project_season
+    from oracle.fantasy.scoring import rules_from_name
+
+    rules = rules_from_name("ppr")
+    board = draft_board(project_season(player_weeks, season=2025, rules=rules))
+    td_points = {pos: _td_points(pos, rules) for pos in ("QB", "RB", "WR", "TE")}
+    scored = risk.score(board, td_points)
+
+    counts = pd.Series([len(risk.reasons(row)) for _, row in scored.iterrows()])
+    assert (counts == 0).mean() > 0.25, (
+        f"sólo el {(counts == 0).mean():.0%} del board sale sin motivos: "
+        "los umbrales están demasiado bajos y el aviso se convierte en decoración"
+    )
+
+
+def test_risk_is_ranked_within_each_position(player_weeks):
+    """Un TE «Estable» no significa lo mismo que un QB «Estable».
+
+    Las escalas de error de las cuatro posiciones se diferencian en un factor de
+    tres. Sin comparar dentro de la posición, todos los TE saldrían estables y
+    todos los QB volátiles por pura escala, y la etiqueta no diría nada.
+    """
+    from oracle.fantasy import risk
+    from oracle.fantasy.draft import _td_points, draft_board, project_season
+    from oracle.fantasy.scoring import rules_from_name
+
+    rules = rules_from_name("ppr")
+    board = draft_board(project_season(player_weeks, season=2025, rules=rules))
+    td_points = {pos: _td_points(pos, rules) for pos in ("QB", "RB", "WR", "TE")}
+    scored = risk.score(board, td_points)
+
+    for position, group in scored.groupby("position", observed=True):
+        if len(group) < 6:
+            continue
+        labels = set(group["risk_label"])
+        assert "Estable" in labels and "Volátil" in labels, (
+            f"{position} no tiene las dos etiquetas: {labels}"
+        )

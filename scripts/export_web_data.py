@@ -47,6 +47,12 @@ SIZE_WARNING_KB = 200
 DRAFT_COLUMNS = (
     "player_id", "overall_rank", "player_name", "position", "team", "position_rank",
     "tier", "projected_points", "vor",
+    # Riesgo: la etiqueta, sus tres componentes y los motivos que se nombran.
+    # Las componentes viajan aunque no se pinten en una columna porque el
+    # tooltip las enseña — una etiqueta de riesgo sin su descomposición es un
+    # oráculo, y de esos no se puede discrepar.
+    "risk_label", "risk_score", "risk_reasons",
+    "risk_sample", "risk_shrink", "risk_touchdown",
 )
 WEEKLY_COLUMNS = (
     "player_id", "position_rank", "player_name", "position", "team", "opponent",

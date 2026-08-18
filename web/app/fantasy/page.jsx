@@ -1,5 +1,6 @@
-import { availabilityByPlayer, model, num } from "../../data/model.js";
+import { availabilityByPlayer, briefsByPlayer, model, num } from "../../data/model.js";
 import { POSITIONS, PositionChip, VorCurve } from "../charts.jsx";
+import DraftMode from "./DraftMode.jsx";
 import { Callout, NoDataYet, RankTable, Table } from "../ui.jsx";
 
 export const metadata = {
@@ -48,6 +49,7 @@ export default function Fantasy() {
 
   const board = fantasy.board ?? [];
   const availability = availabilityByPlayer(model.dossier);
+  const briefs = briefsByPlayer(model.dossier, model.research);
 
   return (
     <>
@@ -59,12 +61,24 @@ export default function Fantasy() {
       </p>
 
       <ul className="jump">
+        <li><a href="#draft-mode">Modo draft</a></li>
         <li><a href="#global">Global</a></li>
         {POSITIONS.map((position) => (
           <li key={position}><a href={`#${position.toLowerCase()}`}>{position}</a></li>
         ))}
         <li><a href="#validacion">Validación</a></li>
       </ul>
+
+      <section id="draft-mode">
+        <h2>Modo draft</h2>
+        <p className="caption">
+          La sugerencia es el mejor disponible por VOR <strong>corregido por lo que ya
+          tienes</strong>: cada posición pierde valor para ti a medida que la llenas, porque tu
+          quinto receptor no juega. Sin esa corrección un board te manda coger receptores toda
+          la tarde, que es justo el error que debería evitarte.
+        </p>
+        <DraftMode board={board} />
+      </section>
 
       <h2>Dónde se acaba el valor en cada posición</h2>
       <VorCurve board={board} />
@@ -89,7 +103,8 @@ export default function Fantasy() {
           Las cuatro posiciones en una sola lista, ordenadas por VOR. Puntuación{" "}
           {fantasy.scoring}, liga de {fantasy.teams} equipos.
         </p>
-        <RankTable rows={numbered(board)} columns={BOARD_COLUMNS} availability={availability} tiers />
+        <RankTable rows={numbered(board)} columns={BOARD_COLUMNS}
+                   availability={availability} briefs={briefs} risk tiers />
       </section>
 
       {POSITIONS.map((position) => {
@@ -100,7 +115,8 @@ export default function Fantasy() {
             <h2>
               <PositionChip position={position} /> {position}
             </h2>
-            <RankTable rows={numbered(group)} columns={BOARD_COLUMNS} availability={availability} tiers />
+            <RankTable rows={numbered(group)} columns={BOARD_COLUMNS}
+                       availability={availability} briefs={briefs} risk tiers />
           </section>
         );
       })}
@@ -118,6 +134,34 @@ export default function Fantasy() {
           parte difícil —ordenar bien a los veinte primeros de una posición— es mucho más
           ruidosa, y los rankings sirven sobre todo para{" "}
           <strong>no cometer errores grandes</strong>.
+        </p>
+      </section>
+
+      <section id="riesgo">
+        <h2>La etiqueta de volatilidad, y cuánto vale</h2>
+        <p>
+          <strong>Estable</strong> y <strong>Volátil</strong> son dos palabras muy fáciles de
+          inventarse, así que aquí salen de tres cantidades medidas y{" "}
+          <strong>están validadas contra el error realizado</strong>: el tamaño de muestra
+          detrás de la proyección, cuánto tuvo que encoger el modelo la tasa bruta del jugador
+          —el encogimiento es proporcional a la desconfianza— y qué parte de sus puntos vienen
+          de touchdowns, que es la estadística más ruidosa del fantasy.
+        </p>
+        <p>
+          Sobre 1914 jugador-temporadas de 2022 a 2025, proyectando cada una sólo con lo
+          anterior: la correlación entre riesgo y error absoluto es{" "}
+          <strong>+0,20</strong> y el tercio más volátil se equivoca un{" "}
+          <strong>21% más</strong> que el tercio estable. Positivo en las cuatro posiciones, y
+          más fuerte en quarterback (+0,45).
+        </p>
+        <p className="caption">
+          Es una señal real y <strong>pequeña</strong>. Ordena a quién mirar con lupa, no
+          decide un draft: un «Volátil» con cien puntos más de proyección sigue siendo mejor
+          elección que un «Estable» sin ellos. La etiqueta se compara{" "}
+          <em>dentro de cada posición</em>, porque las escalas de error de las cuatro se
+          diferencian en un factor de tres. La edad no entra: el acantilado del corredor es
+          real, pero las fechas de nacimiento no están conectadas y meterla a medias sería peor
+          que no meterla.
         </p>
       </section>
 

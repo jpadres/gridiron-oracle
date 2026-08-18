@@ -384,3 +384,82 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .plan .wk { font-size: 0.63rem; color: var(--muted); letter-spacing: 0.06em; }
 .plan .tm { font-weight: 700; font-size: 0.9rem; line-height: 1.2; }
 .plan .pb { font-size: 0.68rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* --- modo draft ----------------------------------------------------------- */
+
+.draft { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1.1rem;
+         margin: 1rem 0 1.75rem; }
+.draft-head { display: flex; flex-wrap: wrap; gap: 0.6rem 1.25rem;
+              align-items: baseline; justify-content: space-between;
+              font-size: 0.9rem; }
+.draft-roster { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.slot { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+        padding: 0.1rem 0.4rem; border-radius: 4px; border: 1px solid var(--line);
+        color: var(--muted); }
+/* Puesto cubierto: se apaga en vez de encenderse. Lo que hay que mirar en un
+   draft es lo que falta, no lo que ya tienes. */
+.slot--full { color: var(--pos-wr); border-color: currentColor; }
+
+.picks { list-style: none; padding: 0; margin: 0.75rem 0 0; }
+.pick { display: flex; align-items: center; gap: 0.7rem; padding: 0.4rem 0;
+        border-top: 1px solid var(--line); }
+.pick:first-child { border-top: none; }
+/* La primera sugerencia se separa del resto: en dos horas de draft se mira de
+   reojo, y tiene que leerse sin buscarla. */
+.pick--top { background: var(--warn-bg); margin: 0 -0.5rem; padding: 0.55rem 0.5rem;
+             border-radius: 5px; }
+.pick-rank { width: 1.4rem; text-align: center; color: var(--muted);
+             font-weight: 700; font-size: 0.85rem; }
+.pick--top .pick-rank { color: var(--warn-line); }
+.pick-who { flex: 1; min-width: 0; }
+.pick-who .nm { display: block; font-weight: 650; line-height: 1.2; }
+.pick-who .meta { display: block; font-size: 0.76rem; color: var(--muted); }
+.pick-actions { display: flex; gap: 0.35rem; flex-shrink: 0; }
+.pick-actions button, .draft button.link {
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--bg);
+}
+.pick-actions button.ghost { background: transparent; color: var(--muted);
+                             border-color: var(--line); }
+.pick-actions button:hover { filter: brightness(1.1); }
+.pick-actions button.ghost:hover { border-color: var(--muted); color: var(--fg); }
+.draft button.link { border: none; background: none; color: var(--accent);
+                     padding: 0; text-decoration: underline; }
+
+.mine { list-style: none; padding: 0; margin: 0.4rem 0 0; font-size: 0.9rem; }
+.mine li { padding: 0.2rem 0; display: flex; align-items: center; gap: 0.4rem; }
+.mine .outlet { color: var(--muted); font-size: 0.8rem; }
+
+/* Etiqueta de riesgo. El texto es el canal principal; el color, refuerzo. */
+.risk {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0 0.32rem;
+  border-radius: 3px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  vertical-align: text-top;
+  border: 1px solid currentColor;
+  cursor: help;
+}
+.risk--high { color: var(--pos-rb); }
+.risk--low { color: var(--pos-wr); }
+
+/* Nota de research bajo el nombre: una línea, recortada, sin romper la fila. */
+.brief {
+  display: block;
+  font-size: 0.76rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+  max-width: 34rem;
+  white-space: normal;
+  border-left: 2px solid var(--warn-line);
+  padding-left: 0.45rem;
+}

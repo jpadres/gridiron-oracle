@@ -97,3 +97,43 @@ export function availabilityByPlayer(dossier) {
   }
   return worst;
 }
+
+/**
+ * Una línea de research por jugador, para colgarla de su fila del ranking.
+ *
+ * Prioridad deliberada: primero lo que **cambia la disponibilidad**, luego lo
+ * que cambia el papel, y sólo al final el contexto. Si un jugador está
+ * descartado, eso manda sobre cualquier crónica de campamento por buena que
+ * sea; y un cambio de depth chart manda sobre un elogio de agosto.
+ *
+ * El texto se recorta a una frase. La ficha completa, con su fuente y su fecha,
+ * está en /research — aquí sólo cabe el aviso.
+ */
+export function briefsByPlayer(dossier, research) {
+  const briefs = {};
+
+  // 3. Contexto de campamento, sólo el de sustancia alta.
+  for (const entry of dossier?.camp ?? []) {
+    if (entry.player_id && entry.substance === "alta") {
+      briefs[entry.player_id] = firstSentence(entry.report);
+    }
+  }
+  // 2. Prensa reciente enlazada a un jugador.
+  for (const item of research?.items ?? []) {
+    for (const id of item.player_ids ?? []) briefs[id] = item.headline;
+  }
+  // 1. Parte médico: lo último que se escribe es lo que gana.
+  for (const entry of dossier?.medical ?? []) {
+    if (entry.player_id && entry.level !== "SEGUIR") {
+      briefs[entry.player_id] = `${entry.situation}. ${entry.status}`;
+    }
+  }
+  return briefs;
+}
+
+function firstSentence(text, max = 150) {
+  if (!text) return "";
+  const cut = text.slice(0, max);
+  const stop = cut.lastIndexOf(". ");
+  return stop > 40 ? cut.slice(0, stop + 1) : `${cut.trim()}…`;
+}

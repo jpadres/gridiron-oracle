@@ -110,10 +110,12 @@ src/oracle/
   fantasy/               puntuación, proyecciones de draft, ranking semanal
   narrative/             textos generados y barrido de prensa (opcional, con clave)
   survivor/              plan de survivor: asignación lineal sobre log-probabilidades
+  fantasy/risk.py        volatilidad de la proyección, VALIDADA contra el error real
   pipeline.py            Oracle.train() -> predict() -> value_bets()
   cli.py                 comando `oracle`
 research/                archivo diario de prensa + dossier curado — SÍ se versiona
 web/                     Next.js 16, 8 páginas estáticas, datos horneados
+                         (el modo draft es el ÚNICO componente de cliente)
 scripts/                 generación de artefactos y utilidades
 ```
 
@@ -146,6 +148,7 @@ python scripts/fantasy_build.py                # rankings de draft: ~5 min
 python scripts/fantasy_weekly_build.py --season 2026 --week 1
 python scripts/fantasy_weekly_calibrate.py     # recalibra y valida: ~7 min
 python scripts/survivor_build.py               # plan de survivor: ~1 min
+python scripts/fantasy_risk_validate.py        # ¿la volatilidad predice el error?: ~4 min
 python scripts/dossier_import.py libro.xlsx    # importa el dossier curado
 python scripts/export_web_data.py              # regenera el payload de la web
 python scripts/make_report.py                  # informe HTML de validación
@@ -183,6 +186,8 @@ comentario está para que no los reintroduzcas.
 | `AZ` vs `ARI` entre fuentes | `data/ingest.py` | nflverse no es consistente entre datasets. Todo pasa por `normalize_team` |
 | Shin al revés | `betting/devig.py` | Shin da **menos** probabilidad al no favorito, no más (sesgo favorito-longshot) |
 | Suma de medias por jugador como denominador | `fantasy/weekly.py` | La cuota de uso se calcula sobre los partidos del **equipo**, no sumando promedios condicionales: inflaba el denominador entre un 5% y un 34% **según el equipo**, que es lo que rompe la comparación entre equipos. Se descubrió dibujando la gráfica, no con un test |
+| Un aviso que sale en los 250 jugadores | `fantasy/risk.py` | «Muestra corta» con la saturación en 40 partidos, cuando el ponderado 56/30/14 satura en 19. Un motivo que aparece siempre no informa: es decoración con nombre técnico |
+| «DUDA» y «Seguro» en la misma fila | `fantasy/risk.py` | Disponibilidad y volatilidad son cosas distintas, pero las palabras chocaban y se leía como contradicción. Ahora son «Estable/Volátil» |
 | El validador de cifras rechazaba textos correctos | `narrative/factcheck.py` | «Cae 4,9 puntos» con el dato en -4.9. Se admite el valor absoluto: en prosa el signo lo lleva el verbo. Un validador con falsos positivos acaba desactivado |
 
 ---

@@ -21,7 +21,13 @@ import pandas as pd
 from scipy.stats import pearsonr, spearmanr
 
 from oracle.config import paths as resolve_paths
-from oracle.fantasy.draft import LeagueSettings, draft_board, project_season
+from oracle.fantasy import risk
+from oracle.fantasy.draft import (
+    LeagueSettings,
+    _td_points,
+    draft_board,
+    project_season,
+)
 from oracle.fantasy.scoring import rules_from_name, score_player_weeks
 
 # Temporadas sobre las que se reporta la validación. Se fija antes de mirar el
@@ -46,6 +52,15 @@ def main(argv: list[str] | None = None) -> int:
 
     print(f"Proyectando {season} ({args.scoring}, liga de {args.teams})...")
     board = draft_board(project_season(players, season, rules), settings)
+
+    # Etiqueta de riesgo. Validada contra el error realizado en
+    # `scripts/fantasy_risk_validate.py`: Spearman +0.12 y el tercio de riesgo
+    # yerra un 10.7% más. Pasa el umbral, y lo pasa por poco — la web lo dice
+    # así, porque «predice el error» y «predice el error un poco» son
+    # afirmaciones distintas.
+    td_points = {pos: _td_points(pos, rules) for pos in ("QB", "RB", "WR", "TE")}
+    board = risk.score(board, td_points)
+    board["risk_reasons"] = [risk.reasons(row) for _, row in board.iterrows()]
 
     print("\nTop 20 por VOR:\n")
     view = board.head(20)[
