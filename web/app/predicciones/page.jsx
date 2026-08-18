@@ -65,6 +65,22 @@ export default function Predicciones() {
       <Table columns={GAME_COLUMNS} rows={predictions} />
 
       <h2>Apuestas con valor</h2>
+      <Callout title="Leer esta tabla junto a la portada, no en vez de ella">
+        <p>
+          La portada dice que el modelo <strong>no bate a la línea de cierre</strong>, y esta
+          tabla lista apuestas. No es una contradicción: son los partidos donde el modelo se
+          separa más del mercado, y esa discrepancia tiene una desviación típica de
+          0,86 puntos, así que separarse dos puntos pasa unas cien veces en catorce
+          temporadas. En ese grupo el registro histórico es positivo{" "}
+          <strong>y no alcanza significación estadística</strong> (p≈0,18). Es una hipótesis,
+          no una estrategia probada.
+        </p>
+        <p className="caption">
+          Si ves un importe de céntimos junto a un edge del 4%, no está roto: tras el
+          encogimiento del 50% esa apuesta queda pegada al punto de equilibrio de -110
+          (52,4%), y Kelly manda casi cero. Es la maquinaria de riesgo funcionando.
+        </p>
+      </Callout>
       {bets.length === 0 ? (
         <Callout title="Ninguna apuesta supera el umbral">
           <p>

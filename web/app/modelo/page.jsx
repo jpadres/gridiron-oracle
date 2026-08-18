@@ -17,13 +17,13 @@ export default function Modelo() {
       <h2>1. Distribución discreta con números clave, no una normal</h2>
       <p>
         El margen en la NFL no es continuo. Se acumula brutalmente en 3 y en 7, porque así es
-        como se puntúa. Convertir «margen esperado 2.8» en probabilidad con una normal comete
+        como se puntúa. Convertir «margen esperado 2,8» en probabilidad con una normal comete
         errores grandes y <em>sistemáticos</em> justo en las líneas donde se juega el dinero.
       </p>
       <p>
         La densidad se factoriza como <code>P(margen = k) ∝ w(k) · N(k; pred, σ)</code>, donde{" "}
         <code>w(k)</code> es el cociente entre la frecuencia observada de cada margen y su
-        versión suavizada por kernel. Sale ~1.9 en k=3, ~1.5 en k=7 y ~0.55 en k=2 y k=5,{" "}
+        versión suavizada por kernel. Sale ~1,9 en k=3, ~1,5 en k=7 y ~0,55 en k=2 y k=5,{" "}
         <strong>sin que nadie se lo diga</strong>. Que aparezca sin pedirlo es la comprobación
         de que mide algo real, y de ahí salen probabilidades de <em>push</em> correctas.
       </p>
@@ -39,7 +39,7 @@ export default function Modelo() {
 
       <h2>3. Ratings de eficiencia ajustados por rival, en línea</h2>
       <p>
-        El EPA bruto mide resultado, no calidad: un ataque con 0.15 EPA/jugada puede ser bueno o
+        El EPA bruto mide resultado, no calidad: un ataque con 0,15 EPA/jugada puede ser bueno o
         haber jugado contra las tres peores defensas de la liga. El ajuste es iterativo y online,
         sin mirar al futuro, con encogimiento por partidos jugados (la semana 1 no puede tener
         opiniones fuertes) y arrastre parcial entre temporadas.
@@ -55,7 +55,7 @@ export default function Modelo() {
 
       <h2>5. Ventaja local adaptativa</h2>
       <p>
-        La ventaja local cayó de ~2.7 puntos a mediados de los 2000 a ~1.5 en 2020-22, y ha
+        La ventaja local cayó de ~2,7 puntos a mediados de los 2000 a ~1,5 en 2020-22, y ha
         vuelto a subir. Fijarla en una constante es un error sistemático de medio punto durante
         temporadas enteras, así que se estima de forma recursiva a partir de los residuos de los
         partidos en casa.
@@ -95,9 +95,9 @@ export default function Modelo() {
 
       <h2>Gestión de riesgo</h2>
       <p>
-        El módulo de apuestas usa Kelly fraccionado (0.25) <strong>más</strong> un encogimiento
+        El módulo de apuestas usa Kelly fraccionado (0,25) <strong>más</strong> un encogimiento
         explícito del 50% del edge estimado, tope duro del 2% del bankroll por apuesta y umbral
-        mínimo de edge del 1.5%. Kelly completo con probabilidades estimadas produce drawdowns
+        mínimo de edge del 1,5%. Kelly completo con probabilidades estimadas produce drawdowns
         del 60-80%: no es una opción defendible.
       </p>
       <p>

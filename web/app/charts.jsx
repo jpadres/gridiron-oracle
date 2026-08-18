@@ -20,6 +20,8 @@
 
 const FONT = "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif";
 
+import { num } from "../data/model.js";
+
 export const POSITION_COLOR = {
   QB: "var(--pos-qb)",
   RB: "var(--pos-rb)",
@@ -255,9 +257,9 @@ export function CalibrationPlot({ rows }) {
           <circle key={row.bin} cx={x(row.predicted)} cy={y(row.observed)}
                   r={radius(row.games)} fill="var(--pos-qb)" fillOpacity="0.55"
                   stroke="var(--bg)" strokeWidth="2">
-            <title>{`Predicha ${(row.predicted * 100).toFixed(1)}% · observada ${(
-              row.observed * 100
-            ).toFixed(1)}% · ${row.games} partidos`}</title>
+            <title>{`Predicha ${num(row.predicted * 100, 1)}% · observada ${num(
+              row.observed * 100, 1
+            )}% · ${row.games} partidos`}</title>
           </circle>
         ))}
 
@@ -323,11 +325,11 @@ export function DeltaBars({ rows, limit = 12 }) {
               <rect x={positive ? zero + 1 : value} y={top + 5}
                     width={Math.max(Math.abs(value - zero) - 1, 1)} height={12} rx={3}
                     fill={positive ? "var(--pos-diff-up)" : "var(--pos-diff-down)"}>
-                <title>{`${row.player_name}: proyección ${row.projected_points.toFixed(
+                <title>{`${row.player_name}: proyección ${num(row.projected_points,
                   1
-                )}, últimos 6 ${row.baseline_points.toFixed(1)} (${
+                )}, últimos 6 ${num(row.baseline_points, 1)} (${
                   positive ? "+" : ""
-                }${row.delta.toFixed(1)})`}</title>
+                }${num(row.delta, 1)})`}</title>
               </rect>
               {/* La cifra va DENTRO de la barra cuando cabe con holgura. Fuera,
                   el extremo de las barras largas invade la columna de nombres. */}
@@ -340,7 +342,7 @@ export function DeltaBars({ rows, limit = 12 }) {
                         fill={long ? "#ffffff" : "var(--muted)"}
                         fontSize="11" fontFamily={FONT}
                         style={{ fontVariantNumeric: "tabular-nums" }}>
-                    {positive ? "+" : ""}{row.delta.toFixed(1)}
+                    {positive ? "+" : ""}{num(row.delta, 1)}
                   </text>
                 );
               })()}

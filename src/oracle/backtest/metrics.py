@@ -196,12 +196,24 @@ def calibration_table(frame: pd.DataFrame, bins: int = 10) -> pd.DataFrame:
     vistazo si el modelo miente, y un Brier agregado no.
     """
     data = frame[frame["margin"].notna() & frame["home_win_prob"].notna()].copy()
-    data["bin"] = pd.cut(data["home_win_prob"], np.linspace(0, 1, bins + 1), include_lowest=True)
+    edges = np.linspace(0, 1, bins + 1)
+    data["bin"] = pd.cut(data["home_win_prob"], edges, include_lowest=True)
     grouped = data.groupby("bin", observed=True)
-    return pd.DataFrame(
+    table = pd.DataFrame(
         {
             "predicted": grouped["home_win_prob"].mean(),
             "observed": grouped.apply(lambda g: float((g["margin"] > 0).mean()), include_groups=False),
             "games": grouped.size(),
         }
     ).reset_index()
+    # Etiqueta legible en vez del intervalo de pandas. Dos motivos:
+    #
+    # 1. `include_lowest` escribe el primer tramo como «(-0.001, 0.1]», y una
+    #    probabilidad negativa en una tabla de calibración invita a desconfiar
+    #    de toda la tabla, con razón.
+    # 2. En español la coma es a la vez separador decimal y separador de lista,
+    #    así que «[0,0, 0,1]» es ilegible. En porcentajes no hay ambigüedad.
+    table["bin"] = table["bin"].map(
+        lambda interval: f"{round(max(interval.left, 0.0) * 100)}–{round(interval.right * 100)}%"
+    )
+    return table

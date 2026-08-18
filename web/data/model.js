@@ -50,16 +50,29 @@ export const model = decode();
 
 export const hasData = !model.placeholder && model.predictions.length > 0;
 
-/** Formatea un número, o devuelve un guion si no lo hay. */
+/**
+ * Formatea un número **en español**, o devuelve un guion si no lo hay.
+ *
+ * Con coma decimal, no con punto. El sitio entero está en español y la prosa ya
+ * escribe «0,6 puntos de MAE»; que la tabla de al lado ponga «0.2128» es la
+ * clase de incoherencia que hace dudar del resto.
+ *
+ * `toLocaleString` y no `toFixed`: también agrupa los millares como toca. Ojo
+ * con una peculiaridad del español —la agrupación **empieza en cinco cifras**,
+ * así que 3829 se escribe sin punto y 10.000 con él. Es correcto, no un fallo.
+ */
 export function num(value, digits = 2) {
   if (value === null || value === undefined || Number.isNaN(value)) return "—";
-  return Number(value).toFixed(digits);
+  return Number(value).toLocaleString("es-ES", {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  });
 }
 
-/** Formatea una probabilidad como porcentaje. */
+/** Formatea una probabilidad como porcentaje, también con coma decimal. */
 export function pct(value, digits = 1) {
   if (value === null || value === undefined || Number.isNaN(value)) return "—";
-  return `${(Number(value) * 100).toFixed(digits)}%`;
+  return `${num(Number(value) * 100, digits)}%`;
 }
 
 /**

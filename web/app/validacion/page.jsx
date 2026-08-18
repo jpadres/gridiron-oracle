@@ -93,6 +93,16 @@ export default function Validacion() {
       </p>
 
       <h2>Por temporada</h2>
+      <p className="caption">
+        <strong>Ojo con la columna ECE aquí.</strong> Sale entre 0,04 y 0,10 cada temporada, y
+        el ECE global de arriba es {num(overall.ece, 4)} — mucho mejor que cualquiera de sus
+        partes, que suena a truco. No lo es: el ECE es un estadístico{" "}
+        <strong>sesgado al alza en muestras pequeñas</strong>. Con 267 partidos repartidos en
+        diez tramos quedan unos 27 por tramo, y sólo el ruido de muestreo ya mueve la
+        frecuencia observada unos 9 puntos. Eso es lo que miden esos números: casi todo ruido.
+        Con los {overall.games.toLocaleString("es-ES")} partidos juntos, el ruido baja y queda
+        la miscalibración de verdad.
+      </p>
       <Table columns={SEASON_COLUMNS} rows={seasons} />
 
       <h2>Calibración</h2>

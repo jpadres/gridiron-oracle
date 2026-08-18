@@ -143,7 +143,7 @@ export default function Survivor() {
         <li>
           <strong>Las jornadas lejanas no son pronósticos.</strong> Para una jornada futura no
           hay línea de mercado publicada, así que el modelo usa su variante autónoma, que es
-          peor (Brier 0.2187 frente a 0.2117 en el backtest). La jornada 15 calculada hoy es un
+          peor (Brier 0,2187 frente a 0,2117 en el backtest). La jornada 15 calculada hoy es un
           prior de fuerza de equipos.
         </li>
         <li>

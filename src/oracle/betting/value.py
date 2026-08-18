@@ -106,11 +106,16 @@ def _spread_candidates(game: pd.Series, distribution: MarginDistribution) -> lis
     fair = devig_shin(np.array([decimal, decimal]))
 
     return [
-        _candidate(game, f"spread {line:+.1f}", game["home_team"], home_prob, decimal, fair[0],
+        _candidate(game, f"spread {_es(line)}", game["home_team"], home_prob, decimal, fair[0],
                    push=push),
-        _candidate(game, f"spread {-line:+.1f}", game["away_team"], away_prob, decimal, fair[1],
+        _candidate(game, f"spread {_es(-line)}", game["away_team"], away_prob, decimal, fair[1],
                    push=push),
     ]
+
+
+def _es(line: float) -> str:
+    """Handicap con coma decimal. El sitio está en español y esto se publica tal cual."""
+    return f"{line:+.1f}".replace(".", ",")
 
 
 def _candidate(

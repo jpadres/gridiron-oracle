@@ -396,3 +396,29 @@ def test_ats_record_always_carries_its_uncertainty(features):
     # Contra un mercado eficiente simulado, "significativo" debe salir False.
     # Si sale True, la hipótesis por defecto es fuga, no genialidad.
     assert ats.significant is False
+
+
+def test_calibration_bins_are_readable_percentages():
+    """Ni probabilidades negativas ni comas ambiguas en las etiquetas.
+
+    `include_lowest` de pandas escribe el primer tramo como «(-0.001, 0.1]», y
+    una probabilidad negativa en una tabla de calibración hace desconfiar de
+    toda la tabla — con razón. En español el problema se agrava: la coma es a la
+    vez separador decimal y de lista, así que «[0,0, 0,1]» es ilegible.
+    """
+    import numpy as np
+    import pandas as pd
+
+    from oracle.backtest.metrics import calibration_table
+
+    rng = np.random.default_rng(0)
+    probability = rng.uniform(0.02, 0.98, 3000)
+    frame = pd.DataFrame({
+        "home_win_prob": probability,
+        "margin": np.where(rng.random(3000) < probability, 3.0, -3.0),
+    })
+    labels = calibration_table(frame)["bin"].tolist()
+
+    assert labels[0] == "0–10%"
+    assert labels[-1] == "90–100%"
+    assert not any("-" in label.replace("–", "") for label in labels), labels

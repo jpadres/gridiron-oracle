@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Un balón. Sin fichero binario y sin peticiones de fuera: la CSP no
+       permite dominios externos y un SVG inline no necesita ninguno. -->
+  <rect width="32" height="32" rx="6" fill="#16181d"/>
+  <ellipse cx="16" cy="16" rx="10" ry="6.2" fill="#eb6834"/>
+  <path d="M10 16h12" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M13.5 14v4M16 13.4v5.2M18.5 14v4" stroke="#fff" stroke-width="1.2"
+        stroke-linecap="round"/>
+</svg>
