@@ -463,3 +463,30 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
   border-left: 2px solid var(--warn-line);
   padding-left: 0.45rem;
 }
+
+/* --- consenso y fuentes --------------------------------------------------- */
+
+/* Dos columnas en pantalla ancha, una en móvil. Subir y bajar son la misma
+   pregunta vista desde los dos lados, y leerlas en paralelo es el punto. */
+.two-up { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+          margin: 1rem 0; }
+
+.gap { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+.gap li { padding: 0.5rem 0; border-top: 1px solid var(--line); }
+.gap li:first-child { border-top: none; }
+.gap-who { display: block; }
+.gap-nums { display: flex; justify-content: space-between; align-items: baseline;
+            gap: 0.5rem; font-size: 0.8rem; margin-top: 0.1rem; }
+/* Verde arriba y rojo abajo repiten el signo, que ya está escrito. Refuerzo,
+   nunca canal único. */
+.gap-up { color: var(--pos-wr); font-weight: 700; }
+.gap-down { color: var(--pos-diff-down); font-weight: 700; }
+.gap-note { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+
+.sources-list { list-style: none; padding: 0; margin: 1rem 0; font-size: 0.88rem; }
+.sources-list li { padding: 0.35rem 0; border-bottom: 1px solid var(--line); }
+.sources-list .used { color: var(--muted); font-size: 0.82rem; }
+/* Lo sin verificar se apaga: sigue estando, pero no compite visualmente con una
+   fuente con redacción detrás. */
+.sources-list li.unverified { opacity: 0.72; }
+.sources-list li.unverified .tag { margin-left: 0.4rem; }

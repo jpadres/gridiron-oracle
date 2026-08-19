@@ -350,6 +350,24 @@ El número honesto que sale de aquí: **el plan óptimo sobrevive las 18 jornada
 menos del 1% de las veces.** No es un fallo del modelo, es la aritmética de
 multiplicar dieciocho probabilidades del 70%.
 
+## Contraste con el consenso
+
+El board propio tiene un problema evidente: **no sabe si tiene razón**. Por eso
+se importa un ranking de consenso de expertos (`scripts/dossier_import.py`) y se
+publica sólo la **diferencia**. Coincidir no informa de nada: si los dos boards
+dicen lo mismo, daba igual cuál mirases.
+
+Los desacuerdos resultan caer justo sobre las limitaciones documentadas del
+modelo, que es la mejor señal de que el contraste sirve: sube a los lesionados
+(no ve el parte médico), sube a los veteranos (la curva de edad está
+implementada pero inactiva) y baja a los jóvenes con poco historial (no puede
+proyectar un cambio de papel).
+
+Cuando dos jugadores comparten inicial, apellido y equipo —Bijan Robinson y
+Brian Robinson Jr. son los dos «B.Robinson» de Atlanta— **no se emparejan**. El
+formato de nflverse no los distingue, y adivinar produciría una discrepancia
+llamativa sobre el jugador equivocado.
+
 ## Seguridad
 
 La superficie de ataque de este proyecto es deliberadamente diminuta, y eso vale

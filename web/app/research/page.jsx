@@ -321,6 +321,31 @@ export default function Research() {
         </section>
       ) : null}
 
+      {dossier?.sources?.length ? (
+        <section id="fuentes">
+          <h2>Fuentes</h2>
+          <p className="caption">
+            Las {dossier.sources.length} publicaciones de las que sale el dossier, con lo que
+            se ha usado de cada una. Las marcadas como <strong>sin verificar</strong> son hilos
+            de foro: se conservan porque a veces llegan antes que nadie, y se marcan porque
+            mezclarlas con el reporte de un insider sin decirlo es lo que hace inútil una
+            bibliografía.
+          </p>
+          <ul className="sources-list">
+            {dossier.sources.map((source, index) => (
+              <li key={index} className={source.verified ? "" : "unverified"}>
+                <a href={source.url} target="_blank" rel="noopener noreferrer nofollow">
+                  {source.publisher}
+                </a>{" "}
+                — {source.article}
+                <span className="used"> · {source.used_for}</span>
+                {source.verified ? null : <span className="tag tag--rumor">sin verificar</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       <h2>Qué esperar de esto</h2>
       <p>
         Es un lector de prensa, no una fuente de datos. Resume lo que otros publicaron y enlaza

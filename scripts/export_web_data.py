@@ -197,6 +197,20 @@ def _dossier(paths, payload: dict) -> dict | None:
     # aparece en el primero — y es justo el que interesa marcar.
     dossier_module.attach_players(data.get("medical", []), players + board)
     dossier_module.attach_players(data.get("camp", []), players + board)
+
+    # Contraste con el consenso de expertos. Lo valioso es el desacuerdo: si los
+    # dos boards dicen lo mismo, daba igual cuál mirases.
+    consensus = data.pop("consensus", [])
+    if consensus and board:
+        data["gap"] = dossier_module.consensus_gap(board, consensus)
+        data["ambiguous"] = dossier_module.ambiguous_names(consensus)
+        data["consensus_size"] = len(consensus)
+        print(f"  consenso: {len(data['gap'])} de {len(consensus)} emparejados, "
+              f"{len(data['ambiguous'])} descartados por nombre ambiguo.")
+
+    # Los reportes de campamento de sustancia media y baja no se pintan, y el
+    # consenso completo tampoco: viajan sólo las diferencias. `research/` guarda
+    # los dos enteros.
     # El parte médico viaja entero porque la etiqueta de disponibilidad de cada
     # fila del board se saca de él. Los reportes de campamento, no: sólo se
     # pintan los de sustancia alta, y los otros 71 son 18 KB de bundle que nadie

@@ -1,7 +1,45 @@
 {
- "generated": "2026-08-17",
- "source": "79f6e64e-Gridiron_Oracle_PPR.xlsx",
  "medical": [
+  {
+   "team": "IND",
+   "level": "FUERA",
+   "player": "Alec Pierce",
+   "position": "WR",
+   "situation": "Ankle/PUP",
+   "status": "Avoid at cost Return and targets",
+   "source": "Master report (consenso de fuentes)",
+   "date": ""
+  },
+  {
+   "team": "SF",
+   "level": "FUERA",
+   "player": "George Kittle",
+   "position": "TE",
+   "situation": "Achilles recovery; PUP",
+   "status": "Discount; Tonges deep stash PUP minimum if active",
+   "source": "Master report (consenso de fuentes)",
+   "date": ""
+  },
+  {
+   "team": "HOU",
+   "level": "FUERA",
+   "player": "Jayden Higgins",
+   "position": "WR",
+   "situation": "Torn ACL; out for season",
+   "status": "Remove; Collins/Schultz/Dell benefit Confirmed same-day update",
+   "source": "Master report (consenso de fuentes)",
+   "date": ""
+  },
+  {
+   "team": "NO",
+   "level": "FUERA",
+   "player": "Alvin Kamara",
+   "position": "RB",
+   "situation": "MCL; at least one month reported",
+   "status": "Downgrade; Etienne/Miller/Neal benefit Timeline varies by report",
+   "source": "Master report (consenso de fuentes)",
+   "date": ""
+  },
   {
    "team": "DEN",
    "level": "FUERA",
@@ -183,6 +221,46 @@
    "date": "2026-07-23"
   },
   {
+   "team": "CHI",
+   "level": "DUDA",
+   "player": "Kyle Monangai",
+   "position": "RB",
+   "situation": "Knee; multiple weeks",
+   "status": "Swift up Early workload changes",
+   "source": "Master report (consenso de fuentes)",
+   "date": ""
+  },
+  {
+   "team": "CHI",
+   "level": "DUDA",
+   "player": "Luther Burden III",
+   "position": "WR",
+   "situation": "Groin; preseason absence",
+   "status": "Maintain upside; discount Role timing",
+   "source": "Master report (consenso de fuentes)",
+   "date": ""
+  },
+  {
+   "team": "LAC",
+   "level": "DUDA",
+   "player": "Tyler Biadasz",
+   "position": "C",
+   "situation": "ACL/additional knee damage; indefinite",
+   "status": "Small Chargers downgrade Line stability concern",
+   "source": "Master report (consenso de fuentes)",
+   "date": ""
+  },
+  {
+   "team": "BUF",
+   "level": "DUDA",
+   "player": "Keon Coleman",
+   "position": "WR",
+   "situation": "Foot/toe issue",
+   "status": "Check status Role competition",
+   "source": "Master report (consenso de fuentes)",
+   "date": ""
+  },
+  {
    "team": "ATL",
    "level": "DUDA",
    "player": "Michael Penix Jr.",
@@ -210,16 +288,6 @@
    "situation": "Molestia en la parte interna de la pierna izquierda",
    "status": "Seguia en el campo lateral el 17/8",
    "source": "Mile High Huddle",
-   "date": "2026-08-17"
-  },
-  {
-   "team": "IND",
-   "level": "DUDA",
-   "player": "Alec Pierce",
-   "position": "WR",
-   "situation": "Cirugia de tobillo en marzo; sigue en PUP",
-   "status": "No vuelve para las conjuntas con Atlanta. Ballard anticipa Semana 1",
-   "source": "IndyStar (Nathan Brown / Joel A. Erickson)",
    "date": "2026-08-17"
   },
   {
@@ -253,7 +321,7 @@
    "date": "2026-08-17"
   },
   {
-   "team": "LA",
+   "team": "LAR",
    "level": "DUDA",
    "player": "Puka Nacua",
    "position": "WR",
@@ -715,16 +783,6 @@
   {
    "team": "SF",
    "level": "DUDA",
-   "player": "George Kittle",
-   "position": "TE",
-   "situation": "PUP, rehabilitacion de Aquiles",
-   "status": "Al 11/8 se le describia como cerca de volver",
-   "source": "SI NFL Injury Tracker / NBC Sports Bay Area",
-   "date": "2026-08-11"
-  },
-  {
-   "team": "SF",
-   "level": "DUDA",
    "player": "Nick Bosa",
    "position": "DE",
    "situation": "Dolor y tendinitis en la rodilla operada",
@@ -1063,7 +1121,7 @@
    "date": "2026-08-17"
   },
   {
-   "team": "LA",
+   "team": "LAR",
    "level": "SEGUIR",
    "player": "Myles Garrett",
    "position": "Edge",
@@ -1131,16 +1189,6 @@
    "status": "En evaluacion, segun Saleh",
    "source": "A to Z Sports Nashville",
    "date": "2026-08-17"
-  },
-  {
-   "team": "CHI",
-   "level": "SEGUIR",
-   "player": "Kyle Monangai",
-   "position": "RB",
-   "situation": "Aparente lesion de rodilla; abandono la practica del 16/8",
-   "status": "Sin diagnostico oficial. Joe Thuney: \"ojala no sea nada muy significativo\"",
-   "source": "Shaw Local (Michal Dwojak)",
-   "date": "2026-08-16"
   },
   {
    "team": "CHI",
@@ -1233,7 +1281,7 @@
    "date": "2026-08-15"
   },
   {
-   "team": "LA",
+   "team": "LAR",
    "level": "SEGUIR",
    "player": "Matthew Stafford",
    "position": "QB",
@@ -1533,7 +1581,7 @@
    "date": "2026-08-05"
   },
   {
-   "team": "LA",
+   "team": "LAR",
    "level": "SEGUIR",
    "player": "Davis Allen",
    "position": "TE",
@@ -1763,7 +1811,7 @@
    "date": "2026-08-16"
   },
   {
-   "team": "LA",
+   "team": "LAR",
    "substance": "media",
    "player": "Max Klare",
    "position": "TE",
@@ -1772,7 +1820,7 @@
    "date": "2026-08-15"
   },
   {
-   "team": "LA",
+   "team": "LAR",
    "substance": "media",
    "player": "Ty Simpson",
    "position": "QB",
@@ -2069,7 +2117,7 @@
    "date": "2026-08-16"
   },
   {
-   "team": "LA",
+   "team": "LAR",
    "substance": "baja",
    "player": "Dean Connors",
    "position": "RB",
@@ -2593,24 +2641,6 @@
    "handle": "@pgsween"
   },
   {
-   "team": "LA",
-   "name": "Gary Klein",
-   "outlet": "Los Angeles Times",
-   "handle": "@LATimesklein"
-  },
-  {
-   "team": "LA",
-   "name": "Jourdan Rodrigue",
-   "outlet": "The Athletic",
-   "handle": ""
-  },
-  {
-   "team": "LA",
-   "name": "Stu Jackson",
-   "outlet": "TheRams.com (oficial)",
-   "handle": "@StuJRams"
-  },
-  {
    "team": "LAC",
    "name": "Daniel Popper",
    "outlet": "The Athletic",
@@ -2633,6 +2663,24 @@
    "name": "Kris Rhim",
    "outlet": "ESPN",
    "handle": "@KrisRhim"
+  },
+  {
+   "team": "LAR",
+   "name": "Gary Klein",
+   "outlet": "Los Angeles Times",
+   "handle": "@LATimesklein"
+  },
+  {
+   "team": "LAR",
+   "name": "Jourdan Rodrigue",
+   "outlet": "The Athletic",
+   "handle": ""
+  },
+  {
+   "team": "LAR",
+   "name": "Stu Jackson",
+   "outlet": "TheRams.com (oficial)",
+   "handle": "@StuJRams"
   },
   {
    "team": "LV",
@@ -2921,6 +2969,2600 @@
    "name": "Zach Selby",
    "outlet": "Commanders.com (oficial)",
    "handle": "@ZachSelby"
+  }
+ ],
+ "generated": "2026-08-17",
+ "sources_books": [
+  "79f6e64e-Gridiron_Oracle_PPR.xlsx",
+  "630ff611-2026_full_ppr_fantasy_football_master_report.xlsx"
+ ],
+ "consensus": [
+  {
+   "rank": 1,
+   "player": "Ja’Marr Chase",
+   "position": "WR",
+   "team": "CIN",
+   "tier": "WR1 ceiling",
+   "analysis": "Elite target and TD profile",
+   "risk": "Low",
+   "action": "Draft aggressively"
+  },
+  {
+   "rank": 2,
+   "player": "Jahmyr Gibbs",
+   "position": "RB",
+   "team": "DET",
+   "tier": "Overall RB1",
+   "analysis": "Receiving plus explosive rushing",
+   "risk": "Medium",
+   "action": "Anchor pick"
+  },
+  {
+   "rank": 3,
+   "player": "Puka Nacua",
+   "position": "WR",
+   "team": "LAR",
+   "tier": "WR1",
+   "analysis": "Volume; groin monitor",
+   "risk": "Medium",
+   "action": "Small health discount"
+  },
+  {
+   "rank": 4,
+   "player": "Bijan Robinson",
+   "position": "RB",
+   "team": "ATL",
+   "tier": "RB1",
+   "analysis": "Three-down role",
+   "risk": "Low",
+   "action": "Anchor pick"
+  },
+  {
+   "rank": 5,
+   "player": "Jaxon Smith-Njigba",
+   "position": "WR",
+   "team": "SEA",
+   "tier": "WR1",
+   "analysis": "Reception concentration",
+   "risk": "Low",
+   "action": "PPR premium"
+  },
+  {
+   "rank": 6,
+   "player": "Christian McCaffrey",
+   "position": "RB",
+   "team": "SF",
+   "tier": "RB1",
+   "analysis": "Elite per-game ceiling",
+   "risk": "High",
+   "action": "Handcuff with Mason"
+  },
+  {
+   "rank": 7,
+   "player": "Amon-Ra St. Brown",
+   "position": "WR",
+   "team": "DET",
+   "tier": "WR1",
+   "analysis": "Reliable targets",
+   "risk": "Low",
+   "action": "Safe foundation"
+  },
+  {
+   "rank": 8,
+   "player": "CeeDee Lamb",
+   "position": "WR",
+   "team": "DAL",
+   "tier": "WR1",
+   "analysis": "Massive target ceiling",
+   "risk": "Medium",
+   "action": "Draft for volume"
+  },
+  {
+   "rank": 9,
+   "player": "Justin Jefferson",
+   "position": "WR",
+   "team": "MIN",
+   "tier": "WR1",
+   "analysis": "Elite talent",
+   "risk": "Medium",
+   "action": "QB uncertainty discount"
+  },
+  {
+   "rank": 10,
+   "player": "Jonathan Taylor",
+   "position": "RB",
+   "team": "IND",
+   "tier": "RB1",
+   "analysis": "Workhorse role",
+   "risk": "Medium",
+   "action": "Strong value"
+  },
+  {
+   "rank": 11,
+   "player": "James Cook III",
+   "position": "RB",
+   "team": "BUF",
+   "tier": "RB1/2",
+   "analysis": "Receiving and TD upside",
+   "risk": "Medium",
+   "action": "Pair with Ray Davis"
+  },
+  {
+   "rank": 12,
+   "player": "De’Von Achane",
+   "position": "RB",
+   "team": "MIA",
+   "tier": "RB1",
+   "analysis": "Efficiency and receiving",
+   "risk": "High",
+   "action": "Team efficiency risk"
+  },
+  {
+   "rank": 13,
+   "player": "Drake London",
+   "position": "WR",
+   "team": "ATL",
+   "tier": "WR1/2",
+   "analysis": "Target growth",
+   "risk": "Medium",
+   "action": "Buy upside"
+  },
+  {
+   "rank": 14,
+   "player": "Ashton Jeanty",
+   "position": "RB",
+   "team": "LV",
+   "tier": "RB1/2",
+   "analysis": "Rookie workload",
+   "risk": "Medium",
+   "action": "Draft before late-2nd range"
+  },
+  {
+   "rank": 15,
+   "player": "Jeremiyah Love",
+   "position": "RB",
+   "team": "ARI",
+   "tier": "RB1 ceiling",
+   "analysis": "High ankle sprain",
+   "risk": "High",
+   "action": "Discount; pair Allgeier"
+  },
+  {
+   "rank": 16,
+   "player": "Rashee Rice",
+   "position": "WR",
+   "team": "KC",
+   "tier": "WR1 ceiling",
+   "analysis": "Availability risk",
+   "risk": "High",
+   "action": "Do not ignore suspension/health news"
+  },
+  {
+   "rank": 17,
+   "player": "Trey McBride",
+   "position": "TE",
+   "team": "ARI",
+   "tier": "TE1",
+   "analysis": "Target advantage",
+   "risk": "Medium",
+   "action": "Premium TE"
+  },
+  {
+   "rank": 18,
+   "player": "Saquon Barkley",
+   "position": "RB",
+   "team": "PHI",
+   "tier": "RB1",
+   "analysis": "Workload and TDs",
+   "risk": "Medium",
+   "action": "Strong if price falls"
+  },
+  {
+   "rank": 19,
+   "player": "Derrick Henry",
+   "position": "RB",
+   "team": "BAL",
+   "tier": "RB1/2",
+   "analysis": "Goal-line role",
+   "risk": "High",
+   "action": "Age discount"
+  },
+  {
+   "rank": 20,
+   "player": "Chase Brown",
+   "position": "RB",
+   "team": "CIN",
+   "tier": "RB1/2",
+   "analysis": "Receiving breakout",
+   "risk": "Medium",
+   "action": "Strong PPR target"
+  },
+  {
+   "rank": 21,
+   "player": "Kenneth Walker III",
+   "position": "RB",
+   "team": "KC",
+   "tier": "RB1/2",
+   "analysis": "Lead-role potential",
+   "risk": "Medium",
+   "action": "Monitor team usage"
+  },
+  {
+   "rank": 22,
+   "player": "Breece Hall",
+   "position": "RB",
+   "team": "NYJ",
+   "tier": "RB2",
+   "analysis": "Groin; 2-3 week estimate",
+   "risk": "High",
+   "action": "Draft Braelon Allen"
+  },
+  {
+   "rank": 23,
+   "player": "Omarion Hampton",
+   "position": "RB",
+   "team": "LAC",
+   "tier": "RB1/2",
+   "analysis": "Rookie breakout",
+   "risk": "Medium",
+   "action": "Strong target"
+  },
+  {
+   "rank": 24,
+   "player": "Brock Bowers",
+   "position": "TE",
+   "team": "LV",
+   "tier": "TE1",
+   "analysis": "Elite positional edge",
+   "risk": "Medium",
+   "action": "Draft if value"
+  },
+  {
+   "rank": 25,
+   "player": "Nico Collins",
+   "position": "WR",
+   "team": "HOU",
+   "tier": "WR1",
+   "analysis": "Higgins ACL boost",
+   "risk": "Medium",
+   "action": "Move up"
+  },
+  {
+   "rank": 26,
+   "player": "Chris Olave",
+   "position": "WR",
+   "team": "NO",
+   "tier": "WR1/2",
+   "analysis": "Alpha target",
+   "risk": "Medium",
+   "action": "Offense risk"
+  },
+  {
+   "rank": 27,
+   "player": "Garrett Wilson",
+   "position": "WR",
+   "team": "NYJ",
+   "tier": "WR1/2",
+   "analysis": "Volume",
+   "risk": "Medium",
+   "action": "QB risk priced in"
+  },
+  {
+   "rank": 28,
+   "player": "A.J. Brown",
+   "position": "WR",
+   "team": "NE",
+   "tier": "WR1",
+   "analysis": "Target dominance",
+   "risk": "Medium",
+   "action": "Strong value"
+  },
+  {
+   "rank": 29,
+   "player": "Malik Nabers",
+   "position": "WR",
+   "team": "NYG",
+   "tier": "WR1 ceiling",
+   "analysis": "ACL contact clearance",
+   "risk": "High",
+   "action": "Upside with risk"
+  },
+  {
+   "rank": 30,
+   "player": "Josh Jacobs",
+   "position": "RB",
+   "team": "GB",
+   "tier": "RB1/2",
+   "analysis": "Workhorse; groin",
+   "risk": "Medium",
+   "action": "Monitor practice"
+  },
+  {
+   "rank": 31,
+   "player": "Javonte Williams",
+   "position": "RB",
+   "team": "DAL",
+   "tier": "RB2",
+   "analysis": "Lead-back possibility",
+   "risk": "Medium",
+   "action": "Role bet"
+  },
+  {
+   "rank": 32,
+   "player": "George Pickens",
+   "position": "WR",
+   "team": "DAL",
+   "tier": "WR2",
+   "analysis": "Big plays and TDs",
+   "risk": "Medium",
+   "action": "Volatile ceiling"
+  },
+  {
+   "rank": 33,
+   "player": "Tetairoa McMillan",
+   "position": "WR",
+   "team": "CAR",
+   "tier": "WR2",
+   "analysis": "Rookie target upside",
+   "risk": "Medium",
+   "action": "Strong rookie"
+  },
+  {
+   "rank": 34,
+   "player": "Zay Flowers",
+   "position": "WR",
+   "team": "BAL",
+   "tier": "WR2",
+   "analysis": "PPR reception floor",
+   "risk": "Medium",
+   "action": "Target-based value"
+  },
+  {
+   "rank": 35,
+   "player": "DeVonta Smith",
+   "position": "WR",
+   "team": "PHI",
+   "tier": "WR2",
+   "analysis": "Hamstring discount",
+   "risk": "Medium",
+   "action": "Buy if cleared"
+  },
+  {
+   "rank": 36,
+   "player": "Josh Allen",
+   "position": "QB",
+   "team": "BUF",
+   "tier": "QB1",
+   "analysis": "Rushing advantage",
+   "risk": "Medium",
+   "action": "Elite QB"
+  },
+  {
+   "rank": 37,
+   "player": "Travis Etienne Jr.",
+   "position": "RB",
+   "team": "NO",
+   "tier": "RB2",
+   "analysis": "Kamara injury boost",
+   "risk": "Medium",
+   "action": "Rising value"
+  },
+  {
+   "rank": 38,
+   "player": "Kyren Williams",
+   "position": "RB",
+   "team": "LAR",
+   "tier": "RB1/2",
+   "analysis": "Workload and TDs",
+   "risk": "Medium",
+   "action": "Strong offense"
+  },
+  {
+   "rank": 39,
+   "player": "Cam Skattebo",
+   "position": "RB",
+   "team": "NYG",
+   "tier": "RB2",
+   "analysis": "Receiving and goal line",
+   "risk": "Medium",
+   "action": "Sleeper"
+  },
+  {
+   "rank": 40,
+   "player": "Quinshon Judkins",
+   "position": "RB",
+   "team": "CLE",
+   "tier": "RB2",
+   "analysis": "Talent and volume",
+   "risk": "Medium",
+   "action": "Team risk"
+  },
+  {
+   "rank": 41,
+   "player": "Bucky Irving",
+   "position": "RB",
+   "team": "TB",
+   "tier": "RB2",
+   "analysis": "Versatile back",
+   "risk": "Medium",
+   "action": "PPR value"
+  },
+  {
+   "rank": 42,
+   "player": "Emeka Egbuka",
+   "position": "WR",
+   "team": "TB",
+   "tier": "WR2/3",
+   "analysis": "Rookie; toe concern",
+   "risk": "High",
+   "action": "Discount"
+  },
+  {
+   "rank": 43,
+   "player": "Davante Adams",
+   "position": "WR",
+   "team": "LAR",
+   "tier": "WR2",
+   "analysis": "Volume; age",
+   "risk": "High",
+   "action": "Do not overpay"
+  },
+  {
+   "rank": 44,
+   "player": "Ladd McConkey",
+   "position": "WR",
+   "team": "LAC",
+   "tier": "WR2",
+   "analysis": "Route volume",
+   "risk": "Medium",
+   "action": "Strong PPR"
+  },
+  {
+   "rank": 45,
+   "player": "Terry McLaurin",
+   "position": "WR",
+   "team": "WAS",
+   "tier": "WR2",
+   "analysis": "Proven volume",
+   "risk": "Medium",
+   "action": "Reliable"
+  },
+  {
+   "rank": 46,
+   "player": "Tee Higgins",
+   "position": "WR",
+   "team": "CIN",
+   "tier": "WR2",
+   "analysis": "TD upside",
+   "risk": "Medium",
+   "action": "Strong WR2"
+  },
+  {
+   "rank": 47,
+   "player": "Jaylen Waddle",
+   "position": "WR",
+   "team": "DEN",
+   "tier": "WR2",
+   "analysis": "Explosive; competition",
+   "risk": "Medium",
+   "action": "Ceiling pick"
+  },
+  {
+   "rank": 48,
+   "player": "Rome Odunze",
+   "position": "WR",
+   "team": "CHI",
+   "tier": "WR2/3",
+   "analysis": "Breakout",
+   "risk": "Medium",
+   "action": "Buy growth"
+  },
+  {
+   "rank": 49,
+   "player": "Colston Loveland",
+   "position": "TE",
+   "team": "CHI",
+   "tier": "TE1 upside",
+   "analysis": "Rookie target potential",
+   "risk": "Medium",
+   "action": "Strong rookie TE"
+  },
+  {
+   "rank": 50,
+   "player": "Tyler Warren",
+   "position": "TE",
+   "team": "IND",
+   "tier": "TE1 upside",
+   "analysis": "Athletic and involved",
+   "risk": "Medium",
+   "action": "Value TE"
+  },
+  {
+   "rank": 51,
+   "player": "Jameson Williams",
+   "position": "WR",
+   "team": "DET",
+   "tier": "WR2/3",
+   "analysis": "Spike-week ceiling",
+   "risk": "Medium",
+   "action": "Best ball boost"
+  },
+  {
+   "rank": 52,
+   "player": "DJ Moore",
+   "position": "WR",
+   "team": "BUF",
+   "tier": "WR2/3",
+   "analysis": "Veteran volume",
+   "risk": "Medium",
+   "action": "Role dependent"
+  },
+  {
+   "rank": 53,
+   "player": "Luther Burden III",
+   "position": "WR",
+   "team": "CHI",
+   "tier": "WR2 ceiling",
+   "analysis": "Groin; breakout",
+   "risk": "High",
+   "action": "Discount"
+  },
+  {
+   "rank": 54,
+   "player": "Carnell Tate",
+   "position": "WR",
+   "team": "TEN",
+   "tier": "WR3 upside",
+   "analysis": "Rookie opportunity",
+   "risk": "Medium",
+   "action": "Late target"
+  },
+  {
+   "rank": 55,
+   "player": "Jayden Daniels",
+   "position": "QB",
+   "team": "WAS",
+   "tier": "QB1",
+   "analysis": "Rushing",
+   "risk": "Medium",
+   "action": "Elite value"
+  },
+  {
+   "rank": 56,
+   "player": "Lamar Jackson",
+   "position": "QB",
+   "team": "BAL",
+   "tier": "QB1",
+   "analysis": "Rushing floor",
+   "risk": "Medium",
+   "action": "Elite value"
+  },
+  {
+   "rank": 57,
+   "player": "Drake Maye",
+   "position": "QB",
+   "team": "NE",
+   "tier": "QB1 upside",
+   "analysis": "Rushing growth",
+   "risk": "Medium",
+   "action": "Breakout"
+  },
+  {
+   "rank": 58,
+   "player": "Jalen Hurts",
+   "position": "QB",
+   "team": "PHI",
+   "tier": "QB1",
+   "analysis": "Goal-line rushing",
+   "risk": "Medium",
+   "action": "Strong floor"
+  },
+  {
+   "rank": 59,
+   "player": "Bhayshul Tuten",
+   "position": "RB",
+   "team": "JAX",
+   "tier": "RB2 upside",
+   "analysis": "Possible lead back",
+   "risk": "Medium",
+   "action": "Favorite sleeper"
+  },
+  {
+   "rank": 60,
+   "player": "D’Andre Swift",
+   "position": "RB",
+   "team": "CHI",
+   "tier": "RB2",
+   "analysis": "Monangai injury boost",
+   "risk": "Medium",
+   "action": "Move up"
+  },
+  {
+   "rank": 61,
+   "player": "David Montgomery",
+   "position": "RB",
+   "team": "HOU",
+   "tier": "RB2/3",
+   "analysis": "TD dependent",
+   "risk": "Medium",
+   "action": "Value"
+  },
+  {
+   "rank": 62,
+   "player": "Jadarian Price",
+   "position": "RB",
+   "team": "SEA",
+   "tier": "RB2 upside",
+   "analysis": "Charbonnet uncertainty",
+   "risk": "Medium",
+   "action": "Favorite late RB"
+  },
+  {
+   "rank": 63,
+   "player": "TreVeyon Henderson",
+   "position": "RB",
+   "team": "NE",
+   "tier": "RB2 upside",
+   "analysis": "Receiving",
+   "risk": "Medium",
+   "action": "Strong PPR"
+  },
+  {
+   "rank": 64,
+   "player": "Rhamondre Stevenson",
+   "position": "RB",
+   "team": "NE",
+   "tier": "RB3",
+   "analysis": "Committee risk",
+   "risk": "Medium",
+   "action": "Price sensitive"
+  },
+  {
+   "rank": 65,
+   "player": "Courtland Sutton",
+   "position": "WR",
+   "team": "DEN",
+   "tier": "WR2/3",
+   "analysis": "Target share",
+   "risk": "Medium",
+   "action": "Safe depth"
+  },
+  {
+   "rank": 66,
+   "player": "Michael Pittman Jr.",
+   "position": "WR",
+   "team": "PIT",
+   "tier": "WR2/3",
+   "analysis": "Volume; hamstring",
+   "risk": "High",
+   "action": "Check health"
+  },
+  {
+   "rank": 67,
+   "player": "Marvin Harrison Jr.",
+   "position": "WR",
+   "team": "ARI",
+   "tier": "WR2",
+   "analysis": "Bounce-back",
+   "risk": "Medium",
+   "action": "Value"
+  },
+  {
+   "rank": 68,
+   "player": "DK Metcalf",
+   "position": "WR",
+   "team": "PIT",
+   "tier": "WR2",
+   "analysis": "TD and big play",
+   "risk": "Medium",
+   "action": "Volatile"
+  },
+  {
+   "rank": 69,
+   "player": "Parker Washington",
+   "position": "WR",
+   "team": "JAX",
+   "tier": "WR3",
+   "analysis": "Starting opportunity",
+   "risk": "Medium",
+   "action": "Late target"
+  },
+  {
+   "rank": 70,
+   "player": "Alec Pierce",
+   "position": "WR",
+   "team": "IND",
+   "tier": "WR3",
+   "analysis": "Ankle/PUP",
+   "risk": "High",
+   "action": "Avoid at cost"
+  },
+  {
+   "rank": 71,
+   "player": "Kyle Pitts",
+   "position": "TE",
+   "team": "ATL",
+   "tier": "TE1 upside",
+   "analysis": "Target rebound",
+   "risk": "Medium",
+   "action": "Value"
+  },
+  {
+   "rank": 72,
+   "player": "Harold Fannin Jr.",
+   "position": "TE",
+   "team": "CLE",
+   "tier": "TE1 upside",
+   "analysis": "QB uncertainty",
+   "risk": "Medium",
+   "action": "Price sensitive"
+  },
+  {
+   "rank": 73,
+   "player": "Sam LaPorta",
+   "position": "TE",
+   "team": "DET",
+   "tier": "TE1/2",
+   "analysis": "Rebound",
+   "risk": "Medium",
+   "action": "Buy low"
+  },
+  {
+   "rank": 74,
+   "player": "Joe Burrow",
+   "position": "QB",
+   "team": "CIN",
+   "tier": "QB1",
+   "analysis": "Passing volume",
+   "risk": "Medium",
+   "action": "Strong"
+  },
+  {
+   "rank": 75,
+   "player": "Jaxson Dart",
+   "position": "QB",
+   "team": "NYG",
+   "tier": "QB2 upside",
+   "analysis": "Rushing",
+   "risk": "Medium",
+   "action": "Late QB"
+  },
+  {
+   "rank": 76,
+   "player": "Mike Evans",
+   "position": "WR",
+   "team": "SF",
+   "tier": "WR2/3",
+   "analysis": "TD upside; health",
+   "risk": "High",
+   "action": "Discount"
+  },
+  {
+   "rank": 77,
+   "player": "Christian Watson",
+   "position": "WR",
+   "team": "GB",
+   "tier": "WR2 upside",
+   "analysis": "Health volatility",
+   "risk": "High",
+   "action": "Best ball"
+  },
+  {
+   "rank": 78,
+   "player": "Matthew Golden",
+   "position": "WR",
+   "team": "GB",
+   "tier": "WR3 upside",
+   "analysis": "Rookie role growth",
+   "risk": "Medium",
+   "action": "Sleeper"
+  },
+  {
+   "rank": 79,
+   "player": "Michael Wilson",
+   "position": "WR",
+   "team": "ARI",
+   "tier": "WR3",
+   "analysis": "Target growth",
+   "risk": "Medium",
+   "action": "Late pick"
+  },
+  {
+   "rank": 80,
+   "player": "Brian Thomas Jr.",
+   "position": "WR",
+   "team": "JAX",
+   "tier": "WR2/3",
+   "analysis": "Talent",
+   "risk": "Medium",
+   "action": "Strong depth"
+  },
+  {
+   "rank": 81,
+   "player": "Jakobi Meyers",
+   "position": "WR",
+   "team": "JAX",
+   "tier": "WR3",
+   "analysis": "PPR depth",
+   "risk": "Medium",
+   "action": "Floor"
+  },
+  {
+   "rank": 82,
+   "player": "Trevor Lawrence",
+   "position": "QB",
+   "team": "JAX",
+   "tier": "QB2",
+   "analysis": "Stable",
+   "risk": "Medium",
+   "action": "Streamer"
+  },
+  {
+   "rank": 83,
+   "player": "Dak Prescott",
+   "position": "QB",
+   "team": "DAL",
+   "tier": "QB2",
+   "analysis": "Passing volume",
+   "risk": "Medium",
+   "action": "Value"
+  },
+  {
+   "rank": 84,
+   "player": "Bo Nix",
+   "position": "QB",
+   "team": "DEN",
+   "tier": "QB2",
+   "analysis": "Rushing",
+   "risk": "Medium",
+   "action": "Late QB"
+  },
+  {
+   "rank": 85,
+   "player": "Brock Purdy",
+   "position": "QB",
+   "team": "SF",
+   "tier": "QB2",
+   "analysis": "Efficiency",
+   "risk": "Medium",
+   "action": "Stack option"
+  },
+  {
+   "rank": 86,
+   "player": "Matthew Stafford",
+   "position": "QB",
+   "team": "LAR",
+   "tier": "QB2",
+   "analysis": "Regression risk",
+   "risk": "High",
+   "action": "Do not overpay"
+  },
+  {
+   "rank": 87,
+   "player": "Caleb Williams",
+   "position": "QB",
+   "team": "CHI",
+   "tier": "QB1 upside",
+   "analysis": "Year-two breakout",
+   "risk": "Medium",
+   "action": "Value"
+  },
+  {
+   "rank": 88,
+   "player": "Wan’Dale Robinson",
+   "position": "WR",
+   "team": "TEN",
+   "tier": "WR3",
+   "analysis": "High-catch",
+   "risk": "Medium",
+   "action": "PPR sleeper"
+  },
+  {
+   "rank": 89,
+   "player": "Jordan Addison",
+   "position": "WR",
+   "team": "MIN",
+   "tier": "WR2/3",
+   "analysis": "Strong WR2",
+   "risk": "Medium",
+   "action": "QB risk"
+  },
+  {
+   "rank": 90,
+   "player": "Khalil Shakir",
+   "position": "WR",
+   "team": "BUF",
+   "tier": "WR3",
+   "analysis": "Efficient PPR",
+   "risk": "Low",
+   "action": "Late value"
+  },
+  {
+   "rank": 91,
+   "player": "Jayden Reed",
+   "position": "WR",
+   "team": "GB",
+   "tier": "WR2/3",
+   "analysis": "Big play/red zone",
+   "risk": "Medium",
+   "action": "Strong depth"
+  },
+  {
+   "rank": 92,
+   "player": "Xavier Worthy",
+   "position": "WR",
+   "team": "KC",
+   "tier": "WR3",
+   "analysis": "Explosive volatility",
+   "risk": "Medium",
+   "action": "Best ball"
+  },
+  {
+   "rank": 93,
+   "player": "Justin Herbert",
+   "position": "QB",
+   "team": "LAC",
+   "tier": "QB2",
+   "analysis": "Safe floor",
+   "risk": "Medium",
+   "action": "Value"
+  },
+  {
+   "rank": 94,
+   "player": "Patrick Mahomes",
+   "position": "QB",
+   "team": "KC",
+   "tier": "QB1/2",
+   "analysis": "Knee uncertainty",
+   "risk": "High",
+   "action": "Wait for clearance"
+  },
+  {
+   "rank": 95,
+   "player": "Jaylen Warren",
+   "position": "RB",
+   "team": "PIT",
+   "tier": "RB2/3",
+   "analysis": "Receiving role",
+   "risk": "Medium",
+   "action": "PPR value"
+  },
+  {
+   "rank": 96,
+   "player": "Rico Dowdle",
+   "position": "RB",
+   "team": "PIT",
+   "tier": "RB2/3",
+   "analysis": "Lead-back chance",
+   "risk": "Medium",
+   "action": "Role bet"
+  },
+  {
+   "rank": 97,
+   "player": "Tony Pollard",
+   "position": "RB",
+   "team": "TEN",
+   "tier": "RB2/3",
+   "analysis": "Useful floor",
+   "risk": "Medium",
+   "action": "Committee"
+  },
+  {
+   "rank": 98,
+   "player": "Kenny Gainwell",
+   "position": "RB",
+   "team": "TB",
+   "tier": "RB2/3",
+   "analysis": "Receiving value",
+   "risk": "Medium",
+   "action": "Sleeper"
+  },
+  {
+   "rank": 99,
+   "player": "Jonathon Brooks",
+   "position": "RB",
+   "team": "CAR",
+   "tier": "RB2 upside",
+   "analysis": "Knee risk",
+   "risk": "High",
+   "action": "Discount"
+  },
+  {
+   "rank": 100,
+   "player": "Chuba Hubbard",
+   "position": "RB",
+   "team": "CAR",
+   "tier": "RB2/3",
+   "analysis": "Hamstring",
+   "risk": "High",
+   "action": "Wait"
+  },
+  {
+   "rank": 101,
+   "player": "Tucker Kraft",
+   "position": "TE",
+   "team": "GB",
+   "tier": "TE1/2",
+   "analysis": "ACL recovery",
+   "risk": "High",
+   "action": "Discount"
+  },
+  {
+   "rank": 102,
+   "player": "George Kittle",
+   "position": "TE",
+   "team": "SF",
+   "tier": "TE1 upside",
+   "analysis": "Achilles/PUP",
+   "risk": "High",
+   "action": "Risk"
+  },
+  {
+   "rank": 103,
+   "player": "Dallas Goedert",
+   "position": "TE",
+   "team": "PHI",
+   "tier": "TE1/2",
+   "analysis": "Reliable healthy",
+   "risk": "Medium",
+   "action": "Value"
+  },
+  {
+   "rank": 104,
+   "player": "Travis Kelce",
+   "position": "TE",
+   "team": "KC",
+   "tier": "TE1/2",
+   "analysis": "Age",
+   "risk": "High",
+   "action": "Discount"
+  },
+  {
+   "rank": 105,
+   "player": "J.K. Dobbins",
+   "position": "RB",
+   "team": "DEN",
+   "tier": "RB2/3",
+   "analysis": "Early role",
+   "risk": "Medium",
+   "action": "Health watch"
+  },
+  {
+   "rank": 106,
+   "player": "Kyle Monangai",
+   "position": "RB",
+   "team": "CHI",
+   "tier": "RB3",
+   "analysis": "Knee injury",
+   "risk": "High",
+   "action": "Wait"
+  },
+  {
+   "rank": 107,
+   "player": "Jacory Croskey-Merritt",
+   "position": "RB",
+   "team": "WAS",
+   "tier": "RB3",
+   "analysis": "Contingency",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 108,
+   "player": "Rachaad White",
+   "position": "RB",
+   "team": "WAS",
+   "tier": "RB3",
+   "analysis": "Receiving",
+   "risk": "Medium",
+   "action": "PPR depth"
+  },
+  {
+   "rank": 109,
+   "player": "Jake Ferguson",
+   "position": "TE",
+   "team": "DAL",
+   "tier": "TE1/2",
+   "analysis": "Target dependent",
+   "risk": "Medium",
+   "action": "Value"
+  },
+  {
+   "rank": 110,
+   "player": "Mark Andrews",
+   "position": "TE",
+   "team": "BAL",
+   "tier": "TE1/2",
+   "analysis": "Bounce back",
+   "risk": "Medium",
+   "action": "Discount"
+  },
+  {
+   "rank": 111,
+   "player": "T.J. Hockenson",
+   "position": "TE",
+   "team": "MIN",
+   "tier": "TE1/2",
+   "analysis": "Health",
+   "risk": "High",
+   "action": "Risk"
+  },
+  {
+   "rank": 112,
+   "player": "Quentin Johnston",
+   "position": "WR",
+   "team": "LAC",
+   "tier": "WR3",
+   "analysis": "TD upside",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 113,
+   "player": "Josh Downs",
+   "position": "WR",
+   "team": "IND",
+   "tier": "WR3",
+   "analysis": "PPR specialist",
+   "risk": "Medium",
+   "action": "Favorite late WR"
+  },
+  {
+   "rank": 114,
+   "player": "Deebo Samuel Sr.",
+   "position": "WR",
+   "team": "SF",
+   "tier": "WR3",
+   "analysis": "Role uncertainty",
+   "risk": "Medium",
+   "action": "Price sensitive"
+  },
+  {
+   "rank": 115,
+   "player": "Aaron Jones Sr.",
+   "position": "RB",
+   "team": "MIN",
+   "tier": "RB3",
+   "analysis": "Receiving",
+   "risk": "High",
+   "action": "Age"
+  },
+  {
+   "rank": 116,
+   "player": "Isaiah Likely",
+   "position": "TE",
+   "team": "NYG",
+   "tier": "TE2 upside",
+   "analysis": "Athletic",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 117,
+   "player": "Dalton Kincaid",
+   "position": "TE",
+   "team": "BUF",
+   "tier": "TE1/2",
+   "analysis": "Route growth",
+   "risk": "Medium",
+   "action": "Value"
+  },
+  {
+   "rank": 118,
+   "player": "Kenyon Sadiq",
+   "position": "TE",
+   "team": "NYJ",
+   "tier": "TE2 upside",
+   "analysis": "Rookie stash",
+   "risk": "High",
+   "action": "Late only"
+  },
+  {
+   "rank": 119,
+   "player": "Hunter Henry",
+   "position": "TE",
+   "team": "NE",
+   "tier": "TE2",
+   "analysis": "Red zone",
+   "risk": "Medium",
+   "action": "Streamer"
+  },
+  {
+   "rank": 120,
+   "player": "Jordan Mason",
+   "position": "RB",
+   "team": "MIN",
+   "tier": "RB3",
+   "analysis": "Handcuff/standalone",
+   "risk": "Medium",
+   "action": "Draft late"
+  },
+  {
+   "rank": 121,
+   "player": "Blake Corum",
+   "position": "RB",
+   "team": "LAR",
+   "tier": "RB3",
+   "analysis": "Handcuff",
+   "risk": "Medium",
+   "action": "Draft late"
+  },
+  {
+   "rank": 122,
+   "player": "RJ Harvey",
+   "position": "RB",
+   "team": "DEN",
+   "tier": "RB3",
+   "analysis": "Rookie upside",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 123,
+   "player": "Woody Marks",
+   "position": "RB",
+   "team": "HOU",
+   "tier": "RB3",
+   "analysis": "Passing game",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 124,
+   "player": "Stefon Diggs",
+   "position": "WR",
+   "team": "WAS",
+   "tier": "WR3",
+   "analysis": "Veteran volume",
+   "risk": "High",
+   "action": "Age"
+  },
+  {
+   "rank": 125,
+   "player": "Makai Lemon",
+   "position": "WR",
+   "team": "PHI",
+   "tier": "WR3 upside",
+   "analysis": "Rookie sleeper",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 126,
+   "player": "KC Concepcion",
+   "position": "WR",
+   "team": "CLE",
+   "tier": "WR3 upside",
+   "analysis": "Talent",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 127,
+   "player": "Chris Godwin Jr.",
+   "position": "WR",
+   "team": "TB",
+   "tier": "WR3",
+   "analysis": "Health",
+   "risk": "High",
+   "action": "Discount"
+  },
+  {
+   "rank": 128,
+   "player": "Romeo Doubs",
+   "position": "WR",
+   "team": "NE",
+   "tier": "WR3",
+   "analysis": "TD dependent",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 129,
+   "player": "De’Zhaun Stribling",
+   "position": "WR",
+   "team": "SF",
+   "tier": "WR3 upside",
+   "analysis": "Pearsall opportunity",
+   "risk": "Medium",
+   "action": "Favorite deep WR"
+  },
+  {
+   "rank": 130,
+   "player": "Tank Dell",
+   "position": "WR",
+   "team": "HOU",
+   "tier": "WR3 upside",
+   "analysis": "Health",
+   "risk": "High",
+   "action": "Late only"
+  },
+  {
+   "rank": 131,
+   "player": "Jalen Coker",
+   "position": "WR",
+   "team": "CAR",
+   "tier": "WR4",
+   "analysis": "Routes",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 132,
+   "player": "Rashid Shaheed",
+   "position": "WR",
+   "team": "SEA",
+   "tier": "WR3",
+   "analysis": "Big plays",
+   "risk": "Medium",
+   "action": "Best ball"
+  },
+  {
+   "rank": 133,
+   "player": "Kyler Murray",
+   "position": "QB",
+   "team": "MIN",
+   "tier": "QB2",
+   "analysis": "Rushing",
+   "risk": "High",
+   "action": "Wait on role"
+  },
+  {
+   "rank": 134,
+   "player": "Tyler Shough",
+   "position": "QB",
+   "team": "NO",
+   "tier": "QB2 upside",
+   "analysis": "Rushing",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 135,
+   "player": "Jared Goff",
+   "position": "QB",
+   "team": "DET",
+   "tier": "QB2",
+   "analysis": "Efficiency",
+   "risk": "Low",
+   "action": "Streamer"
+  },
+  {
+   "rank": 136,
+   "player": "Daniel Jones",
+   "position": "QB",
+   "team": "IND",
+   "tier": "QB2",
+   "analysis": "Health recovery",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 137,
+   "player": "Zach Charbonnet",
+   "position": "RB",
+   "team": "SEA",
+   "tier": "RB3",
+   "analysis": "PUP",
+   "risk": "High",
+   "action": "Stash only"
+  },
+  {
+   "rank": 138,
+   "player": "Alvin Kamara",
+   "position": "RB",
+   "team": "NO",
+   "tier": "RB3",
+   "analysis": "MCL; month+",
+   "risk": "High",
+   "action": "Downgrade"
+  },
+  {
+   "rank": 139,
+   "player": "Tyjae Spears",
+   "position": "RB",
+   "team": "TEN",
+   "tier": "RB3",
+   "analysis": "Pollard challenger",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 140,
+   "player": "Chris Rodriguez Jr.",
+   "position": "RB",
+   "team": "JAX",
+   "tier": "RB3",
+   "analysis": "Handcuff",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 141,
+   "player": "Tyrone Tracy Jr.",
+   "position": "RB",
+   "team": "NYG",
+   "tier": "RB3",
+   "analysis": "Receiving",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 142,
+   "player": "Brian Robinson Jr.",
+   "position": "RB",
+   "team": "ATL",
+   "tier": "RB3",
+   "analysis": "Contingency",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 143,
+   "player": "Denzel Boston",
+   "position": "WR",
+   "team": "CLE",
+   "tier": "WR4",
+   "analysis": "First-unit usage",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 144,
+   "player": "Jerry Jeudy",
+   "position": "WR",
+   "team": "CLE",
+   "tier": "WR3",
+   "analysis": "Rebound",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 145,
+   "player": "Jalen McMillan",
+   "position": "WR",
+   "team": "TB",
+   "tier": "WR3",
+   "analysis": "Red zone",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 146,
+   "player": "Calvin Ridley",
+   "position": "WR",
+   "team": "TEN",
+   "tier": "WR3",
+   "analysis": "Veteran volume",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 147,
+   "player": "Caleb Douglas",
+   "position": "WR",
+   "team": "MIA",
+   "tier": "WR4",
+   "analysis": "Rookie sleeper",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 148,
+   "player": "Adonai Mitchell",
+   "position": "WR",
+   "team": "NYJ",
+   "tier": "WR4",
+   "analysis": "Opportunity",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 149,
+   "player": "Baker Mayfield",
+   "position": "QB",
+   "team": "TB",
+   "tier": "QB2",
+   "analysis": "Streamer",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 150,
+   "player": "Malik Willis",
+   "position": "QB",
+   "team": "MIA",
+   "tier": "QB2 upside",
+   "analysis": "Rushing",
+   "risk": "High",
+   "action": "Only if starter"
+  },
+  {
+   "rank": 151,
+   "player": "Travis Hunter",
+   "position": "WR",
+   "team": "JAX",
+   "tier": "WR3 upside",
+   "analysis": "Role uncertainty",
+   "risk": "High",
+   "action": "Late"
+  },
+  {
+   "rank": 152,
+   "player": "Jordyn Tyson",
+   "position": "WR",
+   "team": "NO",
+   "tier": "WR4",
+   "analysis": "Long absence",
+   "risk": "High",
+   "action": "Deep stash"
+  },
+  {
+   "rank": 153,
+   "player": "Tre Tucker",
+   "position": "WR",
+   "team": "LV",
+   "tier": "WR4",
+   "analysis": "Slot role",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 154,
+   "player": "Tyler Allgeier",
+   "position": "RB",
+   "team": "ARI",
+   "tier": "RB3",
+   "analysis": "Love handcuff",
+   "risk": "Medium",
+   "action": "Must with Love"
+  },
+  {
+   "rank": 155,
+   "player": "Keaton Mitchell",
+   "position": "RB",
+   "team": "LAC",
+   "tier": "RB4",
+   "analysis": "Contingency",
+   "risk": "High",
+   "action": "Deep"
+  },
+  {
+   "rank": 156,
+   "player": "Isiah Pacheco",
+   "position": "RB",
+   "team": "DET",
+   "tier": "RB4",
+   "analysis": "MCL recovery",
+   "risk": "High",
+   "action": "Deep"
+  },
+  {
+   "rank": 157,
+   "player": "Jonah Coleman",
+   "position": "RB",
+   "team": "DEN",
+   "tier": "RB4",
+   "analysis": "Rookie sleeper",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 158,
+   "player": "Tank Bigsby",
+   "position": "RB",
+   "team": "PHI",
+   "tier": "RB4",
+   "analysis": "Goal-line contingency",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 159,
+   "player": "Terrance Ferguson",
+   "position": "TE",
+   "team": "LAR",
+   "tier": "TE2",
+   "analysis": "Late upside",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 160,
+   "player": "Juwan Johnson",
+   "position": "TE",
+   "team": "NO",
+   "tier": "TE2",
+   "analysis": "Routes/red zone",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 161,
+   "player": "Jalen Nailor",
+   "position": "WR",
+   "team": "LV",
+   "tier": "WR4",
+   "analysis": "Outside role",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 162,
+   "player": "Rashod Bateman",
+   "position": "WR",
+   "team": "BAL",
+   "tier": "WR4",
+   "analysis": "Efficiency/TD",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 163,
+   "player": "Ja’Kobi Lane",
+   "position": "WR",
+   "team": "BAL",
+   "tier": "WR4",
+   "analysis": "Rookie stash",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 164,
+   "player": "Dontayvion Wicks",
+   "position": "WR",
+   "team": "PHI",
+   "tier": "WR4",
+   "analysis": "Target growth",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 165,
+   "player": "Keenan Allen",
+   "position": "WR",
+   "team": "IND",
+   "tier": "WR3/4",
+   "analysis": "PPR floor",
+   "risk": "High",
+   "action": "Late"
+  },
+  {
+   "rank": 166,
+   "player": "Ray Davis",
+   "position": "RB",
+   "team": "BUF",
+   "tier": "RB4",
+   "analysis": "Cook handcuff",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 167,
+   "player": "Dylan Sampson",
+   "position": "RB",
+   "team": "CLE",
+   "tier": "RB4",
+   "analysis": "Judkins contingency",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 168,
+   "player": "Mike Washington Jr.",
+   "position": "RB",
+   "team": "LV",
+   "tier": "RB4",
+   "analysis": "Jeanty handcuff",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 169,
+   "player": "Texans D/ST",
+   "position": "DST",
+   "team": "HOU",
+   "tier": "DST1/2",
+   "analysis": "Pressure upside",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 170,
+   "player": "Broncos D/ST",
+   "position": "DST",
+   "team": "DEN",
+   "tier": "DST1/2",
+   "analysis": "Sacks",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 171,
+   "player": "Steelers D/ST",
+   "position": "DST",
+   "team": "PIT",
+   "tier": "DST1/2",
+   "analysis": "Floor",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 172,
+   "player": "Seahawks D/ST",
+   "position": "DST",
+   "team": "SEA",
+   "tier": "DST1/2",
+   "analysis": "Strong unit",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 173,
+   "player": "Rams D/ST",
+   "position": "DST",
+   "team": "LAR",
+   "tier": "DST1/2",
+   "analysis": "Pressure",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 174,
+   "player": "Ravens D/ST",
+   "position": "DST",
+   "team": "BAL",
+   "tier": "DST1/2",
+   "analysis": "Stable",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 175,
+   "player": "Eagles D/ST",
+   "position": "DST",
+   "team": "PHI",
+   "tier": "DST1/2",
+   "analysis": "Turnovers",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 176,
+   "player": "Browns D/ST",
+   "position": "DST",
+   "team": "CLE",
+   "tier": "DST2",
+   "analysis": "Matchups",
+   "risk": "Medium",
+   "action": "Stream"
+  },
+  {
+   "rank": 177,
+   "player": "Patriots D/ST",
+   "position": "DST",
+   "team": "NE",
+   "tier": "DST2",
+   "analysis": "Stream",
+   "risk": "Low",
+   "action": "Stream"
+  },
+  {
+   "rank": 178,
+   "player": "Lions D/ST",
+   "position": "DST",
+   "team": "DET",
+   "tier": "DST1/2",
+   "analysis": "Improved pressure",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 179,
+   "player": "Chiefs D/ST",
+   "position": "DST",
+   "team": "KC",
+   "tier": "DST1/2",
+   "analysis": "Coaching",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 180,
+   "player": "Chargers D/ST",
+   "position": "DST",
+   "team": "LAC",
+   "tier": "DST2",
+   "analysis": "Pressure",
+   "risk": "Medium",
+   "action": "Stream"
+  },
+  {
+   "rank": 181,
+   "player": "Brandon Aubrey",
+   "position": "K",
+   "team": "DAL",
+   "tier": "K1",
+   "analysis": "Elite leg",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 182,
+   "player": "Cameron Dicker",
+   "position": "K",
+   "team": "LAC",
+   "tier": "K1",
+   "analysis": "Accuracy",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 183,
+   "player": "Jason Myers",
+   "position": "K",
+   "team": "SEA",
+   "tier": "K1/2",
+   "analysis": "Stable",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 184,
+   "player": "Harrison Mevis",
+   "position": "K",
+   "team": "LAR",
+   "tier": "K1/2",
+   "analysis": "Scoring",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 185,
+   "player": "Ka’imi Fairbairn",
+   "position": "K",
+   "team": "HOU",
+   "tier": "K1/2",
+   "analysis": "Volume",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 186,
+   "player": "Eddy Pineiro",
+   "position": "K",
+   "team": "SF",
+   "tier": "K1/2",
+   "analysis": "Offense",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 187,
+   "player": "Harrison Butker",
+   "position": "K",
+   "team": "KC",
+   "tier": "K1/2",
+   "analysis": "Reliable",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 188,
+   "player": "Cam Little",
+   "position": "K",
+   "team": "JAX",
+   "tier": "K2",
+   "analysis": "Leg",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 189,
+   "player": "Jake Bates",
+   "position": "K",
+   "team": "DET",
+   "tier": "K1/2",
+   "analysis": "Scoring",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 190,
+   "player": "Tyler Loop",
+   "position": "K",
+   "team": "BAL",
+   "tier": "K1/2",
+   "analysis": "Team",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 191,
+   "player": "Cairo Santos",
+   "position": "K",
+   "team": "CHI",
+   "tier": "K2",
+   "analysis": "Late option",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 192,
+   "player": "Will Reichard",
+   "position": "K",
+   "team": "MIN",
+   "tier": "K2",
+   "analysis": "Streamer",
+   "risk": "Low",
+   "action": "Late"
+  },
+  {
+   "rank": 193,
+   "player": "Braelon Allen",
+   "position": "RB",
+   "team": "NYJ",
+   "tier": "RB4",
+   "analysis": "Hall handcuff",
+   "risk": "Medium",
+   "action": "Must with Hall"
+  },
+  {
+   "rank": 194,
+   "player": "Brenton Strange",
+   "position": "TE",
+   "team": "JAX",
+   "tier": "TE2",
+   "analysis": "Receiving",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 195,
+   "player": "Justice Hill",
+   "position": "RB",
+   "team": "BAL",
+   "tier": "RB4",
+   "analysis": "PPR contingency",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 196,
+   "player": "MarShawn Lloyd",
+   "position": "RB",
+   "team": "GB",
+   "tier": "RB4",
+   "analysis": "Jacobs handcuff",
+   "risk": "High",
+   "action": "Deep"
+  },
+  {
+   "rank": 197,
+   "player": "Devaughn Vele",
+   "position": "WR",
+   "team": "NO",
+   "tier": "WR4",
+   "analysis": "Early role",
+   "risk": "Medium",
+   "action": "Deep"
+  },
+  {
+   "rank": 198,
+   "player": "Jordan Love",
+   "position": "QB",
+   "team": "GB",
+   "tier": "QB2",
+   "analysis": "Value",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 199,
+   "player": "C.J. Stroud",
+   "position": "QB",
+   "team": "HOU",
+   "tier": "QB2",
+   "analysis": "Higgins loss",
+   "risk": "Medium",
+   "action": "Late"
+  },
+  {
+   "rank": 200,
+   "player": "Sam Darnold",
+   "position": "QB",
+   "team": "SEA",
+   "tier": "QB2",
+   "analysis": "Streamer",
+   "risk": "Medium",
+   "action": "Late"
+  }
+ ],
+ "sources": [
+  {
+   "publisher": "FantasyPros",
+   "article": "2026 PPR consensus",
+   "url": "https://www.fantasypros.com/nfl/rankings/?type=draft&scoring=PPR",
+   "used_for": "Rankings, ADP, expert ranges",
+   "verified": true
+  },
+  {
+   "publisher": "ESPN",
+   "article": "2026 PPR rankings",
+   "url": "https://www.espn.com/fantasy/football/story/_/page/FFPreseasonRank26main/fantasy-football-rankings-2026-draft-ppr",
+   "used_for": "Composite rankings",
+   "verified": true
+  },
+  {
+   "publisher": "ESPN",
+   "article": "NFL Nation training camp all 32",
+   "url": "https://www.espn.com/nfl/story/_/id/49368181/training-camp-2026-latest-news-intel-updates-all-32-teams",
+   "used_for": "Team reporters, camp intel",
+   "verified": true
+  },
+  {
+   "publisher": "ESPN",
+   "article": "Football Power Index",
+   "url": "https://www.espn.com/nfl/story/_/id/48845972/2026-nfl-season-football-power-index-projections-super-bowl-chances-simulations",
+   "used_for": "Team projections",
+   "verified": true
+  },
+  {
+   "publisher": "Footballguys",
+   "article": "Preseason Week 2 report",
+   "url": "https://www.footballguys.com/article/2026-preseason-insights-what-you-need-to-know-this-week02",
+   "used_for": "All-32 fantasy camp updates",
+   "verified": true
+  },
+  {
+   "publisher": "Sporting News",
+   "article": "2026 offseason grades",
+   "url": "https://www.sportingnews.com/ca/nfl/news/nfl-offseason-grades-2026-team-rankings/558e40ce02508dd043bfcaa0",
+   "used_for": "Free agency/draft grades",
+   "verified": true
+  },
+  {
+   "publisher": "RotoWire",
+   "article": "Live injuries",
+   "url": "https://www.rotowire.com/football/news.php?view=injuries",
+   "used_for": "Same-day news",
+   "verified": true
+  },
+  {
+   "publisher": "Yahoo",
+   "article": "Training-camp injury tracker",
+   "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html",
+   "used_for": "Injuries",
+   "verified": true
+  },
+  {
+   "publisher": "SI",
+   "article": "August injury cheat sheet",
+   "url": "https://www.si.com/onsi/fantasy/injuries/fantasy-football-injury-cheat-sheet-august-jeremiyah-love-jordyn-tyson",
+   "used_for": "Injuries",
+   "verified": true
+  },
+  {
+   "publisher": "PFF",
+   "article": "All-32 depth charts",
+   "url": "https://www.pff.com/news/fantasy-football-2026-depth-charts-for-all-32-nfl-teams",
+   "used_for": "Depth charts/usage",
+   "verified": true
+  },
+  {
+   "publisher": "NFL.com",
+   "article": "Late-round sleepers",
+   "url": "https://www.nfl.com/news/2026-nfl-fantasy-football-six-late-round-sleepers-to-target",
+   "used_for": "Sleeper ideas",
+   "verified": true
+  },
+  {
+   "publisher": "4for4",
+   "article": "PPR rankings/ADP",
+   "url": "https://www.4for4.com/fantasy-football-rankings/ppr-6pt-patd/2026",
+   "used_for": "Value and ADP",
+   "verified": true
+  },
+  {
+   "publisher": "CBS Sports",
+   "article": "Draft prep",
+   "url": "https://www.cbssports.com/fantasy/football/draft-prep/",
+   "used_for": "Consensus and strategy",
+   "verified": true
+  },
+  {
+   "publisher": "WalterFootball",
+   "article": "Training-camp stock",
+   "url": "https://walterfootball.com/fantasy2026trainingcamp.php",
+   "used_for": "Camp risers/fallers",
+   "verified": true
+  },
+  {
+   "publisher": "Fantasy Injury Team",
+   "article": "Camp injury tracker",
+   "url": "https://www.fantasyinjuryteam.com/articles/2026-fantasy-football-training-camp-injury-tracker",
+   "used_for": "Timeline and beneficiaries",
+   "verified": true
+  },
+  {
+   "publisher": "USA Today",
+   "article": "Fantasy injury updates",
+   "url": "https://www.usatoday.com/story/sports/fantasy/football/2026/08/11/fantasy-football-injury-updates-patrick-mahomes/91246709007/",
+   "used_for": "Injury context",
+   "verified": true
+  },
+  {
+   "publisher": "Bleacher Report",
+   "article": "Injury cheat sheet",
+   "url": "https://bleacherreport.com/articles/25474156-fantasy-football-2026-cheat-sheet-injured-players-and-holdout-candidates",
+   "used_for": "Risk flags",
+   "verified": true
+  },
+  {
+   "publisher": "The Athletic",
+   "article": "Sleeper analysis",
+   "url": "https://www.nytimes.com/athletic/7493907/2026/08/06/dezhaun-stribling-jaydon-blue-and-more-2026-fantasy-football-sleepers/",
+   "used_for": "Sleeper analysis",
+   "verified": true
+  },
+  {
+   "publisher": "Reddit",
+   "article": "Draft ranking comparison",
+   "url": "https://www.reddit.com/r/fantasyfootball/comments/1vo7zre/abusing_draft_rankings_2026_espn_sleeper_yahoo/",
+   "used_for": "Platform differences; unverified",
+   "verified": false
+  },
+  {
+   "publisher": "Reddit",
+   "article": "PPR tiers",
+   "url": "https://www.reddit.com/r/fantasyfootball/comments/1vefl1c/my_2026_ppr_redraft_player_rankings_tier_lists/",
+   "used_for": "Community sentiment; unverified",
+   "verified": false
+  },
+  {
+   "publisher": "Reddit",
+   "article": "Deep sleepers",
+   "url": "https://www.reddit.com/r/fantasyfootball/comments/1vpwe56/my_5_favorite_deep_sleeperslateround_dart_throws/",
+   "used_for": "Community ideas; unverified",
+   "verified": false
+  }
+ ],
+ "sleepers": [
+  {
+   "player": "Bhayshul Tuten",
+   "position": "RB",
+   "team": "JAX",
+   "opportunity": "Lead-back path after Etienne departure",
+   "reason": "RB role clarity and explosive profile"
+  },
+  {
+   "player": "Jadarian Price",
+   "position": "RB",
+   "team": "SEA",
+   "opportunity": "Charbonnet uncertainty",
+   "reason": "Late-round receiving/efficiency upside"
+  },
+  {
+   "player": "Jonathon Brooks",
+   "position": "RB",
+   "team": "CAR",
+   "opportunity": "Potential workhorse if healthy",
+   "reason": "Knee risk creates discount"
+  },
+  {
+   "player": "Cam Skattebo",
+   "position": "RB",
+   "team": "NYG",
+   "opportunity": "Receiving and goal-line path",
+   "reason": "Better floor than typical late rookie"
+  },
+  {
+   "player": "Kenny Gainwell",
+   "position": "RB",
+   "team": "TB",
+   "opportunity": "Receiving work",
+   "reason": "Standalone PPR value"
+  },
+  {
+   "player": "Matthew Golden",
+   "position": "WR",
+   "team": "GB",
+   "opportunity": "Rookie role growth",
+   "reason": "Target opportunity"
+  },
+  {
+   "player": "Carnell Tate",
+   "position": "WR",
+   "team": "TEN",
+   "opportunity": "First-unit usage",
+   "reason": "Rookie route/target path"
+  },
+  {
+   "player": "De’Zhaun Stribling",
+   "position": "WR",
+   "team": "SF",
+   "opportunity": "Pearsall injury opens snaps",
+   "reason": "Athletic profile and opportunity"
+  },
+  {
+   "player": "Josh Downs",
+   "position": "WR",
+   "team": "IND",
+   "opportunity": "Short-area role",
+   "reason": "PPR specialist"
+  },
+  {
+   "player": "Tyler Shough",
+   "position": "QB",
+   "team": "NO",
+   "opportunity": "Rushing potential",
+   "reason": "Late QB streamer"
+  },
+  {
+   "player": "Denzel Boston",
+   "position": "WR",
+   "team": "CLE",
+   "opportunity": "First-unit preseason usage",
+   "reason": "Deep rookie dart"
+  },
+  {
+   "player": "Caleb Douglas",
+   "position": "WR",
+   "team": "MIA",
+   "opportunity": "First-unit usage reported",
+   "reason": "Very deep dart"
+  },
+  {
+   "player": "Terrance Ferguson",
+   "position": "TE",
+   "team": "LAR",
+   "opportunity": "Late route upside",
+   "reason": "Deep TE option"
+  },
+  {
+   "player": "Adonai Mitchell",
+   "position": "WR",
+   "team": "NYJ",
+   "opportunity": "Starting opportunity",
+   "reason": "Deep WR dart"
+  },
+  {
+   "player": "Wan’Dale Robinson",
+   "position": "WR",
+   "team": "TEN",
+   "opportunity": "High-catch profile",
+   "reason": "PPR value"
+  }
+ ],
+ "teams": [
+  {
+   "team": "ARI",
+   "name": "Arizona Cardinals",
+   "grade": "C",
+   "quarterback": "Kyler Murray/uncertain",
+   "core": "Jeremiyah Love, Trey McBride, Marvin Harrison Jr.",
+   "risks": "Love high ankle sprain; Allgeier contingency",
+   "reading": "Love injury creates Allgeier value; McBride safest target"
+  },
+  {
+   "team": "ATL",
+   "name": "Atlanta Falcons",
+   "grade": "C+",
+   "quarterback": "Tagovailoa/Penix uncertainty",
+   "core": "Bijan Robinson, Drake London, Kyle Pitts",
+   "risks": "Penix knee/clearance questions",
+   "reading": "Robinson/London strong; Pitts price sensitive"
+  },
+  {
+   "team": "BAL",
+   "name": "Baltimore Ravens",
+   "grade": "A",
+   "quarterback": "Lamar Jackson",
+   "core": "Derrick Henry, Zay Flowers, Mark Andrews",
+   "risks": "Andrews uneven; Flowers quad resolved",
+   "reading": "Strong offense; Lane deep sleeper"
+  },
+  {
+   "team": "BUF",
+   "name": "Buffalo Bills",
+   "grade": "A-",
+   "quarterback": "Josh Allen",
+   "core": "James Cook, D.J. Moore, Shakir",
+   "risks": "Coleman foot/toe; Chubb recovery",
+   "reading": "Allen/Cook anchors; Moore target split"
+  },
+  {
+   "team": "CAR",
+   "name": "Carolina Panthers",
+   "grade": "B",
+   "quarterback": "Bryce Young",
+   "core": "Tetairoa McMillan, Jonathon Brooks, Hubbard",
+   "risks": "Hubbard hamstring",
+   "reading": "Brooks value if healthy"
+  },
+  {
+   "team": "CHI",
+   "name": "Chicago Bears",
+   "grade": "B",
+   "quarterback": "Caleb Williams",
+   "core": "Swift, Odunze, Burden, Loveland",
+   "risks": "Monangai knee; Burden groin",
+   "reading": "Williams breakout; Swift rises"
+  },
+  {
+   "team": "CIN",
+   "name": "Cincinnati Bengals",
+   "grade": "A",
+   "quarterback": "Joe Burrow",
+   "core": "Chase, Higgins, Chase Brown",
+   "risks": "Defense rebuilt",
+   "reading": "Best concentrated stack"
+  },
+  {
+   "team": "CLE",
+   "name": "Cleveland Browns",
+   "grade": "C-",
+   "quarterback": "Uncertain",
+   "core": "Judkins, Fannin, Jeudy",
+   "risks": "QB uncertainty; Garrett departure",
+   "reading": "Judkins only strong early target"
+  },
+  {
+   "team": "DAL",
+   "name": "Dallas Cowboys",
+   "grade": "B-",
+   "quarterback": "Dak Prescott",
+   "core": "Lamb, Pickens, Javonte",
+   "risks": "Defense/offense balance",
+   "reading": "Lamb safe; Javonte role bet"
+  },
+  {
+   "team": "DEN",
+   "name": "Denver Broncos",
+   "grade": "B+",
+   "quarterback": "Bo Nix",
+   "core": "Sutton, Waddle, Dobbins, Harvey",
+   "risks": "Regression/ankle concerns",
+   "reading": "Sutton/Nix value"
+  },
+  {
+   "team": "DET",
+   "name": "Detroit Lions",
+   "grade": "A",
+   "quarterback": "Jared Goff",
+   "core": "Gibbs, Amon-Ra, LaPorta, Jameson",
+   "risks": "Pacheco MCL",
+   "reading": "Best stable offense"
+  },
+  {
+   "team": "GB",
+   "name": "Green Bay Packers",
+   "grade": "B+",
+   "quarterback": "Jordan Love",
+   "core": "Golden, Reed, Jacobs, Watson",
+   "risks": "Jacobs groin; Watson health",
+   "reading": "Golden/Reed value"
+  },
+  {
+   "team": "HOU",
+   "name": "Houston Texans",
+   "grade": "B+",
+   "quarterback": "C.J. Stroud",
+   "core": "Nico Collins, Montgomery, Dell",
+   "risks": "Higgins ACL out; line questions",
+   "reading": "Collins target boost"
+  },
+  {
+   "team": "IND",
+   "name": "Indianapolis Colts",
+   "grade": "B-",
+   "quarterback": "Daniel Jones/Anthony Richardson",
+   "core": "Taylor, Downs, Warren",
+   "risks": "Pierce PUP; QB health",
+   "reading": "Taylor anchor; Downs PPR"
+  },
+  {
+   "team": "JAX",
+   "name": "Jacksonville Jaguars",
+   "grade": "B+",
+   "quarterback": "Trevor Lawrence",
+   "core": "Tuten, Brian Thomas, Parker Washington",
+   "risks": "Backfield role transition",
+   "reading": "Tuten premier sleeper"
+  },
+  {
+   "team": "KC",
+   "name": "Kansas City Chiefs",
+   "grade": "A-",
+   "quarterback": "Mahomes knee recovery",
+   "core": "Rice, Walker, Worthy, Kelce",
+   "risks": "Mahomes ACL/LCL recovery",
+   "reading": "Walker value; wait on Mahomes"
+  },
+  {
+   "team": "LAC",
+   "name": "Los Angeles Chargers",
+   "grade": "B+",
+   "quarterback": "Justin Herbert",
+   "core": "Hampton, McConkey, Njoku",
+   "risks": "Biadasz knee out",
+   "reading": "Hampton/McConkey preferred"
+  },
+  {
+   "team": "LAR",
+   "name": "Los Angeles Rams",
+   "grade": "A",
+   "quarterback": "Matthew Stafford",
+   "core": "Puka, Kyren, Adams",
+   "risks": "Puka groin; Stafford regression",
+   "reading": "Elite environment"
+  },
+  {
+   "team": "MIA",
+   "name": "Miami Dolphins",
+   "grade": "D",
+   "quarterback": "Malik Willis/uncertain",
+   "core": "Achane, Waddle, Wright",
+   "risks": "Tua departure; roster rebuild",
+   "reading": "Achane only premium asset"
+  },
+  {
+   "team": "MIN",
+   "name": "Minnesota Vikings",
+   "grade": "B-",
+   "quarterback": "QB uncertainty",
+   "core": "Jefferson, Addison, Jones",
+   "risks": "McCarthy uncertainty",
+   "reading": "Jefferson QB-proof"
+  },
+  {
+   "team": "NE",
+   "name": "New England Patriots",
+   "grade": "A-",
+   "quarterback": "Drake Maye",
+   "core": "A.J. Brown, Henderson, Stevenson",
+   "risks": "Schedule/one-score regression",
+   "reading": "Maye/Henderson strong"
+  },
+  {
+   "team": "NO",
+   "name": "New Orleans Saints",
+   "grade": "C",
+   "quarterback": "Tyler Shough",
+   "core": "Olave, Etienne, Kamara",
+   "risks": "Kamara MCL; Tyson hamstring",
+   "reading": "Etienne/Shough rising"
+  },
+  {
+   "team": "NYG",
+   "name": "New York Giants",
+   "grade": "C+",
+   "quarterback": "Jaxson Dart",
+   "core": "Nabers, Skattebo, Likely",
+   "risks": "Nabers ACL contact clearance",
+   "reading": "Nabers upside; Skattebo safer"
+  },
+  {
+   "team": "NYJ",
+   "name": "New York Jets",
+   "grade": "C",
+   "quarterback": "Geno Smith",
+   "core": "Wilson, Hall, Allen, Sadiq",
+   "risks": "Hall groin",
+   "reading": "Allen handcuff"
+  },
+  {
+   "team": "PHI",
+   "name": "Philadelphia Eagles",
+   "grade": "A-",
+   "quarterback": "Jalen Hurts",
+   "core": "Barkley, Smith, Goedert, Lemon",
+   "risks": "Smith hamstring; A.J. Brown loss",
+   "reading": "Barkley/Hurts stable"
+  },
+  {
+   "team": "PIT",
+   "name": "Pittsburgh Steelers",
+   "grade": "B-",
+   "quarterback": "Aaron Rodgers",
+   "core": "Metcalf, Pittman, Warren",
+   "risks": "Pittman hamstring",
+   "reading": "Warren PPR; Rodgers streamer"
+  },
+  {
+   "team": "SF",
+   "name": "San Francisco 49ers",
+   "grade": "A-",
+   "quarterback": "Brock Purdy",
+   "core": "McCaffrey, Evans, Stribling, Kittle",
+   "risks": "Kittle PUP; Pearsall out; Kirk calf",
+   "reading": "Mason/Stribling values"
+  },
+  {
+   "team": "SEA",
+   "name": "Seattle Seahawks",
+   "grade": "B",
+   "quarterback": "Sam Darnold",
+   "core": "JSN, Price, Charbonnet",
+   "risks": "Charbonnet PUP; defensive regression",
+   "reading": "JSN elite; Price sleeper"
+  },
+  {
+   "team": "TB",
+   "name": "Tampa Bay Buccaneers",
+   "grade": "B-",
+   "quarterback": "Baker Mayfield",
+   "core": "Irving, Godwin, Egbuka, Gainwell",
+   "risks": "Egbuka toe; Evans departure",
+   "reading": "Irving/Gainwell strong PPR"
+  },
+  {
+   "team": "TEN",
+   "name": "Tennessee Titans",
+   "grade": "B",
+   "quarterback": "Cam Ward",
+   "core": "Tate, Wan’Dale, Pollard, Spears",
+   "risks": "QB development",
+   "reading": "Tate late rookie target"
+  },
+  {
+   "team": "WAS",
+   "name": "Washington Commanders",
+   "grade": "A",
+   "quarterback": "Jayden Daniels",
+   "core": "McLaurin, White, Croskey-Merritt",
+   "risks": "Backfield competition",
+   "reading": "Daniels elite; McLaurin value"
+  }
+ ],
+ "strategy": [
+  {
+   "topic": "Early rounds",
+   "recommendation": "Prioritize elite WR volume or a workhorse RB",
+   "reason": "Touches and targets are more stable than TDs",
+   "action": "Build around Chase/Gibbs/Bijan/Puka/JSN/Amon-Ra/Taylor"
+  },
+  {
+   "topic": "QB",
+   "recommendation": "Wait unless a rushing QB falls",
+   "reason": "Replacement value is higher at RB/WR",
+   "action": "Target Allen, Lamar, Daniels, Hurts, Maye at value"
+  },
+  {
+   "topic": "TE",
+   "recommendation": "Pay for target advantage, not name value",
+   "reason": "Positional scarcity matters",
+   "action": "Prefer McBride/Bowers/Loveland/Warren at fair price"
+  },
+  {
+   "topic": "Handcuffs",
+   "recommendation": "Draft direct backups for fragile roles",
+   "reason": "One pick can create a league-winning workload",
+   "action": "Allen, Allgeier, Mason, Corum, Ray Davis, Lloyd"
+  },
+  {
+   "topic": "Injury discounts",
+   "recommendation": "Buy talent only when replacement value is covered",
+   "reason": "Injured players can destroy roster flexibility",
+   "action": "Pair Love with Allgeier; Hall with Allen"
+  },
+  {
+   "topic": "Late rounds",
+   "recommendation": "Choose route/touch paths over pure talent",
+   "reason": "Opportunity beats buried depth-chart hype",
+   "action": "Tuten, Price, Gainwell, Golden, Tate, Stribling"
+  },
+  {
+   "topic": "Waivers",
+   "recommendation": "Track snaps, routes, red-zone touches, two-minute work",
+   "reason": "Raw points can hide role changes",
+   "action": "Review every Tuesday/Wednesday"
+  },
+  {
+   "topic": "Roster construction",
+   "recommendation": "Keep one bench spot flexible",
+   "reason": "Preserves reaction ability",
+   "action": "Avoid too many injured stashes"
   }
  ]
 }

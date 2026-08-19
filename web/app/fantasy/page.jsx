@@ -35,6 +35,37 @@ function numbered(rows) {
   return rows.map((row, index) => ({ ...row, rank: index + 1 }));
 }
 
+/**
+ * Una columna de discrepancias con el consenso.
+ *
+ * Se enseña la posición en los dos boards y la diferencia, no sólo la
+ * diferencia: «+106» sin saber de dónde a dónde no dice si es un debate entre
+ * la ronda 3 y la 12 o entre la 14 y la 15.
+ */
+function GapList({ rows }) {
+  return (
+    <ol className="gap">
+      {rows.map((row) => (
+        <li key={row.player_id ?? row.player_name}>
+          <span className="gap-who">
+            <span className={`ptag ptag--${row.position.toLowerCase()}`}>{row.position}</span>
+            <strong>{row.player_name}</strong> <span className="outlet">{row.team}</span>
+          </span>
+          <span className="gap-nums">
+            <span className="outlet">
+              aquí #{row.model_rank} · consenso #{row.consensus_rank}
+            </span>
+            <span className={row.gap > 0 ? "gap-up" : "gap-down"}>
+              {row.gap > 0 ? `+${row.gap}` : row.gap}
+            </span>
+          </span>
+          {row.analysis ? <span className="gap-note">{row.analysis}</span> : null}
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 export default function Fantasy() {
   const fantasy = model.fantasy;
 
@@ -50,6 +81,8 @@ export default function Fantasy() {
   const board = fantasy.board ?? [];
   const availability = availabilityByPlayer(model.dossier);
   const briefs = briefsByPlayer(model.dossier, model.research);
+  const gap = model.dossier?.gap ?? [];
+  const ambiguous = model.dossier?.ambiguous ?? [];
 
   return (
     <>
@@ -62,6 +95,7 @@ export default function Fantasy() {
 
       <ul className="jump">
         <li><a href="#draft-mode">Modo draft</a></li>
+        <li><a href="#consenso">Consenso</a></li>
         <li><a href="#global">Global</a></li>
         {POSITIONS.map((position) => (
           <li key={position}><a href={`#${position.toLowerCase()}`}>{position}</a></li>
@@ -79,6 +113,66 @@ export default function Fantasy() {
         </p>
         <DraftMode board={board} />
       </section>
+
+      {gap.length > 0 ? (
+        <section id="consenso">
+          <h2>Dónde este board se separa del consenso</h2>
+          <p className="lede">
+            Coincidir con el consenso no informa de nada: si los dos dicen lo mismo, daba igual
+            cuál mirases. <strong>Toda la información está en el desacuerdo</strong>, y es
+            también donde este board puede estar equivocado.
+          </p>
+          <div className="two-up">
+            <div>
+              <h3>El modelo los sube</h3>
+              <p className="caption">Más alto aquí que en el consenso de expertos.</p>
+              <GapList rows={gap.slice(0, 8)} />
+            </div>
+            <div>
+              <h3>El modelo los baja</h3>
+              <p className="caption">Más bajo aquí que en el consenso.</p>
+              <GapList rows={[...gap].slice(-8).reverse()} />
+            </div>
+          </div>
+
+          <Callout title="Los desacuerdos caen justo donde el modelo es ciego">
+            <p>
+              No son errores aleatorios, y por eso valen: <strong>cada bloque de discrepancia
+              apunta a una limitación que ya está documentada abajo</strong>.
+            </p>
+            <ul>
+              <li>
+                <strong>Lesionados que el modelo sube.</strong> El consenso ya los ha bajado
+                porque sabe del parte médico; el modelo proyecta sobre partidos jugados y no
+                sabe nada. Aquí manda el consenso — mira su etiqueta de disponibilidad.
+              </li>
+              <li>
+                <strong>Veteranos que el modelo sube.</strong> La curva de edad está
+                implementada pero <strong>inactiva</strong>: faltan las fechas de nacimiento.
+                Un ala cerrada de 36 años con buen historial sube más de lo que debería.
+              </li>
+              <li>
+                <strong>Jóvenes que el modelo baja.</strong> Sin historial no hay proyección, y
+                un segundo año con cambio de papel es justo lo que el modelo no puede ver. Aquí
+                el consenso tiene información que estos datos no contienen.
+              </li>
+            </ul>
+          </Callout>
+
+          <p className="caption">
+            {gap.length} de los {model.dossier?.consensus_size ?? 0} del consenso se emparejan
+            con este board.
+            {ambiguous.length > 0 ? (
+              <>
+                {" "}No se comparan {ambiguous.map((names) => names.join(" y ")).join("; ")}:
+                comparten inicial, apellido y equipo, y el formato abreviado de nflverse no los
+                distingue. Adivinar cuál es cuál produciría una discrepancia llamativa sobre el
+                jugador equivocado.
+              </>
+            ) : null}
+          </p>
+        </section>
+      ) : null}
 
       <h2>Dónde se acaba el valor en cada posición</h2>
       <VorCurve board={board} />

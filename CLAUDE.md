@@ -188,6 +188,8 @@ comentario está para que no los reintroduzcas.
 | Suma de medias por jugador como denominador | `fantasy/weekly.py` | La cuota de uso se calcula sobre los partidos del **equipo**, no sumando promedios condicionales: inflaba el denominador entre un 5% y un 34% **según el equipo**, que es lo que rompe la comparación entre equipos. Se descubrió dibujando la gráfica, no con un test |
 | Un aviso que sale en los 250 jugadores | `fantasy/risk.py` | «Muestra corta» con la saturación en 40 partidos, cuando el ponderado 56/30/14 satura en 19. Un motivo que aparece siempre no informa: es decoración con nombre técnico |
 | «DUDA» y «Seguro» en la misma fila | `fantasy/risk.py` | Disponibilidad y volatilidad son cosas distintas, pero las palabras chocaban y se leía como contradicción. Ahora son «Estable/Volátil» |
+| Bijan y Brian Robinson, los dos «B.Robinson» de ATL | `narrative/dossier.py` | El formato abreviado de nflverse no distingue a dos jugadores con la misma inicial, apellido y equipo. Quedarse con el último daba «el modelo sube a Bijan 139 puestos». **Ante la duda no se empareja** |
+| Códigos de equipo sin normalizar en el importador | `scripts/dossier_import.py` | Un `LA` que debía ser `LAR` no emparejaba con nada y el jugador nunca se colgaba de su fila. Fallo silencioso. Todo código pasa por `normalize_team` |
 | El validador de cifras rechazaba textos correctos | `narrative/factcheck.py` | «Cae 4,9 puntos» con el dato en -4.9. Se admite el valor absoluto: en prosa el signo lo lleva el verbo. Un validador con falsos positivos acaba desactivado |
 
 ---

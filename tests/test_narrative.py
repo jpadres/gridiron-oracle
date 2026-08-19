@@ -364,3 +364,42 @@ def test_dossier_entries_without_a_ranked_player_are_left_unlinked():
     dossier.attach_players(entries, [{"player_id": "00-9", "player_name": "P.Mahomes", "team": "KC"}])
     assert entries[0]["player_id"] == "00-9"
     assert entries[1]["player_id"] is None
+
+
+def test_ambiguous_names_are_never_matched_against_the_consensus():
+    """Bijan Robinson y Brian Robinson Jr. son los dos «B.Robinson» de Atlanta.
+
+    El formato abreviado de nflverse no los distingue, así que el modelo tampoco.
+    Quedarse con el último de la lista producía «el modelo sube a Bijan 139
+    puestos sobre el consenso»: una afirmación fuerte, llamativa y posiblemente
+    sobre el jugador equivocado. Ante la duda no se empareja.
+    """
+    from oracle.narrative import dossier
+
+    consensus = [
+        {"rank": 4, "player": "Bijan Robinson", "team": "ATL"},
+        {"rank": 142, "player": "Brian Robinson Jr.", "team": "ATL"},
+        {"rank": 10, "player": "Ja'Marr Chase", "team": "CIN"},
+    ]
+    board = [
+        {"player_id": "1", "player_name": "B.Robinson", "team": "ATL",
+         "position": "RB", "overall_rank": 3},
+        {"player_id": "2", "player_name": "J.Chase", "team": "CIN",
+         "position": "WR", "overall_rank": 5},
+    ]
+    gap = dossier.consensus_gap(board, consensus)
+
+    assert [row["player_name"] for row in gap] == ["J.Chase"]
+    assert dossier.ambiguous_names(consensus) == [["Bijan Robinson", "Brian Robinson Jr."]]
+
+
+def test_consensus_gap_sign_says_who_is_higher():
+    """Positivo = el modelo lo sube. Un signo invertido aquí invierte el consejo."""
+    from oracle.narrative import dossier
+
+    gap = dossier.consensus_gap(
+        [{"player_id": "1", "player_name": "T.Kelce", "team": "KC",
+          "position": "TE", "overall_rank": 29}],
+        [{"rank": 104, "player": "Travis Kelce", "team": "KC"}],
+    )
+    assert gap[0]["gap"] == 75
