@@ -126,6 +126,13 @@ tbody tr:hover { background: var(--surface); }
 footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25rem;
          font-size: 0.85rem; color: var(--muted); }
 
+/* El sello de build. Monoespaciado y seleccionable a propósito: sirve para
+   copiarlo y pegarlo cuando algo no cuadra, así que no puede ser una imagen ni
+   llevar `user-select: none`. */
+.build { font-size: 0.78rem; opacity: 0.75; }
+.build code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              background: var(--surface); padding: 0.1rem 0.35rem; border-radius: 4px; }
+
 /* --- gráficas ------------------------------------------------------------ */
 
 /* El contenedor crece con su contenido en vez de fijar altura: si se fija, la
