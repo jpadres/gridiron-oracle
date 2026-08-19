@@ -29,3 +29,7 @@ web/data/model.json
 # Sistema
 .DS_Store
 *.log
+
+# El skill de UI/UX se versiona (3,6 MB, y sin él el repo no lo tiene), pero no
+# sus tests ni sus fixtures: son del proyecto de origen, no de éste.
+.claude/skills/*/scripts/tests/

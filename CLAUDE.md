@@ -216,6 +216,32 @@ dependencias + verificación de cabeceras, workflow semanal que regenera y publi
 
 ---
 
+## El skill de UI/UX
+
+`.claude/skills/ui-ux-pro-max/` (MIT, de NextLevelBuilder). Es un buscador local
+de reglas de interfaz — sin red, sólo librería estándar — y se usa así:
+
+```bash
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "<consulta>" --domain ux
+```
+
+Se auditó antes de instalarlo: los `urllib` y `subprocess` del repo original
+están en sus tests y en una utilidad de mantenimiento, no en la ruta que se
+ejecuta. Los tests no se versionan (`.gitignore`) porque son del proyecto de
+origen.
+
+**Lo que encontró que los tests de aquí no podían encontrar:** los botones
+«Yo»/«Fuera» del modo draft medían 35×29 px con 6 px de separación, cuando el
+mínimo táctil es 44×44 con 8 px. Hacen cosas opuestas —uno te mete al jugador en
+la plantilla y el otro lo tacha— así que fallar el toque en un móvil no era una
+molestia: corrompía el estado del draft.
+
+Sus reglas son buenos valores por defecto, no leyes. Se saltó a propósito la de
+«estado activo en la navegación»: implementarla exige saber la ruta actual, y en
+el App Router eso obliga a un componente de cliente en el layout — o sea, mandar
+JavaScript en las ocho páginas para resaltar un enlace que el `<h1>` de debajo ya
+nombra. El precio no compensa.
+
 ## Estilo
 
 Comentarios y documentación **en español**. Nombres de código en inglés.

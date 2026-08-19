@@ -172,13 +172,16 @@ export default function DraftMode({ board }) {
         del draft. No sale de tu máquina.
       </p>
 
+      <label className="field-label" htmlFor="draft-search">
+        Buscar para tachar a quien se lleven
+      </label>
       <input
+        id="draft-search"
         className="draft-search"
         type="search"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
-        placeholder="Buscar para tachar a quien se lleven — nombre, equipo o posición"
-        aria-label="Buscar jugador"
+        placeholder="Nombre, equipo o posición"
       />
 
       {query.trim().length >= 2 ? (

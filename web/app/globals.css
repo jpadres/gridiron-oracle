@@ -497,8 +497,9 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
   width: 100%;
   font: inherit;
   font-size: 0.95rem;
+  min-height: 44px;
   padding: 0.5rem 0.7rem;
-  margin: 0.6rem 0 0.2rem;
+  margin: 0.35rem 0 0.2rem;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--bg);
@@ -536,3 +537,38 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 /* Caducado: el borde avisa y el detalle lo dice con palabras. Nunca sólo color. */
 .card--stale { border-color: var(--warn-line); background: var(--warn-bg); }
 .card--stale .card-detail { color: var(--warn-line); font-weight: 600; }
+
+/* --- objetivos táctiles --------------------------------------------------- */
+
+/* 44×44 px mínimo y 8 px de separación, en todo lo que se pulsa.
+   Medido en el móvil: los botones del modo draft salían a 35×29 con 6 px entre
+   ellos, y **hacen cosas opuestas** — «Yo» te mete al jugador en la plantilla y
+   «Fuera» lo tacha. Fallar el toque ahí no es una molestia estética: corrompe el
+   estado de tu draft en el peor momento posible. */
+.pick-actions { gap: 0.5rem; }
+.pick-actions button {
+  min-height: 44px;
+  min-width: 48px;
+  padding: 0.35rem 0.75rem;
+}
+
+/* Las píldoras de salto entre secciones se pulsan igual. */
+.jump a { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center;
+          justify-content: center; }
+
+/* Etiqueta visible del buscador. Un placeholder desaparece al escribir, así que
+   deja de decirte qué campo es justo cuando ya has empezado. */
+.field-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-top: 0.9rem;
+}
+
+/* Desplazamiento suave al saltar de sección, salvo que el sistema pida lo
+   contrario: la animación ayuda a no perder el sitio en una página larga, y a
+   quien le marea la quita su propia preferencia. */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
