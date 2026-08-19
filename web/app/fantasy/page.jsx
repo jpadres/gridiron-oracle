@@ -195,7 +195,13 @@ export default function Fantasy() {
         <h2>Global</h2>
         <p className="caption">
           Las cuatro posiciones en una sola lista, ordenadas por VOR. Puntuación{" "}
-          {fantasy.scoring}, liga de {fantasy.teams} equipos.
+          <strong>{fantasy.scoring}</strong>, liga de {fantasy.teams} equipos
+          {fantasy.league ? (
+            <> — sincronizada desde Sleeper: <strong>{fantasy.league}</strong>.</>
+          ) : (
+            <>. <strong>Supuesta</strong>, no sincronizada: si tu liga puntúa distinto, este
+            orden no es el tuyo — la puntuación cambia el ranking, no sólo los puntos.</>
+          )}
         </p>
         <RankTable rows={numbered(board)} columns={BOARD_COLUMNS}
                    availability={availability} briefs={briefs} risk tiers />

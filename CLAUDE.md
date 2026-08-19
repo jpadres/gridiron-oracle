@@ -110,6 +110,7 @@ src/oracle/
   fantasy/               puntuación, proyecciones de draft, ranking semanal
   narrative/             textos generados y barrido de prensa (opcional, con clave)
   survivor/              plan de survivor: asignación lineal sobre log-probabilidades
+  leagues/sleeper.py     sincroniza puntuación y tamaño de la liga (API pública, sin clave)
   fantasy/risk.py        volatilidad de la proyección, VALIDADA contra el error real
   pipeline.py            Oracle.train() -> predict() -> value_bets()
   cli.py                 comando `oracle`
@@ -149,6 +150,7 @@ python scripts/fantasy_weekly_build.py --season 2026 --week 1
 python scripts/fantasy_weekly_calibrate.py     # recalibra y valida: ~7 min
 python scripts/survivor_build.py               # plan de survivor: ~1 min
 python scripts/fantasy_risk_validate.py        # ¿la volatilidad predice el error?: ~4 min
+python scripts/sleeper_sync.py --league <id>   # lee tu liga: puntuación y tamaño reales
 python scripts/dossier_import.py libro.xlsx    # importa el dossier curado
 python scripts/export_web_data.py              # regenera el payload de la web
 python scripts/make_report.py                  # informe HTML de validación
@@ -190,6 +192,7 @@ comentario está para que no los reintroduzcas.
 | «DUDA» y «Seguro» en la misma fila | `fantasy/risk.py` | Disponibilidad y volatilidad son cosas distintas, pero las palabras chocaban y se leía como contradicción. Ahora son «Estable/Volátil» |
 | Bijan y Brian Robinson, los dos «B.Robinson» de ATL | `narrative/dossier.py` | El formato abreviado de nflverse no distingue a dos jugadores con la misma inicial, apellido y equipo. Quedarse con el último daba «el modelo sube a Bijan 139 puestos». **Ante la duda no se empareja** |
 | Códigos de equipo sin normalizar en el importador | `scripts/dossier_import.py` | Un `LA` que debía ser `LAR` no emparejaba con nada y el jugador nunca se colgaba de su fila. Fallo silencioso. Todo código pasa por `normalize_team` |
+| Publicar «ppr» sobre un board de media recepción | `scripts/fantasy_build.py` | La etiqueta salía del argumento y no de las reglas usadas. Ahora la deriva de `ScoringRules`: si la liga sincronizada manda, la etiqueta también |
 | El validador de cifras rechazaba textos correctos | `narrative/factcheck.py` | «Cae 4,9 puntos» con el dato en -4.9. Se admite el valor absoluto: en prosa el signo lo lleva el verbo. Un validador con falsos positivos acaba desactivado |
 
 ---

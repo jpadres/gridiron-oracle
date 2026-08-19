@@ -132,6 +132,8 @@ def main(argv: list[str] | None = None) -> int:
     payload["fantasy"] = _trim_records(
         _load_optional(paths.out / "fantasy_draft.json"), "board", DRAFT_COLUMNS
     )
+    # `league` y `starters` no son columnas del board: `_trim_records` sólo
+    # recorta la tabla, así que estas claves de nivel superior sobreviven solas.
     payload["fantasy_weekly"] = _trim_records(
         _load_optional(paths.out / "fantasy_weekly.json"), "rankings", WEEKLY_COLUMNS
     )

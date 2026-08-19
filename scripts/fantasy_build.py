@@ -28,7 +28,7 @@ from oracle.fantasy.draft import (
     draft_board,
     project_season,
 )
-from oracle.fantasy.scoring import rules_from_name, score_player_weeks
+from oracle.fantasy.scoring import ScoringRules, rules_from_name, score_player_weeks
 
 # Temporadas sobre las que se reporta la validación. Se fija antes de mirar el
 # resultado, que es la regla del proyecto.
@@ -39,18 +39,37 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Genera el board de draft.")
     parser.add_argument("--root", default=None)
     parser.add_argument("--season", type=int, default=None, help="Temporada a proyectar.")
+    parser.add_argument("--ignore-league", action="store_true",
+                        help="Ignora research/league.json y usa --scoring y --teams.")
     parser.add_argument("--scoring", default="ppr", help="ppr | half | standard")
     parser.add_argument("--teams", type=int, default=12)
     args = parser.parse_args(argv)
 
     paths = resolve_paths(args.root).ensure()
-    rules = rules_from_name(args.scoring)
+
+    # La configuración de la liga sincronizada manda sobre los valores por
+    # defecto. La puntuación **cambia el ranking**, así que si existe hay que
+    # usarla: un board en PPR para una liga estándar no es aproximado, es de
+    # otra liga.
+    synced = _synced_league(paths.root)
+    if synced and not args.ignore_league:
+        rules = ScoringRules(**synced["scoring"])
+        settings = LeagueSettings(
+            teams=synced["teams"],
+            starters=tuple(synced["starters"].items()),
+        )
+        print(f"Usando la liga sincronizada: {synced.get('name')} "
+              f"({settings.teams} equipos, {rules.reception:g} por recepción).")
+    else:
+        rules = rules_from_name(args.scoring)
+        settings = None
     players = pd.read_parquet(paths.player_weeks)
 
     season = args.season or int(players["season"].max()) + 1
-    settings = LeagueSettings(teams=args.teams)
+    if settings is None:
+        settings = LeagueSettings(teams=args.teams)
 
-    print(f"Proyectando {season} ({args.scoring}, liga de {args.teams})...")
+    print(f"Proyectando {season} ({_scoring_label(rules)}, liga de {settings.teams})...")
     board = draft_board(project_season(players, season, rules), settings)
 
     # Etiqueta de riesgo. Validada contra el error realizado en
@@ -83,8 +102,13 @@ def main(argv: list[str] | None = None) -> int:
         json.dumps(
             {
                 "season": season,
-                "scoring": args.scoring,
-                "teams": args.teams,
+                # La etiqueta describe las reglas **de verdad**, no el nombre
+                # del argumento: con una liga sincronizada, «ppr» podía acabar
+                # publicado sobre un board de media recepción.
+                "scoring": _scoring_label(rules),
+                "league": synced.get("name") if synced and not args.ignore_league else None,
+                "teams": settings.teams,
+                "starters": dict(settings.starters),
                 "board": board.head(250).round(3).to_dict(orient="records"),
                 "validation": validation.round(4).to_dict(orient="records"),
             },
@@ -95,6 +119,23 @@ def main(argv: list[str] | None = None) -> int:
     )
     print(f"\nEscrito {destination}")
     return 0
+
+
+def _scoring_label(rules: ScoringRules) -> str:
+    """Cómo se llama esta puntuación, mirando las reglas y no el argumento."""
+    base = {1.0: "PPR", 0.5: "half-PPR", 0.0: "estándar"}.get(rules.reception)
+    label = base or f"{rules.reception:g} por recepción"
+    if rules.passing_td != 4.0:
+        label += f", TD de pase a {rules.passing_td:g}"
+    return label
+
+
+def _synced_league(root) -> dict | None:
+    """La liga sincronizada desde Sleeper, si la hay."""
+    path = root / "research" / "league.json"
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> pd.DataFrame:
