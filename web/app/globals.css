@@ -490,3 +490,49 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
    fuente con redacción detrás. */
 .sources-list li.unverified { opacity: 0.72; }
 .sources-list li.unverified .tag { margin-left: 0.4rem; }
+
+/* Buscador del modo draft. Ancho completo y grande: se usa con una mano, con
+   prisa y mirando a otro sitio. */
+.draft-search {
+  width: 100%;
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.7rem;
+  margin: 0.6rem 0 0.2rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--fg);
+}
+.draft-search:focus { outline: 2px solid var(--accent); outline-offset: 1px;
+                      border-color: var(--accent); }
+.picks--found { border: 1px solid var(--accent); border-radius: 6px;
+                padding: 0 0.5rem; margin-top: 0.5rem; }
+.draft-h { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em;
+           color: var(--muted); margin: 1.1rem 0 0; }
+
+/* --- tarjetas de estado --------------------------------------------------- */
+
+/* Enlaces, no adornos: lo primero de la portada tiene que llevarte a donde
+   ibas. Un panel de estado que no es clicable obliga a leerlo y después buscar
+   el enlace en el menú. */
+.cards { display: grid; gap: 0.7rem; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+         margin: 1.5rem 0; }
+.card {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 0.7rem 0.85rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 120ms ease-out;
+}
+.card:hover, .card:focus { border-color: var(--accent); }
+.card-label { display: block; font-size: 0.72rem; text-transform: uppercase;
+              letter-spacing: 0.05em; color: var(--muted); }
+.card-value { display: block; font-size: 1.25rem; font-weight: 650;
+              letter-spacing: -0.01em; margin: 0.1rem 0; }
+.card-detail { display: block; font-size: 0.78rem; color: var(--muted); }
+/* Caducado: el borde avisa y el detalle lo dice con palabras. Nunca sólo color. */
+.card--stale { border-color: var(--warn-line); background: var(--warn-bg); }
+.card--stale .card-detail { color: var(--warn-line); font-weight: 600; }

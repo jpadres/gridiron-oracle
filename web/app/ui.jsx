@@ -285,6 +285,27 @@ function PositionTag({ position }) {
 }
 
 /**
+ * Estado de cada conjunto de datos: qué hay, de cuándo, y adónde ir.
+ *
+ * Una herramienta personal que se consulta antes de un draft y cada semana
+ * necesita responder primero a «¿esto está actualizado?». Sin eso la duda
+ * contamina todo lo que hay debajo: un ranking que no dice cuándo se calculó no
+ * sirve para decidir, porque no sabes si ya incluye la lesión del domingo.
+ *
+ * `stale` marca lo que lleva demasiado sin refrescarse. Es mejor que lo diga la
+ * propia página a que lo descubras al ver un nombre imposible.
+ */
+export function DataCard({ href, label, value, detail, stale = false }) {
+  return (
+    <a className={`card ${stale ? "card--stale" : ""}`} href={href}>
+      <span className="card-label">{label}</span>
+      <span className="card-value">{value}</span>
+      <span className="card-detail">{detail}</span>
+    </a>
+  );
+}
+
+/**
  * Aviso de que aún no se han generado los datos.
  *
  * El repo se clona sin `data/` (son ~490 MB y van en .gitignore), así que la

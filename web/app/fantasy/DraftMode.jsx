@@ -59,6 +59,7 @@ function load() {
 export default function DraftMode({ board }) {
   const [state, setState] = useState({ gone: [], mine: [] });
   const [ready, setReady] = useState(false);
+  const [query, setQuery] = useState("");
 
   // El estado se lee después del primer render y no durante: el HTML lo genera
   // el servidor, donde no hay localStorage, y pintar cosas distintas en los dos
@@ -100,6 +101,25 @@ export default function DraftMode({ board }) {
     });
     return scored.sort((a, b) => b.adjusted - a.adjusted).slice(0, 8);
   }, [available, counts]);
+
+  // Búsqueda sobre el board entero, no sólo sobre las sugerencias.
+  //
+  // Sin esto el modo draft tenía un agujero funcional: cuando alguien se lleva
+  // al número 40, no había forma de tacharlo, y a partir de ahí las sugerencias
+  // proponen a gente que ya no está. En un draft real eso pasa en la segunda
+  // ronda.
+  const found = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    if (needle.length < 2) return [];
+    return available
+      .filter(
+        (row) =>
+          row.player_name.toLowerCase().includes(needle) ||
+          row.team?.toLowerCase() === needle ||
+          row.position?.toLowerCase() === needle
+      )
+      .slice(0, 10);
+  }, [available, query]);
 
   const take = (id, mine) =>
     setState((previous) => ({
@@ -152,6 +172,45 @@ export default function DraftMode({ board }) {
         del draft. No sale de tu máquina.
       </p>
 
+      <input
+        className="draft-search"
+        type="search"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        placeholder="Buscar para tachar a quien se lleven — nombre, equipo o posición"
+        aria-label="Buscar jugador"
+      />
+
+      {query.trim().length >= 2 ? (
+        found.length > 0 ? (
+          <ol className="picks picks--found">
+            {found.map((row) => (
+              <li className="pick" key={row.player_id}>
+                <span className="pick-rank">{row.overall_rank}</span>
+                <span className="pick-who">
+                  <span className="nm">{row.player_name}</span>
+                  <span className="meta">
+                    {row.position}
+                    {row.position_rank} · {row.team} · VOR {num(row.vor, 1)}
+                  </span>
+                </span>
+                <span className="pick-actions">
+                  <button type="button" onClick={() => take(row.player_id, true)}>Yo</button>
+                  <button type="button" className="ghost" onClick={() => take(row.player_id, false)}>
+                    Fuera
+                  </button>
+                </span>
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p className="caption">
+            Nadie disponible con «{query.trim()}». Si ya lo tachaste, sigue tachado.
+          </p>
+        )
+      ) : null}
+
+      <h3 className="draft-h">Sugerencias</h3>
       <ol className="picks">
         {suggestions.map((row, index) => (
           <li key={row.player_id} className={index === 0 ? "pick pick--top" : "pick"}>

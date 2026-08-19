@@ -1,15 +1,75 @@
 import { model, num } from "../data/model.js";
-import { Callout, MachineWritten, Stat } from "./ui.jsx";
+import { Callout, DataCard, MachineWritten, Stat } from "./ui.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — resumen",
   description: "El modelo iguala a la línea de cierre del mercado. No la bate.",
 };
 
+/**
+ * Los cuatro conjuntos de datos, con su frescura.
+ *
+ * El research es el único que caduca de verdad: se barre a diario y una ficha de
+ * hace una semana ya no cambia una alineación. Por eso es el único que se marca
+ * como caducado, y a los tres días — que es cuando un parte médico deja de ser
+ * el último.
+ */
+const STALE_DAYS = 3;
+
+function dataState(payload) {
+  const cards = [];
+
+  if (payload.week) {
+    cards.push({
+      href: "/predicciones",
+      label: "Pronósticos",
+      value: `Jornada ${payload.week.week}`,
+      detail: `${payload.predictions?.length ?? 0} partidos · ${payload.week.season}`,
+    });
+  }
+  if (payload.fantasy) {
+    cards.push({
+      href: "/fantasy",
+      label: "Board de draft",
+      value: `${payload.fantasy.board?.length ?? 0} jugadores`,
+      detail: `${payload.fantasy.scoring?.toUpperCase() ?? ""} · liga de ${payload.fantasy.teams}`,
+    });
+  }
+  if (payload.survivor) {
+    cards.push({
+      href: "/survivor",
+      label: "Survivor",
+      value: payload.survivor.short_board?.[0]?.team ?? "—",
+      detail: `mejor pick de la jornada ${payload.survivor.from_week}`,
+    });
+  }
+
+  const last = payload.research?.items?.[0]?.date;
+  if (last) {
+    // La antigüedad se calcula en build time y se congelaría si el sitio deja
+    // de reconstruirse — diría «hace 2 días» para siempre. Por eso lo que se
+    // enseña es la **fecha**, que no puede caducar.
+    const days = Math.round((Date.now() - Date.parse(`${last}T12:00:00Z`)) / 86400000);
+    const [, month, day] = last.split("-");
+    const stamp = `${Number(day)}/${Number(month)}`;
+    cards.push({
+      href: "/research",
+      label: "Research",
+      value: `${payload.research.total ?? 0} fichas`,
+      detail: days > STALE_DAYS
+        ? `último barrido ${stamp} — sin refrescar`
+        : `último barrido ${stamp}`,
+      stale: days > STALE_DAYS,
+    });
+  }
+  return cards;
+}
+
 export default function Home() {
   const overall = model.validation?.overall;
   const summary = model.narrative?.summary;
   const week = model.week;
+  const state = dataState(model);
 
   return (
     <>
@@ -20,6 +80,12 @@ export default function Home() {
         100% públicos, validación walk-forward estricta y resultados reportados sin
         maquillaje.
       </p>
+
+      <nav className="cards" aria-label="Estado de los datos">
+        {state.map((card) => (
+          <DataCard key={card.href} {...card} />
+        ))}
+      </nav>
 
       <Callout title="El resultado honesto, en una línea">
         <p>

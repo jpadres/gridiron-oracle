@@ -1,0 +1,127 @@
+{
+ "date": "2026-08-19",
+ "items": [
+  {
+   "beat": "NFC Norte",
+   "team": "CHI",
+   "players": [
+    "Kyle Monangai",
+    "D'Andre Swift"
+   ],
+   "kind": "lesion",
+   "headline": "Monangai se hiperextiende la rodilla y peligra su jornada 1",
+   "summary": "Se lesionó en el entrenamiento y se espera que pierda varias semanas. Si no llega al estreno, D'Andre Swift hereda un papel aún mayor en el ataque de Chicago — que es el movimiento de volumen que sí cambia una alineación.",
+   "impact": "baja",
+   "confidence": "informado",
+   "fantasy_relevance": 5,
+   "published": "2026-08-18",
+   "sources": [
+    {
+     "outlet": "The Ringer",
+     "title": "The NFL Preseason Injury Panic Index",
+     "url": "https://www.theringer.com/2026/08/18/nfl/nfl-2026-preseason-injury-panic-index"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFL Training Camp Injury Report 2026",
+     "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Oeste",
+   "team": "SF",
+   "players": [
+    "George Kittle"
+   ],
+   "kind": "lesion",
+   "headline": "Kittle empieza en la lista PUP tras el Aquiles, y apunta a Melbourne",
+   "summary": "Se rompió el tendón en los playoffs de 2025 y arranca en la lista de físicamente incapacitados. Él dice que quiere jugar la jornada 1 en Melbourne contra los Rams. A los 32 años y con esa lesión, el plazo que dice el jugador y el que cumple el cuerpo médico rara vez coinciden.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "fantasy_relevance": 5,
+   "published": "2026-08-18",
+   "sources": [
+    {
+     "outlet": "The Ringer",
+     "title": "The NFL Preseason Injury Panic Index",
+     "url": "https://www.theringer.com/2026/08/18/nfl/nfl-2026-preseason-injury-panic-index"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Sur",
+   "team": "HOU",
+   "players": [
+    "Jayden Higgins"
+   ],
+   "kind": "lesion",
+   "headline": "Higgins se pierde toda la temporada por rotura de ligamento cruzado",
+   "summary": "Baja de temporada completa. Sus objetivos se reparten entre Nico Collins, Dalton Schultz y Tank Dell, que es de los repartos más limpios que deja una baja larga.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "fantasy_relevance": 5,
+   "published": "2026-08-18",
+   "sources": [
+    {
+     "outlet": "Sharp Football",
+     "title": "2026 NFL Injury Report: Injured Reserve Tracker",
+     "url": "https://www.sharpfootballanalysis.com/analysis/nfl-injury-report-ir-tracker/"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Sur",
+   "team": "CAR",
+   "players": [
+    "Chuba Hubbard"
+   ],
+   "kind": "lesion",
+   "headline": "Hubbard arrastra un problema en el isquiotibial pero llegará al estreno",
+   "summary": "Su entrenador se muestra confiado en tenerlo para el 13 de septiembre contra Chicago. Encaja con lo que ya se reportó de Jonathon Brooks ganando repeticiones: el reparto de acarreos de Carolina sigue abierto.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-18",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFL Training Camp Injury Report 2026",
+     "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html"
+    }
+   ]
+  },
+  {
+   "beat": "fantasy",
+   "team": "CHI",
+   "players": [
+    "Luther Burden III",
+    "Rome Odunze"
+   ],
+   "kind": "campamento",
+   "headline": "Burden arriesgado en su ADP y Odunze se beneficia diez puestos más tarde",
+   "summary": "Con Burden fuera de la pretemporada por la ingle, el análisis de ADP lo marca como arriesgado alrededor del puesto 58, mientras Odunze —que sale unos diez puestos después— gana. Es exactamente el par en el que este board discrepa más del consenso.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-18",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFL Training Camp Injury Report 2026",
+     "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html"
+    }
+   ]
+  }
+ ],
+ "model": "busqueda-web-manual",
+ "beats": [
+  "AFC Sur",
+  "NFC Norte",
+  "NFC Oeste",
+  "NFC Sur",
+  "fantasy"
+ ],
+ "failed_beats": [],
+ "generated_at": "2026-08-19T12:00:00+00:00"
+}
