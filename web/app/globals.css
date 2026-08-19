@@ -129,6 +129,20 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
 /* El sello de build. Monoespaciado y seleccionable a propósito: sirve para
    copiarlo y pegarlo cuando algo no cuadra, así que no puede ser una imagen ni
    llevar `user-select: none`. */
+/* Probabilidad de bust. Fondo tenue y no texto de color: la columna se lee en
+   vertical buscando el número alto, y un texto rojo sobre blanco a 0,8rem pasa
+   desapercibido justo en la fila que más importa. */
+.bust { display: inline-block; min-width: 2.9em; text-align: right;
+        padding: 0.1rem 0.35rem; border-radius: 4px; font-variant-numeric: tabular-nums; }
+.bust--low  { background: rgba(27, 175, 122, 0.14); color: #0f7f56; }
+.bust--mid  { background: transparent; color: inherit; }
+.bust--high { background: rgba(208, 59, 59, 0.14); color: #b32d2d; }
+
+@media (prefers-color-scheme: dark) {
+  .bust--low  { background: rgba(27, 175, 122, 0.20); color: #4fd3a2; }
+  .bust--high { background: rgba(208, 59, 59, 0.22); color: #f08a8a; }
+}
+
 .build { font-size: 0.78rem; opacity: 0.75; }
 .build code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
               background: var(--surface); padding: 0.1rem 0.35rem; border-radius: 4px; }

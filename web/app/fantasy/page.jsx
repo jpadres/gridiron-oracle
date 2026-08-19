@@ -1,7 +1,7 @@
 import { availabilityByPlayer, briefsByPlayer, model, num } from "../../data/model.js";
 import { POSITIONS, PositionChip, VorCurve } from "../charts.jsx";
 import DraftMode from "./DraftMode.jsx";
-import { Callout, NoDataYet, RankTable, Table } from "../ui.jsx";
+import { BustCell, Callout, NoDataYet, RankTable, Table } from "../ui.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — board de draft",
@@ -14,6 +14,15 @@ export const metadata = {
 const BOARD_COLUMNS = [
   { key: "projected_points", label: "Proyección", format: (v) => num(v, 1) },
   { key: "vor", label: "VOR", format: (v) => num(v, 1) },
+  // Las dos columnas de riesgo van a la derecha de la proyección, no a su
+  // izquierda: primero cuánto vale el jugador, después qué puede salir mal. Al
+  // revés se lee como si el riesgo fuese el criterio de ordenación, y no lo es.
+  { key: "p_bust", label: "Bust", format: (_v, row) => <BustCell row={row} /> },
+  {
+    key: "missed_games",
+    label: "Falta",
+    format: (v) => (v === null || v === undefined ? "—" : num(v, 1)),
+  },
 ];
 
 const VALIDATION_COLUMNS = [
@@ -100,6 +109,7 @@ export default function Fantasy() {
         {POSITIONS.map((position) => (
           <li key={position}><a href={`#${position.toLowerCase()}`}>{position}</a></li>
         ))}
+        <li><a href="#bust">Riesgo</a></li>
         <li><a href="#validacion">Validación</a></li>
       </ul>
 
@@ -235,6 +245,55 @@ export default function Fantasy() {
           ruidosa, y los rankings sirven sobre todo para{" "}
           <strong>no cometer errores grandes</strong>.
         </p>
+      </section>
+
+      <section id="bust">
+        <h2>Las dos columnas de riesgo: «Bust» y «Falta»</h2>
+        <p>
+          <strong>Bust</strong> es la probabilidad de que ese jugador termine la temporada{" "}
+          <strong>por debajo del 70% de su proyección</strong>. No es «cuánto puede variar»:
+          una proyección puede fallar hacia arriba y eso es una alegría, no un riesgo. Mide
+          sólo la cola de abajo, que es la pregunta que se hace de verdad en un draft.
+        </p>
+        <p>
+          El corte del 70% y los umbrales de aceptación se fijaron{" "}
+          <strong>antes de medir nada</strong>, y están escritos en{" "}
+          <code>docs/PREREGISTRO_riesgo.md</code>. Sobre 1.865 jugador-temporadas de 2016 a
+          2025, cada una estimada sólo con las anteriores: el error de calibración es{" "}
+          <strong>0,043</strong> y el decil de más riesgo bustea{" "}
+          <strong>5,5 veces más</strong> que el de menos —91% frente a 17%—. La tasa base del
+          board es del <strong>43%</strong>, que ya es el dato más útil de esta sección:{" "}
+          <strong>cuatro de cada diez elecciones de draft se quedan cortas</strong>, y eso
+          incluye las buenas.
+        </p>
+        <p>
+          <strong>Falta</strong> son los partidos que se espera que se pierda de 17, a partir
+          de su historial de ausencias ponderado 56/30/14 y encogido por tamaño de muestra.
+        </p>
+
+        <Callout title="«Falta» no es un parte médico, y la diferencia importa">
+          <p>
+            Mide en cuántos partidos de su equipo el jugador{" "}
+            <strong>no aparece en los datos</strong>. Puede ser una lesión, pero también ser
+            suplente, estar inactivo o cumplir una sanción, y estos datos{" "}
+            <strong>no los distinguen</strong>. La etiqueta de disponibilidad que sale al lado
+            del nombre sí viene de un parte real —del dossier, con su fuente y su fecha— y es
+            la que manda si las dos se contradicen.
+          </p>
+          <p>
+            Sobre todos los jugadores con historial la señal parece enorme, Spearman{" "}
+            <strong>+0,48</strong>. Casi toda es un espejismo:{" "}
+            <strong>mide que los suplentes siguen siendo suplentes</strong>. Restringiendo a
+            titulares con 16 o más partidos el año anterior se cae a <strong>+0,09</strong>.
+          </p>
+          <p>
+            El número honesto es el de la población donde se publica —los 250 del board—:{" "}
+            <strong>+0,24</strong>, con el tercio de arriba perdiendo el{" "}
+            <strong>32,9%</strong> de los partidos frente al <strong>18,1%</strong> del de
+            abajo. Eso son unos 5,6 partidos contra 3. Es real, es útil para desempatar, y no
+            es una bola de cristal.
+          </p>
+        </Callout>
       </section>
 
       <section id="riesgo">

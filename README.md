@@ -203,6 +203,50 @@ arrancó dos partidos hereda el volumen completo del equipo y aparece entre los
 mejores de la jornada — que es justo el error que hace inútil a un ranking
 semanal.
 
+### Riesgo por jugador: «Bust» y «Falta»
+
+Dos columnas en el board, las dos con el umbral de aceptación fijado **antes de
+medir** en `docs/PREREGISTRO_riesgo.md`.
+
+**Bust** es la probabilidad de terminar por debajo del **70% de la proyección**.
+No es lo mismo que volatilidad: una proyección puede fallar hacia arriba, y eso
+no es un riesgo. Mide sólo la cola de abajo.
+
+Se ajusta con una regresión logística sobre cuatro entradas —las tres
+componentes de volatilidad más la tasa de ausencia— y **walk-forward**: los
+coeficientes de una temporada salen sólo de las anteriores.
+
+| Métrica | Umbral preregistrado | Resultado |
+|---|---|---|
+| ECE sobre deciles | ≤ 0,08 | **0,043** |
+| Bust del decil alto / decil bajo | ≥ 1,5× | **5,5×** (91% frente a 17%) |
+
+Sobre 1.865 jugador-temporadas de 2016 a 2025. La tasa base del board es del
+**43%**: cuatro de cada diez elecciones de draft se quedan cortas, y eso incluye
+las buenas.
+
+**Falta** son los partidos que se espera que pierda de 17, del historial de
+ausencias ponderado 56/30/14 y encogido por tamaño de muestra.
+
+**No es un parte médico**, y la distinción no es cosmética. Mide en cuántos
+partidos de su equipo el jugador *no aparece en los datos*: puede ser una lesión,
+o ser suplente, o estar inactivo, y estos datos no los distinguen. La etiqueta de
+disponibilidad del dossier sí viene de un parte real y manda si se contradicen.
+
+Sobre todos los jugadores con historial la correlación con la ausencia del año
+siguiente es **+0,48**, y casi toda es un espejismo: mide que los suplentes
+siguen siendo suplentes. Entre titulares de 16+ partidos se cae a **+0,09**. El
+número que se publica es el de la población del board: **+0,24**, con el tercio
+alto perdiendo el **32,9%** de los partidos frente al **18,1%** del bajo.
+
+Reproducir:
+
+```bash
+python scripts/fantasy_availability_validate.py
+python scripts/fantasy_bust_validate.py
+```
+
+
 ### Limitaciones
 
 - Los rookies no aparecen: sin partidos NFL no hay historial que proyectar.

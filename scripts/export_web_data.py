@@ -53,6 +53,11 @@ DRAFT_COLUMNS = (
     # oráculo, y de esos no se puede discrepar.
     "risk_label", "risk_score", "risk_reasons",
     "risk_sample", "risk_shrink", "risk_touchdown",
+    # Ausencia y bust. Son señales distintas de la volatilidad y por eso viajan
+    # aparte: la volatilidad mide cuánto puede moverse la proyección en los dos
+    # sentidos, `p_bust` sólo la cola de abajo, y `missed_rate` cuántos partidos
+    # se pierde. Un jugador puede ser estable, sano y aun así un bust probable.
+    "missed_rate", "missed_games", "p_bust", "bust_label",
 )
 WEEKLY_COLUMNS = (
     "player_id", "position_rank", "player_name", "position", "team", "opponent",

@@ -6,6 +6,8 @@
 
 import { Fragment } from "react";
 
+import { pct } from "../data/model.js";
+
 export function Callout({ title, children }) {
   return (
     <div className="callout">
@@ -278,6 +280,38 @@ function RiskTag({ row }) {
     </span>
   );
 }
+
+/**
+ * Celda de probabilidad de bust.
+ *
+ * Va en una columna y no en una etiqueta pegada al nombre porque es un número
+ * comparable, que es exactamente el criterio con el que está montada esta
+ * tabla: el nombre, la posición y el equipo se apilan en la celda del jugador;
+ * las columnas se reservan para lo que se lee de arriba abajo comparando.
+ *
+ * El color es el segundo canal, nunca el único: el número está siempre escrito.
+ * Quien no distinga el verde del rojo lee «31%» igual de bien.
+ */
+export function BustCell({ row }) {
+  if (row.p_bust === null || row.p_bust === undefined) return <>—</>;
+  const tone = BUST_CLASS[row.bust_label] ?? "mid";
+  return (
+    <span
+      className={`bust bust--${tone}`}
+      title={`Probabilidad de terminar por debajo del 70% de su proyección. ${
+        row.bust_label ?? ""
+      }. Base histórica del board: 43%.`}
+    >
+      {pct(row.p_bust, 0)}
+    </span>
+  );
+}
+
+// Igual que en el riesgo de volatilidad: la clase se escribe en ASCII y no se
+// deriva de la etiqueta. `"Sólido".toLowerCase()` da `.bust--sólido`, que
+// funciona hasta que alguien le quita la tilde y el estilo desaparece sin que
+// falle nada.
+const BUST_CLASS = { "Sólido": "low", Normal: "mid", "Frágil": "high" };
 
 /** Cuadrito de posición dentro de la línea de metadatos. */
 function PositionTag({ position }) {

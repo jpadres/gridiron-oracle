@@ -21,6 +21,7 @@ import pandas as pd
 from scipy.stats import pearsonr, spearmanr
 
 from oracle.config import paths as resolve_paths
+from oracle.fantasy import availability as avail
 from oracle.fantasy import risk
 from oracle.fantasy.draft import (
     LeagueSettings,
@@ -33,6 +34,101 @@ from oracle.fantasy.scoring import ScoringRules, rules_from_name, score_player_w
 # Temporadas sobre las que se reporta la validación. Se fija antes de mirar el
 # resultado, que es la regla del proyecto.
 VALIDATION_SEASONS = (2022, 2023, 2024, 2025)
+
+
+def _attach_risk(
+    players: pd.DataFrame,
+    team_games: pd.DataFrame,
+    board: pd.DataFrame,
+    season: int,
+) -> pd.DataFrame:
+    """Tasa de ausencia y probabilidad de bust para cada jugador del board.
+
+    Los coeficientes del bust se ajustan sobre las temporadas **anteriores** a
+    la que se proyecta, reconstruyendo para cada una el board que se habría
+    publicado entonces. Es más lento que ajustar una vez sobre todo, y es la
+    diferencia entre una probabilidad calibrada y una que se ha visto a sí
+    misma.
+    """
+    from oracle.fantasy.bust import fit as fit_bust
+    from oracle.fantasy.bust import label as bust_label
+    from oracle.fantasy.bust import predict as predict_bust
+
+    availability = avail.season_availability(players, team_games)
+    positions = (
+        players[players["season"] < season]
+        .sort_values("season")
+        .groupby("player_id", observed=True)["position"]
+        .last()
+    )
+
+    past = avail.history(availability, positions, season)
+    board = board.merge(past[["player_id", "missed_rate", "availability_sample"]],
+                        on="player_id", how="left")
+    # Sin historial se usa la media del propio board: neutro. Un 0 le regalaría
+    # un «nunca falta» a quien simplemente no tiene datos.
+    board["missed_rate"] = board["missed_rate"].fillna(board["missed_rate"].mean())
+    board["missed_games"] = board["missed_rate"] * 17.0
+
+    training = _bust_training(players, team_games, season)
+    if training is None or len(training) < 300:
+        print("Sin historial suficiente para la probabilidad de bust; se omite.")
+        return board
+
+    model = fit_bust(training)
+    board["p_bust"] = predict_bust(model, board)
+    board["bust_label"] = [bust_label(p) for p in board["p_bust"]]
+    print(f"Probabilidad de bust ajustada sobre {len(training)} jugador-temporadas "
+          f"anteriores a {season}.")
+    return board
+
+
+def _bust_training(
+    players: pd.DataFrame, team_games: pd.DataFrame, season: int
+) -> pd.DataFrame | None:
+    """Jugador-temporadas pasadas con su etiqueta de bust ya observada."""
+    from oracle.fantasy.bust import BUST_FRACTION
+    from oracle.fantasy.scoring import PPR
+
+    scored = players.copy()
+    scored["fantasy_points"] = score_player_weeks(scored, PPR)
+    actual = scored.groupby(["player_id", "season"], observed=True)["fantasy_points"].sum()
+    availability = avail.season_availability(players, team_games)
+
+    rows = []
+    for past_season in range(2013, season):
+        try:
+            projected = project_season(players, past_season, PPR)
+        except ValueError:
+            continue
+        projected = risk.components(projected, {"QB": 4.0, "RB": 6.0, "WR": 6.0, "TE": 6.0})
+        positions = (
+            players[players["season"] < past_season]
+            .sort_values("season")
+            .groupby("player_id", observed=True)["position"]
+            .last()
+        )
+        history = avail.history(availability, positions, past_season)
+        if history.empty:
+            continue
+        frame = projected.merge(history[["player_id", "missed_rate"]],
+                                on="player_id", how="left")
+        frame["missed_rate"] = frame["missed_rate"].fillna(frame["missed_rate"].mean())
+        frame = frame.nlargest(250, "projected_points")
+        try:
+            truth = actual.xs(past_season, level="season")
+        except KeyError:
+            continue
+        frame = frame[frame["player_id"].isin(truth.index)].copy()
+        if frame.empty:
+            continue
+        frame["observed"] = frame["player_id"].map(truth).astype(float)
+        frame["bust"] = (
+            frame["observed"] < BUST_FRACTION * frame["projected_points"].astype(float)
+        ).astype(int)
+        rows.append(frame)
+
+    return pd.concat(rows, ignore_index=True) if rows else None
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -80,6 +176,19 @@ def main(argv: list[str] | None = None) -> int:
     td_points = {pos: _td_points(pos, rules) for pos in ("QB", "RB", "WR", "TE")}
     board = risk.score(board, td_points)
     board["risk_reasons"] = [risk.reasons(row) for _, row in board.iterrows()]
+
+    # Ausencia y bust. Las dos están validadas con umbral preregistrado en
+    # `docs/PREREGISTRO_riesgo.md`:
+    #
+    # - Ausencia: Spearman +0,24 en la población del board, con el tercio alto
+    #   perdiendo el 32,9% de los partidos frente al 18,1% del bajo.
+    # - Bust: ECE 0,043 y el decil alto busteando 5,5 veces más que el bajo.
+    #
+    # Son cosas distintas de la volatilidad de `risk.py`, que mide cuánto puede
+    # variar la proyección **en los dos sentidos**. El bust mira sólo la cola de
+    # abajo, que es la pregunta que se hace en un draft.
+    team_games = pd.read_parquet(paths.team_games)
+    board = _attach_risk(players, team_games, board, season)
 
     print("\nTop 20 por VOR:\n")
     view = board.head(20)[
