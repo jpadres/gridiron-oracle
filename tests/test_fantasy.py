@@ -30,6 +30,7 @@ from oracle.fantasy.weekly import (
     SACK_RATE,
     SCRAMBLE_RATE,
     STARTERS_PER_TEAM,
+    WeeklyCalibration,
     _project_player,
     team_volume,
     weekly_rankings,
@@ -573,3 +574,37 @@ def test_posicion_desconocida_cae_en_el_valor_general():
     fb = score_player_weeks(_semana("FB", 4), TE_PREMIUM).iloc[0]
     wr = score_player_weeks(_semana("WR", 4), TE_PREMIUM).iloc[0]
     assert fb == pytest.approx(wr)
+
+
+def test_la_proyeccion_publicada_es_la_mezcla_y_compone():
+    """Los números publicados tienen que dar el número publicado.
+
+    Antes se publicaba `baseline_points` y `matchup_multiplier` junto a un
+    `projected_points` que no salía de multiplicarlos: el QB1 aparecía con
+    baseline 20,1, multiplicador 1,04 y proyección 15,2. Quien intentara la
+    aritmética obvia obtenía otra cosa. Ahora las dos mitades de la mezcla se
+    publican por separado y componen exactamente.
+    """
+    calibration = WeeklyCalibration()
+    for position, weight in calibration.blend_to_baseline.items():
+        assert 0.0 <= weight <= 1.0, position
+    # La mezcla del quarterback es la que menos se apoya en la forma reciente:
+    # es la posición donde los arreglos del modelo más lo mejoraron.
+    assert calibration.blend("QB") < calibration.blend("TE")
+    assert calibration.blend("SIN_POSICION") == 0.0
+
+
+def test_la_mezcla_queda_entre_sus_dos_mitades(player_weeks, weekly_predictions):
+    """Una mezcla que se saliera del intervalo no sería una mezcla."""
+    board = weekly_rankings(player_weeks, weekly_predictions, 2024, 5)
+    if board.empty:
+        pytest.skip("sin filas proyectadas con estos datos sintéticos")
+    lo = board[["model_points", "baseline_points"]].min(axis=1)
+    hi = board[["model_points", "baseline_points"]].max(axis=1)
+    assert (board.projected_points >= lo - 1e-9).all()
+    assert (board.projected_points <= hi + 1e-9).all()
+
+    # Y compone exactamente con el peso publicado.
+    esperado = (board.blend_weight * board.baseline_points
+                + (1 - board.blend_weight) * board.model_points)
+    assert np.allclose(board.projected_points, esperado)

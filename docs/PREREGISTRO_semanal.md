@@ -128,3 +128,94 @@ seis partidos.
 Se documenta y se publica. Un modelo semanal que no bate a una media ponderada
 de seis partidos es un resultado válido y es exactamente lo que hoy está
 midiendo. Lo que no es válido es seguir publicándolo como si lo batiera.
+
+---
+
+# RESULTADO — 2026-08-29
+
+Calibración sobre 2022–2023, evaluación sobre 2024–2025 sin volver a tocar nada.
+Umbral y regla de decisión tal y como estaban escritos arriba.
+
+## Los arreglos del quarterback funcionaron
+
+| | antes | después | referencia |
+|---|---|---|---|
+| R² fuera de muestra | 0,005 | **0,048** | — |
+| sesgo medio | **+3,97** | **−0,285** | umbral ≤ 0,5 |
+| desviación típica de la proyección | 1,99 | **3,27** | real 8,39 |
+| MAE | 7,49 | **6,59** | baseline 6,71 |
+| Spearman | 0,066 | **0,213** | baseline 0,248 |
+
+El R² se multiplica por diez, el sesgo de casi cuatro puntos desaparece, y el
+MAE pasa de perder contra el baseline por 0,78 a **ganarle por 0,12**.
+
+Los multiplicadores reajustados lo confirman por otra vía: el del quarterback
+pasa de **0,812 a 1,022**. Ese 0,812 no era una calibración, era un parche que
+recortaba un 19% para tapar los términos que faltaban. Los de RB, WR y TE suben
+también (1,022 / 1,061 / 1,127), que es lo que corresponde tras quitar la resta
+de escapadas que deprimía los acarreos un 8,4%.
+
+## El modelo puro NO pasa el umbral en ninguna posición
+
+| pos | MAE mod | MAE base | gana | ρ mod | ρ base | pierde | ok | sesgo |
+|---|---|---|---|---|---|---|---|---|
+| QB | 6,594 | 6,712 | SÍ | 0,213 | 0,248 | −0,035 | **NO** | −0,285 |
+| RB | 5,737 | 5,732 | **NO** | 0,552 | 0,560 | −0,008 | SÍ | −0,024 |
+| WR | 5,308 | 5,220 | **NO** | 0,509 | 0,529 | −0,020 | SÍ | +0,089 |
+| TE | 5,277 | 5,176 | **NO** | 0,307 | 0,333 | −0,026 | **NO** | −0,487 |
+
+El QB gana en error y pierde en orden. RB, WR y TE pierden en error por muy
+poco. **Ninguna de las cuatro pasa.**
+
+Hay un detalle que merece decirse: RB, WR y TE tienen ahora **peor** MAE que
+antes de los arreglos (WR 5,19 → 5,31). No es que los arreglos empeoraran el
+modelo: es que el multiplicador se ajusta para igualar la **media**, y con una
+distribución sesgada a la derecha como la de los puntos de fantasy, el predictor
+que minimiza el MAE es la **mediana**. Los multiplicadores viejos —bajos, 0,94 y
+0,97— estaban accidentalmente más cerca de la mediana. El nivel correcto y el
+MAE mínimo no son el mismo número, y aquí se ha elegido el nivel correcto porque
+sin él no se pueden comparar posiciones entre sí.
+
+## La regla de decisión se aplica: se publica la mezcla
+
+`w · forma reciente + (1 − w) · modelo`, con `w` ajustado sólo sobre 2022–2023.
+
+| pos | w | MAE mezcla | MAE base | gana | ρ mezcla | ρ base | gana |
+|---|---|---|---|---|---|---|---|
+| QB | 0,35 | **6,574** | 6,712 | SÍ | 0,236 | 0,248 | **NO** |
+| RB | 0,60 | **5,666** | 5,732 | SÍ | **0,570** | 0,560 | SÍ |
+| WR | 0,50 | **5,150** | 5,220 | SÍ | **0,537** | 0,529 | SÍ |
+| TE | 0,65 | **5,131** | 5,176 | SÍ | **0,335** | 0,333 | SÍ |
+
+**La mezcla bate al baseline en MAE en las cuatro posiciones, y en Spearman en
+tres de las cuatro.** Ningún peso llega a 0,95, así que el modelo aporta en
+todas: no se da el caso que obligaba a decir «esto es una media de seis
+partidos con adornos».
+
+## Lo que hay que decir del quarterback, y se dice
+
+La mezcla de QB **reduce el error** (6,57 frente a 6,71) pero **ordena algo
+peor** que la media ponderada de sus seis últimos partidos (Spearman 0,236
+frente a 0,248). Si lo que quieres es acertar cuántos puntos hará, la mezcla es
+mejor. Si lo que quieres es saber cuál de dos quarterbacks hará más, la media de
+sus últimos seis partidos sigue siendo igual de buena.
+
+Esto no se esconde detrás de un promedio de las cuatro posiciones.
+
+## Efecto secundario: los números publicados ahora componen
+
+Antes se publicaba `baseline_points` y `matchup_multiplier` junto a un
+`projected_points` que no salía de multiplicarlos: el QB1 de la jornada aparecía
+con baseline 20,1, multiplicador 1,04 y proyección 15,2. Quien intentara la
+aritmética evidente obtenía otro número. Ahora se publican `model_points`,
+`baseline_points` y `blend_weight`, y componen exactamente — con un test que lo
+fija.
+
+## Pendiente, y por qué no se ha tocado
+
+`_defense_vs_position` calcula la media esperada de cada jugador **incluyendo el
+partido que evalúa**. No es fuga hacia el futuro —toda la ventana es pasada—
+pero sí un sesgo hacia 1,0 en el multiplicador de emparejamiento, que ya viene
+amortiguado al 45%. La corrección (media dejando fuera esa observación) es
+barata. **No se ha hecho aquí a propósito:** cambiarla a mitad de este
+experimento habría confundido los dos efectos. Va con su propio preregistro.

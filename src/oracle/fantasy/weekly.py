@@ -117,11 +117,29 @@ class WeeklyCalibration:
     """
 
     multipliers: dict[str, float] = field(
-        default_factory=lambda: {"QB": 0.812, "RB": 0.985, "WR": 0.972, "TE": 0.940}
+        default_factory=lambda: {"QB": 1.022, "RB": 1.022, "WR": 1.061, "TE": 1.127}
+    )
+
+    # Cuánto pesa la forma reciente del jugador frente al modelo. Ajustado
+    # SOBRE 2022-2023 y evaluado sobre 2024-2025 sin volver a tocarlo.
+    #
+    # Existe porque el modelo puro NO bate a su baseline —la media ponderada de
+    # los últimos seis partidos— en ninguna de las cuatro posiciones, y el
+    # preregistro fijaba de antemano qué hacer en ese caso: mezclar. La mezcla
+    # sí lo bate en MAE en las cuatro y en Spearman en RB, WR y TE.
+    #
+    # El quarterback es la excepción y se dice tal cual: la mezcla baja el
+    # error (6,57 frente a 6,71) pero **ordena algo peor** que la media de sus
+    # seis últimos partidos (Spearman 0,236 frente a 0,248).
+    blend_to_baseline: dict[str, float] = field(
+        default_factory=lambda: {"QB": 0.35, "RB": 0.60, "WR": 0.50, "TE": 0.65}
     )
 
     def get(self, position: str) -> float:
         return self.multipliers.get(position, 1.0)
+
+    def blend(self, position: str) -> float:
+        return self.blend_to_baseline.get(position, 0.0)
 
 
 def weekly_rankings(
@@ -179,7 +197,17 @@ def weekly_rankings(
             for _, player in starters.iterrows():
                 projection = _project_player(player, position, volume, rules)
                 multiplier = _matchup_multiplier(matchup, opponent, position)
-                points = projection * multiplier * calibration.get(position)
+                model_points = projection * multiplier * calibration.get(position)
+
+                # La proyección publicada es una MEZCLA con la forma reciente,
+                # no la salida del modelo. Medido fuera de muestra: el modelo
+                # solo no bate a la media ponderada de seis partidos en ninguna
+                # posición, y la mezcla sí. Publicar el modelo puro sería
+                # publicar lo peor de los dos por razones estéticas.
+                weight = calibration.blend(position)
+                baseline = float(player["recent_ppg"])
+                points = weight * baseline + (1.0 - weight) * model_points
+
                 rows.append(
                     {
                         "player_id": player["player_id"],
@@ -190,7 +218,15 @@ def weekly_rankings(
                         "season": season,
                         "week": week,
                         "projected_points": float(points),
-                        "baseline_points": float(player["recent_ppg"]),
+                        # Las dos mitades de la mezcla se publican por separado.
+                        # Antes se publicaba `baseline_points` y un
+                        # `matchup_multiplier` que no componían con el
+                        # proyectado: quien intentara multiplicarlos obtenía otro
+                        # número, y eso invita a una aritmética que el código no
+                        # hace.
+                        "model_points": float(model_points),
+                        "baseline_points": baseline,
+                        "blend_weight": float(weight),
                         "matchup_multiplier": float(multiplier),
                         "is_home": int(game_team["is_home"]),
                         "pred_margin_for": float(game_team["pred_margin_for"]),
@@ -201,7 +237,8 @@ def weekly_rankings(
     if not rows:
         return pd.DataFrame(
             columns=["player_id", "player_name", "position", "team", "opponent", "season",
-                     "week", "projected_points", "baseline_points", "matchup_multiplier"]
+                     "week", "projected_points", "model_points", "baseline_points",
+                     "blend_weight", "matchup_multiplier"]
         )
 
     board = pd.DataFrame(rows)
