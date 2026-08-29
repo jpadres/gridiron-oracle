@@ -142,3 +142,69 @@ def test_broken_league_payloads_are_rejected():
         sleeper.league_settings_from({"total_rosters": 12})
     with pytest.raises(sleeper.SleeperError, match="reconocible"):
         sleeper.league_settings_from(_league(roster_positions=["BN", "IR"]))
+
+
+# --- Draft: emparejamiento de picks con el board ---------------------------
+
+
+def test_gsis_index_skips_players_without_a_gsis_id():
+    """Un rookie sin partido NFL no tiene `gsis_id`, y no se puede inventar.
+
+    Emparejar por nombre es exactamente lo que produjo el problema de los dos
+    «B.Robinson» de Atlanta. Sin identificador, fuera.
+    """
+    catalog = {
+        "4034": {"gsis_id": "00-0033280", "full_name": "Christian McCaffrey"},
+        "9999": {"gsis_id": None, "full_name": "Rookie Sinpartidos"},
+        "8888": {"gsis_id": "  ", "full_name": "Cadena Vacia"},
+        "7777": "esto no es un dict",
+    }
+    index = sleeper.gsis_index(catalog)
+    assert index == {"4034": "00-0033280"}
+
+
+def test_unmatched_picks_are_reported_not_dropped():
+    """Un pick que no se traduce **no** puede desaparecer en silencio.
+
+    Si se descarta, el modo draft cree que ese jugador sigue libre y te lo
+    recomienda cuando ya se lo llevaron. Es el fallo más caro de esa pantalla.
+    """
+    picks = [
+        {
+            "player_id": "4034",
+            "pick_no": 1,
+            "round": 1,
+            "roster_id": 3,
+            "metadata": {"first_name": "Christian", "last_name": "McCaffrey",
+                         "team": "SF", "position": "RB"},
+        },
+        {
+            "player_id": "9999",
+            "pick_no": 2,
+            "round": 1,
+            "roster_id": 4,
+            "metadata": {"first_name": "Rookie", "last_name": "Sinpartidos",
+                         "team": "NYJ", "position": "WR"},
+        },
+    ]
+    result = sleeper.picked_players(picks, {"4034": "00-0033280"})
+
+    assert len(result["matched"]) == 1
+    assert result["matched"][0]["player_id"] == "00-0033280"
+    assert result["matched"][0]["name"] == "Christian McCaffrey"
+
+    assert len(result["unmatched"]) == 1
+    assert result["unmatched"][0]["name"] == "Rookie Sinpartidos"
+    assert result["unmatched"][0]["sleeper_id"] == "9999"
+    # El que no se empareja no lleva player_id: si lo llevara vacío, el modo
+    # draft lo cruzaría con el board y tacharía a quien no toca.
+    assert "player_id" not in result["unmatched"][0]
+
+
+def test_picked_players_survives_a_pick_without_metadata():
+    """Un draft en curso devuelve picks vacíos para los turnos no jugados."""
+    picks = [{"player_id": None, "pick_no": 5, "round": 1}, "basura"]
+    result = sleeper.picked_players(picks, {})
+    assert result["matched"] == []
+    assert len(result["unmatched"]) == 1
+    assert result["unmatched"][0]["name"] is None

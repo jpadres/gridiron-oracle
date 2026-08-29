@@ -247,3 +247,85 @@ def draft_picks(draft_id: str) -> list[dict]:
     if not isinstance(data, list):
         raise SleeperError("Se esperaba una lista de picks.")
     return data
+
+
+def drafts(league_id: str) -> list[dict]:
+    """Los drafts de la liga. Normalmente uno; en dynasty hay uno por año."""
+    data = _get(f"league/{league_id}/drafts")
+    if not isinstance(data, list):
+        raise SleeperError("Se esperaba una lista de drafts.")
+    return data
+
+
+# El catálogo completo de jugadores. **Pesa unos 5 MB** y Sleeper pide
+# explícitamente que no se llame más de una vez al día: es un volcado, no un
+# endpoint de consulta. Por eso se cachea en disco y por eso `picked_players`
+# lo recibe ya cargado en vez de pedirlo él.
+PLAYERS_PATH = "players/nfl"
+
+
+def players() -> dict[str, dict]:
+    data = _get(PLAYERS_PATH)
+    if not isinstance(data, dict):
+        raise SleeperError("Se esperaba el catálogo de jugadores.")
+    return data
+
+
+def gsis_index(catalog: dict[str, dict]) -> dict[str, str]:
+    """`sleeper_id` -> `player_id` de nflverse.
+
+    Sleeper publica el `gsis_id` de cada jugador y **es el mismo identificador
+    que usa nflverse**, así que el emparejamiento es exacto y no hay que
+    adivinar por nombre. Eso importa más de lo que parece: el emparejamiento por
+    nombre abreviado ya produjo en este proyecto el problema de los dos
+    «B.Robinson» de Atlanta, y ante la duda hubo que renunciar a emparejar.
+
+    Los jugadores sin `gsis_id` —rookies antes de su primer partido, sobre todo—
+    se quedan fuera. Es correcto: el modelo tampoco los proyecta.
+    """
+    index: dict[str, str] = {}
+    for sleeper_id, entry in catalog.items():
+        if not isinstance(entry, dict):
+            continue
+        gsis = entry.get("gsis_id")
+        if isinstance(gsis, str) and gsis.strip():
+            index[str(sleeper_id)] = gsis.strip()
+    return index
+
+
+def picked_players(picks: list[dict], index: dict[str, str]) -> dict[str, list]:
+    """Traduce los picks de un draft a ids de nflverse.
+
+    Devuelve los que se pudieron traducir y, **por separado**, los que no. Un
+    pick sin traducir no es un detalle: si se descarta en silencio, el modo
+    draft cree que ese jugador sigue libre y te lo recomienda cuando ya se lo
+    llevaron. Es el fallo más caro posible en esta pantalla, así que se cuenta y
+    se enseña.
+    """
+    matched: list[dict] = []
+    unmatched: list[dict] = []
+    for pick in picks:
+        if not isinstance(pick, dict):
+            continue
+        sleeper_id = str(pick.get("player_id") or "")
+        metadata = pick.get("metadata") or {}
+        name = " ".join(
+            part for part in (metadata.get("first_name"), metadata.get("last_name")) if part
+        ).strip()
+        entry = {
+            "pick": pick.get("pick_no"),
+            "round": pick.get("round"),
+            "roster_id": pick.get("roster_id"),
+            "picked_by": pick.get("picked_by"),
+            "name": name or None,
+            "team": metadata.get("team"),
+            "position": metadata.get("position"),
+        }
+        gsis = index.get(sleeper_id)
+        if gsis:
+            entry["player_id"] = gsis
+            matched.append(entry)
+        else:
+            entry["sleeper_id"] = sleeper_id or None
+            unmatched.append(entry)
+    return {"matched": matched, "unmatched": unmatched}
