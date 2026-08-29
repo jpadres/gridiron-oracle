@@ -32,7 +32,7 @@ import pandas as pd
 
 from ..models.elo import BASE_RATING, EloModel, MarketAnchoredElo
 from ..models.ratings import EfficiencyRatings, QBRatings
-from .stadiums import travel_profile
+from .stadiums import home_venue_map, travel_profile, venue_travel
 
 # Suavizado exponencial de la forma reciente. 0.30 ≈ media efectiva de los
 # últimos 5-6 partidos: suficiente para captar una racha real, corto de más para
@@ -94,6 +94,10 @@ class FeatureBuilder:
     rush_epa: EfficiencyRatings = field(default_factory=EfficiencyRatings)
     qbs: QBRatings = field(default_factory=QBRatings)
     teams: dict[str, _TeamState] = field(default_factory=dict)
+    # `(equipo, temporada)` -> sede de local. Sale del propio calendario, que se
+    # publica en mayo: no es información del futuro, y por eso puede construirse
+    # de una vez sobre todos los partidos en lugar de ir acumulándose.
+    home_venues: dict[tuple[str, int], str] = field(default_factory=dict)
 
     def state(self, team: str) -> _TeamState:
         if team not in self.teams:
@@ -107,7 +111,7 @@ class FeatureBuilder:
         neutral = bool(game.get("neutral_site", 0))
         home_state, away_state = self.state(home), self.state(away)
 
-        travel = travel_profile(home, away, _venue_key(game))
+        travel = self._travel(game, home, away)
 
         home_qb = _clean_id(game.get("home_qb_id"))
         away_qb = _clean_id(game.get("away_qb_id"))
@@ -144,11 +148,38 @@ class FeatureBuilder:
             / 1000.0,
             "neutral_site": float(neutral),
             "indoors": float(travel.indoors),
+            # Que se supiera situar las tres sedes. Un viaje de 0 millas porque
+            # el equipo juega en casa y un 0 porque no se encontró el estadio
+            # son cosas distintas; sin esta columna el modelo aprende que lo
+            # desconocido es lo mismo que lo cercano.
+            "travel_known": float(travel.known),
             # Cuántos partidos lleva medido el equipo *menos* conocido de los
             # dos. El modelo lo usa para desconfiar de sus propios ratings en
             # las primeras semanas sin necesidad de una regla explícita.
             "experience_min": min(home_state.games_played, away_state.games_played),
         }
+
+    def _travel(self, game: pd.Series, home: str, away: str):
+        """Viaje del partido, con la sede real y el techo real de ese día.
+
+        Se prefiere siempre el `stadium_id` del partido. El respaldo por equipo
+        (`travel_profile`) sólo entra cuando la sede no se puede situar —una
+        temporada futura cuyo calendario internacional aún no está publicado, o
+        un estadio nuevo que todavía no está en la tabla—. Ese respaldo es peor
+        y se sabe: usa la sede de HOY, que para una jornada futura es correcta y
+        para el histórico era justo el defecto que se corrigió.
+        """
+        season = int(game["season"])
+        site = _venue_key(game)
+        profile = venue_travel(
+            site,
+            self.home_venues.get((home, season), site),
+            self.home_venues.get((away, season)),
+            game.get("roof"),
+        )
+        if profile.known:
+            return profile
+        return travel_profile(home, away)
 
     # -- avance del estado -------------------------------------------------
     def update(self, game: pd.Series, home_stats: pd.Series, away_stats: pd.Series) -> None:
@@ -230,10 +261,14 @@ def _clean_id(value: object) -> str | None:
 
 
 def _venue_key(game: pd.Series) -> str | None:
-    """Clave de sede neutral, si el partido no se juega en casa del local."""
-    if not bool(game.get("neutral_site", 0)):
-        return None
-    return _clean_id(game.get("venue_key"))
+    """Identificador de sede de nflverse para este partido.
+
+    Antes leía una columna `venue_key` que **no existe** en `games.parquet`, así
+    que devolvía None siempre y `NEUTRAL_STADIUMS` era código muerto: los 102
+    partidos de Londres, Azteca y Múnich se calculaban como si los dos equipos
+    estuvieran en casa del local nominal.
+    """
+    return _clean_id(game.get("stadium_id"))
 
 
 def _rest_days(state: _TeamState, gameday: pd.Timestamp) -> float:
@@ -263,6 +298,12 @@ def build_features(
     builder = builder or FeatureBuilder()
 
     games = games.sort_values(["gameday", "game_id"], kind="mergesort").reset_index(drop=True)
+    # El mapa de sedes se construye de una vez sobre TODO el calendario, y eso
+    # no rompe la garantía anti-fuga: sólo lee equipo, temporada, `location` y
+    # `stadium_id`, que son metadatos del calendario publicados antes de que se
+    # juegue nada. No entra un solo resultado. Lo fija un test.
+    if "stadium_id" in games.columns and "location" in games.columns:
+        builder.home_venues.update(home_venue_map(games))
     stats_by_game = {
         game_id: group.set_index("team")
         for game_id, group in team_games.groupby("game_id", observed=True)

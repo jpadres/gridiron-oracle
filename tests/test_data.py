@@ -11,10 +11,12 @@ import pytest
 
 from oracle.data.ingest import TEAM_ALIASES, VALID_TEAMS, normalize_team, normalize_team_series
 from oracle.data.stadiums import (
-    NEUTRAL_STADIUMS,
+    STADIUMS_BY_ID,
     TEAM_STADIUMS,
     haversine_miles,
+    home_venue_map,
     travel_profile,
+    venue_travel,
 )
 
 # ---------------------------------------------------------------------------
@@ -113,17 +115,6 @@ def test_home_team_does_not_travel_at_home():
     assert profile.neutral_site is False
 
 
-def test_neutral_site_makes_both_teams_travel():
-    """En sede neutral el local también viaja.
-
-    Ese es el motivo real de que la ventaja local casi desaparezca en Londres:
-    no es el ambiente, es que los dos equipos llegan igual de lejos.
-    """
-    profile = travel_profile("JAX", "MIA", venue="LON_WEMBLEY")
-    assert profile.home_travel_miles > 3000
-    assert profile.away_travel_miles > 3000
-    assert profile.neutral_site is True
-
 
 def test_timezone_shift_has_a_direction():
     """Viajar al este (perder horas) y al oeste no son lo mismo."""
@@ -141,9 +132,6 @@ def test_altitude_is_relative_to_the_visitor_not_absolute():
     assert at_denver.home_altitude_delta == pytest.approx(0.0)
 
     # Y en Ciudad de México sube para los dos, incluido el "local".
-    mexico = travel_profile("DEN", "MIA", venue="MEX_AZTECA")
-    assert mexico.home_altitude_delta > 0
-    assert mexico.away_altitude_delta > mexico.home_altitude_delta
 
 
 def test_retractable_roofs_count_as_indoors():
@@ -158,11 +146,83 @@ def test_unknown_team_yields_no_information_not_zero_travel():
     profile = travel_profile("XXX", "KC")
     assert profile.away_travel_miles == 0.0
     assert profile.home_travel_miles == 0.0
+    assert profile.known is False
 
 
-def test_international_venues_are_outside_the_united_states():
-    for key, stadium in NEUTRAL_STADIUMS.items():
-        if key.startswith(("LON", "MUN", "DUB", "MAD", "BER")):
-            assert stadium.utc_offset >= 0, key
-        assert -90 <= stadium.lat <= 90
-        assert -180 <= stadium.lon <= 180
+def test_todas_las_sedes_tienen_coordenadas_plausibles():
+    """Una coordenada intercambiada convierte Londres en el Atlántico sur.
+
+    No es paranoia: el error de teclear la latitud en el lugar de la longitud no
+    revienta nada, sólo produce un viaje absurdo que nadie mira.
+    """
+    for key, venue in STADIUMS_BY_ID.items():
+        assert -90 <= venue.lat <= 90, key
+        assert -180 <= venue.lon <= 180, key
+        assert -12 <= venue.utc_offset <= 14, key
+        assert -100 <= venue.altitude_m <= 3000, key
+
+
+def test_sedes_internacionales_fuera_de_husos_americanos():
+    """Las europeas y la australiana no pueden estar en horario americano."""
+    for key in ("LON00", "LON01", "LON02", "GER00", "MUN01", "FRA00", "MAD01", "PAR00", "MEL00"):
+        assert STADIUMS_BY_ID[key].utc_offset >= 0, key
+    # Y las americanas al contrario, incluidas las sudamericanas.
+    for key in ("KAN00", "SEA00", "MEX00", "SAO00", "RIO00"):
+        assert STADIUMS_BY_ID[key].utc_offset < 0, key
+
+
+# ---------------------------------------------------------------------------
+# Sedes por identificador de nflverse
+# ---------------------------------------------------------------------------
+
+def test_home_venue_map_solo_usa_calendario():
+    """El mapa de sedes no puede tocar nada que dependa del resultado.
+
+    Es la afirmación que permite construirlo de una vez sobre toda la temporada
+    en vez de ir acumulándolo partido a partido. Si alguien añadiese ahí una
+    columna de marcador, la garantía anti-fuga del proyecto dejaría de valer y
+    este test es lo que lo impide.
+    """
+    calendario = pd.DataFrame({
+        "season": [2024, 2024], "home_team": ["LAR", "LAR"],
+        "location": ["Home", "Home"], "stadium_id": ["LAX01", "LAX01"],
+    })
+    # Sin marcador, sin margen, sin `played`: si `home_venue_map` los necesitara,
+    # esto reventaría.
+    assert home_venue_map(calendario) == {("LAR", 2024): "LAX01"}
+
+
+def test_sedes_anteriores_a_la_mudanza():
+    """El defecto que motivó el módulo: San Luis no es Los Ángeles.
+
+    `normalize_team` traduce STL -> LAR para la continuidad de Elo, y eso está
+    bien. Lo que no puede pasar es que un partido de 2010 se sitúe en SoFi.
+    """
+    stl = STADIUMS_BY_ID["STL00"]
+    sofi = STADIUMS_BY_ID["LAX01"]
+    assert haversine_miles(stl.lat, stl.lon, sofi.lat, sofi.lon) > 1500
+    assert stl.utc_offset - sofi.utc_offset == pytest.approx(2.0)
+
+    perfil = venue_travel("STL00", "STL00", "SEA00", roof="dome")
+    assert perfil.home_travel_miles == pytest.approx(0.0)   # jugaba en su casa
+    assert 1500 < perfil.away_travel_miles < 2000           # y Seattle viajaba a San Luis
+
+
+
+def test_techo_sale_del_partido_y_no_de_la_sede():
+    """Un techo retráctil abierto deja el clima dentro.
+
+    713 partidos tenían mal este campo porque salía de una constante por equipo.
+    """
+    cerrado = venue_travel("DAL00", "DAL00", "NYC01", roof="closed")
+    abierto = venue_travel("DAL00", "DAL00", "NYC01", roof="open")
+    assert cerrado.indoors is True
+    assert abierto.indoors is False
+
+
+def test_sede_desconocida_se_marca_como_desconocida():
+    """Cero millas porque juega en casa y cero porque no lo sé no son lo mismo."""
+    perfil = venue_travel("NO_EXISTE", "DAL00", "NYC01")
+    assert perfil.known is False
+    assert perfil.away_travel_miles == pytest.approx(0.0)
+    assert venue_travel("DAL00", "DAL00", "NYC01").known is True

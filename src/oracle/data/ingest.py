@@ -245,6 +245,12 @@ def build_games(paths: Paths, first_season: int, last_season: int) -> pd.DataFra
             "temp": pd.to_numeric(raw.get("temp"), errors="coerce"),
             "wind": pd.to_numeric(raw.get("wind"), errors="coerce"),
             "location": raw.get("location"),
+            # La sede del partido, no la del equipo. nflverse la publica en los
+            # 7.548 partidos sin un solo nulo, y es estable frente a los cambios
+            # de patrocinador que renombran el estadio cinco veces. Sin esto, el
+            # viaje se calculaba desde la ciudad a la que el equipo se mudó
+            # DESPUÉS, y los 102 partidos en sede neutral no se situaban.
+            "stadium_id": raw.get("stadium_id"),
             "home_rest": pd.to_numeric(raw.get("home_rest"), errors="coerce"),
             "away_rest": pd.to_numeric(raw.get("away_rest"), errors="coerce"),
             "home_qb_id": raw.get("home_qb_id"),
