@@ -20,6 +20,8 @@ Estados: **PASA** · **FALLA** · **NO CONCLUYENTE** · **RETIRADO**
 | E8 | Un modelo de pateador bate a la media de liga y a su forma | 2022–2025 | ambos | MAE y Spearman | batir a los dos | MAE 3,73 vs 3,77 y 4,07 | **PASA** |
 | E8b | El ranking de pateadores separa K1 de K12 | 2022–2025 | — | pts/partido con IC95% | > 1,5 pts | +0,26, IC [−0,36, +0,87] | **FALLA** |
 | E9 | El capital de draft predice el año rookie | 2016–2025 | cero y media de posición | Spearman y MAE | batir a los dos | ρ 0,604 vs 0,093 | **PASA** |
+| E10 | El umbral de viento de 15 mph tiene efecto medible | 5.008 partidos | viento ≤ 10 mph | puntos totales, IC95% | efecto significativo | −3,47 pts, IC [−4,78, −2,16] | **PASA** |
+| E10b | Ese efecto es explotable contra el mercado | 457 partidos | total de cierre | residuo, IC95% | — | −2,22 aparente, **pero el clima es observado, no pronosticado** | **FALLA** (fuga) |
 
 ## Conocimiento negativo — cosas que NO funcionan
 
@@ -35,7 +37,11 @@ Estados: **PASA** · **FALLA** · **NO CONCLUYENTE** · **RETIRADO**
    Puntos permitidos r 0,060, capturas 0,030, pérdidas forzadas 0,040.
 5. **Corregir features de segundo orden (viaje, huso, techo) no mueve el modelo
    de partidos**, ni siquiera arreglando el 10% de sus valores.
-6. **Un multiplicador que iguala la media no minimiza el MAE.** Con una
+6. **El clima no se puede usar para predecir nada.** nflverse sólo lo trae para
+   partidos ya jugados: cero de los 272 de 2026. El −2,22 puntos contra el total
+   de cierre con viento >15 mph parece una ventaja y es la fuga más seductora que
+   hay — la que da la razón a lo que uno quería creer.
+7. **Un multiplicador que iguala la media no minimiza el MAE.** Con una
    distribución sesgada a la derecha, el predictor que minimiza el error
    absoluto es la mediana; ajustar a la media empeora el MAE a cambio de un
    nivel correcto.

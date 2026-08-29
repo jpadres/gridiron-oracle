@@ -41,8 +41,31 @@ from ..data.stadiums import TEAM_STADIUMS
 
 BASE = "https://api.weather.gov"
 
-# Umbrales. No son redondos por gusto: son los que la literatura de apuestas
-# asocia con un efecto medible sobre el juego aéreo y los totales. Por debajo, el
+# Umbrales. Ya no salen de la literatura de apuestas: están MEDIDOS sobre 5.008
+# partidos a cielo abierto de 2000-2025 (bloque 44 del espec adversarial).
+#
+#   viento <= 10 mph ... 44,05 puntos por partido   (referencia)
+#   viento > 15 mph .... 40,58   diferencia -3,47   IC95% [-4,78, -2,16]
+#   viento > 20 mph .... 38,34   diferencia -5,71   IC95% [-8,37, -3,04]
+#   viento > 26 mph .... 30,65   (n=26, tramo pequeño pero brutal)
+#
+# El corte de 15 era folclore y ha resultado ser correcto. Eso no siempre pasa y
+# por eso se mide.
+#
+# DOS ADVERTENCIAS QUE NO SE PUEDEN SEPARAR DE ESOS NÚMEROS:
+#
+# 1. Están medidos con viento OBSERVADO. Este módulo consume un PRONÓSTICO, que
+#    tiene su propio error, y ese error nunca se ha medido aquí. El efecto real
+#    sobre una predicción hecha con pronóstico es necesariamente menor que -3,47.
+#
+# 2. El clima de nflverse sólo existe para partidos ya jugados —cero de los 272
+#    partidos de 2026 lo traen—, así que NO se puede usar para predecir nada del
+#    modelo de partidos. Contra el total de cierre, los partidos con viento >15
+#    llegan 2,22 puntos por debajo (IC95% [-3,47, -0,97]), lo que parece una
+#    ventaja contra el mercado y no lo es: es exactamente la fuga de usar el
+#    dato observado como si se hubiera conocido antes.
+#
+# Por debajo, el
 # partido se juega igual y mencionarlo es ruido.
 #
 # Si se cambian, hay que decir por qué: bajarlos hasta que "salgan avisos" es el
