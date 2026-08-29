@@ -129,6 +129,12 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
 /* El sello de build. Monoespaciado y seleccionable a propósito: sirve para
    copiarlo y pegarlo cuando algo no cuadra, así que no puede ser una imagen ni
    llevar `user-select: none`. */
+/* Marca de cambio de equipo. Ámbar y no rojo: no es un error del jugador, es
+   una advertencia sobre la fiabilidad del número de su fila. */
+.moved { margin-left: 0.35rem; padding: 0.05rem 0.3rem; border-radius: 4px;
+         font-size: 0.72rem; background: var(--warn-bg); color: var(--warn-line);
+         white-space: nowrap; }
+
 /* --- sincronización con Sleeper ------------------------------------------ */
 
 /* Bloque aparte y con borde: es lo único de la página que habla con fuera, y

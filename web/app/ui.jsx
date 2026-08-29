@@ -208,6 +208,18 @@ export function RankTable({
                     <span className="meta">
                       {row.position ? <PositionTag position={row.position} /> : null}
                       {row.team}
+                      {/* El cambio de equipo va pegado al equipo, no en una
+                          columna: es una advertencia SOBRE ese dato. La
+                          proyección de al lado se calculó con el reparto de uso
+                          del equipo de la izquierda de la flecha. */}
+                      {row.team_changed && row.previous_team ? (
+                        <span
+                          className="moved"
+                          title={`Cambió de equipo: ${row.previous_team} → ${row.team}. La proyección hereda su reparto de uso en ${row.previous_team}.`}
+                        >
+                          ← {row.previous_team}
+                        </span>
+                      ) : null}
                       {row.position_rank ? ` · ${row.position}${row.position_rank}` : null}
                       {row.opponent ? ` · vs ${row.opponent}` : null}
                     </span>

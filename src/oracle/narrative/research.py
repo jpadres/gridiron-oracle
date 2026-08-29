@@ -276,7 +276,14 @@ def _clean(item: object, beat: str) -> dict | None:
         return None
     return {
         "beat": beat,
-        "team": str(item.get("team", "LIGA")).strip().upper()[:4] or "LIGA",
+        # `or "LIGA"` sobre el valor, no un default de `.get`.
+        #
+        # `.get("team", "LIGA")` sólo aplica el defecto si **falta** la clave. Si
+        # el modelo devuelve `"team": null` —que el esquema permite para una
+        # noticia de liga— `str(None)` da la cadena "NONE", y entonces el equipo
+        # de esa ficha es un código de cuatro letras que no existe. No falla
+        # nada: simplemente no empareja con ningún equipo, en silencio.
+        "team": (str(item.get("team") or "").strip().upper()[:4] or "LIGA"),
         "players": [str(name).strip() for name in item.get("players", []) if str(name).strip()],
         "kind": str(item.get("kind", "otro")),
         "headline": headline[:140],

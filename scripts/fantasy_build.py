@@ -36,6 +36,49 @@ from oracle.fantasy.scoring import ScoringRules, rules_from_name, score_player_w
 VALIDATION_SEASONS = (2022, 2023, 2024, 2025)
 
 
+def _attach_current_team(board: pd.DataFrame, paths, season: int) -> pd.DataFrame:
+    """Sobrescribe el equipo con el de la plantilla de `season`, si la hay."""
+    from oracle.data.ingest import normalize_team
+
+    roster_path = paths.raw / f"roster_{season}.parquet"
+    if not roster_path.exists():
+        print(f"Sin roster_{season}.parquet: el board queda con el equipo del año pasado.")
+        return board
+
+    roster = pd.read_parquet(roster_path)
+    if "gsis_id" not in roster.columns:
+        return board
+    # La semana más temprana disponible: es la foto de pretemporada, que es la
+    # que corresponde a un board de draft.
+    if "week" in roster.columns:
+        roster = roster[roster["week"] == roster["week"].min()]
+    if "status" in roster.columns:
+        active = roster[roster["status"] == "ACT"]
+        if not active.empty:
+            roster = active
+    roster = roster.dropna(subset=["gsis_id", "team"]).drop_duplicates("gsis_id")
+    current = dict(
+        zip(roster["gsis_id"], roster["team"].map(normalize_team), strict=True)
+    )
+
+    board = board.copy()
+    board["previous_team"] = board["team"]
+    mapped = board["player_id"].map(current)
+    # Quien no aparece en la plantilla conserva su equipo anterior. nflverse
+    # publica el roster del año en curso de forma incompleta durante agosto
+    # —Stefon Diggs no figuraba pese a haber firmado el día 5— así que un
+    # jugador ausente NO significa que esté sin equipo.
+    board["team"] = mapped.fillna(board["team"])
+    board["team_changed"] = board["team"] != board["previous_team"]
+
+    changed = board[board["team_changed"]]
+    print(f"Plantillas {season}: {int(mapped.notna().sum())} de {len(board)} resueltos, "
+          f"{len(changed)} cambiaron de equipo.")
+    for _, row in changed.head(10).iterrows():
+        print(f"  {row['player_name']}: {row['previous_team']} -> {row['team']}")
+    return board
+
+
 def _attach_risk(
     players: pd.DataFrame,
     team_games: pd.DataFrame,
@@ -198,6 +241,23 @@ def main(argv: list[str] | None = None) -> int:
     # completo más equipo y posición el cruce es exacto, y donde no lo sea se
     # renuncia a emparejar en vez de arriesgarse — la misma regla que en el
     # dossier.
+    # Equipo de la plantilla de ESTA temporada, no del último partido jugado.
+    #
+    # `draft.project_season` etiqueta con `group["team"].iloc[-1]`, o sea el
+    # equipo del último partido del historial: en agosto, el del año pasado.
+    # Tyler Allgeier salía en ATL siendo el titular de Arizona, y Trey Benson en
+    # ARI después de que lo cortaran. Para un board que se lee el día del draft
+    # eso no es un detalle: te hace descartar a un titular por creerlo suplente.
+    #
+    # `weekly.py` ya resolvía la plantilla antes de nada —está en su docstring
+    # como lección aprendida— y el board se había quedado sin ese paso.
+    #
+    # No obliga a revalidar: `team` es una **etiqueta**, no entra en ninguna
+    # cuenta de la proyección ni del VOR. Lo que sí sigue heredándose del año
+    # anterior es el reparto de uso, y por eso los que cambian de equipo se
+    # marcan: es justo donde la proyección vale menos.
+    board = _attach_current_team(board, paths, season)
+
     full_names = (
         players.dropna(subset=["player_display_name"])
         .sort_values("season")

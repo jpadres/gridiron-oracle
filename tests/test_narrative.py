@@ -403,3 +403,23 @@ def test_consensus_gap_sign_says_who_is_higher():
         [{"rank": 104, "player": "Travis Kelce", "team": "KC"}],
     )
     assert gap[0]["gap"] == 75
+
+
+def test_a_league_wide_item_keeps_its_team_as_liga():
+    """`"team": null` no puede convertirse en el código de equipo «NONE».
+
+    `.get("team", "LIGA")` sólo aplica el defecto cuando falta la clave. Con la
+    clave presente y a nulo —que es lo que devuelve el modelo para una noticia
+    de liga— salía la cadena "NONE": un código de cuatro letras que no existe y
+    que no empareja con nada, sin fallar.
+    """
+    item = {
+        "team": None,
+        "headline": "El corte a 53 es el domingo",
+        "summary": "Hasta que pase, cualquier depth chart es provisional.",
+        "sources": [{"outlet": "Yahoo", "title": "Cuts tracker",
+                     "url": "https://sports.yahoo.com/x"}],
+    }
+    cleaned = research._clean(item, "Liga")
+    assert cleaned is not None
+    assert cleaned["team"] == "LIGA"

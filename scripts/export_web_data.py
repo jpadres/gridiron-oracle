@@ -49,6 +49,10 @@ DRAFT_COLUMNS = (
     # El nombre completo no se pinta —la tabla usa el abreviado— pero viaja
     # porque es la clave con la que el modo draft cruza los picks de Sleeper.
     "player_full_name",
+    # Cambio de equipo. Es la señal más honesta de «desconfía de este número»:
+    # la proyección hereda el reparto de uso del equipo ANTERIOR, así que en
+    # estos 146 el volumen proyectado es el del sitio del que se fue.
+    "team_changed", "previous_team",
     "tier", "projected_points", "vor",
     # Riesgo: la etiqueta, sus tres componentes y los motivos que se nombran.
     # Las componentes viajan aunque no se pinten en una columna porque el

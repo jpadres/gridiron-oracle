@@ -247,6 +247,28 @@ export default function Fantasy() {
         </p>
       </section>
 
+      <Callout title="35 jugadores del board cambiaron de equipo, y su proyección es la del anterior">
+        <p>
+          El board etiqueta a cada jugador con la plantilla de <strong>2026</strong>, pero{" "}
+          <strong>su proyección se calculó con el reparto de uso del equipo del que se
+          fue</strong>. A.J. Brown proyecta como el primer receptor de Filadelfia y juega en
+          Nueva Inglaterra; Mike Evans, como el de Tampa estando en San Francisco.
+        </p>
+        <p>
+          Por eso llevan la marca ámbar <span className="moved">← EQUIPO</span> al lado del
+          equipo nuevo. No es decoración: <strong>marca exactamente las filas cuyo número de
+          la derecha es menos de fiar</strong>. Son 35 de los 250 del board —el 14%— y 146
+          entre los 861 jugadores proyectados.
+        </p>
+        <p className="caption">
+          Hasta hoy el board enseñaba directamente el equipo del año pasado, porque el
+          proyector etiquetaba con el último partido jugado en vez de con la plantilla del
+          año. Tyler Allgeier salía en Atlanta siendo el titular de Arizona. La etiqueta ya
+          está corregida; el reparto de uso heredado sigue siendo una limitación conocida y
+          no tiene arreglo sin ver jugar a la nueva plantilla.
+        </p>
+      </Callout>
+
       <section id="bust">
         <h2>Las dos columnas de riesgo: «Bust» y «Falta»</h2>
         <p>
