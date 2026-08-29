@@ -54,6 +54,12 @@ EVIDENCE_TYPES: tuple[str, ...] = (
 # No es un error de datos ni un hueco a rellenar: es un registro de antes.
 LEGACY_LABEL = "LEGACY"
 
+# De dónde vino el insight. Vive en `feeds.SOURCE_TYPES` y se repite aquí en la
+# migración porque las fichas viejas también necesitan un valor: el suyo es
+# WEB_SEARCH, y ése SÍ se puede afirmar — el único camino que existía cuando se
+# escribieron era el barrido con búsqueda.
+LEGACY_SOURCE_TYPE = "WEB_SEARCH"
+
 
 def migrate_item(item: dict[str, Any]) -> dict[str, Any]:
     """Una ficha de cualquier versión, leída con la forma de la actual.
@@ -78,6 +84,11 @@ def migrate_item(item: dict[str, Any]) -> dict[str, Any]:
         migrated.setdefault(field, None)
 
     migrated.setdefault("resolution", None)
+    # Excepción a UNKNOWN > INVENTED, y por eso lleva explicación: esto no se
+    # está adivinando. Cuando se escribieron esas fichas el único camino de
+    # ingesta que existía era el barrido con búsqueda, así que su procedencia
+    # técnica se conoce con certeza aunque no estuviera escrita.
+    migrated.setdefault("source_type", LEGACY_SOURCE_TYPE)
 
     # El autor va dentro de cada fuente, no en la ficha: una ficha puede tener
     # dos fuentes de dos periodistas distintos, y el reliability score necesita

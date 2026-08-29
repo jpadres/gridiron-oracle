@@ -162,6 +162,14 @@ def main(argv: list[str] | None = None) -> int:
     # Viaja aparte de todo lo anterior a propósito: son afirmaciones de terceros
     # con su fuente al lado, no salidas del modelo, y no entran en ningún cálculo.
     payload["research"] = _strip_runtime_fields(_research(paths, payload))
+    # Today's Intelligence: el subconjunto que puede cambiar una decisión hoy.
+    # Se calcula aquí y no en la web para que el filtro viva junto al resto de
+    # las reglas del modelo, en Python y con tests.
+    if payload["research"]:
+        from oracle.narrative import intelligence
+        payload["research"]["today"] = intelligence.todays(
+            payload["research"].get("items", []), limit=10
+        )
 
     # --- dossier curado (parte médico, campamento, reporteros) ---------------
     # Atribuido y fechado, pero SIN enlace: por eso viaja aparte del research y

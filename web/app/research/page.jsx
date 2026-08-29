@@ -62,6 +62,46 @@ function formatDate(iso, options) {
 const longDate = (iso) =>
   formatDate(iso, { weekday: "long", day: "numeric", month: "long" });
 
+/**
+ * Today's Intelligence: lo que puede cambiar una decisión hoy.
+ *
+ * No es un feed. Un feed enseña todo lo que pasó y cuanto más completo, mejor
+ * cumple; esto enseña sólo lo que harías distinto, y cuanto más completo, peor.
+ * Por eso puede salir vacío, y eso es correcto.
+ */
+function TodaysIntelligence({ items }) {
+  if (!items || items.length === 0) {
+    return (
+      <Callout title="Hoy no hay nada que cambie una decisión">
+        <p>
+          No es un fallo de la ingesta. El filtro exige que la ficha pueda mover una
+          alineación esta semana, y la mayoría de los días no hay ninguna que lo haga.
+          Bajar el listón hasta que salgan cosas convertiría esto en el feed de noticias
+          que precisamente no queremos.
+        </p>
+      </Callout>
+    );
+  }
+  return (
+    <ol className="intel">
+      {items.map((item, index) => (
+        <li key={item.headline ?? index} className={`intel--${item.impact}`}>
+          <span className="intel-cat" title={item.label}>
+            <span aria-hidden="true">{item.icon}</span> {item.label}
+          </span>
+          <span className="intel-body">
+            <strong>{item.headline}</strong>
+            <span className="intel-meta">
+              {item.team}
+              {item.players?.length ? ` · ${item.players.join(", ")}` : null}
+            </span>
+          </span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 function Note({ item, showDate = false }) {
   const confidence = CONFIDENCE[item.confidence] ?? CONFIDENCE.rumor;
   return (
@@ -202,6 +242,11 @@ export default function Research() {
   // El digest de arriba y el archivo por día son la misma lista partida en dos,
   // no dos vistas de lo mismo: repetir una ficha a media página de distancia
   // hace pensar que son dos noticias distintas.
+  // El subconjunto ya viene calculado del payload: el filtro vive en Python,
+  // junto al resto de las reglas del modelo y con tests. El respaldo cubre un
+  // payload viejo, que en un sitio con datos horneados pasa en cada despliegue
+  // hasta que se regenera.
+  const today = research?.today ?? [];
   const headline = items.filter((item) => (item.fantasy_relevance ?? 1) >= 4);
   const rest = items.filter((item) => (item.fantasy_relevance ?? 1) < 4);
 
@@ -259,18 +304,19 @@ export default function Research() {
         </p>
       </Callout>
 
-      {headline.length > 0 ? (
-        <section id="destacado">
-          <h2>Lo que mueve una alineación</h2>
-          <p className="caption">
-            Relevancia 4 o 5 sobre 5 en toda la ventana: lo que cambiaría a quién alineas esta
-            semana, no lo que llena una columna.
-          </p>
-          {headline.map((item, index) => (
-            <Note key={`${item.headline}-${index}`} item={item} showDate />
-          ))}
-        </section>
-      ) : null}
+      {/* Esta sección ya filtraba por relevancia 4-5. En vez de añadir una
+          «Today's Intelligence» al lado —que habría enseñado casi lo mismo con
+          otro título— se le cambia el cuerpo: mismo filtro, ahora con categoría,
+          orden por accionabilidad y sitio reservado para el impacto personal
+          cuando exista la sincronización multi-liga. */}
+      <section id="destacado">
+        <h2>Lo que mueve una alineación</h2>
+        <p className="caption">
+          Ordenado por lo que puedes hacer con ello, no por cuándo se publicó. Cuando estén
+          sincronizadas tus ligas, lo que te afecte a ti subirá por encima de todo lo demás.
+        </p>
+        <TodaysIntelligence items={today} />
+      </section>
 
       {byDay.size > 0 ? (
         <>

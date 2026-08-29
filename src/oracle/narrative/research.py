@@ -33,6 +33,7 @@ from urllib.parse import urlparse
 
 from oracle.narrative.client import ask_json, web_tools
 
+from .feeds import SOURCE_TYPES
 from .schema import EVIDENCE_TYPES, SCHEMA_VERSION
 
 # Divisiones con los códigos de nflverse. Se barre por división y no equipo a
@@ -365,6 +366,9 @@ def _clean(item: object, beat: str) -> dict | None:
         # Qué pasó al final. Se rellena en el postmortem, después del partido.
         # Nace a None y así se queda hasta que haya un resultado que comprobar.
         "resolution": item.get("resolution"),
+        "source_type": (
+            item.get("source_type") if item.get("source_type") in SOURCE_TYPES else None
+        ),
         "schema_version": SCHEMA_VERSION,
         "sources": sources[:3],
     }

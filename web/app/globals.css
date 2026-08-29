@@ -135,6 +135,25 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
          font-size: 0.72rem; background: var(--warn-bg); color: var(--warn-line);
          white-space: nowrap; }
 
+/* Today's Intelligence. Lista y no tarjetas: son diez líneas que se escanean de
+   arriba abajo buscando si algo te toca, y una rejilla de tarjetas obliga a
+   barrer en dos direcciones para leer diez cosas. */
+.intel { list-style: none; padding: 0; margin: 1rem 0 1.5rem; display: grid; gap: 0.4rem; }
+.intel li { display: grid; grid-template-columns: 9.5rem 1fr; gap: 0.75rem;
+            align-items: baseline; padding: 0.55rem 0.7rem; border-radius: 4px;
+            background: var(--surface); border-left: 3px solid var(--line); }
+.intel--alza { border-left-color: #1baf7a; }
+.intel--baja { border-left-color: #d03b3b; }
+.intel-cat { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+.intel-body { display: grid; gap: 0.15rem; }
+.intel-meta { font-size: 0.78rem; color: var(--muted); }
+
+@media (max-width: 34rem) {
+  /* En móvil la categoría va encima: dos columnas de 9,5rem en 360px dejan al
+     titular partido en cuatro líneas. */
+  .intel li { grid-template-columns: 1fr; gap: 0.15rem; }
+}
+
 /* Etiqueta de procedencia. Deliberadamente sobria y sin color propio: convive
    con la de impacto y la de fiabilidad en la misma línea, y tres etiquetas
    compitiendo por atención es ninguna. */
