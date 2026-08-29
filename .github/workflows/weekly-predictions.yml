@@ -86,6 +86,10 @@ jobs:
 
       - name: Comprobar que la web sigue construyendo
         working-directory: web
+        # Playwright está en devDependencies por el arnés de capturas; su
+        # postinstall se baja un Chromium de ~150 MB que aquí no se usa.
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
         run: |
           npm ci
           npm run build

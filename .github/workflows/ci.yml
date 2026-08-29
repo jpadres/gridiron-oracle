@@ -58,7 +58,13 @@ jobs:
           cache: npm
           cache-dependency-path: web/package-lock.json
 
+      # Playwright está en devDependencies para que el arnés de capturas sea
+      # reproducible, pero su postinstall se baja un Chromium de ~150 MB que aquí
+      # no sirve para nada: CI no hace capturas. Sin esta variable, tres
+      # workflows pagarían esa descarga en cada ejecución.
       - name: Instalar
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
         run: npm ci
 
       - name: Build

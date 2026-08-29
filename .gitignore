@@ -33,3 +33,9 @@ web/data/model.json
 # El skill de UI/UX se versiona (3,6 MB, y sin él el repo no lo tiene), pero no
 # sus tests ni sus fixtures: son del proyecto de origen, no de éste.
 .claude/skills/*/scripts/tests/
+
+# Capturas del arnés visual. Se regeneran con `node tools/screenshots.mjs`, son
+# 40+ MB de PNG y no se pueden revisar en un diff. Se versiona el arnés, no su
+# salida — al revés que `research/`, que sí se versiona porque no se puede
+# reconstruir.
+web/tools/shots/

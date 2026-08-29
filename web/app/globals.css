@@ -12,6 +12,101 @@
   --warn-line: #b45309;
   --surface: #f6f7f9;
 
+  /* --- ESCALA TIPOGRÁFICA -------------------------------------------------
+     Seis tamaños de texto y dos numéricos, donde antes había 21.
+     
+     Los 21 no eran una escala: eran acumulación. Siete valores distintos entre
+     0,63 y 0,78rem hacían todos lo mismo —etiquetas diminutas— y cinco entre
+     0,8 y 0,9rem eran «texto secundario». Diferencias de un píxel que nadie
+     distingue una a una, pero que sí se notan juntas: es lo que hacía que nada
+     pareciera de la misma familia.
+     
+     `--text-lead` sirve a la vez de entradilla y de h3. Se diferencian por
+     PESO, no por tamaño: dos tokens separados por un píxel es exactamente el
+     problema que esto viene a resolver. */
+  --text-display: 1.875rem;   /* 30px — h1 */
+  --text-title:   1.375rem;   /* 22px — h2 */
+  --text-lead:    1.125rem;   /* 18px — entradilla y h3 */
+  --text-body:    1rem;       /* 16px — prosa, navegación, campos */
+  --text-dense:   0.875rem;   /* 14px — tablas, pies, texto de apoyo */
+  --text-micro:   0.75rem;    /* 12px — etiquetas, chips, metadatos */
+
+  /* Los números son protagonistas y necesitan su propia escala: una cifra a
+     1,5rem junto a texto de 1rem no es «texto grande», es un dato destacado. */
+  --num-hero: 1.5rem;
+  --num-lead: 1.25rem;
+
+  /* --- PESOS Y ALTURAS ----------------------------------------------------
+     La escala describe los cuatro trazos que el sitio usa de verdad. La primera
+     versión de este bloque declaraba 400 y 500 —que no aparecen en ninguna
+     regla— y omitía el 650 y el 700 que sí están por todas partes: una escala
+     que no describe el diseño es decoración con nombre técnico. */
+  --weight-semibold: 600;  /* etiquetas, cabeceras de tabla, chips */
+  --weight-numeric: 650;   /* cifras destacadas y nombres de jugador */
+  --weight-bold: 700;      /* marca del sitio, posiciones, diferencias */
+  /* Sólo la etiqueta de ausencia. Con `system-ui` puede caer al mismo trazo que
+     700 según la máquina; se mantiene porque la intención es «más fuerte que
+     todo lo demás» y el día que haya una fuente propia, se notará. */
+  --weight-heavy: 800;
+
+  /* Altura de línea por densidad, no por elemento. La prosa necesita aire; una
+     fila de tabla necesita lo contrario, y darle 1.6 la infla sin motivo. */
+  --leading-tight: 1.2;    /* titulares y filas de una sola línea */
+  --leading-snug: 1.4;     /* texto denso: tablas, notas */
+  --leading-body: 1.65;    /* prosa. Es el valor que ya tenía el `body`. */
+
+  /* Sólo en versales pequeñas, que sin tracking se leen apretadas. */
+  --tracking-caps: 0.04em;
+
+  /* --- ESPACIADO ----------------------------------------------------------
+     Siete pasos sobre base 4, donde antes había 27 valores —con 0,05rem,
+     0,08rem y 0,1rem conviviendo—. Nadie distingue esos tres; lo que sí se nota
+     es que nada se alinea con nada. */
+  --space-0: 0.125rem;  /*  2px — relleno de un chip */
+  --space-1: 0.25rem;   /*  4px */
+  --space-2: 0.5rem;    /*  8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.5rem;    /* 24px */
+  --space-6: 2rem;      /* 32px */
+  --space-7: 3rem;      /* 48px */
+
+  /* Separación de una etiqueta respecto a la palabra que la precede. No sale de
+     la escala: no es ritmo de layout, es espacio entre piezas de la misma línea
+     de texto, y se ajusta al espacio de palabra de la fuente. Existía ya, pero
+     escrito como 0.3, 0.35 y 0.4rem en seis sitios que hacen lo mismo. */
+  --gap-chip: 0.35rem;
+
+  /* --- RADIOS -------------------------------------------------------------
+     Tres, donde había seis (3, 4, 5, 6, 7 y 8px). La diferencia entre 4 y 5px
+     no la ve nadie; lo que se ve es que dos cosas del mismo tipo no coinciden. */
+  --radius-sm: 3px;   /* chips y etiquetas */
+  --radius-md: 6px;   /* tarjetas, campos, botones */
+  /* Aquí había un `--radius-lg: 10px` que no usaba ninguna regla. Un token sin
+     uso es una promesa que nadie cumple: cuando haga falta un radio de panel,
+     se añade con su primer uso al lado. */
+
+  /* --- SUPERFICIES --------------------------------------------------------
+     Tres niveles y una regla: se agrupa con FONDO antes que con BORDE. El
+     borde se reserva para separar dos cosas del mismo nivel, no para envolver
+     lo que ya está agrupado por espacio — que es de donde salen las tarjetas
+     dentro de tarjetas. */
+  --surface-0: var(--bg);       /* el lienzo */
+  --surface-1: var(--surface);  /* un bloque agrupado */
+  --surface-2: var(--warn-bg);  /* un bloque que reclama atención */
+
+  /* --- PUNTOS DE RUPTURA --------------------------------------------------
+     Salen de dónde rompe el contenido, no de nombres de dispositivo:
+     
+     34rem — por debajo, dos columnas de etiqueta+valor dejan el titular
+             partido en cuatro líneas.
+     52rem — por debajo, una tabla de seis columnas ya no cabe sin comprimir
+             los números hasta que dejan de compararse.
+     
+     Van como comentario y no como variable porque `@media` no admite `var()`.
+     Que estén escritos aquí es lo que impide que aparezca un tercero a ojo. */
+
+
   /* Paleta categórica de las cuatro posiciones. El ORDEN de estos cuatro
      colores no es decorativo: es el mecanismo de seguridad para daltonismo.
      Validados contra la superficie real del sitio (#ffffff en claro, #101216
@@ -68,108 +163,110 @@ html, body {
   background: var(--bg);
   color: var(--fg);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  line-height: 1.65;
+  line-height: var(--leading-body);
   -webkit-text-size-adjust: 100%;
 }
 
-.shell { max-width: 62rem; margin: 0 auto; padding: 0 1.25rem 4rem; }
+.shell { max-width: 62rem; margin: 0 auto; padding: 0 var(--space-5) var(--space-7); }
 
 nav.top {
   border-bottom: 1px solid var(--line);
-  margin-bottom: 2rem;
-  padding: 1rem 0;
+  margin-bottom: var(--space-6);
+  padding: var(--space-4) 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem 1.25rem;
+  gap: var(--space-2) var(--space-5);
   align-items: baseline;
 }
-nav.top .brand { font-weight: 700; letter-spacing: -0.01em; margin-right: auto; }
-nav.top a { color: var(--muted); text-decoration: none; font-size: 0.94rem; }
+nav.top .brand { font-weight: var(--weight-bold); letter-spacing: -0.01em; margin-right: auto; }
+nav.top a { color: var(--muted); text-decoration: none; font-size: var(--text-body); }
 nav.top a:hover, nav.top a:focus { color: var(--accent); text-decoration: underline; }
 
-h1 { font-size: 1.9rem; letter-spacing: -0.02em; margin: 1.5rem 0 0.5rem; }
-h2 { font-size: 1.3rem; margin: 2.25rem 0 0.5rem; }
-h3 { font-size: 1.05rem; margin: 1.5rem 0 0.35rem; }
-p { margin: 0.75rem 0; }
+h1 { line-height: var(--leading-tight); font-weight: var(--weight-bold);
+     font-size: var(--text-display); letter-spacing: -0.02em; margin: var(--space-5) 0 var(--space-2); }
+h2 { line-height: var(--leading-tight); font-weight: var(--weight-bold); font-size: var(--text-title); margin: var(--space-6) 0 var(--space-2); }
+h3 { line-height: var(--leading-tight); font-weight: var(--weight-bold); font-size: var(--text-lead); margin: var(--space-5) 0 var(--space-2); }
+p { margin: var(--space-3) 0; }
 a { color: var(--accent); }
-code { background: var(--surface); padding: 0.1rem 0.3rem; border-radius: 3px; font-size: 0.9em; }
+code { background: var(--surface); padding: var(--space-0) var(--space-1); border-radius: var(--radius-sm); font-size: 0.9em; }
 
-.lede { font-size: 1.1rem; color: var(--muted); }
-.caption { font-size: 0.85rem; color: var(--muted); }
+.lede { font-size: var(--text-lead); color: var(--muted); }
+.caption { font-size: var(--text-dense); color: var(--muted); }
 
 .callout {
   border-left: 3px solid var(--warn-line);
   background: var(--warn-bg);
-  padding: 0.85rem 1.1rem;
-  margin: 1.5rem 0;
-  border-radius: 0 4px 4px 0;
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-5) 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 .callout h3 { margin-top: 0; }
 
 /* Las tablas anchas hacen scroll dentro de su contenedor: el cuerpo de la
    página nunca se desplaza en horizontal, ni siquiera en un móvil estrecho. */
-.table-wrap { overflow-x: auto; margin: 1rem 0; }
-table { border-collapse: collapse; width: 100%; font-size: 0.9rem; min-width: 32rem; }
-th, td { border-bottom: 1px solid var(--line); padding: 0.45rem 0.65rem; text-align: right;
+.table-wrap { overflow-x: auto; margin: var(--space-4) 0; }
+table { border-collapse: collapse; width: 100%; font-size: var(--text-dense);
+        line-height: var(--leading-snug); min-width: 32rem; }
+th, td { border-bottom: 1px solid var(--line); padding: var(--space-2) var(--space-3); text-align: right;
          white-space: nowrap; }
 th:first-child, td:first-child { text-align: left; }
-th { background: var(--surface); font-weight: 600; position: sticky; top: 0; }
+th { background: var(--surface); font-weight: var(--weight-semibold); position: sticky; top: 0; }
 tbody tr:hover { background: var(--surface); }
 
-.grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-        margin: 1.5rem 0; }
-.stat { border: 1px solid var(--line); border-radius: 6px; padding: 0.85rem 1rem; }
-.stat .value { font-size: 1.5rem; font-weight: 650; letter-spacing: -0.02em; }
-.stat .label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase;
+.grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+        margin: var(--space-5) 0; }
+.stat { border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); }
+.stat .value { font-size: var(--num-hero); font-weight: var(--weight-numeric); letter-spacing: -0.02em; }
+.stat .label { font-size: var(--text-dense); color: var(--muted); text-transform: uppercase;
                letter-spacing: 0.04em; }
 
-footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25rem;
-         font-size: 0.85rem; color: var(--muted); }
+footer { border-top: 1px solid var(--line); margin-top: var(--space-7); padding-top: var(--space-5);
+         font-size: var(--text-dense); color: var(--muted); }
 
 /* El sello de build. Monoespaciado y seleccionable a propósito: sirve para
    copiarlo y pegarlo cuando algo no cuadra, así que no puede ser una imagen ni
    llevar `user-select: none`. */
 /* Marca de cambio de equipo. Ámbar y no rojo: no es un error del jugador, es
    una advertencia sobre la fiabilidad del número de su fila. */
-.moved { margin-left: 0.35rem; padding: 0.05rem 0.3rem; border-radius: 4px;
-         font-size: 0.72rem; background: var(--warn-bg); color: var(--warn-line);
+.moved { margin-left: var(--gap-chip); padding: var(--space-0) var(--space-1); border-radius: var(--radius-sm);
+         font-size: var(--text-micro); background: var(--warn-bg); color: var(--warn-line);
          white-space: nowrap; }
 
 /* Today's Intelligence. Lista y no tarjetas: son diez líneas que se escanean de
    arriba abajo buscando si algo te toca, y una rejilla de tarjetas obliga a
    barrer en dos direcciones para leer diez cosas. */
-.intel { list-style: none; padding: 0; margin: 1rem 0 1.5rem; display: grid; gap: 0.4rem; }
-.intel li { display: grid; grid-template-columns: 9.5rem 1fr; gap: 0.75rem;
-            align-items: baseline; padding: 0.55rem 0.7rem; border-radius: 4px;
+.intel { list-style: none; padding: 0; margin: var(--space-4) 0 var(--space-5); display: grid; gap: var(--space-2); }
+.intel li { display: grid; grid-template-columns: 9.5rem 1fr; gap: var(--space-3);
+            align-items: baseline; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm);
             background: var(--surface); border-left: 3px solid var(--line); }
 .intel--alza { border-left-color: #1baf7a; }
 .intel--baja { border-left-color: #d03b3b; }
-.intel-cat { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
-.intel-body { display: grid; gap: 0.15rem; }
-.intel-meta { font-size: 0.78rem; color: var(--muted); }
+.intel-cat { font-size: var(--text-micro); color: var(--muted); white-space: nowrap; }
+.intel-body { display: grid; gap: var(--space-1); }
+.intel-meta { font-size: var(--text-micro); color: var(--muted); }
 
 @media (max-width: 34rem) {
   /* En móvil la categoría va encima: dos columnas de 9,5rem en 360px dejan al
      titular partido en cuatro líneas. */
-  .intel li { grid-template-columns: 1fr; gap: 0.15rem; }
+  .intel li { grid-template-columns: 1fr; gap: var(--space-1); }
 }
 
 /* Etiqueta de procedencia. Deliberadamente sobria y sin color propio: convive
    con la de impacto y la de fiabilidad en la misma línea, y tres etiquetas
    compitiendo por atención es ninguna. */
-.prov { display: inline-block; font-size: 0.72rem; letter-spacing: 0.03em;
-        padding: 0.05rem 0.35rem; border-radius: 3px; border: 1px solid var(--line);
+.prov { display: inline-block; font-size: var(--text-micro); letter-spacing: 0.03em;
+        padding: var(--space-0) var(--space-2); border-radius: var(--radius-sm); border: 1px solid var(--line);
         color: var(--muted); background: var(--bg); }
 
 /* Consejo de survivor y ficha histórica de una apuesta. Los dos llevan SIEMPRE
    la palabra escrita: el color es el segundo canal, nunca el único. */
-.adv { display: inline-block; font-size: 0.76rem; font-weight: 600;
-       letter-spacing: 0.03em; padding: 0.08rem 0.4rem; border-radius: 4px; }
+.adv { display: inline-block; font-size: var(--text-micro); font-weight: var(--weight-semibold);
+       letter-spacing: 0.03em; padding: var(--space-0) var(--space-2); border-radius: var(--radius-sm); }
 .adv--go   { background: rgba(27, 175, 122, 0.14); color: #0d6e4a; }
 .adv--hold { background: var(--warn-bg); color: var(--warn-line); }
 .adv--no   { background: rgba(208, 59, 59, 0.14); color: #b32d2d; }
 
-.ev-ok   { color: #0d6e4a; font-weight: 600; }
+.ev-ok   { color: #0d6e4a; font-weight: var(--weight-semibold); }
 .ev-bad  { color: var(--muted); }
 .ev-none { color: var(--muted); font-style: italic; }
 
@@ -184,15 +281,15 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
 /* Bloque aparte y con borde: es lo único de la página que habla con fuera, y
    eso merece un contorno propio en vez de disolverse entre los controles del
    tablero. */
-.sleeper { border: 1px solid var(--line); border-radius: 8px;
-           padding: 0.75rem 0.9rem; margin: 0.75rem 0; background: var(--surface); }
-.sleeper-line { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-.sleeper-connect { display: flex; flex-direction: column; gap: 0.5rem; }
+.sleeper { border: 1px solid var(--line); border-radius: var(--radius-md);
+           padding: var(--space-3) var(--space-4); margin: var(--space-3) 0; background: var(--surface); }
+.sleeper-line { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.sleeper-connect { display: flex; flex-direction: column; gap: var(--space-2); }
 .sleeper-connect input, .sleeper select {
   /* 44 px de alto: el mínimo táctil. La lección de los botones «Yo»/«Fuera»,
      que medían 29 px y hacían cosas opuestas. */
-  min-height: 44px; padding: 0.4rem 0.6rem; font-size: 1rem;
-  border: 1px solid var(--line); border-radius: 6px;
+  min-height: 44px; padding: var(--space-2) var(--space-3); font-size: var(--text-body);
+  border: 1px solid var(--line); border-radius: var(--radius-md);
   background: var(--bg); color: var(--fg); width: 100%; max-width: 26rem;
 }
 .sleeper-error { color: var(--warn-line); }
@@ -209,7 +306,7 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
    vertical buscando el número alto, y un texto rojo sobre blanco a 0,8rem pasa
    desapercibido justo en la fila que más importa. */
 .bust { display: inline-block; min-width: 2.9em; text-align: right;
-        padding: 0.1rem 0.35rem; border-radius: 4px; font-variant-numeric: tabular-nums; }
+        padding: var(--space-0) var(--space-2); border-radius: var(--radius-sm); font-variant-numeric: tabular-nums; }
 /* #0d6e4a y no #0f7f56: el original daba 4,36:1 sobre su propio fondo, justo
    por debajo del 4,5 que exige texto normal. Medido, no estimado — está en
    `scripts/check_contrast.py`. Éste da 5,47:1. */
@@ -222,10 +319,24 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
   .bust--high { background: rgba(208, 59, 59, 0.22); color: #f08a8a; }
 }
 
-.build { font-size: 0.78rem; opacity: 0.75; }
+.build { font-size: var(--text-micro); opacity: 0.75; }
 .build code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-              background: var(--surface); padding: 0.1rem 0.35rem; border-radius: 4px; }
+              background: var(--surface); padding: var(--space-0) var(--space-2); border-radius: var(--radius-sm); }
 
+
+
+/* Cifras tabulares en TODO lo que se compara en columna.
+   
+   Con cifras proporcionales, un «1» ocupa menos que un «8» y los números de una
+   columna no se alinean por unidades: leer si 18,4 es mayor que 9,7 exige
+   pararse. En una tabla de 250 jugadores que se escanea de arriba abajo, eso es
+   la diferencia entre ver el orden y tener que leerlo.
+   
+   Se aplica al contenedor y no elemento a elemento: cualquier celda nueva lo
+   hereda, que es lo que impide que la próxima tabla vuelva a olvidarlo. */
+:where(table, .stat, .grid, .intel, .plan, .cards) {
+  font-variant-numeric: tabular-nums;
+}
 
 /* --- foco, táctil y salto de navegación ---------------------------------- */
 
@@ -241,7 +352,7 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
 }
 
 /* Nunca quitar el contorno sin sustituirlo. Se deja escrito para que se vea la
@@ -266,23 +377,23 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
   background: var(--bg);
   color: var(--fg);
   border: 2px solid var(--accent);
-  border-radius: 0 0 4px 0;
-  padding: 0.6rem 1rem;
-  font-weight: 600;
+  border-radius: 0 0 var(--radius-md) 0;
+  padding: var(--space-3) var(--space-4);
+  font-weight: var(--weight-semibold);
 }
 .skip:focus { left: 0; }
 
 /* Los anclas de sección quedaban tapadas por el margen superior al saltar. */
-:where(h2, h3, section) { scroll-margin-top: 1rem; }
+:where(h2, h3, section) { scroll-margin-top: var(--space-4); }
 
 
 /* --- estados: error, carga, vacío ---------------------------------------- */
 
 .state { max-width: 38rem; }
 .retry {
-  font: inherit; font-weight: 600;
-  padding: 0.55rem 1.1rem; min-height: 44px;
-  border: 1px solid var(--accent); border-radius: 6px;
+  font: inherit; font-weight: var(--weight-semibold);
+  padding: var(--space-2) var(--space-4); min-height: 44px;
+  border: 1px solid var(--accent); border-radius: var(--radius-md);
   background: var(--accent); color: #fff; cursor: pointer;
 }
 .retry:hover { filter: brightness(1.08); }
@@ -294,8 +405,8 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 
-.skeleton { display: grid; gap: 0.75rem; margin-top: 0.5rem; }
-.sk { background: var(--surface); border-radius: 4px; }
+.skeleton { display: grid; gap: var(--space-3); margin-top: var(--space-2); }
+.sk { background: var(--surface); border-radius: var(--radius-sm); }
 .sk--title { height: 2.2rem; width: 55%; }
 .sk--lede  { height: 3.2rem; width: 90%; }
 .sk--block { height: 6rem; }
@@ -313,10 +424,10 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
 
 /* El contenedor crece con su contenido en vez de fijar altura: si se fija, la
    banda del eje X queda fuera y la tarjeta se llena de scroll diminuto. */
-.chart { margin: 1.25rem 0 1.75rem; }
+.chart { margin: var(--space-5) 0 var(--space-6); }
 .chart svg { width: 100%; height: auto; display: block; overflow: visible; }
 .chart--square { max-width: 26rem; }
-.chart figcaption { margin-top: 0.5rem; }
+.chart figcaption { margin-top: var(--space-2); }
 
 /* Realce al pasar por encima: la marca se separa del resto sin moverse. El
    `<title>` de cada marca da el tooltip nativo, sin JavaScript. */
@@ -330,30 +441,30 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
   display: inline-block;
   min-width: 2.1rem;
   text-align: center;
-  padding: 0.05rem 0.35rem;
-  border-radius: 4px;
-  font-size: 0.78rem;
-  font-weight: 650;
+  padding: var(--space-0) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-numeric);
   letter-spacing: 0.02em;
   color: var(--chip);
   border: 1px solid var(--chip);
 }
 
 /* Navegación entre secciones de una misma página. */
-.jump { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.jump { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-4) 0 0; padding: 0; list-style: none; }
 .jump a {
   display: inline-block;
-  padding: 0.25rem 0.7rem;
+  padding: var(--space-1) var(--space-3);
   border: 1px solid var(--line);
-  border-radius: 5px;
-  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  font-size: var(--text-dense);
   text-decoration: none;
   background: var(--surface);
 }
 .jump a:hover { border-color: var(--accent); }
 
 /* El ancla no queda pegada al borde superior al saltar. */
-section[id] { scroll-margin-top: 1rem; }
+section[id] { scroll-margin-top: var(--space-4); }
 
 /* Separador de tier: la fila que abre un tier nuevo lleva una línea más
    marcada, para que el hueco se vea sin tener que leer la columna. */
@@ -367,14 +478,14 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .machine {
   border-left: 3px solid var(--accent);
   background: var(--surface);
-  padding: 0.85rem 1.1rem;
-  margin: 1.5rem 0;
-  border-radius: 0 4px 4px 0;
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-5) 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 .machine-tag {
-  font-size: 0.78rem;
+  font-size: var(--text-micro);
   color: var(--muted);
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--space-3);
   text-transform: none;
 }
 .machine p:last-child { margin-bottom: 0; }
@@ -383,27 +494,27 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .note {
   border: 1px solid var(--line);
   border-left-width: 3px;
-  border-radius: 0 6px 6px 0;
-  padding: 0.75rem 1rem;
-  margin: 0.9rem 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-4) 0;
 }
 /* El borde de color repite lo que ya dice la etiqueta de texto: es refuerzo,
    nunca el único canal. Quien no distinga el azul del rojo lee "▲ Al alza". */
 .note--alza { border-left-color: var(--pos-diff-up); }
 .note--baja { border-left-color: var(--pos-diff-down); }
 .note--neutro { border-left-color: var(--axis); }
-.note h3 { margin: 0 0 0.4rem; font-size: 1rem; line-height: 1.35; }
-.note p { margin: 0.4rem 0; }
+.note h3 { margin: 0 0 var(--space-2); font-size: var(--text-body); line-height: var(--leading-snug); }
+.note p { margin: var(--space-2) 0; }
 
-.note-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
-.note-players { font-size: 0.82rem; color: var(--muted); }
+.note-meta { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+.note-players { font-size: var(--text-dense); color: var(--muted); }
 
 .tag {
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
   letter-spacing: 0.02em;
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
+  padding: var(--space-0) var(--space-2);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--muted);
@@ -414,19 +525,19 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .tag--confirmado { color: var(--fg); border-color: var(--fg); }
 .tag--rumor { font-style: italic; }
 
-.sources { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem !important; }
-.sources a { font-size: 0.8rem; color: var(--muted); }
+.sources { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2) !important; }
+.sources a { font-size: var(--text-dense); color: var(--muted); }
 .sources a:hover { color: var(--accent); }
 
 /* `capitalize` pondría «Lunes, 17 De Agosto»: en español sólo va en mayúscula
    la primera letra, y toLocaleDateString devuelve el día en minúscula. */
-.day { margin-top: 1.75rem; color: var(--muted);
-       font-size: 0.9rem; letter-spacing: 0.04em; border-bottom: 1px solid var(--line);
-       padding-bottom: 0.3rem; }
+.day { margin-top: var(--space-6); color: var(--muted);
+       font-size: var(--text-dense); letter-spacing: 0.04em; border-bottom: 1px solid var(--line);
+       padding-bottom: var(--space-1); }
 .day::first-letter { text-transform: uppercase; }
 
 /* Nota por jugador debajo de la tabla de su posición. */
-.why { margin: 0.35rem 0; font-size: 0.88rem; }
+.why { margin: var(--space-2) 0; font-size: var(--text-dense); }
 .why strong { color: var(--fg); }
 
 /* --- tabla de ranking ----------------------------------------------------- */
@@ -434,8 +545,8 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 /* Filas más juntas y rayado alterno: una lista de sesenta nombres se recorre
    con el dedo, y el rayado es lo que evita saltar de fila al leer los números
    de la derecha. */
-.rank-table { font-size: 0.9rem; min-width: 26rem; }
-.rank-table th, .rank-table td { padding: 0.35rem 0.6rem; vertical-align: middle; }
+.rank-table { font-size: var(--text-dense); line-height: var(--leading-snug); min-width: 26rem; }
+.rank-table th, .rank-table td { padding: var(--space-2) var(--space-3); vertical-align: middle; }
 /* El rayado va con color explícito en las DOS alternancias, no sólo en las
    pares. Hace falta para que las celdas fijas de abajo puedan heredarlo: con
    `background: inherit` sobre un `tr` transparente, el nombre se vuelve
@@ -462,28 +573,28 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
   width: 2.6rem;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 /* Nombre y contexto apilados en una celda. Ahorra tres columnas y es como se
    lee de verdad: primero el nombre, y el equipo y el rival sólo si hace falta. */
 .rank-table .who { text-align: left; white-space: normal; min-width: 11rem; }
-.rank-table .who .nm { display: block; font-weight: 600; line-height: 1.2; }
+.rank-table .who .nm { display: block; font-weight: var(--weight-semibold); line-height: var(--leading-tight); }
 .rank-table .who .meta {
   display: block;
-  font-size: 0.76rem;
+  font-size: var(--text-micro);
   color: var(--muted);
   letter-spacing: 0.01em;
-  margin-top: 0.1rem;
+  margin-top: var(--space-0);
 }
 
 .ptag {
   display: inline-block;
-  margin-right: 0.35rem;
-  padding: 0 0.28rem;
-  border-radius: 3px;
-  font-size: 0.68rem;
-  font-weight: 700;
+  margin-right: var(--gap-chip);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.03em;
   color: #fff;
 }
@@ -500,13 +611,13 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .tier-band td {
   background: var(--warn-bg);
   border-top: 2px solid var(--warn-line);
-  font-size: 0.74rem;
-  font-weight: 700;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--warn-line);
   text-align: left !important;
-  padding: 0.3rem 0.6rem !important;
+  padding: var(--space-1) var(--space-3) !important;
 }
 
 /* Marcas de "hay explicación" y "hay prensa". Llevan `title` y el contenido se
@@ -515,11 +626,13 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
   display: inline-block;
   width: 1rem;
   height: 1rem;
+  /* No es una altura de línea del texto: es la forma de centrar el glifo dentro
+     del círculo, así que vale lo mismo que `height` y no un paso de la escala. */
   line-height: 1rem;
-  margin-left: 0.3rem;
+  margin-left: var(--gap-chip);
   border-radius: 50%;
-  font-size: 0.68rem;
-  font-weight: 700;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
   text-align: center;
   vertical-align: text-top;
   cursor: help;
@@ -533,11 +646,11 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
    color sólo lo refuerza. */
 .avail {
   display: inline-block;
-  margin-left: 0.35rem;
-  padding: 0 0.3rem;
-  border-radius: 3px;
-  font-size: 0.63rem;
-  font-weight: 800;
+  margin-left: var(--gap-chip);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-heavy);
   letter-spacing: 0.06em;
   vertical-align: text-top;
   border: 1px solid currentColor;
@@ -550,76 +663,76 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 
 /* Fichas del dossier: atribuidas y fechadas, sin enlace. Se distinguen de las
    de research a propósito — la diferencia de fiabilidad es real. */
-.dossier { border: 1px solid var(--line); border-radius: 6px; padding: 0.6rem 0.85rem;
-           margin: 0.7rem 0; }
-.dossier h4 { margin: 0 0 0.25rem; font-size: 0.95rem; }
-.dossier p { margin: 0.3rem 0; }
-.dossier .attrib { font-size: 0.78rem; color: var(--muted); }
+.dossier { border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--space-3) var(--space-3);
+           margin: var(--space-3) 0; }
+.dossier h4 { margin: 0 0 var(--space-1); font-size: var(--text-body); }
+.dossier p { margin: var(--space-1) 0; }
+.dossier .attrib { font-size: var(--text-micro); color: var(--muted); }
 
 /* Directorio de reporteros: columnas que se recolocan solas. */
-.beat { column-width: 15rem; column-gap: 1.5rem; margin: 1rem 0; }
-.beat .team { break-inside: avoid; margin-bottom: 0.9rem; }
-.beat .team h4 { margin: 0 0 0.2rem; font-size: 0.85rem; letter-spacing: 0.06em;
+.beat { column-width: 15rem; column-gap: var(--space-5); margin: var(--space-4) 0; }
+.beat .team { break-inside: avoid; margin-bottom: var(--space-4); }
+.beat .team h4 { margin: 0 0 var(--space-1); font-size: var(--text-dense); letter-spacing: 0.06em;
                  color: var(--muted); }
-.beat ul { margin: 0; padding-left: 1rem; font-size: 0.85rem; }
-.beat li { margin: 0.1rem 0; }
+.beat ul { margin: 0; padding-left: var(--space-4); font-size: var(--text-dense); }
+.beat li { margin: var(--space-0) 0; }
 .beat .outlet { color: var(--muted); }
 
 /* --- plan de survivor ----------------------------------------------------- */
 
 /* La secuencia de picks se lee como una línea de tiempo, no como una tabla: lo
    que importa es el orden y que se vea de un golpe hasta dónde llega. */
-.plan { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.75rem 0 1.5rem; }
+.plan { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-3) 0 var(--space-5); }
 .plan .step {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   border: 1px solid var(--line);
-  border-radius: 5px;
-  padding: 0.2rem 0.45rem;
+  border-radius: var(--radius-md);
+  padding: var(--space-1) var(--space-2);
   min-width: 3.1rem;
   background: var(--surface);
 }
-.plan .wk { font-size: 0.63rem; color: var(--muted); letter-spacing: 0.06em; }
-.plan .tm { font-weight: 700; font-size: 0.9rem; line-height: 1.2; }
-.plan .pb { font-size: 0.68rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.plan .wk { font-size: var(--text-micro); color: var(--muted); letter-spacing: 0.06em; }
+.plan .tm { font-weight: var(--weight-bold); font-size: var(--text-dense); line-height: var(--leading-tight); }
+.plan .pb { font-size: var(--text-micro); color: var(--muted); font-variant-numeric: tabular-nums; }
 
 /* --- modo draft ----------------------------------------------------------- */
 
-.draft { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1.1rem;
-         margin: 1rem 0 1.75rem; }
-.draft-head { display: flex; flex-wrap: wrap; gap: 0.6rem 1.25rem;
+.draft { border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--space-4) var(--space-4);
+         margin: var(--space-4) 0 var(--space-6); }
+.draft-head { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5);
               align-items: baseline; justify-content: space-between;
-              font-size: 0.9rem; }
-.draft-roster { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-.slot { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
-        padding: 0.1rem 0.4rem; border-radius: 4px; border: 1px solid var(--line);
+              font-size: var(--text-dense); }
+.draft-roster { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.slot { font-size: var(--text-micro); font-weight: var(--weight-bold); letter-spacing: 0.04em;
+        padding: var(--space-0) var(--space-2); border-radius: var(--radius-sm); border: 1px solid var(--line);
         color: var(--muted); }
 /* Puesto cubierto: se apaga en vez de encenderse. Lo que hay que mirar en un
    draft es lo que falta, no lo que ya tienes. */
 .slot--full { color: var(--pos-wr); border-color: currentColor; }
 
-.picks { list-style: none; padding: 0; margin: 0.75rem 0 0; }
-.pick { display: flex; align-items: center; gap: 0.7rem; padding: 0.4rem 0;
+.picks { list-style: none; padding: 0; margin: var(--space-3) 0 0; }
+.pick { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) 0;
         border-top: 1px solid var(--line); }
 .pick:first-child { border-top: none; }
 /* La primera sugerencia se separa del resto: en dos horas de draft se mira de
    reojo, y tiene que leerse sin buscarla. */
-.pick--top { background: var(--warn-bg); margin: 0 -0.5rem; padding: 0.55rem 0.5rem;
-             border-radius: 5px; }
+.pick--top { background: var(--warn-bg); margin: 0 calc(-1 * var(--space-2)); padding: var(--space-2) var(--space-2);
+             border-radius: var(--radius-md); }
 .pick-rank { width: 1.4rem; text-align: center; color: var(--muted);
-             font-weight: 700; font-size: 0.85rem; }
+             font-weight: var(--weight-bold); font-size: var(--text-dense); }
 .pick--top .pick-rank { color: var(--warn-line); }
 .pick-who { flex: 1; min-width: 0; }
-.pick-who .nm { display: block; font-weight: 650; line-height: 1.2; }
-.pick-who .meta { display: block; font-size: 0.76rem; color: var(--muted); }
-.pick-actions { display: flex; gap: 0.35rem; flex-shrink: 0; }
+.pick-who .nm { display: block; font-weight: var(--weight-numeric); line-height: var(--leading-tight); }
+.pick-who .meta { display: block; font-size: var(--text-micro); color: var(--muted); }
+.pick-actions { display: flex; gap: var(--space-2); flex-shrink: 0; }
 .pick-actions button, .draft button.link {
   font: inherit;
-  font-size: 0.8rem;
+  font-size: var(--text-dense);
   cursor: pointer;
-  border-radius: 5px;
-  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-md);
+  padding: var(--space-1) var(--space-3);
   border: 1px solid var(--accent);
   background: var(--accent);
   color: var(--bg);
@@ -631,18 +744,18 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .draft button.link { border: none; background: none; color: var(--accent);
                      padding: 0; text-decoration: underline; }
 
-.mine { list-style: none; padding: 0; margin: 0.4rem 0 0; font-size: 0.9rem; }
-.mine li { padding: 0.2rem 0; display: flex; align-items: center; gap: 0.4rem; }
-.mine .outlet { color: var(--muted); font-size: 0.8rem; }
+.mine { list-style: none; padding: 0; margin: var(--space-2) 0 0; font-size: var(--text-dense); }
+.mine li { padding: var(--space-1) 0; display: flex; align-items: center; gap: var(--space-2); }
+.mine .outlet { color: var(--muted); font-size: var(--text-dense); }
 
 /* Etiqueta de riesgo. El texto es el canal principal; el color, refuerzo. */
 .risk {
   display: inline-block;
-  margin-left: 0.35rem;
-  padding: 0 0.32rem;
-  border-radius: 3px;
-  font-size: 0.65rem;
-  font-weight: 700;
+  margin-left: var(--gap-chip);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.04em;
   vertical-align: text-top;
   border: 1px solid currentColor;
@@ -654,88 +767,88 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 /* Nota de research bajo el nombre: una línea, recortada, sin romper la fila. */
 .brief {
   display: block;
-  font-size: 0.76rem;
+  font-size: var(--text-micro);
   color: var(--muted);
-  margin-top: 0.15rem;
+  margin-top: var(--space-1);
   max-width: 34rem;
   white-space: normal;
   border-left: 2px solid var(--warn-line);
-  padding-left: 0.45rem;
+  padding-left: var(--space-2);
 }
 
 /* --- consenso y fuentes --------------------------------------------------- */
 
 /* Dos columnas en pantalla ancha, una en móvil. Subir y bajar son la misma
    pregunta vista desde los dos lados, y leerlas en paralelo es el punto. */
-.two-up { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-          margin: 1rem 0; }
+.two-up { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+          margin: var(--space-4) 0; }
 
-.gap { list-style: none; padding: 0; margin: 0.5rem 0 0; }
-.gap li { padding: 0.5rem 0; border-top: 1px solid var(--line); }
+.gap { list-style: none; padding: 0; margin: var(--space-2) 0 0; }
+.gap li { padding: var(--space-2) 0; border-top: 1px solid var(--line); }
 .gap li:first-child { border-top: none; }
 .gap-who { display: block; }
 .gap-nums { display: flex; justify-content: space-between; align-items: baseline;
-            gap: 0.5rem; font-size: 0.8rem; margin-top: 0.1rem; }
+            gap: var(--space-2); font-size: var(--text-dense); margin-top: var(--space-0); }
 /* Verde arriba y rojo abajo repiten el signo, que ya está escrito. Refuerzo,
    nunca canal único. */
-.gap-up { color: var(--pos-wr); font-weight: 700; }
-.gap-down { color: var(--pos-diff-down); font-weight: 700; }
-.gap-note { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+.gap-up { color: var(--pos-wr); font-weight: var(--weight-bold); }
+.gap-down { color: var(--pos-diff-down); font-weight: var(--weight-bold); }
+.gap-note { display: block; font-size: var(--text-micro); color: var(--muted); margin-top: var(--space-1); }
 
-.sources-list { list-style: none; padding: 0; margin: 1rem 0; font-size: 0.88rem; }
-.sources-list li { padding: 0.35rem 0; border-bottom: 1px solid var(--line); }
-.sources-list .used { color: var(--muted); font-size: 0.82rem; }
+.sources-list { list-style: none; padding: 0; margin: var(--space-4) 0; font-size: var(--text-dense); }
+.sources-list li { padding: var(--space-2) 0; border-bottom: 1px solid var(--line); }
+.sources-list .used { color: var(--muted); font-size: var(--text-dense); }
 /* Lo sin verificar se apaga: sigue estando, pero no compite visualmente con una
    fuente con redacción detrás. */
 .sources-list li.unverified { opacity: 0.72; }
-.sources-list li.unverified .tag { margin-left: 0.4rem; }
+.sources-list li.unverified .tag { margin-left: var(--gap-chip); }
 
 /* Buscador del modo draft. Ancho completo y grande: se usa con una mano, con
    prisa y mirando a otro sitio. */
 .draft-search {
   width: 100%;
   font: inherit;
-  font-size: 0.95rem;
+  font-size: var(--text-body);
   min-height: 44px;
-  padding: 0.5rem 0.7rem;
-  margin: 0.35rem 0 0.2rem;
+  padding: var(--space-2) var(--space-3);
+  margin: var(--space-2) 0 var(--space-1);
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   background: var(--bg);
   color: var(--fg);
 }
 .draft-search:focus { outline: 2px solid var(--accent); outline-offset: 1px;
                       border-color: var(--accent); }
-.picks--found { border: 1px solid var(--accent); border-radius: 6px;
-                padding: 0 0.5rem; margin-top: 0.5rem; }
-.draft-h { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em;
-           color: var(--muted); margin: 1.1rem 0 0; }
+.picks--found { border: 1px solid var(--accent); border-radius: var(--radius-md);
+                padding: 0 var(--space-2); margin-top: var(--space-2); }
+.draft-h { font-size: var(--text-dense); text-transform: uppercase; letter-spacing: 0.06em;
+           color: var(--muted); margin: var(--space-4) 0 0; }
 
 /* --- tarjetas de estado --------------------------------------------------- */
 
 /* Enlaces, no adornos: lo primero de la portada tiene que llevarte a donde
    ibas. Un panel de estado que no es clicable obliga a leerlo y después buscar
    el enlace en el menú. */
-.cards { display: grid; gap: 0.7rem; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-         margin: 1.5rem 0; }
+.cards { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+         margin: var(--space-5) 0; }
 .card {
   display: block;
   border: 1px solid var(--line);
-  border-radius: 7px;
-  padding: 0.7rem 0.85rem;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-3);
   text-decoration: none;
   color: inherit;
   transition: border-color 120ms ease-out;
 }
 .card:hover, .card:focus { border-color: var(--accent); }
-.card-label { display: block; font-size: 0.72rem; text-transform: uppercase;
+.card-label { display: block; font-size: var(--text-micro); text-transform: uppercase;
               letter-spacing: 0.05em; color: var(--muted); }
-.card-value { display: block; font-size: 1.25rem; font-weight: 650;
-              letter-spacing: -0.01em; margin: 0.1rem 0; }
-.card-detail { display: block; font-size: 0.78rem; color: var(--muted); }
+.card-value { display: block; font-size: var(--num-lead); font-weight: var(--weight-numeric);
+              letter-spacing: -0.01em; margin: var(--space-0) 0; }
+.card-detail { display: block; font-size: var(--text-micro); color: var(--muted); }
 /* Caducado: el borde avisa y el detalle lo dice con palabras. Nunca sólo color. */
 .card--stale { border-color: var(--warn-line); background: var(--warn-bg); }
-.card--stale .card-detail { color: var(--warn-line); font-weight: 600; }
+.card--stale .card-detail { color: var(--warn-line); font-weight: var(--weight-semibold); }
 
 /* --- objetivos táctiles --------------------------------------------------- */
 
@@ -744,11 +857,11 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
    ellos, y **hacen cosas opuestas** — «Yo» te mete al jugador en la plantilla y
    «Fuera» lo tacha. Fallar el toque ahí no es una molestia estética: corrompe el
    estado de tu draft en el peor momento posible. */
-.pick-actions { gap: 0.5rem; }
+.pick-actions { gap: var(--space-2); }
 .pick-actions button {
   min-height: 44px;
   min-width: 48px;
-  padding: 0.35rem 0.75rem;
+  padding: var(--space-2) var(--space-3);
 }
 
 /* Las píldoras de salto entre secciones se pulsan igual. */
@@ -759,10 +872,10 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
    deja de decirte qué campo es justo cuando ya has empezado. */
 .field-label {
   display: block;
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
   color: var(--muted);
-  margin-top: 0.9rem;
+  margin-top: var(--space-4);
 }
 
 /* Desplazamiento suave al saltar de sección, salvo que el sistema pida lo
