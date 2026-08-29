@@ -98,3 +98,56 @@ temporadas **anteriores** a S. Evaluación sobre 2016–2025.
 4. **Un rookie que no cumpla las condiciones anteriores no entra en el board.**
    Es preferible un board sin rookies —lo que hay hoy— a un board con rookies
    inventados.
+
+---
+
+# RESULTADO — 2026-08-29
+
+Walk-forward estricto: la previa de la temporada S sólo ve rookies de temporadas
+anteriores a S. 2.250 rookies evaluados sobre 2016–2025.
+
+| | MAE | Spearman |
+|---|---|---|
+| **previa por capital de draft** | **23,68** | **0,604** |
+| baseline A: cero (lo que hay hoy) | 24,06 | — (constante) |
+| baseline B: media de la posición | 39,36 | 0,093 |
+
+Por posición: QB ρ 0,566 (n=222) · RB 0,575 (n=564) · WR 0,619 (n=1.026) ·
+TE 0,622 (n=438).
+
+**Bate a los dos baselines. El umbral de alarma (ρ > 0,75) no salta.**
+
+## Dónde gana, y dónde no
+
+Hay que decir esto con precisión, porque el titular «bate a los dos baselines»
+esconde una asimetría enorme:
+
+- **En error absoluto casi no gana**: 23,68 frente a 24,06 de predecir cero. Son
+  cuatro décimas. Y el motivo es que el rookie **modal realmente hace cero
+  puntos**: la mayoría no juega. Contra esa realidad, un cero constante es un
+  predictor difícil de batir en MAE.
+- **En orden gana por goleada**: ρ 0,604 frente a 0,093 de la media de posición,
+  y frente a nada en absoluto del cero constante, que no ordena.
+
+Un board de draft **no necesita acertar los puntos**: necesita acertar el orden.
+Ahí es exactamente donde esta previa aporta, y por eso se construye. Pero nadie
+debería leer «MAE 23,68» y pensar que ya sabemos cuántos puntos hará un rookie.
+
+## Un fallo propio que encontró un test
+
+La condición del aviso de bimodalidad se escribió como
+`p50 > 0 and mean > 2 * p50`. Con **mediana cero** —el caso más bimodal que
+existe: la mayoría no juega y unos pocos suman doscientos— el aviso **no
+saltaba**, justo donde más falta hace. Corregido comparando contra la media
+(`p50 <= 0.5 * mean`), que cubre el caso sin excepciones.
+
+## Lo que NO se ha integrado, y por qué
+
+La previa **no entra todavía en el board publicado ni en el payload**. Enseñar
+rookies bien exige lo que el propio preregistro obliga: un intervalo en vez de
+un punto, el tamaño de muestra a la vista y un aviso de bimodalidad. Eso son
+columnas y distintivos nuevos en la tabla del board — es decir, **UI**, y la
+pasada visual de fases 1–7 está activa.
+
+Queda el módulo, la validación y los tests. La integración es la primera tarea
+de fantasy en cuanto cierre la fase 7.
