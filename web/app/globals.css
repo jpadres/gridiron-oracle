@@ -129,6 +129,32 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
 /* El sello de build. Monoespaciado y seleccionable a propósito: sirve para
    copiarlo y pegarlo cuando algo no cuadra, así que no puede ser una imagen ni
    llevar `user-select: none`. */
+/* --- sincronización con Sleeper ------------------------------------------ */
+
+/* Bloque aparte y con borde: es lo único de la página que habla con fuera, y
+   eso merece un contorno propio en vez de disolverse entre los controles del
+   tablero. */
+.sleeper { border: 1px solid var(--line); border-radius: 8px;
+           padding: 0.75rem 0.9rem; margin: 0.75rem 0; background: var(--surface); }
+.sleeper-line { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.sleeper-connect { display: flex; flex-direction: column; gap: 0.5rem; }
+.sleeper-connect input, .sleeper select {
+  /* 44 px de alto: el mínimo táctil. La lección de los botones «Yo»/«Fuera»,
+     que medían 29 px y hacían cosas opuestas. */
+  min-height: 44px; padding: 0.4rem 0.6rem; font-size: 1rem;
+  border: 1px solid var(--line); border-radius: 6px;
+  background: var(--bg); color: var(--fg); width: 100%; max-width: 26rem;
+}
+.sleeper-error { color: var(--warn-line); }
+
+/* El punto de estado lleva SIEMPRE texto al lado («Sleeper», el error). El
+   color es el segundo canal, nunca el único: un punto verde solo no dice nada
+   a quien no lo distingue del rojo. */
+.dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; display: inline-block;
+       background: var(--muted); flex: none; }
+.dot--live { background: #1baf7a; }
+.dot--error { background: #d03b3b; }
+
 /* Probabilidad de bust. Fondo tenue y no texto de color: la columna se lee en
    vertical buscando el número alto, y un texto rojo sobre blanco a 0,8rem pasa
    desapercibido justo en la fila que más importa. */

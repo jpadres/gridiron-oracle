@@ -46,6 +46,9 @@ SIZE_WARNING_KB = 200
 # lleve el artefacto de `out/` es intermedio del modelo y no viaja al bundle.
 DRAFT_COLUMNS = (
     "player_id", "overall_rank", "player_name", "position", "team", "position_rank",
+    # El nombre completo no se pinta —la tabla usa el abreviado— pero viaja
+    # porque es la clave con la que el modo draft cruza los picks de Sleeper.
+    "player_full_name",
     "tier", "projected_points", "vor",
     # Riesgo: la etiqueta, sus tres componentes y los motivos que se nombran.
     # Las componentes viajan aunque no se pinten en una columna porque el

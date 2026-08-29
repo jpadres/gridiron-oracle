@@ -415,11 +415,28 @@ llamativa sobre el jugador equivocado.
 ## Seguridad
 
 La superficie de ataque de este proyecto es deliberadamente diminuta, y eso vale
-más que cualquier lista de mitigaciones: **0 endpoints de API, 0 formularios, 0
-subidas de archivos, 0 cookies, 0 sesiones, 0 base de datos, 0 peticiones de red
-en runtime.** El sitio son siete páginas estáticas con los datos horneados en el
-build. No hay login que forzar, ni consultas que inyectar, ni registros ajenos que
-leer, porque no hay usuarios ni registros.
+más que cualquier lista de mitigaciones: **0 endpoints de API, 0 subidas de
+archivos, 0 cookies, 0 sesiones, 0 base de datos.** El sitio son ocho páginas
+estáticas con los datos horneados en el build. No hay login que forzar, ni
+consultas que inyectar, ni registros ajenos que leer, porque no hay usuarios ni
+registros.
+
+**Hay exactamente una petición de red en runtime, y sólo si la activas:** el modo
+draft consulta los picks de tu liga en `api.sleeper.app` para tachar solo a quien
+ya se llevaron. Hasta agosto de 2026 el sitio era cero-red y el README lo decía;
+se cambió a petición del dueño porque marcar 250 nombres a mano en un móvil
+durante un draft en vivo no es viable.
+
+Lo que eso cuesta y lo que no:
+
+- `connect-src` deja de estar vacío. Sigue siendo una **lista blanca de un solo
+  destino**: cualquier otro host lo bloquea el navegador.
+- **No viaja ninguna credencial.** La API de Sleeper es pública y de sólo
+  lectura: sin clave, sin OAuth, nada que rotar. Lo único que sale del navegador
+  es el id de tu liga, que ya es público en la URL de Sleeper.
+- CI lo verifica **contra el servidor real**: que el único dominio externo de la
+  CSP sea ése, que esté en `connect-src` y en ninguna otra directiva, y que
+  `fetch` no aparezca en ningún fichero de `app/` salvo el modo draft.
 
 **Hay una credencial, y sólo una.** `ANTHROPIC_API_KEY`, para los textos
 generados y el barrido de prensa. Vive únicamente como secret de GitHub Actions:

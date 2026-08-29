@@ -58,10 +58,19 @@ resultado aunque sea negativo.
 
 ### 4. Nada de seguridad de adorno
 
-El sitio no tiene endpoints, formularios, cookies, sesiones, base de datos ni
-peticiones de red en runtime. No añadas auth, rate limiting, sanitización de
-entrada de usuario ni RLS: no hay usuarios ni datos que proteger. Lo que sí se
-mantiene está en la sección de Seguridad del README y verificado en CI.
+El sitio no tiene endpoints, cookies, sesiones ni base de datos. No añadas auth,
+rate limiting, sanitización de entrada de usuario ni RLS: no hay usuarios ni
+datos que proteger. Lo que sí se mantiene está en la sección de Seguridad del
+README y verificado en CI.
+
+**La excepción de red, desde agosto de 2026:** el modo draft consulta
+`api.sleeper.app` en runtime para tachar los picks ya hechos. Es el **único**
+destino externo de todo el sitio y la única página que pide algo. Antes de
+añadir un segundo, ten claro que ahora mismo tres controles de CI comprueban que
+no exista: el dominio único en la CSP, que esté sólo en `connect-src`, y que
+`fetch` no aparezca fuera de `DraftMode.jsx`. Están escritos como lista blanca a
+propósito — un control que se relaja hasta no comprobar nada es peor que no
+tenerlo, porque deja la sensación de que algo vigila.
 
 La excepción es `ANTHROPIC_API_KEY`, que sí es una credencial de verdad: vive
 sólo como secret de GitHub Actions, el código nunca la nombra (la lee el SDK del
@@ -110,7 +119,7 @@ src/oracle/
   fantasy/               puntuación, proyecciones de draft, ranking semanal
   narrative/             textos generados y barrido de prensa (opcional, con clave)
   survivor/              plan de survivor: asignación lineal sobre log-probabilidades
-  leagues/sleeper.py     sincroniza puntuación y tamaño de la liga (API pública, sin clave)
+  leagues/sleeper.py     liga, puntuación y picks del draft (API pública, sin clave)
   fantasy/risk.py        volatilidad de la proyección, VALIDADA contra el error real
   fantasy/availability.py tasa de ausencia: partidos del equipo en que no aparece
   fantasy/bust.py        P(terminar bajo el 70% de la proyección), calibrada
@@ -118,7 +127,8 @@ src/oracle/
   cli.py                 comando `oracle`
 research/                archivo diario de prensa + dossier curado — SÍ se versiona
 web/                     Next.js 16, 8 páginas estáticas, datos horneados
-                         (el modo draft es el ÚNICO componente de cliente)
+                         (el modo draft es el ÚNICO componente de cliente y el
+                          ÚNICO que hace red: sondea Sleeper si lo activas)
 scripts/                 generación de artefactos y utilidades
 ```
 
@@ -155,6 +165,7 @@ python scripts/fantasy_risk_validate.py        # ¿la volatilidad predice el err
 python scripts/fantasy_availability_validate.py  # ¿la ausencia pasada predice la futura?
 python scripts/fantasy_bust_validate.py        # ¿está calibrada la P(bust)?: ~3 min
 python scripts/sleeper_sync.py --league <id>   # lee tu liga: puntuación y tamaño reales
+python scripts/sleeper_draft_sync.py --league <id>  # picks ya hechos -> research/draft_state.json
 python scripts/dossier_import.py libro.xlsx    # importa el dossier curado
 python scripts/export_web_data.py              # regenera el payload de la web
 python scripts/make_report.py                  # informe HTML de validación

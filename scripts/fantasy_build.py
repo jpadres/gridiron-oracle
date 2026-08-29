@@ -190,6 +190,22 @@ def main(argv: list[str] | None = None) -> int:
     team_games = pd.read_parquet(paths.team_games)
     board = _attach_risk(players, team_games, board, season)
 
+    # Nombre completo, además del abreviado que se pinta.
+    #
+    # No es cosmético: es lo que permite emparejar los picks de Sleeper con este
+    # board **sin adivinar**. Sleeper manda «Bijan Robinson»; nflverse abrevia a
+    # «B.Robinson», que es indistinguible de Brian Robinson. Con el nombre
+    # completo más equipo y posición el cruce es exacto, y donde no lo sea se
+    # renuncia a emparejar en vez de arriesgarse — la misma regla que en el
+    # dossier.
+    full_names = (
+        players.dropna(subset=["player_display_name"])
+        .sort_values("season")
+        .groupby("player_id", observed=True)["player_display_name"]
+        .last()
+    )
+    board["player_full_name"] = board["player_id"].map(full_names)
+
     print("\nTop 20 por VOR:\n")
     view = board.head(20)[
         ["overall_rank", "player_name", "position", "position_rank", "tier",

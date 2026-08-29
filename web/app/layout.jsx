@@ -72,8 +72,9 @@ export default function RootLayout({ children }) {
               financiera, y las apuestas conllevan riesgo de pérdida.
             </p>
             <p>
-              Sitio estático: sin cuentas, sin base de datos y sin peticiones de red en
-              runtime.
+              Sitio estático: sin cuentas y sin base de datos. La única petición de red en
+              runtime es la del modo draft a la API pública de Sleeper, y sólo si la
+              activas: ninguna otra página pide nada.
             </p>
             <BuildStamp />
           </footer>

@@ -96,24 +96,62 @@ jobs:
             fail=1
           fi
 
-          # La CSP no puede listar dominios externos: el sitio no carga nada de fuera.
+          # La CSP lista **exactamente un** dominio externo, y sólo en connect-src:
+          # api.sleeper.app, para que el modo draft lea los picks en vivo.
+          #
+          # El control no se ha quitado, se ha vuelto una lista blanca: cualquier
+          # otro dominio, o Sleeper apareciendo en una directiva que no sea
+          # connect-src (script-src, por ejemplo, que sería mucho peor), falla el
+          # build. Un control que se relaja «porque ahora hace falta una
+          # excepción» y pasa a no comprobar nada es peor que no tenerlo, porque
+          # deja la sensación de que algo vigila.
           csp=$(grep -i "content-security-policy:" <<< "$headers")
-          if grep -Eq "https?://[a-z]" <<< "$csp"; then
-            echo "La CSP contiene dominios externos: $csp"
+          externos=$(grep -oE "https?://[a-zA-Z0-9.-]+" <<< "$csp" | sort -u)
+          if [ "$externos" != "https://api.sleeper.app" ]; then
+            echo "Dominios externos inesperados en la CSP:"
+            echo "$externos"
+            fail=1
+          fi
+          if ! grep -qE "connect-src [^;]*https://api\.sleeper\.app" <<< "$csp"; then
+            echo "api.sleeper.app tiene que estar en connect-src y en ninguna otra directiva."
             fail=1
           fi
 
           exit $fail
 
-      # El sitio no debe tener ni una petición de red en runtime ni HTML crudo.
-      - name: Prohibir fetch en runtime y dangerouslySetInnerHTML
+      # Una sola página pide red, y sólo a Sleeper. Ni HTML crudo en ninguna.
+      - name: Acotar las peticiones de runtime y prohibir dangerouslySetInnerHTML
         run: |
           if grep -rn "dangerouslySetInnerHTML" app data; then
             echo "dangerouslySetInnerHTML no está permitido en este proyecto."
             exit 1
           fi
-          if grep -rEn "\bfetch\(|XMLHttpRequest|new WebSocket" app data; then
-            echo "Los datos se hornean en el build: no hay peticiones en runtime."
+
+          # `fetch` sólo puede aparecer en el modo draft. En cualquier otro
+          # sitio significa que una página que se anuncia como estática ha
+          # empezado a pedir cosas, que es exactamente lo que este control
+          # existe para detectar.
+          culpables=$(grep -rlE "\bfetch\(|XMLHttpRequest|new WebSocket" app data \
+                      | grep -v "^app/fantasy/DraftMode.jsx$" || true)
+          if [ -n "$culpables" ]; then
+            echo "Peticiones de red fuera del modo draft:"
+            echo "$culpables"
+            exit 1
+          fi
+
+          # XHR y WebSocket no hacen falta ni ahí: si aparecen, alguien ha
+          # metido una dependencia que abre un canal que la CSP no cubre igual.
+          if grep -rEn "XMLHttpRequest|new WebSocket" app data; then
+            echo "Sólo fetch, y sólo a Sleeper."
+            exit 1
+          fi
+
+          # Y el destino tiene que ser Sleeper. Un fetch a otro host pasaría este
+          # fichero pero lo bloquearía el navegador por CSP: mejor que falle aquí,
+          # donde se lee el motivo, que en la consola de alguien en mitad de un draft.
+          if grep -nE "\bfetch\(" app/fantasy/DraftMode.jsx \
+             | grep -qvE "SLEEPER|api\.sleeper\.app"; then
+            echo "El modo draft sólo puede llamar a api.sleeper.app."
             exit 1
           fi
 
