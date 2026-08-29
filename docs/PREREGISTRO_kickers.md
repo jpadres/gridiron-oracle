@@ -81,3 +81,75 @@ no, la variante que se documente, la misma para modelo y baselines.
    probabilidad de acierto individual por distancia ajustada a su historial.
    Con 30 intentos al año y una desviación típica de habilidad de 0,026, ese
    número sería ruido con tres decimales.
+
+---
+
+# RESULTADO — 2026-08-29
+
+## El umbral de alarma hizo su trabajo antes que nada
+
+La primera ejecución dio **Spearman 0,410**, por encima del umbral de alarma de
+0,25 que obliga a investigar antes de publicar. La investigación tardó un
+minuto: el script estaba alimentando el modelo con los **puntos reales** del
+equipo. Le estaba dando la respuesta. Un pateador no se proyecta sabiendo el
+marcador final.
+
+Reescrito para usar `backtest_preds.parquet` —predicciones walk-forward, cada
+temporada pronosticada por un modelo que no la ha visto—, el Spearman cae de
+**0,410 a 0,136**. Ese factor de tres es exactamente la diferencia entre lo que
+un modelo parece valer y lo que vale.
+
+## Resultado con entradas honestas (2022–2025, 2.108 pateador-semanas)
+
+| | MAE | Spearman |
+|---|---|---|
+| modelo | **3,728** | **0,136** |
+| baseline A: pateador medio de la liga | 3,770 | — (constante) |
+| baseline B: su propia forma reciente | 4,068 | 0,047 |
+
+**Bate a los dos baselines: SÍ.** Formalmente pasa el umbral.
+
+## Y aun así, la cifra que importa dice otra cosa
+
+Puntos realizados por tramo del ranking proyectado:
+
+| tramo | n | proyectado | realizado | IC 95% |
+|---|---|---|---|---|
+| K1–K3 | 216 | 8,20 | 8,62 | [8,05 – 9,19] |
+| K4–K6 | 216 | 7,86 | 8,54 | [7,89 – 9,18] |
+| K7–K9 | 216 | 7,65 | 8,33 | [7,68 – 8,97] |
+| K10–K12 | 216 | 7,47 | 8,31 | [7,73 – 8,90] |
+| K13–K20 | 576 | 7,20 | 7,78 | [7,38 – 8,17] |
+| K21+ | 734 | 6,67 | 7,33 | [6,99 – 7,68] |
+
+El ranking es monótono de arriba abajo, así que **hay señal**. Pero:
+
+> **K1–K6 menos K7–K12, realizado: +0,26 puntos por partido.**
+> Error estándar 0,31. **IC 95% [−0,36, +0,87].**
+> **No es distinguible de cero.**
+
+El recorrido completo, de K1–K3 a K21+, son 1,29 puntos por partido, contra una
+desviación típica de **4,72 puntos** en una jornada cualquiera de pateador.
+
+Traducido: lo que el modelo distingue es **«titular en un buen ataque» frente a
+«suplente en un ataque malo»**. Para eso nadie necesita un modelo. Dentro de los
+doce pateadores que un usuario se plantearía de verdad, el orden no separa nada
+que se pueda medir.
+
+## Qué se publica, según la regla escrita de antemano
+
+La regla decía: si la separación K1–K12 es menor de 1,5 puntos por partido, se
+publica el ranking **con esa cifra al lado** y con la frase de que elegir
+pateador casi no mueve la aguja. Se cumple, y con la cifra que corresponde, que
+no es el estimador puntual sino el intervalo:
+
+> Entre el pateador número 1 y el número 12 de este ranking la diferencia
+> medida es de 0,26 puntos por partido, con un intervalo de confianza del 95%
+> que va de −0,36 a +0,87. Es decir: **no hay diferencia detectable.** La
+> desviación típica de un pateador en una jornada es de 4,7 puntos, dieciocho
+> veces mayor. Coge al titular de un buen ataque y no vuelvas a mirar.
+
+**No se publica** ninguna estimación de habilidad individual del pateador, ni
+probabilidad de acierto por distancia ajustada a su historial. El preregistro ya
+lo prohibía y los datos lo confirman: con 30 intentos al año y una desviación
+típica de habilidad de 0,026, ese número sería ruido con tres decimales.
