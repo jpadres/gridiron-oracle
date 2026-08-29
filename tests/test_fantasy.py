@@ -17,7 +17,14 @@ from oracle.fantasy.draft import (
     draft_board,
     project_season,
 )
-from oracle.fantasy.scoring import HALF_PPR, PPR, STANDARD, rules_from_name, score_player_weeks
+from oracle.fantasy.scoring import (
+    HALF_PPR,
+    PPR,
+    STANDARD,
+    TE_PREMIUM,
+    rules_from_name,
+    score_player_weeks,
+)
 from oracle.fantasy.weekly import (
     DEF_STRENGTH,
     SACK_RATE,
@@ -525,3 +532,44 @@ def test_risk_is_ranked_within_each_position(player_weeks):
         assert "Estable" in labels and "Volátil" in labels, (
             f"{position} no tiene las dos etiquetas: {labels}"
         )
+
+
+# ---------------------------------------------------------------------------
+# Puntuación por posición
+# ---------------------------------------------------------------------------
+
+def _semana(position: str, receptions: int) -> pd.DataFrame:
+    return pd.DataFrame([{"position": position, "receptions": receptions,
+                          "receiving_yards": 10.0 * receptions}])
+
+
+def test_te_premium_solo_paga_mas_al_ala_cerrada():
+    """Un premium que se aplicase a todos no sería un premium."""
+    te = score_player_weeks(_semana("TE", 8), TE_PREMIUM).iloc[0]
+    wr = score_player_weeks(_semana("WR", 8), TE_PREMIUM).iloc[0]
+    assert te - wr == pytest.approx(8 * 0.5)
+    # Y en PPR normal los dos valen lo mismo.
+    assert score_player_weeks(_semana("TE", 8), PPR).iloc[0] == pytest.approx(
+        score_player_weeks(_semana("WR", 8), PPR).iloc[0]
+    )
+
+
+def test_te_premium_revienta_sin_la_columna_de_posicion():
+    """Perder el premium en silencio produce un board de otra liga.
+
+    Es el mismo criterio que `UnmappedScoring`: mejor no publicar un board que
+    publicar el de otra liga. Un ala cerrada de 80 recepciones se movería veinte
+    puestos sin que nada avisara.
+    """
+    sin_posicion = pd.DataFrame([{"receptions": 8, "receiving_yards": 80.0}])
+    with pytest.raises(ValueError, match="position"):
+        score_player_weeks(sin_posicion, TE_PREMIUM)
+    # Y sin premium no hace falta la columna: no hay nada que perder.
+    assert score_player_weeks(sin_posicion, PPR).iloc[0] == pytest.approx(16.0)
+
+
+def test_posicion_desconocida_cae_en_el_valor_general():
+    """Un fullback en una liga con premium de TE cobra la recepción normal."""
+    fb = score_player_weeks(_semana("FB", 4), TE_PREMIUM).iloc[0]
+    wr = score_player_weeks(_semana("WR", 4), TE_PREMIUM).iloc[0]
+    assert fb == pytest.approx(wr)

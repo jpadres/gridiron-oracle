@@ -12,6 +12,7 @@ constante escondida a mitad del cálculo.
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 
 import pandas as pd
@@ -37,10 +38,30 @@ class ScoringRules:
     rushing_100_bonus: float = 0.0
     receiving_100_bonus: float = 0.0
 
+    # Valor de la recepción por posición, cuando la liga no lo paga igual a
+    # todos. El caso corriente es el «TE premium»: 1,5 puntos por recepción de
+    # ala cerrada y 1 para el resto, que cambia el ranking de la posición
+    # entera y no es un matiz — un ala cerrada de 80 recepciones pasa de valer
+    # como un WR3 a valer como un WR1.
+    #
+    # `None` significa «todos igual, según `reception`». Un diccionario sólo
+    # necesita las posiciones que se apartan: `{"TE": 1.5}` deja QB, RB y WR en
+    # el valor general.
+    reception_by_position: Mapping[str, float] | None = None
+
+    def reception_value(self, position: object) -> float:
+        """Puntos por recepción de esa posición."""
+        if not self.reception_by_position:
+            return self.reception
+        return self.reception_by_position.get(str(position).upper(), self.reception)
+
 
 PPR = ScoringRules()
 HALF_PPR = ScoringRules(reception=0.5)
 STANDARD = ScoringRules(reception=0.0)
+# El premium más extendido. Se deja como preset porque escribirlo a mano en cada
+# sitio es la forma de que un día alguien ponga 1.0 y no se entere nadie.
+TE_PREMIUM = ScoringRules(reception_by_position={"TE": 1.5})
 
 
 # Nombres de columna de nflverse -> atributo de las reglas. Se mantiene aquí y
@@ -59,7 +80,6 @@ _STAT_COLUMNS: dict[str, str] = {
     "rushing_tds": "rushing_td",
     "receiving_yards": "receiving_yards",
     "receiving_tds": "receiving_td",
-    "receptions": "reception",
 }
 
 # Grupos de alias: si un DataFrame trajese los dos nombres, sumar ambos contaría
@@ -80,6 +100,8 @@ def score_player_weeks(stats: pd.DataFrame, rules: ScoringRules = PPR) -> pd.Ser
     for column, attribute in _STAT_COLUMNS.items():
         if column in stats.columns and column not in skip:
             points += stats[column].fillna(0.0) * getattr(rules, attribute)
+
+    points += _reception_points(stats, rules)
 
     # Las pérdidas de balón vienen repartidas en varias columnas según la
     # temporada; se suman todas las que estén presentes.
@@ -102,6 +124,32 @@ def score_player_weeks(stats: pd.DataFrame, rules: ScoringRules = PPR) -> pd.Ser
     return points
 
 
+def _reception_points(stats: pd.DataFrame, rules: ScoringRules) -> pd.Series:
+    """Puntos por recepción, con el valor de cada posición si la liga lo distingue.
+
+    Si la liga paga la recepción por posición y el DataFrame no trae `position`,
+    esto **revienta** en vez de aplicar el valor general. Es el mismo criterio
+    que `UnmappedScoring` en el cliente de Sleeper: un board de TE premium
+    calculado como PPR normal no es aproximado, es de otra liga, y el ala
+    cerrada que decide tu draft aparecería veinte puestos más abajo.
+    """
+    if "receptions" not in stats.columns:
+        return pd.Series(0.0, index=stats.index)
+
+    receptions = stats["receptions"].fillna(0.0)
+    if not rules.reception_by_position:
+        return receptions * rules.reception
+
+    if "position" not in stats.columns:
+        raise ValueError(
+            "Estas reglas pagan la recepción por posición "
+            f"({dict(rules.reception_by_position)}) y las estadísticas no traen "
+            "`position`. Sin ella el premium se perdería en silencio."
+        )
+    values = stats["position"].map(rules.reception_value).astype(float)
+    return receptions * values
+
+
 def _redundant_aliases(columns) -> set[str]:
     """De cada grupo de alias presente, conserva el primero y descarta el resto.
 
@@ -118,7 +166,10 @@ def _redundant_aliases(columns) -> set[str]:
 
 
 def rules_from_name(name: str) -> ScoringRules:
-    presets = {"ppr": PPR, "half": HALF_PPR, "half-ppr": HALF_PPR, "standard": STANDARD}
+    presets = {
+        "ppr": PPR, "half": HALF_PPR, "half-ppr": HALF_PPR, "standard": STANDARD,
+        "te-premium": TE_PREMIUM, "te_premium": TE_PREMIUM,
+    }
     key = name.strip().lower()
     if key not in presets:
         raise ValueError(f"Puntuación desconocida: {name!r}. Usa {sorted(presets)}.")
