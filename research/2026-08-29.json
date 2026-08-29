@@ -8,8 +8,8 @@
     "Puka Nacua"
    ],
    "kind": "lesion",
-   "headline": "Nacua sigue sin entrenar por la ingle a las puertas de la jornada 1",
-   "summary": "Seguía fuera del entrenamiento el martes de la semana 3 de pretemporada. Es el número 2 de este board y el modelo no descuenta lesiones: proyecta como si jugara los 17. La etiqueta de disponibilidad de al lado es la que manda.",
+   "headline": "Nacua sigue sin entrenar por la ingle; los Rams van con pies de plomo",
+   "summary": "Seguía fuera en la semana 3 de pretemporada. Pese a todo se mantiene como primera ronda segura en todos los formatos. Es el número 2 de este board y el modelo no descuenta lesiones: proyecta como si jugara los 17.",
    "impact": "baja",
    "confidence": "informado",
    "fantasy_relevance": 5,
@@ -31,26 +31,133 @@
    "beat": "NFC Oeste",
    "team": "SF",
    "players": [
-    "Ricky Pearsall",
-    "De'Zhaun Stribling"
+    "Christian McCaffrey"
    ],
    "kind": "lesion",
-   "headline": "Pearsall, fuera toda la temporada tras operarse del ligamento cruzado posterior",
-   "summary": "San Francisco lo descarta para 2026 entero. No es una duda: es una baja definitiva, y reparte su volumen. Stribling es el que más sube en la sala de receptores reordenada.",
-   "impact": "baja",
-   "confidence": "confirmado",
+   "headline": "McCaffrey vuelve a entrenar tras tres semanas: es rigidez, no un plante por contrato",
+   "summary": "Primera vez con sus compañeros desde el 8 de agosto. Rapoport descarta que sea una retención pese a las extensiones de Gibbs, Bijan y Taylor. Sigue siendo top-3 y defendible como 1.01. Es el número 1 de este board y también el de más probabilidad de bust de la cabeza, un 30%.",
+   "impact": "alza",
+   "confidence": "informado",
    "fantasy_relevance": 5,
-   "published": "2026-08-25",
+   "published": "2026-08-24",
    "sources": [
     {
-     "outlet": "CBS Sports",
-     "title": "NFL preseason injuries tracker",
-     "url": "https://www.cbssports.com/nfl/news/nfl-training-camp-injury-tracker/"
+     "outlet": "NBC Sports",
+     "title": "McCaffrey: las ausencias eran gestión de carga",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-says-recent-practice-absences-were-planned-as-part-of-load-management"
     },
     {
      "outlet": "FantasyPros",
-     "title": "Fantasy Football Risers & Fallers: Draft Rankings (2026)",
+     "title": "Risers & Fallers del board de draft 2026",
      "url": "https://www.fantasypros.com/2026/08/12-fantasy-football-risers-fallers-2026/"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Este",
+   "team": "MIA",
+   "players": [
+    "De'Von Achane"
+   ],
+   "kind": "lesion",
+   "headline": "El gerente de Miami espera a Achane listo para la jornada 1 pese al gemelo",
+   "summary": "Lo dijo Chris Grier. Un gemelo en pretemporada se arrastra, pero la afirmación viene de quien decide, no de un parte de prácticas. Achane renovó y es lo que queda del ataque de Miami: Tua, Tyreek y Waddle ya no están.",
+   "impact": "alza",
+   "confidence": "confirmado",
+   "fantasy_relevance": 5,
+   "published": "2026-08-26",
+   "sources": [
+    {
+     "outlet": "CBS Sports",
+     "title": "Miami espera a Achane para la jornada 1",
+     "url": "https://www.cbssports.com/nfl/news/devon-achane-injury-dolphins-gm-chris-grier-expects-star-rb-to-be-ready-for-week-1-despite-calf-issue"
+    },
+    {
+     "outlet": "NFL.com",
+     "title": "AFC East training camp 2026 preview",
+     "url": "https://www.nfl.com/news/afc-east-training-camp-2026-preview-bills-dolphins-patriots-jets"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Este",
+   "team": "NE",
+   "players": [
+    "A.J. Brown"
+   ],
+   "kind": "roster",
+   "headline": "A.J. Brown es de New England: Filadelfia lo traspasa por una primera de 2028",
+   "summary": "Pasa a ser el receptor número 1 de los Patriots, reencontrándose con Vrabel, que lo eligió en Tennessee. **Su proyección aquí sigue calculada con su reparto de objetivos en Filadelfia** — por eso lleva la marca ámbar.",
+   "impact": "neutro",
+   "confidence": "confirmado",
+   "fantasy_relevance": 5,
+   "published": "2026-08-20",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "Patriots trade for Eagles WR A.J. Brown",
+     "url": "https://www.nfl.com/news/aj-brown-patriots-eagles-trade"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "A.J. Brown trade: preguntas sobre la salida de Filadelfia",
+     "url": "https://www.espn.com/nfl/story/_/id/48894633/philadelphia-eagles-aj-brown-traded-patriots-new-england-next"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Oeste",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes",
+    "Rashee Rice",
+    "Xavier Worthy"
+   ],
+   "kind": "lesion",
+   "headline": "Mahomes no se ha perdido un entrenamiento, pero viene de un cruzado roto",
+   "summary": "**Corrección sobre lo publicado antes: no es una molestia de rodilla, es la recuperación de un ligamento cruzado.** No faltar a los entrenamientos sigue siendo buena señal, pero su aportación corriendo se resiente. A eso se suma la posible sanción de Rashee Rice y el tercer año de Worthy.",
+   "impact": "baja",
+   "confidence": "informado",
+   "fantasy_relevance": 5,
+   "published": "2026-08-26",
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Preseason Week 3 injury and status updates for veterans",
+     "url": "https://www.pff.com/news/fantasy-football-2026-preseason-week-3-injury-and-status-updates-for-veterans"
+    },
+    {
+     "outlet": "NFL.com",
+     "title": "AFC West training camp 2026 preview",
+     "url": "https://www.nfl.com/news/afc-west-training-camp-2026-preview-broncos-raiders-chargers-chiefs"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Oeste",
+   "team": "SF",
+   "players": [
+    "Ricky Pearsall",
+    "Deebo Samuel",
+    "De'Zhaun Stribling"
+   ],
+   "kind": "lesion",
+   "headline": "Pearsall se pierde 2026 entera; San Francisco firma a Deebo Samuel para el hueco",
+   "summary": "Operado del ligamento cruzado posterior. Los Niners arrancan con Deebo junto a Mike Evans y el rookie Stribling. Stribling probablemente necesite otra lesión por delante para ser titular semanal, aunque el historial de la sala de receptores de San Francisco no invita a descartarlo.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "fantasy_relevance": 5,
+   "published": "2026-08-27",
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Preseason Week 3 injury and status updates for veterans",
+     "url": "https://www.pff.com/news/fantasy-football-2026-preseason-week-3-injury-and-status-updates-for-veterans"
+    },
+    {
+     "outlet": "CBS Sports",
+     "title": "NFL training camp injury tracker",
+     "url": "https://www.cbssports.com/nfl/news/nfl-training-camp-injury-tracker/"
     }
    ]
   },
@@ -64,7 +171,7 @@
    ],
    "kind": "depth_chart",
    "headline": "El backfield de Arizona se decide por lesiones: Allgeier arranca de titular",
-   "summary": "Love, el número 3 del draft, con esguince alto de tobillo y descartado para el resto de la pretemporada. Conner sigue sin hacer trabajo de equipo tras la operación de pie y su jornada 1 pinta mal. Allgeier entra de titular por descarte, y Trey Benson fue cortado.",
+   "summary": "Love, número 3 del draft, con esguince alto de tobillo y descartado el resto de la pretemporada. Conner sigue sin trabajo de equipo tras la operación de pie. Allgeier entra por descarte y Trey Benson fue cortado. **Allgeier no está en este board: proyecta el puesto 326.**",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 5,
@@ -77,20 +184,46 @@
     },
     {
      "outlet": "Sports Illustrated",
-     "title": "James Conner injury update with Love injured and Benson waived",
+     "title": "James Conner con Love lesionado y Benson cortado",
      "url": "https://www.si.com/onsi/fantasy/injuries/james-conner-fantasy-football-injury-update-looms-large-with-jeremiyah-love-injured-and-trey-benson-waived"
     }
    ]
   },
   {
-   "beat": "NFC Oeste",
-   "team": "SF",
+   "beat": "NFC Este",
+   "team": "NYG",
    "players": [
-    "Christian McCaffrey"
+    "Malik Nabers"
    ],
    "kind": "lesion",
-   "headline": "McCaffrey vuelve a entrenar tras tres semanas: es rigidez, no un plante por contrato",
-   "summary": "Primera vez sobre el campo con sus compañeros desde el 8 de agosto. Rapoport aclara que no es una retención por el contrato pese a las extensiones de Gibbs, Bijan y Taylor. Es el número 1 de este board y también el que más probabilidad de bust tiene de la cabeza, un 30%.",
+   "headline": "Nabers apunta a la jornada 1 y sigue infravalorado pese a subir al puesto 32 del ADP",
+   "summary": "El peor escenario es perderse uno o dos partidos. El techo del riesgo está acotado, que es más de lo que se puede decir de casi ninguna otra ficha de esta semana. Los Giants tienen cinco receptores fijos: Nabers, Mooney, Slayton, Austin III y el rookie Fields.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 5,
+   "published": "2026-08-25",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "ADP risers and fallers as of August 25",
+     "url": "https://sports.yahoo.com/fantasy/article/2026-fantasy-football-mike-washington-jr-cam-ward-among-biggest-adp-risers-fallers-as-of-august-25-143159599.html"
+    },
+    {
+     "outlet": "NFL.com",
+     "title": "NFC East training camp 2026 preview",
+     "url": "https://www.nfl.com/news/nfc-east-training-camp-2026-preview-cowboys-giants-eagles-commanders"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Oeste",
+   "team": "LV",
+   "players": [
+    "Brock Bowers"
+   ],
+   "kind": "campamento",
+   "headline": "Bowers sano pelea el TE1 con McBride y podría liderar la posición en objetivos",
+   "summary": "Las Vegas está en reconstrucción con Kubiak de técnico y Mendoza, número 1 del draft, de quarterback — y su sala de alas cerradas puede ser la mejor de la liga. Un ala cerrada con volumen de receptor de élite es de las pocas ventajas posicionales reales que quedan.",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 5,
@@ -98,34 +231,236 @@
    "sources": [
     {
      "outlet": "NBC Sports",
-     "title": "McCaffrey says recent practice absences were planned load management",
-     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-says-recent-practice-absences-were-planned-as-part-of-load-management"
+     "title": "Tight end tiers: Bowers y McBride pelean el TE1",
+     "url": "https://www.nbcsports.com/fantasy/football/news/2026-fantasy-football-tight-end-tiers-brock-bowers-and-trey-mcbride-fighting-for-te1-spot"
     },
     {
-     "outlet": "NBC Sports",
-     "title": "RapSheet: CMC not holding in for new contract",
-     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-17/rapsheet-cmc-not-holding-in-for-new-contract"
+     "outlet": "NFL.com",
+     "title": "AFC West training camp 2026 preview",
+     "url": "https://www.nfl.com/news/afc-west-training-camp-2026-preview-broncos-raiders-chargers-chiefs"
     }
    ]
   },
   {
-   "beat": "AFC Este",
-   "team": "NYJ",
+   "beat": "NFC Oeste",
+   "team": "ARI",
    "players": [
-    "Breece Hall"
+    "Trey McBride"
    ],
-   "kind": "lesion",
-   "headline": "Hall se pierde dos o tres semanas por una distensión de ingle sin contacto",
-   "summary": "Se espera que llegue a la jornada 1. Una distensión sin contacto en pretemporada es de las que reaparecen, así que el riesgo no se acaba el día que vuelve a entrenar.",
-   "impact": "baja",
-   "confidence": "informado",
-   "fantasy_relevance": 4,
+   "kind": "campamento",
+   "headline": "McBride lidera a los alas cerradas con 18,7 puntos por partido y 126 recepciones",
+   "summary": "1.239 yardas y 11 anotaciones sobre 169 objetivos el año pasado. Fue el TE1 y comparte tier con Bowers. En este board es el número 9 global.",
+   "impact": "neutro",
+   "confidence": "confirmado",
+   "fantasy_relevance": 5,
    "published": "2026-08-24",
    "sources": [
     {
      "outlet": "CBS Sports",
-     "title": "NFL preseason injuries tracker",
-     "url": "https://www.cbssports.com/nfl/news/nfl-training-camp-injury-tracker/"
+     "title": "Tight end tiers de Jamey Eisenberg",
+     "url": "https://www.cbssports.com/fantasy/football/news/tight-end-tiers-fantasy-football-rankings-2026/"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Tiers de ala cerrada de Matt Bowen para 2026",
+     "url": "https://www.espn.com/fantasy/football/story/_/id/49585178/2026-fantasy-football-rankings-tight-end-tiers-te"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Norte",
+   "team": "DET",
+   "players": [
+    "Jahmyr Gibbs"
+   ],
+   "kind": "campamento",
+   "headline": "Gibbs aparece como RB1 en los rankings tras firmar su extensión",
+   "summary": "Detroit rehizo su línea ofensiva —Sewell al tackle izquierdo, Miller drafteado para el derecho, Mays de centro— después de que se hundiera el año pasado. Es el número 4 de este board, con la probabilidad de bust más baja de la cabeza junto a Henry.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 5,
+   "published": "2026-08-24",
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Rankings de flex y superflex de Eric Karabell",
+     "url": "https://www.espn.com/fantasy/football/story/_/id/47539664/2026-fantasy-football-rankings-flex-superflex-ppr-eric-karabell"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Campamento de Buffalo: los alas cerradas tienen su día en Cleveland",
+     "url": "https://www.espn.com/nfl/story/_/id/49434544/buffalo-bills-training-camp-2026-intel-updates"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Sur",
+   "team": "TB",
+   "players": [
+    "Emeka Egbuka",
+    "Chris Godwin"
+   ],
+   "kind": "roster",
+   "headline": "Sin Mike Evans, el ataque de Tampa gira sobre Egbuka",
+   "summary": "Evans firmó por San Francisco y Godwin ya tiene 30. Es el tipo de reordenación que este board no ve: hereda el reparto del año pasado, cuando Evans estaba.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-25",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFC South snapshot: un dato por equipo",
+     "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-nfc-south-snapshot-1-key-nugget-from-each-team-going-into-2026-143536299.html"
+    },
+    {
+     "outlet": "NFL.com",
+     "title": "NFC South training camp 2026 preview",
+     "url": "https://www.nfl.com/news/nfc-south-training-camp-2026-preview-falcons-panthers-saints-buccaneers"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Oeste",
+   "team": "DEN",
+   "players": [
+    "Jaylen Waddle",
+    "Courtland Sutton",
+    "Bo Nix"
+   ],
+   "kind": "roster",
+   "headline": "Denver traspasa por Waddle para emparejarlo con Sutton, y Nix llega entero al campamento",
+   "summary": "Nix vuelve del tobillo roto en la ronda divisional. Dos receptores de verdad y un quarterback sano cambian el reparto entero, y la proyección de Waddle aquí es todavía la de Miami.",
+   "impact": "alza",
+   "confidence": "confirmado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-20",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "AFC West training camp 2026 preview",
+     "url": "https://www.nfl.com/news/afc-west-training-camp-2026-preview-broncos-raiders-chargers-chiefs"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Oeste",
+   "team": "KC",
+   "players": [
+    "Kenneth Walker"
+   ],
+   "kind": "roster",
+   "headline": "Walker es el único fichaje ofensivo relevante de Kansas City",
+   "summary": "Llega de Seattle. En un ataque con Mahomes volviendo del cruzado, el corredor titular hereda un papel distinto al que tenía: su proyección aquí es la de Seattle.",
+   "impact": "neutro",
+   "confidence": "confirmado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-20",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "AFC West training camp 2026 preview",
+     "url": "https://www.nfl.com/news/afc-west-training-camp-2026-preview-broncos-raiders-chargers-chiefs"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Sur",
+   "team": "NO",
+   "players": [
+    "Jordyn Tyson"
+   ],
+   "kind": "lesion",
+   "headline": "Tyson, elección número 8 del draft, fuera dos meses por el isquiotibial",
+   "summary": "Se lesionó en la práctica conjunta con Jacksonville el 13 de agosto y es candidato a empezar en la lista de lesionados. De valor de rondas medias a guardarlo en la última. No está en este board de todas formas: sin partidos NFL no hay historial que proyectar.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-17",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "Saints rookie WR Jordyn Tyson expected to miss 2 months",
+     "url": "https://www.nfl.com/news/saints-rookie-wr-jordyn-tyson-hamstring-expected-to-miss-2-months"
+    },
+    {
+     "outlet": "NBC Sports",
+     "title": "Jordyn Tyson, dos meses de baja",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-first-round-pick-jordyn-tyson-to-miss-two-months-with-hamstring-injury"
+    },
+    {
+     "outlet": "CBS Sports",
+     "title": "Qué puede hacer New Orleans en receptores sin Tyson",
+     "url": "https://www.cbssports.com/nfl/news/saints-rookie-jordyn-tyson-out-two-months-what-will-new-orleans-do-at-wr/"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Este",
+   "team": "NYG",
+   "players": [
+    "Cam Skattebo",
+    "Tyrone Tracy"
+   ],
+   "kind": "depth_chart",
+   "headline": "Skattebo sube a RB18 en el ADP y comparte la cima del depth chart con Tracy",
+   "summary": "Ha remontado desde una lesión seria de pierna y tobillo. Tracy se queda en RB44: el mercado ya ha decidido quién manda, aunque el reparto real siga abierto.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-25",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "ADP risers and fallers as of August 25",
+     "url": "https://sports.yahoo.com/fantasy/article/2026-fantasy-football-mike-washington-jr-cam-ward-among-biggest-adp-risers-fallers-as-of-august-25-143159599.html"
+    },
+    {
+     "outlet": "FantasyPros",
+     "title": "Risers & Fallers del board de draft 2026",
+     "url": "https://www.fantasypros.com/2026/08/12-fantasy-football-risers-fallers-2026/"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Sur",
+   "team": "TB",
+   "players": [
+    "Bucky Irving"
+   ],
+   "kind": "lesion",
+   "headline": "Irving abre el campamento a pleno rendimiento tras operarse el hombro",
+   "summary": "RB20 en el ADP y muy por delante de Kenneth Gainwell, RB35. Sigue posicionado para llevarse la mayoría de los acarreos de Tampa.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-25",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "ADP risers and fallers as of August 25",
+     "url": "https://sports.yahoo.com/fantasy/article/2026-fantasy-football-mike-washington-jr-cam-ward-among-biggest-adp-risers-fallers-as-of-august-25-143159599.html"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Sur",
+   "team": "HOU",
+   "players": [
+    "David Montgomery"
+   ],
+   "kind": "depth_chart",
+   "headline": "Montgomery se asienta en la cima del backfield de Houston y sube a RB24",
+   "summary": "Marks se queda en RB43. Llega de Detroit: su proyección aquí está calculada con el reparto que tenía en los Lions.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-25",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "ADP risers and fallers as of August 25",
+     "url": "https://sports.yahoo.com/fantasy/article/2026-fantasy-football-mike-washington-jr-cam-ward-among-biggest-adp-risers-fallers-as-of-august-25-143159599.html"
     }
    ]
   },
@@ -138,7 +473,7 @@
    ],
    "kind": "lesion",
    "headline": "Hubbard, semana a semana con lo que su técnico llama «un isquiotibial de verdad»",
-   "summary": "Canales evita dar fecha. La distinción importa porque Jonathon Brooks está peleando ese backfield: si Hubbard no llega, el reparto que hereda el modelo del año pasado deja de valer.",
+   "summary": "Brooks es su competencia directa y Rico Dowdle se fue como agente libre. Hubbard fue RB12 en puntos por partido hace dos años. Carolina llega al campamento con Tremble, Derrick Brown y Devin Lloyd también parados.",
    "impact": "baja",
    "confidence": "informado",
    "fantasy_relevance": 4,
@@ -146,77 +481,113 @@
    "sources": [
     {
      "outlet": "CBS Sports",
-     "title": "NFL preseason injuries tracker",
+     "title": "NFL training camp injury tracker",
      "url": "https://www.cbssports.com/nfl/news/nfl-training-camp-injury-tracker/"
     },
     {
-     "outlet": "FantasyPros",
-     "title": "Fantasy Football Risers & Fallers: Draft Rankings (2026)",
-     "url": "https://www.fantasypros.com/2026/08/12-fantasy-football-risers-fallers-2026/"
+     "outlet": "Yahoo Sports",
+     "title": "NFC South snapshot: un dato por equipo",
+     "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-nfc-south-snapshot-1-key-nugget-from-each-team-going-into-2026-143536299.html"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Campamento de Carolina: lecciones en la práctica conjunta",
+     "url": "https://www.espn.com/nfl/story/_/id/49377273/carolina-panthers-training-camp-2026-intel-updates"
     }
    ]
   },
   {
-   "beat": "NFC Este",
-   "team": "NYG",
+   "beat": "AFC Este",
+   "team": "NYJ",
    "players": [
-    "Malik Nabers"
+    "Breece Hall"
    ],
    "kind": "lesion",
-   "headline": "Nabers apunta a la jornada 1; el peor escenario es perderse uno o dos partidos",
-   "summary": "El techo del riesgo está acotado, que es más de lo que se puede decir de la mayoría de las fichas de esta semana.",
-   "impact": "alza",
-   "confidence": "informado",
-   "fantasy_relevance": 4,
-   "published": "2026-08-26",
-   "sources": [
-    {
-     "outlet": "Yahoo Sports",
-     "title": "NFL Training Camp Injury Report 2026",
-     "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html"
-    }
-   ]
-  },
-  {
-   "beat": "NFC Este",
-   "team": "NYG",
-   "players": [
-    "Cam Skattebo",
-    "Tyrone Tracy"
-   ],
-   "kind": "depth_chart",
-   "headline": "Skattebo comparte la cima del depth chart de los Giants con Tracy",
-   "summary": "Ha remontado desde una lesión seria de pierna y tobillo hasta empatar arriba. Un backfield compartido es de los repartos que el modelo hereda del año anterior y por tanto no ve.",
-   "impact": "alza",
+   "headline": "Hall pierde dos o tres semanas por una distensión de ingle sin contacto",
+   "summary": "Se espera que llegue a la jornada 1. Una distensión sin contacto en pretemporada es de las que reaparecen: el riesgo no se acaba el día que vuelve a entrenar.",
+   "impact": "baja",
    "confidence": "informado",
    "fantasy_relevance": 4,
    "published": "2026-08-24",
    "sources": [
     {
-     "outlet": "FantasyPros",
-     "title": "Fantasy Football Risers & Fallers: Draft Rankings (2026)",
-     "url": "https://www.fantasypros.com/2026/08/12-fantasy-football-risers-fallers-2026/"
+     "outlet": "CBS Sports",
+     "title": "NFL training camp injury tracker",
+     "url": "https://www.cbssports.com/nfl/news/nfl-training-camp-injury-tracker/"
     }
    ]
   },
   {
-   "beat": "AFC Oeste",
-   "team": "KC",
+   "beat": "AFC Sur",
+   "team": "IND",
    "players": [
-    "Patrick Mahomes"
+    "Jonathan Taylor",
+    "DJ Giddens"
    ],
-   "kind": "lesion",
-   "headline": "Reid no confirma a Mahomes para la jornada 1, pero no se ha perdido un entrenamiento",
-   "summary": "Molestia de rodilla. Que no falte a ningún entrenamiento pesa más que el silencio del técnico, que en agosto es rutina.",
+   "kind": "depth_chart",
+   "headline": "Taylor encadena dos temporadas de más de 300 acarreos y fue el RB4 del fantasy",
+   "summary": "Detrás sólo hay Giddens, quinta ronda de 2025, y Ulysses Bentley. Un volumen así con poca competencia es lo que sostiene su proyección — y también lo que la hunde si se lesiona.",
    "impact": "neutro",
    "confidence": "informado",
    "fantasy_relevance": 4,
-   "published": "2026-08-26",
+   "published": "2026-08-24",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "AFC South training camp 2026 preview",
+     "url": "https://www.nfl.com/news/afc-south-training-camp-2026-preview-texans-colts-jaguars-titans"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Sur",
+   "team": "IND",
+   "players": [
+    "Tyler Warren"
+   ],
+   "kind": "lesion",
+   "headline": "Warren, fuera hasta finales de agosto por la ingle, justo cuando le sitúan al borde del tier 1",
+   "summary": "Los Colts dicen que van a ser «prudentes» para que llegue a la jornada 1. Junto a Loveland es el nombre que aparece pegado a McBride y Bowers en los tiers de esta semana.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-25",
    "sources": [
     {
      "outlet": "Yahoo Sports",
      "title": "NFL Training Camp Injury Report 2026",
      "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html"
+    },
+    {
+     "outlet": "NBC Sports",
+     "title": "Tight end tiers: Bowers y McBride pelean el TE1",
+     "url": "https://www.nbcsports.com/fantasy/football/news/2026-fantasy-football-tight-end-tiers-brock-bowers-and-trey-mcbride-fighting-for-te1-spot"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Sur",
+   "team": "ATL",
+   "players": [
+    "Kyle Pitts"
+   ],
+   "kind": "campamento",
+   "headline": "Pitts entra en su año 26 con Stefanski de técnico, que históricamente usa mucho al ala cerrada",
+   "summary": "Terminó 2025 como TE2 en media PPR con 88 recepciones, 928 yardas y 5 anotaciones, con una segunda vuelta fuerte. El cambio de cuerpo técnico es de lo que este modelo no ve.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-25",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFC South snapshot: un dato por equipo",
+     "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-nfc-south-snapshot-1-key-nugget-from-each-team-going-into-2026-143536299.html"
+    },
+    {
+     "outlet": "NFL.com",
+     "title": "NFC South training camp 2026 preview",
+     "url": "https://www.nfl.com/news/nfc-south-training-camp-2026-preview-falcons-panthers-saints-buccaneers"
     }
    ]
   },
@@ -227,8 +598,8 @@
     "Tucker Kraft"
    ],
    "kind": "lesion",
-   "headline": "Kraft, fuera de PUP y con opciones de llegar al estreno tras el cruzado",
-   "summary": "Se discute si puede volver y seguir siendo un ala cerrada top-5. La pregunta no es si juega, es cuánto rinde el primer mes.",
+   "headline": "Kraft sale de PUP con opciones de llegar al estreno tras el cruzado",
+   "summary": "La pregunta no es si juega, es cuánto rinde el primer mes. La sala de receptores de Green Bay tiene además un desacuerdo grande entre lo que paga el mercado y lo que prefieren los analistas.",
    "impact": "neutro",
    "confidence": "informado",
    "fantasy_relevance": 4,
@@ -240,9 +611,9 @@
      "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html"
     },
     {
-     "outlet": "FantasyPros",
-     "title": "Fantasy Football Risers & Fallers: Draft Rankings (2026)",
-     "url": "https://www.fantasypros.com/2026/08/12-fantasy-football-risers-fallers-2026/"
+     "outlet": "NFL.com",
+     "title": "NFC North training camp 2026 preview",
+     "url": "https://www.nfl.com/news/nfc-north-training-camp-2026-preview-bears-lions-packers-vikings"
     }
    ]
   },
@@ -254,7 +625,7 @@
    ],
    "kind": "lesion",
    "headline": "Kittle sale de PUP con opciones reales de jugar la jornada 1",
-   "summary": "Vuelve del Aquiles de la temporada pasada. En el contraste con el consenso este board ya lo subía 77 puestos con «Achilles/PUP» al lado: ahí el consenso tenía la información y el modelo no.",
+   "summary": "Vuelve del Aquiles. En el contraste con el consenso este board ya lo subía 77 puestos con «Achilles/PUP» al lado: ahí el consenso tenía información que el modelo no.",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 4,
@@ -274,8 +645,8 @@
     "Stefon Diggs"
    ],
    "kind": "roster",
-   "headline": "Diggs es el que más sube del board tras firmar con Washington el 5 de agosto",
-   "summary": "La subida es el efecto retardado del fichaje. Un cambio de equipo es de lo que peor digiere este modelo: hereda el reparto de objetivos del año anterior, que era el de otra plantilla.",
+   "headline": "Diggs es de los que más suben tras firmar por Washington el 5 de agosto",
+   "summary": "La sala de corredores de Washington está tan abierta que cualquiera puede ganarse minutos, con Rachaad White como opción receptora de rondas tardías. **Aviso: nflverse todavía no tiene a Diggs en su plantilla de 2026**, así que en este board sigue apareciendo en New England.",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 4,
@@ -283,29 +654,111 @@
    "sources": [
     {
      "outlet": "FantasyPros",
-     "title": "Fantasy Football Risers & Fallers: Draft Rankings (2026)",
+     "title": "Risers & Fallers del board de draft 2026",
      "url": "https://www.fantasypros.com/2026/08/12-fantasy-football-risers-fallers-2026/"
     }
    ]
   },
   {
-   "beat": "AFC Este",
-   "team": "MIA",
+   "beat": "NFC Norte",
+   "team": "MIN",
    "players": [
-    "De'Von Achane"
+    "Kyler Murray"
    ],
-   "kind": "lesion",
-   "headline": "El gerente de Miami espera a Achane listo para la jornada 1 pese al gemelo",
-   "summary": "Grier lo dijo el miércoles. Un gemelo en pretemporada es de los que se arrastran, pero la afirmación viene de quien decide, no de un informe de prácticas.",
+   "kind": "depth_chart",
+   "headline": "Murray, nombrado titular de Minnesota, se draftea como QB18 y debería subir",
+   "summary": "Tiene opciones de terminar entre los doce primeros. Minnesota necesitaba consistencia en el puesto para pelear la división. Es uno de los mayores desajustes entre proyección y precio de todo 2026.",
    "impact": "alza",
-   "confidence": "confirmado",
+   "confidence": "informado",
    "fantasy_relevance": 4,
-   "published": "2026-08-26",
+   "published": "2026-08-25",
    "sources": [
     {
-     "outlet": "CBS Sports",
-     "title": "Dolphins GM expects Achane ready for Week 1 despite calf issue",
-     "url": "https://www.cbssports.com/nfl/news/devon-achane-injury-dolphins-gm-chris-grier-expects-star-rb-to-be-ready-for-week-1-despite-calf-issue"
+     "outlet": "Yahoo Sports",
+     "title": "ADP risers and fallers as of August 25",
+     "url": "https://sports.yahoo.com/fantasy/article/2026-fantasy-football-mike-washington-jr-cam-ward-among-biggest-adp-risers-fallers-as-of-august-25-143159599.html"
+    },
+    {
+     "outlet": "RotoWire",
+     "title": "NFC Norte: impacto fantasy de los cambios de plantilla y cuerpo técnico",
+     "url": "https://www.rotowire.com/football/article/nfc-north-preview-2026-fantasy-impact-of-coaching-personnel-changes-126064"
+    }
+   ]
+  },
+  {
+   "beat": "Liga",
+   "team": "LIGA",
+   "players": [],
+   "kind": "roster",
+   "headline": "Los rookies no están en este board, y varios de los que más suenan tampoco jugarán pronto",
+   "summary": "Sin partidos NFL no hay historial que proyectar: es la primera limitación documentada. Esta semana afecta a Jeremiyah Love (tobillo), Jordyn Tyson (dos meses), Makai Lemon, Caleb Douglas, Ja'Kobi Lane, Denzel Boston y Carnell Tate. Para ellos hay que mirar el consenso, no este ranking.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-27",
+   "sources": [
+    {
+     "outlet": "Fantasy Points",
+     "title": "Training camp news: semana del 24 de agosto",
+     "url": "https://www.fantasypoints.com/nfl/articles/2026/nfl-training-camp-news-week-of-aug-24"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Peleas por puesto en cada depth chart",
+     "url": "https://www.espn.com/nfl/story/_/id/49513914/2026-nfl-training-camp-position-battles-afc-nfc"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Este",
+   "team": "BUF",
+   "players": [
+    "Josh Allen",
+    "James Cook"
+   ],
+   "kind": "campamento",
+   "headline": "Allen es el QB1 y Cook el RB5, con Joe Brady estrenando cuerpo técnico y un campamento «extremadamente duro»",
+   "summary": "Cook hizo un hold-in el año pasado antes de firmar su extensión de cuatro años. En este board Allen sale el 15 global con la mejor proyección bruta de todos —287,9 puntos— y aun así por detrás de trece corredores y receptores: eso es exactamente lo que mide el VOR.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-24",
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Campamento de Buffalo: los alas cerradas tienen su día en Cleveland",
+     "url": "https://www.espn.com/nfl/story/_/id/49434544/buffalo-bills-training-camp-2026-intel-updates"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Buffalo encara un campamento «extremadamente duro» con cuerpo técnico nuevo",
+     "url": "https://www.espn.com/nfl/story/_/id/49096995/2026-buffalo-bills-training-camp-preview"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Rankings de flex y superflex de Eric Karabell",
+     "url": "https://www.espn.com/fantasy/football/story/_/id/47539664/2026-fantasy-football-rankings-flex-superflex-ppr-eric-karabell"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Este",
+   "team": "DAL",
+   "players": [
+    "CeeDee Lamb"
+   ],
+   "kind": "campamento",
+   "headline": "Lamb entrena con normalidad en Dallas",
+   "summary": "Es el número 12 de este board y el segundo con más probabilidad de bust de la cabeza, un 29,6%, empujada por su dependencia del touchdown. Que entrene bien no cambia esa parte.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "fantasy_relevance": 4,
+   "published": "2026-08-24",
+   "sources": [
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Dentro del campamento de Dallas: novedades de CeeDee Lamb",
+     "url": "https://www.si.com/nfl/cowboys/onsi/news/inside-dallas-cowboys-training-camp-ceedee-lamb-update-video-quotes-highlights-mike-mccarthy-nfl"
     }
    ]
   },
@@ -316,8 +769,8 @@
     "Jayden Higgins"
    ],
    "kind": "lesion",
-   "headline": "Higgins se rompe el cruzado anterior en un entrenamiento conjunto",
-   "summary": "Segundo año, temporada terminada antes de empezar. Es exactamente el perfil que este board no sabe valorar: sin historial largo, la proyección ya era la parte débil, y ahora es cero.",
+   "headline": "Higgins se rompe el cruzado anterior en una práctica conjunta",
+   "summary": "Segundo año, temporada terminada antes de empezar. Es el perfil que este board peor valora: sin historial largo la proyección ya era la parte débil.",
    "impact": "baja",
    "confidence": "confirmado",
    "fantasy_relevance": 3,
@@ -325,8 +778,35 @@
    "sources": [
     {
      "outlet": "CBS Sports",
-     "title": "NFL preseason injuries tracker",
+     "title": "NFL training camp injury tracker",
      "url": "https://www.cbssports.com/nfl/news/nfl-training-camp-injury-tracker/"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Este",
+   "team": "NE",
+   "players": [
+    "Rhamondre Stevenson",
+    "TreVeyon Henderson"
+   ],
+   "kind": "depth_chart",
+   "headline": "Stevenson abre de titular en New England con Henderson de segundo",
+   "summary": "Así sale en el primer depth chart oficial. Un reparto declarado en agosto no es el reparto de octubre, pero es el mejor dato que hay antes del estreno.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-24",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFL depth charts para el fantasy 2026",
+     "url": "https://sports.yahoo.com/fantasy/article/nfl-depth-charts-heres-how-each-teams-offensive-roster-looks-going-into-2026-fantasy-football-131835206.html"
+    },
+    {
+     "outlet": "Footballguys",
+     "title": "Implicaciones de draft de los primeros depth charts",
+     "url": "https://www.footballguys.com/article/2026-fantasy-draft-implications-initial-depth-charts"
     }
    ]
   },
@@ -337,8 +817,8 @@
     "Alec Pierce"
    ],
    "kind": "lesion",
-   "headline": "Pierce sale de la lista PUP el 27 y apunta a la jornada 1",
-   "summary": "Él mismo dice que el objetivo es llegar al estreno. Salir de PUP a tres días del corte a 53 es la señal de que el club cuenta con él.",
+   "headline": "Pierce sale de PUP el 27 tras haber sido de los que más bajaban en el ADP el 25",
+   "summary": "Dos días antes seguía en PUP recuperándose de una operación de tobillo y encabezaba la lista de los que caían. Salir de PUP a tres días del corte a 53 es la señal de que el club cuenta con él. **No son fuentes contradictorias: son dos días distintos.**",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 3,
@@ -348,27 +828,11 @@
      "outlet": "Yahoo Sports",
      "title": "NFL Training Camp Injury Report 2026",
      "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html"
-    }
-   ]
-  },
-  {
-   "beat": "AFC Sur",
-   "team": "IND",
-   "players": [
-    "Tyler Warren"
-   ],
-   "kind": "lesion",
-   "headline": "Warren, fuera al menos hasta finales de agosto por una lesión de ingle",
-   "summary": "Los Colts dicen que van a ser «prudentes» para que llegue a la jornada 1. Prudente en agosto suele significar que no le van a forzar en pretemporada.",
-   "impact": "neutro",
-   "confidence": "informado",
-   "fantasy_relevance": 3,
-   "published": "2026-08-25",
-   "sources": [
+    },
     {
      "outlet": "Yahoo Sports",
-     "title": "NFL Training Camp Injury Report 2026",
-     "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html"
+     "title": "ADP risers and fallers as of August 25",
+     "url": "https://sports.yahoo.com/fantasy/article/2026-fantasy-football-mike-washington-jr-cam-ward-among-biggest-adp-risers-fallers-as-of-august-25-143159599.html"
     }
    ]
   },
@@ -379,8 +843,8 @@
     "Jalen McMillan"
    ],
    "kind": "lesion",
-   "headline": "McMillan no ha jugado ni un minuto de pretemporada por la rodilla",
-   "summary": "Descartado también del segundo partido; Bowles dice que lo van a reintegrar poco a poco. Ojo: varias fuentes lo situaban en Arizona esta semana y es de Tampa Bay.",
+   "headline": "McMillan no ha jugado un minuto de pretemporada por la rodilla",
+   "summary": "Descartado también del segundo partido; Bowles dice que lo reintegrarán poco a poco. Ojo con esta: varias fuentes lo situaban esta semana en Arizona y es de Tampa Bay.",
    "impact": "baja",
    "confidence": "informado",
    "fantasy_relevance": 3,
@@ -388,7 +852,7 @@
    "sources": [
     {
      "outlet": "RotoWire",
-     "title": "Jalen McMillan Injury: Ruled out for second preseason game",
+     "title": "Jalen McMillan, fuera del segundo partido de pretemporada",
      "url": "https://www.rotowire.com/football/headlines/jalen-mcmillan-injury-ruled-out-for-second-preseason-game-634039"
     },
     {
@@ -399,21 +863,76 @@
    ]
   },
   {
-   "beat": "Liga",
-   "team": "LIGA",
-   "players": [],
-   "kind": "roster",
-   "headline": "El corte a 53 jugadores es el domingo 30 a las 18:00 ET",
-   "summary": "El fin de semana del 27 al 29 es la última audición para los jugadores de la burbuja. Hasta que pase el corte, cualquier depth chart es provisional — y el board se construye sobre plantillas.",
+   "beat": "NFC Oeste",
+   "team": "ARI",
+   "players": [
+    "Jacoby Brissett"
+   ],
+   "kind": "depth_chart",
+   "headline": "Brissett es el titular presunto de Arizona y LaFleur estrena esquema con dificultades",
+   "summary": "Tomó las riendas del ataque cuando Murray se lesionó el año pasado; ahora Murray está en Minnesota. La instalación del sistema del técnico novato no ha ido fina.",
    "impact": "neutro",
-   "confidence": "confirmado",
+   "confidence": "informado",
    "fantasy_relevance": 3,
-   "published": "2026-08-27",
+   "published": "2026-08-24",
    "sources": [
     {
-     "outlet": "Yahoo Sports",
-     "title": "NFL cuts tracker 2026",
-     "url": "https://sports.yahoo.com/articles/nfl-cuts-tracker-2026-live-115532853.html"
+     "outlet": "NFL.com",
+     "title": "NFC West training camp 2026 preview",
+     "url": "https://www.nfl.com/news/nfc-west-training-camp-2026-preview-cardinals-rams-49ers-seahawks"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Sur",
+   "team": "NO",
+   "players": [
+    "Tyler Shough"
+   ],
+   "kind": "depth_chart",
+   "headline": "Shough entra en su segundo año como titular con expectativas altas bajo Kellen Moore",
+   "summary": "Su final de temporada pasada generó optimismo en New Orleans. Se queda además sin su primera ronda en receptores: Tyson está fuera dos meses.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-25",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "NFC South training camp 2026 preview",
+     "url": "https://www.nfl.com/news/nfc-south-training-camp-2026-preview-falcons-panthers-saints-buccaneers"
+    },
+    {
+     "outlet": "CBS Sports",
+     "title": "Qué puede hacer New Orleans en receptores sin Tyson",
+     "url": "https://www.cbssports.com/nfl/news/saints-rookie-jordyn-tyson-out-two-months-what-will-new-orleans-do-at-wr/"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Norte",
+   "team": "CLE",
+   "players": [
+    "Shedeur Sanders",
+    "Deshaun Watson"
+   ],
+   "kind": "depth_chart",
+   "headline": "Sanders se lleva repeticiones con los titulares en Cleveland",
+   "summary": "Watson sigue en la ecuación en el último año de contrato. Un quarterback sin definir arrastra la proyección de toda la sala de receptores, y eso el modelo no lo ve: hereda el reparto del año pasado.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-26",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "AFC North training camp 2026 preview",
+     "url": "https://www.nfl.com/news/afc-north-training-camp-2026-preview-ravens-bengals-browns-steelers"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Training camp 2026: standouts y dudas de los 32",
+     "url": "https://www.espn.com/nfl/story/_/id/49368181/training-camp-2026-latest-news-intel-updates-buzz-all-32-teams"
     }
    ]
   },
@@ -426,7 +945,7 @@
    ],
    "kind": "depth_chart",
    "headline": "Iosivas trabaja con los titulares y se queda de tercer receptor, con Young apretando",
-   "summary": "El ataque sigue girando sobre Burrow en escopeta hacia Chase y Higgins, así que el tercer receptor pelea por los restos. Cincinnati insiste en que el juego bajo centro, feo hasta ahora, es parte del plan.",
+   "summary": "El ataque sigue girando sobre Burrow en escopeta hacia Chase y Higgins. El juego bajo centro ha sido feo, y Cincinnati insiste en que es parte del plan.",
    "impact": "neutro",
    "confidence": "informado",
    "fantasy_relevance": 3,
@@ -461,29 +980,140 @@
    ]
   },
   {
-   "beat": "AFC Norte",
-   "team": "CLE",
+   "beat": "NFC Norte",
+   "team": "CHI",
    "players": [
-    "Shedeur Sanders",
-    "Deshaun Watson"
+    "Caleb Williams",
+    "Luther Burden",
+    "Rome Odunze"
    ],
-   "kind": "depth_chart",
-   "headline": "Sanders se lleva repeticiones con los titulares en Cleveland",
-   "summary": "Watson sigue en la ecuación en el último año de contrato. Un quarterback sin definir arrastra la proyección de toda la sala de receptores, y eso el modelo no lo ve: hereda el reparto del año pasado.",
+   "kind": "campamento",
+   "headline": "El techo de Burden y Odunze depende de que Williams dé un salto",
+   "summary": "Chicago tiene un árbol de objetivos nuevo. Sin ese salto del quarterback, ninguna de las dos piezas de receptor termina de arrancar.",
    "impact": "neutro",
    "confidence": "informado",
    "fantasy_relevance": 3,
-   "published": "2026-08-26",
+   "published": "2026-08-25",
    "sources": [
     {
      "outlet": "NFL.com",
-     "title": "AFC North training camp 2026 preview",
-     "url": "https://www.nfl.com/news/afc-north-training-camp-2026-preview-ravens-bengals-browns-steelers"
+     "title": "NFC North training camp 2026 preview",
+     "url": "https://www.nfl.com/news/nfc-north-training-camp-2026-preview-bears-lions-packers-vikings"
     },
     {
-     "outlet": "ESPN",
-     "title": "2026 NFL training camp: Standouts, questions for all 32 teams",
-     "url": "https://www.espn.com/nfl/story/_/id/49368181/training-camp-2026-latest-news-intel-updates-buzz-all-32-teams"
+     "outlet": "RotoWire",
+     "title": "NFC Norte: impacto fantasy de los cambios de plantilla y cuerpo técnico",
+     "url": "https://www.rotowire.com/football/article/nfc-north-preview-2026-fantasy-impact-of-coaching-personnel-changes-126064"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Este",
+   "team": "MIA",
+   "players": [
+    "Caleb Douglas",
+    "Jaylen Wright",
+    "Ollie Gordon"
+   ],
+   "kind": "depth_chart",
+   "headline": "Miami reconstruye entera su sala de receptores: Douglas titular de salida",
+   "summary": "Rookie de tercera ronda y ya titular junto a Malik Washington y Jalen Tolbert. En el backfield, Wright abre por delante de Gordon. Sin Tua, Tyreek ni Waddle, todo el reparto anterior deja de valer.",
+   "impact": "alza",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-24",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFL depth charts para el fantasy 2026",
+     "url": "https://sports.yahoo.com/fantasy/article/nfl-depth-charts-heres-how-each-teams-offensive-roster-looks-going-into-2026-fantasy-football-131835206.html"
+    },
+    {
+     "outlet": "Footballguys",
+     "title": "Implicaciones de draft de los primeros depth charts",
+     "url": "https://www.footballguys.com/article/2026-fantasy-draft-implications-initial-depth-charts"
+    }
+   ]
+  },
+  {
+   "beat": "Liga",
+   "team": "LIGA",
+   "players": [],
+   "kind": "roster",
+   "headline": "El corte a 53 es el domingo 30 a las 18:00 ET",
+   "summary": "El fin de semana del 27 al 29 es la última audición de los jugadores de la burbuja. Hasta que pase el corte, cualquier depth chart es provisional — y este board se construye sobre plantillas.",
+   "impact": "neutro",
+   "confidence": "confirmado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-27",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFL cuts tracker 2026",
+     "url": "https://sports.yahoo.com/articles/nfl-cuts-tracker-2026-live-115532853.html"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Oeste",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "kind": "campamento",
+   "headline": "Darnold llega de ganar la Super Bowl con Seattle",
+   "summary": "El que fue considerado un fiasco monumental es ahora campeón. Su sala de receptores la lidera Smith-Njigba, número 10 de este board.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "fantasy_relevance": 3,
+   "published": "2026-08-24",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "NFC West training camp 2026 preview",
+     "url": "https://www.nfl.com/news/nfc-west-training-camp-2026-preview-cardinals-rams-49ers-seahawks"
+    }
+   ]
+  },
+  {
+   "beat": "NFC Este",
+   "team": "PHI",
+   "players": [
+    "Makai Lemon"
+   ],
+   "kind": "lesion",
+   "headline": "Lemon arrastra su lesión hasta la temporada y le limita el primer año",
+   "summary": "Rookie de Filadelfia. Junto a Tyson, el otro receptor novato al que la pretemporada le ha costado el arranque.",
+   "impact": "baja",
+   "confidence": "informado",
+   "fantasy_relevance": 2,
+   "published": "2026-08-27",
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Preseason Week 3 injury and status updates for veterans",
+     "url": "https://www.pff.com/news/fantasy-football-2026-preseason-week-3-injury-and-status-updates-for-veterans"
+    }
+   ]
+  },
+  {
+   "beat": "AFC Este",
+   "team": "NYJ",
+   "players": [
+    "Cade Klubnik"
+   ],
+   "kind": "depth_chart",
+   "headline": "Klubnik aparece ya como suplente de Geno Smith en los Jets",
+   "summary": "Rookie. Un quarterback titular con un novato detrás en el primer depth chart es la situación en la que un cambio a mitad de temporada cambia el valor de toda la sala de receptores.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "fantasy_relevance": 2,
+   "published": "2026-08-24",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFL depth charts para el fantasy 2026",
+     "url": "https://sports.yahoo.com/fantasy/article/nfl-depth-charts-heres-how-each-teams-offensive-roster-looks-going-into-2026-fantasy-football-131835206.html"
     }
    ]
   }

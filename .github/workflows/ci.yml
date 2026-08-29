@@ -28,6 +28,12 @@ jobs:
       - name: Instalar
         run: pip install -e ".[dev]"
 
+      # El contraste es computable, así que se computa. Encontró un verde a
+      # 4,36:1 que a ojo era perfectamente legible — que es justo el motivo por
+      # el que no se puede dejar al ojo.
+      - name: Contraste de color (WCAG AA)
+        run: python scripts/check_contrast.py
+
       - name: Lint
         run: ruff check src tests scripts
 

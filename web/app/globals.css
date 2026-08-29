@@ -166,7 +166,10 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
    desapercibido justo en la fila que más importa. */
 .bust { display: inline-block; min-width: 2.9em; text-align: right;
         padding: 0.1rem 0.35rem; border-radius: 4px; font-variant-numeric: tabular-nums; }
-.bust--low  { background: rgba(27, 175, 122, 0.14); color: #0f7f56; }
+/* #0d6e4a y no #0f7f56: el original daba 4,36:1 sobre su propio fondo, justo
+   por debajo del 4,5 que exige texto normal. Medido, no estimado — está en
+   `scripts/check_contrast.py`. Éste da 5,47:1. */
+.bust--low  { background: rgba(27, 175, 122, 0.14); color: #0d6e4a; }
 .bust--mid  { background: transparent; color: inherit; }
 .bust--high { background: rgba(208, 59, 59, 0.14); color: #b32d2d; }
 
@@ -306,8 +309,24 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
    de la derecha. */
 .rank-table { font-size: 0.9rem; min-width: 26rem; }
 .rank-table th, .rank-table td { padding: 0.35rem 0.6rem; vertical-align: middle; }
+/* El rayado va con color explícito en las DOS alternancias, no sólo en las
+   pares. Hace falta para que las celdas fijas de abajo puedan heredarlo: con
+   `background: inherit` sobre un `tr` transparente, el nombre se vuelve
+   translúcido y las columnas de la derecha se leen por debajo al desplazar. */
+.rank-table tbody tr { background: var(--bg); }
 .rank-table tbody tr:nth-child(even of :not(.tier-band)) { background: var(--surface); }
 .rank-table tbody tr:hover { background: var(--warn-bg); }
+
+/* El número y el nombre se quedan fijos al desplazar en horizontal.
+   La tabla tiene seis columnas y en un móvil no caben: sin esto, mirar la
+   columna «Bust» te deja sin saber de quién es la fila, que es la única forma
+   de leerla mal. Se consulta con el teléfono en la mano en mitad de un draft,
+   así que esto no es un lujo de escritorio. */
+.rank-table .rk, .rank-table .who { position: sticky; background: inherit; z-index: 1; }
+.rank-table .rk { left: 0; }
+.rank-table .who { left: 2.6rem; }   /* justo detrás del ancho de `.rk` */
+.rank-table thead th.rk { left: 0; z-index: 2; }
+.rank-table .tier-band td { position: static; }
 
 /* El número de orden es referencia, no dato: grande para localizarlo de un
    vistazo, apagado para no competir con las proyecciones. */
