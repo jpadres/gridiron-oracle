@@ -1,5 +1,14 @@
 import "./globals.css";
 
+// El color de la barra del navegador en móvil. Sin esto, Safari y Chrome pintan
+// su propio gris encima de la cabecera y el sitio parece recortado.
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#101216" },
+  ],
+};
+
 export const metadata = {
   title: "Gridiron Oracle",
   description:
@@ -55,8 +64,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body>
+        {/* Primer tabulador de la página. Sin esto, llegar al contenido con
+            teclado exige pasar por los ocho enlaces del menú en cada carga. */}
+        <a className="skip" href="#contenido">Saltar al contenido</a>
         <div className="shell">
-          <nav className="top">
+          <nav className="top" aria-label="Secciones">
             <span className="brand">Gridiron Oracle</span>
             {PAGES.map((page) => (
               <a key={page.href} href={page.href}>
@@ -64,7 +76,7 @@ export default function RootLayout({ children }) {
               </a>
             ))}
           </nav>
-          <main>{children}</main>
+          <main id="contenido" tabIndex={-1}>{children}</main>
           <footer>
             <p>
               Datos de nflverse (dominio público). Código bajo licencia MIT. Proyecto de

@@ -226,6 +226,89 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
 .build code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
               background: var(--surface); padding: 0.1rem 0.35rem; border-radius: 4px; }
 
+
+/* --- foco, táctil y salto de navegación ---------------------------------- */
+
+/* Foco visible en TODO lo interactivo.
+   
+   El sitio no tenía ni una regla de foco: veinticuatro elementos —enlaces,
+   botones, el buscador y el selector del modo draft— y ninguna forma de saber
+   dónde estabas navegando con teclado. No es un detalle estético; es que la
+   navegación por teclado no funcionaba.
+   
+   `:focus-visible` y no `:focus`: así el anillo aparece con teclado y no al
+   hacer clic con el ratón, que es lo que hace que la gente lo quite. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Nunca quitar el contorno sin sustituirlo. Se deja escrito para que se vea la
+   intención si alguien lo intenta. */
+:where(a, button, input, select):focus:not(:focus-visible) { outline: none; }
+
+/* Sin retardo de 300 ms al tocar, y sin el destello gris de Android.
+   El modo draft se usa con el pulgar mientras corre el reloj del pick. */
+:where(a, button, input, select, label) {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Salto al contenido. Fuera de pantalla hasta que recibe foco: es el primer
+   tabulador de la página y evita recorrer los ocho enlaces del menú en cada
+   navegación. */
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  color: var(--fg);
+  border: 2px solid var(--accent);
+  border-radius: 0 0 4px 0;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+}
+.skip:focus { left: 0; }
+
+/* Los anclas de sección quedaban tapadas por el margen superior al saltar. */
+:where(h2, h3, section) { scroll-margin-top: 1rem; }
+
+
+/* --- estados: error, carga, vacío ---------------------------------------- */
+
+.state { max-width: 38rem; }
+.retry {
+  font: inherit; font-weight: 600;
+  padding: 0.55rem 1.1rem; min-height: 44px;
+  border: 1px solid var(--accent); border-radius: 6px;
+  background: var(--accent); color: #fff; cursor: pointer;
+}
+.retry:hover { filter: brightness(1.08); }
+
+/* Sólo para lectores de pantalla. El esqueleto no dice nada en voz alta por sí
+   mismo, y «cargando» es justo lo que hace falta anunciar. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skeleton { display: grid; gap: 0.75rem; margin-top: 0.5rem; }
+.sk { background: var(--surface); border-radius: 4px; }
+.sk--title { height: 2.2rem; width: 55%; }
+.sk--lede  { height: 3.2rem; width: 90%; }
+.sk--block { height: 6rem; }
+.sk--row   { height: 2.4rem; }
+
+/* El pulso sólo si el usuario no ha pedido menos movimiento. Sin la consulta,
+   una animación infinita es exactamente lo que `prefers-reduced-motion` existe
+   para evitar. */
+@media (prefers-reduced-motion: no-preference) {
+  .sk { animation: sk-pulse 1.4s ease-in-out infinite; }
+  @keyframes sk-pulse { 50% { opacity: 0.55; } }
+}
+
 /* --- gráficas ------------------------------------------------------------ */
 
 /* El contenedor crece con su contenido en vez de fijar altura: si se fija, la
