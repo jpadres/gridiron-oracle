@@ -85,6 +85,7 @@ def _attach_risk(
     team_games: pd.DataFrame,
     board: pd.DataFrame,
     season: int,
+    rules: ScoringRules,
 ) -> pd.DataFrame:
     """Tasa de ausencia y probabilidad de bust para cada jugador del board.
 
@@ -114,7 +115,7 @@ def _attach_risk(
     board["missed_rate"] = board["missed_rate"].fillna(board["missed_rate"].mean())
     board["missed_games"] = board["missed_rate"] * 17.0
 
-    training = _bust_training(players, team_games, season)
+    training = _bust_training(players, team_games, season, rules)
     if training is None or len(training) < 300:
         print("Sin historial suficiente para la probabilidad de bust; se omite.")
         return board
@@ -128,21 +129,30 @@ def _attach_risk(
 
 
 def _bust_training(
-    players: pd.DataFrame, team_games: pd.DataFrame, season: int
+    players: pd.DataFrame, team_games: pd.DataFrame, season: int, rules: ScoringRules
 ) -> pd.DataFrame | None:
-    """Jugador-temporadas pasadas con su etiqueta de bust ya observada."""
+    """Jugador-temporadas pasadas con su etiqueta de bust ya observada.
+
+    `rules` NO es opcional a propósito. Aquí había un PPR fijo mientras el resto
+    del script respetaba las reglas de la liga: el modelo de bust se entrenaba
+    con resultados en PPR y luego se aplicaba a un board puntuado en estándar o
+    en media recepción.
+
+    Un bust es «terminar por debajo del 70% de su proyección», y las dos mitades
+    de esa frase tienen que estar en la misma moneda. Con reglas distintas, los
+    receptores de volumen salen etiquetados con el riesgo de otra liga.
+    """
     from oracle.fantasy.bust import BUST_FRACTION
-    from oracle.fantasy.scoring import PPR
 
     scored = players.copy()
-    scored["fantasy_points"] = score_player_weeks(scored, PPR)
+    scored["fantasy_points"] = score_player_weeks(scored, rules)
     actual = scored.groupby(["player_id", "season"], observed=True)["fantasy_points"].sum()
     availability = avail.season_availability(players, team_games)
 
     rows = []
     for past_season in range(2013, season):
         try:
-            projected = project_season(players, past_season, PPR)
+            projected = project_season(players, past_season, rules)
         except ValueError:
             continue
         projected = risk.components(projected, {"QB": 4.0, "RB": 6.0, "WR": 6.0, "TE": 6.0})
@@ -248,7 +258,7 @@ def main(argv: list[str] | None = None) -> int:
     # variar la proyección **en los dos sentidos**. El bust mira sólo la cola de
     # abajo, que es la pregunta que se hace en un draft.
     team_games = pd.read_parquet(paths.team_games)
-    board = _attach_risk(players, team_games, board, season)
+    board = _attach_risk(players, team_games, board, season, rules)
 
     # Nombre completo, además del abreviado que se pinta.
     #
@@ -324,11 +334,31 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def _scoring_label(rules: ScoringRules) -> str:
-    """Cómo se llama esta puntuación, mirando las reglas y no el argumento."""
+    """Cómo se llama esta puntuación, mirando las reglas y no el argumento.
+
+    La etiqueta sale de las reglas efectivas porque ya se publicó una vez «ppr»
+    sobre un board de media recepción: la etiqueta venía del argumento de la
+    línea de comandos y las reglas venían de la liga sincronizada.
+
+    Toda regla que mueva el ranking tiene que aparecer aquí. Si añades un campo
+    a `ScoringRules` y no lo reflejas, este es exactamente el sitio donde el
+    fallo vuelve a ocurrir.
+    """
     base = {1.0: "PPR", 0.5: "half-PPR", 0.0: "estándar"}.get(rules.reception)
     label = base or f"{rules.reception:g} por recepción"
+    if rules.reception_by_position:
+        apartes = ", ".join(
+            f"{position} a {value:g}"
+            for position, value in sorted(rules.reception_by_position.items())
+        )
+        label += f" con {apartes} por recepción"
     if rules.passing_td != 4.0:
         label += f", TD de pase a {rules.passing_td:g}"
+    for name, attribute in (("bonus de 300 al pase", "passing_300_bonus"),
+                            ("bonus de 100 al acarreo", "rushing_100_bonus"),
+                            ("bonus de 100 recibiendo", "receiving_100_bonus")):
+        if getattr(rules, attribute):
+            label += f", {name} de {getattr(rules, attribute):g}"
     return label
 
 
