@@ -247,9 +247,20 @@ def team_volume(pred_margin_for: float, pred_total: float) -> TeamVolume:
     scrambles = dropbacks * SCRAMBLE_RATE
     pass_attempts = dropbacks - sacks - scrambles
 
-    # Las escapadas del QB son acarreos, así que salen del reparto de carreras
-    # del equipo: contarlas dos veces infla al corredor titular.
-    rush_attempts = plays * (1 - pass_rate) - scrambles
+    # Los acarreos del equipo son los de la casilla: escapadas del QB incluidas.
+    #
+    # Aquí había una resta de escapadas, con el razonamiento de que contarlas dos
+    # veces inflaría al corredor titular. No las contaba dos veces: el
+    # denominador de `rush_share` son los acarreos de la casilla, que YA
+    # incluyen las escapadas, así que la cuota del quarterback ya las separa.
+    # Restarlas otra vez las quitaba dos veces y deprimía a todos los corredores
+    # y receptores un 8,4%.
+    #
+    # Medido sobre 2.174 equipo-partidos de 2022-2025, alimentando el modelo con
+    # el marcador REAL para aislarlo del error del modelo de partidos:
+    #   con la resta:  24,71 proyectados frente a 26,98 reales  (ratio 0,916)
+    #   sin la resta:  26,89 proyectados frente a 26,98 reales  (ratio 1,004)
+    rush_attempts = plays * (1 - pass_rate)
 
     return TeamVolume(plays, dropbacks, pass_attempts, max(rush_attempts, 0.0), sacks, scrambles)
 
@@ -302,6 +313,17 @@ def _player_usage(history: pd.DataFrame) -> pd.DataFrame:
                 "receiving_tds": weighted("receiving_tds"),
                 "rushing_tds": weighted("rushing_tds"),
                 "passing_tds": weighted("passing_tds"),
+                # nflverse renombró esta columna al pasar de `player_stats` a
+                # `stats_player_week`. Se coge la primera que exista y NO se
+                # suman: un DataFrame que mezclara los dos esquemas contaría las
+                # intercepciones dos veces y penalizaría al doble. Es el mismo
+                # cuidado que `_redundant_aliases` en `scoring.py`, y viene del
+                # mismo susto.
+                "interceptions": weighted(
+                    "passing_interceptions"
+                    if "passing_interceptions" in group.columns
+                    else "interceptions"
+                ),
             }
         )
 
@@ -416,15 +438,30 @@ def _project_player(
         attempts = volume.pass_attempts
         yards_per_attempt = _safe_ratio(player["passing_yards"], player["attempts"], 7.0)
         td_per_attempt = _safe_ratio(player["passing_tds"], player["attempts"], 0.045)
-        rush_yards = _safe_ratio(player["rushing_yards"], player["carries"], 4.5) * (
-            volume.scrambles * 0.55
-        )
-        points = (
+        int_per_attempt = _safe_ratio(player["interceptions"], player["attempts"], 0.024)
+
+        # El volumen de carrera sale de su cuota de acarreos del equipo, igual
+        # que en el resto de posiciones. Antes salía de `escapadas * 0,55`, y una
+        # escapada es improvisada: un quarterback de carrera diseñada —Hurts,
+        # Jackson, Daniels— tiene acarreos que no son escapadas, y son justo los
+        # que separan a un QB1 de un QB15.
+        carries = volume.rush_attempts * player["rush_share"]
+        yards_per_carry = _safe_ratio(player["rushing_yards"], player["carries"], 4.5)
+        # La tasa por defecto es alta a propósito: un acarreo de quarterback
+        # pasa cerca de la línea de gol mucho más a menudo que uno de corredor.
+        rush_td_rate = _safe_ratio(player["rushing_tds"], player["carries"], 0.045)
+
+        return (
             attempts * yards_per_attempt * rules.passing_yards
             + attempts * td_per_attempt * rules.passing_td
-            + rush_yards * rules.rushing_yards
+            # Sin este término la proyección de QB era casi una constante: se
+            # quedaba con lo que menos distingue —yardas y touchdowns de pase
+            # sobre un volumen de intentos casi igual para todos— y perdía los
+            # tres términos que sí separan a un quarterback de otro.
+            + attempts * int_per_attempt * rules.interception
+            + carries * yards_per_carry * rules.rushing_yards
+            + carries * rush_td_rate * rules.rushing_td
         )
-        return points
 
     if position == "RB":
         carries = volume.rush_attempts * player["rush_share"]

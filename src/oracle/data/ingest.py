@@ -19,6 +19,7 @@ import numpy as np
 import pandas as pd
 
 from ..config import FIRST_PBP_SEASON, Paths
+from .coverage import blank_gaps
 
 NFLVERSE = "https://github.com/nflverse/nflverse-data/releases/download"
 PBP_URL = NFLVERSE + "/pbp/play_by_play_{season}.parquet"
@@ -425,4 +426,15 @@ def build_player_weeks(paths: Paths, first_season: int, last_season: int) -> pd.
     players = players.dropna(subset=["team"])
     if "position" in players.columns:
         players["position"] = players["position"].astype(str).str.upper()
+
+    # Los ceros que nunca fueron ceros pasan a nulos aquí, lo más arriba
+    # posible. nflverse entrega `targets` como 0 —no como nulo— en 2003-2008,
+    # que es cuando esa marcación no está en su fuente: 20.657 filas con más
+    # recepciones que objetivos, imposible en un partido de verdad.
+    #
+    # Un nulo se ve; un cero no. Pasa por `fillna(0)`, sobrevive a `dropna()` y
+    # sale convertido en una cuota del 0%. Ver `coverage.py` para la regla
+    # general que los detecta, que no está escrita contra esas seis temporadas
+    # concretas sino contra la implicación que las delata.
+    players = blank_gaps(players)
     return players.reset_index(drop=True)

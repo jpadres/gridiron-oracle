@@ -23,6 +23,7 @@ from oracle.fantasy.weekly import (
     SACK_RATE,
     SCRAMBLE_RATE,
     STARTERS_PER_TEAM,
+    _project_player,
     team_volume,
     weekly_rankings,
 )
@@ -204,11 +205,57 @@ def test_qb_attempts_are_not_team_dropbacks():
     assert 0.10 < 1 - volume.pass_attempts / volume.dropbacks < 0.16
 
 
-def test_scrambles_are_not_double_counted():
-    """Las escapadas son acarreos del QB: no pueden sumarse también al corredor."""
+def test_acarreos_de_equipo_son_los_de_la_casilla():
+    """Los acarreos proyectados incluyen las escapadas, como el marcador.
+
+    Este test decía antes lo contrario: que había que restar las escapadas para
+    no contarlas dos veces en el corredor titular. Era falso, y protegía un
+    fallo del 8,4% en todos los corredores y receptores.
+
+    Las escapadas no se contaban dos veces: el denominador de `rush_share` son
+    los acarreos de la casilla, que **ya** las incluyen, así que la cuota del
+    quarterback ya se las lleva. Restarlas otra vez las quitaba dos veces.
+
+    Medido sobre 2.174 equipo-partidos de 2022-2025, con el marcador REAL como
+    entrada para aislar el modelo de volumen del error del modelo de partidos:
+
+        con la resta:  24,71 proyectados frente a 26,98 reales   ratio 0,916
+        sin la resta:  26,89 proyectados frente a 26,98 reales   ratio 1,004
+    """
     volume = team_volume(pred_margin_for=0.0, pred_total=44.0)
-    plays_without_pass = volume.plays - volume.dropbacks
-    assert volume.rush_attempts == pytest.approx(plays_without_pass - volume.scrambles)
+    assert volume.rush_attempts == pytest.approx(volume.plays - volume.dropbacks)
+    # Y las escapadas siguen saliendo de los envíos, no de las carreras: son
+    # jugadas de pase que acabaron corriendo.
+    assert volume.scrambles == pytest.approx(volume.dropbacks * SCRAMBLE_RATE)
+
+
+def test_el_quarterback_puntua_lo_que_puntua_un_quarterback():
+    """Carrera, touchdowns de carrera e intercepciones entran en la proyección.
+
+    Faltaban los tres. El resultado era una proyección de QB casi constante
+    —desviación típica 1,99 frente a 8,39 real, R2 0,005 fuera de muestra—
+    porque se quedaba sólo con los términos que menos distinguen a un
+    quarterback de otro.
+    """
+    volume = team_volume(pred_margin_for=0.0, pred_total=44.0)
+    base = {"passing_yards": 250.0, "attempts": 33.0, "passing_tds": 1.6,
+            "interceptions": 0.7, "rushing_yards": 0.0, "carries": 0.0,
+            "rushing_tds": 0.0, "rush_share": 0.0}
+
+    pocket = _project_player(pd.Series(base), "QB", volume, PPR)
+    runner = _project_player(
+        pd.Series({**base, "rushing_yards": 55.0, "carries": 9.0,
+                   "rushing_tds": 0.55, "rush_share": 0.30}),
+        "QB", volume, PPR,
+    )
+    # Un quarterback que corre 55 yardas y media anotación por partido tiene que
+    # sacar varios puntos más que uno que no corre nada.
+    assert runner - pocket > 5.0
+
+    # Y las intercepciones restan.
+    limpio = _project_player(pd.Series({**base, "interceptions": 0.2}), "QB", volume, PPR)
+    descuidado = _project_player(pd.Series({**base, "interceptions": 1.4}), "QB", volume, PPR)
+    assert limpio > descuidado
 
 
 def test_game_script_moves_volume():

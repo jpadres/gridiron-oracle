@@ -9,6 +9,7 @@ from __future__ import annotations
 import pandas as pd
 import pytest
 
+from oracle.data.coverage import assert_measured, blank_gaps, detect_gaps
 from oracle.data.ingest import TEAM_ALIASES, VALID_TEAMS, normalize_team, normalize_team_series
 from oracle.data.stadiums import (
     STADIUMS_BY_ID,
@@ -226,3 +227,55 @@ def test_sede_desconocida_se_marca_como_desconocida():
     assert perfil.known is False
     assert perfil.away_travel_miles == pytest.approx(0.0)
     assert venue_travel("DAL00", "DAL00", "NYC01").known is True
+
+
+# ---------------------------------------------------------------------------
+# Ceros que significan "no medido"
+# ---------------------------------------------------------------------------
+
+def test_detecta_un_hueco_de_la_fuente_sin_saber_qué_años_son():
+    """La regla es general: la delata la implicación, no una lista de años.
+
+    Si atrapaste un pase, alguien te lo tiró. Una temporada entera con
+    recepciones y cero objetivos no es un equipo que no recibió pases: es que
+    ese dato no está en la fuente esos años.
+    """
+    filas = []
+    for season in (2004, 2012):
+        for _ in range(300):
+            filas.append({
+                "season": season, "receptions": 3,
+                # 2004 sin marcar; 2012 con su dato real.
+                "targets": 0 if season == 2004 else 5,
+            })
+    huecos = detect_gaps(pd.DataFrame(filas), {"targets": "receptions"})
+    assert [(g.column, g.season) for g in huecos] == [("targets", 2004)]
+
+
+def test_no_declara_hueco_con_muestra_minúscula():
+    """Cuatro filas a cero son una casualidad, no una laguna de la fuente."""
+    pocas = pd.DataFrame([{"season": 2004, "receptions": 2, "targets": 0}] * 10)
+    assert detect_gaps(pocas, {"targets": "receptions"}) == []
+
+
+def test_blank_gaps_deja_nulo_lo_que_nunca_fue_cero():
+    """Un nulo se ve. Un cero pasa por `fillna(0)` sin que nadie se entere."""
+    filas = [{"season": 2004, "receptions": 3, "targets": 0} for _ in range(300)]
+    filas += [{"season": 2012, "receptions": 3, "targets": 5} for _ in range(300)]
+    limpio = blank_gaps(pd.DataFrame(filas))
+    assert limpio[limpio.season == 2004].targets.isna().all()
+    assert limpio[limpio.season == 2012].targets.notna().all()
+
+
+def test_assert_measured_revienta_al_ampliar_la_ventana():
+    """La mina se convierte en un error.
+
+    Hoy ningún camino de producción llega a 2003. El día que alguien amplíe una
+    ventana porque «más datos son mejores», esto es lo que se lo dice.
+    """
+    filas = [{"season": 2004, "receptions": 3, "targets": 0} for _ in range(300)]
+    frame = pd.DataFrame(filas)
+    with pytest.raises(ValueError, match="sin medir"):
+        assert_measured(frame, ["targets"], range(2000, 2010))
+    # Y no molesta cuando la ventana no toca el hueco.
+    assert_measured(frame, ["targets"], range(2013, 2026))
