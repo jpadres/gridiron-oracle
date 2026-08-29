@@ -1,0 +1,75 @@
+name: Comprobar Sleeper
+
+# Manual y nada más. No es un control de CI: es un experimento de una sola
+# pregunta, y la respuesta no depende de nuestro código.
+#
+# ## Por qué existe
+#
+# Desde el contenedor de desarrollo, `api.sleeper.app` devuelve 403 al CONNECT.
+# Durante un tiempo eso se interpretó como "Sleeper no es alcanzable" y se
+# clasificaron Game Day, Waivers y Trades como bloqueados por fuente externa.
+#
+# Era incorrecto. Ese mismo proxy devuelve 403 para www.google.com y —el dato
+# que lo cierra— para el propio sitio de producción de este proyecto. Nadie
+# diría que el sitio está caído.
+#
+# Los runners de GitHub Actions tienen internet abierto. Esto responde en diez
+# segundos si la integración sirve, y hasta que responda que sí, la regla es que
+# NO se construye Game Day sobre la integración en vivo.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  alcance:
+    name: ¿Responde Sleeper desde un entorno real?
+    runs-on: ubuntu-latest
+    steps:
+      - name: Endpoints públicos de sólo lectura
+        run: |
+          set +e
+          fallos=0
+          # Se prueban los cuatro que el producto necesitaría, del más barato al
+          # más caro. `players/nfl` NO se pide: son 5 MB y Sleeper pide
+          # explícitamente no llamarlo más de una vez al día.
+          for url in \
+            "https://api.sleeper.app/v1/state/nfl" \
+            "https://api.sleeper.app/v1/user/sleeperuser" \
+            "https://api.sleeper.app/v1/league/000000000000000000/rosters" \
+            "https://api.sleeper.app/v1/draft/000000000000000000/picks"
+          do
+            codigo=$(curl -sS -o /tmp/cuerpo -w "%{http_code}" --max-time 20 "$url")
+            bytes=$(wc -c < /tmp/cuerpo)
+            printf "  %-64s HTTP %s  (%s bytes)\n" "$url" "$codigo" "$bytes"
+            # Un 404 sobre un id inventado es una respuesta correcta: significa
+            # que se llegó al servicio. Lo que se está midiendo es el alcance,
+            # no que los identificadores existan.
+            case "$codigo" in
+              200|404) ;;
+              *) fallos=$((fallos + 1)) ;;
+            esac
+          done
+
+          echo
+          if [ "$fallos" -eq 0 ]; then
+            echo "ALCANZABLE desde GitHub Actions."
+            echo "Se desbloquea la sincronización periódica (waivers, traspasos,"
+            echo "multi-liga). El tiempo real del navegador sigue sin comprobar:"
+            echo "eso lo contesta el primer draft de verdad."
+          else
+            echo "$fallos endpoints no respondieron. AHORA SÍ hay algo que investigar"
+            echo "en Sleeper o en la integración — y no en la red de desarrollo."
+            exit 1
+          fi
+
+      - name: Contraste — un destino que sabemos que funciona
+        if: always()
+        run: |
+          # Sin esto, un fallo de red del runner se leería como un fallo de
+          # Sleeper. Es el mismo razonamiento que descartó la hipótesis
+          # equivocada al principio.
+          codigo=$(curl -sS -o /dev/null -w "%{http_code}" --max-time 20 https://api.github.com)
+          echo "  api.github.com HTTP $codigo  (si esto falla, el problema es del runner)"
