@@ -18,6 +18,8 @@ import re
 import unicodedata
 from collections.abc import Iterable
 
+from ..data.ingest import normalize_team
+
 # Sufijos generacionales. No forman parte del apellido en nflverse.
 _SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
 
@@ -59,7 +61,7 @@ def build_index(players: Iterable[dict]) -> dict[tuple[str, str], str]:
     index: dict[tuple[str, str], str] = {}
     for player in players:
         key = player_key(str(player.get("player_name", "")))
-        team = str(player.get("team", "")).upper()
+        team = normalize_team(player.get("team")) or ""
         if key and team:
             index[(key, team)] = str(player.get("player_id", ""))
     return index
@@ -72,7 +74,7 @@ def resolve(names: Iterable[str], team: str, index: dict[tuple[str, str], str]) 
     noticias hablan de jugadores que el modelo no clasifica (defensas, suplentes,
     liniero ofensivo), y eso no es un error.
     """
-    team = str(team or "").upper()
+    team = normalize_team(team) or ""
     if not team:
         return []
     resolved = []

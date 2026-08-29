@@ -33,6 +33,7 @@ from urllib.parse import urlparse
 
 from oracle.narrative.client import ask_json, web_tools
 
+from ..data.ingest import normalize_team
 from .feeds import SOURCE_TYPES
 from .schema import EVIDENCE_TYPES, SCHEMA_VERSION
 
@@ -330,7 +331,16 @@ def _clean(item: object, beat: str) -> dict | None:
         # noticia de liga— `str(None)` da la cadena "NONE", y entonces el equipo
         # de esa ficha es un código de cuatro letras que no existe. No falla
         # nada: simplemente no empareja con ningún equipo, en silencio.
-        "team": (str(item.get("team") or "").strip().upper()[:4] or "LIGA"),
+        # Pasa por `normalize_team`, como todo código de equipo del proyecto.
+        #
+        # Sin esto, una ficha que llega con "LA" se guarda como "LA" y no
+        # empareja NUNCA con los jugadores de LAR — sin fallar y sin avisar. Es
+        # el mismo fallo silencioso que ya costó una iteración en el importador
+        # del dossier, y reaparece en cada sitio nuevo que escribe un equipo.
+        #
+        # "LIGA" no es un equipo: es el centinela de las noticias transversales,
+        # así que se preserva antes de normalizar.
+        "team": _team_code(item.get("team")),
         "players": [str(name).strip() for name in item.get("players", []) if str(name).strip()],
         "kind": str(item.get("kind", "otro")),
         "headline": headline[:140],
@@ -372,6 +382,17 @@ def _clean(item: object, beat: str) -> dict | None:
         "schema_version": SCHEMA_VERSION,
         "sources": sources[:3],
     }
+
+
+def _team_code(value: object) -> str:
+    """Código canónico, o "LIGA" para lo que no es de un equipo."""
+    raw = str(value or "").strip().upper()
+    if not raw or raw == "LIGA":
+        return "LIGA"
+    # Si no se reconoce, se deja el original recortado en vez de tirarlo: una
+    # ficha con un código raro sigue siendo legible, y perderla por eso sería
+    # peor. Lo que no puede pasar es que un alias conocido no se traduzca.
+    return normalize_team(raw) or raw[:4]
 
 
 def _valid_source(source: object) -> dict | None:

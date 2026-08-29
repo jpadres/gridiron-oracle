@@ -99,7 +99,9 @@ export default function Fantasy() {
       <p className="lede">
         Proyección de temporada completa a partir del volumen y la eficiencia de las tres
         últimas temporadas (ponderadas 56/30/14), encogidas hacia la media posicional según
-        el tamaño de muestra y corregidas por la curva de edad de cada posición.
+        el tamaño de muestra y corregidas por la <strong>curva de edad</strong> de cada
+        posición — activa desde agosto de 2026, y validada: mejora la proyección en las
+        cuatro posiciones, con el mayor efecto en el acantilado del running back.
       </p>
 
       <ul className="jump">
@@ -157,9 +159,10 @@ export default function Fantasy() {
                 sabe nada. Aquí manda el consenso — mira su etiqueta de disponibilidad.
               </li>
               <li>
-                <strong>Veteranos que el modelo sube.</strong> La curva de edad está
-                implementada pero <strong>inactiva</strong>: faltan las fechas de nacimiento.
-                Un ala cerrada de 36 años con buen historial sube más de lo que debería.
+                <strong>Veteranos que el modelo sube.</strong> Era la mayor fuente de
+                desacuerdo hasta que se activó la curva de edad, y <strong>encogió mucho al
+                activarla</strong>: Kelce pasó de +75 a +13 sobre el consenso y Kamara de +106
+                a +8. Lo que queda es desacuerdo de verdad, no un hueco del modelo.
               </li>
               <li>
                 <strong>Jóvenes que el modelo baja.</strong> Sin historial no hay proyección, y
@@ -361,8 +364,10 @@ export default function Fantasy() {
           diferenciado.
         </li>
         <li>
-          La curva de edad está implementada pero <strong>inactiva</strong>: falta conectar
-          las fechas de nacimiento de los jugadores.
+          La curva de edad <strong>ya está activa</strong>: se conectó el 29 de agosto de
+          2026 tras validarla, y mejora la proyección en las cuatro posiciones —más en
+          running back (+4,0 puntos de MAE) que en ninguna otra, que es donde tenía que
+          notarse—.
         </li>
       </ul>
     </>

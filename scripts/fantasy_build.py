@@ -23,6 +23,7 @@ from scipy.stats import pearsonr, spearmanr
 from oracle.config import paths as resolve_paths
 from oracle.fantasy import availability as avail
 from oracle.fantasy import risk
+from oracle.fantasy.ages import ages_for_season, birth_dates
 from oracle.fantasy.draft import (
     LeagueSettings,
     _td_points,
@@ -208,8 +209,24 @@ def main(argv: list[str] | None = None) -> int:
     if settings is None:
         settings = LeagueSettings(teams=args.teams)
 
+    # Curva de edad, activa desde el 29/8/2026.
+    #
+    # Llevaba tiempo implementada y muerta porque `ages` llegaba vacío. Se activa
+    # tras validarla, no por tener el dato: walk-forward 2019-2025 con y sin
+    # ella, umbral fijado antes en `docs/PREREGISTRO_edad.md`.
+    #
+    # Mejora el MAE en las CUATRO posiciones, y más en running back (+4,01
+    # puntos) que en ninguna otra. Eso es la confirmación que importa: RB es
+    # donde la curva es más agresiva —5,5% anual pasados los 25,5— así que es
+    # donde tenía que notarse si la hipótesis era buena. Si hubiera mejorado más
+    # en otra posición, habría sido motivo de sospecha, no de celebración.
+    #
+    # La edad se calcula a 1 de septiembre de la temporada proyectada, no hoy:
+    # usar la edad actual para validar 2019 le da a todos siete años de más.
+    ages = ages_for_season(birth_dates(paths.raw), season)
     print(f"Proyectando {season} ({_scoring_label(rules)}, liga de {settings.teams})...")
-    board = draft_board(project_season(players, season, rules), settings)
+    print(f"  curva de edad activa: {ages.notna().sum()} fechas de nacimiento.")
+    board = draft_board(project_season(players, season, rules, ages=ages), settings)
 
     # Etiqueta de riesgo. Validada contra el error realizado en
     # `scripts/fantasy_risk_validate.py`: Spearman +0.12 y el tercio de riesgo

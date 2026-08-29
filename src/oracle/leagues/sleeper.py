@@ -36,6 +36,8 @@ from typing import Any
 from oracle.fantasy.draft import DEFAULT_STARTERS, LeagueSettings
 from oracle.fantasy.scoring import ScoringRules
 
+from ..data.ingest import normalize_team
+
 BASE = "https://api.sleeper.app/v1"
 TIMEOUT = 20
 
@@ -318,7 +320,11 @@ def picked_players(picks: list[dict], index: dict[str, str]) -> dict[str, list]:
             "roster_id": pick.get("roster_id"),
             "picked_by": pick.get("picked_by"),
             "name": name or None,
-            "team": metadata.get("team"),
+            # Normalizado, y no es una formalidad: Sleeper escribe "LA" para
+            # los Rams en algunos sitios. Sin traducir, un pick de LAR no
+            # empareja con el board y el modo draft da por LIBRE a un jugador
+            # que ya se llevaron — el fallo más caro de esa pantalla.
+            "team": normalize_team(metadata.get("team")) or metadata.get("team"),
             "position": metadata.get("position"),
         }
         gsis = index.get(sleeper_id)
