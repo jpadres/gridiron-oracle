@@ -21,6 +21,8 @@ Estados: **PASA** · **FALLA** · **NO CONCLUYENTE** · **RETIRADO**
 | E8b | El ranking de pateadores separa K1 de K12 | 2022–2025 | — | pts/partido con IC95% | > 1,5 pts | +0,26, IC [−0,36, +0,87] | **FALLA** |
 | E9 | El capital de draft predice el año rookie | 2016–2025 | cero y media de posición | Spearman y MAE | batir a los dos | ρ 0,604 vs 0,093 | **PASA** |
 | E10 | El umbral de viento de 15 mph tiene efecto medible | 5.008 partidos | viento ≤ 10 mph | puntos totales, IC95% | efecto significativo | −3,47 pts, IC [−4,78, −2,16] | **PASA** |
+| E11 | El modelo ayuda en decisiones de Start/Sit difíciles | 2024–2025, 31.776 pares | forma reciente y moneda | acierto por pares, IC95% | batir al baseline **y** IC>50% | 54,3% [53,7–54,8] vs 53,6% | **PASA** |
+| E11b | Ídem incluyendo los que no jugaron | 42.354 pares | ídem | ídem | ídem | 52,9% vs **50,1%** (la forma es una moneda) | **PASA** |
 | E10b | Ese efecto es explotable contra el mercado | 457 partidos | total de cierre | residuo, IC95% | — | −2,22 aparente, **pero el clima es observado, no pronosticado** | **FALLA** (fuga) |
 
 ## Conocimiento negativo — cosas que NO funcionan
