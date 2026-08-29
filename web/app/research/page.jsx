@@ -25,6 +25,26 @@ const CONFIDENCE = {
 };
 
 /**
+ * Procedencia: de dónde sale lo que afirma la ficha.
+ *
+ * Mide quién lo dice y cómo lo sabe, que es otro eje distinto de la certeza. Un
+ * REPORTADO reciente puede ser más fiable que un HECHO de hace tres semanas.
+ *
+ * El caso importante es el que NO está en este diccionario: las fichas
+ * anteriores a este esquema tienen `evidence_type: null`. No se traducen ni se
+ * adivinan —el esquema viejo no distinguía entre reportado, observado y
+ * opinión— y por eso salen marcadas como anteriores en vez de con una etiqueta
+ * inventada. Un hueco visible es mejor que un dato falso.
+ */
+const EVIDENCE = {
+  HECHO: { label: "Hecho", hint: "Anuncio oficial del equipo, de la liga o parte oficial." },
+  REPORTADO: { label: "Reportado", hint: "Un periodista con nombre lo da como información suya." },
+  OBSERVADO: { label: "Observado", hint: "Un reportero describe lo que vio: repeticiones, quién entrenó." },
+  OPINION: { label: "Opinión", hint: "Un analista con nombre espera algo. Es su juicio, no un hecho." },
+  MODELO: { label: "Modelo", hint: "Lo decimos nosotros, con nuestros propios números." },
+};
+
+/**
  * Fecha a partir de un YYYY-MM-DD, sin depender del huso del servidor.
  *
  * `new Date("2026-08-17")` se interpreta como medianoche UTC y, al formatear en
@@ -60,6 +80,14 @@ function Note({ item, showDate = false }) {
         <span className={`tag tag--${item.confidence}`} title={confidence.hint}>
           {confidence.label}
         </span>
+        {/* La procedencia sólo se pinta si se conoce. En las fichas anteriores
+            al esquema nuevo no se enseña nada: inventar una etiqueta para no
+            dejar el hueco sería falsificar la evidencia hacia atrás. */}
+        {EVIDENCE[item.evidence_type] ? (
+          <span className="prov" title={EVIDENCE[item.evidence_type].hint}>
+            {EVIDENCE[item.evidence_type].label}
+          </span>
+        ) : null}
         {item.players?.length ? <span className="note-players">{item.players.join(", ")}</span> : null}
       </p>
       <p>{item.summary}</p>

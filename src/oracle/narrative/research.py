@@ -33,6 +33,8 @@ from urllib.parse import urlparse
 
 from oracle.narrative.client import ask_json, web_tools
 
+from .schema import EVIDENCE_TYPES, SCHEMA_VERSION
+
 # Divisiones con los códigos de nflverse. Se barre por división y no equipo a
 # equipo porque el reportaje de prensa es divisional (el mismo periodista cubre
 # el rival) y porque 32 llamadas al día cuestan tres veces lo que 8.
@@ -111,6 +113,29 @@ ITEM_SCHEMA = {
                 "rumor = especulación, 'se espera que', fuentes sin identificar."
             ),
         },
+        "evidence_type": {
+            "type": "string",
+            "enum": list(EVIDENCE_TYPES),
+            "description": (
+                "De dónde sale lo que afirma la ficha. Mide PROCEDENCIA, no "
+                "certeza. HECHO = anuncio oficial o parte oficial. REPORTADO = "
+                "un periodista con nombre lo da como información suya. "
+                "OBSERVADO = un reportero describe lo que vio (repeticiones, "
+                "quién entrenó). OPINION = un analista con nombre espera algo; "
+                "es su juicio. MODELO = lo decimos nosotros con nuestros "
+                "números. Si no encaja en ninguna, no inventes: es que la "
+                "afirmación no tiene procedencia y la ficha no debería existir."
+            ),
+        },
+        "published_at": {
+            "type": "string",
+            "description": (
+                "Momento de publicación en ISO 8601 con huso, si la fuente lo "
+                "da. Cadena vacía si sólo hay fecha o no hay nada. NO inventes "
+                "una hora: una hora falsa arruina la medición de latencia, que "
+                "es justo para lo que existe este campo."
+            ),
+        },
         "fantasy_relevance": {
             "type": "integer",
             "minimum": 1,
@@ -127,15 +152,26 @@ ITEM_SCHEMA = {
                     "outlet": {"type": "string"},
                     "title": {"type": "string"},
                     "url": {"type": "string"},
+                    "author": {
+                        "type": "string",
+                        "description": (
+                            "Quién firma. Cadena vacía si el feed no lo dice — "
+                            "que pasa a menudo. Sin este campo el reliability "
+                            "score por analista es imposible, y no se puede "
+                            "reconstruir hacia atrás: por eso se pide desde ya "
+                            "aunque hoy no lo use nadie."
+                        ),
+                    },
                 },
-                "required": ["outlet", "title", "url"],
+                "required": ["outlet", "title", "url", "author"],
                 "additionalProperties": False,
             },
         },
     },
     "required": [
         "team", "players", "kind", "headline", "summary", "impact",
-        "confidence", "fantasy_relevance", "published", "sources",
+        "confidence", "evidence_type", "fantasy_relevance", "published",
+        "published_at", "sources",
     ],
     "additionalProperties": False,
 }
@@ -267,7 +303,17 @@ def _clean(item: object, beat: str) -> dict | None:
     """
     if not isinstance(item, dict):
         return None
-    sources = [source for source in item.get("sources", []) if _valid_source(source)]
+    # Se guarda lo que DEVUELVE `_valid_source`, no el dict original.
+    #
+    # Antes se usaba como predicado —`if _valid_source(source)`— y se conservaba
+    # la fuente tal cual venía. O sea que ni el recorte de longitud ni el
+    # `outlet` deducido del dominio se aplicaban nunca: la función limpiaba una
+    # copia que se tiraba. Se descubrió al añadir el autor, que tampoco llegaba.
+    sources = [
+        cleaned
+        for cleaned in (_valid_source(source) for source in item.get("sources", []))
+        if cleaned
+    ]
     if not sources:
         return None
     headline = str(item.get("headline", "")).strip()
@@ -294,13 +340,43 @@ def _clean(item: object, beat: str) -> dict | None:
             if item.get("confidence") in ("confirmado", "informado", "rumor")
             else "rumor"
         ),
+        # Procedencia. A diferencia de `confidence`, un valor no reconocido NO
+        # se degrada a un valor por defecto: se deja en None.
+        #
+        # Degradar en silencio es lo que hace la línea de arriba con
+        # `confidence`, y es la razón por la que las 61 fichas históricas no se
+        # pueden pasar por esta función: convertiría sus "confirmado" en
+        # "rumor" sin que nada avisara. UNKNOWN > INVENTED.
+        "evidence_type": (
+            item.get("evidence_type")
+            if item.get("evidence_type") in EVIDENCE_TYPES
+            else None
+        ),
         "fantasy_relevance": _clamp(item.get("fantasy_relevance", 1)),
         "published": str(item.get("published", ""))[:10],
+        # Momento exacto de publicación, para medir latencia. Vacío se guarda
+        # como None y no como cadena: un `""` acaba comparándose como fecha
+        # válida en cuanto alguien escribe un `if item["published_at"]:` mal.
+        "published_at": (str(item.get("published_at") or "").strip() or None),
+        # Cuándo lo vimos nosotros por primera vez. Lo rellena la ingesta, no el
+        # modelo: el modelo no sabe cuándo lo leímos.
+        "first_seen_at": item.get("first_seen_at"),
+        "confirmed_at": item.get("confirmed_at"),
+        # Qué pasó al final. Se rellena en el postmortem, después del partido.
+        # Nace a None y así se queda hasta que haya un resultado que comprobar.
+        "resolution": item.get("resolution"),
+        "schema_version": SCHEMA_VERSION,
         "sources": sources[:3],
     }
 
 
 def _valid_source(source: object) -> dict | None:
+    """Una fuente utilizable, con su autor si la hay.
+
+    El autor es opcional a propósito: muchos feeds RSS no lo traen, y exigirlo
+    tiraría fichas buenas. Lo que no es opcional es **guardar el hueco**, para
+    que el día que la fuente sí lo dé haya dónde ponerlo.
+    """
     if not isinstance(source, dict):
         return None
     url = str(source.get("url", "")).strip()
@@ -314,6 +390,10 @@ def _valid_source(source: object) -> dict | None:
         "outlet": str(source.get("outlet", parsed.netloc)).strip()[:60] or parsed.netloc,
         "title": str(source.get("title", "")).strip()[:160],
         "url": url[:400],
+        # None y no "" cuando no se sabe: es la diferencia entre «este feed no
+        # firma» y «alguien firmó con la cadena vacía», y el reliability score
+        # tiene que poder distinguirlas para no crear un autor fantasma.
+        "author": (str(source.get("author") or "").strip()[:80] or None),
     }
 
 
@@ -349,17 +429,59 @@ def dedupe(items: list[dict]) -> list[dict]:
     el umbral más bajo si además comparten enlace.
 
     Se conserva la de mayor relevancia, por eso se ordena antes.
+
+    ## El duplicado no se tira: se funde
+
+    Antes se descartaba con un `continue`, y eso rompía la medición de latencia
+    de la peor manera posible: si la copia descartada era la que vimos **antes**,
+    el `first_seen_at` que sobrevive es el de la segunda vez que la vimos. Medir
+    «este reportero se adelanta treinta y cuatro minutos» sobre eso da un número
+    con pinta de correcto y sin ningún significado.
+
+    Así que al fundir se conserva **el instante más antiguo de los dos**, y las
+    fuentes de las dos copias. Que dos caminos independientes traigan la misma
+    noticia no es ruido a eliminar: es exactamente la confirmación múltiple que
+    sube la confianza de una ficha.
     """
     kept: list[tuple[str, frozenset[str], set[str]]] = []
     out: list[dict] = []
     for item in sorted(items, key=lambda row: -row.get("fantasy_relevance", 1)):
         urls = {source["url"] for source in item["sources"]}
         words = _content_words(item["headline"])
-        if any(_is_duplicate(item["team"], words, urls, other) for other in kept):
+        match = next(
+            (index for index, other in enumerate(kept)
+             if _is_duplicate(item["team"], words, urls, other)),
+            None,
+        )
+        if match is not None:
+            _merge_duplicate(out[match], item)
+            kept[match] = (kept[match][0], kept[match][1], kept[match][2] | urls)
             continue
         kept.append((item["team"], words, urls))
         out.append(item)
     return out
+
+
+def _merge_duplicate(survivor: dict, duplicate: dict) -> None:
+    """Funde lo que aporta el duplicado en la ficha que se queda.
+
+    Sólo se toca lo que se puede perder al descartar: el instante más antiguo y
+    las fuentes que la superviviente no tenía. El texto no se mezcla — dos
+    resúmenes concatenados no se leen, y el de mayor relevancia ya ganó.
+    """
+    for field in ("first_seen_at", "published_at"):
+        theirs, ours = duplicate.get(field), survivor.get(field)
+        # `min` sobre cadenas ISO 8601 con el mismo huso ordena bien. Con husos
+        # distintos no, pero la alternativa —parsear aquí— mete una dependencia
+        # de fechas en una función de deduplicado. Se normaliza en la ingesta.
+        if theirs and (not ours or theirs < ours):
+            survivor[field] = theirs
+
+    known = {source["url"] for source in survivor["sources"]}
+    for source in duplicate.get("sources", []):
+        if source["url"] not in known and len(survivor["sources"]) < 4:
+            survivor["sources"].append(source)
+            known.add(source["url"])
 
 
 def _is_duplicate(team, words, urls, other) -> bool:

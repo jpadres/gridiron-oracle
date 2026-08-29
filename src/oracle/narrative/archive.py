@@ -15,6 +15,8 @@ import json
 from datetime import date, timedelta
 from pathlib import Path
 
+from .schema import SCHEMA_VERSION, migrate_item
+
 DIRECTORY = "research"
 
 
@@ -35,7 +37,12 @@ def save_day(root: Path, day: date, items: list[dict], meta: dict | None = None)
     directory = archive_dir(root)
     directory.mkdir(parents=True, exist_ok=True)
     path = day_file(root, day)
-    payload = {"date": day.isoformat(), "items": items, **(meta or {})}
+    payload = {
+        "date": day.isoformat(),
+        "schema_version": SCHEMA_VERSION,
+        "items": items,
+        **(meta or {}),
+    }
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
     return path
 
@@ -51,7 +58,13 @@ def load_day(root: Path, day: date) -> list[dict]:
     items = payload.get("items", [])
     for item in items:
         item.setdefault("date", payload.get("date", day.isoformat()))
-    return items
+    # La migración ocurre al LEER, nunca al guardar.
+    #
+    # Los ficheros de `research/` no se reescriben: lo que se publicó el 17 de
+    # agosto se queda en disco tal como se publicó. Son unos kilobytes que no se
+    # pueden reconstruir, y una migración que reescribe es irreversible si está
+    # mal; ésta se corrige cambiando una función.
+    return [migrate_item(item) for item in items]
 
 
 def load_window(root: Path, days: int, today: date | None = None) -> list[dict]:

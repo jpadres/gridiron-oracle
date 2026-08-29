@@ -135,6 +135,13 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
          font-size: 0.72rem; background: var(--warn-bg); color: var(--warn-line);
          white-space: nowrap; }
 
+/* Etiqueta de procedencia. Deliberadamente sobria y sin color propio: convive
+   con la de impacto y la de fiabilidad en la misma línea, y tres etiquetas
+   compitiendo por atención es ninguna. */
+.prov { display: inline-block; font-size: 0.72rem; letter-spacing: 0.03em;
+        padding: 0.05rem 0.35rem; border-radius: 3px; border: 1px solid var(--line);
+        color: var(--muted); background: var(--bg); }
+
 /* Consejo de survivor y ficha histórica de una apuesta. Los dos llevan SIEMPRE
    la palabra escrita: el color es el segundo canal, nunca el único. */
 .adv { display: inline-block; font-size: 0.76rem; font-weight: 600;

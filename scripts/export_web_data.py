@@ -88,10 +88,18 @@ def main(argv: list[str] | None = None) -> int:
     print("Entrenando el modelo de producción...")
     oracle = Oracle.train(args.root)
 
-    payload: dict = {
-        "generated_at": pd.Timestamp.now("UTC").isoformat(),
-        "placeholder": False,
-    }
+    # Sin `generated_at` de reloj en la raíz.
+    #
+    # Estaba desde el principio, no lo leía nadie —la web sólo usa
+    # `narrative.generated_at`— y hacía que **cada regeneración produjese un
+    # fichero distinto aunque los datos fuesen idénticos**. Es exactamente el
+    # bug que se arregló en `out/research.json`, viviendo un nivel más arriba
+    # sin que nadie lo comprobase: la verificación de aquel arreglo sólo cubría
+    # la ruta de `research_patch.py`, que no toca esta clave.
+    #
+    # Cuándo se horneó el sitio ya lo dice el sello de build del pie, y ése sí
+    # sale de una variable de Vercel en vez de del reloj del proceso.
+    payload: dict = {"placeholder": False}
 
     # --- validación fuera de muestra ---------------------------------------
     backtest_cache = paths.out / "backtest.json"
@@ -153,7 +161,7 @@ def main(argv: list[str] | None = None) -> int:
     # --- research (prensa e insiders) ---------------------------------------
     # Viaja aparte de todo lo anterior a propósito: son afirmaciones de terceros
     # con su fuente al lado, no salidas del modelo, y no entran en ningún cálculo.
-    payload["research"] = _research(paths, payload)
+    payload["research"] = _strip_runtime_fields(_research(paths, payload))
 
     # --- dossier curado (parte médico, campamento, reporteros) ---------------
     # Atribuido y fechado, pero SIN enlace: por eso viaja aparte del research y
@@ -211,6 +219,27 @@ def _enrich_bets(bets, predictions) -> list[dict]:
         record["evidence_verdict"] = evidence.verdict
         rows.append(record)
     return rows
+
+
+# Campos que NO viajan al payload de la web, por mucho que estén en el archivo.
+#
+# `ingested_at` y `first_seen_at` son relojes de pared: cambian en cada ejecución
+# aunque el contenido sea idéntico, y eso hace que el fichero comprimido cambie
+# a diario y el repo acumule un commit de ruido cada día. Ya pasó exactamente
+# eso con el `generated_at` de `out/research.json` y se quitó por lo mismo.
+#
+# Sirven para medir latencia, que se calcula sobre el archivo versionado. La web
+# no necesita saber a qué hora lo ingerimos.
+RUNTIME_ONLY_FIELDS = ("ingested_at", "first_seen_at")
+
+
+def _strip_runtime_fields(section: dict | None) -> dict | None:
+    if not section:
+        return section
+    for item in section.get("items", []):
+        for field in RUNTIME_ONLY_FIELDS:
+            item.pop(field, None)
+    return section
 
 
 def _research(paths, payload: dict) -> dict | None:
@@ -303,7 +332,10 @@ def _narrative(payload: dict) -> dict | None:
     if not summary and not notes:
         return None
     return {
-        "generated_at": pd.Timestamp.now("UTC").isoformat(),
+        # La FECHA, no el instante. La web lo pinta como «Generado el 29/8/2026»,
+        # así que la hora no se ve y lo único que hace es que el payload cambie
+        # cada vez que se regenera.
+        "generated_at": pd.Timestamp.now("UTC").date().isoformat(),
         "summary": summary,
         "player_notes": {note["player_id"]: note["text"] for note in notes},
     }

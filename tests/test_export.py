@@ -134,3 +134,36 @@ def test_research_section_has_no_wall_clock(tmp_path):
     second = archive.consolidate(tmp_path, days=5, today=date(2026, 8, 17))
     assert first == second, "la ventana consolidada debe ser byte a byte igual entre ejecuciones"
     assert "generated_at" not in first
+
+
+def test_the_payload_does_not_carry_a_wall_clock(tmp_path):
+    """Dos ejecuciones con los mismos datos tienen que dar el mismo fichero.
+
+    El payload llevaba un `generated_at` de reloj en la raíz que no leía nadie, y
+    hacía que cada regeneración produjese bytes distintos aunque el contenido
+    fuese idéntico — un commit de ruido por ejecución.
+
+    Es el mismo bug que ya se arregló en `out/research.json`. Sobrevivió porque
+    la verificación de aquel arreglo sólo cubría la ruta de `research_patch.py`,
+    que no toca esa clave. Este test cubre la que faltaba.
+    """
+    import gzip
+
+    from export_web_data import write_payload
+
+    data = {"placeholder": False, "week": {"season": 2026, "week": 1}}
+    first, second = tmp_path / "a", tmp_path / "b"
+    write_payload(first, data)
+    write_payload(second, data)
+
+    encoded = first / "model.b64.js"
+    assert encoded.read_bytes() == (second / "model.b64.js").read_bytes()
+    # Y que no se haya colado un reloj dentro del comprimido.
+    raw = gzip.decompress(base64.b64decode(_encoded(encoded))).decode("utf-8")
+    assert "generated_at" not in json.loads(raw)
+
+
+def _encoded(path) -> str:
+    import re
+
+    return re.search(r"MODEL_B64 = \"([^\"]+)\"", path.read_text(encoding="utf-8")).group(1)
