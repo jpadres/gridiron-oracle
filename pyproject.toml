@@ -21,7 +21,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=7.4", "pytest-cov>=4.1", "ruff>=0.4"]
+dev = ["pytest>=7.4", "pytest-cov>=4.1", "ruff>=0.4", "hypothesis>=6.100"]
 api = ["fastapi>=0.110", "uvicorn>=0.29"]
 # Textos generados y barrido de prensa. Extra y no dependencia: el modelo, el
 # backtest y la web funcionan enteros sin esto, y quien clone el repo para mirar
