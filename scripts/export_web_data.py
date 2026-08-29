@@ -68,7 +68,15 @@ DRAFT_COLUMNS = (
 )
 WEEKLY_COLUMNS = (
     "player_id", "position_rank", "player_name", "position", "team", "opponent",
-    "projected_points", "baseline_points", "matchup_multiplier",
+    # Las tres piezas de la proyección publicada, que es una MEZCLA:
+    #   projected_points = blend_weight * baseline_points
+    #                    + (1 - blend_weight) * model_points
+    # Se publican las tres porque antes no componían: el QB1 salía con baseline
+    # 20,1, multiplicador 1,04 y proyección 15,2, y quien intentara la
+    # aritmética evidente obtenía otro número. Un dato publicado que invita a
+    # una cuenta que no cuadra es peor que no publicarlo.
+    "projected_points", "model_points", "baseline_points", "blend_weight",
+    "matchup_multiplier",
 )
 
 
