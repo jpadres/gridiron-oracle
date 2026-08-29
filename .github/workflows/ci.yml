@@ -169,11 +169,28 @@ jobs:
         with:
           node-version: "22"
 
+      # Se audita la lista de dependencias, no el entorno.
+      #
+      # Auditando el entorno, pip-audit encuentra dentro al propio proyecto
+      # instalado en editable, va a buscar `gridiron-oracle 0.1.0` a PyPI, no lo
+      # encuentra —claro: no está publicado— y sale con error **antes de auditar
+      # ninguna dependencia**. El job llevaba semanas en rojo por eso, que es el
+      # peor modo de fallo de un control de seguridad: un rojo permanente por un
+      # motivo ajeno es indistinguible de un rojo por una vulnerabilidad de
+      # verdad, y se acaba ignorando.
+      #
+      # `--skip-editable` no vale como arreglo: choca con `--strict`, que trata
+      # cualquier paquete no auditado como fallo. Y `--strict` es justo lo que no
+      # se quiere perder — es lo que impide que algo deje de auditarse en
+      # silencio. Con `pip freeze --exclude-editable` la lista sale ya sin el
+      # proyecto, y se conserva entero.
       - name: pip-audit
         run: |
           pip install pip-audit
           pip install -e ".[dev]"
-          pip-audit --strict
+          pip freeze --exclude-editable > /tmp/requirements-auditadas.txt
+          echo "Auditando $(wc -l < /tmp/requirements-auditadas.txt) dependencias:"
+          pip-audit --strict -r /tmp/requirements-auditadas.txt
 
       - name: npm audit
         working-directory: web
