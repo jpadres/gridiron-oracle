@@ -31,6 +31,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 import pandas as pd
 
+from oracle import capabilities, decisions
 from oracle.backtest.metrics import calibration_table, evaluate, summarize_ats
 from oracle.backtest.walkforward import season_table, walk_forward
 from oracle.config import DEFAULT_BACKTEST_START
@@ -129,6 +130,20 @@ def main(argv: list[str] | None = None) -> int:
         }
         backtest_cache.write_text(json.dumps(validation, default=str), encoding="utf-8")
         payload["validation"] = validation
+
+    # --- qué puede afirmar el producto ---------------------------------------
+    #
+    # El registro viaja con los datos, no aparte, y por un motivo concreto: si
+    # vive sólo en Python, la interfaz tiene que acordarse de consultarlo, y eso
+    # dura hasta la siguiente pantalla. Yendo en el payload, cada tarjeta puede
+    # leer la autoridad de la capacidad que está a punto de presentar.
+    #
+    # La regla que impone: la interfaz NO puede presentar una capacidad con más
+    # autoridad de la que dice el registro. El QB es el caso: se pueden enseñar
+    # sus proyecciones (INFORM) y no se puede decir «alinea a Lawrence»
+    # (RECOMMEND), porque esa capacidad pierde contra una media de seis partidos.
+    payload["capabilities"] = capabilities.as_payload()
+    payload["separation_bands"] = decisions.as_payload()
 
     # --- jornada publicada --------------------------------------------------
     season, week = _resolve_week(oracle, args.season, args.week)

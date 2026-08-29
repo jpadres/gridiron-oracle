@@ -147,6 +147,41 @@ def test_la_mezcla_semanal_compone_en_el_payload_publicado(payload):
         assert abs(row["projected_points"] - esperado) < TOLERANCIA_REDONDEO, row["player_name"]
 
 
+def test_el_registro_de_capacidades_viaja_al_payload(payload):
+    """La interfaz no puede saber qué tiene permitido afirmar si no lo recibe.
+
+    Si el registro viviera sólo en Python, cada pantalla tendría que acordarse
+    de consultarlo, y eso dura hasta la siguiente pantalla.
+    """
+    registro = _dig(payload, "capabilities")
+    assert registro["model_version"]
+    entradas = {c["id"]: c for c in registro["capabilities"]}
+    assert entradas, "el registro llegó vacío"
+    for entrada in entradas.values():
+        assert entrada["status"] in {
+            "VALIDATED", "NOT_READY", "REJECTED", "BLOCKED", "DESIGN_ONLY"
+        }
+        assert entrada["authority"] in {"RECOMMEND", "INFORM", "DATA_ONLY", "HIDE"}
+
+    # Los dos casos que motivaron el bloque, fijados aquí para que un cambio de
+    # estado no se cuele sin que nadie lo vea.
+    assert entradas["START_SIT_QB"]["authority"] == "INFORM"
+    assert entradas["START_SIT_RB"]["authority"] == "RECOMMEND"
+    assert entradas["KICKER_ORDINAL_RANKING"]["authority"] == "DATA_ONLY"
+    assert entradas["BETTING_EDGE"]["authority"] == "DATA_ONLY"
+
+
+def test_los_tramos_de_separacion_viajan_y_el_primero_no_es_informativo(payload):
+    tramos = _dig(payload, "separation_bands")
+    assert len(tramos) == 4
+    primero = tramos[0]
+    assert primero["confidence"] == "TOSS_UP"
+    assert primero["is_informative"] is False
+    # Y ninguno expone nada llamado probabilidad: son frecuencias del sistema.
+    for tramo in tramos:
+        assert not [k for k in tramo if "prob" in k.lower()]
+
+
 def test_ninguna_probabilidad_se_sale_del_intervalo(payload):
     """Invariante barata que ya habría cazado un signo invertido."""
     for row in _dig(payload, "predictions"):
