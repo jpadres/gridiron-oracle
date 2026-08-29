@@ -23,6 +23,7 @@ Estados: **PASA** · **FALLA** · **NO CONCLUYENTE** · **RETIRADO**
 | E10 | El umbral de viento de 15 mph tiene efecto medible | 5.008 partidos | viento ≤ 10 mph | puntos totales, IC95% | efecto significativo | −3,47 pts, IC [−4,78, −2,16] | **PASA** |
 | E11 | El modelo ayuda en decisiones de Start/Sit difíciles | 2024–2025, 31.776 pares | forma reciente y moneda | acierto por pares, IC95% | batir al baseline **y** IC>50% | 54,3% [53,7–54,8] vs 53,6% | **PASA** |
 | E11b | Ídem incluyendo los que no jugaron | 42.354 pares | ídem | ídem | ídem | 52,9% vs **50,1%** (la forma es una moneda) | **PASA** |
+| E12 | El orden del ranking significa algo por debajo de 1 punto de diferencia | 89.114 pares | moneda | acierto por tramo, IC95% | IC > 50% | 50,6% [49,5–51,7] — el 50% dentro del IC | **FALLA** (y ése es el hallazgo) |
 | E10b | Ese efecto es explotable contra el mercado | 457 partidos | total de cierre | residuo, IC95% | — | −2,22 aparente, **pero el clima es observado, no pronosticado** | **FALLA** (fuga) |
 
 ## Conocimiento negativo — cosas que NO funcionan
@@ -43,7 +44,10 @@ Estados: **PASA** · **FALLA** · **NO CONCLUYENTE** · **RETIRADO**
    partidos ya jugados: cero de los 272 de 2026. El −2,22 puntos contra el total
    de cierre con viento >15 mph parece una ventaja y es la fuga más seductora que
    hay — la que da la razón a lo que uno quería creer.
-7. **Un multiplicador que iguala la media no minimiza el MAE.** Con una
+7. **Los puestos consecutivos de un ranking semanal no se distinguen.** Con
+   menos de un punto de diferencia proyectada el acierto es 50,6%, IC95%
+   [49,5%, 51,7%], sobre 15.837 pares. El puesto 14 y el 15 son la misma cosa.
+8. **Un multiplicador que iguala la media no minimiza el MAE.** Con una
    distribución sesgada a la derecha, el predictor que minimiza el error
    absoluto es la mediana; ajustar a la media empeora el MAE a cambio de un
    nivel correcto.

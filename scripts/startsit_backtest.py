@@ -29,6 +29,8 @@ EVALUATION = (2024, 2025)
 # La zona de decisión, fijada en el preregistro.
 MIN_PROJECTION = 8.0
 MAX_GAP = 3.0
+# Para el análisis por tramos hace falta ver más allá de la zona apretada.
+WIDE_GAP = 12.0
 BIG_MISS = 10.0
 
 
@@ -43,12 +45,13 @@ def wilson(wins: int, n: int, z: float = 1.96) -> tuple[float, float, float]:
     return p, centre - half, centre + half
 
 
-def build_pairs(board: pd.DataFrame, require_played: bool) -> pd.DataFrame:
+def build_pairs(board: pd.DataFrame, require_played: bool,
+                limite: float = MAX_GAP) -> pd.DataFrame:
     filas = []
     for (_season, _week, position), group in board.groupby(["season", "week", "position"]):
         candidatos = group[group["projected_points"] >= MIN_PROJECTION]
         for a, b in itertools.combinations(candidatos.itertuples(index=False), 2):
-            if abs(a.projected_points - b.projected_points) > MAX_GAP:
+            if abs(a.projected_points - b.projected_points) > limite:
                 continue
             if require_played and (not np.isfinite(a.fantasy_points)
                                    or not np.isfinite(b.fantasy_points)):
@@ -155,6 +158,30 @@ def main() -> int:
                   f"forma {mm['forma reciente']['tasa']:.1%}  "
                   f"arrep. {mm['modelo']['arrepentimiento_medio']:.2f}")
         print()
+
+    # Bloques 54 y 77: ¿a partir de qué diferencia de proyección significa algo
+    # el orden? Es lo que decide si se puede decir CLARO, LEVE o MONEDA AL AIRE,
+    # y sale de los datos en vez de de tres etiquetas elegidas a ojo.
+    todos = build_pairs(board, require_played=False, limite=WIDE_GAP)
+    todos["gap"] = (todos.proj_a - todos.proj_b).abs()
+    todos["acierta"] = np.where(
+        todos.proj_a > todos.proj_b,
+        todos.real_a > todos.real_b,
+        todos.real_b > todos.real_a,
+    )
+    print("=== bloque 54: acierto por tamaño de la diferencia proyectada ===\n")
+    print(f"{'diferencia':14}{'n':>8}{'acierto':>10}{'IC95%':>18}")
+    cortes = [(0, 0.5), (0.5, 1.0), (1.0, 2.0), (2.0, 3.0), (3.0, 5.0), (5.0, 100.0)]
+    escala = []
+    for lo, hi in cortes:
+        sub = todos[(todos.gap >= lo) & (todos.gap < hi)]
+        if len(sub) < 100:
+            continue
+        p_, l_, h_ = wilson(int(sub.acierta.sum()), len(sub))
+        etiqueta = f"{lo:g}-{hi:g}" if hi < 100 else f"{lo:g}+"
+        print(f"{etiqueta:14}{len(sub):>8,}{p_:>10.1%}   [{l_:>5.1%}, {h_:>5.1%}]")
+        escala.append({"lo": lo, "hi": hi, "n": len(sub), "tasa": p_, "ic_low": l_})
+    resultados["por_diferencia"] = escala
 
     json.dump(resultados, open("/tmp/startsit.json", "w"), default=float)
     return 0
