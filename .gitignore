@@ -39,3 +39,11 @@ web/data/model.json
 # salida — al revés que `research/`, que sí se versiona porque no se puede
 # reconstruir.
 web/tools/shots/
+
+# Identificadores de la liga sincronizada. `research/` se versiona y este
+# repositorio es público: un `league_id` de Sleeper basta para que cualquiera
+# se lleve los nombres de los otros once miembros de tu liga, que no han
+# decidido nada sobre este proyecto. Las REGLAS de la liga sí se versionan
+# (research/league.json) porque el board se regenera en CI y sin ellas caería
+# en PPR por defecto sin decir nada.
+research/league_private.json

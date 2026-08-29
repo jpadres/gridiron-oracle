@@ -191,7 +191,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--season", type=int, default=None, help="Temporada a proyectar.")
     parser.add_argument("--ignore-league", action="store_true",
                         help="Ignora research/league.json y usa --scoring y --teams.")
-    parser.add_argument("--scoring", default="ppr", help="ppr | half | standard")
+    parser.add_argument("--scoring", default="ppr", help="ppr | half | standard | te-premium")
+    parser.add_argument(
+        "--publish-league-name", action="store_true",
+        help="Publica el nombre de tu liga en el sitio web. Suele llevar dentro "
+             "los nombres de quienes juegan en ella; por eso no es el defecto.",
+    )
     parser.add_argument("--teams", type=int, default=12)
     args = parser.parse_args(argv)
 
@@ -208,7 +213,7 @@ def main(argv: list[str] | None = None) -> int:
             teams=synced["teams"],
             starters=tuple(synced["starters"].items()),
         )
-        print(f"Usando la liga sincronizada: {synced.get('name')} "
+        print(f"Usando la liga sincronizada: {synced.get('name') or '(sin nombre publicado)'} "
               f"({settings.teams} equipos, {rules.reception:g} por recepción).")
     else:
         rules = rules_from_name(args.scoring)
@@ -318,7 +323,12 @@ def main(argv: list[str] | None = None) -> int:
                 # del argumento: con una liga sincronizada, «ppr» podía acabar
                 # publicado sobre un board de media recepción.
                 "scoring": _scoring_label(rules),
-                "league": synced.get("name") if synced and not args.ignore_league else None,
+                # El nombre de la liga sólo viaja al sitio público si se pide
+                # explícitamente. El fichero versionado ya no lo trae, así que
+                # esto es None salvo que se pase `--publish-league-name`: el
+                # nombre de una liga suele llevar dentro los nombres de los que
+                # juegan en ella.
+                "league": _league_name_to_publish(args, synced),
                 "teams": settings.teams,
                 "starters": dict(settings.starters),
                 "board": board.head(250).round(3).to_dict(orient="records"),
@@ -363,11 +373,33 @@ def _scoring_label(rules: ScoringRules) -> str:
 
 
 def _synced_league(root) -> dict | None:
-    """La liga sincronizada desde Sleeper, si la hay."""
+    """Las reglas de la liga sincronizada, si las hay.
+
+    Lee el fichero versionado, que **no** trae identificadores. Si existe el
+    privado (que no se versiona) se fusiona encima, para que el nombre esté
+    disponible en local sin haberlo publicado nunca.
+    """
     path = root / "research" / "league.json"
     if not path.exists():
         return None
-    return json.loads(path.read_text(encoding="utf-8"))
+    league = json.loads(path.read_text(encoding="utf-8"))
+    private = root / "research" / "league_private.json"
+    if private.exists():
+        league = {**league, **json.loads(private.read_text(encoding="utf-8"))}
+    return league
+
+
+def _league_name_to_publish(args, synced) -> str | None:
+    """El nombre de la liga sólo sale al sitio público si se pide.
+
+    El sitio está desplegado y es público. El nombre de una liga de fantasy
+    suele llevar dentro los nombres o los apodos de quienes juegan en ella, y
+    ninguno de ellos ha decidido nada sobre este proyecto. Publicarlo tiene que
+    ser un acto, no un efecto secundario de sincronizar.
+    """
+    if not synced or args.ignore_league or not getattr(args, "publish_league_name", False):
+        return None
+    return synced.get("name")
 
 
 def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> pd.DataFrame:

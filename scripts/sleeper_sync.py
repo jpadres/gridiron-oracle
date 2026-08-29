@@ -67,25 +67,50 @@ def main(argv: list[str] | None = None) -> int:
 
     settings = sleeper.league_settings_from(data)
 
-    payload = {
+    # La sincronización se parte en dos ficheros, y el motivo no es de estilo.
+    #
+    # `research/` se versiona, y este repositorio es público. Un `league_id` de
+    # Sleeper basta para que cualquiera pida `/league/<id>/users` y se lleve los
+    # nombres y los apodos de los otros once miembros de tu liga — gente que no
+    # ha decidido nada sobre este proyecto. Que la API de Sleeper sea pública no
+    # convierte en tuya la decisión de publicar el identificador.
+    #
+    # Lo que el MODELO necesita para reconstruir el board —puntuación, titulares,
+    # número de equipos— no identifica a nadie y sí tiene que estar versionado:
+    # el workflow semanal regenera el board en CI, y sin estas reglas caería en
+    # PPR por defecto sin decir nada, que es justo el fallo silencioso que este
+    # proyecto persigue.
+    public = {
         "platform": "sleeper",
-        "league_id": data.get("league_id"),
-        "name": data.get("name"),
         "season": data.get("season"),
         "teams": settings.teams,
-        # Se guarda el user_id y no el nombre: Sleeper avisa de que el nombre
-        # puede cambiar, y una sincronización guardada por nombre empieza a dar
-        # 404 el día que lo cambies — pareciendo un problema de red.
         "scoring": {field: getattr(rules, field) for field in rules.__dataclass_fields__},
         "starters": dict(settings.starters),
         "roster_positions": data.get("roster_positions"),
     }
+    # Y lo que identifica a personas se queda fuera del control de versiones.
+    # Se guarda el user_id y no el nombre de usuario: Sleeper avisa de que el
+    # nombre puede cambiar, y una sincronización guardada por nombre empieza a
+    # dar 404 el día que lo cambies — pareciendo un problema de red.
+    private = {
+        "platform": "sleeper",
+        "league_id": data.get("league_id"),
+        "name": data.get("name"),
+        "season": data.get("season"),
+    }
 
-    out = paths.root / "research" / "league.json"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
+    research = paths.root / "research"
+    research.mkdir(parents=True, exist_ok=True)
+    out = research / "league.json"
+    out.write_text(json.dumps(public, ensure_ascii=False, indent=1), encoding="utf-8")
+    (research / "league_private.json").write_text(
+        json.dumps(private, ensure_ascii=False, indent=1), encoding="utf-8"
+    )
+    payload = {**public, **private}
 
     print(f"Liga: {payload['name']} ({payload['teams']} equipos, {payload['season']})")
+    print(f"  reglas (se versionan, no identifican a nadie): {out}")
+    print(f"  identificadores (NO se versionan):             {research / 'league_private.json'}")
     print(f"Titulares: {', '.join(f'{k} {v:g}' for k, v in settings.starters)}")
     print(f"Recepción: {rules.reception:g} punto(s)  ·  TD de pase: {rules.passing_td:g}")
     print(f"\nEscrito {out.relative_to(paths.root)}")
