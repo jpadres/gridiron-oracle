@@ -131,7 +131,7 @@ def main(argv: list[str] | None = None) -> int:
     ).to_dict(orient="records")
 
     bets = oracle.value_bets(week_predictions)
-    payload["bets"] = _round_frame(bets).to_dict(orient="records") if not bets.empty else []
+    payload["bets"] = _enrich_bets(bets, week_predictions)
 
     payload["ratings"] = _round_frame(oracle.team_ratings()).to_dict(orient="records")
 
@@ -172,6 +172,45 @@ def main(argv: list[str] | None = None) -> int:
 
     write_payload(paths.web_data, payload)
     return 0
+
+
+# Importe por debajo del cual una apuesta no se publica.
+#
+# Kelly a un cuarto con el encogimiento del 50% devuelve, para un edge pequeño,
+# fracciones que redondean a un céntimo. Publicar «apuesta 0,01 €» no es un
+# número pequeño: es una fila que dice «no apuestes» disfrazada de recomendación,
+# y ensucia la tabla justo donde el lector busca señal.
+MIN_STAKE = 1.0
+
+
+def _enrich_bets(bets, predictions) -> list[dict]:
+    """Cada apuesta con la ficha histórica de su clase, y sin las de céntimos.
+
+    La ficha histórica es lo que sustituye a la «confianza» que no se puede
+    calcular: mide `docs/PREREGISTRO_confianza.md`. Casi siempre dice que la
+    clase de esa apuesta pierde dinero, y se publica igual — es el dato.
+    """
+    from oracle.betting.evidence import lookup
+
+    if bets.empty:
+        return []
+
+    lines = predictions.set_index("game_id")
+    rows = []
+    for record in _round_frame(bets).to_dict(orient="records"):
+        if float(record.get("stake") or 0) < MIN_STAKE:
+            continue
+        game = lines.loc[record["game_id"]]
+        disagreement = abs(float(game["pred_margin"]) - float(game["spread_line"]))
+        evidence = lookup(disagreement)
+        record["disagreement"] = round(disagreement, 2)
+        record["evidence_label"] = evidence.label
+        record["evidence_bets"] = evidence.bets
+        record["evidence_win_rate"] = evidence.win_rate
+        record["evidence_beats_breakeven"] = evidence.beats_breakeven
+        record["evidence_verdict"] = evidence.verdict
+        rows.append(record)
+    return rows
 
 
 def _research(paths, payload: dict) -> dict | None:

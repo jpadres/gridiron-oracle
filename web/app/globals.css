@@ -135,6 +135,24 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.25r
          font-size: 0.72rem; background: var(--warn-bg); color: var(--warn-line);
          white-space: nowrap; }
 
+/* Consejo de survivor y ficha histórica de una apuesta. Los dos llevan SIEMPRE
+   la palabra escrita: el color es el segundo canal, nunca el único. */
+.adv { display: inline-block; font-size: 0.76rem; font-weight: 600;
+       letter-spacing: 0.03em; padding: 0.08rem 0.4rem; border-radius: 4px; }
+.adv--go   { background: rgba(27, 175, 122, 0.14); color: #0d6e4a; }
+.adv--hold { background: var(--warn-bg); color: var(--warn-line); }
+.adv--no   { background: rgba(208, 59, 59, 0.14); color: #b32d2d; }
+
+.ev-ok   { color: #0d6e4a; font-weight: 600; }
+.ev-bad  { color: var(--muted); }
+.ev-none { color: var(--muted); font-style: italic; }
+
+@media (prefers-color-scheme: dark) {
+  .adv--go { background: rgba(27, 175, 122, 0.20); color: #4fd3a2; }
+  .adv--no { background: rgba(208, 59, 59, 0.22); color: #f08a8a; }
+  .ev-ok { color: #4fd3a2; }
+}
+
 /* --- sincronización con Sleeper ------------------------------------------ */
 
 /* Bloque aparte y con borde: es lo único de la página que habla con fuera, y

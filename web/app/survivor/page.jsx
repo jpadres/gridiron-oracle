@@ -14,8 +14,27 @@ const BOARD_COLUMNS = [
   { key: "win_prob", label: "Gana", format: (v) => pct(v) },
   { key: "survival_if_used", label: "Plan si lo usas", format: (v) => pct(v) },
   {
+    key: "advice",
+    label: "Consejo",
+    format: (v, row) => (
+      <span className={`adv adv--${{ USAR: "go", GUARDAR: "hold", EVITAR: "no" }[v] ?? "hold"}`}
+            title={row.advice_why}>
+        {v}
+      </span>
+    ),
+  },
+  {
+    key: "cost_relative",
+    // «Coste relativo» y no «coste», porque la escala es lo que lo hacía
+    // ilegible: 0,0008 de probabilidad absoluta se pintaba como «−0,1%» y se
+    // leía como «da igual», cuando sobre un plan que sobrevive al 0,81% son
+    // **el 10% de todo lo que tienes**.
+    label: "Cuánto te cuesta",
+    format: (v) => (v < 0.005 ? "—" : `−${pct(v, 0)}`),
+  },
+  {
     key: "cost",
-    label: "Coste de quemarlo",
+    label: "En absoluto",
     // El coste del mejor pick es cero por construcción: es el plan de
     // referencia. Escribirlo como «0,0%» invita a leerlo como un empate.
     format: (v) => (v < 1e-9 ? "—" : `−${pct(v)}`),

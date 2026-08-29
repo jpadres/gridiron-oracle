@@ -165,15 +165,64 @@ def week_board(
         if np.isnan(probability) or team in used:
             continue
         plan = best_plan(matrix, weeks, teams, used=used, forced=(week, team))
+        cost = float(reference.survival - plan.survival)
         board.append({
             "team": team,
             "win_prob": float(probability),
             "survival_if_used": plan.survival,
-            "cost": float(reference.survival - plan.survival),
+            "cost": cost,
+            # El coste RELATIVO, que es el único legible.
+            #
+            # En absoluto, gastar hoy a un equipo cuesta 0,0008 de probabilidad y
+            # se pinta como «−0,1%», que se lee como «da igual». Pero el plan
+            # entero sobrevive con un 0,81%, así que esos 0,0008 son **el 10% de
+            # todo lo que tienes**. El número siempre estuvo bien calculado; era
+            # la escala la que lo hacía invisible.
+            "cost_relative": (
+                cost / reference.survival if reference.survival > FLOOR else 0.0
+            ),
             "plan": [pick["team"] for pick in plan.picks],
         })
 
     board.sort(key=lambda entry: -entry["survival_if_used"])
     for rank, entry in enumerate(board, start=1):
         entry["rank"] = rank
+        entry["advice"], entry["advice_why"] = _advice(entry)
     return board
+
+
+# Umbrales de la recomendación. Salen de la forma real del board, no de números
+# redondos: con 18 jornadas y 32 equipos, el coste relativo del mejor candidato
+# ronda el 0% y el de un equipo valioso pero prescindible hoy pasa del 15%.
+SAFE_ENOUGH = 0.65      # por debajo de esto, ganar hoy ya no está asegurado
+EXPENSIVE = 0.15        # por encima, quemarlo hoy se lleva un pellizco del plan
+
+
+def _advice(entry: dict) -> tuple[str, str]:
+    """PICK / SAVE / AVOID, con el motivo en una frase.
+
+    Las tres salen de cruzar las dos cantidades que ya están calculadas —lo
+    probable que es ganar hoy y lo que cuesta gastar a ese equipo hoy— y no
+    añaden ninguna información nueva. Su valor es que ahorran hacer el cruce
+    mentalmente treinta y dos veces.
+    """
+    # Se decide sobre el valor REDONDEADO, el mismo que se pinta.
+    #
+    # Con el valor crudo, dos equipos que la tabla enseña como «65%» pueden caer
+    # a lados distintos del corte y salir uno con GUARDAR y otro con EVITAR. El
+    # umbral seguiría siendo defendible y la fila, indefendible: nadie puede
+    # creerse una tabla donde el mismo número lleva a consejos opuestos.
+    win = round(entry["win_prob"], 2)
+    relative = round(entry["cost_relative"], 2)
+
+    if win < SAFE_ENOUGH:
+        return "EVITAR", f"gana sólo el {win:.0%}: demasiado riesgo para una eliminatoria"
+    if relative > EXPENSIVE:
+        return "GUARDAR", (
+            f"seguro hoy ({win:.0%}), pero gastarlo cuesta el {relative:.0%} "
+            "de tu plan: lo necesitas más adelante"
+        )
+    return "USAR", (
+        f"gana el {win:.0%} y apenas hace falta después "
+        f"(cuesta el {relative:.0%} del plan)"
+    )
