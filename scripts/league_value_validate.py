@@ -57,6 +57,21 @@ THREE_FLEX = ["QB", "RB", "RB", "WR", "WR", "WR", "TE", "FLEX", "FLEX", "FLEX", 
 # para 32 plantillas grandes.
 MINI = ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "K", "DEF"]
 MINI_SF = [*MINI[:7], "SUPER_FLEX", *MINI[7:]]
+# ESTRUCTURA de plantilla observada en una liga de 32 equipos: sin hueco dedicado
+# de quarterback ni de ala cerrada, y cuatro de los seis titulares compartidos.
+#
+# Se conserva porque destapó cosas que ningún escenario sintético cubría —el QB
+# entrando sólo por el superflex, y el reparto decidiendo casi toda la
+# plantilla—, no porque sea «el board de nadie».
+#
+#     LO QUE SE AFIRMA AQUÍ ES LA ESTRUCTURA. LA PUNTUACIÓN ES UNKNOWN.
+#
+# Los huecos salen de una captura de la pantalla de plantilla, que los muestra
+# literalmente. La puntuación NO se ha leído de ninguna parte: hace falta la
+# configuración de Sleeper. Por eso las pasadas de abajo que le ponen una
+# puntuación se llaman SONDA y no «real»: sirven para ver cómo responde esta
+# estructura, no para decir qué board tiene esa liga.
+STRUCT_32_3FLEX_SF = ["RB", "WR", "FLEX", "FLEX", "FLEX", "SUPER_FLEX"]
 
 TE_PREMIUM_RULES = ScoringRules(reception_by_position={"TE": 1.5})
 SIX_POINT_TD = ScoringRules(passing_td=6.0)
@@ -202,7 +217,8 @@ def _demand(player_weeks: pd.DataFrame) -> None:
                           # Ligas profundas: 32 equipos es el máximo con sentido,
                           # una franquicia por equipo NFL. El reparto tiene que
                           # cuadrar también ahí, y con roster reducido.
-                          (BASE, 32), (SUPERFLEX, 32), (MINI, 32), (MINI_SF, 32)]:
+                          (BASE, 32), (SUPERFLEX, 32), (MINI, 32), (MINI_SF, 32),
+                          (STRUCT_32_3FLEX_SF, 32)]:
         context = roster_context(roster + BENCH, teams)
         _, _, consumed = greedy_replacement(points, context)
         # El modelo de pesos: la suma de sus rangos frente a los huecos reales.
@@ -364,6 +380,10 @@ def _matrix(player_weeks: pd.DataFrame) -> None:
         ("32 ppr mini superflex", PPR, MINI_SF, 32),
         ("32 ppr estandar", PPR, BASE, 32),
         ("32 ppr superflex", PPR, SUPERFLEX, 32),
+        # SONDAS sobre la estructura de 3 flex + superflex. La puntuación es
+        # una hipótesis para poder calcular, no la de ninguna liga concreta.
+        ("32 3flex+SF sonda ppr", PPR, STRUCT_32_3FLEX_SF, 32),
+        ("32 3flex+SF sonda std", STANDARD, STRUCT_32_3FLEX_SF, 32),
     ]
     header = f"    {'escenario':<26}{'t25':>5}{'t50':>5}  {'reparto top-25':<22}{'mayor salto':>28}"
     print(header)
