@@ -18,26 +18,26 @@ export default function Error({ error, reset }) {
   useEffect(() => {
     // A la consola y no a un servicio: el sitio no tiene backend y no va a
     // adquirir uno para esto. Quien depure, lo tiene delante.
-    console.error("Fallo al renderizar la página:", error);
+    console.error("Page failed to render:", error);
   }, [error]);
 
   return (
     <div className="state">
-      <h1>Esta página no se pudo mostrar</h1>
+      <h1>This page could not load</h1>
       <p>
-        El fallo está en el sitio, no en tu conexión. Los datos del modelo viajan
-        dentro de la página, así que reintentar suele bastar: si el problema fue al
-        descomprimir el payload, la segunda vez funciona.
+        The problem is on our side, not your connection. The model data ships inside
+        the page itself, so retrying usually works: if it failed while unpacking the
+        payload, the second attempt goes through.
       </p>
       <p>
         <button type="button" className="retry" onClick={reset}>
-          Reintentar
+          Retry
         </button>
       </p>
       <p className="caption">
-        Si se repite, es que el payload publicado está corrupto y hay que regenerarlo
-        con <code>scripts/export_web_data.py</code>. El resto de las páginas deberían
-        seguir funcionando.
+        If it keeps happening the published payload is corrupt and needs regenerating
+        with <code>scripts/export_web_data.py</code>. Every other page should still
+        work.
       </p>
     </div>
   );

@@ -1,27 +1,29 @@
 import { model } from "../../data/model.js";
-import { Callout, ImpactTag, NoDataYet, Sources, Stat } from "../ui.jsx";
+import { AVAILABILITY_LABEL, Callout, ImpactTag, NoDataYet, Sources, Stat } from "../ui.jsx";
 
 export const metadata = {
-  title: "Gridiron Oracle — research",
+  title: "Gridiron Oracle — Research",
   description:
-    "Barrido diario de prensa, insiders y campamentos de los 32 equipos, con la fuente al lado. No entra en el modelo.",
+    "Daily sweep of beat writers, insiders and camp reports across all 32 teams, each with its source. None of it touches the model.",
 };
 
+// Las claves son las que trae el payload y NO se traducen: son datos del
+// esquema de research. Sólo se traduce lo que se pinta.
 const KIND = {
-  lesion: "Lesión",
-  transaccion: "Transacción",
+  lesion: "Injury",
+  transaccion: "Transaction",
   depth_chart: "Depth chart",
-  campamento: "Campamento",
-  contrato: "Contrato",
-  disciplina: "Disciplina",
-  esquema: "Esquema",
-  otro: "Otro",
+  campamento: "Camp",
+  contrato: "Contract",
+  disciplina: "Discipline",
+  esquema: "Scheme",
+  otro: "Other",
 };
 
 const CONFIDENCE = {
-  confirmado: { label: "Confirmado", hint: "Anuncio oficial del equipo o de la liga." },
-  informado: { label: "Informado", hint: "Un insider con nombre lo reporta." },
-  rumor: { label: "Rumor", hint: "Especulación o fuentes sin identificar." },
+  confirmado: { label: "Confirmed", hint: "Official team or league announcement." },
+  informado: { label: "Reported", hint: "A named insider is reporting it." },
+  rumor: { label: "Rumor", hint: "Speculation, or unnamed sources." },
 };
 
 /**
@@ -37,12 +39,16 @@ const CONFIDENCE = {
  * inventada. Un hueco visible es mejor que un dato falso.
  */
 const EVIDENCE = {
-  HECHO: { label: "Hecho", hint: "Anuncio oficial del equipo, de la liga o parte oficial." },
-  REPORTADO: { label: "Reportado", hint: "Un periodista con nombre lo da como información suya." },
-  OBSERVADO: { label: "Observado", hint: "Un reportero describe lo que vio: repeticiones, quién entrenó." },
-  OPINION: { label: "Opinión", hint: "Un analista con nombre espera algo. Es su juicio, no un hecho." },
-  MODELO: { label: "Modelo", hint: "Lo decimos nosotros, con nuestros propios números." },
+  HECHO: { label: "Fact", hint: "Official announcement from the team, the league or an injury report." },
+  REPORTADO: { label: "Reported", hint: "A named writer is reporting it as their own information." },
+  OBSERVADO: { label: "Observed", hint: "A reporter describing what they saw: reps, who practiced." },
+  OPINION: { label: "Opinion", hint: "A named analyst expects something. That is their read, not a fact." },
+  MODELO: { label: "Model", hint: "This is us, from our own numbers." },
 };
+
+// Las fichas anteriores al esquema de fechas no traen día. La etiqueta se pinta,
+// así que va en inglés; la clave del agrupamiento es la misma cadena.
+const NO_DATE = "no date";
 
 /**
  * Fecha a partir de un YYYY-MM-DD, sin depender del huso del servidor.
@@ -53,14 +59,14 @@ const EVIDENCE = {
  */
 function formatDate(iso, options) {
   const [year, month, day] = iso.split("-").map(Number);
-  return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("es-ES", {
+  return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("en-US", {
     timeZone: "UTC",
     ...options,
   });
 }
 
 const longDate = (iso) =>
-  formatDate(iso, { weekday: "long", day: "numeric", month: "long" });
+  formatDate(iso, { weekday: "long", month: "long", day: "numeric" });
 
 /**
  * Today's Intelligence: lo que puede cambiar una decisión hoy.
@@ -72,12 +78,11 @@ const longDate = (iso) =>
 function TodaysIntelligence({ items }) {
   if (!items || items.length === 0) {
     return (
-      <Callout title="Hoy no hay nada que cambie una decisión">
+      <Callout title="Nothing today changes a decision">
         <p>
-          No es un fallo de la ingesta. El filtro exige que la ficha pueda mover una
-          alineación esta semana, y la mayoría de los días no hay ninguna que lo haga.
-          Bajar el listón hasta que salgan cosas convertiría esto en el feed de noticias
-          que precisamente no queremos.
+          This is not a broken feed. The filter asks whether an item could move a lineup
+          this week, and most days nothing does. Lowering the bar until something shows up
+          would turn this into the news feed it exists not to be.
         </p>
       </Callout>
     );
@@ -112,7 +117,7 @@ function Note({ item, showDate = false }) {
             campamento sin fecha al lado no se puede juzgar. En el archivo por
             día la fecha ya es el encabezado de la sección. */}
         {showDate && item.date ? (
-          <span className="tag">{formatDate(item.date, { day: "numeric", month: "short" })}</span>
+          <span className="tag">{formatDate(item.date, { month: "short", day: "numeric" })}</span>
         ) : null}
         <span className="chip">{item.team}</span>
         <span className="tag">{KIND[item.kind] ?? KIND.otro}</span>
@@ -151,7 +156,9 @@ function Medical({ entries }) {
       {entries.map((entry, index) => (
         <article className="dossier" key={`${entry.player}-${index}`}>
           <h4>
-            <span className={`avail avail--${entry.level.toLowerCase()}`}>{entry.level}</span>{" "}
+            <span className={`avail avail--${entry.level.toLowerCase()}`}>
+              {AVAILABILITY_LABEL[entry.level] ?? entry.level}
+            </span>{" "}
             {entry.player} <span className="attrib">{entry.position} · {entry.team}</span>
           </h4>
           <p>{entry.situation}. {entry.status}</p>
@@ -173,7 +180,7 @@ function Camp({ entries }) {
           <h4>
             {entry.player} <span className="attrib">{entry.position} · {entry.team}</span>{" "}
             <span className={`tag tag--${entry.substance === "alta" ? "confirmado" : "rumor"}`}>
-              sustancia {entry.substance}
+              {entry.substance === "alta" ? "high substance" : "low substance"}
             </span>
           </h4>
           <p>{entry.report}</p>
@@ -228,12 +235,13 @@ export default function Research() {
       <>
         <h1>Research</h1>
         <p className="lede">
-          Barrido diario de prensa, insiders y crónicas de campamento de los 32 equipos.
+          Daily sweep of beat writers, insiders and camp reports across all 32 teams.
         </p>
         <NoDataYet />
         <p className="caption">
-          Esta sección la genera <code>scripts/research_build.py</code>, que necesita{" "}
-          <code>ANTHROPIC_API_KEY</code>. Sin clave el resto del sitio se construye igual.
+          This section is generated by <code>scripts/research_build.py</code>, which needs{" "}
+          <code>ANTHROPIC_API_KEY</code>. Without a key the rest of the site builds exactly
+          the same.
         </p>
       </>
     );
@@ -252,7 +260,7 @@ export default function Research() {
 
   const byDay = new Map();
   for (const item of rest) {
-    const day = item.date ?? "sin fecha";
+    const day = item.date ?? NO_DATE;
     if (!byDay.has(day)) byDay.set(day, []);
     byDay.get(day).push(item);
   }
@@ -264,43 +272,44 @@ export default function Research() {
     <>
       <h1>Research</h1>
       <p className="lede">
-        Cada día se barre lo que se publica sobre los 32 equipos — prensa nacional y local,
-        ESPN, los blogs de equipo y los insiders — y se resume aquí con el enlace a la fuente
-        al lado. Lo que no tiene fuente comprobable no se publica.
+        Every day this sweeps what gets published about all 32 teams — national and local
+        beats, ESPN, team blogs and insiders — and summarizes it here with the source link
+        alongside. Anything without a checkable source does not get published.
       </p>
 
-      <Callout title="Esto no entra en el modelo. A propósito.">
+      <Callout title="None of this touches the model. On purpose.">
         <p>
-          Los rankings y las predicciones salen de una pasada cronológica sobre datos de
-          nflverse, y su garantía es que <strong>ninguna fila ve el futuro</strong>. En el
-          momento en que un titular de hoy moviera una proyección, esa garantía dejaría de
-          poder demostrarse — y con ella, todas las métricas de validación.
+          The rankings and the predictions come out of a single chronological pass over
+          nflverse data, and their guarantee is that <strong>no row ever sees the
+          future</strong>. The moment a headline from today moved a projection, that
+          guarantee could no longer be demonstrated — and every validation number on this
+          site goes with it.
         </p>
         <p>
-          Así que las noticias van <em>al lado</em> de los números, nunca dentro. El ajuste lo
-          haces tú: el modelo no sabe que ese corredor está lesionado, y esta página está
-          precisamente para que tú sí lo sepas.
+          So the news sits <em>next to</em> the numbers, never inside them. You make the
+          adjustment: the model does not know that back is hurt, and this page exists so
+          that you do.
         </p>
       </Callout>
 
       <div className="grid">
-        <Stat label="Fichas" value={items.length} hint={`Ventana de ${research.window_days} días`} />
-        <Stat label="Mueven una alineación" value={headline.length} hint="Relevancia 4 o 5" />
-        <Stat label="Enlazadas a un jugador" value={linked} hint="Del ranking semanal" />
+        <Stat label="Items" value={items.length} hint={`${research.window_days}-day window`} />
+        <Stat label="Move a lineup" value={headline.length} hint="Relevance 4 or 5" />
+        <Stat label="Linked to a player" value={linked} hint="From the weekly rankings" />
         <Stat
-          label="Último barrido"
-          value={lastSweep ? formatDate(lastSweep, { day: "numeric", month: "short" }) : "—"}
-          hint="Diario, 12:00 UTC"
+          label="Last sweep"
+          value={lastSweep ? formatDate(lastSweep, { month: "short", day: "numeric" }) : "—"}
+          hint="Daily, 12:00 UTC"
         />
       </div>
 
-      <Callout title="Cómo leer la etiqueta de fiabilidad">
+      <Callout title="How to read the confidence tag">
         <p>
-          <strong>Confirmado</strong> es un anuncio oficial. <strong>Informado</strong> es un
-          insider con nombre y apellidos. <strong>Rumor</strong> es todo lo demás, incluido «se
-          espera que» firmado por alguien famoso. La distinción importa en agosto más que en
-          ningún otro momento del año: el campamento produce mucha más conversación que
-          información.
+          <strong>Confirmed</strong> is an official announcement. <strong>Reported</strong> is
+          a named insider. <strong>Rumor</strong> is everything else, including
+          &ldquo;expected to&rdquo; with a famous byline on it. The distinction matters more in
+          August than at any other point in the year: camp produces far more conversation than
+          information.
         </p>
       </Callout>
 
@@ -310,24 +319,24 @@ export default function Research() {
           orden por accionabilidad y sitio reservado para el impacto personal
           cuando exista la sincronización multi-liga. */}
       <section id="destacado">
-        <h2>Lo que mueve una alineación</h2>
+        <h2>What moves a lineup</h2>
         <p className="caption">
-          Ordenado por lo que puedes hacer con ello, no por cuándo se publicó. Cuando estén
-          sincronizadas tus ligas, lo que te afecte a ti subirá por encima de todo lo demás.
+          Ordered by what you can do about it, not by when it was published. Once your leagues
+          are synced, what affects your roster will rise above everything else.
         </p>
         <TodaysIntelligence items={today} />
       </section>
 
       {byDay.size > 0 ? (
         <>
-          <h2>El resto, por día</h2>
+          <h2>Everything else, by day</h2>
           <p className="caption">
-            Contexto y movimientos de relevancia 3 o menos: no cambian una alineación, pero
-            explican por qué cambiará la siguiente.
+            Context and moves at relevance 3 or below: they do not change a lineup, but they
+            explain why the next one will.
           </p>
           {[...byDay.entries()].map(([day, dayItems]) => (
             <section key={day} id={day}>
-              <h3 className="day">{day === "sin fecha" ? day : longDate(day)}</h3>
+              <h3 className="day">{day === NO_DATE ? day : longDate(day)}</h3>
               {dayItems.map((item, index) => (
                 <Note key={`${day}-${index}`} item={item} />
               ))}
@@ -338,26 +347,26 @@ export default function Research() {
 
       {medical.length > 0 ? (
         <section id="medico">
-          <h2>Parte médico</h2>
+          <h2>Injury report</h2>
           <p className="caption">
-            {medical.length} situaciones de los 32 equipos, cada una con quién lo dijo y
-            cuándo. La etiqueta mide <strong>disponibilidad, no gravedad</strong>: lo que
-            decide una alineación no es lo fea que suene la lesión, es si juega. Y la pone
-            quien compiló el dossier leyendo la cita, no un diagnóstico médico.
+            {medical.length} situations across the 32 teams, each with who said it and when.
+            The tag measures <strong>availability, not severity</strong>: what decides a lineup
+            is not how bad the injury sounds, it is whether he plays. And it was set by whoever
+            compiled the dossier reading the quote, not by a medical diagnosis.
           </p>
           <p className="caption">
-            Estas entradas van <strong>atribuidas y fechadas, pero sin enlace</strong>, al
-            revés que las fichas de arriba. Por eso están en su propia sección: forzarlas al
-            mismo formato obligaría a relajar la regla del enlace, y una garantía que se
-            relaja para que quepa el dato nuevo deja de ser una garantía.
+            These entries are <strong>attributed and dated, but carry no link</strong>, unlike
+            the items above. That is why they get their own section: forcing them into the same
+            format would mean relaxing the link rule, and a guarantee that gets relaxed to make
+            room for new data stops being a guarantee.
           </p>
-          <h3>Fuera ({out.length})</h3>
+          <h3>Out ({out.length})</h3>
           <Medical entries={out} />
-          <h3>En duda ({doubt.length})</h3>
+          <h3>Questionable ({doubt.length})</h3>
           <Medical entries={doubt.slice(0, 30)} />
           {doubt.length > 30 ? (
             <p className="caption">
-              Y {doubt.length - 30} más. El listado completo va en{" "}
+              And {doubt.length - 30} more. The full list is in{" "}
               <code>research/dossier.json</code>.
             </p>
           ) : null}
@@ -366,30 +375,31 @@ export default function Research() {
 
       {camp.length > 0 ? (
         <section id="campamento">
-          <h2>Campamento</h2>
+          <h2>Training camp</h2>
           <p className="caption">
-            Los reportes de campamento son de los datos <strong>menos predictivos</strong> que
-            existen en este deporte, y por eso el nivel de sustancia va delante y no
-            escondido: <em>alta</em> es una cita de un entrenador o un cambio confirmado de
-            papel; <em>baja</em> es un elogio suelto en agosto. De {camp.length} reportes,
-            sólo {campHigh.length} son de sustancia alta — esa proporción es el dato.
+            Camp reports are among the <strong>least predictive</strong> data in this sport,
+            which is why the substance level goes in front instead of buried: <em>high</em> is a
+            coach quote or a confirmed change of role; <em>low</em> is loose praise in August.
+            Of {camp.length} reports, only {campHigh.length} are high substance — that ratio is
+            the real finding.
           </p>
           <Camp entries={campHigh} />
           <p className="caption">
-            Los de sustancia media y baja quedan en <code>research/dossier.json</code>. No se
-            publican aquí porque enseñarlos al lado de los otros los iguala, y no son iguales.
+            Medium and low substance stay in <code>research/dossier.json</code>. They are not
+            published here because showing them beside the others makes them look equal, and
+            they are not.
           </p>
         </section>
       ) : null}
 
       {dossier?.reporters?.length ? (
         <section id="reporteros">
-          <h2>A quién seguir</h2>
+          <h2>Who to follow</h2>
           <p className="caption">
-            {dossier.reporters.length} periodistas de cobertura diaria, por equipo. El beat
-            local suele ir por delante del nacional en lo que pasa dentro de un entrenamiento:
-            está allí todos los días. Esta lista también es la que orienta el barrido diario —
-            no se busca «noticias de la NFL», se busca lo que publican estos.
+            {dossier.reporters.length} daily-coverage writers, by team. The local beat is
+            usually ahead of the national one on what happens inside a practice: they are there
+            every day. This list is also what steers the daily sweep — it does not search for
+            &ldquo;NFL news&rdquo;, it searches for what these people publish.
           </p>
           <Beat reporters={dossier.reporters} />
         </section>
@@ -397,13 +407,12 @@ export default function Research() {
 
       {dossier?.sources?.length ? (
         <section id="fuentes">
-          <h2>Fuentes</h2>
+          <h2>Sources</h2>
           <p className="caption">
-            Las {dossier.sources.length} publicaciones de las que sale el dossier, con lo que
-            se ha usado de cada una. Las marcadas como <strong>sin verificar</strong> son hilos
-            de foro: se conservan porque a veces llegan antes que nadie, y se marcan porque
-            mezclarlas con el reporte de un insider sin decirlo es lo que hace inútil una
-            bibliografía.
+            The {dossier.sources.length} publications the dossier draws on, with what was used
+            from each. The ones marked <strong>unverified</strong> are forum threads: they are
+            kept because sometimes they land first, and they are marked because mixing them in
+            with an insider report without saying so is what makes a bibliography worthless.
           </p>
           <ul className="sources-list">
             {dossier.sources.map((source, index) => (
@@ -413,25 +422,25 @@ export default function Research() {
                 </a>{" "}
                 — {source.article}
                 <span className="used"> · {source.used_for}</span>
-                {source.verified ? null : <span className="tag tag--rumor">sin verificar</span>}
+                {source.verified ? null : <span className="tag tag--rumor">unverified</span>}
               </li>
             ))}
           </ul>
         </section>
       ) : null}
 
-      <h2>Qué esperar de esto</h2>
+      <h2>What to expect from this</h2>
       <p>
-        Es un lector de prensa, no una fuente de datos. Resume lo que otros publicaron y enlaza
-        a ello; no verifica que sea cierto, ni tiene forma de hacerlo. Un reporte de insider
-        equivocado se resume aquí igual de bien que uno acertado — por eso está la etiqueta de
-        fiabilidad, y por eso el enlace es obligatorio.
+        It is a press reader, not a data source. It summarizes what other people published and
+        links to it; it does not verify that any of it is true, and has no way to. A wrong
+        insider report gets summarized here just as well as a right one — that is what the
+        confidence tag is for, and why the link is mandatory.
       </p>
       <p className="caption">
-        El barrido lo hace Claude con búsqueda web, una vez al día. Las fichas sin enlace válido
-        se descartan antes de llegar aquí, y el histórico completo queda en{" "}
-        <code>research/</code> dentro del repositorio: si mañana se cae el enlace, lo que se
-        publicó hoy sigue existiendo.
+        The sweep is run by Claude with web search, once a day. Items without a valid link are
+        discarded before they reach this page, and the full history stays in{" "}
+        <code>research/</code> inside the repository: if the link dies tomorrow, what was
+        published today still exists.
       </p>
     </>
   );

@@ -13,7 +13,7 @@
 export default function Loading() {
   return (
     <div className="skeleton" aria-busy="true" aria-live="polite">
-      <span className="sr-only">Cargando…</span>
+      <span className="sr-only">Loading…</span>
       <div className="sk sk--title" />
       <div className="sk sk--lede" />
       <div className="sk sk--block" />

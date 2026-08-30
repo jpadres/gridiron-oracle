@@ -106,16 +106,21 @@ def _spread_candidates(game: pd.Series, distribution: MarginDistribution) -> lis
     fair = devig_shin(np.array([decimal, decimal]))
 
     return [
-        _candidate(game, f"spread {_es(line)}", game["home_team"], home_prob, decimal, fair[0],
+        _candidate(game, f"spread {_handicap(line)}", game["home_team"], home_prob, decimal, fair[0],
                    push=push),
-        _candidate(game, f"spread {_es(-line)}", game["away_team"], away_prob, decimal, fair[1],
+        _candidate(game, f"spread {_handicap(-line)}", game["away_team"], away_prob, decimal, fair[1],
                    push=push),
     ]
 
 
-def _es(line: float) -> str:
-    """Handicap con coma decimal. El sitio está en español y esto se publica tal cual."""
-    return f"{line:+.1f}".replace(".", ",")
+def _handicap(line: float) -> str:
+    """Handicap tal y como se publica: punto decimal, como el resto de la interfaz.
+
+    Esta cadena viaja al payload y se pinta en la columna «Market». Cuando la
+    web estaba en español llevaba coma; con la interfaz en inglés, una coma
+    aquí y un punto en la celda de al lado se lee como un error de datos.
+    """
+    return f"{line:+.1f}"
 
 
 def _candidate(

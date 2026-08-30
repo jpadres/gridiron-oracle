@@ -126,12 +126,12 @@ def reasons(row: pd.Series) -> list[str]:
     out: list[tuple[float, str]] = []
     if row.get("risk_sample", 0) > REASON_THRESHOLDS["sample"]:
         games = float(row.get("weighted_games", 0))
-        out.append((row["risk_sample"], f"muestra corta ({games:.0f} partidos ponderados)"))
+        out.append((row["risk_sample"], f"short sample ({games:.0f} weighted games)"))
     if row.get("risk_shrink", 0) > REASON_THRESHOLDS["shrink"]:
-        out.append((row["risk_shrink"], "el modelo desconfía de su tasa bruta"))
+        out.append((row["risk_shrink"], "the model distrusts his raw rate"))
     if row.get("risk_touchdown", 0) > REASON_THRESHOLDS["touchdown"]:
         share = row["risk_touchdown"] * 0.35
-        out.append((row["risk_touchdown"], f"depende del touchdown ({share:.0%} de sus puntos)"))
+        out.append((row["risk_touchdown"], f"touchdown-dependent ({share:.0%} of his points)"))
     return [text for _, text in sorted(out, reverse=True)]
 
 

@@ -2,55 +2,55 @@ import { model, num, pct } from "../../data/model.js";
 import { Callout, NoDataYet, Table } from "../ui.jsx";
 
 export const metadata = {
-  title: "Gridiron Oracle — predicciones",
-  description: "Predicciones de la jornada y apuestas que superan el umbral de valor.",
+  title: "Gridiron Oracle — Predictions",
+  description: "This week's predictions and the bets that clear the value threshold.",
 };
 
 const GAME_COLUMNS = [
-  { key: "away_team", label: "Visitante" },
-  { key: "home_team", label: "Local" },
-  { key: "spread_line", label: "Línea", format: (v) => num(v, 1) },
-  { key: "pred_margin", label: "Margen", format: (v) => num(v) },
+  { key: "away_team", label: "Away" },
+  { key: "home_team", label: "Home" },
+  { key: "spread_line", label: "Line", format: (v) => num(v, 1) },
+  { key: "pred_margin", label: "Margin", format: (v) => num(v) },
   { key: "pred_total", label: "Total", format: (v) => num(v, 1) },
-  { key: "home_win_prob", label: "P(local)", format: (v) => pct(v) },
-  { key: "edge_vs_line", label: "Diferencia", format: (v) => num(v) },
+  { key: "home_win_prob", label: "P(home)", format: (v) => pct(v) },
+  { key: "edge_vs_line", label: "Diff", format: (v) => num(v) },
 ];
 
 const BET_COLUMNS = [
-  { key: "matchup", label: "Partido" },
-  { key: "market", label: "Mercado" },
-  { key: "selection", label: "Selección" },
-  { key: "model_prob", label: "P(modelo)", format: (v) => pct(v) },
+  { key: "matchup", label: "Game" },
+  { key: "market", label: "Market" },
+  { key: "selection", label: "Pick" },
+  { key: "model_prob", label: "P(model)", format: (v) => pct(v) },
   // Fuera «P(mercado)». En un spread a −110 por los dos lados, quitar el vig da
   // exactamente 50,0% siempre: la columna ocupaba sitio para repetir el mismo
   // número en todas las filas, y de paso invitaba a leer el edge como si el
   // mercado hubiese opinado algo. Lo que va en su lugar es lo que de verdad
   // distingue una apuesta de otra: cuánto se separa el modelo de la línea.
-  { key: "disagreement", label: "Discrepa", format: (v) => `${num(v, 1)} pts` },
+  { key: "disagreement", label: "Disagreement", format: (v) => `${num(v, 1)} pts` },
   { key: "edge", label: "Edge", format: (v) => pct(v) },
   { key: "ev", label: "EV", format: (v) => pct(v) },
-  { key: "stake", label: "Importe", format: (v) => num(v) },
+  { key: "stake", label: "Stake", format: (v) => num(v) },
   {
     key: "evidence_win_rate",
-    label: "Su clase, históricamente",
+    label: "This class, historically",
     format: (v, row) =>
       v === null || v === undefined ? (
-        <span className="ev-none">sin evidencia</span>
+        <span className="ev-none">no evidence</span>
       ) : (
         <span className={row.evidence_beats_breakeven ? "ev-ok" : "ev-bad"}
-              title={`Apuestas con una discrepancia de ${row.evidence_label} acertaron el ${(v * 100).toFixed(1)}% en ${row.evidence_bets} casos fuera de muestra. El equilibrio a −110 es 52,4%.`}>
-          {pct(v)} en {row.evidence_bets}
+              title={`Bets disagreeing by ${row.evidence_label} won ${(v * 100).toFixed(1)}% across ${row.evidence_bets} out-of-sample cases. Breakeven at −110 is 52.4%.`}>
+          {pct(v)} of {row.evidence_bets}
         </span>
       ),
   },
 ];
 
 const RATING_COLUMNS = [
-  { key: "team", label: "Equipo" },
+  { key: "team", label: "Team" },
   { key: "elo", label: "Elo", format: (v) => num(v, 0) },
-  { key: "off_epa", label: "Ataque", format: (v) => num(v, 3) },
-  { key: "def_epa", label: "Defensa", format: (v) => num(v, 3) },
-  { key: "net_epa", label: "Neto", format: (v) => num(v, 3) },
+  { key: "off_epa", label: "Offense", format: (v) => num(v, 3) },
+  { key: "def_epa", label: "Defense", format: (v) => num(v, 3) },
+  { key: "net_epa", label: "Net", format: (v) => num(v, 3) },
 ];
 
 export default function Predicciones() {
@@ -60,7 +60,7 @@ export default function Predicciones() {
   if (!week || predictions.length === 0) {
     return (
       <>
-        <h1>Predicciones</h1>
+        <h1>Predictions</h1>
         <NoDataYet />
       </>
     );
@@ -71,92 +71,92 @@ export default function Predicciones() {
   return (
     <>
       <h1>
-        Predicciones — {week.season}, semana {week.week}
+        Predictions — {week.season}, week {week.week}
       </h1>
       <p className="lede">
-        <strong>Margen</strong> es la predicción de producción, anclada al mercado.{" "}
-        <strong>Margen (libre)</strong> es el modelo autónomo, que no mira la línea en absoluto.
-        Compararlos es la forma de ver cuánto se está separando la señal deportiva del consenso.
+        <strong>Margin</strong> is the production prediction, anchored to the market.{" "}
+        <strong>Free margin</strong> is the standalone model, which never looks at the line.
+        Comparing them shows how far the on-field signal is drifting from consensus.
       </p>
 
       <Table columns={GAME_COLUMNS} rows={predictions} />
 
-      <h2>Apuestas con valor</h2>
-      <Callout title="Leer esta tabla junto a la portada, no en vez de ella">
+      <h2>Value bets</h2>
+      <Callout title="Read this table alongside the overview, not instead of it">
         <p>
-          La portada dice que el modelo <strong>no bate a la línea de cierre</strong>, y esta
-          tabla lista apuestas. No es una contradicción: son los partidos donde el modelo se
-          separa más del mercado, y esa discrepancia tiene una desviación típica de
-          0,86 puntos, así que separarse dos puntos pasa unas cien veces en catorce
-          temporadas. En ese grupo el registro histórico es positivo{" "}
-          <strong>y no alcanza significación estadística</strong> (p≈0,18). Es una hipótesis,
-          no una estrategia probada.
+          The overview says the model <strong>does not beat the closing line</strong>, and
+          this table lists bets. That is not a contradiction: these are the games where the
+          model departs most from the market, and that disagreement has a standard deviation of
+          0.86 points, so a two-point gap happens about a hundred times in fourteen seasons.
+          Within that group the historical record is positive{" "}
+          <strong>and does not reach statistical significance</strong> (p≈0.18). It is a
+          hypothesis, not a proven strategy.
         </p>
         <p className="caption">
-          Si ves un importe de céntimos junto a un edge del 4%, no está roto: tras el
-          encogimiento del 50% esa apuesta queda pegada al punto de equilibrio de -110
-          (52,4%), y Kelly manda casi cero. Es la maquinaria de riesgo funcionando.
+          If you see a stake of pennies next to a 4% edge, nothing is broken: after the 50%
+          shrink that bet sits right on the -110 breakeven (52.4%), and Kelly calls for almost
+          nothing. That is the risk machinery working.
         </p>
       </Callout>
       {bets.length === 0 ? (
-        <Callout title="Ninguna apuesta supera el umbral">
+        <Callout title="No bet clears the threshold">
           <p>
-            Este es el resultado normal de la mayoría de las jornadas, y no es un fallo. El
-            modelo iguala al mercado: si encontrase valor en diez partidos por semana, lo que
-            habría que revisar sería el modelo.
+            This is the normal result most weeks, and it is not a failure. The model matches
+            the market: if it found value in ten games a week, the thing to check would be the
+            model.
           </p>
           <p className="caption">
-            Bajar el umbral no crea edge. Sólo lo esconde.
+            Lowering the threshold does not create edge. It only hides its absence.
           </p>
         </Callout>
       ) : (
         <>
           <Table columns={BET_COLUMNS} rows={bets} />
           <p className="caption">
-            Importes sobre un bankroll de 1.000, con Kelly a un cuarto, encogimiento del 50% del
-            edge estimado y tope duro del 2% por apuesta. No se publican apuestas cuyo importe
-            baje de 1: un «apuesta 0,01 €» es una fila que dice «no apuestes» disfrazada de
-            recomendación.
+            Stakes on a 1,000 bankroll, quarter Kelly, a 50% shrink of the estimated edge and
+            a hard 2% cap per bet. Bets under a stake of 1 are not published: a &ldquo;bet
+            $0.01&rdquo; row is &ldquo;do not bet&rdquo; dressed up as a recommendation.
           </p>
 
-          <Callout title="Qué dice el historial de las apuestas que se parecen a ésta">
+          <Callout title="What the record says about bets like this one">
             <p>
-              La última columna no es una opinión ni una escala de confianza inventada. Es la
-              tasa de acierto <strong>real y fuera de muestra</strong> de las apuestas en las que
-              el modelo discrepaba de la línea en esa misma magnitud, sobre catorce temporadas.
-              El umbral se fijó antes de medir, en <code>docs/PREREGISTRO_confianza.md</code>.
+              The last column is not an opinion or an invented confidence scale. It is the{" "}
+              <strong>real, out-of-sample</strong> win rate of bets where the model disagreed
+              with the line by that same amount, across fourteen seasons. The threshold was
+              fixed before measuring, in <code>docs/PREREGISTRO_confianza.md</code>.
             </p>
-            <p>El resultado completo, que es incómodo y por eso se publica entero:</p>
+            <p>The full result, which is uncomfortable and therefore published in full:</p>
             <ul>
-              <li>Discrepancia de <strong>0 a 1 puntos</strong>: acertaron el <strong>49,3%</strong> (2.189 casos).</li>
-              <li>De <strong>1 a 2 puntos</strong>: el <strong>50,9%</strong> (1.173 casos).</li>
-              <li>De <strong>2 a 3,5 puntos</strong>: el <strong>48,8%</strong> (346 casos).</li>
+              <li>Disagreement of <strong>0 to 1 points</strong>: won <strong>49.3%</strong> (2,189 cases).</li>
+              <li><strong>1 to 2 points</strong>: <strong>50.9%</strong> (1,173 cases).</li>
+              <li><strong>2 to 3.5 points</strong>: <strong>48.8%</strong> (346 cases).</li>
             </ul>
             <p>
-              El equilibrio a cuota −110 es <strong>52,4%</strong>.{" "}
-              <strong>Ningún tramo lo supera</strong>, ni por la media ni —que es lo que exigía el
-              preregistro— por el límite inferior de su intervalo.
+              Breakeven at −110 odds is <strong>52.4%</strong>.{" "}
+              <strong>No bucket clears it</strong>, not on the mean and not — which is what the
+              pre-registration required — on the lower bound of its interval.
             </p>
             <p>
-              Y el dato que más informa de todos: <strong>el acierto no sube con la
-              discrepancia</strong>. Que el modelo se separe más de la línea no predice acertar
-              más. Eso refuta directamente la idea de construir «confianza» a partir del edge,
-              que era el camino evidente y por eso se probó.
+              And the most informative fact of all: <strong>accuracy does not rise with
+              disagreement</strong>. The model departing further from the line does not predict
+              being right more often. That directly refutes building &ldquo;confidence&rdquo;
+              out of edge, which was the obvious path and is why it was tested.
             </p>
             <p className="caption">
-              Por eso aquí no hay «Best Bets» ni estrellas de confianza. Construirlas exigiría
-              afirmar una rentabilidad que estos datos no sostienen, y sería exactamente el tipo
-              de número inventado que el resto del sitio se dedica a no publicar.
+              That is why there are no &ldquo;Best Bets&rdquo; or confidence stars here.
+              Building them would mean claiming a profitability these data do not support, and
+              would be exactly the kind of invented number the rest of this site exists not to
+              publish.
             </p>
           </Callout>
         </>
       )}
 
-      <h2>Ratings actuales</h2>
+      <h2>Current ratings</h2>
       <p className="caption">
-        Tal como quedaron tras el último partido jugado. En <strong>Defensa</strong>, un número
-        alto significa defensa permisiva: el ataque esperado contra ella es{" "}
-        <code>ataque + defensa rival</code>, sumando.
+        As they stood after the last game played. Under <strong>Defense</strong>, a high
+        number means a permissive defense: expected offense against it is{" "}
+        <code>offense + opponent defense</code>, added.
       </p>
       <Table columns={RATING_COLUMNS} rows={model.ratings ?? []} />
     </>

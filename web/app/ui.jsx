@@ -34,7 +34,7 @@ export function Stat({ label, value, hint }) {
  * escapa el contenido, y CI rechaza el build si aparece cualquier inyección de
  * HTML sin escapar en `app/` o `data/`.
  */
-export function Table({ columns, rows, empty = "Sin datos todavía." }) {
+export function Table({ columns, rows, empty = "No data yet." }) {
   if (!rows || rows.length === 0) {
     return <p className="caption">{empty}</p>;
   }
@@ -155,7 +155,7 @@ export function RankTable({
   risk = false, tiers = false,
 }) {
   if (!rows || rows.length === 0) {
-    return <p className="caption">Sin datos todavía.</p>;
+    return <p className="caption">No data yet.</p>;
   }
   let lastTier = null;
   return (
@@ -258,7 +258,9 @@ export function RankTable({
 // pintarlo, que es donde corresponde: el dato guardado no cambia, y el día que
 // el dossier se reimporte en inglés este mapa deja de encontrar la clave y cae
 // al valor original, que sigue siendo legible.
-const AVAILABILITY_LABEL = { FUERA: "OUT", DUDA: "QUESTIONABLE", SEGUIR: "MONITOR" };
+// Las claves son datos del dossier (`research/dossier.json`, no regenerable sin
+// clave): se traducen al pintar, no en el fichero.
+export const AVAILABILITY_LABEL = { FUERA: "OUT", DUDA: "QUESTIONABLE", SEGUIR: "MONITOR" };
 
 function AvailabilityTag({ entry }) {
   return (
@@ -369,18 +371,18 @@ export function NoDataYet() {
   return (
     <Callout title="No data generated yet">
       <p>
-        Este despliegue se construyó sin payload. Los datos no viajan en el repo
-        (~490&nbsp;MB, en <code>.gitignore</code>); se reconstruyen y se hornean en el
-        build:
+        This deployment was built without a payload. The data does not ship in the repo
+        (~490&nbsp;MB, in <code>.gitignore</code>); it is rebuilt and baked in at build
+        time:
       </p>
       <p>
-        <code>oracle refresh &amp;&amp; oracle features</code> y después{" "}
-        <code>python scripts/export_web_data.py</code>, que regenera{" "}
+        <code>oracle refresh &amp;&amp; oracle features</code>, then{" "}
+        <code>python scripts/export_web_data.py</code>, which regenerates{" "}
         <code>web/data/model.b64.js</code>.
       </p>
       <p className="caption">
-        Si regeneras los datos hay que recomprimir, o la web seguirá mostrando los
-        anteriores sin dar ningún error.
+        If you regenerate the data you have to re-compress it, or the site will keep
+        showing the old numbers without raising any error.
       </p>
     </Callout>
   );

@@ -88,7 +88,7 @@ def lookup(disagreement: float) -> Evidence:
                 ci_low=bucket["ci_low"],
                 ci_high=bucket["ci_high"],
                 beats_breakeven=beats,
-                verdict="rentable" if beats else "por debajo del equilibrio",
+                verdict="profitable" if beats else "below breakeven",
             )
     # Fuera de los tramos medidos: discrepancias grandes, que casi no existen.
     # El percentil 99 de catorce temporadas es 3,27 puntos.
@@ -100,5 +100,5 @@ def lookup(disagreement: float) -> Evidence:
         ci_low=None,
         ci_high=None,
         beats_breakeven=False,
-        verdict="sin evidencia suficiente",
+        verdict="not enough evidence",
     )

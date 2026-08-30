@@ -161,7 +161,7 @@ function useSleeperDraft(board, league, userId) {
       try {
         if (!draftId) {
           const response = await fetch(`${SLEEPER}/league/${league}/drafts`);
-          if (!response.ok) throw new Error(`la liga respondió ${response.status}`);
+          if (!response.ok) throw new Error(`the league returned ${response.status}`);
           const drafts = await response.json();
           if (!Array.isArray(drafts) || drafts.length === 0) {
             throw new Error("that league has no draft yet");
@@ -170,7 +170,7 @@ function useSleeperDraft(board, league, userId) {
           draftId = drafts[0].draft_id;
         }
         const response = await fetch(`${SLEEPER}/draft/${draftId}/picks`);
-        if (!response.ok) throw new Error(`los picks respondieron ${response.status}`);
+        if (!response.ok) throw new Error(`the picks returned ${response.status}`);
         const picks = await response.json();
         if (cancelled) return;
 

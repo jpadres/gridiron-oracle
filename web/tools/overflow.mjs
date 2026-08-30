@@ -9,7 +9,15 @@
  * qué arreglar.
  */
 import { spawn } from "node:child_process";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
+
+// `next start` tiene que arrancar en `web/`, no en el directorio desde el que se
+// lance esta herramienta. Lanzada desde la raíz del repo, `npx next start`
+// buscaba el build en la raíz, no lo encontraba y la conexión salía rechazada:
+// el mismo fallo de cwd que ya se corrigió en `audit-spanish.mjs`.
+const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const PORT = 4322;
 const BASE = `http://127.0.0.1:${PORT}`;
@@ -18,6 +26,7 @@ const PAGES = ["/", "/modelo", "/validacion", "/predicciones",
 const WIDTH = Number(process.argv[2] ?? 390);
 
 const server = spawn("npx", ["next", "start", "-p", String(PORT)], {
+    cwd: WEB,
     stdio: "ignore",
     // Grupo de procesos propio. `npx` lanza `next` como nieto, así que matar
     // `npx` deja el servidor vivo: un zombi que sigue escuchando en el puerto.

@@ -5,7 +5,7 @@ El contraste es de las poquísimas cosas de una interfaz que son **computables**
 así que no tiene sentido opinar sobre ella. El umbral es 4,5:1 para texto normal
 (WCAG AA); 3:1 sólo vale para texto grande, y ninguno de estos lo es.
 
-Lo encontró de verdad: el verde de «Sólido» daba 4,36:1 sobre su propio fondo.
+Lo encontró de verdad: el verde de «Solid» daba 4,36:1 sobre su propio fondo.
 A ojo era perfectamente legible, que es exactamente por qué hay que medirlo.
 """
 
@@ -49,10 +49,10 @@ def ratio(first: str, second: str) -> float:
 LIGHT, DARK = "#ffffff", "#101216"
 
 CASES = [
-    ("bust «Sólido» claro", "#0d6e4a", composite("#1baf7a", 0.14, LIGHT)),
-    ("bust «Frágil» claro", "#b32d2d", composite("#d03b3b", 0.14, LIGHT)),
-    ("bust «Sólido» oscuro", "#4fd3a2", composite("#1baf7a", 0.20, DARK)),
-    ("bust «Frágil» oscuro", "#f08a8a", composite("#d03b3b", 0.22, DARK)),
+    ("bust «Solid» claro", "#0d6e4a", composite("#1baf7a", 0.14, LIGHT)),
+    ("bust «Fragile» claro", "#b32d2d", composite("#d03b3b", 0.14, LIGHT)),
+    ("bust «Solid» oscuro", "#4fd3a2", composite("#1baf7a", 0.20, DARK)),
+    ("bust «Fragile» oscuro", "#f08a8a", composite("#d03b3b", 0.22, DARK)),
     ("cambio de equipo claro", "#b45309", "#fffbeb"),
     ("cambio de equipo oscuro", "#d08a1f", "#241f11"),
     ("sello de build claro", "#5b6472", "#f6f7f9"),

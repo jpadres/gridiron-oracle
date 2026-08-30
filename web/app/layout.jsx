@@ -12,7 +12,7 @@ export const viewport = {
 export const metadata = {
   title: "Gridiron Oracle",
   description:
-    "Modelo de pronóstico NFL y rankings de fantasy sobre datos públicos, con validación walk-forward y resultados reportados sin maquillaje.",
+    "NFL forecasting model and fantasy rankings built on public data, with walk-forward validation and results reported without spin.",
 };
 
 // Las ocho páginas del sitio. Todas estáticas, con los datos horneados.
@@ -49,26 +49,26 @@ const PAGES = [
  */
 function BuildStamp() {
   const sha = process.env.VERCEL_GIT_COMMIT_SHA;
-  const built = new Date().toLocaleString("es-ES", {
-    day: "numeric", month: "numeric", year: "numeric",
-    hour: "2-digit", minute: "2-digit", timeZone: "UTC",
+  const built = new Date().toLocaleString("en-US", {
+    day: "numeric", month: "short", year: "numeric",
+    hour: "2-digit", minute: "2-digit", timeZone: "UTC", hour12: false,
   });
   return (
     <p className="build">
-      Build <code>{sha ? sha.slice(0, 7) : "local"}</code> · horneado el {built} UTC
+      Build <code>{sha ? sha.slice(0, 7) : "local"}</code> · built {built} UTC
     </p>
   );
 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es">
+    <html lang="en">
       <body>
         {/* Primer tabulador de la página. Sin esto, llegar al contenido con
             teclado exige pasar por los ocho enlaces del menú en cada carga. */}
         <a className="skip" href="#contenido">Skip to content</a>
         <div className="shell">
-          <nav className="top" aria-label="Secciones">
+          <nav className="top" aria-label="Sections">
             <span className="brand">Gridiron Oracle</span>
             {PAGES.map((page) => (
               <a key={page.href} href={page.href}>
@@ -79,14 +79,14 @@ export default function RootLayout({ children }) {
           <main id="contenido" tabIndex={-1}>{children}</main>
           <footer>
             <p>
-              Datos de nflverse (dominio público). Código bajo licencia MIT. Proyecto de
-              investigación y análisis deportivo: nada de esto es una recomendación
-              financiera, y las apuestas conllevan riesgo de pérdida.
+              Data from nflverse (public domain). Code under the MIT license. A sports
+              research and analysis project: none of this is financial advice, and betting
+              carries a risk of loss.
             </p>
             <p>
-              Sitio estático: sin cuentas y sin base de datos. La única petición de red en
-              runtime es la del modo draft a la API pública de Sleeper, y sólo si la
-              activas: ninguna otra página pide nada.
+              Static site: no accounts, no database. The only network request at runtime
+              is Draft Mode calling Sleeper&rsquo;s public API, and only if you turn it on.
+              No other page requests anything.
             </p>
             <BuildStamp />
           </footer>

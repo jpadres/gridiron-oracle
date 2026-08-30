@@ -1,110 +1,110 @@
 import { Callout } from "../ui.jsx";
 
 export const metadata = {
-  title: "Gridiron Oracle — el modelo",
-  description: "Qué hace distinto a este modelo, y qué decisiones metodológicas lo sostienen.",
+  title: "Gridiron Oracle — The Model",
+  description: "What makes this model different, and the methodology decisions holding it up.",
 };
 
 export default function Modelo() {
   return (
     <>
-      <h1>El modelo</h1>
+      <h1>The Model</h1>
       <p className="lede">
-        Siete decisiones que separan esto de un Elo con adornos. Ninguna es gratis: cada una
-        se eligió midiendo, y varias empeoraron el resultado antes de mejorarlo.
+        Seven decisions that separate this from a dressed-up Elo. None came free: each was
+        chosen by measuring, and several made things worse before they made them better.
       </p>
 
-      <h2>1. Distribución discreta con números clave, no una normal</h2>
+      <h2>1. A discrete distribution with key numbers, not a normal</h2>
       <p>
-        El margen en la NFL no es continuo. Se acumula brutalmente en 3 y en 7, porque así es
-        como se puntúa. Convertir «margen esperado 2,8» en probabilidad con una normal comete
-        errores grandes y <em>sistemáticos</em> justo en las líneas donde se juega el dinero.
+        NFL margins are not continuous. They pile up hard on 3 and 7, because that is how
+        scoring works. Turning &ldquo;expected margin 2.8&rdquo; into a probability with a
+        normal makes large and <em>systematic</em> errors at exactly the lines where the money
+        is.
       </p>
       <p>
-        La densidad se factoriza como <code>P(margen = k) ∝ w(k) · N(k; pred, σ)</code>, donde{" "}
-        <code>w(k)</code> es el cociente entre la frecuencia observada de cada margen y su
-        versión suavizada por kernel. Sale ~1,9 en k=3, ~1,5 en k=7 y ~0,55 en k=2 y k=5,{" "}
-        <strong>sin que nadie se lo diga</strong>. Que aparezca sin pedirlo es la comprobación
-        de que mide algo real, y de ahí salen probabilidades de <em>push</em> correctas.
-      </p>
-
-      <h2>2. Parametrización sobre el residuo del mercado</h2>
-      <p>
-        El modelo de producción no predice el margen con la línea como una feature más. Predice{" "}
-        <code>margen − línea</code>: en qué se equivoca el mercado. El objetivo tiene media casi
-        cero, así que la regularización empuja por defecto hacia «el mercado tiene razón» y sólo
-        se separa con evidencia. Es la diferencia entre un modelo que respeta al mercado y uno
-        que pelea con él por ruido.
+        The density factors as <code>P(margin = k) ∝ w(k) · N(k; pred, σ)</code>, where{" "}
+        <code>w(k)</code> is the ratio of each margin&rsquo;s observed frequency to its
+        kernel-smoothed version. It comes out ~1.9 at k=3, ~1.5 at k=7 and ~0.55 at k=2 and
+        k=5, <strong>with nobody telling it to</strong>. That it shows up unasked is the check
+        that it measures something real, and it is where correct <em>push</em> probabilities
+        come from.
       </p>
 
-      <h2>3. Ratings de eficiencia ajustados por rival, en línea</h2>
+      <h2>2. Parameterized on the market residual</h2>
       <p>
-        El EPA bruto mide resultado, no calidad: un ataque con 0,15 EPA/jugada puede ser bueno o
-        haber jugado contra las tres peores defensas de la liga. El ajuste es iterativo y online,
-        sin mirar al futuro, con encogimiento por partidos jugados (la semana 1 no puede tener
-        opiniones fuertes) y arrastre parcial entre temporadas.
+        The production model does not predict the margin with the line as just another
+        feature. It predicts <code>margin − line</code>: where the market is wrong. The target
+        has near-zero mean, so regularization defaults toward &ldquo;the market is right&rdquo;
+        and only departs from it on evidence. That is the difference between a model that
+        respects the market and one that fights it over noise.
       </p>
 
-      <h2>4. El quarterback como corrección explícita</h2>
+      <h2>3. Opponent-adjusted efficiency ratings, computed online</h2>
       <p>
-        Ningún rating de equipo captura que el titular ha cambiado.{" "}
-        <code>qb_vs_offense</code> mide la diferencia entre el rating del QB anunciado y el nivel
-        reciente del ataque: captura suplentes y lesiones sin necesidad de un feed de partes
-        médicos de pago. En la NFL eso vale entre 2 y 7 puntos de spread.
+        Raw EPA measures outcome, not quality: an offense at 0.15 EPA/play may be good, or may
+        have played the league&rsquo;s three worst defenses. The adjustment is iterative and
+        online, never looking forward, shrunk by games played (week 1 is not entitled to strong
+        opinions) and partially carried across seasons.
       </p>
 
-      <h2>5. Ventaja local adaptativa</h2>
+      <h2>4. The quarterback as an explicit correction</h2>
       <p>
-        La ventaja local cayó de ~2,7 puntos a mediados de los 2000 a ~1,5 en 2020-22, y ha
-        vuelto a subir. Fijarla en una constante es un error sistemático de medio punto durante
-        temporadas enteras, así que se estima de forma recursiva a partir de los residuos de los
-        partidos en casa.
+        No team rating captures that the starter changed.{" "}
+        <code>qb_vs_offense</code> measures the gap between the announced QB&rsquo;s rating and
+        the offense&rsquo;s recent level: it catches backups and injuries without paying for an
+        injury feed. In the NFL that is worth 2 to 7 points of spread.
       </p>
 
-      <h2>6. Viaje, husos horarios y altitud reales</h2>
+      <h2>5. Adaptive home-field advantage</h2>
       <p>
-        Coordenadas de las 32 sedes más las internacionales (Wembley, Tottenham, Azteca, Múnich,
-        São Paulo, Dublín, Madrid, Melbourne, Berlín). Distancia haversine, cambio de huso
-        horario <em>con signo</em> —viajar al este pesa más que al oeste— y desnivel de altitud
-        respecto a la sede propia: Denver no tiene ventaja por jugar alto, la tiene por jugar más
-        alto que el rival.
+        Home-field advantage fell from ~2.7 points in the mid-2000s to ~1.5 in 2020&ndash;22,
+        and has climbed back. Fixing it at a constant is a systematic half-point error across
+        entire seasons, so it is estimated recursively from the residuals of home games.
       </p>
 
-      <h2>7. Validación walk-forward, sin excepciones</h2>
+      <h2>6. Real travel, time zones and altitude</h2>
       <p>
-        No hay validación cruzada aleatoria en este proyecto. Barajar partidos de 2015 y 2023 en
-        el mismo fold filtra futuro a través de los ratings de equipo y sobreestima el
-        rendimiento de forma masiva. Para predecir la temporada S sólo se usan temporadas
-        anteriores: modelo, distribución, calibración y pesos de ensamblado se reajustan en cada
-        paso.
+        Coordinates for every venue in the data, including international sites (Wembley,
+        Tottenham, Azteca, Munich, São Paulo, Madrid, Melbourne). Haversine distance, a{" "}
+        <em>signed</em> time-zone shift — flying east costs more than flying west — and altitude
+        relative to a team&rsquo;s own home: Denver&rsquo;s edge is not playing high, it is
+        playing higher than the opponent.
       </p>
 
-      <Callout title="El error que ya se cometió, y cómo está corregido">
+      <h2>7. Walk-forward validation, no exceptions</h2>
+      <p>
+        There is no random cross-validation in this project. Shuffling 2015 and 2023 games
+        into the same fold leaks the future through team ratings and massively overstates
+        performance. To predict season S only earlier seasons are used: model, distribution,
+        calibration and ensemble weights are all refit at every step.
+      </p>
+
+      <Callout title="The mistake already made here, and how it is fixed">
         <p>
-          Durante el desarrollo, los pesos del ensamblado se ajustaban con las predicciones de
-          los componentes <em>dentro de muestra</em>: la fuga de stacking clásica. Costaba 0,6
-          puntos de MAE y hacía que el modelo combinado fuese <strong>peor que cualquiera de sus
-          partes</strong> — que es la señal de alarma más clara que existe.
+          During development the ensemble weights were fit on component predictions{" "}
+          <em>in sample</em>: the classic stacking leak. It cost 0.6 points of MAE and made the
+          combined model <strong>worse than any of its parts</strong> — which is the clearest
+          alarm bell there is.
         </p>
         <p>
-          Está corregido con cross-fitting temporal: las predicciones con las que se ajustan los
-          pesos se generan por bloques temporales disjuntos y en ventana expansiva. Nunca en
-          muestra, y nunca con futuro.
+          Fixed with temporal cross-fitting: the predictions used to fit the weights are
+          generated in disjoint time blocks on an expanding window. Never in sample, and never
+          with the future.
         </p>
       </Callout>
 
-      <h2>Gestión de riesgo</h2>
+      <h2>Risk management</h2>
       <p>
-        El módulo de apuestas usa Kelly fraccionado (0,25) <strong>más</strong> un encogimiento
-        explícito del 50% del edge estimado, tope duro del 2% del bankroll por apuesta y umbral
-        mínimo de edge del 1,5%. Kelly completo con probabilidades estimadas produce drawdowns
-        del 60-80%: no es una opción defendible.
+        The betting module uses fractional Kelly (0.25) <strong>plus</strong> an explicit 50%
+        shrink of the estimated edge, a hard 2% cap of bankroll per bet, and a 1.5% minimum
+        edge threshold. Full Kelly on estimated probabilities produces 60&ndash;80% drawdowns:
+        it is not a defensible option.
       </p>
       <p>
-        El de-vig usa el método de Shin, no la normalización proporcional. Las cuotas de los no
-        favoritos sobrestiman su probabilidad real, y en moneylines desequilibradas la diferencia
-        entre ambos métodos es de 1-2 puntos porcentuales — exactamente el tamaño del edge que se
-        busca detectar.
+        De-vigging uses Shin&rsquo;s method, not proportional normalization. Longshot odds
+        overstate their true probability, and on lopsided moneylines the difference between the
+        two methods is 1&ndash;2 percentage points — exactly the size of the edge being looked
+        for.
       </p>
     </>
   );

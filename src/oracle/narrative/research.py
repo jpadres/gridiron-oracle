@@ -100,10 +100,10 @@ ITEM_SCHEMA = {
                 "otro",
             ],
         },
-        "headline": {"type": "string", "description": "Titular en español, máximo 90 caracteres."},
+        "headline": {"type": "string", "description": "Titular en inglés, máximo 90 caracteres."},
         "summary": {
             "type": "string",
-            "description": "Dos o tres frases en español. Qué pasó y qué cambia para el fantasy.",
+            "description": "Dos o tres frases en inglés. Qué pasó y qué cambia para el fantasy.",
         },
         "impact": {"type": "string", "enum": ["alza", "baja", "neutro"]},
         "confidence": {
@@ -200,8 +200,10 @@ Reglas que no se negocian:
    Un anuncio oficial del equipo es lo único que es «confirmado».
 4. **Nada de contenido antiguo.** Si la noticia tiene más de una semana, no vale
    salvo que haya novedad hoy.
-5. **Escribe en español**, con los nombres propios y los términos de la NFL en
-   inglés (depth chart, snap, target share).
+5. **Escribe en inglés de Estados Unidos**, con la terminología de fantasy que
+   usaría un lector norteamericano (depth chart, snap share, target share).
+   Toda la interfaz del sitio está en inglés y este texto se publica dentro de
+   ella: un resumen en otro idioma rompe la página, no la enriquece.
 6. **Prefiere lo que cambia una decisión** a lo que sólo llena espacio. Un
    corredor que pasa a titular vale más que quince declaraciones de un
    entrenador.

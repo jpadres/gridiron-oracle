@@ -30,21 +30,23 @@ from __future__ import annotations
 
 from typing import Any
 
-# Las categorías que se enseñan, derivadas de lo que la ficha ya trae. No se
+# Las categorías que se enseñan, derivadas de lo que la ficha ya trae. Las
+# claves son las del esquema (datos); las etiquetas se pintan, así que van en
+# inglés como el resto de la interfaz. No se
 # añade un campo nuevo: `kind` e `impact` juntos ya distinguen estos casos, y un
 # campo más sería otra cosa que el modelo puede rellenar mal.
 CATEGORIES: dict[str, dict[str, str]] = {
-    "lesion_baja": {"icon": "🚨", "label": "Lesión"},
-    "lesion_alza": {"icon": "🏥", "label": "Vuelve"},
-    "rol_alza": {"icon": "📈", "label": "Más papel"},
-    "rol_baja": {"icon": "📉", "label": "Menos papel"},
+    "lesion_baja": {"icon": "🚨", "label": "Injury"},
+    "lesion_alza": {"icon": "🏥", "label": "Returning"},
+    "rol_alza": {"icon": "📈", "label": "Bigger role"},
+    "rol_baja": {"icon": "📉", "label": "Smaller role"},
     "depth_chart": {"icon": "🔄", "label": "Depth chart"},
     "breakout": {"icon": "🔥", "label": "Breakout"},
-    "uso": {"icon": "⚠️", "label": "Duda de uso"},
+    "uso": {"icon": "⚠️", "label": "Usage risk"},
     "waiver": {"icon": "🎯", "label": "Waiver"},
-    "apuestas": {"icon": "💰", "label": "Apuestas"},
+    "apuestas": {"icon": "💰", "label": "Betting"},
     "survivor": {"icon": "🏆", "label": "Survivor"},
-    "otro": {"icon": "•", "label": "Contexto"},
+    "otro": {"icon": "•", "label": "Context"},
 }
 
 # Por debajo de esto no se enseña. 4 sobre 5 es «cambia una alineación esta

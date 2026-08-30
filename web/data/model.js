@@ -41,7 +41,7 @@ function decode() {
   } catch (error) {
     // Si el payload está corrupto, es mejor publicar un sitio que lo diga que
     // fallar el build entero y quedarse sin web.
-    console.warn("[gridiron-oracle] payload ilegible, se publica vacío:", error.message);
+    console.warn("[gridiron-oracle] unreadable payload, publishing empty:", error.message);
     return EMPTY;
   }
 }
@@ -51,11 +51,7 @@ export const model = decode();
 export const hasData = !model.placeholder && model.predictions.length > 0;
 
 /**
- * Formatea un número **en español**, o devuelve un guion si no lo hay.
- *
- * Con coma decimal, no con punto. El sitio entero está en español y la prosa ya
- * escribe «0,6 puntos de MAE»; que la tabla de al lado ponga «0.2128» es la
- * clase de incoherencia que hace dudar del resto.
+ * Formatea un número **en inglés de EE. UU.**, o devuelve un guion si no lo hay.
  *
  * `toLocaleString` y no `toFixed`: también agrupa los millares como toca.
  *

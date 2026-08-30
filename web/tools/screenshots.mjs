@@ -29,9 +29,16 @@
  */
 
 import { spawn } from "node:child_process";
-import { mkdirSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { mkdirSync } from "node:fs";
 import { chromium } from "playwright";
+
+// `next start` tiene que arrancar en `web/`, no en el directorio desde el que se
+// lance esta herramienta. Lanzada desde la raíz del repo, `npx next start`
+// buscaba el build en la raíz, no lo encontraba y la conexión salía rechazada:
+// el mismo fallo de cwd que ya se corrigió en `audit-spanish.mjs`.
+const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const LABEL = process.argv[2] ?? "baseline";
 const PORT = 4321;
@@ -59,7 +66,10 @@ const VIEWPORTS = [
 ];
 
 async function main() {
-  const outDir = path.join("tools", "shots", LABEL);
+  // La ruta cuelga de `web/`, no del directorio desde el que se lance: lanzada
+  // desde la raíz del repo escribía 17 MB de capturas en `<raíz>/tools/shots`,
+  // fuera de `.gitignore` y lejos de donde el resto de las herramientas mira.
+  const outDir = path.join(WEB, "tools", "shots", LABEL);
   mkdirSync(outDir, { recursive: true });
 
   await assertPortFree();
@@ -147,6 +157,7 @@ function stopServer(server) {
 
 function startServer() {
   return spawn("npx", ["next", "start", "-p", String(PORT)], {
+    cwd: WEB,
     stdio: "ignore",
     // Grupo de procesos propio. `npx` lanza `next` como nieto, así que matar
     // `npx` deja el servidor vivo: un zombi que sigue escuchando en el puerto.

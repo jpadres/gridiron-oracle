@@ -166,7 +166,7 @@ export function VorCurve({ board, maxRank = 36 }) {
         ))}
         <text x={(pad.left + width - pad.right) / 2} y={height - 6} textAnchor="middle"
               fill="var(--muted)" fontSize="11" fontFamily={FONT}>
-          puesto dentro de su posición
+          rank within position
         </text>
 
         {/* Series */}
@@ -232,7 +232,7 @@ export function CalibrationPlot({ rows }) {
   return (
     <figure className="chart chart--square">
       <svg viewBox={`0 0 ${width} ${height}`} role="img"
-           aria-label="Probabilidad predicha frente a frecuencia observada">
+           aria-label="Predicted probability against observed frequency">
         {grid.map((value) => (
           <g key={value}>
             <line x1={pad.left} x2={width - pad.right} y1={y(value)} y2={y(value)}
@@ -257,20 +257,20 @@ export function CalibrationPlot({ rows }) {
           <circle key={row.bin} cx={x(row.predicted)} cy={y(row.observed)}
                   r={radius(row.games)} fill="var(--pos-qb)" fillOpacity="0.55"
                   stroke="var(--bg)" strokeWidth="2">
-            <title>{`Predicha ${num(row.predicted * 100, 1)}% · observada ${num(
+            <title>{`Predicted ${num(row.predicted * 100, 1)}% · observed ${num(
               row.observed * 100, 1
-            )}% · ${row.games} partidos`}</title>
+            )}% · ${row.games} games`}</title>
           </circle>
         ))}
 
         <text x={(pad.left + width - pad.right) / 2} y={height - 8} textAnchor="middle"
               fill="var(--muted)" fontSize="11" fontFamily={FONT}>
-          probabilidad predicha
+          predicted probability
         </text>
         <text transform={`rotate(-90 12 ${(pad.top + height - pad.bottom) / 2})`}
               x={12} y={(pad.top + height - pad.bottom) / 2} textAnchor="middle"
               fill="var(--muted)" fontSize="11" fontFamily={FONT}>
-          frecuencia observada
+          observed frequency
         </text>
       </svg>
       <figcaption className="caption">
@@ -311,7 +311,7 @@ export function DeltaBars({ rows, limit = 12 }) {
   return (
     <figure className="chart">
       <svg viewBox={`0 0 ${width} ${height}`} role="img"
-           aria-label="Diferencia entre la proyección y la media de los últimos seis partidos">
+           aria-label="Difference between the projection and the last six games average">
         {data.map((row, index) => {
           const top = pad.top + index * rowHeight;
           const value = x(row.delta);
@@ -325,9 +325,9 @@ export function DeltaBars({ rows, limit = 12 }) {
               <rect x={positive ? zero + 1 : value} y={top + 5}
                     width={Math.max(Math.abs(value - zero) - 1, 1)} height={12} rx={3}
                     fill={positive ? "var(--pos-diff-up)" : "var(--pos-diff-down)"}>
-                <title>{`${row.player_name}: proyección ${num(row.projected_points,
+                <title>{`${row.player_name}: projection ${num(row.projected_points,
                   1
-                )}, últimos 6 ${num(row.baseline_points, 1)} (${
+                )}, last 6 ${num(row.baseline_points, 1)} (${
                   positive ? "+" : ""
                 }${num(row.delta, 1)})`}</title>
               </rect>

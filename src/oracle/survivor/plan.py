@@ -216,13 +216,13 @@ def _advice(entry: dict) -> tuple[str, str]:
     relative = round(entry["cost_relative"], 2)
 
     if win < SAFE_ENOUGH:
-        return "EVITAR", f"gana sólo el {win:.0%}: demasiado riesgo para una eliminatoria"
+        return "AVOID", f"only wins {win:.0%}: too much risk for an elimination pool"
     if relative > EXPENSIVE:
-        return "GUARDAR", (
-            f"seguro hoy ({win:.0%}), pero gastarlo cuesta el {relative:.0%} "
-            "de tu plan: lo necesitas más adelante"
+        return "SAVE", (
+            f"safe today ({win:.0%}), but spending them costs {relative:.0%} "
+            "of your plan: you need them later"
         )
-    return "USAR", (
-        f"gana el {win:.0%} y apenas hace falta después "
-        f"(cuesta el {relative:.0%} del plan)"
+    return "PICK", (
+        f"wins {win:.0%} and is barely needed later "
+        f"(costs {relative:.0%} of the plan)"
     )

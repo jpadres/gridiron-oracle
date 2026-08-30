@@ -77,7 +77,7 @@ BANDS: tuple[Band, ...] = (
         historical_accuracy=0.506,
         accuracy_ci=(0.495, 0.517),
         sample_size=15837,
-        wording="es una moneda al aire: alinea al que prefieras",
+        wording="a coin flip: start whichever you prefer",
     ),
     Band(
         confidence=Confidence.LEAN,
@@ -85,7 +85,7 @@ BANDS: tuple[Band, ...] = (
         historical_accuracy=0.544,
         accuracy_ci=(0.521, 0.567),
         sample_size=26517,
-        wording="hay una ligera inclinación, poco más",
+        wording="a slight lean, and not much more",
     ),
     Band(
         confidence=Confidence.CLEAR,
@@ -93,7 +93,7 @@ BANDS: tuple[Band, ...] = (
         historical_accuracy=0.598,
         accuracy_ci=(0.591, 0.605),
         sample_size=19682,
-        wording="la elección es clara",
+        wording="the choice is clear",
     ),
     Band(
         confidence=Confidence.VERY_CLEAR,
@@ -101,7 +101,7 @@ BANDS: tuple[Band, ...] = (
         historical_accuracy=0.667,
         accuracy_ci=(0.662, 0.673),
         sample_size=27078,
-        wording="la elección es muy clara",
+        wording="the choice is very clear",
     ),
 )
 

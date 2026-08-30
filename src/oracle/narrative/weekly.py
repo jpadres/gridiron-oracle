@@ -43,8 +43,10 @@ Reglas que no se negocian:
    del proyecto, no una disculpa.
 4. **Nada de consejos de apuesta ni de órdenes.** Se describe lo que el modelo
    proyecta y por qué; la decisión es del lector.
-5. Español de España, con los términos de la NFL en inglés (target share, snap,
-   game script). Frases cortas. Cero exclamaciones."""
+5. Inglés de Estados Unidos, con la terminología de fantasy que usaría un
+   lector norteamericano (target share, snap share, game script). El sitio
+   entero está en inglés y este texto se publica dentro de él. Frases cortas.
+   Cero exclamaciones."""
 
 SUMMARY_SCHEMA = {
     "type": "object",
