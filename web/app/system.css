@@ -1291,3 +1291,104 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-entry .act { flex: 0 0 auto; text-decoration: none; display: inline-flex;
                    align-items: center; justify-content: center; }
 .room-entry .caption { margin: 0; flex: 1 1 14rem; }
+
+
+/* ==========================================================================
+   CENTRO DE MANDO MULTI-LIGA
+   --------------------------------------------------------------------------
+   Una cola de hechos y un catálogo en filas. La jerarquía visual sigue al
+   estado real: el reloj es inconfundible, lo demás no compite. Sin tarjetas
+   gigantes — con veinte ligas un muro de tarjetas no se escanea.
+   ========================================================================== */
+
+.cc { margin-top: var(--space-3); }
+.cc-empty { max-width: 52ch; }
+.cc-clear {
+  margin: var(--space-4) 0; font-size: var(--text-dense); color: var(--chalk-dim);
+}
+
+/* --- la cola --------------------------------------------------------------- */
+.cc-queue { list-style: none; margin: var(--space-4) 0 var(--space-5); padding: 0; }
+.cc-item {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid var(--yard-line);
+}
+.cc-item + .cc-item { border-top: 1px solid var(--yard-line); }
+/* El CAMPO ámbar es EXCLUSIVO del reloj — el mismo acuerdo que en el Draft
+   Room: fondo ámbar = te toca AHORA. Un draft que se acerca lleva el raíl
+   ámbar sin el campo, y un aviso de configuración no viste ninguno de los dos.
+   Si el reloj y la distancia al turno se pintan igual, el único estado que no
+   admite duda queda camuflado entre sus vecinos. */
+.cc-item--clock {
+  border-left: 6px solid var(--live); background: var(--live-field);
+  padding-block: var(--space-3);
+}
+.cc-item--clock .cc-item-what b,
+.cc-item--active .cc-item-what b {
+  font-family: var(--face-display); font-variation-settings: "wdth" 76;
+  font-size: var(--text-body); text-transform: uppercase; letter-spacing: 0.02em;
+}
+.cc-item--clock .cc-item-what b { color: var(--live); }
+.cc-item--active { border-left-color: var(--live); }
+.cc-item--fact { border-left-color: var(--chalk-dim); }
+.cc-item--setup { border-left-color: var(--yard-line); background: var(--field-raised); }
+.cc-item-what { flex: 1 1 auto; min-width: 0; }
+.cc-item-what b {
+  display: block; color: var(--chalk); font-size: var(--text-dense);
+  font-weight: var(--weight-semibold);
+}
+.cc-item-what small { display: block; font-size: var(--text-micro); color: var(--chalk-dim); }
+.cc-item-league {
+  flex: 0 1 auto; font-size: var(--text-micro); color: var(--chalk-dim);
+  text-transform: uppercase; letter-spacing: 0.05em; text-align: right;
+}
+.cc-item-go {
+  flex: 0 0 auto; min-height: 44px; padding-inline: var(--space-3);
+  background: none; border: 1px solid var(--yard-line); color: var(--chalk);
+  font: inherit; font-size: var(--text-dense); cursor: pointer;
+  display: inline-flex; align-items: center; text-decoration: none;
+}
+.cc-item-go:hover { border-color: var(--live); color: var(--live); }
+.cc-item-go:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
+
+/* --- el catálogo ------------------------------------------------------------ */
+.cc-list { list-style: none; margin: 0; padding: 0; }
+.cc-league {
+  display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr) auto;
+  align-items: center; gap: var(--space-3);
+  padding: var(--space-3) 0;
+}
+.cc-league + .cc-league { border-top: 1px solid var(--yard-line); }
+.cc-league-who .nm {
+  display: block; color: var(--chalk); font-weight: var(--weight-semibold);
+  font-size: var(--text-body);
+}
+.cc-league-who .meta {
+  display: flex; flex-wrap: wrap; gap: var(--space-2);
+  font-size: var(--text-micro); color: var(--chalk-dim);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.cc-league-who .meta span + span::before { content: "· "; opacity: 0.5; }
+.cc-league-state { min-width: 0; font-size: var(--text-dense); color: var(--chalk-dim); }
+.cc-league-state b { color: var(--chalk); font-weight: var(--weight-semibold); display: block; }
+.cc-league-state b small { color: var(--chalk-dim); font-weight: 400; }
+.cc-league-state small { display: block; font-size: var(--text-micro); }
+.cc-live { color: var(--live); text-transform: uppercase; letter-spacing: 0.03em; }
+.cc-byes { opacity: 0.85; }
+.cc-league-act button {
+  min-height: 44px; padding-inline: var(--space-3); background: none;
+  border: 1px solid var(--yard-line); color: var(--chalk-dim);
+  font: inherit; font-size: var(--text-dense); cursor: pointer; white-space: nowrap;
+}
+.cc-league-act button:hover { border-color: var(--chalk); color: var(--chalk); }
+.cc-league-act button:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
+.cc-note { max-width: 60ch; margin-top: var(--space-5); }
+
+/* Móvil: la fila se apila y la acción sigue alcanzable con el pulgar. */
+@media (max-width: 40rem) {
+  .cc-league { grid-template-columns: minmax(0, 1fr) auto; }
+  .cc-league-state { grid-column: 1 / -1; }
+  .cc-item { flex-wrap: wrap; }
+  .cc-item-league { text-align: left; }
+}

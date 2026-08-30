@@ -198,6 +198,102 @@ export const LOG_SUFFIX = "log";
  */
 export const ROOM_LEAGUE_KEY = "gridiron-room-league-v1";
 
+/* ===========================================================================
+   CATÁLOGO DE LIGAS
+   ---------------------------------------------------------------------------
+   Hasta ahora sólo persistía UNA configuración: la de la liga activa del Draft
+   Room, que se sobreescribía al cambiar de liga. Lo único durable por liga eran
+   los registros de picks, cuyas claves llevan la identidad pero no el nombre ni
+   la estructura. Un centro de mando multi-liga necesita las dos cosas.
+
+   El catálogo guarda la configuración POR IDENTIDAD (la misma tripleta que
+   aísla los registros: plataforma, temporada, liga, draft). Se escribe al
+   entrar en una liga y nunca borra a las demás. Una liga con registro pero sin
+   entrada de catálogo existe igualmente — con configuración UNKNOWN, que es la
+   verdad, no un hueco.
+   =========================================================================== */
+
+export const LEAGUES_KEY = "gridiron-leagues-v1";
+
+export function loadCatalog(storage) {
+  if (!storage) return {};
+  try {
+    const raw = storage.getItem(LEAGUES_KEY);
+    const parsed = raw ? JSON.parse(raw) : {};
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+export function saveLeagueToCatalog(league, storage) {
+  const scope = scopeFor({
+    platform: league?.platform, season: league?.season,
+    leagueId: league?.leagueId, draftId: league?.draftId,
+  });
+  if (!scope || !storage) return false;
+  try {
+    const catalog = loadCatalog(storage);
+    catalog[scope] = { ...league, savedAt: Date.now() };
+    storage.setItem(LEAGUES_KEY, JSON.stringify(catalog));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * La identidad que hay dentro de una clave de registro, o `null`.
+ *
+ * Es el camino de vuelta: un registro sin catálogo sigue siendo una liga real
+ * de la que se sabe la identidad y el estado del draft, y nada más. Los ids
+ * generados no llevan dos puntos, así que la partición es exacta; una clave que
+ * no cuadre devuelve `null` en vez de una identidad a medias.
+ */
+export function parseLogKey(key) {
+  if (typeof key !== "string" || !key.startsWith(`${PREFIX}:`) || !key.endsWith(`:${LOG_SUFFIX}`)) {
+    return null;
+  }
+  const middle = key.slice(PREFIX.length + 1, -(LOG_SUFFIX.length + 1));
+  const parts = middle.split(":");
+  if (parts[0] === "local" && parts.length === 2) {
+    const season = Number(parts[1]);
+    return Number.isFinite(season) ? { platform: "local", season } : null;
+  }
+  if (parts.length !== 4) return null;
+  const season = Number(parts[1]);
+  if (!Number.isFinite(season) || !parts[0] || !parts[2] || !parts[3]) return null;
+  return { platform: parts[0], season, leagueId: parts[2], draftId: parts[3] };
+}
+
+/**
+ * Todas las ligas conocidas: catálogo y registros, fundidos por identidad.
+ *
+ * Cada entrada dice de dónde sale lo que afirma: `config` (del catálogo, puede
+ * faltar) y `hasLog`. El tablero local por temporada también aparece — es un
+ * contexto real de draft — marcado como tal.
+ */
+export function knownLeagues(storage) {
+  if (!storage) return [];
+  const catalog = loadCatalog(storage);
+  const byScope = new Map();
+  for (const [scope, config] of Object.entries(catalog)) {
+    byScope.set(scope, { scope, identity: parseLogKey(`${scope}:${LOG_SUFFIX}`), config, hasLog: false });
+  }
+  try {
+    for (let i = 0; i < storage.length; i += 1) {
+      const key = storage.key(i);
+      const identity = parseLogKey(key);
+      if (!identity) continue;
+      const scope = key.slice(0, -(LOG_SUFFIX.length + 1));
+      const entry = byScope.get(scope);
+      if (entry) entry.hasLog = true;
+      else byScope.set(scope, { scope, identity, config: null, hasLog: true });
+    }
+  } catch { /* un almacenamiento sin .key() no puede tumbar la página */ }
+  return [...byScope.values()].filter((entry) => entry.identity);
+}
+
 export function loadRoomLeague(storage) {
   if (!storage) return null;
   try {

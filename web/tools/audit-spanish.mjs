@@ -179,6 +179,9 @@ const DATOS = new Set([
   ".fantasy.board[].player_full_name", ".fantasy.board[].player_id",
   ".fantasy.board[].player_name", ".fantasy.board[].position",
   ".fantasy.board[].previous_team", ".fantasy.board[].team",
+  // Códigos de hueco de plantilla ("QB", "FLEX", "BN") y la etiqueta del modelo
+  // de reemplazo ("greedy"): tokens de máquina que la interfaz traduce al pintar.
+  ".fantasy.replacement_model", ".fantasy.roster[]",
   ".fantasy.validation[].position", ".predictions[].away_team",
   ".predictions[].game_id", ".predictions[].home_team", ".ratings[].team",
 ]);

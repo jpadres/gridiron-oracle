@@ -25,7 +25,7 @@ import { useCallback, useEffect, useState } from "react";
 import DraftRoom from "../DraftRoom.jsx";
 // La misma constante que lee el board para saber en qué draft está: si cada
 // pantalla escribiera la suya, volverían a ser dos contextos con un nombre.
-import { ROOM_LEAGUE_KEY as KEY } from "../draftStorage.js";
+import { ROOM_LEAGUE_KEY as KEY, saveLeagueToCatalog } from "../draftStorage.js";
 import { rosterFromCounts } from "../leagueValue.js";
 
 const SCORING = [
@@ -95,7 +95,12 @@ export default function RoomShell({ board, context }) {
 
   useEffect(() => {
     const saved = load();
-    if (saved) setLeague(saved);
+    if (saved) {
+      setLeague(saved);
+      // Rellenar el catálogo con la liga activa que ya existía: las ligas
+      // configuradas antes de que hubiera catálogo también son ligas.
+      saveLeagueToCatalog(saved, window.localStorage);
+    }
     setReady(true);
   }, []);
 
@@ -122,6 +127,10 @@ export default function RoomShell({ board, context }) {
     setEditing(false);
     try {
       window.localStorage.setItem(KEY, JSON.stringify(complete));
+      // La clave activa dice EN QUÉ liga estás; el catálogo recuerda TODAS las
+      // que has configurado. Cambiar de liga deja de borrar a la anterior del
+      // mapa — que era la limitación que impedía un centro de mando.
+      saveLeagueToCatalog(complete, window.localStorage);
     } catch { /* modo privado: se puede draftear igual, sin recordar la liga */ }
   }, []);
 
