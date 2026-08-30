@@ -57,13 +57,16 @@ export const hasData = !model.placeholder && model.predictions.length > 0;
  * escribe «0,6 puntos de MAE»; que la tabla de al lado ponga «0.2128» es la
  * clase de incoherencia que hace dudar del resto.
  *
- * `toLocaleString` y no `toFixed`: también agrupa los millares como toca. Ojo
- * con una peculiaridad del español —la agrupación **empieza en cinco cifras**,
- * así que 3829 se escribe sin punto y 10.000 con él. Es correcto, no un fallo.
+ * `toLocaleString` y no `toFixed`: también agrupa los millares como toca.
+ *
+ * El locale es `en-US` porque toda la interfaz está en inglés, y mezclar los
+ * dos convenios es peor que elegir mal: «VOR 97,7» junto a «12-team league» se
+ * lee como un error de datos, no como una decisión de formato. Punto decimal y
+ * coma de millares, que es lo que espera quien lee el resto de la página.
  */
 export function num(value, digits = 2) {
   if (value === null || value === undefined || Number.isNaN(value)) return "—";
-  return Number(value).toLocaleString("es-ES", {
+  return Number(value).toLocaleString("en-US", {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   });

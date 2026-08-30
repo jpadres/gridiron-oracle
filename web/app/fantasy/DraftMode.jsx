@@ -164,7 +164,7 @@ function useSleeperDraft(board, league, userId) {
           if (!response.ok) throw new Error(`la liga respondió ${response.status}`);
           const drafts = await response.json();
           if (!Array.isArray(drafts) || drafts.length === 0) {
-            throw new Error("esa liga no tiene ningún draft todavía");
+            throw new Error("that league has no draft yet");
           }
           drafts.sort((a, b) => String(b.season ?? "").localeCompare(String(a.season ?? "")));
           draftId = drafts[0].draft_id;
@@ -211,7 +211,7 @@ function useSleeperDraft(board, league, userId) {
   return status;
 }
 
-export default function DraftMode({ board }) {
+export default function DraftMode({ board, positionFilter = "ALL" }) {
   const [state, setState] = useState({ gone: [], mine: [], league: "", userId: "" });
   const [ready, setReady] = useState(false);
   const [query, setQuery] = useState("");
@@ -264,14 +264,27 @@ export default function DraftMode({ board }) {
   );
 
   // La sugerencia: VOR ajustado por lo que ya tienes en esa posición.
+  //
+  // `positionFilter` se aplica AL FINAL, sobre la lista ya puntuada, y nunca
+  // sobre `board`. La distinción no es de estilo: `board` alimenta también el
+  // índice que empareja los picks de Sleeper, el recuento de tu plantilla y el
+  // ajuste por posición. Filtrarlo aguas arriba hacía que un pick sincronizado
+  // de otra posición no se tachara y que tu plantilla apareciera vacía en
+  // cuanto filtrabas — con el filtro en WR, el corredor que acababas de coger
+  // desaparecía del recuento.
   const suggestions = useMemo(() => {
     const scored = available.map((row) => {
       const filled = counts[row.position] ?? 0;
       const need = filled < (SLOTS[row.position] ?? 1) ? 1 : BENCH_VALUE;
       return { ...row, adjusted: row.vor * need };
     });
-    return scored.sort((a, b) => b.adjusted - a.adjusted).slice(0, 8);
-  }, [available, counts]);
+    scored.sort((a, b) => b.adjusted - a.adjusted);
+    const visible =
+      positionFilter === "ALL"
+        ? scored
+        : scored.filter((row) => row.position === positionFilter);
+    return visible.slice(0, 8);
+  }, [available, counts, positionFilter]);
 
   // Búsqueda sobre el board entero, no sólo sobre las sugerencias.
   //
@@ -328,7 +341,7 @@ export default function DraftMode({ board }) {
     }));
 
   if (!ready) {
-    return <p className="caption">Cargando el modo draft…</p>;
+    return <p className="caption">Loading draft mode…</p>;
   }
 
   const picked = board.filter((row) => mineSet.has(row.player_id));
@@ -338,12 +351,12 @@ export default function DraftMode({ board }) {
     <div className="draft">
       <div className="draft-head">
         <div>
-          <strong>{picked.length}</strong> tuyos · <strong>{total}</strong> fuera del tablero
+          <strong>{picked.length}</strong> yours · <strong>{total}</strong> off the board
           {total > 0 ? (
             <>
               {" · "}
               <button type="button" className="link" onClick={() => setState({ gone: [], mine: [] })}>
-                empezar de cero
+                start over
               </button>
             </>
           ) : null}
@@ -361,9 +374,8 @@ export default function DraftMode({ board }) {
       </div>
 
       <p className="caption">
-        Pulsa <strong>Yo</strong> cuando lo cojas tú y <strong>Fuera</strong> cuando se lo lleve
-        otro. La lista se recalcula sola y se guarda en tu navegador: puedes recargar en mitad
-        del draft.
+        Tap <strong>Mine</strong> or <strong>Gone</strong> as players come off the board.
+        Saved in your browser — you can reload mid-draft.
       </p>
 
       <div className="sleeper">
@@ -372,19 +384,19 @@ export default function DraftMode({ board }) {
             <div className="sleeper-line">
               <span className={`dot dot--${sync.state}`} aria-hidden="true" />
               <strong>Sleeper</strong>
-              <span className="outlet">liga {state.league}</span>
+              <span className="outlet">league {state.league}</span>
               <button
                 type="button"
                 className="link"
                 onClick={() => setState((p) => ({ ...p, league: "", userId: "" }))}
               >
-                desconectar
+                disconnect
               </button>
             </div>
 
             {members && members.length > 0 ? (
               <label className="field-label" htmlFor="draft-me">
-                Cuál eres tú — para separar tus picks de los demás
+                Which one are you — so your picks are kept apart from everyone else&rsquo;s
                 <select
                   id="draft-me"
                   value={state.userId}
@@ -392,7 +404,7 @@ export default function DraftMode({ board }) {
                     setState((p) => ({ ...p, userId: event.target.value }))
                   }
                 >
-                  <option value="">(sin elegir: todo entra como «fuera»)</option>
+                  <option value="">(not set: everything counts as gone)</option>
                   {members.map((member) => (
                     <option key={member.user_id} value={member.user_id}>
                       {member.display_name ?? member.user_id}
@@ -404,12 +416,12 @@ export default function DraftMode({ board }) {
 
             {sync.state === "live" ? (
               <p className="caption">
-                {sync.total} picks leídos
+                {sync.total} picks read
                 {sync.unmatched?.length ? (
                   <>
                     {" "}·{" "}
                     <strong>
-                      {sync.unmatched.length} sin emparejar, siguen contando como libres
+                      {sync.unmatched.length} unmatched, still counted as available
                     </strong>
                     : {sync.unmatched
                       .slice(0, 5)
@@ -422,17 +434,19 @@ export default function DraftMode({ board }) {
                     partido NFL no están en el board.
                   </>
                 ) : null}
-                . Se refresca cada 15 segundos.
+                . Refreshes every 15 seconds.
               </p>
             ) : null}
             {sync.state === "error" ? (
               <p className="caption sleeper-error">
-                No se pudo leer el draft: {sync.message}. El tablero manual sigue
-                funcionando y lo ya sincronizado no se ha perdido.
+                Could not read the draft: {sync.message}. The manual board still works and
+                nothing already synced was lost.
               </p>
             ) : null}
           </>
         ) : (
+          <details className="sleeper-setup">
+            <summary>Sync with your Sleeper draft (optional)</summary>
           <form
             className="sleeper-connect"
             onSubmit={(event) => {
@@ -442,29 +456,30 @@ export default function DraftMode({ board }) {
             }}
           >
             <label className="field-label" htmlFor="draft-league">
-              Sincronizar con tu draft de Sleeper (opcional)
+              League URL or id
               <input
                 id="draft-league"
                 type="text"
                 inputMode="numeric"
-                placeholder="pega la URL de tu liga o su id"
+                placeholder="paste your league URL or id"
                 value={leagueDraft}
                 onChange={(event) => setLeagueDraft(event.target.value)}
               />
             </label>
-            <button type="submit" className="pick pick--mine">Conectar</button>
+            <button type="submit" className="pick pick--mine">Connect</button>
             <p className="caption">
-              Tacha solo a quien ya se han llevado. Es la única petición de red de todo el
-              sitio y sólo ocurre si la activas: la API de Sleeper es pública y de sólo
-              lectura, no se manda ninguna credencial y de aquí sólo sale el id de tu liga,
-              que ya es público en su URL.
+              Crosses off only the players already taken. This is the only network request
+              on the whole site and it happens only if you turn it on: the Sleeper API is
+              public and read-only, no credential is sent, and the only thing that leaves here
+              is your league id, which is already public in its own URL.
             </p>
           </form>
+          </details>
         )}
       </div>
 
       <label className="field-label" htmlFor="draft-search">
-        Buscar para tachar a quien se lleven
+        Search to cross off players as they go
       </label>
       <input
         id="draft-search"
@@ -472,7 +487,7 @@ export default function DraftMode({ board }) {
         type="search"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
-        placeholder="Nombre, equipo o posición"
+        placeholder="Name, team or position"
       />
 
       {query.trim().length >= 2 ? (
@@ -489,9 +504,9 @@ export default function DraftMode({ board }) {
                   </span>
                 </span>
                 <span className="pick-actions">
-                  <button type="button" onClick={() => take(row.player_id, true)}>Yo</button>
+                  <button type="button" onClick={() => take(row.player_id, true)}>Mine</button>
                   <button type="button" className="ghost" onClick={() => take(row.player_id, false)}>
-                    Fuera
+                    Gone
                   </button>
                 </span>
               </li>
@@ -504,7 +519,7 @@ export default function DraftMode({ board }) {
         )
       ) : null}
 
-      <h3 className="draft-h">Sugerencias</h3>
+      <h3 className="draft-h">Suggestions</h3>
       <ol className="picks">
         {suggestions.map((row, index) => (
           <li key={row.player_id} className={index === 0 ? "pick pick--top" : "pick"}>
@@ -515,16 +530,16 @@ export default function DraftMode({ board }) {
                 {row.position}
                 {row.position_rank} · {row.team} · VOR {num(row.vor, 1)}
                 {row.risk_label && row.risk_label !== "Normal" ? (
-                  <span className={`risk risk--${row.risk_label === "Volátil" ? "high" : "low"}`}>
+                  <span className={`risk risk--${row.risk_label === "Volatile" ? "high" : "low"}`}>
                     {row.risk_label}
                   </span>
                 ) : null}
               </span>
             </span>
             <span className="pick-actions">
-              <button type="button" onClick={() => take(row.player_id, true)}>Yo</button>
+              <button type="button" onClick={() => take(row.player_id, true)}>Mine</button>
               <button type="button" className="ghost" onClick={() => take(row.player_id, false)}>
-                Fuera
+                Gone
               </button>
             </span>
           </li>
@@ -533,14 +548,14 @@ export default function DraftMode({ board }) {
 
       {picked.length > 0 ? (
         <>
-          <h3>Tu plantilla</h3>
+          <h3>Your roster</h3>
           <ul className="mine">
             {picked.map((row) => (
               <li key={row.player_id}>
                 <span className={`ptag ptag--${row.position.toLowerCase()}`}>{row.position}</span>
                 {row.player_name} <span className="outlet">{row.team}</span>
                 <button type="button" className="link" onClick={() => undo(row.player_id)}>
-                  deshacer
+                  undo
                 </button>
               </li>
             ))}

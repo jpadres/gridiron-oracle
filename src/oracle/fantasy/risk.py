@@ -62,7 +62,7 @@ SAMPLE_SATURATION = 17.0
 # misma fila del board pueden aparecer las dos. «DUDA» junto a «Seguro» se lee
 # como una contradicción aunque hablen de cosas distintas —si juega, y cuánto
 # varía su proyección—. Se vio en la primera captura del board.
-LABELS = ("Estable", "Normal", "Volátil")
+LABELS = ("Steady", "Normal", "Volatile")
 
 # Cortes por percentil dentro de la posición. El tercio de abajo es «Seguro» y
 # el de arriba «Riesgo»; el de en medio no merece etiqueta y por eso «Normal»
@@ -105,8 +105,8 @@ def score(board: pd.DataFrame, td_points: dict[str, float]) -> pd.DataFrame:
         if len(group) < 6:
             continue  # con menos de seis, un percentil no significa nada
         low, high = group["risk_score"].quantile(CUTS).to_numpy()
-        frame.loc[group.index[group["risk_score"] <= low], "risk_label"] = "Estable"
-        frame.loc[group.index[group["risk_score"] >= high], "risk_label"] = "Volátil"
+        frame.loc[group.index[group["risk_score"] <= low], "risk_label"] = "Steady"
+        frame.loc[group.index[group["risk_score"] >= high], "risk_label"] = "Volatile"
     return frame
 
 

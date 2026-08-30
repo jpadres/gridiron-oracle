@@ -1,79 +1,20 @@
 import { availabilityByPlayer, briefsByPlayer, model, num } from "../../data/model.js";
-import { POSITIONS, PositionChip, VorCurve } from "../charts.jsx";
-import DraftMode from "./DraftMode.jsx";
-import { BustCell, Callout, NoDataYet, RankTable, Table } from "../ui.jsx";
+import { PositionChip, VorCurve } from "../charts.jsx";
+import { Callout, NoDataYet, Table } from "../ui.jsx";
+import BoardShell from "./BoardShell.jsx";
 
 export const metadata = {
-  title: "Gridiron Oracle — board de draft",
+  title: "Gridiron Oracle — Draft Board",
   description:
-    "Board global por valor sobre reemplazo y rankings por posición, con la curva de VOR que enseña dónde está el acantilado de cada puesto.",
+    "Value over replacement board with per-position rankings and the VOR curve that shows where each position falls off.",
 };
 
-// Sólo números comparables: el nombre, la posición y el equipo van apilados en
-// la celda del jugador, que es donde se leen juntos.
-const BOARD_COLUMNS = [
-  { key: "projected_points", label: "Proyección", format: (v) => num(v, 1) },
-  { key: "vor", label: "VOR", format: (v) => num(v, 1) },
-  // Las dos columnas de riesgo van a la derecha de la proyección, no a su
-  // izquierda: primero cuánto vale el jugador, después qué puede salir mal. Al
-  // revés se lee como si el riesgo fuese el criterio de ordenación, y no lo es.
-  { key: "p_bust", label: "Bust", format: (_v, row) => <BustCell row={row} /> },
-  {
-    key: "missed_games",
-    label: "Falta",
-    format: (v) => (v === null || v === undefined ? "—" : num(v, 1)),
-  },
-];
-
 const VALIDATION_COLUMNS = [
-  { key: "position", label: "Posición", format: (v) => <PositionChip position={v} /> },
-  { key: "pearson", label: "Correlación", format: (v) => num(v, 2) },
+  { key: "position", label: "Position", format: (v) => <PositionChip position={v} /> },
+  { key: "pearson", label: "Correlation", format: (v) => num(v, 2) },
   { key: "spearman", label: "Spearman", format: (v) => num(v, 2) },
   { key: "mae", label: "MAE (pts)", format: (v) => num(v, 0) },
 ];
-
-/**
- * Numera dentro de la lista que se está enseñando.
- *
- * En el global el número es el orden global; dentro de una posición es el
- * orden de esa posición. Reusar `overall_rank` en la lista de receptores daría
- * un «#47» en la primera fila, que es exactamente la clase de detalle que hace
- * dudar de todo lo demás.
- */
-function numbered(rows) {
-  return rows.map((row, index) => ({ ...row, rank: index + 1 }));
-}
-
-/**
- * Una columna de discrepancias con el consenso.
- *
- * Se enseña la posición en los dos boards y la diferencia, no sólo la
- * diferencia: «+106» sin saber de dónde a dónde no dice si es un debate entre
- * la ronda 3 y la 12 o entre la 14 y la 15.
- */
-function GapList({ rows }) {
-  return (
-    <ol className="gap">
-      {rows.map((row) => (
-        <li key={row.player_id ?? row.player_name}>
-          <span className="gap-who">
-            <span className={`ptag ptag--${row.position.toLowerCase()}`}>{row.position}</span>
-            <strong>{row.player_name}</strong> <span className="outlet">{row.team}</span>
-          </span>
-          <span className="gap-nums">
-            <span className="outlet">
-              aquí #{row.model_rank} · consenso #{row.consensus_rank}
-            </span>
-            <span className={row.gap > 0 ? "gap-up" : "gap-down"}>
-              {row.gap > 0 ? `+${row.gap}` : row.gap}
-            </span>
-          </span>
-          {row.analysis ? <span className="gap-note">{row.analysis}</span> : null}
-        </li>
-      ))}
-    </ol>
-  );
-}
 
 export default function Fantasy() {
   const fantasy = model.fantasy;
@@ -81,295 +22,243 @@ export default function Fantasy() {
   if (!fantasy) {
     return (
       <>
-        <h1>Board de draft</h1>
+        <h1>Draft Board</h1>
         <NoDataYet />
       </>
     );
   }
 
   const board = fantasy.board ?? [];
-  const availability = availabilityByPlayer(model.dossier);
-  const briefs = briefsByPlayer(model.dossier, model.research);
   const gap = model.dossier?.gap ?? [];
   const ambiguous = model.dossier?.ambiguous ?? [];
 
   return (
-    <>
-      <h1>Board de draft {fantasy.season}</h1>
-      <p className="lede">
-        Proyección de temporada completa a partir del volumen y la eficiencia de las tres
-        últimas temporadas (ponderadas 56/30/14), encogidas hacia la media posicional según
-        el tamaño de muestra y corregidas por la <strong>curva de edad</strong> de cada
-        posición — activa desde agosto de 2026, y validada: mejora la proyección en las
-        cuatro posiciones, con el mayor efecto en el acantilado del running back.
-      </p>
-
-      <ul className="jump">
-        <li><a href="#draft-mode">Modo draft</a></li>
-        <li><a href="#consenso">Consenso</a></li>
-        <li><a href="#global">Global</a></li>
-        {POSITIONS.map((position) => (
-          <li key={position}><a href={`#${position.toLowerCase()}`}>{position}</a></li>
-        ))}
-        <li><a href="#bust">Riesgo</a></li>
-        <li><a href="#validacion">Validación</a></li>
-      </ul>
-
-      <section id="draft-mode">
-        <h2>Modo draft</h2>
-        <p className="caption">
-          La sugerencia es el mejor disponible por VOR <strong>corregido por lo que ya
-          tienes</strong>: cada posición pierde valor para ti a medida que la llenas, porque tu
-          quinto receptor no juega. Sin esa corrección un board te manda coger receptores toda
-          la tarde, que es justo el error que debería evitarte.
-        </p>
-        <DraftMode board={board} />
-      </section>
-
-      {gap.length > 0 ? (
-        <section id="consenso">
-          <h2>Dónde este board se separa del consenso</h2>
-          <p className="lede">
-            Coincidir con el consenso no informa de nada: si los dos dicen lo mismo, daba igual
-            cuál mirases. <strong>Toda la información está en el desacuerdo</strong>, y es
-            también donde este board puede estar equivocado.
+    <BoardShell
+      board={board}
+      gap={gap}
+      availability={availabilityByPlayer(model.dossier)}
+      briefs={briefsByPlayer(model.dossier, model.research)}
+      context={{
+        season: fantasy.season,
+        scoring: fantasy.scoring,
+        teams: fantasy.teams,
+        league: fantasy.league,
+      }}
+      methodology={
+        <>
+          <p>
+            Full-season projections built from three years of volume and efficiency
+            (weighted 56/30/14), shrunk toward the positional mean by sample size, and
+            adjusted by each position&rsquo;s <strong>age curve</strong> — live since August
+            2026 and validated: it improves projections at all four positions, most of all
+            at the running back cliff.
           </p>
-          <div className="two-up">
-            <div>
-              <h3>El modelo los sube</h3>
-              <p className="caption">Más alto aquí que en el consenso de expertos.</p>
-              <GapList rows={gap.slice(0, 8)} />
-            </div>
-            <div>
-              <h3>El modelo los baja</h3>
-              <p className="caption">Más bajo aquí que en el consenso.</p>
-              <GapList rows={[...gap].slice(-8).reverse()} />
-            </div>
-          </div>
-
-          <Callout title="Los desacuerdos caen justo donde el modelo es ciego">
+          <p>
+            The overall order is <strong>VOR, not total points</strong>. Comparing a
+            quarterback to a running back on total points means nothing: the QB always wins
+            and still goes in round 8. What matters is not how many points a player scores
+            but <strong>how many more than whoever you can get for free at his
+            position</strong>.
+          </p>
+          <p>
+            Tiers come from real gaps in VOR, not from slicing the list into twelves. If the
+            player you want is the last of his tier, you cannot wait another round.
+          </p>
+          {fantasy.league ? null : (
+            <p className="caption">
+              Scoring is <strong>assumed</strong>, not synced. If your league scores
+              differently this order is not yours — scoring changes the ranking, not just the
+              points.
+            </p>
+          )}
+        </>
+      }
+      draftNote={
+        <>
+          <p className="caption">
+            The suggestion is best available by VOR <strong>adjusted for what you already
+            have</strong>: each position loses value to you as you fill it, because your
+            fifth receiver never plays. Without that adjustment a board tells you to take
+            receivers all afternoon, which is the exact mistake it should be preventing.
+          </p>
+        </>
+      }
+      boardFooter={
+        <>
+          <h2>Where value runs out at each position</h2>
+          <VorCurve board={board} />
+        </>
+      }
+      consensusNotes={
+        <>
+          <Callout title="The disagreements land exactly where the model is blind">
             <p>
-              No son errores aleatorios, y por eso valen: <strong>cada bloque de discrepancia
-              apunta a una limitación que ya está documentada abajo</strong>.
+              These are not random errors, and that is why they matter:{" "}
+              <strong>each cluster of disagreement points at a limitation that is already
+              documented</strong>.
             </p>
             <ul>
               <li>
-                <strong>Lesionados que el modelo sube.</strong> El consenso ya los ha bajado
-                porque sabe del parte médico; el modelo proyecta sobre partidos jugados y no
-                sabe nada. Aquí manda el consenso — mira su etiqueta de disponibilidad.
+                <strong>Injured players the model ranks up.</strong> Consensus has already
+                marked them down because it knows the injury report; the model projects off
+                games played and knows nothing. Trust consensus here — check the availability
+                tag.
               </li>
               <li>
-                <strong>Veteranos que el modelo sube.</strong> Era la mayor fuente de
-                desacuerdo hasta que se activó la curva de edad, y <strong>encogió mucho al
-                activarla</strong>: Kelce pasó de +75 a +13 sobre el consenso y Kamara de +106
-                a +8. Lo que queda es desacuerdo de verdad, no un hueco del modelo.
+                <strong>Veterans the model ranks up.</strong> This was the largest source of
+                disagreement until the age curve went live, and it{" "}
+                <strong>shrank sharply</strong>: Kelce went from +75 to +13 against consensus,
+                Kamara from +106 to +8. What is left is real disagreement, not a hole in the
+                model.
               </li>
               <li>
-                <strong>Jóvenes que el modelo baja.</strong> Sin historial no hay proyección, y
-                un segundo año con cambio de papel es justo lo que el modelo no puede ver. Aquí
-                el consenso tiene información que estos datos no contienen.
+                <strong>Young players the model ranks down.</strong> No history means no
+                projection, and a second-year player in a new role is exactly what the model
+                cannot see. Consensus has information these data do not contain.
               </li>
             </ul>
           </Callout>
-
           <p className="caption">
-            {gap.length} de los {model.dossier?.consensus_size ?? 0} del consenso se emparejan
-            con este board.
+            {gap.length} of the {model.dossier?.consensus_size ?? 0} consensus players match
+            this board.
             {ambiguous.length > 0 ? (
               <>
-                {" "}No se comparan {ambiguous.map((names) => names.join(" y ")).join("; ")}:
-                comparten inicial, apellido y equipo, y el formato abreviado de nflverse no los
-                distingue. Adivinar cuál es cuál produciría una discrepancia llamativa sobre el
-                jugador equivocado.
+                {" "}
+                Not compared: {ambiguous.map((names) => names.join(" and ")).join("; ")} —
+                same first initial, surname and team, and nflverse&rsquo;s abbreviated format
+                cannot tell them apart. Guessing would attach a striking disagreement to the
+                wrong player.
               </>
             ) : null}
           </p>
+        </>
+      }
+      riskNotes={
+        <>
+          <h2>The two risk columns: Bust and Missed</h2>
+          <p>
+            <strong>Bust</strong> is the probability a player finishes the season{" "}
+            <strong>below 70% of his projection</strong>. It is not &ldquo;how much he might
+            vary&rdquo;: a projection can miss upward and that is good news, not risk. This
+            measures only the downside, which is the question you actually ask in a draft.
+          </p>
+          <p>
+            The 70% cut and the acceptance thresholds were fixed{" "}
+            <strong>before anything was measured</strong>, written down in{" "}
+            <code>docs/PREREGISTRO_riesgo.md</code>. Across 1,865 player-seasons from 2016 to
+            2025, each estimated using only prior years: calibration error is{" "}
+            <strong>0.043</strong> and the riskiest decile busts{" "}
+            <strong>5.5× more often</strong> than the safest — 91% against 17%. The board&rsquo;s
+            base rate is <strong>43%</strong>, which is already the most useful number here:{" "}
+            <strong>four in ten draft picks fall short</strong>, and that includes the good
+            ones.
+          </p>
+          <p>
+            <strong>Missed</strong> is expected games missed out of 17, from his absence
+            history weighted 56/30/14 and shrunk by sample size.
+          </p>
+
+          <Callout title="&ldquo;Missed&rdquo; is not an injury report, and the difference matters">
+            <p>
+              It measures how many of his team&rsquo;s games a player{" "}
+              <strong>does not appear in the data for</strong>. That can be an injury, but it
+              can equally be a backup role, an inactive, or a suspension, and these data{" "}
+              <strong>cannot tell them apart</strong>. The availability tag next to the name
+              does come from a real report — from the dossier, with its source and date — and
+              it wins when the two disagree.
+            </p>
+            <p>
+              Across every player with history the signal looks enormous, Spearman{" "}
+              <strong>+0.48</strong>. Almost all of it is a mirage:{" "}
+              <strong>it measures that backups stay backups</strong>. Restricted to starters
+              with 16+ games the prior year it falls to <strong>+0.09</strong>.
+            </p>
+            <p>
+              The honest number is the one for the population where it is published — the 250
+              on this board: <strong>+0.24</strong>, with the top third missing{" "}
+              <strong>32.9%</strong> of games against <strong>18.1%</strong> for the bottom.
+              That is about 5.6 games against 3. It is real, it is useful as a tiebreaker, and
+              it is not a crystal ball.
+            </p>
+          </Callout>
+
+          <h2>The volatility tag, and what it is worth</h2>
+          <p>
+            <strong>Stable</strong> and <strong>Volatile</strong> are two very easy words to
+            invent, so here they come from three measured quantities and{" "}
+            <strong>are validated against realized error</strong>: the sample behind the
+            projection, how far the model had to shrink the player&rsquo;s raw rate — shrinkage
+            is proportional to distrust — and what share of his points come from touchdowns,
+            the noisiest statistic in fantasy.
+          </p>
+          <p>
+            Across 1,914 player-seasons from 2022 to 2025, each projected using only prior
+            years: the correlation between risk and absolute error is <strong>+0.20</strong>,
+            and the most volatile third misses by <strong>21% more</strong> than the stable
+            third. Positive at all four positions, strongest at quarterback (+0.45).
+          </p>
+          <p className="caption">
+            It is a real and <strong>small</strong> signal. It orders who to look at twice; it
+            does not decide a draft. A &ldquo;Volatile&rdquo; player with a hundred more
+            projected points is still the better pick. The tag is compared{" "}
+            <em>within a position</em>, because the error scales of the four differ by a factor
+            of three.
+          </p>
+        </>
+      }
+      validationPanel={
+        <section aria-label="Validation">
+          <h2>Validation</h2>
+          <p className="caption">
+            Preseason projection against actual result, with every season projected using only
+            what came before it.
+          </p>
+          <Table columns={VALIDATION_COLUMNS} rows={fantasy.validation ?? []} />
+          <p>
+            A high Spearman here does not mean the season is predictable: the set includes
+            very low-volume players, and separating a starter from a backup is easy. The hard
+            part — ordering the top twenty at a position — is far noisier, and rankings are
+            mostly good for <strong>not making large mistakes</strong>.
+          </p>
+
+          <Callout title="35 players on this board changed teams, and their projection is the old one">
+            <p>
+              The board labels every player with his <strong>2026</strong> roster, but{" "}
+              <strong>his projection was computed from the usage split of the team he
+              left</strong>. A.J. Brown projects as Philadelphia&rsquo;s number one receiver and
+              plays in New England; Mike Evans as Tampa&rsquo;s while in San Francisco.
+            </p>
+            <p>
+              That is why they carry the amber <span className="moved">← TEAM</span> mark next
+              to the new team. It is not decoration:{" "}
+              <strong>it marks exactly the rows whose number on the right is less
+              trustworthy</strong>. 35 of the board&rsquo;s 250 — 14% — and 146 of the 861
+              players projected.
+            </p>
+          </Callout>
+
+          <h2>Limitations</h2>
+          <ul>
+            <li>Rookies do not appear: with no NFL games there is no history to project.</li>
+            <li>
+              <strong>Projections do not discount injuries.</strong> They come from games
+              played and count on a player even when he is ruled out. The availability tag next
+              to the name comes from the dossier and is a <em>parallel</em> fact: it does not
+              touch the number on the right, it contradicts it when it should.
+            </li>
+            <li>The internal split of a new backfield is inherited from last year.</li>
+            <li>
+              Everyone is projected for 15.5 games: individual injury risk is not
+              differentiated.
+            </li>
+            <li>
+              The age curve <strong>is live</strong>: connected on 29 August 2026 after
+              validation, improving projections at all four positions — most at running back
+              (+4.0 points of MAE), which is where it had to show.
+            </li>
+          </ul>
         </section>
-      ) : null}
-
-      <h2>Dónde se acaba el valor en cada posición</h2>
-      <VorCurve board={board} />
-
-      <Callout title="El orden global es por VOR, no por puntos totales">
-        <p>
-          Comparar un quarterback con un running back por puntos totales no significa nada:
-          el QB siempre gana y aun así se elige en la ronda 8. Lo que importa no es cuántos
-          puntos hace un jugador, sino <strong>cuántos más que el que puedes conseguir gratis
-          en su posición</strong>. Eso es el valor sobre reemplazo.
-        </p>
-        <p>
-          Los tiers salen de los huecos reales en VOR, no de cortar la lista en trozos de
-          doce. En las tablas, cada tier abre con su propia banda: si el jugador que quieres
-          es el último de un tier, no puedes esperar otra ronda.
-        </p>
-      </Callout>
-
-      <section id="global">
-        <h2>Global</h2>
-        <p className="caption">
-          Las cuatro posiciones en una sola lista, ordenadas por VOR. Puntuación{" "}
-          <strong>{fantasy.scoring}</strong>, liga de {fantasy.teams} equipos
-          {fantasy.league ? (
-            <> — sincronizada desde Sleeper: <strong>{fantasy.league}</strong>.</>
-          ) : (
-            <>. <strong>Supuesta</strong>, no sincronizada: si tu liga puntúa distinto, este
-            orden no es el tuyo — la puntuación cambia el ranking, no sólo los puntos.</>
-          )}
-        </p>
-        <RankTable rows={numbered(board)} columns={BOARD_COLUMNS}
-                   availability={availability} briefs={briefs} risk tiers />
-      </section>
-
-      {POSITIONS.map((position) => {
-        const group = board.filter((row) => row.position === position);
-        if (group.length === 0) return null;
-        return (
-          <section key={position} id={position.toLowerCase()}>
-            <h2>
-              <PositionChip position={position} /> {position}
-            </h2>
-            <RankTable rows={numbered(group)} columns={BOARD_COLUMNS}
-                       availability={availability} briefs={briefs} risk tiers />
-          </section>
-        );
-      })}
-
-      <section id="validacion">
-        <h2>Validación</h2>
-        <p className="caption">
-          Proyección de pretemporada frente al resultado real, con cada temporada proyectada
-          usando sólo lo anterior.
-        </p>
-        <Table columns={VALIDATION_COLUMNS} rows={fantasy.validation ?? []} />
-        <p>
-          Un Spearman alto aquí no significa adivinar la temporada: el conjunto incluye
-          jugadores de muy poco volumen, y separar a un titular de un suplente es fácil. La
-          parte difícil —ordenar bien a los veinte primeros de una posición— es mucho más
-          ruidosa, y los rankings sirven sobre todo para{" "}
-          <strong>no cometer errores grandes</strong>.
-        </p>
-      </section>
-
-      <Callout title="35 jugadores del board cambiaron de equipo, y su proyección es la del anterior">
-        <p>
-          El board etiqueta a cada jugador con la plantilla de <strong>2026</strong>, pero{" "}
-          <strong>su proyección se calculó con el reparto de uso del equipo del que se
-          fue</strong>. A.J. Brown proyecta como el primer receptor de Filadelfia y juega en
-          Nueva Inglaterra; Mike Evans, como el de Tampa estando en San Francisco.
-        </p>
-        <p>
-          Por eso llevan la marca ámbar <span className="moved">← EQUIPO</span> al lado del
-          equipo nuevo. No es decoración: <strong>marca exactamente las filas cuyo número de
-          la derecha es menos de fiar</strong>. Son 35 de los 250 del board —el 14%— y 146
-          entre los 861 jugadores proyectados.
-        </p>
-        <p className="caption">
-          Hasta hoy el board enseñaba directamente el equipo del año pasado, porque el
-          proyector etiquetaba con el último partido jugado en vez de con la plantilla del
-          año. Tyler Allgeier salía en Atlanta siendo el titular de Arizona. La etiqueta ya
-          está corregida; el reparto de uso heredado sigue siendo una limitación conocida y
-          no tiene arreglo sin ver jugar a la nueva plantilla.
-        </p>
-      </Callout>
-
-      <section id="bust">
-        <h2>Las dos columnas de riesgo: «Bust» y «Falta»</h2>
-        <p>
-          <strong>Bust</strong> es la probabilidad de que ese jugador termine la temporada{" "}
-          <strong>por debajo del 70% de su proyección</strong>. No es «cuánto puede variar»:
-          una proyección puede fallar hacia arriba y eso es una alegría, no un riesgo. Mide
-          sólo la cola de abajo, que es la pregunta que se hace de verdad en un draft.
-        </p>
-        <p>
-          El corte del 70% y los umbrales de aceptación se fijaron{" "}
-          <strong>antes de medir nada</strong>, y están escritos en{" "}
-          <code>docs/PREREGISTRO_riesgo.md</code>. Sobre 1.865 jugador-temporadas de 2016 a
-          2025, cada una estimada sólo con las anteriores: el error de calibración es{" "}
-          <strong>0,043</strong> y el decil de más riesgo bustea{" "}
-          <strong>5,5 veces más</strong> que el de menos —91% frente a 17%—. La tasa base del
-          board es del <strong>43%</strong>, que ya es el dato más útil de esta sección:{" "}
-          <strong>cuatro de cada diez elecciones de draft se quedan cortas</strong>, y eso
-          incluye las buenas.
-        </p>
-        <p>
-          <strong>Falta</strong> son los partidos que se espera que se pierda de 17, a partir
-          de su historial de ausencias ponderado 56/30/14 y encogido por tamaño de muestra.
-        </p>
-
-        <Callout title="«Falta» no es un parte médico, y la diferencia importa">
-          <p>
-            Mide en cuántos partidos de su equipo el jugador{" "}
-            <strong>no aparece en los datos</strong>. Puede ser una lesión, pero también ser
-            suplente, estar inactivo o cumplir una sanción, y estos datos{" "}
-            <strong>no los distinguen</strong>. La etiqueta de disponibilidad que sale al lado
-            del nombre sí viene de un parte real —del dossier, con su fuente y su fecha— y es
-            la que manda si las dos se contradicen.
-          </p>
-          <p>
-            Sobre todos los jugadores con historial la señal parece enorme, Spearman{" "}
-            <strong>+0,48</strong>. Casi toda es un espejismo:{" "}
-            <strong>mide que los suplentes siguen siendo suplentes</strong>. Restringiendo a
-            titulares con 16 o más partidos el año anterior se cae a <strong>+0,09</strong>.
-          </p>
-          <p>
-            El número honesto es el de la población donde se publica —los 250 del board—:{" "}
-            <strong>+0,24</strong>, con el tercio de arriba perdiendo el{" "}
-            <strong>32,9%</strong> de los partidos frente al <strong>18,1%</strong> del de
-            abajo. Eso son unos 5,6 partidos contra 3. Es real, es útil para desempatar, y no
-            es una bola de cristal.
-          </p>
-        </Callout>
-      </section>
-
-      <section id="riesgo">
-        <h2>La etiqueta de volatilidad, y cuánto vale</h2>
-        <p>
-          <strong>Estable</strong> y <strong>Volátil</strong> son dos palabras muy fáciles de
-          inventarse, así que aquí salen de tres cantidades medidas y{" "}
-          <strong>están validadas contra el error realizado</strong>: el tamaño de muestra
-          detrás de la proyección, cuánto tuvo que encoger el modelo la tasa bruta del jugador
-          —el encogimiento es proporcional a la desconfianza— y qué parte de sus puntos vienen
-          de touchdowns, que es la estadística más ruidosa del fantasy.
-        </p>
-        <p>
-          Sobre 1914 jugador-temporadas de 2022 a 2025, proyectando cada una sólo con lo
-          anterior: la correlación entre riesgo y error absoluto es{" "}
-          <strong>+0,20</strong> y el tercio más volátil se equivoca un{" "}
-          <strong>21% más</strong> que el tercio estable. Positivo en las cuatro posiciones, y
-          más fuerte en quarterback (+0,45).
-        </p>
-        <p className="caption">
-          Es una señal real y <strong>pequeña</strong>. Ordena a quién mirar con lupa, no
-          decide un draft: un «Volátil» con cien puntos más de proyección sigue siendo mejor
-          elección que un «Estable» sin ellos. La etiqueta se compara{" "}
-          <em>dentro de cada posición</em>, porque las escalas de error de las cuatro se
-          diferencian en un factor de tres. La edad no entra: el acantilado del corredor es
-          real, pero las fechas de nacimiento no están conectadas y meterla a medias sería peor
-          que no meterla.
-        </p>
-      </section>
-
-      <h2>Limitaciones</h2>
-      <ul>
-        <li>Los rookies no aparecen: sin partidos NFL no hay historial que proyectar.</li>
-        <li>
-          <strong>La proyección no descuenta lesiones.</strong> Sale del historial de
-          partidos y cuenta con el jugador aunque esté descartado. La etiqueta de
-          disponibilidad al lado del nombre viene del dossier y es un dato{" "}
-          <em>paralelo</em>: no toca el número de la derecha, lo contradice cuando toca.
-        </li>
-        <li>El reparto interno de un backfield nuevo se hereda del año anterior.</li>
-        <li>
-          Se proyectan 15,5 partidos para todos: el riesgo de lesión individual no está
-          diferenciado.
-        </li>
-        <li>
-          La curva de edad <strong>ya está activa</strong>: se conectó el 29 de agosto de
-          2026 tras validarla, y mejora la proyección en las cuatro posiciones —más en
-          running back (+4,0 puntos de MAE) que en ninguna otra, que es donde tenía que
-          notarse—.
-        </li>
-      </ul>
-    </>
+      }
+    />
   );
 }

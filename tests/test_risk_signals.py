@@ -117,11 +117,11 @@ def test_short_sample_is_pulled_towards_the_positional_mean():
 
 def test_bust_labels_respect_their_cuts():
     low, high = bust.BUST_CUTS
-    assert bust.label(low - 0.01) == "Sólido"
+    assert bust.label(low - 0.01) == "Solid"
     assert bust.label((low + high) / 2) == "Normal"
-    assert bust.label(high + 0.01) == "Frágil"
+    assert bust.label(high + 0.01) == "Fragile"
     # El borde exacto pertenece al lado malo: ante la duda, avisar.
-    assert bust.label(high) == "Frágil"
+    assert bust.label(high) == "Fragile"
 
 
 def test_bust_model_learns_the_obvious_direction():

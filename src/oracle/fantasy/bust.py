@@ -50,7 +50,7 @@ FEATURES = ("risk_sample", "risk_shrink", "risk_touchdown", "missed_rate")
 # sea tranquilo — que es justo el defecto que tenía la primera versión del aviso
 # de «muestra corta».
 BUST_CUTS = (0.30, 0.50)
-BUST_LABELS = ("Sólido", "Normal", "Frágil")
+BUST_LABELS = ("Solid", "Normal", "Fragile")
 
 
 def label(probability: float) -> str:

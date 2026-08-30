@@ -481,7 +481,7 @@ def test_risk_labels_do_not_clash_with_availability():
     """
     from oracle.fantasy import risk
 
-    assert risk.LABELS == ("Estable", "Normal", "Volátil")
+    assert risk.LABELS == ("Steady", "Normal", "Volatile")
     assert "Seguro" not in risk.LABELS
 
 
@@ -530,7 +530,7 @@ def test_risk_is_ranked_within_each_position(player_weeks):
         if len(group) < 6:
             continue
         labels = set(group["risk_label"])
-        assert "Estable" in labels and "Volátil" in labels, (
+        assert "Steady" in labels and "Volatile" in labels, (
             f"{position} no tiene las dos etiquetas: {labels}"
         )
 

@@ -81,7 +81,7 @@ export function MachineWritten({ children, at }) {
         Texto redactado por Claude sobre los números del modelo. Cada cifra que aparece se
         verifica contra los datos antes de publicarse; si no cuadra, el texto se descarta y
         esta sección sale vacía.
-        {at ? <> Generado el {new Date(at).toLocaleDateString("es-ES")}.</> : null}
+        {at ? <> Generated {new Date(at).toLocaleDateString("en-US")}.</> : null}
       </p>
       {children}
     </div>
@@ -99,7 +99,7 @@ export function MachineWritten({ children, at }) {
  * El triángulo no es decoración: es el segundo canal. Quien no distinga el azul
  * del rojo lee la flecha y el texto.
  */
-export const IMPACT = { alza: "▲ Al alza", baja: "▼ A la baja", neutro: "= Neutro" };
+export const IMPACT = { alza: "▲ Trending up", baja: "▼ Trending down", neutro: "= Neutral" };
 
 export function ImpactTag({ impact }) {
   return <span className={`tag tag--${impact}`}>{IMPACT[impact] ?? IMPACT.neutro}</span>;
@@ -191,12 +191,12 @@ export function RankTable({
                     <span className="nm">
                       {row.player_name}
                       {hasNote ? (
-                        <span className="mark mark--why" title="El modelo explica esta posición más abajo">
+                        <span className="mark mark--why" title="The model explains this ranking below">
                           ?
                         </span>
                       ) : null}
                       {hasNews ? (
-                        <span className="mark mark--news" title="Hay prensa reciente sobre este jugador">
+                        <span className="mark mark--news" title="Recent reporting on this player">
                           !
                         </span>
                       ) : null}
@@ -215,7 +215,7 @@ export function RankTable({
                       {row.team_changed && row.previous_team ? (
                         <span
                           className="moved"
-                          title={`Cambió de equipo: ${row.previous_team} → ${row.team}. La proyección hereda su reparto de uso en ${row.previous_team}.`}
+                          title={`Changed teams: ${row.previous_team} → ${row.team}. The projection inherits his usage share at ${row.previous_team}.`}
                         >
                           ← {row.previous_team}
                         </span>
@@ -253,13 +253,20 @@ export function RankTable({
  * `title` lleva la situación, quién lo dijo y cuándo. La etiqueta mide
  * DISPONIBILIDAD, no gravedad.
  */
+// El dossier guarda los niveles en español porque es un fichero versionado que
+// se importa de un libro externo y NO se puede regenerar aquí. Se traduce al
+// pintarlo, que es donde corresponde: el dato guardado no cambia, y el día que
+// el dossier se reimporte en inglés este mapa deja de encontrar la clave y cae
+// al valor original, que sigue siendo legible.
+const AVAILABILITY_LABEL = { FUERA: "OUT", DUDA: "QUESTIONABLE", SEGUIR: "MONITOR" };
+
 function AvailabilityTag({ entry }) {
   return (
     <span
       className={`avail avail--${entry.level.toLowerCase()}`}
       title={`${entry.situation} — ${entry.status} (${entry.source}, ${entry.date})`}
     >
-      {entry.level}
+      {AVAILABILITY_LABEL[entry.level] ?? entry.level}
     </span>
   );
 }
@@ -274,19 +281,19 @@ function AvailabilityTag({ entry }) {
 // Nombre de clase en ASCII y no derivado de la etiqueta: `"Volátil".toLowerCase()`
 // da `.risk--volátil`, que funciona hasta que alguien le quita la tilde a la
 // etiqueta y el estilo desaparece sin que falle nada.
-const RISK_CLASS = { "Volátil": "high", "Estable": "low", Normal: "mid" };
+const RISK_CLASS = { Volatile: "high", Steady: "low", Normal: "mid" };
 
 function RiskTag({ row }) {
   const parts = [
-    `muestra ${Math.round((row.risk_sample ?? 0) * 100)}`,
-    `encogimiento ${Math.round((row.risk_shrink ?? 0) * 100)}`,
-    `touchdown ${Math.round((row.risk_touchdown ?? 0) * 100)}`,
+    `sample ${Math.round((row.risk_sample ?? 0) * 100)}`,
+    `shrinkage ${Math.round((row.risk_shrink ?? 0) * 100)}`,
+    `touchdown reliance ${Math.round((row.risk_touchdown ?? 0) * 100)}`,
   ].join(" · ");
   const why = row.risk_reasons?.length ? `${row.risk_reasons.join("; ")}. ` : "";
   return (
     <span
       className={`risk risk--${RISK_CLASS[row.risk_label] ?? "mid"}`}
-      title={`${why}Componentes sobre 100: ${parts}`}
+      title={`${why}Components out of 100: ${parts}`}
     >
       {row.risk_label}
     </span>
@@ -310,9 +317,9 @@ export function BustCell({ row }) {
   return (
     <span
       className={`bust bust--${tone}`}
-      title={`Probabilidad de terminar por debajo del 70% de su proyección. ${
+      title={`Probability of finishing below 70% of his projection. ${
         row.bust_label ?? ""
-      }. Base histórica del board: 43%.`}
+      }. Board base rate: 43%.`}
     >
       {pct(row.p_bust, 0)}
     </span>
@@ -323,7 +330,7 @@ export function BustCell({ row }) {
 // deriva de la etiqueta. `"Sólido".toLowerCase()` da `.bust--sólido`, que
 // funciona hasta que alguien le quita la tilde y el estilo desaparece sin que
 // falle nada.
-const BUST_CLASS = { "Sólido": "low", Normal: "mid", "Frágil": "high" };
+const BUST_CLASS = { Solid: "low", Normal: "mid", Fragile: "high" };
 
 /** Cuadrito de posición dentro de la línea de metadatos. */
 function PositionTag({ position }) {
@@ -360,7 +367,7 @@ export function DataCard({ href, label, value, detail, stale = false }) {
  */
 export function NoDataYet() {
   return (
-    <Callout title="Todavía no hay datos generados">
+    <Callout title="No data generated yet">
       <p>
         Este despliegue se construyó sin payload. Los datos no viajan en el repo
         (~490&nbsp;MB, en <code>.gitignore</code>); se reconstruyen y se hornean en el

@@ -131,7 +131,7 @@ export function VorCurve({ board, maxRank = 36 }) {
   return (
     <figure className="chart">
       <svg viewBox={`0 0 ${width} ${height}`} role="img"
-           aria-label="Valor sobre reemplazo por puesto dentro de cada posición">
+           aria-label="Value over replacement by rank within each position">
         {/* Rejilla horizontal + eje Y */}
         {ticks(yMin, yMax).map((value) => (
           <g key={value}>
@@ -175,9 +175,9 @@ export function VorCurve({ board, maxRank = 36 }) {
                 d={s.points.map((p, i) => `${i ? "L" : "M"}${x(p.x)} ${y(p.y)}`).join(" ")}
                 fill="none" stroke={POSITION_COLOR[s.position]} strokeWidth="2"
                 strokeLinejoin="round" strokeLinecap="round">
-            <title>{`${s.position}: de ${Math.round(s.points[0].y)} a ${Math.round(
+            <title>{`${s.position}: from ${Math.round(s.points[0].y)} to ${Math.round(
               s.points[s.points.length - 1].y
-            )} puntos de VOR entre el puesto 1 y el ${s.points[s.points.length - 1].x}`}</title>
+            )} VOR between rank 1 and rank ${s.points[s.points.length - 1].x}`}</title>
           </path>
         ))}
 

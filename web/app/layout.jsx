@@ -17,12 +17,12 @@ export const metadata = {
 
 // Las ocho páginas del sitio. Todas estáticas, con los datos horneados.
 const PAGES = [
-  { href: "/", label: "Resumen" },
-  { href: "/modelo", label: "Modelo" },
-  { href: "/validacion", label: "Validación" },
-  { href: "/predicciones", label: "Predicciones" },
+  { href: "/", label: "Overview" },
+  { href: "/modelo", label: "Model" },
+  { href: "/validacion", label: "Validation" },
+  { href: "/predicciones", label: "Predictions" },
   { href: "/fantasy", label: "Draft" },
-  { href: "/fantasy/semanal", label: "Semanal" },
+  { href: "/fantasy/semanal", label: "Weekly" },
   { href: "/survivor", label: "Survivor" },
   { href: "/research", label: "Research" },
 ];
@@ -66,7 +66,7 @@ export default function RootLayout({ children }) {
       <body>
         {/* Primer tabulador de la página. Sin esto, llegar al contenido con
             teclado exige pasar por los ocho enlaces del menú en cada carga. */}
-        <a className="skip" href="#contenido">Saltar al contenido</a>
+        <a className="skip" href="#contenido">Skip to content</a>
         <div className="shell">
           <nav className="top" aria-label="Secciones">
             <span className="brand">Gridiron Oracle</span>
