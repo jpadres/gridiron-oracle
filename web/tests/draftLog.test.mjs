@@ -9,7 +9,8 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import {
-  ROSTER, SOURCE, fold, isMyTurn, pickLabel, slotForOverall, takeEvent, undoEvent, untilMyTurn,
+  ROSTER, SOURCE, fold, isMyTurn, pickLabel, replayState, slotForOverall, takeEvent,
+  undoEvent, untilMyTurn,
 } from "../app/fantasy/draftLog.js";
 
 const T0 = 1_800_000_000_000;
@@ -186,4 +187,71 @@ test("la etiqueta de pick usa el formato del deporte", () => {
   assert.equal(pickLabel(8, 12, "snake"), "1.08");
   assert.equal(pickLabel(17, 12, "snake"), "2.05");
   assert.equal(pickLabel(8, null, null), "#8");
+});
+
+// --- replay: el estado tras el pick efectivo N ------------------------------
+
+test("REPLAY · el invariante: rebanar N picks == replegar esos N como eventos", () => {
+  // Una historia con ruido de verdad: deshacer, rehacer, corrección de dueño.
+  const events = [
+    takeEvent({ playerId: "a", roster: ROSTER.OPPONENT, at: T0 }),
+    takeEvent({ playerId: "b", roster: ROSTER.MINE, at: T0 + 1 }),
+    undoEvent({ playerId: "a", at: T0 + 2 }),
+    takeEvent({ playerId: "c", roster: ROSTER.OPPONENT, at: T0 + 3 }),
+    takeEvent({ playerId: "a", roster: ROSTER.MINE, at: T0 + 4 }),
+    takeEvent({ playerId: "d", roster: ROSTER.OPPONENT, at: T0 + 5 }),
+  ];
+  const state = fold(events);
+  assert.equal(state.count, 4, "b, c, a(rehecho), d");
+
+  for (let n = 0; n <= state.count; n += 1) {
+    const sliced = replayState(state, n);
+    // Replegar los N primeros picks efectivos como si fueran el registro entero.
+    const refolded = fold(state.picks.slice(0, n));
+    assert.deepEqual(
+      sliced.picks.map((p) => [p.playerId, p.overall, p.roster]),
+      refolded.picks.map((p) => [p.playerId, p.overall, p.roster]),
+      `n=${n}`
+    );
+    assert.deepEqual([...sliced.mine].sort(), [...refolded.mine].sort(), `mine n=${n}`);
+    assert.equal(sliced.count, n);
+  }
+});
+
+test("REPLAY · la historia efectiva no enseña el ruido", () => {
+  // El jugador deshecho y rehecho aparece UNA vez, en su sitio final.
+  const events = [
+    takeEvent({ playerId: "x", roster: ROSTER.OPPONENT, at: T0 }),
+    undoEvent({ playerId: "x", at: T0 + 1 }),
+    takeEvent({ playerId: "y", roster: ROSTER.OPPONENT, at: T0 + 2 }),
+    takeEvent({ playerId: "x", roster: ROSTER.MINE, at: T0 + 3 }),
+  ];
+  const state = fold(events);
+  const at1 = replayState(state, 1);
+  assert.deepEqual(at1.picks.map((p) => p.playerId), ["y"],
+    "tras el pick 1 está y — el primer TAKE de x fue deshecho y no es historia");
+  const at2 = replayState(state, 2);
+  assert.ok(at2.mine.has("x"), "x aparece con su dueño CORREGIDO desde el principio");
+});
+
+test("REPLAY · las fronteras: 0 es pre-draft y count es el presente", () => {
+  const events = [takeEvent({ playerId: "a", at: T0 }), takeEvent({ playerId: "b", at: T0 + 1 })];
+  const state = fold(events);
+  assert.equal(replayState(state, 0).count, 0);
+  assert.equal(replayState(state, 0).byPlayer.size, 0);
+  assert.deepEqual(replayState(state, 2).picks, state.picks);
+  // Fuera de rango se acota, no revienta.
+  assert.equal(replayState(state, -3).count, 0);
+  assert.equal(replayState(state, 99).count, 2);
+});
+
+test("REPLAY · determinismo: mismo punto, mismo estado, venga como venga el registro", () => {
+  const base = [
+    takeEvent({ playerId: "a", at: T0 }), takeEvent({ playerId: "b", at: T0 + 1 }),
+    undoEvent({ playerId: "a", at: T0 + 2 }), takeEvent({ playerId: "c", at: T0 + 3 }),
+  ];
+  const shuffled = [base[3], base[1], base[0], base[2]];
+  const one = replayState(fold(base), 1);
+  const two = replayState(fold(shuffled), 1);
+  assert.deepEqual(one.picks.map((p) => p.playerId), two.picks.map((p) => p.playerId));
 });

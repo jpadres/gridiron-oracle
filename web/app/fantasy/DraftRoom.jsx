@@ -37,8 +37,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { num } from "../../data/model.js";
 import { TeamMark, teamVars } from "../sports.jsx";
 import {
-  ROSTER, SOURCE, fold, isMyTurn, pickLabel, slotForOverall, takeEvent, undoEvent,
-  untilMyTurn,
+  ROSTER, SOURCE, fold, isMyTurn, pickLabel, replayState, slotForOverall, takeEvent,
+  undoEvent, untilMyTurn,
 } from "./draftLog.js";
 import { loadOrMigrateLog, logScopeFor, saveLog } from "./draftStorage.js";
 import { assignSlots } from "./leagueValue.js";
@@ -115,14 +115,53 @@ export default function DraftRoom({ board, context, league }) {
   }, [scope, events, ready]);
 
   const state = useMemo(() => fold(events), [events]);
+
+  /**
+   * REPLAY. `null` = en vivo; un número = «después del pick N».
+   *
+   * El cursor es estado del componente y NADA más: no se persiste, no toca el
+   * registro, y el efecto que guarda `events` ni se entera de que existe. El
+   * replay es estado derivado de sólo lectura — volver al vivo es volver a
+   * derivar del mismo registro de siempre.
+   */
+  const [replayCursor, setReplayCursor] = useState(null);
+  const replaying = replayCursor !== null;
+  const replayCursorRef = useRef(null);
+  replayCursorRef.current = replayCursor;
+  const effective = useMemo(
+    () => (replaying ? replayState(state, replayCursor) : state),
+    [state, replayCursor, replaying]
+  );
+
+  // TODO lo que se pinta deriva del estado EFECTIVO: board disponible,
+  // plantilla, feed, cortes de tier y profundidad. Un solo interruptor aguas
+  // arriba, y ninguna vista puede mezclar el presente con el pasado.
   const available = useMemo(
-    () => board.filter((row) => !state.byPlayer.has(row.player_id)),
-    [board, state]
+    () => board.filter((row) => !effective.byPlayer.has(row.player_id)),
+    [board, effective]
   );
   const roster = useMemo(
-    () => board.filter((row) => state.mine.has(row.player_id)),
-    [board, state]
+    () => board.filter((row) => effective.mine.has(row.player_id)),
+    [board, effective]
   );
+
+  const enterReplay = useCallback(() => {
+    setReplayCursor(state.count);
+    // Una entrada de historial: el botón Atrás del navegador sale del replay en
+    // vez de sacarte de la página en mitad de un draft.
+    try { window.history.pushState({ gridironReplay: true }, ""); } catch { /* SSR */ }
+  }, [state.count]);
+  const exitReplay = useCallback(() => {
+    setReplayCursor(null);
+    try {
+      if (window.history.state?.gridironReplay) window.history.back();
+    } catch { /* da igual */ }
+  }, []);
+  useEffect(() => {
+    const onPop = () => setReplayCursor(null);
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
 
   // La CONSTRUCCIÓN de la plantilla: mis jugadores repartidos en los huecos que
   // la liga declara. Derivada en cada render del registro plegado más la
@@ -150,6 +189,7 @@ export default function DraftRoom({ board, context, league }) {
    * siguientes, así que aquí no se adivina.
    */
   const record = useCallback((row, declared) => {
+    if (replayCursorRef.current !== null) return;   // el pasado no se edita
     const derived = isMyTurn({ overall: state.count + 1, teams, type, mySlot });
     const roster = declared ?? (derived === null
       ? ROSTER.UNKNOWN
@@ -170,6 +210,7 @@ export default function DraftRoom({ board, context, league }) {
   }, [state.count, teams, type, mySlot]);
 
   const undo = useCallback((playerId) => {
+    if (replayCursorRef.current !== null) return;   // el pasado no se edita
     setEvents((previous) => [...previous, undoEvent({ playerId, source: SOURCE.MANUAL })]);
     setFlash(null);
   }, []);
@@ -227,15 +268,46 @@ export default function DraftRoom({ board, context, league }) {
 
   if (!ready) return <p className="caption">Loading draft room&hellip;</p>;
 
-  const overall = state.count + 1;
+  const overall = effective.count + 1;
   const here = slotForOverall(overall, teams, type);
+  // Completo sólo si la liga declaró tamaño y rondas: sin ellos no se afirma.
+  const complete = Boolean(teams && rounds && state.count >= teams * rounds);
+  // Dónde está el cursor, en lenguaje de draft: el pick N y su casilla.
+  const cursorHere = replaying && replayCursor > 0
+    ? slotForOverall(replayCursor, teams, type)
+    : null;
 
   return (
-    <div className="room">
+    <div className={replaying ? "room room--replaying" : "room"}>
       {/* --- BANDA DE ESTADO -----------------------------------------------
           Lo más fuerte de la pantalla, con tipografía y no con tamaño de caja.
           Lleva DÓNDE estamos (ronda y pick) además de cuánto falta: sin la
           ronda, «2 picks» no sitúa a nadie en el draft. */}
+      {replaying ? (
+        /* --- REPLAY: inconfundiblemente histórico ------------------------
+           Sin ámbar, sin reloj, sin «on the clock»: un marco de archivo con el
+           cursor en lenguaje de draft. Nada de lo de abajo puede confundirse
+           con un estado en vivo. */
+        <section className="room-state room-state--replay" aria-live="polite">
+          <p className="room-replay-tag">Replay</p>
+          <p className="room-until">
+            <span className="room-until-n">{replayCursor}</span>
+            <span className="room-until-t">
+              {replayCursor === 0 ? "before the draft" : replayCursor === 1 ? "pick made" : "picks made"}
+              <small>
+                {replayCursor === 0
+                  ? "the board as it started"
+                  : cursorHere
+                    ? `last: round ${cursorHere.round}, pick ${cursorHere.inRound}`
+                    : `of ${state.count} recorded`}
+              </small>
+            </span>
+          </p>
+          <button type="button" className="room-undo" onClick={exitReplay}>
+            Back to live
+          </button>
+        </section>
+      ) : (
       <section className={onClock ? "room-state room-state--clock" : "room-state"}
                aria-live="polite">
         <p className="room-where">
@@ -250,7 +322,11 @@ export default function DraftRoom({ board, context, league }) {
           </span>
         </p>
 
-        {onClock === true ? (
+        {complete ? (
+          /* Un draft terminado no habla en presente: sin reloj, sin «until
+             you». Revisarlo pasa a ser la acción natural. */
+          <p className="room-done">Draft complete</p>
+        ) : onClock === true ? (
           <p className="room-clock">On the clock</p>
         ) : next ? (
           <p className="room-until">
@@ -269,10 +345,36 @@ export default function DraftRoom({ board, context, league }) {
             </span>
           </p>
         )}
+        {state.count > 0 ? (
+          <button type="button"
+                  className={complete ? "room-replay-enter room-replay-enter--loud" : "room-replay-enter"}
+                  onClick={enterReplay}>
+            {complete ? "Review the draft" : "Replay"}
+          </button>
+        ) : null}
       </section>
+      )}
+
+      {/* --- el control del cursor: al principio, atrás, barra, adelante, al
+             final. La barra salta a cualquier pick, rondas incluidas. -------- */}
+      {replaying ? (
+        <div className="room-replay-bar" role="group" aria-label="Replay position">
+          <button type="button" onClick={() => setReplayCursor(0)}
+                  disabled={replayCursor === 0} aria-label="Jump to start">&#171;</button>
+          <button type="button" onClick={() => setReplayCursor((c) => Math.max(0, c - 1))}
+                  disabled={replayCursor === 0} aria-label="Previous pick">&#8249;</button>
+          <input type="range" min="0" max={state.count} step="1" value={replayCursor}
+                 aria-label={`Draft position: after pick ${replayCursor} of ${state.count}`}
+                 onChange={(event) => setReplayCursor(Number(event.target.value))} />
+          <button type="button" onClick={() => setReplayCursor((c) => Math.min(state.count, c + 1))}
+                  disabled={replayCursor === state.count} aria-label="Next pick">&#8250;</button>
+          <button type="button" onClick={() => setReplayCursor(state.count)}
+                  disabled={replayCursor === state.count} aria-label="Jump to end">&#187;</button>
+        </div>
+      ) : null}
 
       {/* Deshacer: temporal y discreto. No compite con la banda de estado. */}
-      {flash ? (
+      {flash && !replaying ? (
         <p className="room-flash" role="status">
           <strong>{flash.row.player_full_name ?? flash.row.player_name}</strong>
           <span>
@@ -331,7 +433,8 @@ export default function DraftRoom({ board, context, league }) {
                       className={entry.row === best ? "is-best" : undefined}>
                     {/* Toda la fila es el botón: el objetivo táctil es la fila
                         entera, que es lo que hace que un pick sea un toque. */}
-                    <button type="button" className="room-row" onClick={() => record(entry.row)}>
+                    <button type="button" className="room-row" disabled={replaying}
+                            onClick={() => record(entry.row)}>
                       <span className="room-row-rank">{entry.row.overall_rank}</span>
                       <span className="room-row-who">
                         <span className="nm">
@@ -525,7 +628,7 @@ export default function DraftRoom({ board, context, league }) {
               <p className="room-empty">The feed fills as you record picks.</p>
             ) : (
               <ol className="room-feed">
-                {[...state.picks].reverse().slice(0, 12).map((pick) => {
+                {[...effective.picks].reverse().slice(0, 12).map((pick) => {
                   const row = board.find((r) => r.player_id === pick.playerId);
                   const name = row?.player_full_name ?? row?.player_name ?? pick.playerId;
                   return (

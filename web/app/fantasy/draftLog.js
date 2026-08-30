@@ -201,6 +201,42 @@ export function providerEvents(picks, { source = SOURCE.SLEEPER } = {}) {
   }));
 }
 
+/**
+ * El estado del draft DESPUÉS del pick efectivo N. Es el modelo del replay.
+ *
+ * ## La decisión de semántica, tomada y cerrada
+ *
+ * El cursor recorre los **picks efectivos finales**, no los eventos crudos.
+ * «Después del pick N» significa: los N primeros picks de la historia YA
+ * CORREGIDA — la que queda cuando deshacer y las correcciones de dueño han
+ * hecho su trabajo. Un pick deshecho y rehecho aparece una vez, donde quedó; un
+ * dueño corregido aparece corregido desde el principio.
+ *
+ * La alternativa —reproducir el tiempo crudo, con jugadores que aparecen y
+ * desaparecen— enseña el ruido de la sala, no el draft. Para revisar un draft
+ * lo que importa es la historia como quedó, y ésa es una sola.
+ *
+ * ## Por qué esto es una función y no otro modelo de datos
+ *
+ * `fold` ya produce los picks efectivos ordenados y renumerados. El estado tras
+ * el pick N es literalmente sus N primeros: mismo objeto, mismo orden, mismos
+ * dueños. No hay un segundo modelo que pueda discrepar del primero — y hay un
+ * test que exige que rebanar aquí y replegar los N primeros picks como eventos
+ * den EXACTAMENTE lo mismo.
+ *
+ * N va de 0 (antes del draft) a `state.count` (el estado actual). Fuera de ese
+ * rango se acota, que para un cursor es lo correcto.
+ */
+export function replayState(state, n) {
+  const upto = Math.max(0, Math.min(Number(n) || 0, state.picks.length));
+  const picks = state.picks.slice(0, upto);
+  const byPlayer = new Map(picks.map((pick) => [pick.playerId, pick]));
+  const mine = new Set(
+    picks.filter((pick) => pick.roster === ROSTER.MINE).map((pick) => pick.playerId)
+  );
+  return { picks, byPlayer, mine, count: picks.length };
+}
+
 /** Etiqueta de pick al estilo del deporte: `4.08`. */
 export function pickLabel(overall, teams, type) {
   const position = slotForOverall(overall, teams, type);

@@ -1051,6 +1051,52 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   flex: 1 1 auto; min-width: 0; color: var(--chalk);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
+/* --- REPLAY ----------------------------------------------------------------
+   Inconfundiblemente histórico: marco de archivo, sin ámbar y sin reloj. En
+   replay las filas no se pulsan y deshacer desaparece — el pasado se mira. */
+.room-state--replay {
+  background: var(--field-raised);
+  border-bottom: 1px dashed var(--chalk-dim);
+}
+.room-replay-tag {
+  margin: 0; font-family: var(--face-display); font-variation-settings: "wdth" 80;
+  font-weight: 700; font-size: var(--text-dense); letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--chalk-dim);
+  border: 1px solid var(--chalk-dim); padding: 2px var(--space-2);
+}
+.room-done {
+  margin: 0; font-family: var(--face-display); font-variation-settings: "wdth" 72;
+  font-weight: 700; font-size: clamp(1.6rem, 6vw, 2.6rem); line-height: 0.95;
+  color: var(--chalk); text-transform: uppercase; letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.room-replay-enter {
+  margin-left: auto; min-height: 44px; padding-inline: var(--space-3);
+  background: none; border: 1px solid var(--yard-line); color: var(--chalk-dim);
+  font: inherit; font-size: var(--text-dense); cursor: pointer;
+}
+.room-replay-enter:hover { border-color: var(--chalk); color: var(--chalk); }
+.room-replay-enter--loud { border-color: var(--chalk); color: var(--chalk); }
+.room-replay-enter:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
+
+.room-replay-bar {
+  display: flex; align-items: center; gap: var(--space-2);
+  margin-top: var(--space-2); padding: var(--space-1) 0;
+}
+.room-replay-bar button {
+  min-width: 44px; min-height: 44px; background: none;
+  border: 1px solid var(--yard-line); color: var(--chalk); font-size: 1rem;
+  cursor: pointer;
+}
+.room-replay-bar button:disabled { opacity: 0.35; cursor: default; }
+.room-replay-bar button:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
+.room-replay-bar input[type="range"] { flex: 1 1 auto; min-height: 44px; accent-color: var(--live); }
+
+.room--replaying .room-x { display: none; }
+.room--replaying .room-row { cursor: default; }
+.room--replaying .room-row:hover { background: none; }
+.room--replaying .room-list > li.is-best .room-row:hover { background: var(--field-raised); }
+
 /* --- construcción de plantilla --------------------------------------------
    Los huecos que la liga declara, con quién los ocupa. Un hueco abierto es un
    HECHO y se pinta como tal: atenuado, sin color de aviso, sin verbo. */
@@ -1106,7 +1152,53 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   font-weight: 700; font-size: var(--text-micro); color: var(--chalk-dim);
   font-variant-numeric: tabular-nums; min-width: 2.75rem;
 }
-.room-feed .is-mine /* --- construcción de plantilla --------------------------------------------
+.room-feed .is-mine /* --- REPLAY ----------------------------------------------------------------
+   Inconfundiblemente histórico: marco de archivo, sin ámbar y sin reloj. En
+   replay las filas no se pulsan y deshacer desaparece — el pasado se mira. */
+.room-state--replay {
+  background: var(--field-raised);
+  border-bottom: 1px dashed var(--chalk-dim);
+}
+.room-replay-tag {
+  margin: 0; font-family: var(--face-display); font-variation-settings: "wdth" 80;
+  font-weight: 700; font-size: var(--text-dense); letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--chalk-dim);
+  border: 1px solid var(--chalk-dim); padding: 2px var(--space-2);
+}
+.room-done {
+  margin: 0; font-family: var(--face-display); font-variation-settings: "wdth" 72;
+  font-weight: 700; font-size: clamp(1.6rem, 6vw, 2.6rem); line-height: 0.95;
+  color: var(--chalk); text-transform: uppercase; letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.room-replay-enter {
+  margin-left: auto; min-height: 44px; padding-inline: var(--space-3);
+  background: none; border: 1px solid var(--yard-line); color: var(--chalk-dim);
+  font: inherit; font-size: var(--text-dense); cursor: pointer;
+}
+.room-replay-enter:hover { border-color: var(--chalk); color: var(--chalk); }
+.room-replay-enter--loud { border-color: var(--chalk); color: var(--chalk); }
+.room-replay-enter:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
+
+.room-replay-bar {
+  display: flex; align-items: center; gap: var(--space-2);
+  margin-top: var(--space-2); padding: var(--space-1) 0;
+}
+.room-replay-bar button {
+  min-width: 44px; min-height: 44px; background: none;
+  border: 1px solid var(--yard-line); color: var(--chalk); font-size: 1rem;
+  cursor: pointer;
+}
+.room-replay-bar button:disabled { opacity: 0.35; cursor: default; }
+.room-replay-bar button:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
+.room-replay-bar input[type="range"] { flex: 1 1 auto; min-height: 44px; accent-color: var(--live); }
+
+.room--replaying .room-x { display: none; }
+.room--replaying .room-row { cursor: default; }
+.room--replaying .room-row:hover { background: none; }
+.room--replaying .room-list > li.is-best .room-row:hover { background: var(--field-raised); }
+
+/* --- construcción de plantilla --------------------------------------------
    Los huecos que la liga declara, con quién los ocupa. Un hueco abierto es un
    HECHO y se pinta como tal: atenuado, sin color de aviso, sin verbo. */
 .room-roster--slots .slot-tag {
