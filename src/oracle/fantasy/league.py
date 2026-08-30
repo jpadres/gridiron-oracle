@@ -338,3 +338,98 @@ def value_confidence(context: LeagueContext) -> str:
     número correcto de forma aparente que este proyecto existe para no publicar.
     """
     return "VALIDATED" if context.teams <= VALIDATED_MAX_TEAMS else "UNVALIDATED_DEPTH"
+
+
+# ===========================================================================
+# PRESETS DE PLANTILLA — plantillas conocidas, nunca respaldos silenciosos
+# ===========================================================================
+#
+#     UN PRESET ES UNA COMODIDAD. NO ES LO QUE UNA LIGA DESCONOCIDA TIENE.
+#
+# Estas listas existen para dos cosas: sembrar un configurador y servir de
+# fixture de regresión. Lo que NO hacen es rellenar una liga cuya estructura no
+# se ha leído: para eso está UNKNOWN, y `roster_context` levanta si le falta el
+# dato. Colar un preset como configuración real es exactamente el fallo que ya
+# costó una iteración con `counts[pos] or DEFAULT_STARTERS[pos]`.
+
+#: Plantilla estándar confirmada por el dueño del repositorio. Nueve huecos.
+NORMAL_ROSTER: tuple[str, ...] = (
+    "QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "DEF", "K",
+)
+
+#: Liga especial de 32 equipos, observada en su pantalla de plantilla. Seis
+#: huecos, sin quarterback ni ala cerrada dedicados. NO es una variante de la
+#: anterior y las dos no se mezclan nunca.
+DEEP_32_ROSTER: tuple[str, ...] = (
+    "RB", "WR", "FLEX", "FLEX", "FLEX", "SUPER_FLEX",
+)
+
+# Qué admite cada hueco al PINTAR una plantilla. Es elegibilidad de la liga, no
+# una opinión sobre a quién conviene poner ahí.
+SLOT_ELIGIBILITY: dict[str, tuple[str, ...]] = {
+    "QB": ("QB",),
+    "RB": ("RB",),
+    "WR": ("WR",),
+    "TE": ("TE",),
+    "FLEX": ("RB", "WR", "TE"),
+    "SUPER_FLEX": ("QB", "RB", "WR", "TE"),
+    "K": ("K",),
+    "DEF": ("DST", "DEF"),
+    "DST": ("DST", "DEF"),
+}
+
+
+def assign_slots(
+    players: list[dict],
+    roster_positions: list[str],
+) -> tuple[list[dict], list[dict]]:
+    """Reparte jugadores en huecos de plantilla, para PINTARLOS.
+
+    Es lógica de presentación. Devuelve `(huecos, sin_sitio)`, donde cada hueco
+    lleva `{"slot", "player"}` y `player` es `None` si está libre.
+
+    ## El orden importa, y no es el obvio
+
+    Se llenan **primero los huecos dedicados y al final los más permisivos**:
+    QB/RB/WR/TE, luego FLEX, luego SUPER_FLEX. Al revés —empezando por el
+    superflex— un jugador que sólo cabía en su hueco dedicado puede quedarse sin
+    sitio porque un flexible se lo llevó, y la plantilla aparecería con un hueco
+    abierto y un jugador sobrante que sí encajaba. El orden restrictivo →
+    permisivo evita ese caso sin buscar ningún máximo.
+
+    Dentro de cada hueco, entre varios elegibles gana el de más valor publicado.
+    Es determinista, que es lo único que se le exige.
+
+    ## Lo que NO es
+
+    No dice a quién conviene alinear ni qué falta por draftear. Un hueco abierto
+    es un hecho de la plantilla; convertirlo en «te falta un corredor» sería una
+    recomendación, y `BEST_PICK_FOR_ME` sigue BLOCKED.
+    """
+    orden = {"QB": 0, "RB": 0, "WR": 0, "TE": 0, "K": 0, "DEF": 0, "DST": 0,
+             "FLEX": 1, "SUPER_FLEX": 2}
+    huecos = [
+        {"index": i, "slot": str(s).upper().strip(), "player": None}
+        for i, s in enumerate(roster_positions)
+        if str(s).upper().strip() not in BENCH_SLOTS
+    ]
+    libres = sorted(
+        (h for h in huecos if h["slot"] in SLOT_ELIGIBILITY),
+        key=lambda h: (orden.get(h["slot"], 3), h["index"]),
+    )
+    # Mayor valor primero: quien más vale entra antes en el hueco más ajustado.
+    pendientes = sorted(
+        players, key=lambda p: float(p.get("vor") or p.get("projected_points") or 0.0),
+        reverse=True,
+    )
+
+    for hueco in libres:
+        elegibles = SLOT_ELIGIBILITY[hueco["slot"]]
+        for jugador in pendientes:
+            if str(jugador.get("position", "")).upper() in elegibles:
+                hueco["player"] = jugador
+                pendientes.remove(jugador)
+                break
+
+    huecos.sort(key=lambda h: h["index"])
+    return huecos, pendientes

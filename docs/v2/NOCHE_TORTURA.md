@@ -236,3 +236,114 @@ nombre:
 La distinción que las separa de lo permitido: **contar es factual, anticipar no
 lo es**. «Quedan 2 en este tier» se puede comprobar. «Aguantará hasta tu turno»
 es una probabilidad que nadie ha calibrado.
+
+
+---
+
+## 11. Corrección autoritativa — plantilla NORMAL frente a la especial de 32
+
+El dueño confirmó su plantilla estándar. **No es** la de la captura de 32
+equipos, que es una liga de excepción.
+
+```
+NORMAL      QB · RB · RB · WR · WR · TE · FLEX · DEF · K     (9 huecos)
+ESPECIAL    RB · WR · FLEX · FLEX · FLEX · SUPER_FLEX        (6 huecos)
+```
+
+Las dos viven en `league.py` como `NORMAL_ROSTER` y `DEEP_32_ROSTER`, y el
+fichero dice en su cabecera lo único que importa: **un preset es una comodidad,
+no lo que tiene una liga desconocida**. Una liga externa sin estructura leída
+sigue levantando `UnsupportedRoster`; hay un test que lo fija.
+
+### Nueve huecos, siete de reparto
+
+Distinción que hay que tener presente y que el test separa: la plantilla normal
+declara **9 huecos**, pero sólo **7 entran en el reparto de VOR**. El pateador y
+la defensa existen en la liga y hay que poder draftearlos, pero el modelo no los
+proyecta, así que no consumen hueco de asignación.
+
+    SELECCIONABLE ≠ RANKEABLE.
+
+`KICKER_ORDINAL_RANKING` sigue REJECTED y `DST_STREAMING` sigue DESIGN_ONLY. Que
+la liga exija una defensa no sube la autoridad de nada.
+
+### Asignación de huecos, ya implementada como PRESENTACIÓN
+
+`league.assign_slots` reparte jugadores en huecos para pintarlos. Tres reglas:
+
+1. **Restrictivo antes que permisivo**: dedicados → FLEX → SUPER_FLEX. Al revés,
+   un jugador que sólo cabía en su hueco dedicado puede quedarse fuera porque un
+   flexible se lo llevó, y la plantilla enseñaría un hueco abierto con un
+   jugador sobrante que sí encajaba.
+2. Entre elegibles, mayor valor publicado. Determinista, que es lo único que se
+   le exige.
+3. Un hueco abierto es un **hecho**. `RB — OPEN` sí; «te falta un corredor» no.
+
+No está conectada a la interfaz: para eso hace falta capturar la estructura de
+la liga, que es la fase 12 y sigue pendiente.
+
+### Aislamiento, probado en navegador
+
+Ciclo normal → 32 → normal con picks en medio: la normal vuelve con sus cuatro
+picks, su identidad y su reloj de 12 equipos intactos; la especial conserva los
+suyos; dos claves de registro separadas. 12 comprobaciones, cero fugas.
+
+---
+
+## 12. Auditoría de skills de deportes y fantasy
+
+Lo que hay clonado en el entorno, leído en origen: código, licencia y —lo que de
+verdad decide— **términos de la fuente de datos**, que no son la licencia del
+código.
+
+| Fuente | Licencia código | Datos reales | Veredicto |
+|---|---|---|---|
+| `machina-sports/sports-skills` → `nfl-data` | MIT | mitad **ESPN no oficial**, mitad **nflverse** | **Sólo referencia** |
+| `jdguggs10/flaim` → `fantasy-mcp`, `sleeper-client` | MIT | ESPN / Yahoo / Sleeper con credenciales | **Sólo referencia de arquitectura** |
+
+### Por qué `nfl-data` no entra en producción
+
+Su propia referencia lo dice:
+
+> «Player IDs are not portable between the two backends: ESPN athlete IDs and
+> nflverse GSIS IDs are unrelated and there is no crosswalk. **Match on name plus
+> team**.»
+
+Emparejar por nombre y equipo es exactamente lo que produjo el problema de los
+dos «B.Robinson» de Atlanta y lo que la regla de identidad de este proyecto
+prohíbe. La mitad ESPN es **arquitectónicamente incompatible** con el board, que
+va por `gsis_id`.
+
+Y la mitad nflverse **es la fuente que Gridiron ya usa directamente**. Añadir un
+intermediario para llegar al mismo sitio suma dependencia y no suma dato.
+
+Lo que sí aporta como referencia: `get_depth_chart`, `get_injuries` y
+`get_transactions` son datos que Gridiron no tiene y que serían INFORMACIÓN
+válida — pero vienen de endpoints no oficiales de ESPN, sin garantía de
+estabilidad ni términos claros. Eso es una decisión de riesgo, no técnica.
+
+### Lo que sí vale de `flaim`: el mapa de capacidades por proveedor
+
+```ts
+const ROSTER_SELECTOR_CAPABILITIES = {
+  espn:    { football: 'week', baseball: 'date', ... },
+  sleeper: { football: 'week', basketball: 'week' },   // sin baseball ni hockey
+};
+```
+
+Declara **qué sabe hacer cada proveedor** en vez de suponer que todos responden
+a la misma forma de pregunta, y normaliza la petición contra esa tabla. Es la
+idea que a Gridiron le falta: hoy la forma de Sleeper vive dentro de
+`DraftMode.jsx` —`resolvePick`, `buildIndex`, la URL, el sondeo— así que el
+Board conoce al proveedor. El Draft Room ya está limpio; el Board no.
+
+Se copia **la idea**, no el código: una tabla de capacidades por adaptador, y la
+frontera PROVEEDOR → eventos canónicos → fold para todos.
+
+### Decisión
+
+**Ninguno se instala.** Uno es incompatible con la regla de identidad y duplica
+una fuente que ya tenemos; el otro es un producto de otro dominio del que
+interesa un patrón de veinte líneas.
+
+    UNA DEPENDENCIA QUE NO APORTA DATO NUEVO ES SUPERFICIE SIN CONTRAPARTIDA.
