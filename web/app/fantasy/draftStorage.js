@@ -192,6 +192,64 @@ export function migrateLegacy(storage, season) {
 
 export const LOG_SUFFIX = "log";
 
+/**
+ * La liga configurada en el Draft Room. La escribe la antesala y la lee también
+ * el board: es el CONTEXTO ACTIVO, no una preferencia de una pantalla.
+ */
+export const ROOM_LEAGUE_KEY = "gridiron-room-league-v1";
+
+export function loadRoomLeague(storage) {
+  if (!storage) return null;
+  try {
+    const raw = storage.getItem(ROOM_LEAGUE_KEY);
+    const league = raw ? JSON.parse(raw) : null;
+    return league && typeof league === "object" ? league : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * En qué draft estoy, mire la pantalla que mire.
+ *
+ * Sin esto la convergencia no existe: el board sin conectar caía en el ámbito
+ * LOCAL de la temporada y el Draft Room en el de su liga manual, así que las dos
+ * pantallas hablaban de dos drafts distintos y las dos tenían razón.
+ *
+ * La precedencia es fija y no depende de qué pantalla pregunte:
+ *
+ * 1. Un draft de Sleeper conectado. Es la identidad más fuerte que hay: la trae
+ *    el proveedor y no se la ha inventado nadie.
+ * 2. La liga configurada en el Draft Room, si su identidad está completa.
+ * 3. El ámbito LOCAL de la temporada — el tablero manual sin liga.
+ *
+ * Lo que NO hace es fusionar. Si estás conectado a Sleeper y además tienes una
+ * liga manual configurada, son dos contextos y siguen siéndolo: uno gana, el
+ * otro se queda intacto donde está. Mezclarlos sería la contaminación que E14
+ * existe para impedir, sólo que por una puerta nueva.
+ */
+export function activeIdentity({ storage, season, sleeperDraft = null, leagueId = "" } = {}) {
+  if (sleeperDraft?.draft_id && leagueId) {
+    return {
+      platform: "sleeper",
+      season: Number(sleeperDraft.season) || season,
+      leagueId,
+      draftId: sleeperDraft.draft_id,
+    };
+  }
+  const room = loadRoomLeague(storage);
+  if (room?.leagueId && room?.draftId) {
+    return {
+      platform: room.platform || "manual",
+      season,
+      leagueId: String(room.leagueId),
+      draftId: String(room.draftId),
+      name: room.name || "",
+    };
+  }
+  return { platform: "local", season };
+}
+
 /** La clave del registro de un contexto. `null` si la identidad está incompleta. */
 export function logScopeFor(identity) {
   const scope = scopeFor(identity);
@@ -250,5 +308,37 @@ export function migrateMarksToLog(marks, { at = 0 } = {}) {
   };
   for (const id of marks?.mine ?? []) push(id, "MINE");
   for (const id of marks?.gone ?? []) push(id, "OPPONENT");
+  return events;
+}
+
+/**
+ * El registro de un ámbito, migrando las marcas v2 si todavía no lo hay.
+ *
+ * Es el ÚNICO sitio por el que las dos pantallas leen su estado, y por eso está
+ * aquí y no en cada una: cuando el board y el Draft Room resolvían por su cuenta
+ * qué heredar, cada uno se construía su propia versión del mismo draft.
+ *
+ * La clave vieja se borra al migrar, y esa línea es la que hace la migración
+ * idempotente. Si se quedara, «empezar de cero» vaciaría el registro y las
+ * marcas volverían enteras en la siguiente recarga — un reinicio que no
+ * reinicia es peor que no tener botón.
+ */
+export function loadOrMigrateLog(scope, storage) {
+  if (!scope || !storage) return [];
+  const existing = loadLog(scope, storage);
+  if (existing.length > 0) return existing;
+
+  const marksKey = scope.slice(0, -(LOG_SUFFIX.length + 1));
+  let raw = null;
+  try {
+    raw = storage.getItem(marksKey);
+  } catch {
+    return [];
+  }
+  if (!raw) return [];
+
+  const events = migrateMarksToLog(loadScope(marksKey, storage));
+  if (events.length > 0) saveLog(scope, events, storage);
+  try { storage.removeItem(marksKey); } catch { /* da igual */ }
   return events;
 }

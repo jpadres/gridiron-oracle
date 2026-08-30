@@ -445,6 +445,35 @@ REGISTRY: tuple[Capability, ...] = (
         model_version=MODEL_VERSION,
     ),
     Capability(
+        id="DRAFT_STATE_CANONICAL",
+        status=Status.VALIDATED,
+        evidence=(
+            "el board y el Draft Room dejan de tener estado propio: los dos "
+            "resuelven la identidad con `activeIdentity`, migran con "
+            "`loadOrMigrateLog` y pliegan con el mismo `fold`. 10 tests "
+            "unitarios y 19 comprobaciones en navegador — un jugador tachado "
+            "está tachado en las dos pantallas, deshacer funciona desde "
+            "cualquiera, y las claves por liga siguen sin poder leerse entre sí"
+        ),
+        experiment_id="E17",
+        metric="21/21 escenarios preregistrados (10 unitarios + 19 de navegador)",
+        sample_size=21,
+        limitations=(
+            "Es CONVERGENCIA de representación, no una afirmación nueva sobre el "
+            "valor de las decisiones. LEAGUE_SPECIFIC_VALUE sigue NOT_READY.",
+            "Los picks del proveedor se funden en memoria y NO se persisten: "
+            "SLEEPER_LIVE_BROWSER sigue BLOCKED y su salida todavía no es una "
+            "fuente que se pueda archivar.",
+            "Un pick DESHECHO a mano ya no puede devolverlo el sondeo. Es "
+            "deliberado —lo manual manda sobre el proveedor— y el precio es que "
+            "un pick rehecho por el comisionado hay que volver a marcarlo.",
+            "Lo heredado de la forma vieja va con `rosterSource: MIGRATED` y sin "
+            "número de pick: no se inventa un historial que nadie guardó.",
+        ),
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
+    ),
+    Capability(
         id="BEST_PICK_FOR_ME",
         status=Status.BLOCKED,
         evidence=(

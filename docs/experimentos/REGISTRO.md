@@ -28,6 +28,7 @@ Estados: **PASA** · **FALLA** · **NO CONCLUYENTE** · **RETIRADO**
 | E14 | El estado de draft de una liga no contamina a otra | 19 escenarios adversarios | — | fugas entre ligas | **cero** fugas en los 19 | 19/19, sin fuga | **PASA** |
 | E15 | Los componentes canónicos reproducen los puntos exactamente | 998 jugadores × 7 perfiles, 2022-2025 | el cálculo directo por semana | máx \|Δ\| en puntos por partido | **< 1e-9** | 1,07e-14 (epsilon de coma flotante) | **PASA** |
 | E16 | El Draft Room manual registra picks sin perderlos ni filtrarlos | 27 escenarios × navegador real | — | fugas, duplicados, picks perdidos | **cero** en los 27 | 27/27, pick en 35-60 ms | **PASA** |
+| E17 | Board y Draft Room son un solo estado de draft | 10 unitarios + 19 en navegador | dos estados separados, uno por pantalla | picks divergentes, fugas, deshacer perdido | **21/21**, cero fugas | 21/21; E14 y E16 siguen verdes | **PASA** |
 | E10b | Ese efecto es explotable contra el mercado | 457 partidos | total de cierre | residuo, IC95% | — | −2,22 aparente, **pero el clima es observado, no pronosticado** | **FALLA** (fuga) |
 
 ## Conocimiento negativo — cosas que NO funcionan

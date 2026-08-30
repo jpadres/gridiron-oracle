@@ -60,6 +60,22 @@ const B = "gridiron-draft-v2:sleeper:2026:222:bbb";
 const LOCAL = "gridiron-draft-v2:local:2026";
 const LEGACY = "gridiron-draft-v1";
 
+// El estado de draft pasó de `{gone, mine}` a un REGISTRO de eventos (E17). Lo
+// que se comprueba aquí no cambia —que una liga no pueda tocar a otra— pero la
+// forma sí, así que las aserciones miran el registro. Las claves de marcas v2
+// siguen sembradas a propósito: si la convergencia las leyera desde el ámbito
+// equivocado, esto lo cazaría.
+const log = (scope) => `${scope}:${"log"}`;
+const tomados = (raw) => {
+  const eventos = JSON.parse(raw ?? "null") ?? [];
+  const vivos = new Set();
+  for (const e of eventos.sort((a, b) => a.at - b.at || a.seq - b.seq)) {
+    if (e.kind === "UNDO") vivos.delete(e.playerId);
+    else vivos.add(e.playerId);
+  }
+  return [...vivos];
+};
+
 for (const width of [390, 768, 1440]) {
   console.log(`\n=== ${width}px ===`);
   const context = await browser.newContext({ viewport: { width, height: 900 } });
@@ -94,14 +110,20 @@ for (const width of [390, 768, 1440]) {
   // Marcar un jugador a mano escribe SÓLO en el ámbito local.
   await page.locator(".onclock .act--mine").click();
   await page.waitForTimeout(300);
-  const tras = await page.evaluate(([a, b, local]) => ({
+  const tras = await page.evaluate(([a, b, local, logLocal, logA, logB]) => ({
     a: JSON.parse(localStorage.getItem(a)),
     b: JSON.parse(localStorage.getItem(b)),
-    local: JSON.parse(localStorage.getItem(local) ?? "null"),
-  }), [A, B, LOCAL]);
-  check("marcar escribe en el ámbito local", (tras.local?.mine ?? []).length === 1);
-  check("marcar NO toca la liga A", tras.a.mine.length === 1 && tras.a.gone.length === 3);
-  check("marcar NO toca la liga B", tras.b.mine.length === 2 && tras.b.gone.length === 1);
+    local: localStorage.getItem(local),
+    logLocal: localStorage.getItem(logLocal),
+    logA: localStorage.getItem(logA),
+    logB: localStorage.getItem(logB),
+  }), [A, B, LOCAL, log(LOCAL), log(A), log(B)]);
+  check("marcar escribe en el registro del ámbito local",
+        tomados(tras.logLocal).length === 1, tras.logLocal ? "" : "sin registro local");
+  check("marcar NO toca la liga A",
+        tras.a.mine.length === 1 && tras.a.gone.length === 3 && tras.logA === null);
+  check("marcar NO toca la liga B",
+        tras.b.mine.length === 2 && tras.b.gone.length === 1 && tras.logB === null);
 
   await context.close();
 }
@@ -122,17 +144,21 @@ console.log("\n=== migración v1 ===");
   await page.waitForSelector("ol.picks", { state: "attached", timeout: 15000 });
   await page.waitForTimeout(400);
 
-  const after = await page.evaluate(([legacy, a, local]) => ({
+  const after = await page.evaluate(([legacy, a, local, logLocal, logA]) => ({
     legacy: localStorage.getItem(legacy),
     a: JSON.parse(localStorage.getItem(a)),
-    local: JSON.parse(localStorage.getItem(local) ?? "null"),
+    logLocal: localStorage.getItem(logLocal),
+    logA: localStorage.getItem(logA),
+    local: localStorage.getItem(local),
     prefs: JSON.parse(localStorage.getItem("gridiron-draft-prefs-v1") ?? "null"),
-  }), [LEGACY, A, LOCAL]);
+  }), [LEGACY, A, LOCAL, log(LOCAL), log(A)]);
 
   check("la clave v1 se borra", after.legacy === null);
-  check("el estado v1 NO se atribuye a la liga 111", after.a.gone.length === 0);
-  check("el estado v1 aterriza en el tablero manual",
-        (after.local?.gone ?? []).length === 2);
+  check("el estado v1 NO se atribuye a la liga 111",
+        after.a.gone.length === 0 && after.logA === null);
+  check("el estado v1 aterriza en el registro del tablero manual",
+        tomados(after.logLocal).length === 3,
+        `${tomados(after.logLocal).join(", ") || "(vacío)"}`);
   check("la liga v1 se conserva como preferencia", after.prefs?.league === "111");
   await context.close();
 }

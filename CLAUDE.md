@@ -123,11 +123,19 @@ funcionalidad nueva. Los tests adversarios están en `tests/test_freshness.py`.
     UNA LIGA = UN CONTEXTO. UN DRAFT = UN ESTADO INDEPENDIENTE.
 
 El estado de draft de una liga no puede contaminar a otra: distinta puntuación,
-distinto tamaño, distinto puesto de draft, distintos jugadores ya cogidos. Hoy
-esto **no se cumple** —`localStorage` guarda una sola clave global— y está
-auditado en `docs/v2/MULTILIGA_DRAFT.md`. Nada de valores por defecto asumidos
-como configuración real: si no se sabe el tamaño o la puntuación de una liga, es
-`UNKNOWN`, no «12 equipos PPR».
+distinto tamaño, distinto puesto de draft, distintos jugadores ya cogidos. La
+clave lleva temporada, liga y draft, y si falta cualquiera de las tres **no se
+persiste** (`draftStorage.js`). Auditoría en `docs/v2/MULTILIGA_DRAFT.md`, prueba
+adversaria en E14. Nada de valores por defecto asumidos como configuración real:
+si no se sabe el tamaño o la puntuación de una liga, es `UNKNOWN`, no «12 equipos
+PPR».
+
+**Un contexto, un estado — no uno por pantalla.** El board y el Draft Room hablan
+del mismo draft, así que leen y escriben el mismo registro: la identidad la
+resuelve `activeIdentity` y el estado sale de `fold`, en las dos. Antes cada una
+guardaba lo suyo en su propia clave y las dos tenían razón, que es la forma de
+estar roto que no falla. Si añades una tercera superficie de draft, va por ahí:
+consumir el registro, no inventarse otro. E17 lo prueba en las dos pantallas.
 
 ### 7. Sleeper es un adaptador, no el producto
 

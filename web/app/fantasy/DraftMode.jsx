@@ -43,8 +43,12 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { num } from "../../data/model.js";
 import { TeamMark, teamVars } from "../sports.jsx";
 import {
-  loadPrefs, loadScope, migrateLegacy, savePrefs, saveScope, scopeFor,
+  activeIdentity, loadOrMigrateLog, loadPrefs, logScopeFor, migrateLegacy, savePrefs,
+  saveLog,
 } from "./draftStorage.js";
+import {
+  ROSTER, SOURCE, fold, providerEvents, takeEvent, undoEvent,
+} from "./draftLog.js";
 import {
   DRAFT_STATUS, agoLabel, mySlot, pickSchedule, picksUntilMe, syncState,
 } from "./draftSync.js";
@@ -198,8 +202,14 @@ function useSleeperDraft(board, league, userId) {
         const picks = await response.json();
         if (cancelled) return;
 
-        const gone = [];
-        const mine = [];
+        // El sondeo emite PICKS CANÓNICOS, no dos listas de ids. Es lo que
+        // convierte a Sleeper en un adaptador: quien consume esto no sabe de
+        // dónde vino, y el modo manual produce exactamente la misma forma.
+        //
+        // Sin `userId` el dueño es UNKNOWN y no OPPONENT: «no sé de quién es»
+        // y «es de otro» no son lo mismo, y el segundo te borraría tus propios
+        // picks de tu plantilla sin decir nada.
+        const canonical = [];
         const unmatched = [];
         for (const pick of Array.isArray(picks) ? picks : []) {
           if (!pick?.player_id) continue;
@@ -208,8 +218,16 @@ function useSleeperDraft(board, league, userId) {
             unmatched.push(pick);
             continue;
           }
-          if (userId && String(pick.picked_by) === String(userId)) mine.push(row.player_id);
-          else gone.push(row.player_id);
+          canonical.push({
+            playerId: row.player_id,
+            roster: !userId
+              ? ROSTER.UNKNOWN
+              : String(pick.picked_by) === String(userId)
+                ? ROSTER.MINE
+                : ROSTER.OPPONENT,
+            pickNo: Number(pick.pick_no) || null,
+            providerId: String(pick.player_id),
+          });
         }
         setStatus({
           state: "ok",
@@ -218,8 +236,7 @@ function useSleeperDraft(board, league, userId) {
           lastSyncAt: Date.now(),
           draft,
           total: Array.isArray(picks) ? picks.length : 0,
-          gone,
-          mine,
+          canonical,
           unmatched,
         });
       } catch (error) {
@@ -263,16 +280,17 @@ function useSleeperDraft(board, league, userId) {
 }
 
 export default function DraftMode({ board, positionFilter = "ALL", season = 2026 }) {
-  // UN solo objeto de estado, como antes: `take`, `undo` y el reinicio lo
-  // actualizan con un spread sobre la forma completa. Lo que cambia no es la
-  // forma, es DÓNDE se guarda cada mitad.
+  // El estado de draft es el REGISTRO, la misma clave que lee el Draft Room.
+  // Antes esta pantalla guardaba `{gone, mine}` en su propia clave y la otra
+  // guardaba eventos en la suya: dos versiones del mismo draft que nunca se
+  // veían. Un jugador cogido está cogido, mires donde mires.
   //
-  // La primera versión partió el estado en dos `useState` y pasó el mismo
-  // updater a los dos. `take` hace `[...p.gone, id]`, así que dentro del setter
-  // de preferencias `p.gone` era `undefined` y la actualización entera se caía.
-  // No lo vio ni el build ni un test unitario: el botón simplemente no hacía
-  // nada, y sólo se vio pulsándolo en un navegador.
-  const [state, setState] = useState({ gone: [], mine: [], league: "", userId: "" });
+  // Las preferencias de conexión siguen aparte y en su propio `useState`
+  // (`prefs`): no son estado de draft, viven en otra clave y sobreviven a
+  // «empezar de cero» — que fue exactamente el fallo de la versión anterior,
+  // donde el botón reemplazaba el objeto entero y de paso te desconectaba.
+  const [events, setEvents] = useState([]);
+  const [prefs, setPrefs] = useState({ league: "", userId: "" });
   const [ready, setReady] = useState(false);
   const [query, setQuery] = useState("");
   const [leagueDraft, setLeagueDraft] = useState("");
@@ -287,23 +305,31 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
   // calcular; sin ella no se afirma nada sobre la liga.
   const [leagueInfo, setLeagueInfo] = useState(null);
 
-  const sync = useSleeperDraft(board, ready ? state.league : "", state.userId);
+  const sync = useSleeperDraft(board, ready ? prefs.league : "", prefs.userId);
   const draft = sync.draft;
 
   // La identidad del contexto. Sin las tres partes no hay clave, y sin clave no
   // se persiste: perder el estado al recargar es malo, escribirlo en una clave
   // compartida y contaminar otra liga es peor y además no se ve.
-  const scope = useMemo(
+  // El contexto activo, resuelto por la MISMA función que usa el Draft Room. Que
+  // las dos pantallas deriven su ámbito del mismo sitio es lo que hace que
+  // converjan; que la función siga exigiendo temporada, liga y draft es lo que
+  // hace que E14 siga valiendo.
+  //
+  // `ready` entra en la dependencia porque la identidad se lee de
+  // `localStorage`, que en el servidor no existe: antes de montar, el contexto
+  // es el local y no se persiste nada en el equivocado.
+  const identity = useMemo(
     () =>
-      draft?.draft_id
-        ? scopeFor({
-            season: Number(draft.season) || season,
-            leagueId: state.league,
-            draftId: draft.draft_id,
-          })
-        : scopeFor({ platform: "local", season }),
-    [draft, state.league, season]
+      activeIdentity({
+        storage: ready && typeof window !== "undefined" ? window.localStorage : null,
+        season,
+        sleeperDraft: draft,
+        leagueId: prefs.league,
+      }),
+    [draft, prefs.league, season, ready]
   );
+  const scope = useMemo(() => logScopeFor(identity), [identity]);
 
   // El estado se lee después del primer render y no durante: el HTML lo genera
   // el servidor, donde no hay localStorage, y pintar cosas distintas en los dos
@@ -311,8 +337,7 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
   useEffect(() => {
     const storage = typeof window === "undefined" ? null : window.localStorage;
     migrateLegacy(storage, season);
-    const prefs = loadPrefs(storage);
-    setState((previous) => ({ ...previous, ...prefs }));
+    setPrefs(loadPrefs(storage));
     setReady(true);
   }, [season]);
 
@@ -321,42 +346,41 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
   useEffect(() => {
     if (!ready) return;
     const storage = typeof window === "undefined" ? null : window.localStorage;
-    const marks = loadScope(scope, storage);
-    setState((previous) => ({ ...previous, gone: marks.gone, mine: marks.mine }));
+    setEvents(loadOrMigrateLog(scope, storage));
   }, [scope, ready]);
 
   useEffect(() => {
     if (!ready) return;
-    const storage = typeof window === "undefined" ? null : window.localStorage;
-    saveScope(scope, { gone: state.gone, mine: state.mine }, storage);
-  }, [scope, state.gone, state.mine, ready]);
+    saveLog(scope, events, typeof window === "undefined" ? null : window.localStorage);
+  }, [scope, events, ready]);
 
   useEffect(() => {
     if (!ready) return;
-    savePrefs(
-      { league: state.league, userId: state.userId },
-      typeof window === "undefined" ? null : window.localStorage
-    );
-  }, [state.league, state.userId, ready]);
+    savePrefs(prefs, typeof window === "undefined" ? null : window.localStorage);
+  }, [prefs, ready]);
 
-  const goneSet = useMemo(
-    () => new Set([...state.gone, ...(sync.gone ?? [])]),
-    [state.gone, sync.gone]
-  );
-  const mineSet = useMemo(
-    () => new Set([...state.mine, ...(sync.mine ?? [])]),
-    [state.mine, sync.mine]
+  // El estado canónico: lo guardado MÁS lo que trae el sondeo, fundido en cada
+  // render y no persistido. Los eventos del proveedor son efímeros a propósito
+  // —`SLEEPER_LIVE_BROWSER` sigue BLOCKED— pero pasan por el mismo `fold`, así
+  // que un pick sincronizado y uno marcado a mano son el mismo tipo de cosa.
+  //
+  // Y de ahí sale gratis lo que antes no se podía: deshacer un pick del sondeo
+  // aguanta, porque el UNDO lleva reloj de verdad y el evento del proveedor
+  // lleva un ordinal. Antes volvía a aparecer quince segundos después.
+  const state = useMemo(
+    () => fold([...events, ...providerEvents(sync.canonical ?? [])]),
+    [events, sync.canonical]
   );
 
   const counts = useMemo(() => {
     const out = { QB: 0, RB: 0, WR: 0, TE: 0 };
-    for (const row of board) if (mineSet.has(row.player_id)) out[row.position] += 1;
+    for (const row of board) if (state.mine.has(row.player_id)) out[row.position] += 1;
     return out;
-  }, [board, mineSet]);
+  }, [board, state]);
 
   const available = useMemo(
-    () => board.filter((row) => !goneSet.has(row.player_id) && !mineSet.has(row.player_id)),
-    [board, goneSet, mineSet]
+    () => board.filter((row) => !state.byPlayer.has(row.player_id)),
+    [board, state]
   );
 
   // La sugerencia: VOR ajustado por lo que ya tienes en esa posición.
@@ -404,12 +428,12 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
   // Los miembros de la liga, para saber cuál de los picks son tuyos. Se pide una
   // vez al conectar y no en cada sondeo: no cambia durante un draft.
   useEffect(() => {
-    if (!ready || !state.league) {
+    if (!ready || !prefs.league) {
       setMembers(null);
       return;
     }
     let cancelled = false;
-    fetch(`${SLEEPER}/league/${state.league}/users`)
+    fetch(`${SLEEPER}/league/${prefs.league}/users`)
       .then((response) => (response.ok ? response.json() : []))
       .then((list) => {
         if (!cancelled) setMembers(Array.isArray(list) ? list : []);
@@ -422,19 +446,38 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
     return () => {
       cancelled = true;
     };
-  }, [ready, state.league]);
+  }, [ready, prefs.league]);
 
+  /**
+   * Tachar desde el board. Sigue siendo UN toque y sin salir de la página: el
+   * board rápido es lo que se usa cuando no estás en tu turno, y meterlo dentro
+   * del Draft Room habría cambiado el gesto por una navegación.
+   *
+   * `mine` es la declaración del usuario, y es lo que separa JUGADOR FUERA DEL
+   * BOARD de JUGADOR EN MI PLANTILLA. Aquí no se deriva del puesto: el board no
+   * tiene por qué conocer el calendario de picks, y derivarlo mal metería a
+   * alguien en tu plantilla sin que nadie lo haya dicho.
+   */
   const take = (id, mine) =>
-    setState((previous) => ({
-      gone: mine ? previous.gone : [...previous.gone, id],
-      mine: mine ? [...previous.mine, id] : previous.mine,
-    }));
+    setEvents((previous) => [
+      ...previous,
+      takeEvent({
+        playerId: id,
+        roster: mine ? ROSTER.MINE : ROSTER.OPPONENT,
+        rosterSource: "DECLARED",
+        source: SOURCE.MANUAL,
+      }),
+    ]);
 
+  // Deshacer es un EVENTO, no un borrado: por eso funciona igual sobre un pick
+  // marcado aquí, uno registrado en el Draft Room y uno traído por el sondeo.
   const undo = (id) =>
-    setState((previous) => ({
-      gone: previous.gone.filter((x) => x !== id),
-      mine: previous.mine.filter((x) => x !== id),
-    }));
+    setEvents((previous) => [...previous, undoEvent({ playerId: id, source: SOURCE.MANUAL })]);
+
+  // Empezar de cero vacía el REGISTRO y no toca las preferencias. La versión
+  // anterior reemplazaba el objeto de estado entero, así que de paso borraba la
+  // liga conectada: pulsabas «start over» y se desconectaba Sleeper.
+  const startOver = () => setEvents([]);
 
   // Estos hooks van ANTES del guard de `!ready`. Colocados después, en el primer
   // render no se ejecutaban y en el segundo sí: React cuenta más hooks que en el
@@ -449,8 +492,8 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
   const draftRounds = Number(draft?.settings?.rounds) || null;
   const draftType = typeof draft?.type === "string" ? draft.type : null;
   const slot = useMemo(
-    () => mySlot({ draft, userId: state.userId }),
-    [draft, state.userId]
+    () => mySlot({ draft, userId: prefs.userId }),
+    [draft, prefs.userId]
   );
   const schedule = useMemo(
     () => pickSchedule({ slot, teams: draftTeams, rounds: draftRounds, type: draftType }),
@@ -499,14 +542,14 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
    * distingue «mis ligas» de «las ligas que tuve alguna vez».
    */
   useEffect(() => {
-    if (!ready || !state.league) {
+    if (!ready || !prefs.league) {
       setLeagueInfo(null);
       return undefined;
     }
     let cancelled = false;
     (async () => {
       try {
-        const response = await fetch(`${SLEEPER}/league/${state.league}`);
+        const response = await fetch(`${SLEEPER}/league/${prefs.league}`);
         if (!response.ok) throw new Error(String(response.status));
         const data = await response.json();
         if (!cancelled) setLeagueInfo(data);
@@ -517,7 +560,7 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
       }
     })();
     return () => { cancelled = true; };
-  }, [ready, state.league]);
+  }, [ready, prefs.league]);
 
   const lookupLeagues = useCallback(async () => {
     const name = username.trim();
@@ -535,7 +578,7 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
       setCatalog(Array.isArray(list) ? list : []);
       // El `user_id` se guarda ya: es lo que separa TUS picks de los del resto,
       // y pedirlo dos veces sería pedirlo dos veces.
-      setState((previous) => ({ ...previous, userId: String(account.user_id) }));
+      setPrefs((previous) => ({ ...previous, userId: String(account.user_id) }));
     } catch (error) {
       setCatalog([]);
       setCatalogError(String(error.message ?? error));
@@ -547,8 +590,11 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
     return <p className="caption">Loading draft mode…</p>;
   }
 
-  const picked = board.filter((row) => mineSet.has(row.player_id));
-  const total = state.gone.length + state.mine.length;
+  const picked = board.filter((row) => state.mine.has(row.player_id));
+  // El recuento real, sincronizados incluidos. La versión anterior sumaba sólo
+  // las marcas manuales, así que con Sleeper conectado decía «3 off the board»
+  // con treinta jugadores tachados.
+  const total = state.count;
 
   // La sugerencia ya puntuada se PARTE en dos para pintarla: la primera es la
   // decisión, el resto es la cola. No se recalcula nada — `suggestions` sale del
@@ -710,7 +756,7 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
           {total > 0 ? (
             <>
               {" · "}
-              <button type="button" className="link" onClick={() => setState({ gone: [], mine: [] })}>
+              <button type="button" className="link" onClick={startOver}>
                 start over
               </button>
             </>
@@ -730,20 +776,31 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
 
       <p className="caption">
         Tap <strong>Mine</strong> or <strong>Gone</strong> as players come off the board.
-        Saved in your browser — you can reload mid-draft.
+        Saved in your browser — you can reload mid-draft.{" "}
+        {/* Qué draft se está tachando. Sin esta línea el board y el Draft Room
+            comparten estado sin decir cuál, y en cuanto hay dos ligas no hay
+            forma de saber en cuál estás marcando. */}
+        {identity.platform === "local" ? (
+          <>Marking the <strong>local board</strong> — not tied to a league.</>
+        ) : (
+          <>
+            Marking <strong>{identity.name || `league ${identity.leagueId}`}</strong>, the
+            same draft as the room.
+          </>
+        )}
       </p>
 
       <div className="sleeper">
-        {state.league ? (
+        {prefs.league ? (
           <>
             <div className="sleeper-line">
               <span className={`dot dot--${sync.view.level.toLowerCase()}`} aria-hidden="true" />
               <strong className="sync-label">{sync.view.label}</strong>
-              <span className="outlet">league {state.league}</span>
+              <span className="outlet">league {prefs.league}</span>
               <button
                 type="button"
                 className="link"
-                onClick={() => setState((p) => ({ ...p, league: "", userId: "" }))}
+                onClick={() => setPrefs({ league: "", userId: "" })}
               >
                 disconnect
               </button>
@@ -754,9 +811,9 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
                 Which one are you — so your picks are kept apart from everyone else&rsquo;s
                 <select
                   id="draft-me"
-                  value={state.userId}
+                  value={prefs.userId}
                   onChange={(event) =>
-                    setState((p) => ({ ...p, userId: event.target.value }))
+                    setPrefs((p) => ({ ...p, userId: event.target.value }))
                   }
                 >
                   <option value="">(not set: everything counts as gone)</option>
@@ -811,7 +868,7 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
             onSubmit={(event) => {
               event.preventDefault();
               const value = leagueDraft.trim().match(/\d{6,}/)?.[0];
-              if (value) setState((p) => ({ ...p, league: value }));
+              if (value) setPrefs((p) => ({ ...p, league: value }));
             }}
           >
             <label className="field-label" htmlFor="draft-user">
@@ -843,7 +900,7 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
                       type="button"
                       className="league-row"
                       onClick={() =>
-                        setState((previous) => ({
+                        setPrefs((previous) => ({
                           ...previous,
                           league: String(entry.league_id),
                         }))

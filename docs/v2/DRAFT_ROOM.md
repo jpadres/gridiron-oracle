@@ -256,3 +256,37 @@ scroll.
 4. **Que el modo manual parezca el plan B.** Es el modo que funciona en todas
    las plataformas y en un draft presencial. La interfaz no debe presentarlo
    como una degradación.
+
+## 17. Convergencia — un solo estado (E17, hecho)
+
+Al entregar el Draft Room quedó un hueco declarado: las dos pantallas guardaban
+su estado por separado. `/fantasy` escribía `{gone, mine}` bajo la clave de su
+ámbito; `/fantasy/draft` escribía eventos bajo `<ámbito>:log`. Para el usuario
+era **un draft**, y para el código eran dos, cada uno con razón.
+
+Lo que hace la convergencia:
+
+| Pieza | Antes | Ahora |
+|---|---|---|
+| Identidad | cada pantalla resolvía la suya | `activeIdentity` — sondeo de Sleeper > liga del Room > tablero local |
+| Persistencia | dos claves distintas | una: `<ámbito>:log` |
+| Migración | cada pantalla heredaba las marcas por su cuenta | `loadOrMigrateLog`, y borra la clave vieja |
+| Estado | dos listas de ids / un fold | un `fold`, en las dos |
+| Picks del proveedor | dos listas fundidas al leer | eventos canónicos efímeros, por el mismo fold |
+
+Y tres cosas que sólo se pudieron arreglar aquí, porque antes no cabían en la
+forma del estado:
+
+1. **Deshacer aguanta al sondeo.** El `UNDO` lleva reloj y el evento del
+   proveedor lleva un ordinal, así que lo manual siempre es posterior. Antes el
+   jugador volvía quince segundos después.
+2. **El recuento cuenta lo sincronizado.** `state.count` sale del fold, no de
+   sumar las dos listas manuales.
+3. **«Start over» ya no desconecta la liga.** El botón vaciaba el objeto de
+   estado entero y las preferencias iban dentro.
+
+Lo que NO cambia: `LEAGUE_SPECIFIC_VALUE` sigue NOT_READY, `BEST_PICK_FOR_ME`
+sigue BLOCKED, `SLEEPER_LIVE_BROWSER` sigue BLOCKED. Esto es representación del
+estado, no un resultado.
+
+El riesgo 2 de la sección anterior —«deshacer que no deshace»— queda cerrado.

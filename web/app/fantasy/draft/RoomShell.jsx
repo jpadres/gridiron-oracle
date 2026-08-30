@@ -23,8 +23,9 @@
 import { useCallback, useEffect, useState } from "react";
 
 import DraftRoom from "../DraftRoom.jsx";
-
-const KEY = "gridiron-room-league-v1";
+// La misma constante que lee el board para saber en qué draft está: si cada
+// pantalla escribiera la suya, volverían a ser dos contextos con un nombre.
+import { ROOM_LEAGUE_KEY as KEY } from "../draftStorage.js";
 
 const SCORING = [
   { id: "ppr", label: "PPR" },

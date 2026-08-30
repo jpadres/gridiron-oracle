@@ -23,15 +23,41 @@
  * 4. A igual instante, `MANUAL` gana a cualquier proveedor. Es el único
  *    desempate, y existe para que una corrección a mano no la pise el sondeo.
  * 5. Un `TAKE` de un jugador ya tomado se ignora (idempotente). Es lo que hace
- *    que un adaptador pueda reenviar su lista entera sin duplicar nada.
+ *    que un adaptador pueda reenviar su lista entera sin duplicar nada. La
+ *    única excepción: si el que llega **manda más** que el que está —manual
+ *    sobre proveedor— corrige el DUEÑO sin mover el pick de sitio. Sin esa
+ *    excepción, decir «este lo he cogido yo» sobre un pick que el sondeo ya
+ *    había atribuido al rival no haría nada, porque el TAKE llegaría segundo.
  *
  * Nada se borra: una corrección queda en el registro con su hora y su origen.
+ *
+ * ## Los eventos del proveedor no se persisten
+ *
+ * Los picks que llegan del sondeo se convierten a eventos **en memoria** y se
+ * funden con los guardados en cada render. No se escriben: un sondeo con un
+ * emparejamiento malo dejaría estado duradero equivocado, y
+ * `SLEEPER_LIVE_BROWSER` sigue BLOCKED — su salida todavía no es una fuente que
+ * se pueda archivar.
+ *
+ * Su `at` es **el número de pick, no un reloj**. Suena raro y es deliberado: un
+ * `Date.now()` del sondeo cambiaría en cada vuelta, así que un UNDO manual de
+ * hace diez segundos quedaría por detrás del mismo pick reenviado y el jugador
+ * volvería. Con un ordinal pequeño, todo evento manual —que lleva reloj de
+ * verdad— es posterior por construcción, y deshacer sobrevive al adaptador.
+ *
+ * El precio, dicho: si el comisionado **rehace** un pick que tú habías
+ * deshecho, el sondeo ya no puede devolverlo. Vuelve a marcarlo a mano. Es el
+ * lado correcto en el que equivocarse: un jugador de más en el board se ve y se
+ * corrige, uno de menos desaparece sin avisar.
  */
 
 export const SOURCE = { MANUAL: "MANUAL", SLEEPER: "SLEEPER" };
 export const ROSTER = { MINE: "MINE", OPPONENT: "OPPONENT", UNKNOWN: "UNKNOWN" };
 
-/** Rango de la fuente al desempatar. Sólo se usa a igualdad de instante. */
+/**
+ * Rango de la fuente. Manda en dos sitios: al desempatar a igual instante, y al
+ * decidir si un TAKE que llega puede corregir el dueño de uno que ya está.
+ */
 const SOURCE_RANK = { [SOURCE.MANUAL]: 2, [SOURCE.SLEEPER]: 1 };
 
 let counter = 0;
@@ -82,8 +108,19 @@ export function fold(events) {
       live.delete(event.playerId);
       continue;
     }
-    // Idempotente: un adaptador puede reenviar su lista entera sin duplicar.
-    if (live.has(event.playerId)) continue;
+    const existing = live.get(event.playerId);
+    if (existing) {
+      // Idempotente: un adaptador puede reenviar su lista entera sin duplicar.
+      // Salvo que el que llega mande más, y entonces sólo corrige el dueño: se
+      // conservan `at` y `seq` del original para que el pick no se mueva de
+      // sitio y `overall` no se renumere por una corrección de atribución.
+      if ((SOURCE_RANK[event.source] ?? 0) > (SOURCE_RANK[existing.source] ?? 0)) {
+        live.set(event.playerId, {
+          ...event, at: existing.at, seq: existing.seq, overall: existing.overall,
+        });
+      }
+      continue;
+    }
     live.set(event.playerId, event);
   }
 
@@ -138,6 +175,30 @@ export function untilMyTurn({ count, teams, type, mySlot, rounds = null }) {
     }
   }
   return null;
+}
+
+/**
+ * Los picks de un adaptador, convertidos a eventos **efímeros**.
+ *
+ * `at` es el número de pick y no un reloj — el porqué está en la cabecera del
+ * fichero. Los picks sin ordinal caen al final conservando el orden en que
+ * llegaron, que es lo único que se sabe de ellos.
+ *
+ * No se guarda nada: quien llame funde estos eventos con el registro persistido
+ * en cada render y tira el resultado.
+ */
+export function providerEvents(picks, { source = SOURCE.SLEEPER } = {}) {
+  return (Array.isArray(picks) ? picks : []).map((pick, index) => ({
+    kind: "TAKE",
+    playerId: pick.playerId,
+    roster: pick.roster ?? ROSTER.UNKNOWN,
+    rosterSource: "PROVIDER",
+    overall: null,
+    source,
+    providerId: pick.providerId ?? null,
+    at: Number.isFinite(pick.pickNo) ? pick.pickNo : index + 1,
+    seq: index + 1,
+  }));
 }
 
 /** Etiqueta de pick al estilo del deporte: `4.08`. */

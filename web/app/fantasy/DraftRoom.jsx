@@ -39,7 +39,7 @@ import { TeamMark, teamVars } from "../sports.jsx";
 import {
   ROSTER, SOURCE, fold, isMyTurn, pickLabel, takeEvent, undoEvent, untilMyTurn,
 } from "./draftLog.js";
-import { loadLog, logScopeFor, migrateMarksToLog, loadScope, saveLog } from "./draftStorage.js";
+import { loadOrMigrateLog, logScopeFor, saveLog } from "./draftStorage.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE"];
 
@@ -84,15 +84,10 @@ export default function DraftRoom({ board, context, league }) {
   // cosas distintas en los dos sitios rompe la hidratación.
   useEffect(() => {
     const storage = typeof window === "undefined" ? null : window.localStorage;
-    const existing = loadLog(scope, storage);
-    if (existing.length > 0) {
-      setEvents(existing);
-    } else {
-      // Sin registro, se hereda lo que hubiera marcado el board en v2. No se
-      // inventan números de pick para lo heredado: no se conocen.
-      const marks = loadScope(scope?.replace(/:log$/, "") ?? null, storage);
-      setEvents(migrateMarksToLog(marks));
-    }
+    // La MISMA carga que hace el board, y por eso está en `draftStorage`. Antes
+    // cada pantalla decidía por su cuenta qué heredar de las marcas v2, así que
+    // cada una se construía su propia versión del mismo draft.
+    setEvents(loadOrMigrateLog(scope, storage));
     setReady(true);
   }, [scope]);
 
