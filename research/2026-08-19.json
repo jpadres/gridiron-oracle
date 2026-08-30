@@ -8,9 +8,9 @@
     "Kyle Monangai",
     "D'Andre Swift"
    ],
-   "kind": "lesion",
-   "headline": "Monangai se hiperextiende la rodilla y peligra su jornada 1",
-   "summary": "Se lesionó en el entrenamiento y se espera que pierda varias semanas. Si no llega al estreno, D'Andre Swift hereda un papel aún mayor en el ataque de Chicago — que es el movimiento de volumen que sí cambia una alineación.",
+   "kind": "injury",
+   "headline": "Monangai hyperextends his knee and his Week 1 is in doubt",
+   "summary": "He was hurt in practice and is expected to miss several weeks. If he is not ready for the opener, D'Andre Swift inherits an even bigger role in Chicago's offense — the kind of volume move that does change a lineup.",
    "impact": "baja",
    "confidence": "informado",
    "fantasy_relevance": 5,
@@ -34,9 +34,9 @@
    "players": [
     "George Kittle"
    ],
-   "kind": "lesion",
-   "headline": "Kittle empieza en la lista PUP tras el Aquiles, y apunta a Melbourne",
-   "summary": "Se rompió el tendón en los playoffs de 2025 y arranca en la lista de físicamente incapacitados. Él dice que quiere jugar la jornada 1 en Melbourne contra los Rams. A los 32 años y con esa lesión, el plazo que dice el jugador y el que cumple el cuerpo médico rara vez coinciden.",
+   "kind": "injury",
+   "headline": "Kittle opens on the PUP list after the Achilles, targeting Melbourne",
+   "summary": "He tore the tendon in the 2025 playoffs and opens on the PUP list. He says he wants to play Week 1 in Melbourne against the Rams. At 32 and with that injury, the player's timeline and the medical staff's rarely match.",
    "impact": "baja",
    "confidence": "confirmado",
    "fantasy_relevance": 5,
@@ -55,9 +55,9 @@
    "players": [
     "Jayden Higgins"
    ],
-   "kind": "lesion",
-   "headline": "Higgins se pierde toda la temporada por rotura de ligamento cruzado",
-   "summary": "Baja de temporada completa. Sus objetivos se reparten entre Nico Collins, Dalton Schultz y Tank Dell, que es de los repartos más limpios que deja una baja larga.",
+   "kind": "injury",
+   "headline": "Higgins out for the season with a torn ACL",
+   "summary": "Out for the season. His targets split between Nico Collins, Dalton Schultz and Tank Dell, which is one of the cleaner redistributions a long absence leaves behind.",
    "impact": "baja",
    "confidence": "confirmado",
    "fantasy_relevance": 5,
@@ -76,9 +76,9 @@
    "players": [
     "Chuba Hubbard"
    ],
-   "kind": "lesion",
-   "headline": "Hubbard arrastra un problema en el isquiotibial pero llegará al estreno",
-   "summary": "Su entrenador se muestra confiado en tenerlo para el 13 de septiembre contra Chicago. Encaja con lo que ya se reportó de Jonathon Brooks ganando repeticiones: el reparto de acarreos de Carolina sigue abierto.",
+   "kind": "injury",
+   "headline": "Hubbard is dealing with a hamstring issue but will be ready for the opener",
+   "summary": "His coach sounds confident about having him for September 13 against Chicago. It fits what was already reported about Jonathon Brooks earning reps: Carolina's carry split is still open.",
    "impact": "neutro",
    "confidence": "informado",
    "fantasy_relevance": 4,
@@ -98,9 +98,9 @@
     "Luther Burden III",
     "Rome Odunze"
    ],
-   "kind": "campamento",
-   "headline": "Burden arriesgado en su ADP y Odunze se beneficia diez puestos más tarde",
-   "summary": "Con Burden fuera de la pretemporada por la ingle, el análisis de ADP lo marca como arriesgado alrededor del puesto 58, mientras Odunze —que sale unos diez puestos después— gana. Es exactamente el par en el que este board discrepa más del consenso.",
+   "kind": "camp",
+   "headline": "Burden is risky at his ADP and Odunze benefits ten picks later",
+   "summary": "With Burden out of the preseason with the groin, ADP analysis flags him as risky around pick 58, while Odunze — who goes about ten picks later — gains. This is exactly the pair where this board disagrees most with consensus.",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 4,

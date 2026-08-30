@@ -70,6 +70,16 @@ jobs:
       - name: Build
         run: npm run build
 
+      # El producto es en inglés. Esta comprobación mira el JSX **y descomprime
+      # el payload**, que es por donde se coló el español que se vio en
+      # producción: la pasada anterior sólo leía el código y daba verde.
+      - name: Idioma de la interfaz
+        run: node tools/audit-spanish.mjs
+
+      # Aislamiento entre ligas y compilador de puntuación.
+      - name: Tests de JavaScript
+        run: npm test
+
       # Las cabeceras se comprueban CONTRA EL SERVIDOR REAL, no leyendo
       # next.config.mjs. La distinción importa: un config puede ser correcto y
       # no aplicarse, y entonces la comprobación estaría mirando el sitio

@@ -745,3 +745,49 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 /* La liga cuyo board SÍ se puede compilar. No es verde de «todo bien»: es la
    tiza, porque lo que dice es «se puede», no «ya está aplicado». */
 .draft-context .ctx--ready .v { color: var(--chalk); }
+
+/* =============================================================================
+   SELECTOR DE POSICIÓN — siete opciones, una fila
+   -----------------------------------------------------------------------------
+   Con cinco opciones cabían siete botones de ancho igual. Con siete no caben en
+   390 sin encogerlos por debajo del mínimo táctil o partirlos en dos filas
+   feas. Se resuelve como lo resuelve una app de deporte: una tira que se
+   desplaza en horizontal.
+
+   Tres cosas que hay que hacer bien o el patrón se vuelve una trampa:
+
+   1. `scroll-snap` para que un arrastre deje una opción alineada, no a medias.
+   2. Sombras de borde con `mask` para que se VEA que hay más a los lados. Un
+      carrusel sin señal de desbordamiento es un carrusel que nadie desplaza.
+   3. La opción activa se lleva a la vista al montar, para que ALL y DST sean
+      igual de alcanzables.
+   ========================================================================== */
+
+.pos-filter {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--yard-line);
+  border-radius: var(--radius-md);
+  /* Difumina los dos extremos: es la señal de que la tira sigue. */
+  mask-image: linear-gradient(to right, transparent 0, #000 12px,
+                              #000 calc(100% - 12px), transparent 100%);
+}
+.pos-filter::-webkit-scrollbar { display: none; }
+.pos-option {
+  flex: 1 0 auto;
+  scroll-snap-align: center;
+  white-space: nowrap;
+}
+/* A partir de tablet caben las siete sin desplazar: se quita la máscara para
+   que los extremos no salgan difuminados sin motivo. */
+@media (min-width: 48rem) {
+  .pos-filter { mask-image: none; }
+  .pos-option { flex: 1 1 auto; }
+}
+
+/* Panel de K y DST. Sin tarjeta: es prosa con una cifra dentro. */
+.special { max-width: 46rem; margin-block: var(--space-5); }
+.special h2 { margin-top: var(--space-2); }

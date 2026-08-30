@@ -7,9 +7,9 @@
    "players": [
     "Ricky Pearsall"
    ],
-   "kind": "lesion",
-   "headline": "Pearsall se pierde toda la temporada 2026 tras operarse el LCP",
-   "summary": "El general manager John Lynch anunció que el receptor se opera del ligamento cruzado posterior de la rodilla derecha y no jugará esta temporada. La rodilla se le hinchó de forma persistente durante el campamento, arrastrando una lesión de la temporada pasada. Su volumen de objetivos queda libre para el resto del cuerpo de receptores.",
+   "kind": "injury",
+   "headline": "Pearsall out for all of 2026 after PCL surgery",
+   "summary": "GM John Lynch announced the receiver is having PCL surgery on his right knee and will not play this season. The knee swelled persistently through camp, carrying over an injury from last year. His target volume is now up for grabs across the rest of the receiver room.",
    "impact": "baja",
    "confidence": "confirmado",
    "fantasy_relevance": 5,
@@ -34,9 +34,9 @@
    "players": [
     "Malik Nabers"
    ],
-   "kind": "lesion",
-   "headline": "Nabers evita la lista PUP y apunta a estar en la jornada 1",
-   "summary": "El receptor se ha librado de empezar el campamento en la lista de físicamente incapacitados mientras se recupera del cruzado anterior que se rompió en la jornada 4 de 2025. Apunta a llegar al estreno contra Dallas. Su estado había sido la mayor incógnita del ataque de los Giants todo el verano.",
+   "kind": "injury",
+   "headline": "Nabers avoids the PUP list and is tracking toward Week 1",
+   "summary": "The receiver avoided opening camp on the PUP list as he recovers from the ACL he tore in Week 4 of 2025. He is tracking toward the opener against Dallas. His status had been the biggest question in the Giants offense all summer.",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 5,
@@ -63,8 +63,8 @@
     "Michael Penix Jr."
    ],
    "kind": "depth_chart",
-   "headline": "Tagovailoa figura como titular en el depth chart; Penix aparece como lesionado",
-   "summary": "El depth chart oficial de los Falcons pone a Tagovailoa de titular, con Cooper Rush de suplente, y a Penix fuera de la lista como jugador lesionado. Kevin Stefanski le dio la titularidad del primer partido de pretemporada pero evitó nombrarlo titular de la temporada.",
+   "headline": "Tagovailoa listed as the starter on the depth chart; Penix listed as injured",
+   "summary": "Atlanta's official depth chart lists Tagovailoa as the starter with Cooper Rush behind him, and Penix off the chart as injured. Kevin Stefanski gave him the first preseason start but stopped short of naming him the season starter.",
    "impact": "alza",
    "confidence": "confirmado",
    "fantasy_relevance": 4,
@@ -89,9 +89,9 @@
    "players": [
     "Michael Penix Jr."
    ],
-   "kind": "lesion",
-   "headline": "Penix dice que la autorización médica completa puede tardar cuatro semanas",
-   "summary": "El quarterback sigue sin participar en las series de once contra once mientras se recupera del cruzado anterior de noviembre. Con ese plazo, llegar a la jornada 1 como titular se ve improbable.",
+   "kind": "injury",
+   "headline": "Penix says full medical clearance could take four weeks",
+   "summary": "The quarterback is still out of 11-on-11 work as he recovers from November's ACL tear. On that timeline, starting Week 1 looks unlikely.",
    "impact": "baja",
    "confidence": "informado",
    "fantasy_relevance": 4,
@@ -112,9 +112,9 @@
     "Jonathon Brooks",
     "Chuba Hubbard"
    ],
-   "kind": "campamento",
-   "headline": "Brooks se gana repeticiones con el primer equipo y aprieta a Hubbard",
-   "summary": "Dave Canales destacó su velocidad y su resistencia mental tras dos roturas de cruzado. Podría quedarse el puesto de titular por delante de Hubbard, que el año pasado no llegó a cuatro yardas por acarreo.",
+   "kind": "camp",
+   "headline": "Brooks earns first-team reps and pushes Hubbard",
+   "summary": "Dave Canales praised his speed and mental toughness after two ACL tears. He could take the starting job from Hubbard, who did not reach four yards per carry last season.",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 4,
@@ -139,9 +139,9 @@
    "players": [
     "Isiah Pacheco"
    ],
-   "kind": "lesion",
-   "headline": "Pacheco arrastra un esguince de ligamento lateral interno, pero cuentan con él para el estreno",
-   "summary": "Lleva cuatro sesiones seguidas sin entrenar. Dan Campbell dijo que se sienten bien con el plazo y que esperan tenerlo listo para el primer partido. Fichado en marzo para jugar por detrás de Jahmyr Gibbs, así que el reparto de acarreos de Detroit no cambia por arriba.",
+   "kind": "injury",
+   "headline": "Pacheco is dealing with an MCL sprain but is expected for the opener",
+   "summary": "He has missed four straight practices. Dan Campbell said they feel good about the timeline and expect him ready for the opener. He was signed in March to work behind Jahmyr Gibbs, so the top of Detroit's carry split does not change.",
    "impact": "neutro",
    "confidence": "informado",
    "fantasy_relevance": 3,
@@ -166,9 +166,9 @@
    "players": [
     "Luther Burden III"
    ],
-   "kind": "lesion",
-   "headline": "Burden III se pierde la pretemporada por una lesión en la ingle",
-   "summary": "Chicago confía en tenerlo para la jornada 1, pero se pierde todo el trabajo de pretemporada. Para un receptor joven, perder esas repeticiones suele costar cuota de uso en las primeras semanas aunque llegue sano.",
+   "kind": "injury",
+   "headline": "Burden III misses the preseason with a groin injury",
+   "summary": "Chicago expects him for Week 1, but he misses the entire preseason. For a young receiver, losing those reps usually costs usage share in the early weeks even if he arrives healthy.",
    "impact": "baja",
    "confidence": "informado",
    "fantasy_relevance": 3,
@@ -188,9 +188,9 @@
    "players": [
     "Mike Evans"
    ],
-   "kind": "lesion",
-   "headline": "Evans se pierde un entrenamiento por una distensión en el cuádriceps",
-   "summary": "Ausencia de una sesión, sin plazo comunicado. En un receptor de su edad, cualquier problema muscular en pretemporada merece seguimiento aunque el equipo no le dé importancia.",
+   "kind": "injury",
+   "headline": "Evans misses a practice with a quad strain",
+   "summary": "One missed session, no timeline given. For a receiver his age, any soft-tissue issue in the preseason is worth tracking even when the team plays it down.",
    "impact": "baja",
    "confidence": "informado",
    "fantasy_relevance": 3,
@@ -212,8 +212,8 @@
     "TreVeyon Henderson"
    ],
    "kind": "depth_chart",
-   "headline": "El reparto de acarreos en Nueva Inglaterra sigue sin resolverse",
-   "summary": "Los Patriots se apoyaron mucho en Stevenson el año pasado, pero la duda es si Henderson lo lleva a un reparto igualado o incluso se queda el papel principal. Un reparto a dos hunde el valor de los dos en fantasy.",
+   "headline": "New England's carry split is still unsettled",
+   "summary": "New England leaned heavily on Stevenson last season, but the question is whether Henderson pushes it to an even split or takes the lead role outright. A true committee sinks both players' fantasy value.",
    "impact": "neutro",
    "confidence": "informado",
    "fantasy_relevance": 3,
@@ -233,9 +233,9 @@
    "players": [
     "Elic Ayomanor"
    ],
-   "kind": "campamento",
-   "headline": "Ayomanor es de lo más destacado del campamento de Tennessee en su segundo año",
-   "summary": "Su quarterback lo describe como un problema de emparejamiento por velocidad y fuerza, con capacidad de separarse arriba del recorrido. Elegido en cuarta ronda en 2025, es el tipo de receptor que el modelo infravalora: poco historial, mucho cambio de papel.",
+   "kind": "camp",
+   "headline": "Ayomanor is one of Tennessee's camp standouts in year two",
+   "summary": "His quarterback calls him a matchup problem on speed and strength, with the ability to separate at the top of the route. A 2025 fourth-rounder, he is the type of receiver this model undervalues: little history, a lot of role change.",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 3,
@@ -259,9 +259,9 @@
    "players": [
     "Parker Washington"
    ],
-   "kind": "campamento",
-   "headline": "Washington se consolida en el slot de Jacksonville",
-   "summary": "Elogiado sin descanso por los cronistas desde el arranque del campamento. El slot es el puesto donde la cuota de objetivos se estabiliza antes, así que es de los cambios de papel que sí se notan pronto.",
+   "kind": "camp",
+   "headline": "Washington locks down the slot in Jacksonville",
+   "summary": "Beat writers have praised him nonstop since camp opened. The slot is where target share stabilizes earliest, so this is the kind of role change that shows up quickly.",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 3,
@@ -280,9 +280,9 @@
    "players": [
     "De'Zhaun Stribling"
    ],
-   "kind": "campamento",
-   "headline": "Stribling encadena jugadas y puede jugar en las tres posiciones de receptor",
-   "summary": "Versatilidad que el ataque de Kyle Shanahan aprovecha. Con Pearsall fuera toda la temporada, San Francisco tiene objetivos que repartir y este es uno de los candidatos.",
+   "kind": "camp",
+   "headline": "Stribling strings together plays and can line up at all three receiver spots",
+   "summary": "The kind of versatility Kyle Shanahan's offense uses well. With Pearsall out for the year, San Francisco has targets to hand out and he is one of the candidates.",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 3,
@@ -301,9 +301,9 @@
    "players": [
     "Kenyon Sadiq"
    ],
-   "kind": "lesion",
-   "headline": "Sadiq sufre un retroceso tras la operación de hernia",
-   "summary": "El ala cerrada novato había enseñado todo su repertorio en un entrenamiento y el coordinador ofensivo Frank Reich hablaba de buscarle jugadas. El retroceso complica que tenga impacto inmediato.",
+   "kind": "injury",
+   "headline": "Sadiq hits a setback after hernia surgery",
+   "summary": "The rookie tight end had shown his full route tree in one practice and OC Frank Reich was talking about designing plays for him. The setback makes an immediate impact harder.",
    "impact": "baja",
    "confidence": "informado",
    "fantasy_relevance": 3,
@@ -324,8 +324,8 @@
     "David Moore"
    ],
    "kind": "depth_chart",
-   "headline": "Legette bien situado para quedarse el tercer puesto de receptor",
-   "summary": "Compite con David Moore por el WR3 junto a Tetairoa McMillan y Jalen Coker. Elegido en primera ronda en 2024, parte con ventaja.",
+   "headline": "Legette is well positioned to hold the WR3 job",
+   "summary": "He is competing with David Moore for the WR3 job alongside Tetairoa McMillan and Jalen Coker. A 2024 first-rounder, he starts with the edge.",
    "impact": "alza",
    "confidence": "rumor",
    "fantasy_relevance": 2,
@@ -346,9 +346,9 @@
     "Efton Chism III",
     "Eli Raridon"
    ],
-   "kind": "campamento",
-   "headline": "Chism III se gana repeticiones con los titulares y Raridon destaca desde los minicamps",
-   "summary": "El receptor de slot lleva un buen arranque de campamento con el ataque titular, y el ala cerrada novato viene destacando desde los entrenamientos organizados de primavera.",
+   "kind": "camp",
+   "headline": "Chism III earns starter reps and Raridon has stood out since minicamp",
+   "summary": "The slot receiver is off to a strong camp with the first-team offense, and the rookie tight end has stood out since spring OTAs.",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 2,
@@ -367,9 +367,9 @@
    "players": [
     "Shemar Stewart"
    ],
-   "kind": "lesion",
-   "headline": "La rodilla de Stewart es una hiperextensión, sin daño de ligamentos",
-   "summary": "Adam Schefter e Ian Rapoport coinciden en que no hay rotura. Es un ala defensiva, así que no toca ninguna alineación de fantasy, pero cambia la ecuación de la presión al quarterback de Cincinnati.",
+   "kind": "injury",
+   "headline": "Stewart's knee is a hyperextension, no ligament damage",
+   "summary": "Adam Schefter and Ian Rapoport agree there is no tear. He is a defensive end, so this moves no fantasy lineup, but it changes Cincinnati's pass-rush equation.",
    "impact": "alza",
    "confidence": "informado",
    "fantasy_relevance": 1,
@@ -389,9 +389,9 @@
    "players": [
     "Coby Bryant"
    ],
-   "kind": "lesion",
-   "headline": "Bryant, entre ocho y diez semanas fuera por la rodilla",
-   "summary": "El safety se lesionó en el entrenamiento del lunes. No toca ninguna alineación de fantasy, pero una baja larga en la secundaria cambia el emparejamiento de los receptores rivales durante media temporada.",
+   "kind": "injury",
+   "headline": "Bryant out eight to ten weeks with a knee injury",
+   "summary": "The safety was hurt at Monday's practice. It moves no fantasy lineup, but a long absence in the secondary changes opposing receivers' matchups for half a season.",
    "impact": "baja",
    "confidence": "informado",
    "fantasy_relevance": 1,
@@ -407,9 +407,9 @@
  ],
  "model": "busqueda-web-manual",
  "beats": [
-  "AFC Este",
+  "AFC East",
   "AFC Sur",
-  "NFC Este",
+  "NFC East",
   "NFC Norte",
   "NFC Oeste",
   "NFC Sur",

@@ -23,7 +23,38 @@ const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 // Palabras que sólo aparecen en prosa española. No sirven «no», «error» ni
 // «total», que son idénticas en inglés.
-const FUNCIONALES = /\b(el|la|los|las|un|una|unos|unas|del|al|que|con|para|por|como|pero|sin|sobre|entre|cuando|donde|porque|más|menos|muy|todo|toda|todos|cada|otro|otra|este|esta|estos|estas|ese|esa|aquí|allí|hay|son|está|están|fue|ser|tiene|tienen|puede|pueden|hace|hacen|desde|hasta|aunque|también|sólo|solo|así|ya|si|no se|se ha|lo que)\b/i;
+const FUNCIONALES = /\b(el|la|los|las|un|una|unos|unas|del|de|al|que|con|para|en|por|como|pero|sin|sobre|entre|cuando|donde|porque|más|menos|muy|todo|toda|todos|cada|otro|otra|este|esta|estos|estas|ese|esa|aquí|allí|hay|son|está|están|fue|ser|tiene|tienen|puede|pueden|hace|hacen|desde|hasta|aunque|también|sólo|solo|así|ya|no se|se ha|lo que)\b/gi;
+
+/**
+ * Nombres propios que el detector confundiría con español.
+ *
+ * «Las Vegas is rebuilding…» dispara con «Las»; «Rams On SI» disparaba con «si»
+ * —Sports Illustrated—, y por eso «si» salió de la lista de arriba. Un guardián
+ * que da falsos positivos con nombres de equipo y de medio acaba desactivado, y
+ * entonces no guarda nada. Se quitan por sustitución exacta, no por heurística.
+ */
+const NOMBRES_PROPIOS = [
+  "Las Vegas", "Los Angeles", "Los Angeles Times", "La Crosse",
+  "De La Cruz", "Von Miller", "Del Rio",
+  // Apellidos y nombres con partícula que dispararían con «de»: se quitan por
+  // nombre exacto, no relajando el detector.
+  "De'Von", "DeVon", "De'Zhaun", "DeAndre", "D'Andre", "Deebo",
+];
+
+/**
+ * Dos aciertos, o una tilde.
+ *
+ * Con un solo acierto, cualquier acrónimo o apellido dispara. Con dos palabras
+ * funcionales distintas la frase es española de verdad — y una tilde ya es
+ * concluyente por sí sola, porque el inglés no las usa.
+ */
+function esEspanol(texto) {
+  let limpio = texto;
+  for (const nombre of NOMBRES_PROPIOS) limpio = limpio.split(nombre).join(" ");
+  if (/[áéíóúñ¿¡«»]/.test(limpio)) return true;
+  const aciertos = new Set((limpio.match(FUNCIONALES) ?? []).map((w) => w.toLowerCase()));
+  return aciertos.size >= 2;
+}
 
 // `model.b64.js` se salta aquí a propósito: es un bloque de base64 opaco, así
 // que en esta pasada sólo puede dar falsos positivos. Lo audita de verdad la
@@ -83,7 +114,7 @@ for (const rel of ARCHIVOS) {
     }
 
     for (const texto of candidatos) {
-      if (!FUNCIONALES.test(texto)) continue;
+      if (!esEspanol(texto)) continue;
       // Descarta rutas, clases CSS y expresiones.
       if (/^[\w./-]+$/.test(texto.trim())) continue;
       hallazgos.push({ archivo: rel, linea: i + 1, texto: texto.trim().slice(0, 90) });
@@ -126,6 +157,15 @@ const COPY = new Set([
   ".survivor.board[].advice_why", ".survivor.short_board[].advice",
   ".survivor.short_board[].advice_why", ".validation.calibration[].bin",
   ".fantasy.scoring", ".fantasy_weekly.scoring",
+  // Prosa que se pinta y que antes viajaba en español. Estas cuatro rutas son
+  // la regresión concreta que se vio en producción.
+  ".research.items[].headline", ".research.items[].summary",
+  ".research.items[].sources[].title",
+  ".research.today[].headline", ".research.today[].summary",
+  ".research.today[].sources[].title",
+  ".dossier.medical[].status", ".dossier.medical[].situation",
+  ".dossier.camp[].report",
+  ".dossier.sources[].article", ".dossier.sources[].used_for",
 ]);
 
 // Datos: nombres propios, códigos, fechas, y la prosa ajena que se cita con su
@@ -144,11 +184,29 @@ const DATOS = new Set([
 ]);
 // Los prefijos que son datos enteros, para no listar campo por campo.
 const DATOS_PREFIJOS = [
-  ".dossier.camp[]", ".dossier.gap[].analysis", ".dossier.gap[].consensus_risk",
+  // Lo que queda exento es NOMBRE PROPIO o CÓDIGO, no prosa. La prosa del
+  // dossier y del archivo de research se tradujo con `scripts/i18n_migrate.py`
+  // y desde entonces se audita como copy: era la vía por la que el español
+  // llegaba a la pantalla con la auditoría en verde.
+  ".dossier.camp[].player", ".dossier.camp[].team", ".dossier.camp[].position",
+  ".dossier.camp[].date", ".dossier.camp[].source", ".dossier.camp[].player_id",
+  ".dossier.camp[].substance",
+  ".dossier.gap[].analysis", ".dossier.gap[].consensus_risk",
   ".dossier.gap[].player", ".dossier.gap[].position", ".dossier.gap[].team",
-  ".dossier.medical[]", ".dossier.reporters[]", ".dossier.sleepers[]",
-  ".dossier.sources[]", ".dossier.strategy[]", ".dossier.teams[]",
-  ".fantasy_weekly.rankings[]", ".research.items[]", ".survivor.board[].opponent",
+  ".dossier.medical[].player", ".dossier.medical[].team", ".dossier.medical[].date",
+  ".dossier.medical[].position", ".dossier.medical[].level",
+  ".dossier.medical[].player_id", ".dossier.medical[].source",
+  ".dossier.reporters[]", ".dossier.sleepers[]",
+  ".dossier.sources[].url", ".dossier.sources[].publisher",
+  ".dossier.strategy[]", ".dossier.teams[]",
+  ".fantasy_weekly.rankings[]",
+  ".research.items[].team", ".research.items[].players[]",
+  ".research.items[].player_ids[]", ".research.items[].date",
+  ".research.items[].published", ".research.items[].beat",
+  ".research.items[].kind", ".research.items[].impact",
+  ".research.items[].confidence", ".research.items[].source_type",
+  ".research.items[].sources[].url", ".research.items[].sources[].outlet",
+  ".survivor.board[].opponent",
   ".survivor.board[].plan[]", ".survivor.board[].team", ".survivor.plan[]",
   ".survivor.short_board[].opponent", ".survivor.short_board[].plan[]",
   ".survivor.short_board[].team", ".survivor.short_plan[]",
@@ -162,9 +220,9 @@ const DATOS_PREFIJOS = [
 // Las fichas de research repiten los campos de datos en `today`; el único que
 // escribimos nosotros (`label`) ya está declarado arriba como COPY.
 const DATOS_RESEARCH_TODAY = [
-  "beat", "category", "confidence", "date", "headline", "icon", "impact", "kind",
-  "player_ids[]", "players[]", "published", "source_type", "summary", "team",
-  "sources[].outlet", "sources[].title", "sources[].url",
+  "beat", "category", "confidence", "date", "icon", "impact", "kind",
+  "player_ids[]", "players[]", "published", "source_type", "team",
+  "sources[].outlet", "sources[].url",
 ].map((campo) => `.research.today[].${campo}`);
 
 /* El registro de capacidades viaja al payload pero **no lo pinta ninguna
@@ -202,14 +260,14 @@ const sinClasificar = new Set();
 for (const [ruta, texto] of rutasDeTexto(payload)) {
   if (datos.has(ruta) || esPrefijo(ruta, DATOS_PREFIJOS)) continue;
   if (esPrefijo(ruta, PENDIENTES_PREFIJOS)) {
-    if (FUNCIONALES.test(texto)) pendientes.add(ruta);
+    if (esEspanol(texto)) pendientes.add(ruta);
     continue;
   }
   if (!COPY.has(ruta)) {
     sinClasificar.add(ruta);
     continue;
   }
-  if (FUNCIONALES.test(texto)) fallosPayload.push({ ruta, texto: texto.slice(0, 90) });
+  if (esEspanol(texto)) fallosPayload.push({ ruta, texto: texto.slice(0, 90) });
 }
 
 console.log(`\nPayload: ${rutasDeTexto(payload).length} cadenas revisadas.`);
