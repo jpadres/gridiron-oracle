@@ -21,7 +21,15 @@ export default function DraftRoomPage() {
   return (
     <RoomShell
       board={fantasy.board}
-      context={{ season: fantasy.season, scoring: fantasy.scoring, teams: fantasy.teams }}
+      context={{
+        season: fantasy.season,
+        scoring: fantasy.scoring,
+        teams: fantasy.teams,
+        // Semanas de descanso: HECHO derivado del calendario publicado. El
+        // Draft Room tiene su propia ruta, así que el contexto se pasa aquí y
+        // no en el `page.jsx` del board — dos páginas, dos sitios.
+        byes: fantasy.byes ?? null,
+      }}
     />
   );
 }

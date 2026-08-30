@@ -347,3 +347,74 @@ una fuente que ya tenemos; el otro es un producto de otro dominio del que
 interesa un patrón de veinte líneas.
 
     UNA DEPENDENCIA QUE NO APORTA DATO NUEVO ES SUPERFICIE SIN CONTRAPARTIDA.
+
+
+---
+
+## 13. Mapa de datos, verificado contra el repositorio
+
+No de memoria: leído de los parquet que hay.
+
+### Lo que HAY, con identidad GSIS y sin red
+
+| Dato | Dónde | Cobertura |
+|---|---|---|
+| Semanas-jugador | `player_weeks.parquet` | 476.158 filas, 150 columnas, 1999-2026 |
+| Volumen | mismo | intentos, acarreos, objetivos, recepciones |
+| Cuota de uso | mismo | `target_share`, `air_yards_share` |
+| Yardas aéreas | mismo | `passing_air_yards`, `receiving_air_yards` |
+| Calendario | `games.parquet` | 7.548 partidos; **2026 completo con 272 de regular** |
+| Contexto de partido | mismo | techo, descanso, QB titular, línea, moneyline |
+| **Descansos** | derivado | **32 de 32, exacto** |
+
+### Lo que NO hay, y no se puede fingir
+
+Snaps · rutas · uso en zona roja · depth charts · **lesiones** · participación en
+entrenamiento · inactivos · ADP conectado · proyecciones ajenas · propiedad ·
+actividad de waivers.
+
+La búsqueda de columnas de lesión devolvió **cero**. No es que estén incompletas:
+no existen en el dato local.
+
+### El límite duro, que no es de licencia
+
+`adp.py` ya documenta que desde este entorno el CONNECT devuelve 403 para
+fantasyfootballcalculator, api.sleeper.app y api.fantasypros por igual. Y el
+crosswalk: Gridiron va por `gsis_id`, Sleeper mapea a GSIS, **ESPN no mapea a
+nada**. Cualquier fuente que exija emparejar por nombre y equipo queda fuera por
+la regla de identidad. Eso restringe más que cualquier licencia.
+
+---
+
+## 14. El primitivo elegido: semanas de descanso
+
+De los candidatos —config de plantilla, crosswalk, descansos, snapshot de
+decisión, replay— gana el descanso por eliminación honesta:
+
+| Candidato | Por qué no |
+|---|---|
+| Crosswalk de identidad | necesita red que está bloqueada |
+| Config de plantilla | es una funcionalidad de interfaz, no un primitivo |
+| Snapshot de decisión | especulativo hasta que haya decisiones que guardar |
+| Draft Replay | **ya funciona**, sólo le falta interfaz |
+| **Descansos** | determinista, dato local completo, cero autoridad de modelo |
+
+`fantasy/schedule.py` deriva el descanso por ausencia en temporada regular, y
+mantiene **tres estados separados** que es donde estaba el riesgo:
+
+    DESCANSA ≠ ELIMINADO ≠ NO SE SABE.
+
+Un equipo ausente en playoffs está eliminado, no descansando. Un equipo al que
+le faltan dos semanas no tiene descanso derivable y **no se afirma ninguno** —
+elegir una de las dos sería inventar cuál.
+
+Publicado al payload sólo si el calendario está completo: media verdad sobre
+descansos produce el aviso falso que no queremos. 32 entradas, 748 bytes.
+
+En pantalla es un dato junto al jugador —`Bye 11`— **sin color de alarma**. Hay
+un test que comprueba que no usa el tono de `--live`: cuándo descansa un jugador
+no dice qué hacer con él, y teñirlo de rojo lo convertiría en un consejo.
+
+Lo que desbloquea sin validar nada: alineación incompleta por descanso,
+concentración de descansos en una plantilla, y la primera pieza real de un
+centro de mando semanal.

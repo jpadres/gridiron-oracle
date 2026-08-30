@@ -1051,12 +1051,26 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   flex: 1 1 auto; min-width: 0; color: var(--chalk);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
+/* La semana de descanso: dato, no alarma. Mismo peso que el resto del contexto
+   de la fila; si llevara color de aviso estaría diciendo qué hacer. */
+.room-bye {
+  flex: 0 0 auto; font-size: var(--text-micro); color: var(--chalk-dim);
+  font-variant-numeric: tabular-nums; letter-spacing: 0.03em;
+}
+
 .feed-pick {
   font-family: var(--face-display); font-variation-settings: "wdth" 74;
   font-weight: 700; font-size: var(--text-micro); color: var(--chalk-dim);
   font-variant-numeric: tabular-nums; min-width: 2.75rem;
 }
-.room-feed .is-mine .feed-pick { color: var(--live); }
+.room-feed .is-mine /* La semana de descanso: dato, no alarma. Mismo peso que el resto del contexto
+   de la fila; si llevara color de aviso estaría diciendo qué hacer. */
+.room-bye {
+  flex: 0 0 auto; font-size: var(--text-micro); color: var(--chalk-dim);
+  font-variant-numeric: tabular-nums; letter-spacing: 0.03em;
+}
+
+.feed-pick { color: var(--live); }
 
 /* Deshacer en el feed: presente, recesivo, y con objetivo táctil de verdad.
    Un botón por cada pick pasado convertía el ticker en una tabla. */

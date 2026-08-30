@@ -290,6 +290,33 @@ def _strip_runtime_fields(section: dict | None) -> dict | None:
 
 
 
+def _attach_byes(payload: dict, fantasy: dict) -> None:
+    """Semanas de descanso de la temporada proyectada.
+
+    Es un HECHO derivado del calendario publicado, no una proyección: un equipo
+    que no juega en una semana de temporada regular descansa. Treinta y dos
+    entradas, unos 300 bytes, y evita que el navegador tenga que pedirle a nadie
+    algo que se sabe con certeza.
+
+    Si el calendario no está completo —a algún equipo le faltan semanas— NO se
+    publica un mapa a medias: se omite. Media verdad sobre descansos produce
+    exactamente el aviso falso que no queremos.
+    """
+    from oracle.fantasy.schedule import season_schedule
+
+    season = fantasy.get("season")
+    games_path = Path("data/processed/games.parquet")
+    if not season or not games_path.exists():
+        return
+    try:
+        schedule = season_schedule(pd.read_parquet(games_path), int(season))
+    except Exception:  # noqa: BLE001 - un calendario ilegible no tumba el export
+        return
+    if not schedule.complete or len(schedule.bye_week) != len(schedule.teams):
+        return
+    fantasy["byes"] = dict(sorted(schedule.bye_week.items()))
+
+
 def _attach_components(payload: dict, source: dict | None) -> None:
     """Cuelga los componentes canónicos de cada fila del board.
 
@@ -317,6 +344,7 @@ def _attach_components(payload: dict, source: dict | None) -> None:
         # navegador tendría los componentes y no sabría cuánto fiarse de ellos.
         record["wg"] = round(float(origin.get("weighted_games", 0.0) or 0.0), 3)
     fantasy["components"] = list(COMPONENTS)
+    _attach_byes(payload, fantasy)
     fantasy["projected_games"] = PROJECTED_GAMES
 
     # Las constantes y las medias por posición: lo que falta para reproducir el

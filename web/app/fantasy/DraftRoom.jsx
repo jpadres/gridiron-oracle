@@ -398,6 +398,14 @@ export default function DraftRoom({ board, context, league }) {
                     </span>
                     <span className="nm">{row.player_full_name ?? row.player_name}</span>
                     <TeamMark abbr={row.team} />
+                    {/* La semana de descanso es un hecho del calendario, no un
+                        aviso. Se pinta como dato —«BYE 7»— y no en color de
+                        alarma: cuándo descansa un jugador no dice qué hacer con
+                        él, y teñirlo de rojo lo convertiría en un consejo que
+                        nadie ha validado. */}
+                    {context.byes?.[row.team] ? (
+                      <span className="room-bye">Bye {context.byes[row.team]}</span>
+                    ) : null}
                     <button type="button" className="room-x"
                             aria-label={`Undo ${row.player_full_name ?? row.player_name}`}
                             onClick={() => undo(row.player_id)}>
