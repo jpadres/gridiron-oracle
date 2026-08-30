@@ -77,7 +77,59 @@ sólo como secret de GitHub Actions, el código nunca la nombra (la lee el SDK d
 entorno) y no viaja al bundle. Si acaba en un fichero, gitleaks lo caza — y
 entonces hay que **rotarla**, no borrarla, porque sigue viva en el historial.
 
-### 5. La prensa no toca el modelo
+### 5. Una afirmación actual exige evidencia actual
+
+**DATO REAL + FECHA VIEJA = RESPUESTA ACTUAL FALSA.** Es el fallo más peligroso
+de una investigación automática porque no parece un error: la fuente es buena, la
+cita es exacta, y lo único que está mal es el tiempo — que no se ve.
+
+Nunca se da por actual algo sólo porque la fuente sea legítima. Antes de usar
+cualquier dato sensible al tiempo (plantillas, depth charts, lesiones,
+transacciones, cuotas, props, clima, ADP, estado de una liga o de un draft) hay
+que establecerlo con `src/oracle/freshness.py`:
+
+    RECUPERAR → FECHA DE PUBLICACIÓN → FECHA DEL HECHO → TEMPORADA Y JORNADA
+    → ¿HAY ALGO MÁS NUEVO? → CLASIFICAR FRESCURA → USAR
+
+Cuatro marcas que **no son la misma**: `published_at`, `event_at`,
+`effective_at`, `retrieved_at`. Un artículo actualizado hoy puede contar algo de
+marzo; uno histórico encontrado hoy sigue siendo histórico. **La hora de descarga
+nunca da frescura** — convertirla en actualidad es exactamente cómo se fabrica
+una respuesta falsamente actual.
+
+Las ventanas son **por dominio**, porque la vida útil no es la misma: una cuota
+caduca en minutos, un parte de lesiones el domingo en horas, y una estadística de
+carrera **no caduca nunca**. Por eso `HISTORICAL` es una clasificación *válida* y
+no una versión suave de `STALE`.
+
+Ante el conflicto: primero lo oficial, después lo más nuevo, después lo mejor
+atribuido — **conservando el desacuerdo**. «El equipo lo da dudoso» y «el
+reportero espera que juegue» no son la misma clase de evidencia, y quedarse con
+una sola borra lo que decide una alineación. Un informe del martes no anula un
+inactivo oficial del domingo.
+
+Y no hay respaldo silencioso: `require_current` **levanta** en vez de devolver lo
+viejo. Se dice «no hay dato actual» o «último verificado [fecha]».
+
+    UNKNOWN > STALE PRESENTADO COMO ACTUAL.
+
+La interfaz nunca escribe `LIVE` salvo que la sincronización esté funcionando de
+verdad; si no, `ÚLTIMA SINCRONIZACIÓN HACE X`, `STALE` o `ERROR DE SINCRONIZACIÓN`
+según el estado técnico real. Esta regla no se debilita para que quepa una
+funcionalidad nueva. Los tests adversarios están en `tests/test_freshness.py`.
+
+### 6. Una liga es un contexto independiente
+
+    UNA LIGA = UN CONTEXTO. UN DRAFT = UN ESTADO INDEPENDIENTE.
+
+El estado de draft de una liga no puede contaminar a otra: distinta puntuación,
+distinto tamaño, distinto puesto de draft, distintos jugadores ya cogidos. Hoy
+esto **no se cumple** —`localStorage` guarda una sola clave global— y está
+auditado en `docs/v2/MULTILIGA_DRAFT.md`. Nada de valores por defecto asumidos
+como configuración real: si no se sabe el tamaño o la puntuación de una liga, es
+`UNKNOWN`, no «12 equipos PPR».
+
+### 7. La prensa no toca el modelo
 
 `src/oracle/narrative/research.py` barre noticias a diario. Nada de eso entra en
 un cálculo, ni como feature ni como ajuste ni como multiplicador. Se publica al
@@ -88,7 +140,7 @@ historial truncado. Una noticia de agosto no tiene fecha comprobable dentro de e
 pasada, así que en cuanto moviera un número, esa demostración deja de valer — y
 con ella todas las métricas de validación del proyecto.
 
-### 6. Un número generado que no está en los datos es un fallo, no un matiz
+### 8. Un número generado que no está en los datos es un fallo, no un matiz
 
 Los textos que redacta Claude sobre el modelo (`narrative/weekly.py`) pasan por
 `narrative/factcheck.py`: se extraen todas las cifras del texto y se comprueban
@@ -118,6 +170,7 @@ src/oracle/
   betting/               de-vig (Shin), EV, Kelly fraccionado
   fantasy/               puntuación, proyecciones de draft, ranking semanal
   narrative/             textos generados y barrido de prensa (opcional, con clave)
+  freshness.py           ventanas por dominio: qué se puede afirmar como ACTUAL
   survivor/              plan de survivor: asignación lineal sobre log-probabilidades
   leagues/sleeper.py     liga, puntuación y picks del draft (API pública, sin clave)
   fantasy/risk.py        volatilidad de la proyección, VALIDADA contra el error real
