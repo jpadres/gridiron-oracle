@@ -78,9 +78,9 @@ export function MachineWritten({ children, at }) {
   return (
     <div className="machine">
       <p className="machine-tag">
-        Texto redactado por Claude sobre los números del modelo. Cada cifra que aparece se
-        verifica contra los datos antes de publicarse; si no cuadra, el texto se descarta y
-        esta sección sale vacía.
+        Written by Claude from the model&rsquo;s numbers. Every figure in it is checked
+        against the data before publishing; if one does not match, the text is discarded and
+        this section ships empty.
         {at ? <> Generated {new Date(at).toLocaleDateString("en-US")}.</> : null}
       </p>
       {children}

@@ -41,6 +41,7 @@ import { useEffect, useMemo, useState } from "react";
 // cifras llevan coma. Escribirlo aparte aquí fue exactamente el fallo que el
 // barrido de QA anterior había corregido en el resto de la web.
 import { num } from "../../data/model.js";
+import { TeamMark, teamVars } from "../sports.jsx";
 
 const STORAGE_KEY = "gridiron-draft-v1";
 
@@ -347,8 +348,102 @@ export default function DraftMode({ board, positionFilter = "ALL" }) {
   const picked = board.filter((row) => mineSet.has(row.player_id));
   const total = state.gone.length + state.mine.length;
 
+  // La sugerencia ya puntuada se PARTE en dos para pintarla: la primera es la
+  // decisión, el resto es la cola. No se recalcula nada — `suggestions` sale del
+  // mismo `useMemo` de siempre, con el mismo ajuste posicional.
+  const onClock = suggestions[0] ?? null;
+  const next = suggestions.slice(1, 5);
+
+  // «¿Puedo esperar?» es un CONTEO, no una predicción: cuántos jugadores de su
+  // misma posición y su mismo tier siguen disponibles. No dice si esperar es
+  // buena idea —eso sería una afirmación que nadie ha validado— dice cuántos
+  // quedan, que es el dato con el que se decide.
+  const sameTier = onClock
+    ? suggestions.filter(
+        (row) => row.position === onClock.position && row.tier === onClock.tier
+      ).length
+    : 0;
+  const waitAdvice = onClock
+    ? sameTier <= 1
+      ? `Last ${onClock.position} in tier ${onClock.tier}. The next one is a tier down.`
+      : `${sameTier} ${onClock.position}s left in tier ${onClock.tier}.`
+    : "";
+
   return (
     <div className="draft">
+      {onClock ? (
+        <section className="onclock" style={teamVars(onClock.team)} aria-label="On the clock">
+          <p className="eyebrow">Best available for you</p>
+          <div className="onclock-body">
+            <span className="rank-numeral rank-numeral--hero">{onClock.position_rank}</span>
+            <div className="onclock-who">
+              <h3 className="onclock-name">{onClock.player_full_name ?? onClock.player_name}</h3>
+              <p className="onclock-meta">
+                <TeamMark abbr={onClock.team} solid />
+                <span className={`ptag ptag--${onClock.position.toLowerCase()}`}>
+                  {onClock.position}
+                </span>
+                <span>Tier {onClock.tier}</span>
+                {onClock.risk_label && onClock.risk_label !== "Normal" ? (
+                  <span className={`risk risk--${onClock.risk_label === "Volatile" ? "high" : "low"}`}>
+                    {onClock.risk_label}
+                  </span>
+                ) : null}
+              </p>
+            </div>
+            <div className="onclock-signal">
+              <span className="value">{num(onClock.vor, 1)}</span>
+              <span className="label">VOR</span>
+            </div>
+          </div>
+          <p className="onclock-wait">{waitAdvice}</p>
+          <div className="onclock-actions">
+            <button type="button" className="act act--mine" onClick={() => take(onClock.player_id, true)}>
+              Drafted by me
+            </button>
+            <button type="button" className="act act--gone" onClick={() => take(onClock.player_id, false)}>
+              Someone took him
+            </button>
+          </div>
+        </section>
+      ) : null}
+
+      {next.length > 0 ? (
+        <>
+          <p className="eyebrow next-h">Next best</p>
+          <ol className="picks deal">
+            {next.map((row, index) => (
+              <li key={row.player_id} className="pick" style={teamVars(row.team)}>
+                <span className="pick-rank">{index + 2}</span>
+                <span className="pick-who">
+                  <span className="nm">{row.player_full_name ?? row.player_name}</span>
+                  <span className="meta">
+                    <TeamMark abbr={row.team} />
+                    <span className={`ptag ptag--${row.position.toLowerCase()}`}>
+                      {row.position}{row.position_rank}
+                    </span>
+                    <span>T{row.tier}</span>
+                    {row.risk_label && row.risk_label !== "Normal" ? (
+                      <span className={`risk risk--${row.risk_label === "Volatile" ? "high" : "low"}`}>
+                        {row.risk_label}
+                      </span>
+                    ) : null}
+                  </span>
+                </span>
+                <span className="pick-vor">{num(row.vor, 1)}<small>VOR</small></span>
+                <span className="pick-actions">
+                  <button type="button" onClick={() => take(row.player_id, true)}>Mine</button>
+                  <button type="button" className="ghost" onClick={() => take(row.player_id, false)}>
+                    Gone
+                  </button>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </>
+      ) : null}
+
+      <div className="draft-tools">
       <div className="draft-head">
         <div>
           <strong>{picked.length}</strong> yours · <strong>{total}</strong> off the board
@@ -430,8 +525,8 @@ export default function DraftMode({ board, positionFilter = "ALL" }) {
                       )
                       .filter(Boolean)
                       .join(", ")}
-                    {sync.unmatched.length > 5 ? "…" : ""}. Casi siempre son rookies: sin
-                    partido NFL no están en el board.
+                    {sync.unmatched.length > 5 ? "…" : ""}. Almost always rookies: with no
+                    NFL game played they are not on the board.
                   </>
                 ) : null}
                 . Refreshes every 15 seconds.
@@ -514,37 +609,13 @@ export default function DraftMode({ board, positionFilter = "ALL" }) {
           </ol>
         ) : (
           <p className="caption">
-            Nadie disponible con «{query.trim()}». Si ya lo tachaste, sigue tachado.
+            Nobody available matching &ldquo;{query.trim()}&rdquo;. If you already crossed
+            him off, he stays crossed off.
           </p>
         )
       ) : null}
 
-      <h3 className="draft-h">Suggestions</h3>
-      <ol className="picks">
-        {suggestions.map((row, index) => (
-          <li key={row.player_id} className={index === 0 ? "pick pick--top" : "pick"}>
-            <span className="pick-rank">{index === 0 ? "★" : index + 1}</span>
-            <span className="pick-who">
-              <span className="nm">{row.player_name}</span>
-              <span className="meta">
-                {row.position}
-                {row.position_rank} · {row.team} · VOR {num(row.vor, 1)}
-                {row.risk_label && row.risk_label !== "Normal" ? (
-                  <span className={`risk risk--${row.risk_label === "Volatile" ? "high" : "low"}`}>
-                    {row.risk_label}
-                  </span>
-                ) : null}
-              </span>
-            </span>
-            <span className="pick-actions">
-              <button type="button" onClick={() => take(row.player_id, true)}>Mine</button>
-              <button type="button" className="ghost" onClick={() => take(row.player_id, false)}>
-                Gone
-              </button>
-            </span>
-          </li>
-        ))}
-      </ol>
+      </div>
 
       {picked.length > 0 ? (
         <>

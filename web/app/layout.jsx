@@ -1,4 +1,7 @@
 import "./globals.css";
+// DESPUÉS de globals.css a propósito: `system.css` redirige los tokens de la
+// Fase 1 a la paleta de campo, y para eso tiene que ganar la cascada.
+import "./system.css";
 
 // El color de la barra del navegador en móvil. Sin esto, Safari y Chrome pintan
 // su propio gris encima de la cabecera y el sitio parece recortado.

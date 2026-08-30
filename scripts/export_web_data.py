@@ -36,6 +36,7 @@ from oracle.backtest.metrics import calibration_table, evaluate, summarize_ats
 from oracle.backtest.walkforward import season_table, walk_forward
 from oracle.config import DEFAULT_BACKTEST_START
 from oracle.config import paths as resolve_paths
+from oracle.data import identity
 from oracle.pipeline import Oracle
 
 # Límite de aviso del payload comprimido. No es un límite técnico: es la señal
@@ -144,6 +145,10 @@ def main(argv: list[str] | None = None) -> int:
     # (RECOMMEND), porque esa capacidad pierde contra una media de seis partidos.
     payload["capabilities"] = capabilities.as_payload()
     payload["separation_bands"] = decisions.as_payload()
+    # Identidad de equipo: nombre, división y los dos colores ya verificados
+    # contra los dos fondos por `scripts/check_identity.py`. Va en el payload y
+    # no en el CSS porque es dato, y porque así se comprueba.
+    payload["teams"] = identity.as_payload()
 
     # --- jornada publicada --------------------------------------------------
     season, week = _resolve_week(oracle, args.season, args.week)

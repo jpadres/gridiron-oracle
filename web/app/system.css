@@ -1,0 +1,668 @@
+/* =============================================================================
+   SISTEMA VISUAL — «campo bajo los focos»
+   =============================================================================
+
+   Lo que había antes era correcto y neutro: pila del sistema, lienzo blanco,
+   azul de enlace. Correcto y neutro es exactamente el problema — se leía como
+   un informe, no como un producto de fútbol americano.
+
+   Tres decisiones y el motivo de cada una:
+
+   1. TIPOGRAFÍA. Un solo fichero, Archivo variable (OFL, 88 KB), con eje de
+      ANCHURA. Eso da dos voces con una descarga: `wdth 78` condensada para
+      cifras y titulares —el numeral de yarda pintado en el césped— y `wdth 100`
+      para prosa. Dos familias habrían costado el doble y se habrían parecido
+      más a un tema comprado.
+
+   2. EL LIENZO NO ES NEGRO. Es un verde muy oscuro y desaturado, #0E1511: el
+      césped de noche bajo los focos, no el «modo oscuro» de cualquier app. El
+      negro puro con un acento neón es la solución por defecto y se reconoce a
+      distancia.
+
+   3. EL ACENTO NO ES NUESTRO, ES DEL EQUIPO. En vez de elegir un color de marca
+      y repartirlo por todo, cada fila toma el color del equipo que contiene, en
+      una ranura controlada: un rail de 3px. Da 32 identidades, cero imágenes,
+      cero peticiones — y evita el arcoíris, porque en un momento dado sólo hay
+      un color de equipo por fila.
+
+   El único acento propio es `--live`: el ámbar de la línea de primer down. Es el
+   gráfico más reconocible de una retransmisión y significa exactamente lo que
+   necesitamos que signifique: **la línea que hay que cruzar ahora**. Se reserva
+   para UNA cosa por pantalla. Si aparece dos veces, ya no informa.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/archivo-latin.woff2") format("woff2-variations");
+  font-weight: 400 700;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  /* `swap` y no `block`: la primera pintura llega con la pila del sistema y el
+     texto se lee desde el primer frame. El salto es real y es preferible a
+     media pantalla en blanco en una conexión mala. */
+  font-display: swap;
+}
+
+:root {
+  /* --- VOCES TIPOGRÁFICAS ------------------------------------------------
+     Tres, del mismo fichero. La condensada no es decoración: una tabla de 250
+     jugadores con nombres a anchura normal obliga a truncar, y un nombre
+     truncado en un board de draft es un jugador que no reconoces. */
+  --face-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --face-body: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --wdth-condensed: 78;
+  --wdth-normal: 100;
+
+  /* Cifras tabulares en todo lo que sea una columna de números. Sin esto, un
+     «1» ocupa menos que un «8» y una columna de rangos deja de estar alineada,
+     que es la mitad de lo que hace legible una tabla de deporte. */
+  --num-features: "tnum" 1, "lnum" 1;
+
+  /* --- ESCALA EDITORIAL --------------------------------------------------
+     Se añade por ARRIBA de la escala existente, no la sustituye. Los seis
+     tamaños de prosa siguen sirviendo; lo que faltaba era el registro grande,
+     el que convierte un dato en protagonista. */
+  --text-hero: clamp(2.5rem, 7vw, 4rem);      /* el numeral de yarda */
+  --text-headline: clamp(1.75rem, 4vw, 2.5rem);
+  --num-mega: clamp(2rem, 5vw, 3rem);         /* la cifra protagonista */
+  --num-big: 1.75rem;
+
+  /* --- CAMPO -------------------------------------------------------------
+     El tema claro es «día de partido»: papel cálido, no blanco de oficina. */
+  --field: #ffffff;
+  --field-raised: #f4f6f3;
+  --field-sunken: #eceee9;
+  --chalk: #14181a;
+  --chalk-dim: #5b6472;
+  --yard-line: #dfe3dd;
+  --live: #9a6b00;        /* ámbar legible sobre claro */
+  --live-ink: #ffffff;
+  --live-field: #fff8e6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Noche. El verde está en el lienzo, no en el acento: por eso no se lee
+       como «app oscura con acento verde», que es el sitio al que llega todo el
+       mundo. */
+    --field: #0B1210;
+    --field-raised: #131C17;
+    --field-sunken: #070C09;
+    --chalk: #EDF1EC;
+    --chalk-dim: #93A099;
+    --yard-line: #24302A;
+    --live: #E8B923;
+    --live-ink: #14181a;
+    --live-field: #1F1B0C;
+  }
+}
+
+/* =============================================================================
+   TIPOGRAFÍA APLICADA
+   ========================================================================== */
+
+html, body { font-family: var(--face-body); }
+
+/* La condensada, como utilidad. Se aplica a lo que es dato o titular, nunca a
+   la prosa: a 78 de anchura un párrafo largo se lee peor, y este sitio tiene
+   párrafos largos a propósito. */
+.condensed, .rank-numeral, .stat-hero .value, .matchup .abbr, .tier-divider,
+h1, h2, .player-row .nm, .num-mega {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" var(--wdth-condensed);
+}
+
+.tabular, .rank-numeral, .stat-hero .value, .num-mega, table td, table th {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: var(--num-features);
+}
+
+/* =============================================================================
+   MARCA DE EQUIPO
+   -----------------------------------------------------------------------------
+   Tres letras y un color. No hay escudo y no lo va a haber: es marca registrada
+   del club, la CSP sólo permite imágenes propias, y traerlo añadiría un segundo
+   destino externo. La abreviatura en condensada pesada sobre el color del
+   equipo se reconoce igual de rápido a tamaño de fila, que es donde se usa.
+   ========================================================================== */
+
+/* Cualquier elemento que reciba `--team-light`/`--team-dark` resuelve `--team`.
+   La primera versión sólo lo hacía en `.team-mark` y `.player-row`, así que las
+   filas `.pick` del war room llevaban el color inline y pintaban el rail gris:
+   la identidad faltaba justo donde el diseño la prometía, sin fallar nada. Se
+   vio en la captura, no en el build. */
+.team-mark, .player-row, .pick { --team: var(--team-light, var(--chalk-dim)); }
+@media (prefers-color-scheme: dark) {
+  .team-mark, .player-row, .pick { --team: var(--team-dark, var(--chalk-dim)); }
+}
+.matchup { --away-team: var(--away-light, var(--yard-line));
+           --home-team: var(--home-light, var(--yard-line)); }
+@media (prefers-color-scheme: dark) {
+  .matchup { --away-team: var(--away-dark, var(--yard-line));
+             --home-team: var(--home-dark, var(--yard-line)); }
+}
+
+.team-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 70;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--team);
+  font-size: var(--text-dense);
+  line-height: 1;
+  min-width: 2.4rem;
+}
+.team-mark--solid {
+  background: var(--team);
+  color: var(--field);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  min-width: 2.9rem;
+}
+
+/* El rail: la firma del sistema. Una barra del color del equipo en el canto de
+   la fila. Es el canto de la ficha de un draft board físico y el faldón de una
+   retransmisión, y es lo que hace que 250 filas iguales dejen de serlo. */
+.rail {
+  border-left: 3px solid var(--team, var(--yard-line));
+  padding-left: var(--space-3);
+}
+
+/* =============================================================================
+   NUMERAL DE RANGO
+   -----------------------------------------------------------------------------
+   El numeral pintado en el césped: condensado, pesado, y en el color del propio
+   campo con un borde — presente sin gritar. Es estructura, no decoración: dice
+   dónde estás en la lista sin competir con el nombre del jugador.
+   ========================================================================== */
+
+.rank-numeral {
+  font-weight: 700;
+  font-variation-settings: "wdth" 68;
+  font-size: var(--num-big);
+  line-height: 1;
+  color: var(--chalk-dim);
+  min-width: 2ch;
+  text-align: right;
+  flex-shrink: 0;
+}
+.rank-numeral--hero {
+  font-size: var(--text-hero);
+  color: var(--live);
+}
+
+/* =============================================================================
+   CIFRA PROTAGONISTA
+   ========================================================================== */
+
+.stat-hero { display: flex; flex-direction: column; gap: var(--space-0); }
+.stat-hero .label {
+  font-size: var(--text-micro); text-transform: uppercase;
+  letter-spacing: var(--tracking-caps); color: var(--chalk-dim);
+  font-weight: var(--weight-semibold);
+}
+.stat-hero .value {
+  font-size: var(--num-mega); font-weight: 700; line-height: 1;
+  color: var(--chalk);
+}
+/* `.sub` y no `.note`: `.note` ya es la ficha de prensa de /research y lleva
+   borde. Dos componentes distintos con la misma clase es un choque silencioso —
+   se vio en la primera captura, no en el build. */
+.stat-hero .sub { font-size: var(--text-micro); color: var(--chalk-dim); }
+
+/* =============================================================================
+   BANDA DE SECCIÓN
+   -----------------------------------------------------------------------------
+   Sustituye a la tarjeta. Agrupa por FONDO y por aire, sin dibujar un rectángulo
+   alrededor de todo. Sangra a todo el ancho del viewport para que el bloque se
+   lea como una franja del campo y no como otra caja dentro de la caja anterior.
+   ========================================================================== */
+
+.band {
+  background: var(--field-raised);
+  margin-inline: calc(50% - 50vw);
+  /* `.shell` mide 62rem con 24px de padding interno, así que su texto empieza
+     en (100vw − 62rem)/2 + 24px. Sin sumar ese padding la banda queda 24px
+     desalineada respecto al párrafo de arriba, que se ve a simple vista. */
+  padding-inline: max(var(--space-5), calc(50vw - 31rem + var(--space-5)));
+  padding-block: var(--space-6);
+}
+.band--sunken { background: var(--field-sunken); }
+.band + .band { margin-top: 0; }
+
+/* =============================================================================
+   MOVIMIENTO
+   -----------------------------------------------------------------------------
+   Poco y con motivo. Entrada escalonada de las primeras filas —el board se
+   «reparte» como cartas— y nada más. Sin animación de adorno.
+   ========================================================================== */
+
+@keyframes deal {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.deal > * { animation: deal 260ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards; }
+.deal > *:nth-child(1) { animation-delay: 0ms; }
+.deal > *:nth-child(2) { animation-delay: 30ms; }
+.deal > *:nth-child(3) { animation-delay: 60ms; }
+.deal > *:nth-child(4) { animation-delay: 90ms; }
+.deal > *:nth-child(5) { animation-delay: 120ms; }
+.deal > *:nth-child(n + 6) { animation-delay: 150ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .deal > * { animation: none; }
+}
+
+/* =============================================================================
+   PUENTE CON LOS TOKENS EXISTENTES
+   -----------------------------------------------------------------------------
+   Los seis tokens de la Fase 1 (`--bg`, `--fg`, `--muted`, `--line`,
+   `--surface`) los usan las ocho páginas. En vez de reescribir 985 líneas de CSS
+   se REDIRIGEN a la paleta de campo: el sitio entero adopta el lienzo nuevo de
+   golpe y sin tocar ni una regla existente.
+
+   Esto tiene que ir DESPUÉS de `globals.css` en el orden de importación. Si se
+   invierte, gana el valor viejo y el cambio no se ve — sin fallar nada, que es
+   la peor forma de romperse.
+   ========================================================================== */
+
+:root {
+  --bg: var(--field);
+  --fg: var(--chalk);
+  --muted: var(--chalk-dim);
+  --line: var(--yard-line);
+  --surface: var(--field-raised);
+  --surface-0: var(--field);
+  --surface-1: var(--field-raised);
+  --warn-bg: var(--live-field);
+  --warn-line: var(--live);
+}
+
+/* =============================================================================
+   MATCHUP
+   -----------------------------------------------------------------------------
+   Un partido NO es una fila de tabla. La composición es la de una retransmisión:
+   visitante a la izquierda, local a la derecha, el dato del mercado en el eje
+   central, y el color de cada equipo en su lado. Se lee de un vistazo quién
+   juega contra quién, que es la pregunta que una fila de hoja de cálculo
+   («NE | SEA | 3.5 | 3.63») obliga a reconstruir mentalmente.
+   ========================================================================== */
+
+.matchups { display: grid; gap: var(--space-2); }
+@media (min-width: 60rem) {
+  .matchups { grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+}
+
+.matchup {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-3);
+  background: var(--field-raised);
+  border-radius: var(--radius-md);
+  /* Sin borde. El fondo ya agrupa; añadir un contorno es la caja dentro de la
+     caja que este rediseño viene a quitar. */
+  position: relative;
+  overflow: hidden;
+}
+/* Los dos colores de equipo entran por los cantos, no por el fondo: teñir la
+   tarjeta entera de dos colores es el arcoíris que hay que evitar. */
+.matchup::before, .matchup::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 3px;
+}
+.matchup::before { left: 0; background: var(--away-team, var(--yard-line)); }
+.matchup::after { right: 0; background: var(--home-team, var(--yard-line)); }
+
+.matchup .side { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+.matchup .side--home { align-items: flex-end; text-align: right; }
+.matchup .abbr {
+  font-weight: 700; font-size: var(--num-big); line-height: 1;
+  font-variation-settings: "wdth" 70;
+  color: var(--chalk);
+}
+.matchup .city {
+  font-size: var(--text-micro); color: var(--chalk-dim);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+}
+.matchup .axis {
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-0);
+  padding-inline: var(--space-2);
+}
+.matchup .axis .at {
+  font-size: var(--text-micro); color: var(--chalk-dim);
+  text-transform: uppercase; letter-spacing: var(--tracking-caps);
+}
+.matchup .axis .line {
+  font-family: var(--face-display); font-variation-settings: "wdth" 78;
+  font-weight: 700; font-size: var(--text-body); color: var(--chalk);
+  font-variant-numeric: tabular-nums;
+}
+.matchup .axis .total { font-size: var(--text-micro); color: var(--chalk-dim); }
+
+/* La barra de probabilidad: quién está favorito, en un solo trazo. Sustituye a
+   leer «61.4%» y compararlo con «38.6%» en dos celdas distintas. */
+.matchup .odds { grid-column: 1 / -1; display: flex; align-items: center; gap: var(--space-2); }
+.matchup .odds .track {
+  flex: 1; height: 4px; border-radius: 2px; overflow: hidden;
+  background: var(--home-team, var(--yard-line));
+  display: flex;
+}
+.matchup .odds .fill { background: var(--away-team, var(--chalk-dim)); height: 100%; }
+.matchup .odds .pct {
+  font-size: var(--text-micro); color: var(--chalk-dim);
+  font-variant-numeric: tabular-nums; min-width: 3.2rem;
+}
+.matchup .odds .pct--home { text-align: right; }
+
+/* =============================================================================
+   FILA DE JUGADOR
+   -----------------------------------------------------------------------------
+   Una familia, tres densidades. La compacta es la del board; la estándar añade
+   la señal de decisión; la expandida es la del jugador que estás mirando.
+   Comparten rail, numeral y jerarquía, así que se reconocen como la misma cosa.
+   ========================================================================== */
+
+.player-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid var(--team);
+  background: var(--field);
+}
+.player-row + .player-row { border-top: 1px solid var(--yard-line); }
+.player-row .who { min-width: 0; }
+.player-row .nm {
+  display: block; font-weight: 650; font-size: var(--text-body);
+  line-height: var(--leading-tight); color: var(--chalk);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.player-row .meta {
+  display: flex; align-items: center; gap: var(--gap-chip);
+  font-size: var(--text-micro); color: var(--chalk-dim);
+}
+.player-row .signal {
+  font-family: var(--face-display); font-variation-settings: "wdth" 78;
+  font-weight: 700; font-size: var(--num-lead); line-height: 1;
+  color: var(--chalk); font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.player-row .signal small {
+  display: block; font-size: var(--text-micro); font-weight: 400;
+  color: var(--chalk-dim); font-variation-settings: "wdth" 100;
+}
+
+/* El que está en el reloj. Es la única fila con el ámbar, y por eso funciona. */
+.player-row--onclock {
+  background: var(--live-field);
+  padding-block: var(--space-4);
+  align-items: start;
+}
+.player-row--onclock .nm { font-size: var(--text-lead); }
+
+/* =============================================================================
+   CORTE DE TIER
+   -----------------------------------------------------------------------------
+   El acantilado tiene que verse, no leerse. Una línea a todo el ancho con la
+   etiqueta encima del hueco: si el jugador que quieres es el último de su tier,
+   se ve sin buscarlo.
+   ========================================================================== */
+
+.tier-divider {
+  display: flex; align-items: center; gap: var(--space-3);
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: var(--text-micro); font-weight: 700;
+  text-transform: uppercase; letter-spacing: var(--tracking-caps);
+  color: var(--chalk-dim);
+}
+.tier-divider::after {
+  content: ""; flex: 1; height: 1px; background: var(--yard-line);
+}
+.tier-divider .cliff { color: var(--live); }
+
+/* =============================================================================
+   EYEBROW Y FOCO
+   ========================================================================== */
+
+.eyebrow {
+  font-size: var(--text-micro); text-transform: uppercase;
+  letter-spacing: var(--tracking-caps); font-weight: 700;
+  color: var(--chalk-dim); margin: 0 0 var(--space-1);
+}
+
+/* El partido destacado. Es la única composición grande de la página: dos
+   columnas en escritorio, con las cifras a tamaño protagonista al lado del
+   propio partido. */
+.spotlight { margin-block: var(--space-6); }
+.spotlight-head { margin-bottom: var(--space-4); }
+.spotlight-head .caption { max-width: 46ch; margin: 0; }
+.spotlight-body { display: grid; gap: var(--space-4); }
+@media (min-width: 48rem) {
+  .spotlight-body { grid-template-columns: 1.4fr 1fr; align-items: center; }
+}
+.spotlight-body .matchup {
+  background: var(--field); padding: var(--space-5) var(--space-4);
+  /* Con el ancho completo, los dos equipos quedan a 900px y el enfrentamiento
+     deja de leerse como tal. La tensión del «versus» necesita proximidad. */
+  max-width: 34rem;
+}
+.spotlight-body .matchup .abbr { font-size: var(--text-headline); }
+.spotlight-stats { display: flex; flex-wrap: wrap; gap: var(--space-6); align-content: center; }
+
+/* =============================================================================
+   CABECERA
+   -----------------------------------------------------------------------------
+   Era una fila de enlaces grises: el elemento menos deportivo del producto, y
+   está en las ocho páginas. Ahora es un faldón de retransmisión — versales
+   condensadas, apretadas, sobre una franja hundida — y la marca es un wordmark,
+   no un `<span>` en negrita.
+
+   Sin estado activo: sacarlo exige conocer la ruta, y en el App Router eso
+   obliga a un componente de cliente en el layout, o sea JavaScript en las ocho
+   páginas para resaltar un enlace que el `<h1>` de debajo ya nombra. La decisión
+   es la misma que se tomó en la Fase 1 y sigue valiendo.
+   ========================================================================== */
+
+nav.top {
+  background: var(--field-sunken);
+  border-bottom: 1px solid var(--yard-line);
+  margin-inline: calc(50% - 50vw);
+  padding-inline: max(var(--space-5), calc(50vw - 31rem + var(--space-5)));
+  gap: var(--space-4);
+}
+nav.top .brand {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 70;
+  font-weight: 700; font-size: var(--text-lead);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--chalk);
+}
+nav.top a {
+  font-family: var(--face-display);
+  font-variation-settings: "wdth" 82;
+  font-size: var(--text-dense); font-weight: var(--weight-semibold);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--chalk-dim); text-decoration: none;
+}
+nav.top a:hover { color: var(--chalk); }
+/* El foco tiene que seguir viéndose: la cabecera es la primera parada del
+   tabulador y quitarle el contorno rompe la navegación por teclado. */
+nav.top a:focus-visible { outline: 2px solid var(--live); outline-offset: 3px; }
+
+/* =============================================================================
+   TITULARES
+   -----------------------------------------------------------------------------
+   El h1 se queda a 30px con la escala anterior, que es tamaño de documento. En
+   un producto de deporte el titular de pantalla es el que ancla la jerarquía.
+   ========================================================================== */
+
+h1 {
+  font-size: var(--text-headline);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-block: var(--space-2) var(--space-3);
+}
+h2 { font-variation-settings: "wdth" 82; letter-spacing: -0.005em; }
+
+/* =============================================================================
+   WAR ROOM
+   -----------------------------------------------------------------------------
+   El problema medido de la versión anterior: 793px de cromo antes de la primera
+   sugerencia en un móvil de 390. Contadores, instrucciones, un desplegable de
+   Sleeper y un buscador por delante de lo único que se mira con el reloj
+   corriendo. Aquí la decisión va PRIMERO y las herramientas después.
+
+   El ámbar aparece una sola vez en toda la pantalla: en el jugador que toca.
+   Ese es el motivo de que se vea sin buscarlo.
+   ========================================================================== */
+
+.onclock {
+  background: var(--live-field);
+  border-left: 4px solid var(--team, var(--live));
+  padding: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.onclock-body {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+.onclock-name {
+  font-family: var(--face-display); font-variation-settings: "wdth" 80;
+  font-size: var(--text-headline); font-weight: 700; line-height: 1;
+  margin: 0; color: var(--chalk);
+}
+.onclock-meta {
+  display: flex; align-items: center; flex-wrap: wrap; gap: var(--gap-chip);
+  margin: var(--space-2) 0 0; font-size: var(--text-micro); color: var(--chalk-dim);
+}
+.onclock-signal { text-align: right; }
+.onclock-signal .value {
+  display: block; font-family: var(--face-display);
+  font-variation-settings: "wdth" 74; font-weight: 700;
+  font-size: var(--num-mega); line-height: 1; color: var(--chalk);
+  font-variant-numeric: tabular-nums;
+}
+.onclock-signal .label {
+  font-size: var(--text-micro); text-transform: uppercase;
+  letter-spacing: var(--tracking-caps); color: var(--chalk-dim);
+}
+.onclock-wait {
+  margin: var(--space-3) 0 0; font-size: var(--text-dense);
+  color: var(--chalk); font-weight: var(--weight-semibold);
+}
+.onclock-actions { display: flex; gap: var(--space-2); margin-top: var(--space-4); }
+/* 44px de alto mínimo. El fallo que encontró el skill de UI en la versión
+   anterior fue justo éste: dos botones de 35x29 que hacen cosas opuestas, y
+   fallar el toque no molestaba — corrompía el estado del draft. */
+.act {
+  flex: 1; min-height: 44px; padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md); border: 1px solid transparent;
+  font-family: var(--face-display); font-variation-settings: "wdth" 88;
+  font-weight: var(--weight-semibold); font-size: var(--text-dense);
+  cursor: pointer;
+}
+.act--mine { background: var(--live); color: var(--live-ink); }
+.act--gone {
+  background: transparent; color: var(--chalk); border-color: var(--yard-line);
+}
+.act:focus-visible { outline: 2px solid var(--chalk); outline-offset: 2px; }
+
+.next-h { margin-bottom: var(--space-2); }
+
+/* La cola: el mismo rail de equipo, densidad de fila. */
+.picks .pick { border-left: 3px solid var(--team, var(--yard-line)); padding-left: var(--space-3); }
+.pick-vor {
+  font-family: var(--face-display); font-variation-settings: "wdth" 78;
+  font-weight: 700; font-size: var(--num-lead); line-height: 1;
+  color: var(--chalk); font-variant-numeric: tabular-nums; text-align: right;
+}
+.pick-vor small {
+  display: block; font-size: var(--text-micro); font-weight: 400;
+  font-variation-settings: "wdth" 100; color: var(--chalk-dim);
+}
+
+/* Las herramientas, después de la decisión y visualmente en segundo plano. */
+.draft-tools {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--yard-line);
+}
+
+/* =============================================================================
+   AJUSTES QUE CORRIGEN LO QUE SE VIO EN LAS CAPTURAS
+   -----------------------------------------------------------------------------
+   Ninguno sale de leer el CSS: los cinco se vieron mirando la pantalla a 390.
+   ========================================================================== */
+
+/* 1. La navegación ocupaba TRES filas y 140px en móvil, antes de cualquier
+      contenido. Pasa a una tira que se desplaza en horizontal: una fila, 44px,
+      y los ocho destinos siguen alcanzables. */
+@media (max-width: 47.99rem) {
+  nav.top {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-block: var(--space-2);
+    margin-bottom: var(--space-4);
+    align-items: center;
+  }
+  nav.top::-webkit-scrollbar { display: none; }
+  nav.top .brand { margin-right: var(--space-3); flex-shrink: 0; }
+  nav.top a { white-space: nowrap; flex-shrink: 0; padding-block: var(--space-2); }
+}
+
+/* 2. El war room estaba DENTRO de una tarjeta con borde, y la decisión dentro
+      de otra: tarjeta en tarjeta, que es justo lo que hay que quitar. El bloque
+      ya está agrupado por el fondo del jugador en el reloj. */
+.draft { border: none; padding: 0; }
+
+/* 3. El nombre se partía en dos líneas porque la columna del VOR le comía el
+      ancho. La cifra no necesita más de lo que ocupa. */
+.onclock-body { grid-template-columns: auto minmax(0, 1fr) max-content; }
+.onclock-name { text-wrap: balance; }
+
+/* 4. Los botones de la cola seguían en el azul viejo, compitiendo con el ámbar
+      de la decisión. En una lista, la acción es secundaria: el protagonista es
+      el jugador. */
+.pick-actions button {
+  min-height: 44px; min-width: 44px;
+  background: transparent; color: var(--chalk);
+  border: 1px solid var(--yard-line); border-radius: var(--radius-md);
+  font-family: var(--face-display); font-variation-settings: "wdth" 88;
+  font-size: var(--text-micro); font-weight: var(--weight-semibold);
+}
+.pick-actions button:hover { border-color: var(--chalk-dim); }
+.pick-actions button.ghost { color: var(--chalk-dim); }
+
+/* 5. Las pestañas medían 36px de alto y «Risk» 33 de ancho, por debajo del
+      mínimo táctil de 44. Aquí un fallo de toque sólo cambia de vista —no
+      corrompe el draft como pasaba con Mine/Gone— pero sigue siendo un fallo. */
+.view-tab { min-height: 44px; padding-inline: var(--space-2); }
+
+/* Las pestañas de posición seguían en el azul del sistema anterior: sobre el
+   campo era lo más ruidoso de la pantalla, por encima del ámbar de la decisión.
+   El seleccionado se marca con la tiza, no con un color de marca. */
+.pos-option {
+  font-family: var(--face-display); font-variation-settings: "wdth" 84;
+  letter-spacing: 0.04em; font-weight: var(--weight-semibold);
+}
+.pos-option[aria-pressed="true"] { background: var(--chalk); color: var(--field); }
+
+/* A 1440 la fila de sugerencia se estiraba a todo el ancho y dejaba un vacío
+   enorme entre el nombre y la cifra. Una lista de decisión se lee mejor
+   estrecha: el ojo no tiene que cruzar la pantalla. */
+@media (min-width: 60rem) {
+  .picks, .onclock { max-width: 46rem; }
+}
+
+/* Los dos últimos objetivos táctiles por debajo del mínimo, medidos con
+   `clipping.mjs`: «RB» y «TE» quedaban en 43 y 42px de ancho porque su texto es
+   más corto, y el botón de conectar Sleeper en 34 de alto. */
+.pos-option { min-width: 44px; }
+button.pick--mine { min-height: 44px; }

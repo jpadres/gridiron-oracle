@@ -31,6 +31,26 @@ const PAGES = ["/", "/modelo", "/validacion", "/predicciones",
                "/fantasy", "/fantasy/semanal", "/survivor", "/research"];
 const WIDTHS = [390, 768, 1440];
 
+
+// Un `next-server` zombi de una ejecución anterior sigue escuchando en el
+// puerto y sirve un BUILD VIEJO. La herramienta lo encuentra respondiendo, lo da
+// por bueno, y falla contra una página que ya no existe — que es exactamente el
+// falso fallo que costó una ronda de diagnóstico aquí. Mejor reventar y decirlo.
+async function assertPortFree(base) {
+  try {
+    await fetch(base, { signal: AbortSignal.timeout(1500) });
+  } catch {
+    return; // nadie escucha: lo normal
+  }
+  throw new Error(
+    `Ya hay algo sirviendo en ${base}. Es un servidor zombi de otra ejecución y ` +
+    `sirve un build viejo. Ciérralo antes de medir:\n` +
+    `  ps -eo pid,args --no-headers | grep "[n]ext-server" | awk '{print $1}' | xargs -r kill -9`
+  );
+}
+
+await assertPortFree(BASE);
+
 const server = spawn("npx", ["next", "start", "-p", String(PORT)],
                      { cwd: WEB, stdio: "ignore", detached: true });
 for (let i = 0; i < 60; i += 1) {

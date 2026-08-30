@@ -1,20 +1,11 @@
 import { model, num, pct } from "../../data/model.js";
 import { Callout, NoDataYet, Table } from "../ui.jsx";
+import { MatchupCard, StatHero, TeamMark } from "../sports.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — Predictions",
   description: "This week's predictions and the bets that clear the value threshold.",
 };
-
-const GAME_COLUMNS = [
-  { key: "away_team", label: "Away" },
-  { key: "home_team", label: "Home" },
-  { key: "spread_line", label: "Line", format: (v) => num(v, 1) },
-  { key: "pred_margin", label: "Margin", format: (v) => num(v) },
-  { key: "pred_total", label: "Total", format: (v) => num(v, 1) },
-  { key: "home_win_prob", label: "P(home)", format: (v) => pct(v) },
-  { key: "edge_vs_line", label: "Diff", format: (v) => num(v) },
-];
 
 const BET_COLUMNS = [
   { key: "matchup", label: "Game" },
@@ -46,7 +37,7 @@ const BET_COLUMNS = [
 ];
 
 const RATING_COLUMNS = [
-  { key: "team", label: "Team" },
+  { key: "team", label: "Team", format: (v) => <TeamMark abbr={v} solid /> },
   { key: "elo", label: "Elo", format: (v) => num(v, 0) },
   { key: "off_epa", label: "Offense", format: (v) => num(v, 3) },
   { key: "def_epa", label: "Defense", format: (v) => num(v, 3) },
@@ -68,18 +59,58 @@ export default function Predicciones() {
 
   const bets = model.bets ?? [];
 
+  // El partido con más desacuerdo entre el modelo y la línea. Es el que se
+  // destaca arriba — y el copy dice explícitamente que destacarlo NO es una
+  // recomendación, porque medido sobre 3.736 apuestas el acierto no crece con
+  // la discrepancia. Es el partido más interesante de mirar, no el mejor.
+  const widest = [...predictions].sort(
+    (a, b) => Math.abs(b.edge_vs_line ?? 0) - Math.abs(a.edge_vs_line ?? 0)
+  )[0];
+
   return (
     <>
-      <h1>
-        Predictions — {week.season}, week {week.week}
-      </h1>
+      <p className="eyebrow">Week {week.week} · {week.season}</p>
+      <h1>The slate</h1>
       <p className="lede">
-        <strong>Margin</strong> is the production prediction, anchored to the market.{" "}
-        <strong>Free margin</strong> is the standalone model, which never looks at the line.
-        Comparing them shows how far the on-field signal is drifting from consensus.
+        Sixteen games, the model&rsquo;s number against the market&rsquo;s. The bar under each
+        matchup is the model&rsquo;s win probability — not the market&rsquo;s, and not a
+        recommendation.
       </p>
 
-      <Table columns={GAME_COLUMNS} rows={predictions} />
+      {widest ? (
+        <section className="band spotlight" aria-label="Widest disagreement">
+          <div className="spotlight-head">
+            <p className="eyebrow">Widest disagreement this week</p>
+            <p className="caption">
+              Furthest the model sits from the line. That makes it the most interesting game
+              to look at — <strong>not the best bet</strong>. Accuracy does not rise with
+              disagreement.
+            </p>
+          </div>
+          <div className="spotlight-body">
+            <MatchupCard game={widest} />
+            <div className="spotlight-stats">
+              <StatHero
+                label="Model margin"
+                value={num(widest.pred_margin)}
+                note={`Line ${num(widest.spread_line, 1)}`}
+              />
+              <StatHero
+                label="Gap"
+                value={`${num(Math.abs(widest.edge_vs_line ?? 0), 1)} pts`}
+                note="Model minus line"
+              />
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      <h2>Every game</h2>
+      <div className="matchups deal">
+        {predictions.map((game) => (
+          <MatchupCard key={game.game_id} game={game} />
+        ))}
+      </div>
 
       <h2>Value bets</h2>
       <Callout title="Read this table alongside the overview, not instead of it">

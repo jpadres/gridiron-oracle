@@ -191,9 +191,9 @@ export function VorCurve({ board, maxRank = 36 }) {
         ))}
       </svg>
       <figcaption className="caption">
-        Cuanto más vertical cae una curva, más cara sale esperar en esa posición. Donde
-        cruza el nivel de reemplazo, el siguiente jugador ya no aporta nada sobre lo que
-        hay libre.
+        The steeper a curve falls, the more expensive waiting is at that position. Where
+        it crosses replacement level, the next player adds nothing over what is already
+        free.
       </figcaption>
     </figure>
   );
@@ -353,7 +353,7 @@ export function DeltaBars({ rows, limit = 12 }) {
               stroke="var(--axis)" strokeWidth="1.5" />
         <text x={zero} y={height - 10} textAnchor="middle"
               fill="var(--muted)" fontSize="11" fontFamily={FONT}>
-          puntos frente a su media de los últimos 6
+          points vs. his last-6 average
         </text>
       </svg>
     </figure>

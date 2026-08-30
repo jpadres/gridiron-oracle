@@ -25,8 +25,11 @@ const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 // «total», que son idénticas en inglés.
 const FUNCIONALES = /\b(el|la|los|las|un|una|unos|unas|del|al|que|con|para|por|como|pero|sin|sobre|entre|cuando|donde|porque|más|menos|muy|todo|toda|todos|cada|otro|otra|este|esta|estos|estas|ese|esa|aquí|allí|hay|son|está|están|fue|ser|tiene|tienen|puede|pueden|hace|hacen|desde|hasta|aunque|también|sólo|solo|así|ya|si|no se|se ha|lo que)\b/i;
 
+// `model.b64.js` se salta aquí a propósito: es un bloque de base64 opaco, así
+// que en esta pasada sólo puede dar falsos positivos. Lo audita de verdad la
+// segunda pasada, que lo descomprime y clasifica ruta por ruta.
 const ARCHIVOS = globSync("app/**/*.jsx", { cwd: WEB })
-  .concat(globSync("data/*.js", { cwd: WEB }));
+  .concat(globSync("data/*.js", { cwd: WEB }).filter((f) => !f.endsWith("model.b64.js")));
 if (ARCHIVOS.length === 0) {
   // Sin ficheros no hay auditoría: reventar es la única respuesta honesta.
   throw new Error(`No se encontró ningún fichero bajo ${WEB}. Nada que auditar.`);
@@ -40,19 +43,44 @@ for (const rel of ARCHIVOS) {
   lineas.forEach((linea, i) => {
     const limpia = linea.trim();
     // Comentarios: fuera de scope por decisión del proyecto (van en español).
-    if (limpia.startsWith("/*") || limpia.startsWith("/**")) enComentario = true;
+    // `{/*` además de `/*`: los comentarios JSX abren así, y sus líneas de
+    // continuación no empiezan por `*`. Sin esto salían veinte falsos positivos
+    // de prosa española que es exactamente lo que el proyecto quiere en los
+    // comentarios — y un auditor que grita por lo correcto acaba desactivado.
+    if (limpia.startsWith("/*") || limpia.startsWith("{/*")) enComentario = true;
     const eraComentario = enComentario;
-    if (enComentario && limpia.includes("*/")) enComentario = false;
+    if (enComentario && (limpia.includes("*/}") || limpia.includes("*/"))) enComentario = false;
     if (eraComentario || limpia.startsWith("*") || limpia.startsWith("//")) return;
     if (limpia.startsWith("import ") || limpia.startsWith("export const metadata")) return;
 
     // Sólo el texto que puede acabar en pantalla: contenido entre etiquetas,
     // cadenas literales y atributos que se leen (title, aria-label, alt...).
+    //
+    // El tercer patrón cubre el caso que se escapó: texto JSX suelto, repartido
+    // en varias líneas y con una expresión en medio —
+    //
+    //     Nadie disponible con «{query.trim()}». Si ya lo tachaste…
+    //
+    // El patrón `>…<` no lo ve porque la línea no empieza por `>` ni acaba en
+    // `<`, y el de comillas tampoco porque no hay comillas. Dos cadenas en
+    // español sobrevivieron así a la pasada de idioma, las dos en estados
+    // condicionales. Quitando las expresiones y las etiquetas queda la prosa.
+    const suelto = linea
+      .replace(/\{[^{}]*\}/g, " ")
+      .replace(/<[^<>]*>/g, " ")
+      .replace(/^[^>]*>/, "")
+      .trim();
     const candidatos = [
       ...linea.matchAll(/>([^<>{}]{4,})</g),
       ...linea.matchAll(/"([^"]{4,})"/g),
       ...linea.matchAll(/`([^`]{4,})`/g),
     ].map((m) => m[1]);
+    // Una clave de objeto (`otro: "Other"`) no es prosa: la clave está en
+    // español porque es dato del esquema, y el valor ya se auditó como cadena.
+    const esClaveDeObjeto = /^[\w$]+:\s*["'`]/.test(suelto);
+    if (suelto.length >= 8 && !/[=;(){}]/.test(suelto) && !esClaveDeObjeto) {
+      candidatos.push(suelto);
+    }
 
     for (const texto of candidatos) {
       if (!FUNCIONALES.test(texto)) continue;
@@ -124,6 +152,9 @@ const DATOS_PREFIJOS = [
   ".survivor.board[].plan[]", ".survivor.board[].team", ".survivor.plan[]",
   ".survivor.short_board[].opponent", ".survivor.short_board[].plan[]",
   ".survivor.short_board[].team", ".survivor.short_plan[]",
+  // Identidad de equipo: nombres propios, códigos de tres letras y hexadecimales.
+  // «New Orleans Saints» no se traduce, y #69BE28 tampoco.
+  ".teams.",
 ];
 // Las fichas de research repiten los campos de datos en `today`; el único que
 // escribimos nosotros (`label`) ya está declarado arriba como COPY.
