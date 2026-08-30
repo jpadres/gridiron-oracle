@@ -131,3 +131,47 @@ superflex que se comporta como una liga de un quarterback.
 
 Las once propiedades con umbral, **todas**. Una que falle deja
 `LEAGUE_SPECIFIC_VALUE` donde está.
+
+
+---
+
+# Extensión a ligas profundas (32 equipos) — resultado
+
+Se extendió el mismo experimento, **con los umbrales ya fijados arriba**, a 32
+equipos (el máximo con sentido: una franquicia por equipo NFL) con rosters
+reducidos y estándar, con y sin superflex. No se inventó ningún umbral nuevo.
+
+**18/20.** Fallan dos, las dos de magnitud y las dos en superflex a 32 equipos:
+
+| Propiedad | Umbral | 12 equipos | 32 equipos |
+|---|---|---|---|
+| El VOR del QB sube | ≥ +20 pts | +26,4 ✓ | **+10,5 ✗** |
+| Más QB en el top-25 | estrictamente | 1 → 4 ✓ | **1 → 1 ✗** |
+
+Lo que sí aguanta a 32 equipos: el reparto consume los 288 huecos exactos, el
+reemplazo se profundiza de forma monótona (QB33, RB97, WR97, TE33) y el rank del
+quarterback se dobla (QB33 → QB65, 1,97×).
+
+## El diagnóstico, porque el preregistro obligaba a investigar
+
+No es que el superflex importe menos en una liga profunda. Es que **el ancla de
+reemplazo cae donde la proyección ya es casi el prior**:
+
+| | bruto | encogido | se come |
+|---|---|---|---|
+| QB12 → QB24 | 48 pts | 27 pts | 43% |
+| QB33 → QB65 | 30 pts | 11 pts | **65%** |
+
+Y el orden ahí deja de ser información: el QB45 tiene **0,3 partidos ponderados**
+y una proyección bruta de 10 puntos, y sale **por encima** del QB65, que tiene
+7,1 partidos y un ritmo real de 164.
+
+## Consecuencia
+
+`LEAGUE_SPECIFIC_VALUE` se mantiene VALIDATED **hasta 14 equipos**, que es donde
+pasó las 16. Se añade `DEEP_LEAGUE_VALUE` en NOT_READY con este resultado, y la
+interfaz etiqueta las ligas más profundas como calculadas pero no validadas.
+
+Publicar más jugadores **no** lo arregla: no es un problema de pool sino del
+modelo de proyección. Arreglarlo sería encoger menos o excluir del ancla a quien
+no tenga muestra — dos cambios de modelo, cada uno con su propia validación.

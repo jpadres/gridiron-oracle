@@ -53,6 +53,10 @@ SUPERFLEX = ["QB", "RB", "RB", "WR", "WR", "WR", "TE", "FLEX", "SUPER_FLEX", "K"
 TWO_QB = ["QB", "QB", "RB", "RB", "WR", "WR", "WR", "TE", "FLEX", "K", "DEF"]
 TWO_WR = ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "K", "DEF"]
 THREE_FLEX = ["QB", "RB", "RB", "WR", "WR", "WR", "TE", "FLEX", "FLEX", "FLEX", "K", "DEF"]
+# Roster REDUCIDO, que es lo normal cuando hay 32 equipos: no hay talento NFL
+# para 32 plantillas grandes.
+MINI = ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "K", "DEF"]
+MINI_SF = [*MINI[:7], "SUPER_FLEX", *MINI[7:]]
 
 TE_PREMIUM_RULES = ScoringRules(reception_by_position={"TE": 1.5})
 SIX_POINT_TD = ScoringRules(passing_td=6.0)
@@ -135,8 +139,11 @@ def main() -> int:
     print("\n=== 6-7. más titulares y más equipos -> reemplazo más profundo ===")
     _monotonicity(player_weeks)
 
-    print("\n=== 8-10. SUPERFLEX (P0) ===")
-    _superflex(player_weeks)
+    print("\n=== 8-10. SUPERFLEX (P0), a 12 equipos ===")
+    _superflex(player_weeks, 12)
+
+    print("\n=== 8-10 bis. SUPERFLEX en una liga PROFUNDA de 32 ===")
+    _superflex(player_weeks, 32)
 
     print("\n=== 11-12. equivalencia con la línea base ===")
     _baseline(player_weeks)
@@ -191,7 +198,11 @@ def _demand(player_weeks: pd.DataFrame) -> None:
     worst_weights = 0
     ok = True
     for roster, teams in [(BASE, 10), (BASE, 12), (BASE, 14),
-                          (SUPERFLEX, 12), (TWO_QB, 12), (THREE_FLEX, 12), (TWO_WR, 12)]:
+                          (SUPERFLEX, 12), (TWO_QB, 12), (THREE_FLEX, 12), (TWO_WR, 12),
+                          # Ligas profundas: 32 equipos es el máximo con sentido,
+                          # una franquicia por equipo NFL. El reparto tiene que
+                          # cuadrar también ahí, y con roster reducido.
+                          (BASE, 32), (SUPERFLEX, 32), (MINI, 32), (MINI_SF, 32)]:
         context = roster_context(roster + BENCH, teams)
         _, _, consumed = greedy_replacement(points, context)
         # El modelo de pesos: la suma de sus rangos frente a los huecos reales.
@@ -248,16 +259,18 @@ def _monotonicity(player_weeks: pd.DataFrame) -> None:
 
     ranks: dict[int, dict[str, int]] = {}
     pts: dict[int, dict[str, float]] = {}
-    for teams in (10, 12, 14):
+    for teams in (10, 12, 14, 32):
         context = roster_context(BASE + BENCH, teams)
         replacement, rank, _ = greedy_replacement(points, context)
         ranks[teams], pts[teams] = rank, replacement
         print(f"    {teams} equipos: rank {rank}")
     deeper = all(
-        ranks[10][p] <= ranks[12][p] <= ranks[14][p] for p in FANTASY_POSITIONS
+        ranks[10][p] <= ranks[12][p] <= ranks[14][p] <= ranks[32][p]
+        for p in FANTASY_POSITIONS
     )
     cheaper = all(
-        pts[10][p] >= pts[12][p] >= pts[14][p] for p in FANTASY_POSITIONS
+        pts[10][p] >= pts[12][p] >= pts[14][p] >= pts[32][p]
+        for p in FANTASY_POSITIONS
     )
     check("más equipos -> reemplazo más profundo", deeper)
     check("más equipos -> reemplazo vale menos", cheaper)
@@ -270,12 +283,12 @@ def _monotonicity(player_weeks: pd.DataFrame) -> None:
           f"2WR {r2['WR']:.1f} -> 3WR {r3['WR']:.1f}")
 
 
-def _superflex(player_weeks: pd.DataFrame) -> None:
-    one, ctx_one = board_for(player_weeks, PPR, BASE, 12)
-    sf, ctx_sf = board_for(player_weeks, PPR, SUPERFLEX, 12)
+def _superflex(player_weeks: pd.DataFrame, teams: int = 12) -> None:
+    one, ctx_one = board_for(player_weeks, PPR, BASE, teams)
+    sf, ctx_sf = board_for(player_weeks, PPR, SUPERFLEX, teams)
 
     weighted_ratio = ctx_sf.replacement_rank("QB") / ctx_one.replacement_rank("QB")
-    check("pesos: el rank de reemplazo del QB se dobla exactamente",
+    check(f"[{teams} eq] pesos: el rank de reemplazo del QB se dobla exactamente",
           abs(weighted_ratio - 2.0) < 1e-9,
           f"{ctx_one.replacement_rank('QB')} -> {ctx_sf.replacement_rank('QB')}")
 
@@ -284,18 +297,18 @@ def _superflex(player_weeks: pd.DataFrame) -> None:
     _, rank_one, _ = greedy_replacement(points, ctx_one)
     _, rank_sf, _ = greedy_replacement(points, ctx_sf)
     greedy_ratio = rank_sf["QB"] / rank_one["QB"]
-    check("voraz: el rank de reemplazo del QB sube al menos 1,8x",
+    check(f"[{teams} eq] voraz: el rank de reemplazo del QB sube al menos 1,8x",
           greedy_ratio >= 1.8, f"QB{rank_one['QB']} -> QB{rank_sf['QB']} ({greedy_ratio:.2f}x)")
 
     merged = one.merge(sf[["player_id", "vor"]], on="player_id", suffixes=("", "_sf"))
     qb = merged[merged["position"] == "QB"].nsmallest(12, "position_rank")
     gain = float((qb["vor_sf"] - qb["vor"]).median())
-    check("el VOR del QB sube de forma material (mediana >= 20 pts)", gain >= 20.0,
+    check(f"[{teams} eq] el VOR del QB sube (mediana >= 20 pts)", gain >= 20.0,
           f"mediana +{gain:.1f} puntos entre los 12 primeros QB")
 
     qb_one = int((one.head(25)["position"] == "QB").sum())
     qb_sf = int((sf.head(25)["position"] == "QB").sum())
-    check("hay estrictamente más QB en el top-25 en superflex", qb_sf > qb_one,
+    check(f"[{teams} eq] hay estrictamente más QB en el top-25 en superflex", qb_sf > qb_one,
           f"1QB {qb_one} -> superflex {qb_sf}")
     print(f"    reemplazo QB: 1QB {one[one.position=='QB'].replacement_points.iloc[0]:.1f} pts, "
           f"SF {sf[sf.position=='QB'].replacement_points.iloc[0]:.1f} pts")
@@ -347,6 +360,10 @@ def _matrix(player_weeks: pd.DataFrame) -> None:
         ("14 superflex", PPR, SUPERFLEX, 14),
         ("12 2WR", PPR, TWO_WR, 12),
         ("12 3 flex", PPR, THREE_FLEX, 12),
+        ("32 ppr roster mini", PPR, MINI, 32),
+        ("32 ppr mini superflex", PPR, MINI_SF, 32),
+        ("32 ppr estandar", PPR, BASE, 32),
+        ("32 ppr superflex", PPR, SUPERFLEX, 32),
     ]
     header = f"    {'escenario':<26}{'t25':>5}{'t50':>5}  {'reparto top-25':<22}{'mayor salto':>28}"
     print(header)

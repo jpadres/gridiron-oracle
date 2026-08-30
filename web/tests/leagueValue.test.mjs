@@ -14,7 +14,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 
 import {
-  buildLeagueBoard, greedyReplacement, rosterContext,
+  VALIDATED_MAX_TEAMS, buildLeagueBoard, greedyReplacement, rosterContext, valueConfidence,
 } from "../app/fantasy/leagueValue.js";
 
 const PARITY = JSON.parse(
@@ -99,4 +99,25 @@ test("E18 · cero titulares en una posición no se convierte en el valor por def
   const context = rosterContext(["QB", "RB", "RB", "WR", "WR", "WR", "FLEX", "BN"], 12);
   assert.equal(context.supported, true);
   assert.equal(context.dedicated.TE, 0, "no se inventa un ala cerrada titular");
+});
+
+test("E18b · el valor no se afirma en ligas muy profundas", () => {
+  const reducido = ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "K", "DEF", "BN", "BN"];
+  for (const teams of [10, 12, 14]) {
+    assert.equal(valueConfidence(rosterContext(reducido, teams)), "VALIDATED", `${teams}`);
+  }
+  for (const teams of [16, 20, 32]) {
+    assert.equal(valueConfidence(rosterContext(reducido, teams)), "UNVALIDATED_DEPTH", `${teams}`);
+  }
+  assert.equal(VALIDATED_MAX_TEAMS, 14);
+});
+
+test("E18b · una liga de 32 sigue calculando: no se afirma, no se bloquea", () => {
+  // La distinción que importa. `UNVALIDATED_DEPTH` etiqueta; no vacía el board.
+  const roster = ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "K", "DEF", "BN", "BN"];
+  const context = rosterContext(roster, 32);
+  assert.equal(context.supported, true);
+  const { consumed, rank } = greedyReplacement(PARITY.points, context);
+  assert.equal(consumed, context.slots, "el reparto cuadra igual que a 12");
+  assert.ok(rank.QB > 30, `el reemplazo se profundiza: QB${rank.QB}`);
 });

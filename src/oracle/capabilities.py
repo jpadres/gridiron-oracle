@@ -386,7 +386,7 @@ REGISTRY: tuple[Capability, ...] = (
             "todos los TE y a nadie más (Δ exactamente 0 fuera de TE)"
         ),
         experiment_id="E18",
-        metric="16/16 propiedades con umbral; huecos titulares consumidos 100%",
+        metric="16/16 a 10-14 equipos; 18/20 al extender a 32",
         sample_size=861,
         limitations=(
             "Prueba que el CÁLCULO responde correctamente a las reglas. NO prueba "
@@ -406,6 +406,8 @@ REGISTRY: tuple[Capability, ...] = (
             "la posición corta en vez de dar un número.",
             "Sin pateadores, sin defensas y sin novatos: ninguno tiene componentes "
             "proyectados, así que no entran en la comparación entre posiciones.",
+            "VALIDADO HASTA 14 EQUIPOS. A 32 fallan las dos propiedades de "
+            "magnitud del superflex: ver DEEP_LEAGUE_VALUE.",
         ),
         last_validated="2026-08-30",
         model_version=MODEL_VERSION,
@@ -481,6 +483,36 @@ REGISTRY: tuple[Capability, ...] = (
             "un pick rehecho por el comisionado hay que volver a marcarlo.",
             "Lo heredado de la forma vieja va con `rosterSource: MIGRATED` y sin "
             "número de pick: no se inventa un historial que nadie guardó.",
+        ),
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
+    ),
+    Capability(
+        id="DEEP_LEAGUE_VALUE",
+        status=Status.NOT_READY,
+        evidence=(
+            "a 32 equipos la ESTRUCTURA responde bien —el reparto consume los "
+            "288 huecos exactos, el reemplazo se profundiza de forma monótona y "
+            "el rank del QB se dobla (QB33 -> QB65)— pero las dos propiedades de "
+            "MAGNITUD fallan: el VOR del quarterback en superflex sube +10,5 "
+            "puntos frente a los +20 preregistrados, y no entra ni un QB más en "
+            "el top-25. El diagnóstico es el ancla: entre el QB33 y el QB65 hay "
+            "30 puntos en bruto y 11 tras encoger, o sea que el encogimiento se "
+            "come el 65% de la diferencia"
+        ),
+        experiment_id="E18",
+        metric="18/20 al extender a 32 equipos; 2 fallos, los dos de magnitud",
+        sample_size=861,
+        limitations=(
+            "NO se arregla publicando más jugadores: no es un problema de pool "
+            "sino del modelo de proyección. A esa profundidad el QB45 tiene 0,3 "
+            "partidos ponderados y sale por encima del QB65, que tiene 7,1 y un "
+            "ritmo real de 164 puntos.",
+            "Arreglarlo sería encoger menos, o excluir del ancla a quien no tenga "
+            "muestra. Las dos cosas son cambios de modelo y exigen su propia "
+            "validación; no se han hecho.",
+            "El board SÍ se calcula en ligas profundas y responde a la estructura. "
+            "Lo que no se afirma es la magnitud del valor, y la interfaz lo dice.",
         ),
         last_validated="2026-08-30",
         model_version=MODEL_VERSION,

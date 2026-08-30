@@ -155,6 +155,27 @@ export function greedyReplacement(pointsByPosition, context) {
   return { replacement, rank, consumed, short };
 }
 
+/**
+ * Hasta dónde está VALIDADO el valor por liga. Espejo de `league.py`.
+ *
+ * E18 pasó sus 16 propiedades a 10, 12 y 14 equipos. A 32 fallaron dos, las dos
+ * de magnitud: el VOR del quarterback en superflex sube +10,5 puntos en vez de
+ * los +20 exigidos, y no entra ni un QB más en el top-25.
+ *
+ * No es que superflex importe menos en una liga profunda: es que el ancla de
+ * reemplazo cae donde la proyección ya es casi el prior. Entre el QB33 y el QB65
+ * hay 30 puntos en bruto y 11 tras encoger — el encogimiento se come el 65%.
+ *
+ * La ESTRUCTURA sigue respondiendo bien a 32 equipos (el reparto cuadra, el
+ * reemplazo se profundiza, el rank del QB se dobla). Lo que no se sostiene es la
+ * magnitud. Por eso esto no bloquea el board: lo etiqueta.
+ */
+export const VALIDATED_MAX_TEAMS = 14;
+
+export function valueConfidence(context) {
+  return (context?.teams ?? 0) <= VALIDATED_MAX_TEAMS ? "VALIDATED" : "UNVALIDATED_DEPTH";
+}
+
 /** Puesto del jugador de reemplazo de una posición, 1-indexado. */
 export function replacementRank(context, position) {
   const perTeam = context?.starters?.[position] ?? 0;

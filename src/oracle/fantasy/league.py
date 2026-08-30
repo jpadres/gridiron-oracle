@@ -301,3 +301,40 @@ def greedy_replacement(
         replacement[position] = float(pool[index])
         rank[position] = index + 1
     return replacement, rank, consumed
+
+
+# Hasta dónde está VALIDADO el valor por liga.
+#
+# E18 pasó sus 16 propiedades a 10, 12 y 14 equipos. Al extenderlo a 32 —el
+# máximo con sentido, una franquicia por equipo NFL— fallaron dos, y las dos son
+# de MAGNITUD, no de estructura:
+#
+#   - el VOR del quarterback en superflex sube +10,5 puntos, no los +20 exigidos
+#   - no entra ni un quarterback más en el top-25
+#
+# El diagnóstico no es que superflex importe menos en una liga profunda: es que
+# **el ancla de reemplazo cae donde la proyección ya es casi el prior**. Medido:
+# entre el QB33 y el QB65 hay 30 puntos en bruto y 11 después de encoger — el
+# encogimiento se come el 65%. A esa profundidad el QB45 tiene 0,3 partidos
+# ponderados y una proyección bruta de 10 puntos, y sale por encima del QB65 que
+# tiene 7,1 partidos y un ritmo real de 164. El orden ahí no es información.
+#
+# Lo que sigue siendo cierto a 32 equipos: el reparto consume exactamente los
+# huecos, el reemplazo se profundiza de forma monótona y el rank del QB se dobla.
+# La ESTRUCTURA responde bien; lo que no se sostiene es la magnitud del valor.
+#
+# Publicar más jugadores no lo arregla — no es un problema de pool, es del
+# modelo de proyección. Arreglarlo es no encoger tan fuerte, o excluir del ancla
+# a quien no tenga muestra, y las dos cosas exigen su propia validación.
+VALIDATED_MAX_TEAMS = 14
+
+
+def value_confidence(context: LeagueContext) -> str:
+    """¿Está validado el VALOR en una liga de este tamaño?
+
+    `VALIDATED` o `UNVALIDATED_DEPTH`. No es un cero/uno sobre si el número se
+    puede calcular —se puede— sino sobre si se ha comprobado que signifique algo.
+    Enseñar un VOR de liga profunda sin decir esto sería exactamente la clase de
+    número correcto de forma aparente que este proyecto existe para no publicar.
+    """
+    return "VALIDATED" if context.teams <= VALIDATED_MAX_TEAMS else "UNVALIDATED_DEPTH"

@@ -197,14 +197,19 @@ DEFAULT_ROSTER: tuple[str, ...] = (
 # Profundidad mínima publicada por posición.
 #
 # El payload se recortaba al top-250 por VOR **de la liga por defecto**, y eso
-# dejaba 28 quarterbacks. Una liga superflex de 14 equipos necesita el QB43 para
-# saber su nivel de reemplazo, así que el navegador no podía calcularla: se
-# quedaba sin pool justo en el formato donde el valor por liga más cambia.
+# dejaba 28 quarterbacks. El nivel de reemplazo de una liga profunda cae fuera
+# del pool, y entonces no es que salga peor: es que no sale.
 #
-# Los números son el rank de reemplazo MÁXIMO sobre el sobre soportado (hasta 14
-# equipos, 2 QB, 4 RB, 4 WR, 2 TE, 3 flex y 1 superflex) más margen. Medido, no
-# elegido: QB 43, RB 73, WR 69, TE 29.
-MIN_DEPTH: dict[str, int] = {"QB": 48, "RB": 78, "WR": 76, "TE": 34}
+# El sobre soportado llega a **32 equipos**, que es el máximo con sentido —una
+# franquicia por equipo NFL— y es el formato que se pidió. Los números son el
+# rank de reemplazo MÁXIMO medido sobre rosters reducidos y estándar de 32
+# equipos, con y sin superflex, más margen. Medido, no elegido:
+#
+#     QB 65   RB 97   WR 97   TE 33
+#
+# El superflex es lo que dispara el quarterback (QB33 -> QB65), así que se
+# publica para ese caso: cubre también las ligas de un solo QB.
+MIN_DEPTH: dict[str, int] = {"QB": 76, "RB": 112, "WR": 112, "TE": 44}
 BOARD_LIMIT = 250
 
 

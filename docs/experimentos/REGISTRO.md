@@ -30,9 +30,22 @@ Estados: **PASA** · **FALLA** · **NO CONCLUYENTE** · **RETIRADO**
 | E16 | El Draft Room manual registra picks sin perderlos ni filtrarlos | 27 escenarios × navegador real | — | fugas, duplicados, picks perdidos | **cero** en los 27 | 27/27, pick en 35-60 ms | **PASA** |
 | E17 | Board y Draft Room son un solo estado de draft | 10 unitarios + 19 en navegador | dos estados separados, uno por pantalla | picks divergentes, fugas, deshacer perdido | **21/21**, cero fugas | 21/21; E14 y E16 siguen verdes | **PASA** |
 | E18 | El valor por liga responde a las REGLAS de la liga, no sólo a su puntuación | 861 proyecciones × 13 configuraciones | el board publicado (12 equipos, PPR) | reemplazo, VOR, orden entre posiciones | **16/16** propiedades preregistradas | 16/16; superflex QB13→QB25 y +26,4 pts de VOR mediano | **PASA** |
+| E18b | Lo mismo, extendido a ligas PROFUNDAS (hasta 32 equipos) | 861 proyecciones × 17 configuraciones | E18 a 10-14 equipos | VOR del QB en superflex, reparto del top-25 | los mismos umbrales de E18 | **18/20**: la estructura aguanta, la magnitud no (+10,5 pts frente a +20) | **FALLA** (ancla dominada por el prior) |
 | E10b | Ese efecto es explotable contra el mercado | 457 partidos | total de cierre | residuo, IC95% | — | −2,22 aparente, **pero el clima es observado, no pronosticado** | **FALLA** (fuga) |
 
 ## Conocimiento negativo — cosas que NO funcionan
+
+00. **El valor por liga no se sostiene en ligas muy profundas.** A 32 equipos la
+    estructura responde bien —el reparto consume los 288 huecos exactos, el
+    reemplazo se profundiza y el rank del quarterback se dobla— pero la magnitud
+    no: el VOR del QB en superflex sube **+10,5 puntos** frente a los +20
+    preregistrados, y no entra ni un QB más en el top-25. La causa está medida y
+    no es el fútbol: entre el QB33 y el QB65 hay **30 puntos en bruto y 11 tras
+    encoger**, así que el encogimiento se come el 65%. A esa profundidad el QB45
+    tiene 0,3 partidos ponderados y una proyección bruta de 10 puntos, y aun así
+    sale por encima del QB65, que tiene 7,1 partidos y un ritmo real de 164.
+    **Publicar más jugadores no lo arregla**: es el modelo de proyección, no el
+    pool.
 
 0. **Un pase de touchdown de 6 puntos NO cambia el board.** Sube a todos los
    quarterbacks y sube su nivel de reemplazo exactamente igual (241 → 284

@@ -53,7 +53,9 @@ import {
   DRAFT_STATUS, agoLabel, mySlot, pickSchedule, picksUntilMe, syncState,
 } from "./draftSync.js";
 import { compilePoints, rulesFromSleeper } from "./scoring.js";
-import { buildLeagueBoard, rosterContext, setComponentOrder } from "./leagueValue.js";
+import {
+  buildLeagueBoard, rosterContext, setComponentOrder, valueConfidence,
+} from "./leagueValue.js";
 
 
 // El único destino externo de todo el sitio. La CSP no permite ningún otro, y
@@ -716,6 +718,14 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
                 : "published board · not yours"}
             </span>
           </span>
+          {leagueBoard && leagueFit.roster
+            && valueConfidence(leagueFit.roster) === "UNVALIDATED_DEPTH" ? (
+            <span className="ctx ctx--warn"
+                  title="E18 validated league-specific value at 10-14 teams. In a league this deep the replacement level lands where projections are mostly the positional prior — between QB33 and QB65 there are 30 raw points and 11 after shrinkage. The structure still responds correctly; the size of the value does not hold up. The board is computed, not validated at this depth.">
+              <span className="k">Depth</span>
+              <span className="v">{leagueFit.roster.teams} teams · value not validated</span>
+            </span>
+          ) : null}
           {leagueBoard?.short?.length ? (
             <span className="ctx ctx--warn"
                   title="This league's replacement level for those positions falls outside the published player pool, so their value cannot be computed. They are left out rather than given a number that would be wrong.">

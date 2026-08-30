@@ -111,3 +111,38 @@ def test_e18_una_posicion_agotada_no_produce_un_reemplazo_de_cero():
     context = roster_context(SUPERFLEX + BENCH, 14)
     replacement, _, _ = greedy_replacement({"QB": [300.0, 290.0, 280.0]}, context)
     assert replacement["QB"] == 280.0
+
+
+def test_e18b_el_valor_no_se_afirma_en_ligas_muy_profundas():
+    """La frontera está declarada y se respeta.
+
+    E18 pasó sus 16 propiedades a 10-14 equipos. A 32 fallan las dos de magnitud
+    del superflex, y el diagnóstico es que el ancla de reemplazo cae donde la
+    proyección ya es casi el prior. El board se sigue calculando; lo que no se
+    afirma es la magnitud, y eso tiene que ser comprobable.
+    """
+    from oracle.fantasy.league import VALIDATED_MAX_TEAMS, value_confidence
+
+    reducido = ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "K", "DEF"]
+    for teams in (10, 12, 14):
+        assert value_confidence(roster_context(reducido + BENCH, teams)) == "VALIDATED"
+    for teams in (16, 20, 32):
+        assert value_confidence(roster_context(reducido + BENCH, teams)) == "UNVALIDATED_DEPTH"
+    assert VALIDATED_MAX_TEAMS == 14
+
+
+def test_e18b_la_estructura_sigue_respondiendo_a_32_equipos():
+    """Lo que SÍ aguanta en profundidad, para que no se pierda al documentar lo que no.
+
+    El reparto cuadra y el rank del quarterback se dobla igual que a 12. Que la
+    magnitud del valor no esté validada no significa que el reparto esté roto.
+    """
+    pool = _pool(qb=140, rb=260, wr=360, te=200)
+    una = roster_context(BASE + BENCH, 32)
+    sf = roster_context(SUPERFLEX + BENCH, 32)
+
+    _, rank_una, used_una = greedy_replacement(pool, una)
+    _, rank_sf, used_sf = greedy_replacement(pool, sf)
+    assert used_una == una.starter_slots
+    assert used_sf == sf.starter_slots
+    assert rank_sf["QB"] / rank_una["QB"] >= 1.8
