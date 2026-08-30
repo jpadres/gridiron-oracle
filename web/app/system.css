@@ -1051,6 +1051,49 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   flex: 1 1 auto; min-width: 0; color: var(--chalk);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
+/* --- construcción de plantilla --------------------------------------------
+   Los huecos que la liga declara, con quién los ocupa. Un hueco abierto es un
+   HECHO y se pinta como tal: atenuado, sin color de aviso, sin verbo. */
+.room-roster--slots .slot-tag {
+  min-width: 2.9rem; text-align: center; margin-right: 0;
+}
+/* FLEX, SFLX, DEF y K no son las cuatro posiciones del modelo y no les
+   corresponde un color de posición: neutro con borde. El color de posición
+   significa posición en toda la web o no significa nada. */
+.ptag--flex, .ptag--sflx, .ptag--def, .ptag--k {
+  background: none; border: 1px solid var(--yard-line); color: var(--chalk-dim);
+}
+.room-roster--slots > li.is-open {
+  border-left-style: dashed; opacity: 0.75;
+}
+.slot-tag--open { border-style: dashed; }
+.nm--open { color: var(--chalk-dim); font-weight: 400; }
+.slot-pos {
+  margin-left: var(--space-1); font-size: var(--text-micro);
+  font-weight: 400; color: var(--chalk-dim); letter-spacing: 0.04em;
+}
+.room-h--sub { margin-top: var(--space-3); }
+
+/* Contadores del configurador: una rejilla de nueve, no un formulario de
+   comisionado. */
+.room-roster-config legend {
+  display: flex; align-items: baseline; gap: var(--space-3); padding: 0;
+}
+.room-roster-config legend .link {
+  background: none; border: none; padding: 0; font: inherit;
+  font-size: var(--text-micro); color: var(--chalk-dim);
+  text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+  min-height: 44px;
+}
+.room-roster-config legend .link:hover { color: var(--live); }
+.roster-counts {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2); margin-top: var(--space-2);
+}
+.roster-count { display: grid; gap: 2px; font-size: var(--text-micro); color: var(--chalk-dim); }
+.roster-count span { letter-spacing: 0.05em; }
+.roster-count input { min-height: 44px; text-align: center; }
+
 /* La semana de descanso: dato, no alarma. Mismo peso que el resto del contexto
    de la fila; si llevara color de aviso estaría diciendo qué hacer. */
 .room-bye {
@@ -1063,7 +1106,50 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   font-weight: 700; font-size: var(--text-micro); color: var(--chalk-dim);
   font-variant-numeric: tabular-nums; min-width: 2.75rem;
 }
-.room-feed .is-mine /* La semana de descanso: dato, no alarma. Mismo peso que el resto del contexto
+.room-feed .is-mine /* --- construcción de plantilla --------------------------------------------
+   Los huecos que la liga declara, con quién los ocupa. Un hueco abierto es un
+   HECHO y se pinta como tal: atenuado, sin color de aviso, sin verbo. */
+.room-roster--slots .slot-tag {
+  min-width: 2.9rem; text-align: center; margin-right: 0;
+}
+/* FLEX, SFLX, DEF y K no son las cuatro posiciones del modelo y no les
+   corresponde un color de posición: neutro con borde. El color de posición
+   significa posición en toda la web o no significa nada. */
+.ptag--flex, .ptag--sflx, .ptag--def, .ptag--k {
+  background: none; border: 1px solid var(--yard-line); color: var(--chalk-dim);
+}
+.room-roster--slots > li.is-open {
+  border-left-style: dashed; opacity: 0.75;
+}
+.slot-tag--open { border-style: dashed; }
+.nm--open { color: var(--chalk-dim); font-weight: 400; }
+.slot-pos {
+  margin-left: var(--space-1); font-size: var(--text-micro);
+  font-weight: 400; color: var(--chalk-dim); letter-spacing: 0.04em;
+}
+.room-h--sub { margin-top: var(--space-3); }
+
+/* Contadores del configurador: una rejilla de nueve, no un formulario de
+   comisionado. */
+.room-roster-config legend {
+  display: flex; align-items: baseline; gap: var(--space-3); padding: 0;
+}
+.room-roster-config legend .link {
+  background: none; border: none; padding: 0; font: inherit;
+  font-size: var(--text-micro); color: var(--chalk-dim);
+  text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+  min-height: 44px;
+}
+.room-roster-config legend .link:hover { color: var(--live); }
+.roster-counts {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2); margin-top: var(--space-2);
+}
+.roster-count { display: grid; gap: 2px; font-size: var(--text-micro); color: var(--chalk-dim); }
+.roster-count span { letter-spacing: 0.05em; }
+.roster-count input { min-height: 44px; text-align: center; }
+
+/* La semana de descanso: dato, no alarma. Mismo peso que el resto del contexto
    de la fila; si llevara color de aviso estaría diciendo qué hacer. */
 .room-bye {
   flex: 0 0 auto; font-size: var(--text-micro); color: var(--chalk-dim);

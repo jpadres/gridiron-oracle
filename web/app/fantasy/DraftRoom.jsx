@@ -41,6 +41,7 @@ import {
   untilMyTurn,
 } from "./draftLog.js";
 import { loadOrMigrateLog, logScopeFor, saveLog } from "./draftStorage.js";
+import { assignSlots } from "./leagueValue.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
 // El board de VOR sólo ordena estas cuatro. K y DST son alcanzables porque
@@ -122,6 +123,20 @@ export default function DraftRoom({ board, context, league }) {
     () => board.filter((row) => state.mine.has(row.player_id)),
     [board, state]
   );
+
+  // La CONSTRUCCIÓN de la plantilla: mis jugadores repartidos en los huecos que
+  // la liga declara. Derivada en cada render del registro plegado más la
+  // configuración — los picks son la historia canónica y esta disposición es
+  // presentación, así que corregir la configuración a mitad de draft recoloca
+  // sin tocar ni un pick. Sin estructura configurada queda null y la vista dice
+  // que no la hay, en vez de dibujar una alineación estándar que nadie declaró.
+  const construction = useMemo(() => {
+    if (!Array.isArray(league?.roster) || league.roster.length === 0) return null;
+    const { slots, unassigned } = assignSlots(roster, league.roster);
+    const benchSize = league.roster.filter((slot) =>
+      ["BN", "BE", "BENCH"].includes(String(slot).toUpperCase())).length;
+    return { slots, unassigned, benchSize };
+  }, [league, roster]);
 
   const onClock = isMyTurn({ overall: state.count + 1, teams, type, mySlot });
   const next = untilMyTurn({ count: state.count, teams, type, mySlot, rounds });
@@ -387,42 +402,121 @@ export default function DraftRoom({ board, context, league }) {
             <h2 className="room-h">
               My roster <span className="room-h-n">{roster.length}</span>
             </h2>
-            {roster.length === 0 ? (
-              <p className="room-empty">Nothing yet.</p>
+            {construction ? (
+              <>
+                {/* Los huecos que la liga DECLARA, con quién los ocupa. Un
+                    hueco abierto es un hecho — «RB · Open» — y se queda en
+                    hecho: nada de «necesitas un corredor», que sería una
+                    recomendación sin validar. El reparto es presentación
+                    derivada: los picks son la historia y esto se recoloca solo
+                    si la configuración cambia. */}
+                <ul className="room-roster room-roster--slots">
+                  {construction.slots.map((entry) => (
+                    <li key={entry.index}
+                        className={entry.player ? undefined : "is-open"}
+                        style={entry.player ? teamVars(entry.player.team) : undefined}>
+                      <span className={`slot-tag ${entry.player ? "" : "slot-tag--open"} ptag ptag--${entry.slot === "SUPER_FLEX" ? "sflx" : entry.slot.toLowerCase()}`}>
+                        {entry.slot === "SUPER_FLEX" ? "SFLX" : entry.slot}
+                      </span>
+                      {entry.player ? (
+                        <>
+                          <span className="nm">
+                            {entry.player.player_full_name ?? entry.player.player_name}
+                            {/* En un hueco flexible, la posición REAL del
+                                jugador sigue visible: el hueco es FLEX pero el
+                                jugador no deja de ser corredor por ocuparlo. */}
+                            {["FLEX", "SUPER_FLEX"].includes(entry.slot) ? (
+                              <small className="slot-pos">{entry.player.position}</small>
+                            ) : null}
+                          </span>
+                          <TeamMark abbr={entry.player.team} />
+                          {context.byes?.[entry.player.team] ? (
+                            <span className="room-bye">Bye {context.byes[entry.player.team]}</span>
+                          ) : null}
+                          <button type="button" className="room-x"
+                                  aria-label={`Undo ${entry.player.player_full_name ?? entry.player.player_name}`}
+                                  onClick={() => undo(entry.player.player_id)}>
+                            &times;
+                          </button>
+                        </>
+                      ) : (
+                        <span className="nm nm--open">Open</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                {construction.unassigned.length > 0 || construction.benchSize > 0 ? (
+                  <>
+                    <h3 className="room-h room-h--sub">
+                      Bench
+                      {construction.benchSize > 0 ? (
+                        <span className="room-h-n">
+                          {construction.unassigned.length}/{construction.benchSize}
+                        </span>
+                      ) : (
+                        <span className="room-h-n">{construction.unassigned.length}</span>
+                      )}
+                    </h3>
+                    {construction.unassigned.length === 0 ? (
+                      <p className="room-empty">Empty.</p>
+                    ) : (
+                      <ul className="room-roster">
+                        {construction.unassigned.map((row) => (
+                          <li key={row.player_id} style={teamVars(row.team)}>
+                            <span className={`ptag ptag--${row.position.toLowerCase()}`}>
+                              {row.position}
+                            </span>
+                            <span className="nm">{row.player_full_name ?? row.player_name}</span>
+                            <TeamMark abbr={row.team} />
+                            {context.byes?.[row.team] ? (
+                              <span className="room-bye">Bye {context.byes[row.team]}</span>
+                            ) : null}
+                            <button type="button" className="room-x"
+                                    aria-label={`Undo ${row.player_full_name ?? row.player_name}`}
+                                    onClick={() => undo(row.player_id)}>
+                              &times;
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </>
+                ) : null}
+              </>
             ) : (
-              <ul className="room-roster">
-                {roster.map((row) => (
-                  <li key={row.player_id} style={teamVars(row.team)}>
-                    <span className={`ptag ptag--${row.position.toLowerCase()}`}>
-                      {row.position}
-                    </span>
-                    <span className="nm">{row.player_full_name ?? row.player_name}</span>
-                    <TeamMark abbr={row.team} />
-                    {/* La semana de descanso es un hecho del calendario, no un
-                        aviso. Se pinta como dato —«BYE 7»— y no en color de
-                        alarma: cuándo descansa un jugador no dice qué hacer con
-                        él, y teñirlo de rojo lo convertiría en un consejo que
-                        nadie ha validado. */}
-                    {context.byes?.[row.team] ? (
-                      <span className="room-bye">Bye {context.byes[row.team]}</span>
-                    ) : null}
-                    <button type="button" className="room-x"
-                            aria-label={`Undo ${row.player_full_name ?? row.player_name}`}
-                            onClick={() => undo(row.player_id)}>
-                      &times;
-                    </button>
-                  </li>
-                ))}
-              </ul>
+              <>
+                {roster.length === 0 ? (
+                  <p className="room-empty">Nothing yet.</p>
+                ) : (
+                  <ul className="room-roster">
+                    {roster.map((row) => (
+                      <li key={row.player_id} style={teamVars(row.team)}>
+                        <span className={`ptag ptag--${row.position.toLowerCase()}`}>
+                          {row.position}
+                        </span>
+                        <span className="nm">{row.player_full_name ?? row.player_name}</span>
+                        <TeamMark abbr={row.team} />
+                        {context.byes?.[row.team] ? (
+                          <span className="room-bye">Bye {context.byes[row.team]}</span>
+                        ) : null}
+                        <button type="button" className="room-x"
+                                aria-label={`Undo ${row.player_full_name ?? row.player_name}`}
+                                onClick={() => undo(row.player_id)}>
+                          &times;
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {/* Sin estructura no se dibuja una: se dice que falta y por
+                    dónde se configura. UNKNOWN sigue siendo UNKNOWN, y el
+                    draft manual funciona igual sin ella. */}
+                <p className="room-note">
+                  Roster structure not configured — slots are not drawn because
+                  they are not known. Add it under <b>edit</b> in the header.
+                </p>
+              </>
             )}
-            {/* Los HUECOS de la plantilla no se pintan: el Draft Room no recoge
-                `roster_positions`, así que dibujar QB/RB/WR/TE/FLEX sería
-                inventarse la estructura de una liga que no se ha leído. Se
-                enseña lo que hay —quién llevas— y se dice qué falta. */}
-            <p className="room-note">
-              Slots are not drawn: this room does not read your roster structure,
-              and drawing one would be inventing it.
-            </p>
           </section>
 
           <section aria-label="Recent picks">

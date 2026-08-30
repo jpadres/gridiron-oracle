@@ -26,6 +26,7 @@ import DraftRoom from "../DraftRoom.jsx";
 // La misma constante que lee el board para saber en qué draft está: si cada
 // pantalla escribiera la suya, volverían a ser dos contextos con un nombre.
 import { ROOM_LEAGUE_KEY as KEY } from "../draftStorage.js";
+import { rosterFromCounts } from "../leagueValue.js";
 
 const SCORING = [
   { id: "ppr", label: "PPR" },
@@ -37,9 +38,28 @@ const TYPES = [
   { id: "linear", label: "Linear" },
 ];
 
+// Los contadores de plantilla del configurador. `null` = SIN CONFIGURAR, que
+// no es lo mismo que cero: cero es una liga que decidió no alinear esa
+// posición, null es que nadie ha dicho nada. La plantilla sólo se guarda si el
+// usuario la tocó o aplicó el preset — una liga sin configurar queda UNKNOWN y
+// la vista de plantilla lo dice, no dibuja una alineación estándar.
+const NO_ROSTER = Object.freeze({
+  QB: null, RB: null, WR: null, TE: null, FLEX: null, SUPER_FLEX: null,
+  DEF: null, K: null, BN: null,
+});
+
+// El preset del dueño, confirmado explícitamente. Es una COMODIDAD del
+// formulario: rellena los contadores para editarlos, nunca se aplica solo.
+const STANDARD_PRESET = Object.freeze({
+  QB: 1, RB: 2, WR: 2, TE: 1, FLEX: 1, SUPER_FLEX: 0, DEF: 1, K: 1, BN: 6,
+});
+
+const ROSTER_FIELDS = ["QB", "RB", "WR", "TE", "FLEX", "SUPER_FLEX", "DEF", "K", "BN"];
+
 const BLANK = {
   name: "", platform: "manual", leagueId: "", draftId: "",
   teams: 12, scoring: "ppr", draftType: "snake", rounds: 15, mySlot: null,
+  rosterCounts: NO_ROSTER,
 };
 
 function load() {
@@ -58,6 +78,21 @@ export default function RoomShell({ board, context }) {
   const [ready, setReady] = useState(false);
   const [editing, setEditing] = useState(false);
 
+  // Entrar en edición SIEMBRA el formulario desde la liga guardada, una vez.
+  // Los contadores se derivan de la lista canónica: la lista es lo que se
+  // guarda y los contadores son su vista de formulario.
+  const beginEdit = useCallback(() => {
+    setDraft({
+      ...league,
+      rosterCounts: Array.isArray(league?.roster)
+        ? Object.fromEntries(ROSTER_FIELDS.map((f) => [
+            f, league.roster.filter((slot) => slot === f).length,
+          ]))
+        : NO_ROSTER,
+    });
+    setEditing(true);
+  }, [league]);
+
   useEffect(() => {
     const saved = load();
     if (saved) setLeague(saved);
@@ -65,12 +100,23 @@ export default function RoomShell({ board, context }) {
   }, []);
 
   const enter = useCallback((entry) => {
+    // La plantilla se materializa SÓLO si hay algún contador puesto. Todo en
+    // null significa que el usuario no la configuró, y eso se guarda como
+    // ausencia — no como el preset. La fuente queda anotada: esta ruta es
+    // siempre MANUAL; un adaptador que la rellene pondrá la suya.
+    const counts = entry.rosterCounts ?? NO_ROSTER;
+    const configured = ROSTER_FIELDS.some((f) => counts[f] !== null && counts[f] !== undefined);
     // Cada liga y cada draft tienen su propio id: es lo que hace que el estado
     // de una no pueda contaminar a otra, igual que en el board.
     const complete = {
       ...entry,
       leagueId: entry.leagueId || `manual-${Date.now().toString(36)}`,
       draftId: entry.draftId || `d-${Date.now().toString(36)}`,
+      roster: configured
+        ? rosterFromCounts(Object.fromEntries(
+            ROSTER_FIELDS.map((f) => [f, counts[f] ?? 0])))
+        : null,
+      rosterSource: configured ? "MANUAL" : null,
     };
     setLeague(complete);
     setEditing(false);
@@ -82,7 +128,13 @@ export default function RoomShell({ board, context }) {
   if (!ready) return <p className="caption">Loading&hellip;</p>;
 
   if (!league || editing) {
-    const entry = editing && league ? { ...league } : draft;
+    // El formulario SIEMPRE lee el estado `draft`; al entrar en edición se
+    // siembra una vez desde la liga guardada (ver `beginEdit`). La versión
+    // anterior re-derivaba `entry` de `league` en cada render, así que lo que
+    // se tecleaba en la edición se descartaba en el render siguiente: el
+    // formulario parecía funcionar y no escribía nada. Interacción muerta que
+    // no falla — la clase de bug que sólo se ve tecleando.
+    const entry = draft;
     const set = (patch) => setDraft({ ...entry, ...patch });
     return (
       <>
@@ -108,7 +160,7 @@ export default function RoomShell({ board, context }) {
 
           <label className="field-label">
             Teams
-            <input type="number" min="4" max="20" value={entry.teams}
+            <input type="number" min="4" max="32" value={entry.teams}
                    onChange={(e) => set({ teams: Number(e.target.value) || null })} />
           </label>
 
@@ -157,6 +209,41 @@ export default function RoomShell({ board, context }) {
                    onChange={(e) => set({ rounds: Number(e.target.value) || null })} />
           </label>
 
+          <fieldset className="field-label room-roster-config">
+            <legend>
+              Roster
+              <button type="button" className="link"
+                      onClick={() => set({ rosterCounts: { ...STANDARD_PRESET } })}>
+                use standard
+              </button>
+            </legend>
+            {/* Sin configurar, la plantilla queda UNKNOWN y la vista lo dice.
+                El preset rellena los contadores PARA EDITARLOS — nunca se
+                aplica solo, y cero es una decisión, no una ausencia. */}
+            <span className="caption">
+              Optional. Unconfigured stays unknown — nothing is assumed. Zero is a
+              real value: a league with no TE slot keeps zero.
+            </span>
+            <div className="roster-counts">
+              {ROSTER_FIELDS.map((field) => (
+                <label key={field} className="roster-count">
+                  <span>{field === "SUPER_FLEX" ? "SFLX" : field}</span>
+                  <input
+                    type="number" min="0" max="12" inputMode="numeric"
+                    value={entry.rosterCounts?.[field] ?? ""}
+                    placeholder="–"
+                    onChange={(e) => set({
+                      rosterCounts: {
+                        ...(entry.rosterCounts ?? NO_ROSTER),
+                        [field]: e.target.value === "" ? null : Number(e.target.value),
+                      },
+                    })}
+                  />
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
           <button type="submit" className="act act--mine">Enter draft room</button>
         </form>
       </>
@@ -177,7 +264,7 @@ export default function RoomShell({ board, context }) {
           <span>{SCORING.find((s) => s.id === league.scoring)?.label ?? league.scoring}</span>
           <span>{league.draftType}</span>
           <span>{league.mySlot ? `slot ${league.mySlot}` : "slot UNKNOWN"}</span>
-          <button type="button" className="link" onClick={() => setEditing(true)}>edit</button>
+          <button type="button" className="link" onClick={beginEdit}>edit</button>
         </p>
       </header>
       <DraftRoom board={board} context={context} league={league} />

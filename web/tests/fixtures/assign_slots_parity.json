@@ -1,0 +1,573 @@
+{
+ "tres_rb_normal": {
+  "players": [
+   {
+    "player_id": "rb1",
+    "position": "RB",
+    "vor": 100
+   },
+   {
+    "player_id": "rb2",
+    "position": "RB",
+    "vor": 90
+   },
+   {
+    "player_id": "rb3",
+    "position": "RB",
+    "vor": 80
+   }
+  ],
+  "roster": [
+   "QB",
+   "RB",
+   "RB",
+   "WR",
+   "WR",
+   "TE",
+   "FLEX",
+   "DEF",
+   "K"
+  ],
+  "slots": [
+   {
+    "index": 0,
+    "slot": "QB",
+    "player": null
+   },
+   {
+    "index": 1,
+    "slot": "RB",
+    "player": "rb1"
+   },
+   {
+    "index": 2,
+    "slot": "RB",
+    "player": "rb2"
+   },
+   {
+    "index": 3,
+    "slot": "WR",
+    "player": null
+   },
+   {
+    "index": 4,
+    "slot": "WR",
+    "player": null
+   },
+   {
+    "index": 5,
+    "slot": "TE",
+    "player": null
+   },
+   {
+    "index": 6,
+    "slot": "FLEX",
+    "player": "rb3"
+   },
+   {
+    "index": 7,
+    "slot": "DEF",
+    "player": null
+   },
+   {
+    "index": 8,
+    "slot": "K",
+    "player": null
+   }
+  ],
+  "unassigned": []
+ },
+ "te_al_flex": {
+  "players": [
+   {
+    "player_id": "te1",
+    "position": "TE",
+    "vor": 70
+   },
+   {
+    "player_id": "te2",
+    "position": "TE",
+    "vor": 60
+   },
+   {
+    "player_id": "rb",
+    "position": "RB",
+    "vor": 50
+   }
+  ],
+  "roster": [
+   "QB",
+   "RB",
+   "RB",
+   "WR",
+   "WR",
+   "TE",
+   "FLEX",
+   "DEF",
+   "K"
+  ],
+  "slots": [
+   {
+    "index": 0,
+    "slot": "QB",
+    "player": null
+   },
+   {
+    "index": 1,
+    "slot": "RB",
+    "player": "rb"
+   },
+   {
+    "index": 2,
+    "slot": "RB",
+    "player": null
+   },
+   {
+    "index": 3,
+    "slot": "WR",
+    "player": null
+   },
+   {
+    "index": 4,
+    "slot": "WR",
+    "player": null
+   },
+   {
+    "index": 5,
+    "slot": "TE",
+    "player": "te1"
+   },
+   {
+    "index": 6,
+    "slot": "FLEX",
+    "player": "te2"
+   },
+   {
+    "index": 7,
+    "slot": "DEF",
+    "player": null
+   },
+   {
+    "index": 8,
+    "slot": "K",
+    "player": null
+   }
+  ],
+  "unassigned": []
+ },
+ "qb_y_superflex": {
+  "players": [
+   {
+    "player_id": "qb1",
+    "position": "QB",
+    "vor": 200
+   },
+   {
+    "player_id": "qb2",
+    "position": "QB",
+    "vor": 150
+   },
+   {
+    "player_id": "rb",
+    "position": "RB",
+    "vor": 100
+   }
+  ],
+  "roster": [
+   "QB",
+   "SUPER_FLEX",
+   "FLEX"
+  ],
+  "slots": [
+   {
+    "index": 0,
+    "slot": "QB",
+    "player": "qb1"
+   },
+   {
+    "index": 1,
+    "slot": "SUPER_FLEX",
+    "player": "qb2"
+   },
+   {
+    "index": 2,
+    "slot": "FLEX",
+    "player": "rb"
+   }
+  ],
+  "unassigned": []
+ },
+ "liga32": {
+  "players": [
+   {
+    "player_id": "a",
+    "position": "RB",
+    "vor": 100
+   },
+   {
+    "player_id": "b",
+    "position": "WR",
+    "vor": 90
+   },
+   {
+    "player_id": "c",
+    "position": "QB",
+    "vor": 300
+   },
+   {
+    "player_id": "d",
+    "position": "TE",
+    "vor": 80
+   }
+  ],
+  "roster": [
+   "RB",
+   "WR",
+   "FLEX",
+   "FLEX",
+   "FLEX",
+   "SUPER_FLEX"
+  ],
+  "slots": [
+   {
+    "index": 0,
+    "slot": "RB",
+    "player": "a"
+   },
+   {
+    "index": 1,
+    "slot": "WR",
+    "player": "b"
+   },
+   {
+    "index": 2,
+    "slot": "FLEX",
+    "player": "d"
+   },
+   {
+    "index": 3,
+    "slot": "FLEX",
+    "player": null
+   },
+   {
+    "index": 4,
+    "slot": "FLEX",
+    "player": null
+   },
+   {
+    "index": 5,
+    "slot": "SUPER_FLEX",
+    "player": "c"
+   }
+  ],
+  "unassigned": []
+ },
+ "overflow": {
+  "players": [
+   {
+    "player_id": "w0",
+    "position": "WR",
+    "vor": 100
+   },
+   {
+    "player_id": "w1",
+    "position": "WR",
+    "vor": 99
+   },
+   {
+    "player_id": "w2",
+    "position": "WR",
+    "vor": 98
+   },
+   {
+    "player_id": "w3",
+    "position": "WR",
+    "vor": 97
+   },
+   {
+    "player_id": "w4",
+    "position": "WR",
+    "vor": 96
+   },
+   {
+    "player_id": "w5",
+    "position": "WR",
+    "vor": 95
+   }
+  ],
+  "roster": [
+   "QB",
+   "RB",
+   "RB",
+   "WR",
+   "WR",
+   "TE",
+   "FLEX",
+   "DEF",
+   "K"
+  ],
+  "slots": [
+   {
+    "index": 0,
+    "slot": "QB",
+    "player": null
+   },
+   {
+    "index": 1,
+    "slot": "RB",
+    "player": null
+   },
+   {
+    "index": 2,
+    "slot": "RB",
+    "player": null
+   },
+   {
+    "index": 3,
+    "slot": "WR",
+    "player": "w0"
+   },
+   {
+    "index": 4,
+    "slot": "WR",
+    "player": "w1"
+   },
+   {
+    "index": 5,
+    "slot": "TE",
+    "player": null
+   },
+   {
+    "index": 6,
+    "slot": "FLEX",
+    "player": "w2"
+   },
+   {
+    "index": 7,
+    "slot": "DEF",
+    "player": null
+   },
+   {
+    "index": 8,
+    "slot": "K",
+    "player": null
+   }
+  ],
+  "unassigned": [
+   "w3",
+   "w4",
+   "w5"
+  ]
+ },
+ "k_y_def": {
+  "players": [
+   {
+    "player_id": "k1",
+    "position": "K",
+    "vor": 0
+   },
+   {
+    "player_id": "d1",
+    "position": "DST",
+    "vor": 0
+   },
+   {
+    "player_id": "wr",
+    "position": "WR",
+    "vor": 40
+   }
+  ],
+  "roster": [
+   "QB",
+   "RB",
+   "RB",
+   "WR",
+   "WR",
+   "TE",
+   "FLEX",
+   "DEF",
+   "K"
+  ],
+  "slots": [
+   {
+    "index": 0,
+    "slot": "QB",
+    "player": null
+   },
+   {
+    "index": 1,
+    "slot": "RB",
+    "player": null
+   },
+   {
+    "index": 2,
+    "slot": "RB",
+    "player": null
+   },
+   {
+    "index": 3,
+    "slot": "WR",
+    "player": "wr"
+   },
+   {
+    "index": 4,
+    "slot": "WR",
+    "player": null
+   },
+   {
+    "index": 5,
+    "slot": "TE",
+    "player": null
+   },
+   {
+    "index": 6,
+    "slot": "FLEX",
+    "player": null
+   },
+   {
+    "index": 7,
+    "slot": "DEF",
+    "player": "d1"
+   },
+   {
+    "index": 8,
+    "slot": "K",
+    "player": "k1"
+   }
+  ],
+  "unassigned": []
+ },
+ "con_banquillo": {
+  "players": [
+   {
+    "player_id": "a",
+    "position": "RB",
+    "vor": 10
+   }
+  ],
+  "roster": [
+   "QB",
+   "RB",
+   "RB",
+   "WR",
+   "WR",
+   "TE",
+   "FLEX",
+   "DEF",
+   "K",
+   "BN",
+   "BN",
+   "IR"
+  ],
+  "slots": [
+   {
+    "index": 0,
+    "slot": "QB",
+    "player": null
+   },
+   {
+    "index": 1,
+    "slot": "RB",
+    "player": "a"
+   },
+   {
+    "index": 2,
+    "slot": "RB",
+    "player": null
+   },
+   {
+    "index": 3,
+    "slot": "WR",
+    "player": null
+   },
+   {
+    "index": 4,
+    "slot": "WR",
+    "player": null
+   },
+   {
+    "index": 5,
+    "slot": "TE",
+    "player": null
+   },
+   {
+    "index": 6,
+    "slot": "FLEX",
+    "player": null
+   },
+   {
+    "index": 7,
+    "slot": "DEF",
+    "player": null
+   },
+   {
+    "index": 8,
+    "slot": "K",
+    "player": null
+   }
+  ],
+  "unassigned": []
+ },
+ "vacio": {
+  "players": [],
+  "roster": [
+   "QB",
+   "RB",
+   "RB",
+   "WR",
+   "WR",
+   "TE",
+   "FLEX",
+   "DEF",
+   "K"
+  ],
+  "slots": [
+   {
+    "index": 0,
+    "slot": "QB",
+    "player": null
+   },
+   {
+    "index": 1,
+    "slot": "RB",
+    "player": null
+   },
+   {
+    "index": 2,
+    "slot": "RB",
+    "player": null
+   },
+   {
+    "index": 3,
+    "slot": "WR",
+    "player": null
+   },
+   {
+    "index": 4,
+    "slot": "WR",
+    "player": null
+   },
+   {
+    "index": 5,
+    "slot": "TE",
+    "player": null
+   },
+   {
+    "index": 6,
+    "slot": "FLEX",
+    "player": null
+   },
+   {
+    "index": 7,
+    "slot": "DEF",
+    "player": null
+   },
+   {
+    "index": 8,
+    "slot": "K",
+    "player": null
+   }
+  ],
+  "unassigned": []
+ }
+}

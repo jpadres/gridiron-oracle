@@ -176,6 +176,72 @@ export function valueConfidence(context) {
   return (context?.teams ?? 0) <= VALIDATED_MAX_TEAMS ? "VALIDATED" : "UNVALIDATED_DEPTH";
 }
 
+// Qué admite cada hueco al PINTAR una plantilla. Espejo de
+// `league.SLOT_ELIGIBILITY`: elegibilidad de la liga, no una opinión sobre a
+// quién conviene poner ahí.
+export const SLOT_ELIGIBILITY = {
+  QB: ["QB"], RB: ["RB"], WR: ["WR"], TE: ["TE"],
+  FLEX: ["RB", "WR", "TE"],
+  SUPER_FLEX: ["QB", "RB", "WR", "TE"],
+  K: ["K"], DEF: ["DST", "DEF"], DST: ["DST", "DEF"],
+};
+const SLOT_ORDER = { QB: 0, RB: 0, WR: 0, TE: 0, K: 0, DEF: 0, DST: 0, FLEX: 1, SUPER_FLEX: 2 };
+const BENCH = new Set(["BN", "BE", "BENCH", "IR", "TAXI"]);
+
+/**
+ * Reparte jugadores en huecos de plantilla, para PINTARLOS.
+ *
+ * Espejo exacto de `league.assign_slots`, con su misma regla: dedicados antes
+ * que FLEX y FLEX antes que SUPER_FLEX. Al revés, un jugador que sólo cabía en
+ * su hueco dedicado puede quedarse fuera porque un flexible se lo llevó, y la
+ * plantilla enseñaría un hueco abierto con un sobrante que sí encajaba.
+ *
+ * Es lógica de presentación: no dice a quién alinear ni qué falta por draftear.
+ * Un hueco abierto es un hecho de la plantilla, no un consejo.
+ *
+ * Devuelve `{ slots, unassigned }` con `slots: [{index, slot, player|null}]`
+ * en el orden declarado por la liga.
+ */
+export function assignSlots(players, rosterPositions) {
+  const slots = (rosterPositions ?? [])
+    .map((raw, index) => ({ index, slot: String(raw).toUpperCase().trim(), player: null }))
+    .filter((entry) => !BENCH.has(entry.slot));
+
+  const fillable = slots
+    .filter((entry) => Object.hasOwn(SLOT_ELIGIBILITY, entry.slot))
+    .sort((a, b) => (SLOT_ORDER[a.slot] ?? 3) - (SLOT_ORDER[b.slot] ?? 3) || a.index - b.index);
+
+  // Mayor valor primero: quien más vale entra antes en el hueco más ajustado.
+  const pending = [...players].sort(
+    (a, b) => (Number(b.vor ?? b.projected_points) || 0) - (Number(a.vor ?? a.projected_points) || 0)
+  );
+
+  for (const entry of fillable) {
+    const eligible = SLOT_ELIGIBILITY[entry.slot];
+    const i = pending.findIndex((p) => eligible.includes(String(p.position ?? "").toUpperCase()));
+    if (i >= 0) entry.player = pending.splice(i, 1)[0];
+  }
+
+  slots.sort((a, b) => a.index - b.index);
+  return { slots, unassigned: pending };
+}
+
+/**
+ * La lista de huecos desde los CONTADORES del configurador manual.
+ *
+ * El orden de salida es el de una alineación como la pinta cualquier app —
+ * QB, corredores, receptores, ala cerrada, flexibles, defensa, pateador — y es
+ * estable: el mismo formulario produce siempre la misma lista.
+ */
+export function rosterFromCounts(counts) {
+  const out = [];
+  const push = (slot, n) => { for (let i = 0; i < (Number(n) || 0); i += 1) out.push(slot); };
+  push("QB", counts.QB); push("RB", counts.RB); push("WR", counts.WR); push("TE", counts.TE);
+  push("FLEX", counts.FLEX); push("SUPER_FLEX", counts.SUPER_FLEX);
+  push("DEF", counts.DEF); push("K", counts.K); push("BN", counts.BN);
+  return out;
+}
+
 /** Puesto del jugador de reemplazo de una posición, 1-indexado. */
 export function replacementRank(context, position) {
   const perTeam = context?.starters?.[position] ?? 0;
