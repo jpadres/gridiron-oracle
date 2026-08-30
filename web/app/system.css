@@ -666,3 +666,79 @@ h2 { font-variation-settings: "wdth" 82; letter-spacing: -0.005em; }
    más corto, y el botón de conectar Sleeper en 34 de alto. */
 .pos-option { min-width: 44px; }
 button.pick--mine { min-height: 44px; }
+
+/* =============================================================================
+   CONTEXTO DEL DRAFT
+   -----------------------------------------------------------------------------
+   Los campos que Sleeper ya publicaba y no se leían: puesto, tipo, rondas,
+   equipos y el siguiente turno. Lo que no se puede establecer dice UNKNOWN, con
+   el mismo peso visual que un valor — porque no saber el puesto es un hecho del
+   estado, no un hueco que disimular.
+   ========================================================================== */
+
+.draft-context {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--yard-line);
+  margin-bottom: var(--space-4);
+}
+.draft-context .ctx { display: flex; align-items: baseline; gap: var(--gap-chip); }
+.draft-context .k {
+  font-size: var(--text-micro); text-transform: uppercase;
+  letter-spacing: var(--tracking-caps); color: var(--chalk-dim);
+}
+.draft-context .v {
+  font-family: var(--face-display); font-variation-settings: "wdth" 84;
+  font-weight: 700; font-size: var(--text-dense); color: var(--chalk);
+  font-variant-numeric: tabular-nums;
+}
+.draft-context .ctx--next .v { color: var(--live); }
+
+/* La píldora de estado. LIVE es el único que se pinta con el ámbar, y sólo
+   aparece cuando las tres condiciones se cumplen a la vez. */
+.sync-pill {
+  font-family: var(--face-display); font-variation-settings: "wdth" 84;
+  font-size: var(--text-micro); font-weight: 700;
+  text-transform: uppercase; letter-spacing: var(--tracking-caps);
+  padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm);
+  border: 1px solid var(--yard-line); color: var(--chalk-dim);
+}
+.sync-pill--live { background: var(--live); color: var(--live-ink); border-color: var(--live); }
+.sync-pill--stale, .sync-pill--error, .sync-pill--unknown {
+  color: var(--pos-diff-down); border-color: var(--pos-diff-down);
+}
+.sync-detail { margin-top: var(--space-1); }
+.sync-label { font-weight: var(--weight-semibold); }
+
+/* Sugerencia retenida: el estado está viejo, así que no se recomienda un pick.
+   Sin ámbar — no es una decisión, es la ausencia de una. */
+.onclock--held { background: var(--field-raised); border-left-color: var(--chalk-dim); }
+
+/* Catálogo de mis ligas. Compacto a propósito: es un selector, no un panel. */
+.league-list { list-style: none; margin: var(--space-3) 0; padding: 0; }
+.league-row {
+  display: flex; flex-direction: column; gap: var(--space-1);
+  width: 100%; min-height: 44px; text-align: left;
+  padding: var(--space-3); background: var(--field);
+  border: none; border-left: 3px solid var(--yard-line);
+  border-bottom: 1px solid var(--yard-line); cursor: pointer;
+}
+.league-row:hover { border-left-color: var(--live); }
+.league-row:focus-visible { outline: 2px solid var(--live); outline-offset: -2px; }
+.league-name {
+  font-family: var(--face-display); font-variation-settings: "wdth" 84;
+  font-weight: 650; font-size: var(--text-body); color: var(--chalk);
+}
+.league-meta {
+  display: flex; flex-wrap: wrap; gap: var(--gap-chip);
+  font-size: var(--text-micro); color: var(--chalk-dim);
+}
+.league-meta span::after { content: " ·"; }
+.league-meta span:last-child::after { content: ""; }
+.field-row { display: flex; gap: var(--space-2); align-items: stretch; }
+.field-row input { flex: 1; min-width: 0; }
+.draft-context .ctx--warn .v { color: var(--pos-diff-down); }
+/* El botón «Find» del catálogo medía 30px de ancho: el texto es corto y el
+   mínimo táctil no depende de la longitud de la palabra. */
+button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }

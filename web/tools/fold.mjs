@@ -60,6 +60,11 @@ await assertPortFree(BASE);
 
 const server = spawn("npx", ["next", "start", "-p", String(PORT)],
                      { cwd: WEB, stdio: "ignore", detached: true });
+// Si la herramienta revienta a mitad, el servidor detached sobrevive y la
+// siguiente ejecución falla contra su propio zombi. Se cierra pase lo que pase.
+const stopServer = () => { try { process.kill(-server.pid); } catch { /* ya no está */ } };
+process.on("exit", stopServer);
+process.on("uncaughtException", (error) => { stopServer(); throw error; });
 for (let i = 0; i < 60; i += 1) {
   try { if ((await fetch(BASE)).ok) break; } catch { /* aún no */ }
   await new Promise((r) => setTimeout(r, 500));

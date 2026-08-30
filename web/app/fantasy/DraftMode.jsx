@@ -35,15 +35,20 @@
  * la tarde, que es exactamente el error que un board debería evitarte.
  */
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 // El formateador compartido, no `toFixed`: el sitio está en español y las
 // cifras llevan coma. Escribirlo aparte aquí fue exactamente el fallo que el
 // barrido de QA anterior había corregido en el resto de la web.
 import { num } from "../../data/model.js";
 import { TeamMark, teamVars } from "../sports.jsx";
+import {
+  loadPrefs, loadScope, migrateLegacy, savePrefs, saveScope, scopeFor,
+} from "./draftStorage.js";
+import {
+  DRAFT_STATUS, agoLabel, mySlot, pickSchedule, picksUntilMe, syncState,
+} from "./draftSync.js";
 
-const STORAGE_KEY = "gridiron-draft-v1";
 
 // El único destino externo de todo el sitio. La CSP no permite ningún otro, y
 // CI comprueba que este fichero no llame a otra cosa.
@@ -120,23 +125,6 @@ const SLOTS = { QB: 1, RB: 2, WR: 3, TE: 1 };
 // es poco, y de ahí sale el «ya tienes suficientes corredores».
 const BENCH_VALUE = 0.35;
 
-function load() {
-  if (typeof window === "undefined") return { gone: [], mine: [] };
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    const state = raw ? JSON.parse(raw) : null;
-    return {
-      gone: state?.gone ?? [],
-      mine: state?.mine ?? [],
-      league: state?.league ?? "",
-      userId: state?.userId ?? "",
-    };
-  } catch {
-    // Un localStorage corrupto no puede impedirte draftear.
-    return { gone: [], mine: [], league: "", userId: "" };
-  }
-}
-
 /**
  * Sincronización con el draft de Sleeper.
  *
@@ -146,9 +134,36 @@ function load() {
  * el tablero manual de siempre. Una integración que al romperse se lleva por
  * delante la pantalla no vale para un draft.
  */
+/**
+ * Resumen de puntuación en una línea, sólo con lo que se puede afirmar.
+ *
+ * Se mira `rec` porque es lo que separa PPR de estándar y es lo que primero se
+ * pregunta. **No se dice «PPR» cuando falta el campo**: se dice UNKNOWN. Una
+ * etiqueta de puntuación equivocada cambia el orden del board entero, así que
+ * es exactamente el sitio donde un valor por defecto hace más daño.
+ */
+function scoringSummary(settings) {
+  if (!settings || typeof settings !== "object") return "UNKNOWN scoring";
+  const rec = Number(settings.rec);
+  if (!Number.isFinite(rec)) return "UNKNOWN scoring";
+  if (rec === 0) return "Standard";
+  if (rec === 0.5) return "Half PPR";
+  if (rec === 1) return "PPR";
+  return `${rec} pt/rec`;
+}
+
 function useSleeperDraft(board, league, userId) {
   const [status, setStatus] = useState({ state: "idle" });
+  const [tick, setTick] = useState(0);
   const index = useMemo(() => buildIndex(board), [board]);
+
+  // Reloj de pantalla. Sin él, «última sincronización hace 8s» se congela en 8s
+  // hasta el siguiente sondeo: la etiqueta envejecería a saltos de 15 segundos
+  // y en los huecos diría algo falso.
+  useEffect(() => {
+    const timer = setInterval(() => setTick((n) => n + 1), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     if (!league) {
@@ -156,21 +171,27 @@ function useSleeperDraft(board, league, userId) {
       return undefined;
     }
     let cancelled = false;
-    let draftId = null;
+    let draft = null;
 
-    async function tick() {
+    async function poll() {
       try {
-        if (!draftId) {
+        if (!draft) {
           const response = await fetch(`${SLEEPER}/league/${league}/drafts`);
           if (!response.ok) throw new Error(`the league returned ${response.status}`);
           const drafts = await response.json();
           if (!Array.isArray(drafts) || drafts.length === 0) {
             throw new Error("that league has no draft yet");
           }
-          drafts.sort((a, b) => String(b.season ?? "").localeCompare(String(a.season ?? "")));
-          draftId = drafts[0].draft_id;
+          // Se prefiere el que está EN CURSO, y sólo si no hay ninguno se coge
+          // el más reciente. Antes se cogía `drafts[0]` sin mirar `status`, así
+          // que un draft terminado hace tres semanas se sondeaba y se pintaba
+          // igual que uno vivo.
+          const sorted = [...drafts].sort(
+            (a, b) => String(b.season ?? "").localeCompare(String(a.season ?? ""))
+          );
+          draft = sorted.find((d) => d.status === DRAFT_STATUS.DRAFTING) ?? sorted[0];
         }
-        const response = await fetch(`${SLEEPER}/draft/${draftId}/picks`);
+        const response = await fetch(`${SLEEPER}/draft/${draft.draft_id}/picks`);
         if (!response.ok) throw new Error(`the picks returned ${response.status}`);
         const picks = await response.json();
         if (cancelled) return;
@@ -189,61 +210,130 @@ function useSleeperDraft(board, league, userId) {
           else gone.push(row.player_id);
         }
         setStatus({
-          state: "live",
-          at: Date.now(),
+          state: "ok",
+          // `lastSyncAt` es el instante del último sondeo CORRECTO, y es lo que
+          // se pinta. La versión anterior lo guardaba y no lo enseñaba nunca.
+          lastSyncAt: Date.now(),
+          draft,
           total: Array.isArray(picks) ? picks.length : 0,
           gone,
           mine,
           unmatched,
         });
       } catch (error) {
-        if (!cancelled) setStatus({ state: "error", message: String(error.message ?? error) });
+        // El error NO borra `lastSyncAt`: «falló hace un momento, pero lo último
+        // bueno es de hace 40 segundos» son dos hechos distintos y los dos
+        // importan.
+        if (!cancelled) {
+          setStatus((previous) => ({
+            ...previous,
+            state: "error",
+            message: String(error.message ?? error),
+          }));
+        }
       }
     }
 
-    tick();
-    const timer = setInterval(tick, POLL_MS);
+    poll();
+    const timer = setInterval(poll, POLL_MS);
     return () => {
       cancelled = true;
       clearInterval(timer);
     };
   }, [league, userId, index]);
 
-  return status;
+  // `tick` entra en la dependencia para que la etiqueta de antigüedad se
+  // recalcule cada segundo aunque no haya llegado ningún sondeo nuevo.
+  return useMemo(() => {
+    const draft = status.draft ?? null;
+    return {
+      ...status,
+      draft,
+      view: syncState({
+        connected: Boolean(league),
+        error: status.state === "error" ? status.message : null,
+        lastSyncAt: status.lastSyncAt ?? null,
+        draftStatus: draft?.status,
+      }),
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status, league, tick]);
 }
 
-export default function DraftMode({ board, positionFilter = "ALL" }) {
+export default function DraftMode({ board, positionFilter = "ALL", season = 2026 }) {
+  // UN solo objeto de estado, como antes: `take`, `undo` y el reinicio lo
+  // actualizan con un spread sobre la forma completa. Lo que cambia no es la
+  // forma, es DÓNDE se guarda cada mitad.
+  //
+  // La primera versión partió el estado en dos `useState` y pasó el mismo
+  // updater a los dos. `take` hace `[...p.gone, id]`, así que dentro del setter
+  // de preferencias `p.gone` era `undefined` y la actualización entera se caía.
+  // No lo vio ni el build ni un test unitario: el botón simplemente no hacía
+  // nada, y sólo se vio pulsándolo en un navegador.
   const [state, setState] = useState({ gone: [], mine: [], league: "", userId: "" });
   const [ready, setReady] = useState(false);
   const [query, setQuery] = useState("");
   const [leagueDraft, setLeagueDraft] = useState("");
   const [members, setMembers] = useState(null);
+  // Catálogo de MIS LIGAS. `null` = no se ha buscado; `[]` = se buscó y no hay.
+  // La distinción importa: colapsarlas haría que «no tienes ligas» apareciera
+  // antes de preguntar.
+  const [catalog, setCatalog] = useState(null);
+  const [catalogError, setCatalogError] = useState("");
+  const [username, setUsername] = useState("");
 
   const sync = useSleeperDraft(board, ready ? state.league : "", state.userId);
+  const draft = sync.draft;
+
+  // La identidad del contexto. Sin las tres partes no hay clave, y sin clave no
+  // se persiste: perder el estado al recargar es malo, escribirlo en una clave
+  // compartida y contaminar otra liga es peor y además no se ve.
+  const scope = useMemo(
+    () =>
+      draft?.draft_id
+        ? scopeFor({
+            season: Number(draft.season) || season,
+            leagueId: state.league,
+            draftId: draft.draft_id,
+          })
+        : scopeFor({ platform: "local", season }),
+    [draft, state.league, season]
+  );
 
   // El estado se lee después del primer render y no durante: el HTML lo genera
   // el servidor, donde no hay localStorage, y pintar cosas distintas en los dos
   // sitios rompe la hidratación de React.
   useEffect(() => {
-    setState(load());
+    const storage = typeof window === "undefined" ? null : window.localStorage;
+    migrateLegacy(storage, season);
+    const prefs = loadPrefs(storage);
+    setState((previous) => ({ ...previous, ...prefs }));
     setReady(true);
-  }, []);
+  }, [season]);
+
+  // Al cambiar de contexto se CARGA el del nuevo y se descartan las marcas del
+  // anterior. Es la línea que hace que cambiar de liga no contamine.
+  useEffect(() => {
+    if (!ready) return;
+    const storage = typeof window === "undefined" ? null : window.localStorage;
+    const marks = loadScope(scope, storage);
+    setState((previous) => ({ ...previous, gone: marks.gone, mine: marks.mine }));
+  }, [scope, ready]);
 
   useEffect(() => {
     if (!ready) return;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    } catch {
-      /* modo privado o cuota llena: se sigue pudiendo draftear, sin recordar */
-    }
-  }, [state, ready]);
+    const storage = typeof window === "undefined" ? null : window.localStorage;
+    saveScope(scope, { gone: state.gone, mine: state.mine }, storage);
+  }, [scope, state.gone, state.mine, ready]);
 
-  // Lo que llega de Sleeper se **une** a lo marcado a mano, no lo sustituye.
-  //
-  // Los dos caminos son válidos a la vez: Sleeper no sabe de los rookies que no
-  // pudo emparejar, y tú puedes querer tachar a alguien por tu cuenta. Y si la
-  // red se cae en mitad del draft, lo sincronizado hasta ese momento no se
-  // borra de la pantalla — sólo deja de crecer.
+  useEffect(() => {
+    if (!ready) return;
+    savePrefs(
+      { league: state.league, userId: state.userId },
+      typeof window === "undefined" ? null : window.localStorage
+    );
+  }, [state.league, state.userId, ready]);
+
   const goneSet = useMemo(
     () => new Set([...state.gone, ...(sync.gone ?? [])]),
     [state.gone, sync.gone]
@@ -341,6 +431,70 @@ export default function DraftMode({ board, positionFilter = "ALL" }) {
       mine: previous.mine.filter((x) => x !== id),
     }));
 
+  // Estos hooks van ANTES del guard de `!ready`. Colocados después, en el primer
+  // render no se ejecutaban y en el segundo sí: React cuenta más hooks que en el
+  // render anterior y la página entera deja de montarse (error #310). No lo caza
+  // el build ni el servidor — sólo el navegador.
+  // --- contexto del draft, de campos que Sleeper ya publicaba y no se leían ---
+  //
+  // Todo lo que no se pueda establecer sale como UNKNOWN. Suponer 12 equipos,
+  // snake y puesto 1 daría un calendario de picks plausible y falso, que es
+  // peor que no dar ninguno.
+  const draftTeams = Number(draft?.settings?.teams) || null;
+  const draftRounds = Number(draft?.settings?.rounds) || null;
+  const draftType = typeof draft?.type === "string" ? draft.type : null;
+  const slot = useMemo(
+    () => mySlot({ draft, userId: state.userId }),
+    [draft, state.userId]
+  );
+  const schedule = useMemo(
+    () => pickSchedule({ slot, teams: draftTeams, rounds: draftRounds, type: draftType }),
+    [slot, draftTeams, draftRounds, draftType]
+  );
+  const nextPick = useMemo(
+    // En un draft terminado no hay «siguiente turno»: enseñarlo invita a
+    // esperar un pick que ya no llega.
+    () =>
+      draft?.status === DRAFT_STATUS.COMPLETE
+        ? null
+        : picksUntilMe({ schedule, picksMade: sync.total ?? null }),
+    [schedule, sync.total, draft]
+  );
+
+  /**
+   * Mis ligas de esta temporada, desde Sleeper.
+   *
+   * Dos peticiones: el usuario y sus ligas. Lo que devuelve `/leagues` ya trae
+   * nombre, `total_rosters`, `scoring_settings` y `draft_id`, así que el
+   * catálogo se puede pintar entero sin una petición por liga.
+   *
+   * La temporada se pasa, no se supone: preguntar por la que toca es lo que
+   * distingue «mis ligas» de «las ligas que tuve alguna vez».
+   */
+  const lookupLeagues = useCallback(async () => {
+    const name = username.trim();
+    if (!name) return;
+    setCatalogError("");
+    setCatalog(null);
+    try {
+      const userResponse = await fetch(`${SLEEPER}/user/${encodeURIComponent(name)}`);
+      if (!userResponse.ok) throw new Error(`user lookup returned ${userResponse.status}`);
+      const account = await userResponse.json();
+      if (!account?.user_id) throw new Error("no Sleeper account with that name");
+      const response = await fetch(`${SLEEPER}/user/${account.user_id}/leagues/nfl/${season}`);
+      if (!response.ok) throw new Error(`leagues returned ${response.status}`);
+      const list = await response.json();
+      setCatalog(Array.isArray(list) ? list : []);
+      // El `user_id` se guarda ya: es lo que separa TUS picks de los del resto,
+      // y pedirlo dos veces sería pedirlo dos veces.
+      setState((previous) => ({ ...previous, userId: String(account.user_id) }));
+    } catch (error) {
+      setCatalog([]);
+      setCatalogError(String(error.message ?? error));
+    }
+  }, [username, season]);
+
+
   if (!ready) {
     return <p className="caption">Loading draft mode…</p>;
   }
@@ -371,7 +525,47 @@ export default function DraftMode({ board, positionFilter = "ALL" }) {
 
   return (
     <div className="draft">
-      {onClock ? (
+      {draft ? (
+        <section className="draft-context" aria-label="Draft context">
+          <span className={`sync-pill sync-pill--${sync.view.level.toLowerCase()}`}>
+            {sync.view.label}
+          </span>
+          <span className="ctx">
+            <span className="k">Slot</span>
+            <span className="v">{slot ?? "UNKNOWN"}</span>
+          </span>
+          <span className="ctx">
+            <span className="k">Type</span>
+            <span className="v">{draftType ?? "UNKNOWN"}</span>
+          </span>
+          <span className="ctx">
+            <span className="k">Rounds</span>
+            <span className="v">{draftRounds ?? "UNKNOWN"}</span>
+          </span>
+          <span className="ctx">
+            <span className="k">Teams</span>
+            <span className="v">{draftTeams ?? "UNKNOWN"}</span>
+          </span>
+          {/* La limitación va DENTRO de la tira de contexto, no escondida en un
+              desplegable: el estado de la liga es real y el valor de los
+              jugadores no está personalizado a ella, y las dos cosas se leen
+              juntas o la primera hace creer la segunda. */}
+          <span className="ctx ctx--warn" title="LEAGUE_SPECIFIC_VALUE is BLOCKED: VOR uses 12-team PPR with QB1/RB2/WR3/TE1 regardless of this league. Replacement level depends on league size and starter slots, so a superflex league is ordered wrong, not slightly off.">
+            <span className="k">Board</span>
+            <span className="v">not league-specific</span>
+          </span>
+          {nextPick ? (
+            <span className="ctx ctx--next">
+              <span className="k">Next pick</span>
+              <span className="v">
+                {nextPick.label} · {nextPick.away} away
+              </span>
+            </span>
+          ) : null}
+        </section>
+      ) : null}
+
+      {onClock && sync.view.canRecommend ? (
         <section className="onclock" style={teamVars(onClock.team)} aria-label="On the clock">
           <p className="eyebrow">Best available for you</p>
           <div className="onclock-body">
@@ -405,6 +599,13 @@ export default function DraftMode({ board, positionFilter = "ALL" }) {
               Someone took him
             </button>
           </div>
+        </section>
+      ) : onClock ? (
+        <section className="onclock onclock--held">
+          <p className="eyebrow">Suggestion held</p>
+          <p className="onclock-wait">
+            {sync.view.detail} The board below is still accurate as of the last sync.
+          </p>
         </section>
       ) : null}
 
@@ -477,8 +678,8 @@ export default function DraftMode({ board, positionFilter = "ALL" }) {
         {state.league ? (
           <>
             <div className="sleeper-line">
-              <span className={`dot dot--${sync.state}`} aria-hidden="true" />
-              <strong>Sleeper</strong>
+              <span className={`dot dot--${sync.view.level.toLowerCase()}`} aria-hidden="true" />
+              <strong className="sync-label">{sync.view.label}</strong>
               <span className="outlet">league {state.league}</span>
               <button
                 type="button"
@@ -509,33 +710,37 @@ export default function DraftMode({ board, positionFilter = "ALL" }) {
               </label>
             ) : null}
 
-            {sync.state === "live" ? (
-              <p className="caption">
-                {sync.total} picks read
-                {sync.unmatched?.length ? (
-                  <>
-                    {" "}·{" "}
-                    <strong>
-                      {sync.unmatched.length} unmatched, still counted as available
-                    </strong>
-                    : {sync.unmatched
-                      .slice(0, 5)
-                      .map((pick) =>
-                        `${pick.metadata?.first_name ?? ""} ${pick.metadata?.last_name ?? ""}`.trim()
-                      )
-                      .filter(Boolean)
-                      .join(", ")}
-                    {sync.unmatched.length > 5 ? "…" : ""}. Almost always rookies: with no
-                    NFL game played they are not on the board.
-                  </>
-                ) : null}
-                . Refreshes every 15 seconds.
-              </p>
-            ) : null}
+            <p className="caption sync-detail">
+              {sync.view.detail}
+              {sync.state === "ok" ? (
+                <>
+                  {" "}· {sync.total} picks read
+                  {sync.unmatched?.length ? (
+                    <>
+                      {" "}·{" "}
+                      <strong>
+                        {sync.unmatched.length} unmatched, still counted as available
+                      </strong>
+                      : {sync.unmatched
+                        .slice(0, 5)
+                        .map((pick) =>
+                          `${pick.metadata?.first_name ?? ""} ${pick.metadata?.last_name ?? ""}`.trim()
+                        )
+                        .filter(Boolean)
+                        .join(", ")}
+                      {sync.unmatched.length > 5 ? "…" : ""}. Almost always rookies: with no
+                      NFL game played they are not on the board.
+                    </>
+                  ) : null}
+                </>
+              ) : null}
+            </p>
+
             {sync.state === "error" ? (
               <p className="caption sleeper-error">
                 Could not read the draft: {sync.message}. The manual board still works and
                 nothing already synced was lost.
+                {sync.lastSyncAt ? ` Last good sync ${agoLabel(sync.lastSyncAt)}.` : ""}
               </p>
             ) : null}
           </>
@@ -550,8 +755,61 @@ export default function DraftMode({ board, positionFilter = "ALL" }) {
               if (value) setState((p) => ({ ...p, league: value }));
             }}
           >
+            <label className="field-label" htmlFor="draft-user">
+              Your Sleeper username — lists your {season} leagues
+              <span className="field-row">
+                <input
+                  id="draft-user"
+                  type="text"
+                  autoComplete="off"
+                  placeholder="username"
+                  value={username}
+                  onChange={(event) => setUsername(event.target.value)}
+                />
+                <button type="button" className="pick pick--mine" onClick={lookupLeagues}>
+                  Find
+                </button>
+              </span>
+            </label>
+
+            {catalogError ? (
+              <p className="caption sleeper-error">Could not read your leagues: {catalogError}</p>
+            ) : null}
+
+            {catalog?.length ? (
+              <ul className="league-list">
+                {catalog.map((entry) => (
+                  <li key={entry.league_id}>
+                    <button
+                      type="button"
+                      className="league-row"
+                      onClick={() =>
+                        setState((previous) => ({
+                          ...previous,
+                          league: String(entry.league_id),
+                        }))
+                      }
+                    >
+                      <span className="league-name">{entry.name ?? entry.league_id}</span>
+                      <span className="league-meta">
+                        {/* Cada campo dice UNKNOWN si Sleeper no lo trae. Suponer
+                            «12 equipos PPR» sería inventarse la configuración de
+                            una liga ajena, y en una superflex el board saldría
+                            mal en el orden entero. */}
+                        <span>{entry.total_rosters ?? "UNKNOWN"} teams</span>
+                        <span>{scoringSummary(entry.scoring_settings)}</span>
+                        <span>{entry.status ?? "UNKNOWN"}</span>
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : catalog ? (
+              <p className="caption">No {season} leagues on that account.</p>
+            ) : null}
+
             <label className="field-label" htmlFor="draft-league">
-              League URL or id
+              Or paste a league URL or id
               <input
                 id="draft-league"
                 type="text"

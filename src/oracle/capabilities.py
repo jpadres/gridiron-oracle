@@ -356,6 +356,45 @@ REGISTRY: tuple[Capability, ...] = (
         model_version=None,
     ),
     Capability(
+        id="MULTI_LEAGUE_DRAFT_STATE",
+        status=Status.VALIDATED,
+        evidence=(
+            "el estado de draft se guarda bajo una clave compuesta "
+            "(temporada + liga + draft) y 19 tests demuestran que no hay fuga entre "
+            "ligas: A->B->A devuelve cada estado intacto y el blob global v1 no se "
+            "atribuye a ninguna liga"
+        ),
+        experiment_id="E14",
+        metric="19/19 escenarios de aislamiento, cero fugas",
+        sample_size=19,
+        limitations=(
+            "Es ESTADO de liga, no VALOR por liga: el board sigue siendo uno solo.",
+            "Sin las tres partes de la identidad no se persiste — falla seguro.",
+        ),
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
+    ),
+    Capability(
+        id="LEAGUE_SPECIFIC_VALUE",
+        status=Status.BLOCKED,
+        evidence=(
+            "el board publicado usa 12 equipos y PPR con QB1/RB2/WR3/TE1. El VOR "
+            "depende del nivel de reemplazo, y el nivel de reemplazo depende del "
+            "tamaño de la liga y de los huecos de titular: en una superflex, calcular "
+            "con un solo quarterback no está «un poco mal», cambia el orden entero"
+        ),
+        experiment_id=None,
+        metric=None,
+        sample_size=None,
+        limitations=(
+            "Depende de MULTI_LEAGUE_SCORING (bloque A de V2), también BLOCKED.",
+            "Hasta entonces la interfaz enseña el estado real de tu liga y un board "
+            "que NO está personalizado a ella. Las dos cosas a la vez, dichas.",
+        ),
+        last_validated=None,
+        model_version=None,
+    ),
+    Capability(
         id="SLEEPER_SYNC_PERIODIC",
         status=Status.VALIDATED,
         evidence=(
