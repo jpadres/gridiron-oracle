@@ -28,7 +28,7 @@ const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PORT = 4324;
 const BASE = `http://127.0.0.1:${PORT}`;
 const PAGES = ["/", "/modelo", "/validacion", "/predicciones",
-               "/fantasy", "/fantasy/semanal", "/survivor", "/research"];
+               "/fantasy", "/fantasy/draft", "/fantasy/semanal", "/survivor", "/research"];
 const WIDTHS = [390, 768, 1440];
 
 

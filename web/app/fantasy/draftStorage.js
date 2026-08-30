@@ -180,3 +180,75 @@ export function migrateLegacy(storage, season) {
   try { storage.removeItem(LEGACY_KEY); } catch { /* da igual */ }
   return { migrated: true, moved, scope };
 }
+
+/* ===========================================================================
+   REGISTRO DE PICKS (v3)
+   ---------------------------------------------------------------------------
+   El estado de draft pasa de dos listas de ids a un registro de eventos. La
+   clave de ámbito es la MISMA que en v2 —temporada, liga y draft— con otro
+   sufijo, así que el aislamiento entre ligas que demuestra E14 se conserva tal
+   cual: dos ligas distintas siguen sin poder compartir clave.
+   =========================================================================== */
+
+export const LOG_SUFFIX = "log";
+
+/** La clave del registro de un contexto. `null` si la identidad está incompleta. */
+export function logScopeFor(identity) {
+  const scope = scopeFor(identity);
+  return scope ? `${scope}:${LOG_SUFFIX}` : null;
+}
+
+function sanitizeEvent(event) {
+  if (!event || typeof event !== "object") return null;
+  const { kind, playerId, at, seq } = event;
+  if (kind !== "TAKE" && kind !== "UNDO") return null;
+  if (typeof playerId !== "string" || !playerId) return null;
+  if (!Number.isFinite(at) || !Number.isFinite(seq)) return null;
+  return event;
+}
+
+export function loadLog(scope, storage) {
+  if (!scope || !storage) return [];
+  try {
+    const raw = storage.getItem(scope);
+    const parsed = raw ? JSON.parse(raw) : [];
+    // Un evento corrupto se descarta en vez de tumbar el draft entero: en medio
+    // de una ronda, perder un pick es malo y perder la pantalla es peor.
+    return Array.isArray(parsed) ? parsed.map(sanitizeEvent).filter(Boolean) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveLog(scope, events, storage) {
+  if (!scope || !storage) return false;
+  try {
+    storage.setItem(scope, JSON.stringify(events));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Migración del estado v2 (`{gone, mine}`) al registro.
+ *
+ * Se pierde información que v2 nunca tuvo —el orden real, la hora, el puesto—
+ * y **eso se dice** en el evento: `rosterSource: "MIGRATED"` y un `at`
+ * sintético anterior a cualquier pick nuevo. Inventar números de pick para que
+ * pareciera un registro completo sería fabricar un historial.
+ */
+export function migrateMarksToLog(marks, { at = 0 } = {}) {
+  const events = [];
+  let seq = 0;
+  const push = (playerId, roster) => {
+    seq += 1;
+    events.push({
+      kind: "TAKE", playerId, roster, rosterSource: "MIGRATED",
+      overall: null, source: "MANUAL", providerId: null, at, seq,
+    });
+  };
+  for (const id of marks?.mine ?? []) push(id, "MINE");
+  for (const id of marks?.gone ?? []) push(id, "OPPONENT");
+  return events;
+}

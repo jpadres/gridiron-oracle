@@ -182,6 +182,15 @@ export default function BoardShell({
         {context.league ? <> · synced from Sleeper: <strong>{context.league}</strong></> : null}
       </p>
 
+      {/* La puerta al Draft Room. El board sirve para preparar; el Room es para
+          el día del draft, y hasta ahora no había forma de llegar desde aquí. */}
+      <p className="room-entry">
+        <a href="/fantasy/draft" className="act act--mine">Enter draft room</a>
+        <span className="caption">
+          Live companion for draft day. Works on any platform — mark picks as they happen.
+        </span>
+      </p>
+
       <div className="board-controls">
         <nav className="view-tabs" aria-label="Board view">
           {VIEWS.map((entry) => (

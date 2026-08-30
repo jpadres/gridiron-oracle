@@ -25,6 +25,7 @@ const PAGES = [
   { href: "/validacion", label: "Validation" },
   { href: "/predicciones", label: "Predictions" },
   { href: "/fantasy", label: "Draft" },
+  { href: "/fantasy/draft", label: "Room" },
   { href: "/fantasy/semanal", label: "Weekly" },
   { href: "/survivor", label: "Survivor" },
   { href: "/research", label: "Research" },

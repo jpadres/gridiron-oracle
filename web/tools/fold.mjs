@@ -25,6 +25,7 @@ const SCHEME = process.argv[4] ?? "light";
 const PAGES = [
   ["/", "home"], ["/modelo", "modelo"], ["/validacion", "validacion"],
   ["/predicciones", "predicciones"], ["/fantasy", "fantasy"],
+  ["/fantasy/draft", "room"],
   ["/fantasy/semanal", "semanal"], ["/survivor", "survivor"], ["/research", "research"],
 ];
 const WIDTHS = [390, 768, 1440];

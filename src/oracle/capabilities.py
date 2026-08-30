@@ -421,20 +421,28 @@ REGISTRY: tuple[Capability, ...] = (
     ),
     Capability(
         id="LIVE_DRAFT_ROOM",
-        status=Status.DESIGN_ONLY,
-        evidence=None,
-        experiment_id=None,
-        metric=None,
-        sample_size=None,
+        status=Status.VALIDATED,
+        evidence=(
+            "modo manual construido sobre un registro de eventos canónico: 25 tests "
+            "de fold, deshacer y turno, más 27 comprobaciones en navegador a "
+            "390/768/1440 — un pick en 35-60 ms, veinte seguidos sin duplicar, "
+            "deshacer renumera, recargar conserva el draft y no hay fuga entre ligas"
+        ),
+        experiment_id="E16",
+        metric="27/27 comprobaciones de navegador, latencia de pick 35-60 ms",
+        sample_size=27,
         limitations=(
-            "Diseñado en docs/v2/DRAFT_ROOM.md, sin implementar.",
+            "Es CORRECCIÓN del registro y de la interacción, no una afirmación "
+            "sobre la calidad de las decisiones que se tomen con él.",
+            "Enseña BEST AVAILABLE (board validado) con el contexto de plantilla "
+            "al lado. NO «best pick for me», que sigue BLOCKED.",
             "NO depende de SLEEPER_LIVE_BROWSER: el modo manual funciona en "
             "cualquier plataforma y en un draft presencial.",
             "Enseña Best Available (validado), tiers y plantilla. NO «best pick "
             "for me», que no está validado.",
         ),
-        last_validated=None,
-        model_version=None,
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
     ),
     Capability(
         id="BEST_PICK_FOR_ME",
