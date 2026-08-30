@@ -24,6 +24,7 @@ Estados: **PASA** · **FALLA** · **NO CONCLUYENTE** · **RETIRADO**
 | E11 | El modelo ayuda en decisiones de Start/Sit difíciles | 2024–2025, 31.776 pares | forma reciente y moneda | acierto por pares, IC95% | batir al baseline **y** IC>50% | 54,3% [53,7–54,8] vs 53,6% | **PASA** |
 | E11b | Ídem incluyendo los que no jugaron | 42.354 pares | ídem | ídem | ídem | 52,9% vs **50,1%** (la forma es una moneda) | **PASA** |
 | E12 | El orden del ranking significa algo por debajo de 1 punto de diferencia | 89.114 pares | moneda | acierto por tramo, IC95% | IC > 50% | 50,6% [49,5–51,7] — el 50% dentro del IC | **FALLA** (y ése es el hallazgo) |
+| E13 | Sleeper es alcanzable desde un entorno real | 4 endpoints, GitHub Actions | — | código HTTP | 200 o 404 en los cuatro | 2×200 con datos, 2×404 sobre ids inventados | **PASA** |
 | E10b | Ese efecto es explotable contra el mercado | 457 partidos | total de cierre | residuo, IC95% | — | −2,22 aparente, **pero el clima es observado, no pronosticado** | **FALLA** (fuga) |
 
 ## Conocimiento negativo — cosas que NO funcionan

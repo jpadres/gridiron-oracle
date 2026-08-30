@@ -105,6 +105,21 @@ def test_las_apuestas_estan_rechazadas_con_su_numero():
     assert "52,4" in apuestas.evidence  # el equilibrio, para que no se olvide
 
 
+def test_sleeper_separa_el_alcance_de_servidor_del_de_navegador():
+    """Demostrar una cosa no demuestra la otra, y la diferencia decide qué se construye.
+
+    E13 probó que Sleeper responde desde un runner de GitHub Actions. Eso habilita
+    la sincronización periódica —waivers, traspasos, multi-liga— y **no** habilita
+    Game Day, que usa el navegador del usuario y sigue sin comprobar.
+
+    Fundirlas en una sola capacidad sería justo el error que este registro existe
+    para impedir.
+    """
+    assert get("SLEEPER_SYNC_PERIODIC").status is Status.VALIDATED
+    assert get("SLEEPER_LIVE_BROWSER").status is Status.BLOCKED
+    assert get("SLEEPER_LIVE_BROWSER").authority is Authority.HIDE
+
+
 def test_el_payload_lleva_estado_y_autoridad_de_cada_capacidad():
     payload = as_payload()
     assert payload["model_version"]

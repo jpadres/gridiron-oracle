@@ -356,19 +356,42 @@ REGISTRY: tuple[Capability, ...] = (
         model_version=None,
     ),
     Capability(
-        id="SLEEPER_LIVE",
+        id="SLEEPER_SYNC_PERIODIC",
+        status=Status.VALIDATED,
+        evidence=(
+            "comprobado desde GitHub Actions el 2026-08-30: `state/nfl` y "
+            "`user/<nombre>` responden 200 con datos reales; `league/<id>/rosters` y "
+            "`draft/<id>/picks` responden 404 sobre ids inventados, que es llegar al "
+            "servicio. Contraste con api.github.com en 200"
+        ),
+        experiment_id="E13",
+        metric="4 de 4 endpoints alcanzables (2x200, 2x404 esperado)",
+        sample_size=4,
+        limitations=(
+            "Prueba alcance desde un runner, NO desde el navegador ni desde Vercel.",
+            "Habilita la sincronización PERIÓDICA: waivers, traspasos y multi-liga, "
+            "que no necesitan tiempo real.",
+            "No habilita Game Day: eso necesita el camino del navegador, sin comprobar.",
+        ),
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
+    ),
+    Capability(
+        id="SLEEPER_LIVE_BROWSER",
         status=Status.BLOCKED,
         evidence=(
-            "no comprobado desde ningún entorno real; el 403 de desarrollo es del "
-            "proxy de este contenedor, que bloquea también Google y nuestro propio sitio"
+            "sin comprobar. El alcance desde servidor está demostrado (E13), pero el "
+            "camino que usan el modo draft y Game Day es el del navegador del usuario, "
+            "y eso sólo lo contesta un draft de verdad"
         ),
         experiment_id=None,
         metric=None,
         sample_size=None,
         limitations=(
-            "NO es un fallo de Sleeper ni de nuestra integración: es la red de "
-            "desarrollo. La CSP ya permite connect-src a api.sleeper.app.",
-            "Se desbloquea con una comprobación verde desde GitHub Actions.",
+            "La CSP ya permite connect-src a api.sleeper.app: el camino está abierto "
+            "por diseño, sólo falta ejecutarlo una vez.",
+            "El 403 de desarrollo NO era de Sleeper — era el proxy del contenedor, que "
+            "bloquea también Google y el propio sitio de producción de este proyecto.",
         ),
         last_validated=None,
         model_version=None,
