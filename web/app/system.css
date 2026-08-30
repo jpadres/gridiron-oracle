@@ -742,3 +742,6 @@ button.pick--mine { min-height: 44px; }
 /* El botón «Find» del catálogo medía 30px de ancho: el texto es corto y el
    mínimo táctil no depende de la longitud de la palabra. */
 button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
+/* La liga cuyo board SÍ se puede compilar. No es verde de «todo bien»: es la
+   tiza, porque lo que dice es «se puede», no «ya está aplicado». */
+.draft-context .ctx--ready .v { color: var(--chalk); }

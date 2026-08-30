@@ -48,6 +48,8 @@ import {
 import {
   DRAFT_STATUS, agoLabel, mySlot, pickSchedule, picksUntilMe, syncState,
 } from "./draftSync.js";
+import { rulesFromSleeper } from "./scoring.js";
+import { rosterContext } from "./leagueValue.js";
 
 
 // El único destino externo de todo el sitio. La CSP no permite ningún otro, y
@@ -281,6 +283,9 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
   const [catalog, setCatalog] = useState(null);
   const [catalogError, setCatalogError] = useState("");
   const [username, setUsername] = useState("");
+  // La configuración de la liga conectada. Es lo que decide si su board se puede
+  // calcular; sin ella no se afirma nada sobre la liga.
+  const [leagueInfo, setLeagueInfo] = useState(null);
 
   const sync = useSleeperDraft(board, ready ? state.league : "", state.userId);
   const draft = sync.draft;
@@ -451,6 +456,28 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
     () => pickSchedule({ slot, teams: draftTeams, rounds: draftRounds, type: draftType }),
     [slot, draftTeams, draftRounds, draftType]
   );
+  // --- ¿se puede valorar EN ESTA liga? ---------------------------------------
+  //
+  // Dos preguntas separadas a propósito: la puntuación y la estructura. Se puede
+  // saber traducir la una y no la otra, y en ese caso el board sigue sin ser de
+  // tu liga. Sólo con las DOS soportadas se dice que lo es.
+  //
+  // Mientras `LEAGUE_SPECIFIC_VALUE` sea NOT_READY el board publicado se sigue
+  // calculando en PPR de 12 equipos, así que la etiqueta dice lo que hay: los
+  // datos de la liga se leen y se enseñan, y el valor todavía no es suyo.
+  const leagueFit = useMemo(() => {
+    if (!leagueInfo) return { known: false };
+    const scoring = rulesFromSleeper(leagueInfo.scoring_settings);
+    const roster = rosterContext(leagueInfo.roster_positions, leagueInfo.total_rosters);
+    return {
+      known: true,
+      scoring,
+      roster,
+      supported: scoring.supported && roster.supported,
+      reason: scoring.supported ? roster.reason : scoring.reason,
+    };
+  }, [leagueInfo]);
+
   const nextPick = useMemo(
     // En un draft terminado no hay «siguiente turno»: enseñarlo invita a
     // esperar un pick que ya no llega.
@@ -471,6 +498,27 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
    * La temporada se pasa, no se supone: preguntar por la que toca es lo que
    * distingue «mis ligas» de «las ligas que tuve alguna vez».
    */
+  useEffect(() => {
+    if (!ready || !state.league) {
+      setLeagueInfo(null);
+      return undefined;
+    }
+    let cancelled = false;
+    (async () => {
+      try {
+        const response = await fetch(`${SLEEPER}/league/${state.league}`);
+        if (!response.ok) throw new Error(String(response.status));
+        const data = await response.json();
+        if (!cancelled) setLeagueInfo(data);
+      } catch {
+        // Sin configuración no se supone ninguna: `leagueInfo` se queda en null
+        // y la interfaz dice UNKNOWN en vez de «12 equipos PPR».
+        if (!cancelled) setLeagueInfo(null);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [ready, state.league]);
+
   const lookupLeagues = useCallback(async () => {
     const name = username.trim();
     if (!name) return;
@@ -550,9 +598,20 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
               desplegable: el estado de la liga es real y el valor de los
               jugadores no está personalizado a ella, y las dos cosas se leen
               juntas o la primera hace creer la segunda. */}
-          <span className="ctx ctx--warn" title="LEAGUE_SPECIFIC_VALUE is BLOCKED: VOR uses 12-team PPR with QB1/RB2/WR3/TE1 regardless of this league. Replacement level depends on league size and starter slots, so a superflex league is ordered wrong, not slightly off.">
+          <span
+            className={leagueFit.supported ? "ctx ctx--ready" : "ctx ctx--warn"}
+            title={
+              leagueFit.supported
+                ? "Your scoring and roster are both readable, so this league's board can be compiled. LEAGUE_SPECIFIC_VALUE is NOT_READY: the numbers are correct, but a per-league board has not been shown to produce better drafts."
+                : leagueFit.known
+                  ? `Cannot compile this league's board: ${leagueFit.reason}. The board below uses 12-team PPR with QB1/RB2/WR3/TE1.`
+                  : "League settings not read. The board below uses 12-team PPR with QB1/RB2/WR3/TE1."
+            }
+          >
             <span className="k">Board</span>
-            <span className="v">not league-specific</span>
+            <span className="v">
+              {leagueFit.supported ? "compilable · not yet applied" : "not league-specific"}
+            </span>
           </span>
           {nextPick ? (
             <span className="ctx ctx--next">

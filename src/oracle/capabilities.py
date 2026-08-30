@@ -376,23 +376,27 @@ REGISTRY: tuple[Capability, ...] = (
     ),
     Capability(
         id="LEAGUE_SPECIFIC_VALUE",
-        status=Status.BLOCKED,
+        status=Status.NOT_READY,
         evidence=(
-            "el board publicado usa 12 equipos y PPR con QB1/RB2/WR3/TE1. El VOR "
-            "depende del nivel de reemplazo, y el nivel de reemplazo depende del "
-            "tamaño de la liga y de los huecos de titular: en una superflex, calcular "
-            "con un solo quarterback no está «un poco mal», cambia el orden entero"
+            "el compilador de puntuación reproduce los puntos EXACTAMENTE desde los "
+            "componentes canónicos (máx |Δ| 1,07e-14 sobre 998 jugadores y 7 perfiles), "
+            "el board canónico sale idéntico (Δ = 0, sin cambios de orden ni de tier) "
+            "y superflex mueve el reemplazo de QB de 12 a 24 reordenando el board"
         ),
-        experiment_id=None,
-        metric=None,
-        sample_size=None,
+        experiment_id="E15",
+        metric="máx |Δ| = 1.07e-14 puntos por partido",
+        sample_size=998,
         limitations=(
-            "Depende de MULTI_LEAGUE_SCORING (bloque A de V2), también BLOCKED.",
-            "Hasta entonces la interfaz enseña el estado real de tu liga y un board "
-            "que NO está personalizado a ella. Las dos cosas a la vez, dichas.",
+            "Demuestra CORRECCIÓN de la compilación, no que un board por liga "
+            "produzca mejores drafts. Eso es una afirmación de resultado y nadie la "
+            "ha medido: por eso INFORM y no RECOMMEND.",
+            "Los bonus por partido (300/100 yardas) NO se pueden compilar desde "
+            "medias por partido. Esas ligas quedan sin board, no con uno aproximado.",
+            "Una regla de puntuación o un hueco de plantilla sin traducir dejan la "
+            "liga como no soportada en vez de caer a un valor por defecto.",
         ),
-        last_validated=None,
-        model_version=None,
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
     ),
     Capability(
         id="SLEEPER_SYNC_PERIODIC",

@@ -41,6 +41,7 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
+from .components import COMPONENTS, weighted_components
 from .scoring import PPR, ScoringRules, score_player_weeks
 
 # Ponderación de las tres últimas temporadas. Suma 1.
@@ -143,6 +144,21 @@ def project_season(
         excess_td = group["td_per_game"] - td_mean
         td_correction = (TD_PERSISTENCE - 1.0) * excess_td * reliability
         group["ppg_shrunk"] += td_correction * _td_points(position, rules)
+        # Las medias de la posición se guardan en cada fila. Sin ellas, el
+        # navegador no puede reproducir el encogimiento: se calculan sobre los
+        # ~860 jugadores proyectados y el payload publica 250, así que
+        # recalcularlas allí daría otra media y otro board.
+        #
+        # Se guardan las medias de los COMPONENTES, no la media en puntos: la
+        # media en puntos depende de las reglas y estas medias tienen que servir
+        # para cualquier liga. Por linealidad, compilar la media de componentes
+        # da exactamente la media de puntos.
+        for name in COMPONENTS:
+            group[f"mean_{name}"] = float(
+                np.average(group[name], weights=group["weighted_games"])
+            )
+        group["td_mean"] = float(td_mean)
+        group["reliability"] = reliability
         projections.append(group)
 
     board = pd.concat(projections, ignore_index=True)
@@ -179,18 +195,21 @@ def _weighted_player_row(group: pd.DataFrame) -> pd.Series:
     )
     tds = tds if isinstance(tds, np.ndarray) else np.zeros(len(group))
 
-    return pd.Series(
-        {
-            # `weighted_games` no son partidos reales: son partidos ponderados
-            # por antigüedad, y es la escala correcta para el encogimiento
-            # (una temporada de hace tres años debe dar menos confianza).
-            "weighted_games": float(total),
-            "points_per_game": float((points * weights).sum() / total),
-            "td_per_game": float((tds * weights).sum() / total),
-            "player_name": group["player_name"].iloc[-1] if "player_name" in group else "",
-            "team": group["team"].iloc[-1] if "team" in group else "",
-        }
-    )
+    row = {
+        # `weighted_games` no son partidos reales: son partidos ponderados
+        # por antigüedad, y es la escala correcta para el encogimiento
+        # (una temporada de hace tres años debe dar menos confianza).
+        "weighted_games": float(total),
+        "points_per_game": float((points * weights).sum() / total),
+        "td_per_game": float((tds * weights).sum() / total),
+        "player_name": group["player_name"].iloc[-1] if "player_name" in group else "",
+        "team": group["team"].iloc[-1] if "team" in group else "",
+    }
+    # Los componentes canónicos, con los MISMOS pesos que los puntos. Que
+    # compartan el ponderado es lo que hace que compilar los componentes
+    # reproduzca `points_per_game` exactamente y no «casi».
+    row.update(weighted_components(group, weights))
+    return pd.Series(row)
 
 
 def _td_points(position: str, rules: ScoringRules) -> float:

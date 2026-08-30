@@ -26,6 +26,7 @@ Estados: **PASA** · **FALLA** · **NO CONCLUYENTE** · **RETIRADO**
 | E12 | El orden del ranking significa algo por debajo de 1 punto de diferencia | 89.114 pares | moneda | acierto por tramo, IC95% | IC > 50% | 50,6% [49,5–51,7] — el 50% dentro del IC | **FALLA** (y ése es el hallazgo) |
 | E13 | Sleeper es alcanzable desde un entorno real | 4 endpoints, GitHub Actions | — | código HTTP | 200 o 404 en los cuatro | 2×200 con datos, 2×404 sobre ids inventados | **PASA** |
 | E14 | El estado de draft de una liga no contamina a otra | 19 escenarios adversarios | — | fugas entre ligas | **cero** fugas en los 19 | 19/19, sin fuga | **PASA** |
+| E15 | Los componentes canónicos reproducen los puntos exactamente | 998 jugadores × 7 perfiles, 2022-2025 | el cálculo directo por semana | máx \|Δ\| en puntos por partido | **< 1e-9** | 1,07e-14 (epsilon de coma flotante) | **PASA** |
 | E10b | Ese efecto es explotable contra el mercado | 457 partidos | total de cierre | residuo, IC95% | — | −2,22 aparente, **pero el clima es observado, no pronosticado** | **FALLA** (fuga) |
 
 ## Conocimiento negativo — cosas que NO funcionan

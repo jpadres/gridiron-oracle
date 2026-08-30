@@ -37,6 +37,8 @@ from oracle.backtest.walkforward import season_table, walk_forward
 from oracle.config import DEFAULT_BACKTEST_START
 from oracle.config import paths as resolve_paths
 from oracle.data import identity
+from oracle.fantasy.components import COMPONENTS
+from oracle.fantasy.draft import PROJECTED_GAMES, SHRINK_PRIOR_GAMES, TD_PERSISTENCE
 from oracle.pipeline import Oracle
 
 # Límite de aviso del payload comprimido. No es un límite técnico: es la señal
@@ -180,6 +182,15 @@ def main(argv: list[str] | None = None) -> int:
     payload["fantasy"] = _trim_records(
         _load_optional(paths.out / "fantasy_draft.json"), "board", DRAFT_COLUMNS
     )
+    # Componentes canónicos: lo que convierte el board en recompilable por liga.
+    #
+    # Van como ARRAY en el orden de `COMPONENTS` y no como diez claves por fila:
+    # los nombres se repetirían 250 veces y cuestan más que los propios números.
+    # El orden viaja en `fantasy.components` para que el navegador no lo suponga.
+    #
+    # Tres decimales: la media por partido de una estadística no tiene más
+    # precisión real que eso, y guardar quince cifras es guardar ruido.
+    _attach_components(payload, _load_optional(paths.out / "fantasy_draft.json"))
     # `league` y `starters` no son columnas del board: `_trim_records` sólo
     # recorta la tabla, así que estas claves de nivel superior sobreviven solas.
     payload["fantasy_weekly"] = _trim_records(
@@ -276,6 +287,59 @@ def _strip_runtime_fields(section: dict | None) -> dict | None:
         for field in RUNTIME_ONLY_FIELDS:
             item.pop(field, None)
     return section
+
+
+
+def _attach_components(payload: dict, source: dict | None) -> None:
+    """Cuelga los componentes canónicos de cada fila del board.
+
+    Sin ellos el navegador sólo tiene puntos ya cocinados con UNAS reglas, y no
+    hay forma de recuperar cuántas recepciones había dentro. Con ellos, la
+    puntuación de cualquier liga se compila en el cliente.
+    """
+    fantasy = payload.get("fantasy")
+    if not isinstance(fantasy, dict) or not isinstance(source, dict):
+        return
+    rows = source.get("board")
+    board = fantasy.get("board")
+    if not isinstance(rows, list) or not isinstance(board, list):
+        return
+    by_id = {row.get("player_id"): row for row in rows if isinstance(row, dict)}
+    for record in board:
+        origin = by_id.get(record.get("player_id"))
+        if not origin:
+            continue
+        record["c"] = [round(float(origin.get(name, 0.0) or 0.0), 3) for name in COMPONENTS]
+        # El factor de edad multiplica la proyección y no se puede derivar de los
+        # componentes: sin él, recompilar en el cliente daría otro número.
+        record["age_factor"] = round(float(origin.get("age_factor", 1.0) or 1.0), 4)
+        # `weighted_games` decide cuánto se encoge a este jugador. Sin él el
+        # navegador tendría los componentes y no sabría cuánto fiarse de ellos.
+        record["wg"] = round(float(origin.get("weighted_games", 0.0) or 0.0), 3)
+    fantasy["components"] = list(COMPONENTS)
+    fantasy["projected_games"] = PROJECTED_GAMES
+
+    # Las constantes y las medias por posición: lo que falta para reproducir el
+    # encogimiento fuera de Python. Se calcularon sobre TODOS los jugadores
+    # proyectados, no sobre los 250 publicados, así que tienen que viajar — el
+    # navegador no las puede recalcular sin cambiar el resultado.
+    priors: dict[str, dict] = {}
+    for row in rows:
+        position = row.get("position")
+        if not position or position in priors:
+            continue
+        if f"mean_{COMPONENTS[0]}" not in row:
+            continue
+        priors[position] = {
+            "mean_components": [
+                round(float(row.get(f"mean_{name}", 0.0) or 0.0), 4) for name in COMPONENTS
+            ],
+            "td_mean": round(float(row.get("td_mean", 0.0) or 0.0), 5),
+        }
+    if priors:
+        fantasy["position_priors"] = priors
+        fantasy["shrink_prior_games"] = SHRINK_PRIOR_GAMES
+        fantasy["td_persistence"] = TD_PERSISTENCE
 
 
 def _research(paths, payload: dict) -> dict | None:

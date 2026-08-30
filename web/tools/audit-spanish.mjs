@@ -155,6 +155,9 @@ const DATOS_PREFIJOS = [
   // Identidad de equipo: nombres propios, códigos de tres letras y hexadecimales.
   // «New Orleans Saints» no se traduce, y #69BE28 tampoco.
   ".teams.",
+  // Nombres de los componentes canónicos: identificadores del esquema
+  // (`passing_yards`), no texto que se pinte.
+  ".fantasy.components[]",
 ];
 // Las fichas de research repiten los campos de datos en `today`; el único que
 // escribimos nosotros (`label`) ya está declarado arriba como COPY.
