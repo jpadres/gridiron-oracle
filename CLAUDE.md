@@ -129,7 +129,28 @@ auditado en `docs/v2/MULTILIGA_DRAFT.md`. Nada de valores por defecto asumidos
 como configuración real: si no se sabe el tamaño o la puntuación de una liga, es
 `UNKNOWN`, no «12 equipos PPR».
 
-### 7. La prensa no toca el modelo
+### 7. Sleeper es un adaptador, no el producto
+
+    EL DRAFT ROOM CONSUME EVENTOS DE PICK CANÓNICOS.
+    DE DÓNDE VENGAN ES UN DETALLE DEL ADAPTADOR.
+
+El modo manual funciona en Sleeper, ESPN, Yahoo, NFL Fantasy y en un draft
+presencial, y **no es un plan B**: es el modo que funciona en todas partes. La
+sincronización con Sleeper automatiza los mismos eventos, nada más.
+
+De ahí una distinción que no se vuelve a mezclar: `SLEEPER_LIVE_BROWSER`
+(BLOCKED) bloquea **la sincronización automática** y decir `LIVE` sobre datos de
+Sleeper. **No** bloquea el Draft Room. Diseño en `docs/v2/DRAFT_ROOM.md`.
+
+Un draft manual tampoco tiene problema de frescura de red: su estado canónico son
+los picks introducidos, y marcarlo `STALE` porque Sleeper no ha sincronizado es
+aplicarle el modelo equivocado.
+
+Y la regla que protege la plantilla: **un pick nunca se asigna a un roster en
+silencio**. Si el puesto de draft no permite derivarlo, es `UNKNOWN` y el jugador
+cuenta como fuera del board sin entrar en la plantilla de nadie.
+
+### 8. La prensa no toca el modelo
 
 `src/oracle/narrative/research.py` barre noticias a diario. Nada de eso entra en
 un cálculo, ni como feature ni como ajuste ni como multiplicador. Se publica al
@@ -140,7 +161,7 @@ historial truncado. Una noticia de agosto no tiene fecha comprobable dentro de e
 pasada, así que en cuanto moviera un número, esa demostración deja de valer — y
 con ella todas las métricas de validación del proyecto.
 
-### 8. Un número generado que no está en los datos es un fallo, no un matiz
+### 9. Un número generado que no está en los datos es un fallo, no un matiz
 
 Los textos que redacta Claude sobre el modelo (`narrative/weekly.py`) pasan por
 `narrative/factcheck.py`: se extraen todas las cifras del texto y se comprueban

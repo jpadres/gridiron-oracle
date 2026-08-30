@@ -282,3 +282,20 @@ puede** decir «alinea a Lawrence».
 
 Es sistémico y no está cableado por pantalla: la autoridad se deriva del estado,
 el estado del registro, y el registro de los experimentos.
+
+---
+
+## Cambio de orden en el roadmap — 30/8/2026
+
+El Draft Room **deja de depender de Sleeper** y adelanta su posición:
+
+    ANTES:  Sleeper Live Browser  →  Draft Room
+    AHORA:  Draft Room (manual)   →  adaptador de Sleeper
+
+El motivo es que el orden anterior ataba un producto entero a un camino de red
+sin comprobar. Con el orden nuevo hay Draft Room aunque la sincronización desde
+el navegador no funcione nunca — y si funciona, automatiza exactamente los
+mismos eventos.
+
+Diseño completo en `docs/v2/DRAFT_ROOM.md`. Capacidades nuevas:
+`LIVE_DRAFT_ROOM` (DESIGN_ONLY) y `BEST_PICK_FOR_ME` (BLOCKED).

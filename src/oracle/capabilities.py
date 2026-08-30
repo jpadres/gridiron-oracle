@@ -420,6 +420,43 @@ REGISTRY: tuple[Capability, ...] = (
         model_version=MODEL_VERSION,
     ),
     Capability(
+        id="LIVE_DRAFT_ROOM",
+        status=Status.DESIGN_ONLY,
+        evidence=None,
+        experiment_id=None,
+        metric=None,
+        sample_size=None,
+        limitations=(
+            "Diseñado en docs/v2/DRAFT_ROOM.md, sin implementar.",
+            "NO depende de SLEEPER_LIVE_BROWSER: el modo manual funciona en "
+            "cualquier plataforma y en un draft presencial.",
+            "Enseña Best Available (validado), tiers y plantilla. NO «best pick "
+            "for me», que no está validado.",
+        ),
+        last_validated=None,
+        model_version=None,
+    ),
+    Capability(
+        id="BEST_PICK_FOR_ME",
+        status=Status.BLOCKED,
+        evidence=(
+            "ordenar por «lo que le conviene a mi plantilla» exige dos cosas que "
+            "no están: valor por liga (LEAGUE_SPECIFIC_VALUE en NOT_READY) y una "
+            "regla de construcción de plantilla que nadie ha medido"
+        ),
+        experiment_id=None,
+        metric=None,
+        sample_size=None,
+        limitations=(
+            "El ajuste por plantilla que ya existe (BENCH_VALUE) es una "
+            "convención declarada, no un resultado medido.",
+            "Hasta que haya evidencia, la pantalla enseña BEST AVAILABLE con el "
+            "contexto de plantilla al lado, sin fundir las dos cosas.",
+        ),
+        last_validated=None,
+        model_version=None,
+    ),
+    Capability(
         id="SLEEPER_LIVE_BROWSER",
         status=Status.BLOCKED,
         evidence=(
@@ -435,6 +472,9 @@ REGISTRY: tuple[Capability, ...] = (
             "por diseño, sólo falta ejecutarlo una vez.",
             "El 403 de desarrollo NO era de Sleeper — era el proxy del contenedor, que "
             "bloquea también Google y el propio sitio de producción de este proyecto.",
+            "ALCANCE, y es permanente: bloquea la SINCRONIZACIÓN AUTOMÁTICA y decir "
+            "LIVE sobre datos de Sleeper. NO bloquea el Draft Room, que consume "
+            "eventos de pick canónicos y funciona en modo manual sin red.",
         ),
         last_validated=None,
         model_version=None,
