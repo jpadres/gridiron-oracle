@@ -286,6 +286,23 @@ def test_sigma_grows_with_the_expected_total():
 # Ensamblado y cross-fitting
 # ---------------------------------------------------------------------------
 
+def test_residual_contributions_reconstruct_the_residual(features):
+    """La atribución no es decoración: suma de contribuciones + intercepto
+    reproduce EXACTAMENTE la predicción del miembro residual. Si esto deja de
+    cuadrar, la capa de «why this number» está mintiendo y hay que apagarla."""
+    train = features[features["season"] < 2020]
+    test = features[features["season"] == 2020]
+    model = MarketAwareModel().fit(train)
+
+    contributions = model.residual_contributions(test)
+    intercept = model.residual_model.named_steps["ridge"].intercept_
+    rebuilt = contributions.sum(axis=1).to_numpy() + intercept
+    direct = model.residual_model.predict(
+        test[contributions.columns].astype(float).fillna(0.0).to_numpy()
+    )
+    assert np.abs(rebuilt - direct).max() < 1e-9
+
+
 def test_blend_weights_are_fit_out_of_sample(features):
     """Los pesos salen de predicciones fuera de muestra, y son no negativos.
 

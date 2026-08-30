@@ -32,6 +32,7 @@ Estados: **PASA** · **FALLA** · **NO CONCLUYENTE** · **RETIRADO**
 | E18 | El valor por liga responde a las REGLAS de la liga, no sólo a su puntuación | 861 proyecciones × 13 configuraciones | el board publicado (12 equipos, PPR) | reemplazo, VOR, orden entre posiciones | **16/16** propiedades preregistradas | 16/16; superflex QB13→QB25 y +26,4 pts de VOR mediano | **PASA** |
 | E18b | Lo mismo, extendido a ligas PROFUNDAS (hasta 32 equipos) | 861 proyecciones × 17 configuraciones | E18 a 10-14 equipos | VOR del QB en superflex, reparto del top-25 | los mismos umbrales de E18 | **18/20**: la estructura aguanta, la magnitud no (+10,5 pts frente a +20) | **FALLA** (ancla dominada por el prior) |
 | E10b | Ese efecto es explotable contra el mercado | 457 partidos | total de cierre | residuo, IC95% | — | −2,22 aparente, **pero el clima es observado, no pronosticado** | **FALLA** (fuga) |
+| E20 | AUDITORÍA del modelo de partidos publicado: margen, total, marcadores y probabilidad | 3.829 partidos, walk-forward 2012–2025 | cero / media previa / constante / **cierre** | MAE por salida; Brier y fiabilidad por cubos | batir a los baselines ingenuos y cubos ±0,03 (estándar del campo; **sin preregistro** — es auditoría de un artefacto ya publicado) | margen 10,04 (cierre 9,97; cero 11,30) · total 10,57 (10,51; 11,08) · puntos 7,49/7,26 (7,43/7,23) · Brier 0,2128 (mercado 0,2113; constante 0,2470), cubos dentro de ±0,03 | **PASA** como calibración; el mercado sigue delante en todo |
 
 ## Conocimiento negativo — cosas que NO funcionan
 

@@ -57,7 +57,18 @@ export function TeamMark({ abbr, solid = false, title }) {
  * de abajo es la probabilidad del modelo en un solo trazo: sustituye a leer
  * «61,4%» en una celda y reconstruir mentalmente que el otro lado es 38,6%.
  */
-export function MatchupCard({ game, children }) {
+/** Etiquetas inglesas de las features del modelo, para la capa de «why». */
+const DRIVER_LABEL = {
+  elo_diff: "Elo gap", elo_margin: "Elo margin", market_elo_margin: "Market Elo",
+  hfa: "Home field", off_epa_diff: "Offense efficiency", def_epa_diff: "Defense efficiency",
+  net_rating_diff: "Net efficiency", pass_epa_diff: "Passing efficiency",
+  rush_epa_diff: "Rushing efficiency", form_diff: "Recent form", qb_diff: "QB rating",
+  qb_vs_offense: "QB vs offense", rest_diff: "Rest", travel_miles_diff: "Travel",
+  tz_shift_away: "Time zones", altitude_delta_away: "Altitude",
+  neutral_site: "Neutral site", indoors: "Indoors", experience_min: "QB experience",
+};
+
+export function MatchupCard({ game, children, detailed = false }) {
   const away = teamOf(game.away_team);
   const home = teamOf(game.home_team);
   const homeProb = Number(game.home_win_prob ?? 0);
@@ -76,23 +87,41 @@ export function MatchupCard({ game, children }) {
   const spread = Number.isFinite(line) && line !== 0
     ? `${favored} −${Math.abs(line).toFixed(1)}`
     : "Pick'em";
+  const hasScore =
+    Number.isFinite(Number(game.pred_home_points)) &&
+    Number.isFinite(Number(game.pred_away_points));
+  const marketTotal = Number(game.total_line);
 
   return (
     <article className="matchup" style={style}>
       <div className="side">
         <span className="abbr">{game.away_team}</span>
         <span className="city">{away?.nickname ?? ""}</span>
+        {hasScore ? (
+          <span className="proj">{Number(game.pred_away_points).toFixed(1)}</span>
+        ) : null}
       </div>
       <div className="axis">
         <span className="at">at</span>
-        <span className="line">{spread}</span>
+        {/* MODELO y MERCADO, cada uno con su nombre. Antes el total del MODELO
+            salía rotulado «O/U», que es lenguaje de mercado: la fusión visual
+            exacta que esta tarjeta existe para impedir. */}
         {Number.isFinite(Number(game.pred_total)) ? (
-          <span className="total">O/U {Number(game.pred_total).toFixed(1)}</span>
+          <span className="line line--model">
+            <small>Model total</small> {Number(game.pred_total).toFixed(1)}
+          </span>
         ) : null}
+        <span className="line line--market">
+          <small>Market</small> {spread}
+          {Number.isFinite(marketTotal) ? ` · O/U ${marketTotal.toFixed(1)}` : ""}
+        </span>
       </div>
       <div className="side side--home">
         <span className="abbr">{game.home_team}</span>
         <span className="city">{home?.nickname ?? ""}</span>
+        {hasScore ? (
+          <span className="proj">{Number(game.pred_home_points).toFixed(1)}</span>
+        ) : null}
       </div>
       <div className="odds">
         <span className="pct">{awayPct}%</span>
@@ -105,6 +134,30 @@ export function MatchupCard({ game, children }) {
         </span>
         <span className="pct pct--home">{100 - awayPct}%</span>
       </div>
+      {/* «Why this number»: atribución REAL — coeficiente × feature del ridge
+          residual, en puntos de separación respecto de la línea. Detrás de una
+          divulgación: la tarjeta se lee en dos segundos, la explicación cuando
+          se pide. Sólo en la vista detallada para no engordar cada tarjeta. */}
+      {detailed && Array.isArray(game.drivers) && game.drivers.length > 0 ? (
+        <details className="matchup-why">
+          <summary>Why this number</summary>
+          <p className="caption">
+            How far each model input pushes the prediction away from the market line, in
+            points (positive favors {game.home_team}). Exact linear attribution of the
+            market-anchored member — these four sum to most of the gap.
+          </p>
+          <ul>
+            {game.drivers.map((driver) => (
+              <li key={driver.f}>
+                <span>{DRIVER_LABEL[driver.f] ?? driver.f}</span>
+                <b className={driver.pts >= 0 ? "why-home" : "why-away"}>
+                  {driver.pts > 0 ? "+" : ""}{driver.pts.toFixed(2)}
+                </b>
+              </li>
+            ))}
+          </ul>
+        </details>
+      ) : null}
       {children}
     </article>
   );

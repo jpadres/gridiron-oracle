@@ -169,15 +169,33 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Publicando {season} semana {week}.")
 
     week_predictions = oracle.predict(oracle.week_features(season, week))
+    # Marcadores por equipo: derivados EXACTOS de margen y total (la mitad de
+    # cada uno), no un tercer modelo. Se publican para que la tarjeta pueda
+    # decir «SEA 24.7 – NE 21.1» sin que el navegador haga aritmética.
+    week_predictions["pred_home_points"] = (
+        week_predictions["pred_total"] + week_predictions["pred_margin"]
+    ) / 2.0
+    week_predictions["pred_away_points"] = (
+        week_predictions["pred_total"] - week_predictions["pred_margin"]
+    ) / 2.0
     payload["predictions"] = _round_frame(
         week_predictions[
             [
                 "game_id", "home_team", "away_team", "spread_line", "total_line",
                 "pred_margin", "pred_margin_free", "pred_total", "home_win_prob",
-                "edge_vs_line",
+                "edge_vs_line", "pred_home_points", "pred_away_points",
             ]
         ]
     ).to_dict(orient="records")
+    # «Why this number»: atribución REAL del miembro residual (coeficiente ×
+    # feature estandarizada = puntos de separación respecto de la línea). Se
+    # publican los cuatro mayores por magnitud; el resto es ruido de centésimas.
+    contributions = oracle.model.residual_contributions(week_predictions)
+    for row, (_, contrib) in zip(payload["predictions"], contributions.iterrows(), strict=True):
+        top = contrib.abs().sort_values(ascending=False).head(4).index
+        row["drivers"] = [
+            {"f": name, "pts": round(float(contrib[name]), 2)} for name in top
+        ]
 
     bets = oracle.value_bets(week_predictions)
     payload["bets"] = _enrich_bets(bets, week_predictions)

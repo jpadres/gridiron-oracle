@@ -258,6 +258,28 @@ class MarketAwareModel:
         out["edge_vs_line"] = np.where(np.isfinite(line), pred_margin - line, np.nan)
         return out
 
+    def residual_contributions(self, frame: pd.DataFrame) -> pd.DataFrame:
+        """Contribución de cada feature al residuo modelo−línea, en puntos.
+
+        Es ATRIBUCIÓN REAL, no decoración: el miembro residual es un ridge
+        lineal, así que `coef_j · z_j` es exactamente cuánto empuja cada feature
+        a la separación del modelo respecto del spread de cierre, y la suma de
+        la fila más el intercepto reproduce la predicción del residuo. Existe
+        para la capa de «why this number» de la web: si algún día el modelo
+        deja de ser lineal, esta función tiene que cambiar con él o
+        desaparecer — nunca quedarse fingiendo una linealidad que ya no está.
+
+        Nota de alcance: explica el miembro ANCLADO AL MERCADO del ensamblado,
+        que es el que domina la mezcla publicada. No descompone el modelo libre.
+        """
+        if not self.fitted:
+            raise RuntimeError("El modelo no está ajustado. Llama a fit() primero.")
+        X = _design(frame)
+        scaler = self.residual_model.named_steps["scale"]
+        ridge = self.residual_model.named_steps["ridge"]
+        Z = (X - scaler.mean_) / scaler.scale_
+        return pd.DataFrame(Z * ridge.coef_, columns=FEATURE_COLUMNS, index=frame.index)
+
     def cover_probabilities(self, row: pd.Series) -> tuple[float, float, float]:
         """(local cubre, push, visitante cubre) para el spread publicado."""
         return self.distribution.cover_probability(

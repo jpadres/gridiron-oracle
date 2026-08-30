@@ -122,6 +122,169 @@ class Capability:
 MODEL_VERSION = "2026.08.29"
 
 REGISTRY: tuple[Capability, ...] = (
+    # --- modelo de partidos --------------------------------------------------
+    # Hasta 2026-08-30 la web publicaba margen, total y probabilidad SIN entrada
+    # en este registro: una capacidad sin evaluar que ya estaba en producción.
+    # La auditoría E20 la cierra. Cada una tiene autoridad INDEPENDIENTE: que
+    # el margen esté validado no valida el edge — BETTING_EDGE sigue REJECTED.
+    Capability(
+        id="PROJECTED_MARGIN",
+        status=Status.VALIDATED,
+        evidence=(
+            "MAE 10,04 walk-forward 2012-2025, frente a 11,30 de predecir empate "
+            "y 9,97 del spread de cierre: iguala al mercado, no lo bate"
+        ),
+        experiment_id="E20",
+        metric="MAE margen = 10.04 (cierre 9.97, cero 11.30)",
+        sample_size=3829,
+        limitations=(
+            "El margen PUBLICADO es MERCADO-INFORMADO (residual sobre la línea, "
+            "mezclado con el modelo libre): no puede presentarse como evidencia "
+            "independiente contra ese mismo mercado (docs/REGLA_edge.md).",
+            "El modelo LIBRE (sin línea) da 10,28: existe, se publica aparte, y "
+            "es el único comparable honestamente contra el mercado.",
+        ),
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
+    ),
+    Capability(
+        id="PROJECTED_TOTAL",
+        status=Status.VALIDATED,
+        evidence=(
+            "MAE 10,57 frente a 10,51 del total de cierre y 11,08 de la media de "
+            "la temporada anterior"
+        ),
+        experiment_id="E20",
+        metric="MAE total = 10.57 (cierre 10.51, media previa 11.08)",
+        sample_size=3829,
+        limitations=(
+            "Es RESIDUAL sobre el total de cierre: no existe un total "
+            "independiente del mercado. Sin línea publicada no hay proyección.",
+        ),
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
+    ),
+    Capability(
+        id="PROJECTED_SCORE",
+        status=Status.VALIDATED,
+        evidence=(
+            "los marcadores por equipo son la derivación EXACTA de margen y total "
+            "(mitad de cada uno): MAE 7,49 local y 7,26 visitante, frente a 7,43 "
+            "y 7,23 de los implícitos del mercado"
+        ),
+        experiment_id="E20",
+        metric="MAE puntos de equipo = 7.49/7.26 (mercado 7.43/7.23)",
+        sample_size=3829,
+        limitations=(
+            "No es un tercer modelo: hereda la procedencia (mercado-informada) y "
+            "los límites de PROJECTED_MARGIN y PROJECTED_TOTAL.",
+            "Un marcador puntual no implica certeza; el intervalo vive en la "
+            "distribución de márgenes, no en esta cifra.",
+        ),
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
+    ),
+    Capability(
+        id="WIN_PROBABILITY",
+        status=Status.VALIDATED,
+        evidence=(
+            "calibración por cubos walk-forward 2012-2025: 0,36→0,35, 0,56→0,57, "
+            "0,74→0,77; Brier 0,2128 frente a 0,2470 de la constante"
+        ),
+        experiment_id="E20",
+        metric="Brier 0.2128; cubos dentro de ±0.03 salvo extremos con n<25",
+        sample_size=3829,
+        limitations=(
+            "NO bate al mercado (Brier moneyline sin vig: 0,2113): es una "
+            "probabilidad calibrada, no una ventaja.",
+            "Sale de la distribución discreta de márgenes (números clave 3 y 7) "
+            "más calibración logística — no de una heurística margen→sigmoide.",
+            "E20 es una AUDITORÍA del artefacto walk-forward, con el listón del "
+            "campo (fiabilidad por cubos y batir a la constante) declarado en el "
+            "registro; la confirmación preregistrada prospectiva es 2026.",
+            "Ligero exceso de humildad en favoritos claros: el cubo 0,8-0,9 "
+            "gana el 89,8% (n=216).",
+        ),
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
+    ),
+    Capability(
+        id="BEST_VALUE_BET",
+        status=Status.NOT_READY,
+        evidence=(
+            "la clase de apuestas publicada (desacuerdo 1-2 pts) ganó el 50,9% de "
+            "1.173 casos fuera de muestra: positivo y SIN alcanzar significación "
+            "(p≈0,18), con el equilibrio en 52,4%"
+        ),
+        experiment_id="E4",
+        metric="50.9% en 1,173 apuestas; IC inferior por debajo del 52.4%",
+        sample_size=3708,
+        limitations=(
+            "Es una HIPÓTESIS publicada como tal: la tabla de la web lleva el "
+            "registro histórico de su clase al lado, y ningún cubo supera el "
+            "equilibrio ni en la media ni en el IC.",
+            "El acierto NO crece con la discrepancia (E4): «confianza» "
+            "construida sobre el edge está refutada, no pendiente.",
+            "El stake es cuarto de Kelly con el edge encogido al 50% y tope del "
+            "2%: maquinaria de riesgo, no señal.",
+        ),
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
+    ),
+    Capability(
+        id="PLAYER_PROP_PROJECTION",
+        status=Status.BLOCKED,
+        evidence=(
+            "los modelos de volumen semanales existen (E7) pero un prop exige "
+            "DISTRIBUCIÓN validada por mercado concreto y líneas históricas con "
+            "marca de tiempo, y no hay ninguna de las dos"
+        ),
+        experiment_id=None,
+        metric=None,
+        sample_size=None,
+        limitations=(
+            "La proyección semanal (media) NO es un prop: pasing yards over/under "
+            "pregunta por una cola, y la dispersión publicada está comprimida "
+            "(sd 3,3 frente a 8,4 en QB, límite ya registrado en E7).",
+            "Sin líneas históricas de props no hay baseline de mercado ni "
+            "validación posible: no se conoce fuente gratuita con historial.",
+        ),
+        last_validated=None,
+        model_version=None,
+    ),
+    Capability(
+        id="PLAYER_PROP_OVER_UNDER_PROBABILITY",
+        status=Status.BLOCKED,
+        evidence="exige PLAYER_PROP_PROJECTION más calibración de cola por mercado",
+        experiment_id=None,
+        metric=None,
+        sample_size=None,
+        limitations=(
+            "Un «65% over» sin calibración medida es un número inventado.",
+            "Bloqueada aguas arriba: no se evalúa hasta que exista la proyección "
+            "de prop con distribución.",
+        ),
+        last_validated=None,
+        model_version=None,
+    ),
+    Capability(
+        id="GAME_PROP_PROJECTION",
+        status=Status.BLOCKED,
+        evidence=(
+            "el total por equipo YA se deriva del modelo validado, pero afirmarlo "
+            "COMO PROP exige líneas de mercado con marca de tiempo que no hay"
+        ),
+        experiment_id=None,
+        metric=None,
+        sample_size=None,
+        limitations=(
+            "Mitades, cuartos y márgenes exactos ni siquiera tienen modelo.",
+            "El desbloqueo es de DATOS (líneas de team total con timestamp), no "
+            "de modelado: la mitad del camino ya existe en PROJECTED_SCORE.",
+        ),
+        last_validated=None,
+        model_version=None,
+    ),
     Capability(
         id="START_SIT_RB",
         status=Status.VALIDATED,

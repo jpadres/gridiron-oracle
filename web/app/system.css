@@ -1424,3 +1424,31 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 }
 /* DST comparte la paleta neutra de K/DEF que ya define el board. */
 .ptag--dst { background: var(--field-raised); color: var(--chalk-dim); }
+
+/* --- tarjeta de partido: MODELO y MERCADO con nombre ----------------------- */
+/* El marcador proyectado es del MODELO y lo dice; la línea es del MERCADO y lo
+   dice. Antes el total del modelo salía rotulado «O/U» — lenguaje de mercado
+   sobre un número que no es del mercado, la fusión exacta que está prohibida. */
+.matchup .proj {
+  font-family: var(--face-display); font-variation-settings: "wdth" 76;
+  font-size: var(--text-h3); font-weight: var(--weight-bold); color: var(--chalk);
+}
+.matchup .line--model small, .matchup .line--market small {
+  display: block; font-size: var(--text-nano, 0.62rem); color: var(--chalk-dim);
+  text-transform: uppercase; letter-spacing: 0.06em; font-weight: normal;
+}
+.matchup .line--model { color: var(--chalk); }
+.matchup .line--market { color: var(--chalk-dim); }
+.matchup-why { grid-column: 1 / -1; margin-top: var(--space-2); }
+.matchup-why summary {
+  cursor: pointer; font-size: var(--text-micro); color: var(--chalk-dim);
+  text-transform: uppercase; letter-spacing: 0.05em; min-height: 44px;
+  display: flex; align-items: center;
+}
+.matchup-why ul { list-style: none; margin: var(--space-1) 0 0; padding: 0; }
+.matchup-why li {
+  display: flex; justify-content: space-between; gap: var(--space-3);
+  font-size: var(--text-dense); padding-block: 0.15rem;
+}
+.matchup-why .why-home { color: var(--chalk); }
+.matchup-why .why-away { color: var(--chalk-dim); }

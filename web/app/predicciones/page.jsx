@@ -72,9 +72,11 @@ export default function Predicciones() {
       <p className="eyebrow">Week {week.week} · {week.season}</p>
       <h1>The slate</h1>
       <p className="lede">
-        Sixteen games, the model&rsquo;s number against the market&rsquo;s. The bar under each
-        matchup is the model&rsquo;s win probability — not the market&rsquo;s, and not a
-        recommendation.
+        Sixteen games, the model&rsquo;s number against the market&rsquo;s — each labeled,
+        never merged. The bar under each matchup is the model&rsquo;s win probability:
+        calibrated out of sample (a team shown at 74% has won 77% of the time across
+        fourteen seasons), <strong>not</strong> the market&rsquo;s, and not a recommendation
+        &mdash; the market&rsquo;s own probabilities remain slightly sharper.
       </p>
 
       {widest ? (
@@ -88,7 +90,7 @@ export default function Predicciones() {
             </p>
           </div>
           <div className="spotlight-body">
-            <MatchupCard game={widest} />
+            <MatchupCard game={widest} detailed />
             <div className="spotlight-stats">
               <StatHero
                 label="Model margin"
@@ -108,7 +110,7 @@ export default function Predicciones() {
       <h2>Every game</h2>
       <div className="matchups deal">
         {predictions.map((game) => (
-          <MatchupCard key={game.game_id} game={game} />
+          <MatchupCard key={game.game_id} game={game} detailed />
         ))}
       </div>
 
