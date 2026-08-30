@@ -80,7 +80,18 @@ WEEKLY_COLUMNS = (
     # aritmética evidente obtenía otro número. Un dato publicado que invita a
     # una cuenta que no cuadra es peor que no publicarlo.
     "projected_points", "model_points", "baseline_points", "blend_weight",
-    "matchup_multiplier",
+    "matchup_multiplier", "is_home",
+)
+# Pateadores: proyección validada (E8) SIN rank ordinal — publicarlo es lo que
+# E8b rechaza. Defensas: hechos y nada más — sin proyección ni rank, porque no
+# hay modelo de DST (DESIGN_ONLY); el orden lo da el total implícito del rival.
+KICKER_COLUMNS = (
+    "player_id", "player_name", "player_full_name", "team", "opponent", "is_home",
+    "team_points", "projected_points",
+)
+DST_COLUMNS = (
+    "team", "opponent", "is_home", "opponent_implied",
+    "points_allowed_recent", "sacks_recent", "takeaways_recent", "recent_games",
 )
 
 
@@ -195,6 +206,12 @@ def main(argv: list[str] | None = None) -> int:
     # recorta la tabla, así que estas claves de nivel superior sobreviven solas.
     payload["fantasy_weekly"] = _trim_records(
         _load_optional(paths.out / "fantasy_weekly.json"), "rankings", WEEKLY_COLUMNS
+    )
+    payload["fantasy_weekly"] = _trim_records(
+        payload["fantasy_weekly"], "kickers", KICKER_COLUMNS
+    )
+    payload["fantasy_weekly"] = _trim_records(
+        payload["fantasy_weekly"], "defenses", DST_COLUMNS
     )
 
     # --- research (prensa e insiders) ---------------------------------------

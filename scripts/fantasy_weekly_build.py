@@ -19,7 +19,12 @@ import pandas as pd
 
 from oracle.config import paths as resolve_paths
 from oracle.fantasy.scoring import rules_from_name
-from oracle.fantasy.weekly import WeeklyCalibration, weekly_rankings
+from oracle.fantasy.weekly import (
+    WeeklyCalibration,
+    weekly_defenses,
+    weekly_kickers,
+    weekly_rankings,
+)
 from oracle.pipeline import Oracle
 
 
@@ -58,6 +63,17 @@ def main(argv: list[str] | None = None) -> int:
         ]
         print(view.to_string(index=False, float_format=lambda x: f"{x:7.2f}"))
 
+    # Pateadores y defensas viajan en claves APARTE del ranking, porque su
+    # autoridad es otra: el K tiene proyección validada (E8) pero orden
+    # rechazado (E8b), y la defensa sólo tiene hechos (DST_STREAMING es
+    # DESIGN_ONLY). Mezclarlos en `rankings` les prestaría una autoridad que no
+    # tienen.
+    team_games = pd.read_parquet(paths.team_games)
+    kickers = weekly_kickers(players, team_games, predictions, args.season, args.week)
+    defenses = weekly_defenses(team_games, predictions, args.season, args.week)
+    print(f"\nPateadores proyectados: {len(kickers)} (sin rank ordinal, a propósito)")
+    print(f"Defensas con contexto: {len(defenses)}")
+
     destination = paths.out / "fantasy_weekly.json"
     destination.write_text(
         json.dumps(
@@ -66,6 +82,8 @@ def main(argv: list[str] | None = None) -> int:
                 "week": args.week,
                 "scoring": args.scoring,
                 "rankings": rankings.round(3).to_dict(orient="records"),
+                "kickers": kickers.round(3).to_dict(orient="records"),
+                "defenses": defenses.round(3).to_dict(orient="records"),
             },
             ensure_ascii=False,
             default=str,

@@ -164,7 +164,7 @@ export function RankTable({
         <thead>
           <tr>
             <th className="rk">#</th>
-            <th>Jugador</th>
+            <th>Player</th>
             {columns.map((column) => (
               <th key={column.key}>{column.label}</th>
             ))}

@@ -1,26 +1,15 @@
-import { availabilityByPlayer, model, num } from "../../../data/model.js";
-import { DeltaBars, POSITIONS, PositionChip } from "../../charts.jsx";
+import { availabilityByPlayer, model } from "../../../data/model.js";
+import { DeltaBars } from "../../charts.jsx";
 import {
-  Callout, ImpactTag, MachineWritten, NoDataYet, RankTable, Sources,
+  Callout, ImpactTag, MachineWritten, NoDataYet, Sources,
 } from "../../ui.jsx";
+import WeeklyExplorer from "./WeeklyExplorer.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — Weekly Rankings",
   description:
     "Overall and per-position fantasy rankings, built on the game script projected by the game model.",
 };
-
-const COLUMNS = [
-  { key: "projected_points", label: "Proj", format: (v) => num(v, 1) },
-  { key: "baseline_points", label: "Last 6", format: (v) => num(v, 1) },
-  { key: "delta", label: "Diff", format: (v) => (v > 0 ? `+${num(v, 1)}` : num(v, 1)) },
-];
-
-const POSITION_COLUMNS = COLUMNS.concat({
-  key: "matchup_multiplier",
-  label: "Matchup",
-  format: (v) => num(v, 2),
-});
 
 /**
  * Los N más favorecidos y los N más penalizados, en un solo orden descendente.
@@ -32,11 +21,6 @@ const POSITION_COLUMNS = COLUMNS.concat({
 function extremes(rows, n) {
   const sorted = [...rows].sort((a, b) => b.delta - a.delta);
   return [...sorted.slice(0, n), ...sorted.slice(-n)];
-}
-
-/** Renumera dentro de la lista que se enseña, para que la de WR empiece en 1. */
-function numbered(rows) {
-  return rows.map((row, index) => ({ ...row, rank: index + 1 }));
 }
 
 /** Jugadores con prensa reciente, para marcar su fila en la tabla. */
@@ -146,22 +130,27 @@ export default function Semanal() {
         the trailing team throws more.
       </p>
 
-      <ul className="jump">
-        <li><a href="#global">Overall</a></li>
-        {POSITIONS.map((position) => (
-          <li key={position}><a href={`#${position.toLowerCase()}`}>{position}</a></li>
-        ))}
-      </ul>
-
-      <Callout title="How to read the overall list">
+      <Callout title="How to read the combined list">
         <p>
-          The overall list sorts by projected points and is for the flex spot, where a back
-          really does compete with a receiver. To decide a fixed slot, that position&rsquo;s
-          own list is the one that counts:{" "}
-          <strong>a quarterback projects more points than any receiver and that does not make
-          him the better start</strong>, because they are not competing for the same slot.
+          A combined list sorts by projected points and is for the flex decision, where a
+          back really does compete with a receiver. To decide a fixed slot, filter to that
+          position: <strong>a quarterback projects more points than any receiver and that
+          does not make him the better start</strong>, because they are not competing for
+          the same slot.
         </p>
       </Callout>
+
+      {/* Filtros multi-posición: RB+WR responde la pregunta del flex, K y DST
+          entran con su autoridad real — proyección sin rank y hechos sin
+          proyección. El estado vive en el cliente; los datos van horneados. */}
+      <WeeklyExplorer
+        rankings={weekly.rankings ?? []}
+        kickers={weekly.kickers ?? []}
+        defenses={weekly.defenses ?? []}
+        notes={notes}
+        news={newsByPlayer}
+        availability={availability}
+      />
 
       <h2>Where the model departs from recent form</h2>
       <p className="caption">
@@ -172,27 +161,10 @@ export default function Semanal() {
       </p>
       <DeltaBars rows={extremes(rankings, 6)} limit={12} />
 
-      <section id="global">
-        <h2>Overall</h2>
-        <RankTable rows={rankings.slice(0, 60)} columns={COLUMNS}
-                   notes={notes} news={newsByPlayer} availability={availability} />
+      <section id="why">
+        <WhyBlock rows={rankings.slice(0, 80)} notes={notes} />
+        <NewsBlock rows={rankings} research={research} />
       </section>
-
-      {POSITIONS.map((position) => {
-        const group = rankings.filter((row) => row.position === position);
-        if (group.length === 0) return null;
-        return (
-          <section key={position} id={position.toLowerCase()}>
-            <h2>
-              <PositionChip position={position} /> {position}
-            </h2>
-            <RankTable rows={numbered(group.slice(0, 40))} columns={POSITION_COLUMNS}
-                       notes={notes} news={newsByPlayer} availability={availability} />
-            <WhyBlock rows={group.slice(0, 40)} notes={notes} />
-            <NewsBlock rows={group} research={research} />
-          </section>
-        );
-      })}
 
       <Callout title="Only each team&rsquo;s starter appears">
         <p>

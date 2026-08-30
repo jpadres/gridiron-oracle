@@ -1392,3 +1392,35 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   .cc-item { flex-wrap: wrap; }
   .cc-item-league { text-align: left; }
 }
+
+/* ==========================================================================
+   EXPLORADOR SEMANAL (.wk) — filtros multi-posición y las dos autoridades
+   --------------------------------------------------------------------------
+   Reutiliza .pos-filter/.pos-option del Draft Room: mismo control, mismo
+   significado. Lo propio de aquí: la columna de proyección como ancla visual
+   de la fila, y los paneles de K y DST con su recorte de autoridad en el
+   encabezado, no en letra pequeña escondida.
+   ========================================================================== */
+.wk { margin-block: var(--space-4); }
+.wk-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-3); flex-wrap: wrap;
+}
+.wk-detail {
+  background: none; border: 1px solid var(--yard-line); color: var(--chalk-dim);
+  font: inherit; font-size: var(--text-micro); padding: 0.35rem 0.7rem;
+  min-height: 44px; cursor: pointer;
+}
+.wk-detail[aria-pressed="true"] { color: var(--chalk); border-color: var(--chalk-dim); }
+.wk-context { margin-top: var(--space-2); }
+.wk-table .wk-proj { text-align: right; }
+.wk-table .wk-proj strong { font-size: var(--text-body); }
+.wk-up { color: var(--turf-ink, #1c7a43); }
+.wk-down { color: var(--flag-ink, #a33b3b); }
+.wk-panel { margin-top: var(--space-5); }
+.wk-panel h3 small {
+  display: block; font-size: var(--text-micro); font-weight: normal;
+  color: var(--chalk-dim); text-transform: uppercase; letter-spacing: 0.05em;
+}
+/* DST comparte la paleta neutra de K/DEF que ya define el board. */
+.ptag--dst { background: var(--field-raised); color: var(--chalk-dim); }

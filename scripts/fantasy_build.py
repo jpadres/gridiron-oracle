@@ -408,6 +408,13 @@ def main(argv: list[str] | None = None) -> int:
                 # puede saber si el board de arriba usó el modelo validado.
                 "replacement_model": "greedy" if context else "weights",
                 "board": _publish_slice(board).round(3).to_dict(orient="records"),
+                # K y DST: FICHABLES, no valorados. Sin esto el Draft Room no
+                # puede registrar un pick de pateador o defensa y los huecos
+                # K/DEF de la plantilla se quedan abiertos para siempre en un
+                # draft manual. Llevan hechos de la temporada anterior y NADA
+                # más: ni proyección ni VOR, porque el orden de pateadores está
+                # rechazado (E8b) y el modelo de DST no existe (DESIGN_ONLY).
+                "specialists": _specialists(players, team_games, season),
                 "validation": validation.round(4).to_dict(orient="records"),
             },
             ensure_ascii=False,
@@ -417,6 +424,74 @@ def main(argv: list[str] | None = None) -> int:
     )
     print(f"\nEscrito {destination}")
     return 0
+
+
+def _specialists(players: pd.DataFrame, team_games: pd.DataFrame, season: int) -> dict:
+    """El pateador titular de cada equipo y las 32 defensas, con sus hechos.
+
+    El titular se elige por VOLUMEN de intentos en la temporada anterior (el
+    mismo criterio que el ranking semanal), nunca por mera recencia. La defensa
+    lleva un id sintético con espacio de nombres propio (`DST_KC`): no es un
+    jugador y no puede colisionar con un GSIS id.
+    """
+    prior_players = players[players["season"] == season - 1]
+    kickers: list[dict] = []
+    ks = prior_players[prior_players["position"] == "K"].copy()
+    if not ks.empty:
+        ks["tries"] = ks["fg_att"].fillna(0) + ks["pat_att"].fillna(0)
+        latest = ks.sort_values("week").groupby("player_id", observed=True).tail(1)
+        current_team = dict(zip(latest["player_id"], latest["team"], strict=True))
+        ks["now"] = ks["player_id"].map(current_team)
+        agg = (
+            ks.groupby(["now", "player_id"], observed=True)
+            .agg(
+                player_name=("player_name", "last"),
+                player_full_name=("player_display_name", "last"),
+                games=("week", "count"), tries=("tries", "sum"),
+                fg_made=("fg_made", "sum"), fg_att=("fg_att", "sum"),
+            )
+            .reset_index()
+        )
+        starters = agg.sort_values("tries", ascending=False).groupby("now", observed=True).head(1)
+        for _, row in starters.sort_values("now").iterrows():
+            kickers.append(
+                {
+                    "player_id": row["player_id"],
+                    "player_name": row["player_name"],
+                    "player_full_name": row["player_full_name"],
+                    "position": "K",
+                    "team": row["now"],
+                    "games": int(row["games"]),
+                    "fg_made": int(row["fg_made"]),
+                    "fg_att": int(row["fg_att"]),
+                }
+            )
+
+    defenses: list[dict] = []
+    prior_games = team_games[(team_games["season"] == season - 1) & team_games["played"]]
+    if not prior_games.empty:
+        agg = prior_games.groupby("team", observed=True).agg(
+            games=("week", "count"),
+            points_allowed=("points_against", "mean"),
+            sacks=("def_sacks_taken", "mean"),
+            interceptions=("def_interceptions", "mean"),
+            fumbles=("def_fumbles_lost", "mean"),
+        )
+        for team, row in agg.sort_index().iterrows():
+            defenses.append(
+                {
+                    "player_id": f"DST_{team}",
+                    "player_name": f"{team} D/ST",
+                    "player_full_name": f"{team} D/ST",
+                    "position": "DST",
+                    "team": team,
+                    "games": int(row["games"]),
+                    "points_allowed_pg": round(float(row["points_allowed"]), 1),
+                    "sacks_pg": round(float(row["sacks"]), 2),
+                    "takeaways_pg": round(float(row["interceptions"] + row["fumbles"]), 2),
+                }
+            )
+    return {"kickers": kickers, "defenses": defenses}
 
 
 def _scoring_label(rules: ScoringRules) -> str:

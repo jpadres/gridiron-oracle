@@ -230,9 +230,11 @@ src/oracle/
   pipeline.py            Oracle.train() -> predict() -> value_bets()
   cli.py                 comando `oracle`
 research/                archivo diario de prensa + dossier curado — SÍ se versiona
-web/                     Next.js 16, 8 páginas estáticas, datos horneados
-                         (el modo draft es el ÚNICO componente de cliente y el
-                          ÚNICO que hace red: sondea Sleeper si lo activas)
+web/                     Next.js 16, páginas estáticas, datos horneados
+                         (hay varios componentes de cliente — draft, Draft Room,
+                          Leagues, explorador semanal — pero el modo draft sigue
+                          siendo el ÚNICO que hace red: sondea Sleeper si lo
+                          activas; el resto trabaja sólo con datos horneados)
 scripts/                 generación de artefactos y utilidades
 ```
 
@@ -324,6 +326,7 @@ comentario está para que no los reintroduzcas.
 | «No player matches that» con el board vacío | `DraftRoom.jsx` | Búsqueda sin resultados y board agotado decían lo mismo. En una liga de 32 el pool se acaba de verdad —480 huecos contra 344 jugadores— y el mensaje mandaba a buscar un fallo de filtro inexistente |
 | Un test que aprobaba el fallo que existía para cazar | `tools/lab/tier-truth.mjs` | Pedía `suma >= pintadas` y con el bug la suma valía exactamente lo pintado. Todo guardián nuevo se prueba INYECTANDO el fallo: si no se pone rojo, no es un guardián |
 | El validador de cifras rechazaba textos correctos | `narrative/factcheck.py` | «Cae 4,9 puntos» con el dato en -4.9. Se admite el valor absoluto: en prosa el signo lo lleva el verbo. Un validador con falsos positivos acaba desactivado |
+| «Best available for you» multiplicaba el VOR por una necesidad inventada | `DraftMode.jsx` | VOR × 0,35 cuando «la posición estaba llena» según una plantilla estándar que nadie declaró: una recomendación personalizada sin experimento, vestida de board validado. Retirado en 2026-08: el VOR se enseña puro y lo que tienes se dice al lado, como conteo. BEST AVAILABLE tiene UNA definición en todo el producto |
 
 ---
 

@@ -87,10 +87,11 @@ export default function Fantasy() {
       draftNote={
         <>
           <p className="caption">
-            The suggestion is best available by VOR <strong>adjusted for what you already
-            have</strong>: each position loses value to you as you fill it, because your
-            fifth receiver never plays. Without that adjustment a board tells you to take
-            receivers all afternoon, which is the exact mistake it should be preventing.
+            The suggestion is <strong>best available by VOR</strong> — one explicit
+            definition, unadjusted. What you already hold at each position is shown
+            beside it as a count, not folded into the number: how much a third
+            receiver is worth <em>to you</em> is a judgment no experiment here has
+            validated, so the board states the facts and leaves that call to you.
           </p>
         </>
       }

@@ -42,6 +42,7 @@ from dataclasses import dataclass, field
 import numpy as np
 import pandas as pd
 
+from .kickers import KickerScoring, distance_mix, fit_opportunity, project
 from .scoring import PPR, ScoringRules, score_player_weeks
 
 # --- volumen de equipo ------------------------------------------------------
@@ -617,3 +618,154 @@ def _schedule_frame(predictions: pd.DataFrame) -> pd.DataFrame:
         }
     )
     return pd.concat([home, away], ignore_index=True)
+
+
+# ---------------------------------------------------------------------------
+# Pateadores y defensas: las dos posiciones con OTRA autoridad
+# ---------------------------------------------------------------------------
+# No se cuelgan del ranking QB/RB/WR/TE a propósito. El pateador tiene un modelo
+# de PROYECCIÓN validado (E8: MAE 3,73 frente a 3,77 y 4,07 de sus baselines)
+# pero su ORDEN dentro del top-12 está rechazado (E8b: +0,26 pts/partido con IC
+# que cruza cero), así que se publica el proyectado y nunca un K1…K12. La
+# defensa ni siquiera tiene modelo: DST_STREAMING es DESIGN_ONLY, y lo único
+# defendible hoy son HECHOS — el total implícito del rival (que sale del modelo
+# de partidos, ése sí validado) y las medias recientes observadas.
+
+
+def weekly_kickers(
+    player_weeks: pd.DataFrame,
+    team_points: pd.DataFrame,
+    predictions: pd.DataFrame,
+    season: int,
+    week: int,
+    scoring: KickerScoring | None = None,
+) -> pd.DataFrame:
+    """Proyección semanal del pateador TITULAR de cada equipo.
+
+    Todo lo que entra es del equipo: sus puntos proyectados por el modelo de
+    partidos, el reparto de distancias de la liga y las tasas de conversión de
+    la liga. La identidad del pateador sólo decide QUIÉN cobra la oportunidad,
+    no cuánta — r 0,024 año contra año en acierto; ver `kickers.py`.
+
+    `team_points` son equipo-semanas con `points_for` (el parquet de
+    `team_games`). Sólo se usa historial anterior a (season, week).
+    """
+    scoring = scoring or KickerScoring()
+    before = (player_weeks["season"] < season) | (
+        (player_weeks["season"] == season) & (player_weeks["week"] < week)
+    )
+    kickers = player_weeks[before & (player_weeks["position"] == "K")].copy()
+    columns = ["player_id", "player_name", "player_full_name", "team", "opponent",
+               "is_home", "team_points", "projected_points"]
+    if kickers.empty:
+        return pd.DataFrame(columns=columns)
+
+    points_before = team_points[
+        (team_points["season"] < season)
+        | ((team_points["season"] == season) & (team_points["week"] < week))
+    ]
+    # Oportunidad y conversión se ajustan con TODO el historial anterior: son
+    # parámetros de liga, no de pateador, y más muestra sólo los mejora.
+    model = fit_opportunity(kickers, points_before[["season", "week", "team", "points_for"]])
+    mix = distance_mix(kickers)
+
+    # El titular, con la misma ventana de plantilla que el resto del ranking:
+    # su equipo actual es el de su último partido, y entre los candidatos de un
+    # equipo manda el volumen de intentos reciente (no la mera recencia, que
+    # elegiría al suplente de la semana 18 sobre el titular lesionado una vez).
+    recent = kickers[kickers["season"] >= season - ROSTER_LOOKBACK_SEASONS]
+    if recent.empty:
+        return pd.DataFrame(columns=columns)
+    latest = recent.sort_values(["season", "week"]).groupby("player_id", observed=True).tail(1)
+    current_team = dict(zip(latest["player_id"], latest["team"], strict=True))
+    recent = recent.assign(now=recent["player_id"].map(current_team))
+    named = recent.assign(
+        tries=recent["fg_att"].fillna(0) + recent["pat_att"].fillna(0),
+        full_name=recent.get("player_display_name", recent["player_name"]),
+    )
+    attempts = (
+        named.groupby(["now", "player_id"], observed=True)
+        .agg(tries=("tries", "sum"), player_name=("player_name", "last"),
+             player_full_name=("full_name", "last"))
+        .reset_index()
+    )
+    starters = attempts.sort_values("tries", ascending=False).groupby("now", observed=True).head(1)
+    starter_by_team = starters.set_index("now")[
+        ["player_id", "player_name", "player_full_name"]
+    ]
+
+    rows = []
+    for _, game_team in _schedule_frame(predictions).iterrows():
+        team = game_team["team"]
+        if team not in starter_by_team.index:
+            # Equipo sin pateador identificable en la ventana: no se inventa
+            # uno. La fila falta y eso también es información.
+            continue
+        implied = (game_team["pred_total"] + game_team["pred_margin_for"]) / 2.0
+        rows.append(
+            {
+                "player_id": starter_by_team.loc[team, "player_id"],
+                "player_name": starter_by_team.loc[team, "player_name"],
+                "player_full_name": starter_by_team.loc[team, "player_full_name"],
+                "team": team,
+                "opponent": game_team["opponent"],
+                "is_home": int(game_team["is_home"]),
+                "team_points": float(implied),
+                "projected_points": project(implied, model, mix, scoring),
+            }
+        )
+    board = pd.DataFrame(rows, columns=columns)
+    # Orden por proyectado, SIN columna de rank: publicar K1…K12 es lo que E8b
+    # rechaza. El orden de lectura es inevitable; el número ordinal, no.
+    return board.sort_values("projected_points", ascending=False).reset_index(drop=True)
+
+
+def weekly_defenses(
+    team_games: pd.DataFrame,
+    predictions: pd.DataFrame,
+    season: int,
+    week: int,
+    window: int = 6,
+) -> pd.DataFrame:
+    """Contexto de streaming de defensas: HECHOS, sin proyección.
+
+    Deliberadamente no hay columna de puntos proyectados ni de rank: no existe
+    modelo de DST (DESIGN_ONLY en el registro). Lo que sí se sabe: el total
+    implícito del rival predice los puntos permitidos a r 0,388 — por eso la
+    tabla se ordena por él — y las medias recientes son observaciones, con la
+    advertencia medida de que las pérdidas forzadas NO son estables (r 0,044).
+    """
+    played = team_games[
+        team_games["played"]
+        & (
+            (team_games["season"] < season)
+            | ((team_games["season"] == season) & (team_games["week"] < week))
+        )
+    ].sort_values(["season", "week"])
+
+    rows = []
+    for _, game_team in _schedule_frame(predictions).iterrows():
+        team = game_team["team"]
+        recent = played[played["team"] == team].tail(window)
+        opp_implied = (game_team["pred_total"] - game_team["pred_margin_for"]) / 2.0
+        rows.append(
+            {
+                "team": team,
+                "opponent": game_team["opponent"],
+                "is_home": int(game_team["is_home"]),
+                "opponent_implied": float(opp_implied),
+                "points_allowed_recent": float(recent["points_against"].mean())
+                if len(recent) else float("nan"),
+                "sacks_recent": float(recent["def_sacks_taken"].mean())
+                if len(recent) else float("nan"),
+                "takeaways_recent": float(
+                    (recent["def_interceptions"] + recent["def_fumbles_lost"]).mean()
+                )
+                if len(recent) else float("nan"),
+                "recent_games": int(len(recent)),
+            }
+        )
+    board = pd.DataFrame(rows)
+    # Ascendente: la defensa con el rival más flojo primero. Es un orden por un
+    # HECHO del modelo de partidos, no un ranking de defensas.
+    return board.sort_values("opponent_implied").reset_index(drop=True)

@@ -97,9 +97,22 @@ for (const width of [390, 768, 1440]) {
     const marcado = await page.locator(`.pos-option:text-is("${pos}")`).getAttribute("aria-pressed");
     check(`filtro ${pos} se marca como pulsado`, marcado === "true");
   }
+  // K es FICHABLE desde 2026-08: filas con hechos de la temporada anterior,
+  // sin VOR ni rank, y una nota de autoridad encima. La lista vacía de antes
+  // era el producto sin la capacidad; esto es la capacidad con su recorte.
+  await page.locator('.pos-option:text-is("ALL")').click();
   await page.locator('.pos-option:text-is("K")').click();
-  check("K dice que no está proyectado en vez de una lista vacía",
-        /not projected/i.test(await page.locator(".room-empty").first().innerText()));
+  check("K enseña pateadores fichables (32 filas, sin rank ni VOR)",
+        (await page.locator(".room-list .room-row").count()) === 32 &&
+        (await page.locator(".room-list .room-row-vor").first().innerText()) === "—");
+  check("…con la nota de autoridad visible",
+        /draftable, not ranked/i.test(await page.locator(".room-note").first().innerText()));
+  // Multi-selección: K+DST a la vez es una vista real (los dos huecos finales).
+  await page.locator('.pos-option:text-is("DST")').click();
+  check("K+DST juntos: la ventana llena (60) con las dos posiciones presentes",
+        (await page.locator(".room-list .room-row").count()) === 60 &&
+        (await page.locator(".room-list .ptag--k").count()) > 0 &&
+        (await page.locator(".room-list .ptag--dst").count()) > 0);
   await page.locator('.pos-option:text-is("ALL")').click();
 
   // --- búsqueda inmediata

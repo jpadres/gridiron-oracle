@@ -29,6 +29,9 @@ export default function DraftRoomPage() {
         // Draft Room tiene su propia ruta, así que el contexto se pasa aquí y
         // no en el `page.jsx` del board — dos páginas, dos sitios.
         byes: fantasy.byes ?? null,
+        // K y DST fichables: hechos de la temporada anterior, sin valor. El
+        // board de VOR no los ordena y la sala tampoco lo finge.
+        specialists: fantasy.specialists ?? null,
       }}
     />
   );

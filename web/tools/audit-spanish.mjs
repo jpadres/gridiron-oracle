@@ -203,6 +203,10 @@ const DATOS_PREFIJOS = [
   ".dossier.sources[].url", ".dossier.sources[].publisher",
   ".dossier.strategy[]", ".dossier.teams[]",
   ".fantasy_weekly.rankings[]",
+  // Pateadores y defensas del semanal, y los fichables del draft: ids GSIS o
+  // sintéticos (DST_KC), nombres propios y códigos de equipo — datos, no prosa.
+  ".fantasy_weekly.kickers[]", ".fantasy_weekly.defenses[]",
+  ".fantasy.specialists.kickers[]", ".fantasy.specialists.defenses[]",
   ".research.items[].team", ".research.items[].players[]",
   ".research.items[].player_ids[]", ".research.items[].date",
   ".research.items[].published", ".research.items[].beat",

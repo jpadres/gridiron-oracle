@@ -1,0 +1,270 @@
+"use client";
+
+/**
+ * El explorador del ranking semanal: seis posiciones, una tabla, cero red.
+ *
+ * ## Por qué es un componente de cliente
+ *
+ * La versión anterior era una página de anclas: seis tablas apiladas y un
+ * índice de saltos. Con K y DST son ocho, y la pregunta real del usuario es
+ * combinatoria — «¿a quién arranco en el flex?» es RB+WR+TE, no tres tablas
+ * lejos. Filtrar exige estado, y el estado exige cliente. Sigue sin hacer ni
+ * una petición: todos los datos llegan horneados como props.
+ *
+ * ## La frontera de autoridad, en el código y no en la prosa
+ *
+ * QB/RB/WR/TE llevan rank porque su proyección Y su orden están validados
+ * (E7, E11). El pateador lleva proyección SIN rank ordinal: E8 valida los
+ * puntos, E8b rechaza el orden K1…K12. La defensa no lleva ni proyección:
+ * DST_STREAMING es DESIGN_ONLY y lo único que se publica son hechos — el
+ * total implícito del rival y las medias recientes observadas. Si algún día
+ * esas autoridades cambian, cambia el registro primero y esta pantalla
+ * después, nunca al revés.
+ */
+
+import { useMemo, useState } from "react";
+
+import { num } from "../../../data/model.js";
+import { TeamMark } from "../../sports.jsx";
+
+const OFFENSE = ["QB", "RB", "WR", "TE"];
+const CHIPS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
+
+// El mismo mapa que `ui.jsx`: los niveles del dossier van en español y la
+// interfaz los traduce SIEMPRE al pintar. No se importa de `ui.jsx` porque ese
+// módulo arrastra `data/model.js` completo y esto es un componente de cliente.
+const AVAILABILITY_LABEL = { FUERA: "OUT", DUDA: "QUESTIONABLE", SEGUIR: "MONITOR" };
+
+/** Marcas de contexto de una fila: nota del modelo, prensa, disponibilidad. */
+function RowMarks({ id, notes, news, availability }) {
+  const health = availability?.[id];
+  return (
+    <>
+      {notes?.[id] ? (
+        <span className="mark mark--why" title="The model explains this ranking below">?</span>
+      ) : null}
+      {news?.[id] ? (
+        <span className="mark mark--news" title="Recent reporting on this player">!</span>
+      ) : null}
+      {health ? (
+        <span className={`avail avail--${health.level.toLowerCase()}`}
+              title={`${health.situation} — ${health.status}`}>
+          {AVAILABILITY_LABEL[health.level] ?? health.level}
+        </span>
+      ) : null}
+    </>
+  );
+}
+
+export default function WeeklyExplorer({
+  rankings, kickers, defenses, notes = {}, news = {}, availability = {},
+}) {
+  // El conjunto vacío significa ALL. Multi-selección: cada chip conmuta, y
+  // elegirlo todo explícitamente equivale a no filtrar.
+  const [picked, setPicked] = useState(() => new Set());
+  const [detail, setDetail] = useState(false);
+
+  const toggle = (chip) => {
+    setPicked((prev) => {
+      if (chip === "ALL") return new Set();
+      const next = new Set(prev);
+      if (next.has(chip)) next.delete(chip);
+      else next.add(chip);
+      if (next.size === CHIPS.length - 1) return new Set();
+      return next;
+    });
+  };
+
+  const all = picked.size === 0;
+  const offenseSelected = all ? OFFENSE : OFFENSE.filter((p) => picked.has(p));
+  const showK = all || picked.has("K");
+  const showDst = all || picked.has("DST");
+  const singleOffense = !all && offenseSelected.length === 1 && picked.size === 1;
+
+  const rows = useMemo(() => {
+    const wanted = new Set(offenseSelected);
+    return rankings
+      .filter((row) => wanted.has(row.position))
+      .map((row) => ({ ...row, delta: row.projected_points - row.baseline_points }))
+      .sort((a, b) => b.projected_points - a.projected_points)
+      .map((row, index) => ({ ...row, shown_rank: index + 1 }));
+  }, [rankings, offenseSelected]);
+
+  const label = all
+    ? "All positions"
+    : [...offenseSelected, ...(picked.has("K") ? ["K"] : []), ...(picked.has("DST") ? ["DST"] : [])]
+        .join(" + ");
+
+  return (
+    <section className="wk">
+      <div className="wk-bar">
+        <div className="pos-filter" role="group" aria-label="Filter by position">
+          {CHIPS.map((chip) => (
+            <button key={chip} type="button" className="pos-option"
+                    aria-pressed={chip === "ALL" ? all : picked.has(chip)}
+                    onClick={() => toggle(chip)}>
+              {chip}
+            </button>
+          ))}
+        </div>
+        {rows.length > 0 ? (
+          <button type="button" className="wk-detail" aria-pressed={detail}
+                  onClick={() => setDetail((v) => !v)}>
+            {detail ? "Less detail" : "More detail"}
+          </button>
+        ) : null}
+      </div>
+      {/* La línea de contexto habla de la vista que HAY: la de rank ordinal
+          sólo aplica a la tabla ofensiva, y pintarla sobre el panel de K —
+          donde el rank no existe a propósito — la contradiría. */}
+      {offenseSelected.length > 0 ? (
+        <p className="caption wk-context">
+          <strong>{label}</strong> · ordered by projected points (PPR). A projection is
+          points, not advice: for a fixed lineup slot, each position&rsquo;s own rank is
+          what counts.
+        </p>
+      ) : (
+        <p className="caption wk-context">
+          <strong>{label}</strong> · the two positions with different authority: each
+          panel states exactly what is and is not claimed.
+        </p>
+      )}
+
+      {offenseSelected.length > 0 && rows.length > 0 ? (
+        <div className="table-wrap">
+          <table className="rank-table wk-table">
+            <thead>
+              <tr>
+                <th className="rk">#</th>
+                <th>Player</th>
+                <th className="wk-proj">Proj pts</th>
+                <th>Last 6</th>
+                <th>Diff</th>
+                {singleOffense ? <th>Matchup</th> : null}
+                {detail ? <th>Model</th> : null}
+                {detail ? <th>Blend</th> : null}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.slice(0, 80).map((row) => (
+                <tr key={row.player_id}>
+                  <td className="rk">{row.shown_rank}</td>
+                  <td className="who">
+                    <span className="nm">
+                      {row.player_name}
+                      <RowMarks id={row.player_id} notes={notes} news={news}
+                                availability={availability} />
+                    </span>
+                    <span className="meta">
+                      <span className={`ptag ptag--${row.position.toLowerCase()}`}>
+                        {row.position}{row.position_rank}
+                      </span>
+                      <TeamMark abbr={row.team} />
+                      <span>{row.is_home === 0 ? "@" : "vs"} {row.opponent}</span>
+                    </span>
+                  </td>
+                  <td className="wk-proj"><strong>{num(row.projected_points, 1)}</strong></td>
+                  <td>{num(row.baseline_points, 1)}</td>
+                  <td className={row.delta >= 0 ? "wk-up" : "wk-down"}>
+                    {row.delta > 0 ? "+" : ""}{num(row.delta, 1)}
+                  </td>
+                  {singleOffense ? <td>{num(row.matchup_multiplier, 2)}</td> : null}
+                  {detail ? <td>{num(row.model_points, 1)}</td> : null}
+                  {detail ? <td>{num(row.blend_weight, 2)}</td> : null}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
+
+      {/* --- PATEADORES: proyección validada, orden a propósito ausente ------ */}
+      {showK && kickers?.length > 0 ? (
+        <div className="wk-panel" id="k">
+          <h3>Kickers <small>projection without a rank</small></h3>
+          <p className="caption">
+            The projection is validated (it beats both baselines on error). The ORDER is
+            not: within the top 12, measured separation is 0.26 points per game with a
+            confidence interval that crosses zero — so no K1&hellip;K12 column exists here,
+            on purpose. A kicker ranking is mostly a ranking of offenses.
+          </p>
+          <div className="table-wrap">
+            <table className="rank-table wk-table">
+              <thead>
+                <tr>
+                  <th>Kicker</th>
+                  <th className="wk-proj">Proj pts</th>
+                  <th>Team implied</th>
+                  <th>Game</th>
+                </tr>
+              </thead>
+              <tbody>
+                {kickers.map((k) => (
+                  <tr key={k.player_id}>
+                    <td className="who">
+                      <span className="nm">
+                        {k.player_full_name ?? k.player_name}
+                        <RowMarks id={k.player_id} notes={notes} news={news}
+                                  availability={availability} />
+                      </span>
+                      <span className="meta">
+                        <span className="ptag ptag--k">K</span>
+                        <TeamMark abbr={k.team} />
+                      </span>
+                    </td>
+                    <td className="wk-proj"><strong>{num(k.projected_points, 1)}</strong></td>
+                    <td>{num(k.team_points, 1)}</td>
+                    <td>{k.is_home === 0 ? "@" : "vs"} {k.opponent}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : null}
+
+      {/* --- DEFENSAS: hechos, sin proyección --------------------------------- */}
+      {showDst && defenses?.length > 0 ? (
+        <div className="wk-panel" id="dst">
+          <h3>Defense / DST <small>streaming context, not a ranking</small></h3>
+          <p className="caption">
+            There is no validated DST model, so there is no projection column. What is
+            known: the opponent&rsquo;s implied total predicts points allowed at r&nbsp;0.388
+            &mdash; far better than the defense&rsquo;s own last game (r&nbsp;0.060) &mdash;
+            so the table sorts by it, lowest first. Forced turnovers are <em>not</em> a
+            stable skill (r&nbsp;0.044 year over year): the recent averages are
+            observations, not expectations.
+          </p>
+          <div className="table-wrap">
+            <table className="rank-table wk-table">
+              <thead>
+                <tr>
+                  <th>Defense</th>
+                  <th>Opp implied</th>
+                  <th>Game</th>
+                  <th>PA last 6</th>
+                  <th>Sacks</th>
+                  <th>Takeaways</th>
+                </tr>
+              </thead>
+              <tbody>
+                {defenses.map((d) => (
+                  <tr key={d.team}>
+                    <td className="who">
+                      <span className="nm"><TeamMark abbr={d.team} solid /> {d.team}</span>
+                    </td>
+                    <td className="wk-proj"><strong>{num(d.opponent_implied, 1)}</strong></td>
+                    <td>{d.is_home === 0 ? "@" : "vs"} {d.opponent}</td>
+                    <td>{num(d.points_allowed_recent, 1)}</td>
+                    <td>{num(d.sacks_recent, 1)}</td>
+                    <td>{num(d.takeaways_recent, 1)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : null}
+    </section>
+  );
+}

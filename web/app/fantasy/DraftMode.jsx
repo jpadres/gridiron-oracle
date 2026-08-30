@@ -123,15 +123,13 @@ function resolvePick(index, pick) {
   return byTeam.length === 1 ? byTeam[0] : null;
 }
 
-// Plantilla de una liga estándar. Lo que de verdad importa no es el número
-// exacto, es que exista un tope: sin él, la sugerencia ignora que ya tienes
-// cuatro corredores.
-const SLOTS = { QB: 1, RB: 2, WR: 3, TE: 1 };
-
-// Cuánto vale para ti el siguiente jugador de una posición que ya has llenado.
-// No es cero —un suplente vale algo, por lesiones y por el hueco flexible— pero
-// es poco, y de ahí sale el «ya tienes suficientes corredores».
-const BENCH_VALUE = 0.35;
+// Cuántos titulares tienes ya de cada posición, para DECIRLO como hecho junto
+// a la sugerencia. Antes esto era un multiplicador (VOR × 0,35 si la posición
+// «estaba llena» según una plantilla estándar hardcodeada) que convertía el
+// board validado en una recomendación personalizada que ningún experimento
+// midió — y encima sobre una estructura que nadie había declarado. El VOR se
+// enseña puro; lo que tienes se enseña aparte, como conteo.
+const TYPICAL_STARTERS = { QB: 1, RB: 2, WR: 3, TE: 1 };
 
 /**
  * Sincronización con el draft de Sleeper.
@@ -454,9 +452,11 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
     [activeBoard, state]
   );
 
-  // La sugerencia: VOR ajustado por lo que ya tienes en esa posición.
+  // La lista: BEST AVAILABLE POR VOR, sin ajustar. Una sola definición, dicha
+  // en la etiqueta. El «ya tienes N» va como hecho al lado, no dentro del
+  // número: mezclarlo era fabricar una recomendación personalizada sin modelo.
   //
-  // `positionFilter` se aplica AL FINAL, sobre la lista ya puntuada, y nunca
+  // `positionFilter` se aplica AL FINAL, sobre la lista ya ordenada, y nunca
   // sobre `board`. La distinción no es de estilo: `board` alimenta también el
   // índice que empareja los picks de Sleeper, el recuento de tu plantilla y el
   // ajuste por posición. Filtrarlo aguas arriba hacía que un pick sincronizado
@@ -464,12 +464,12 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   // cuanto filtrabas — con el filtro en WR, el corredor que acababas de coger
   // desaparecía del recuento.
   const suggestions = useMemo(() => {
-    const scored = available.map((row) => {
-      const filled = counts[row.position] ?? 0;
-      const need = filled < (SLOTS[row.position] ?? 1) ? 1 : BENCH_VALUE;
-      return { ...row, adjusted: row.vor * need };
-    });
-    scored.sort((a, b) => b.adjusted - a.adjusted);
+    const scored = available.map((row) => ({
+      ...row,
+      have: counts[row.position] ?? 0,
+      typical: TYPICAL_STARTERS[row.position] ?? 1,
+    }));
+    scored.sort((a, b) => b.vor - a.vor);
     const visible =
       positionFilter === "ALL"
         ? scored
@@ -746,7 +746,7 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
 
       {onClock && sync.view.canRecommend ? (
         <section className="onclock" style={teamVars(onClock.team)} aria-label="On the clock">
-          <p className="eyebrow">Best available for you</p>
+          <p className="eyebrow">Best available by VOR</p>
           <div className="onclock-body">
             <span className="rank-numeral rank-numeral--hero">{onClock.position_rank}</span>
             <div className="onclock-who">
@@ -836,13 +836,13 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
             </>
           ) : null}
         </div>
-        <div className="draft-roster">
-          {Object.keys(SLOTS).map((position) => (
+        <div className="draft-roster" title="Your picks so far, against a TYPICAL starting lineup — not your league's declared roster. The Draft Room draws the real structure once you configure it.">
+          {Object.keys(TYPICAL_STARTERS).map((position) => (
             <span
               key={position}
-              className={`slot ${counts[position] >= SLOTS[position] ? "slot--full" : ""}`}
+              className={`slot ${counts[position] >= TYPICAL_STARTERS[position] ? "slot--full" : ""}`}
             >
-              {position} {counts[position]}/{SLOTS[position]}
+              {position} {counts[position]}/{TYPICAL_STARTERS[position]}
             </span>
           ))}
         </div>

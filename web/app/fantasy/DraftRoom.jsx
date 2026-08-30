@@ -44,9 +44,11 @@ import { loadOrMigrateLog, logScopeFor, saveLog } from "./draftStorage.js";
 import { assignSlots } from "./leagueValue.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
-// El board de VOR sólo ordena estas cuatro. K y DST son alcanzables porque
-// existen en la liga, pero no tienen proyección: se dice, no se inventa.
-const RANKED = new Set(["ALL", "QB", "RB", "WR", "TE"]);
+// El board de VOR sólo ordena estas cuatro. K y DST son FICHABLES —existen en
+// la liga y sus picks se registran— pero llegan sin proyección ni VOR: sus
+// filas enseñan hechos de la temporada anterior y nada más.
+const RANKED_POSITIONS = ["QB", "RB", "WR", "TE"];
+const SPECIAL_POSITIONS = ["K", "DST"];
 
 /**
  * Cuántos jugadores de un tier siguen libres.
@@ -79,7 +81,11 @@ export default function DraftRoom({ board, context, league }) {
   const [events, setEvents] = useState([]);
   const [ready, setReady] = useState(false);
   const [query, setQuery] = useState("");
-  const [position, setPosition] = useState("ALL");
+  // Filtro MULTI-selección: el conjunto vacío es ALL. «RB+WR» es una pregunta
+  // real de draft (¿mi flex?) y un modelo de pestaña única no puede hacerla.
+  // El estado sobrevive a cada pick a propósito: re-filtrar tras cada registro
+  // costaría un gesto por pick, que es exactamente el presupuesto que no hay.
+  const [picked, setPicked] = useState(() => new Set());
   const [flash, setFlash] = useState(null);
   const flashTimer = useRef(null);
 
@@ -136,13 +142,26 @@ export default function DraftRoom({ board, context, league }) {
   // TODO lo que se pinta deriva del estado EFECTIVO: board disponible,
   // plantilla, feed, cortes de tier y profundidad. Un solo interruptor aguas
   // arriba, y ninguna vista puede mezclar el presente con el pasado.
+  // K y DST fichables, aparte del board de VOR: no tienen valor calculado y no
+  // se les inventa uno mezclándolos en la lista ordenada.
+  const specialists = useMemo(() => {
+    const s = context.specialists;
+    return [...(s?.kickers ?? []), ...(s?.defenses ?? [])];
+  }, [context.specialists]);
+  // El POOL completo — para plantilla, feed y búsqueda. `available` (la lista
+  // ordenada por VOR) sigue siendo sólo el board.
+  const pool = useMemo(() => board.concat(specialists), [board, specialists]);
   const available = useMemo(
     () => board.filter((row) => !effective.byPlayer.has(row.player_id)),
     [board, effective]
   );
+  const availableSpecialists = useMemo(
+    () => specialists.filter((row) => !effective.byPlayer.has(row.player_id)),
+    [specialists, effective]
+  );
   const roster = useMemo(
-    () => board.filter((row) => effective.mine.has(row.player_id)),
-    [board, effective]
+    () => pool.filter((row) => effective.mine.has(row.player_id)),
+    [pool, effective]
   );
 
   const enterReplay = useCallback(() => {
@@ -217,9 +236,29 @@ export default function DraftRoom({ board, context, league }) {
 
   useEffect(() => () => clearTimeout(flashTimer.current), []);
 
+  const all = picked.size === 0;
+  const togglePosition = useCallback((chip) => {
+    setPicked((prev) => {
+      if (chip === "ALL") return new Set();
+      const next = new Set(prev);
+      if (next.has(chip)) next.delete(chip);
+      else next.add(chip);
+      // Marcarlo todo a mano equivale a ALL: se normaliza para que el estado
+      // «sin filtro» tenga una sola representación.
+      if (next.size === POSITIONS.length - 1) return new Set();
+      return next;
+    });
+  }, []);
+
   const shown = useMemo(() => {
     const text = query.trim().toLowerCase();
-    let rows = position === "ALL" ? available : available.filter((r) => r.position === position);
+    const rankedWanted = new Set(all ? RANKED_POSITIONS : RANKED_POSITIONS.filter((p) => picked.has(p)));
+    const specialWanted = new Set(all ? SPECIAL_POSITIONS : SPECIAL_POSITIONS.filter((p) => picked.has(p)));
+    // Los especialistas van DETRÁS de la lista de VOR: no tienen valor con el
+    // que competir por un puesto en el orden. En ALL quedan fuera de la ventana
+    // de 60 salvo búsqueda — con su filtro se ven enteros.
+    let rows = available.filter((r) => rankedWanted.has(r.position))
+      .concat(availableSpecialists.filter((r) => specialWanted.has(r.position)));
     if (text.length >= 2) {
       rows = rows.filter(
         (row) =>
@@ -229,7 +268,7 @@ export default function DraftRoom({ board, context, league }) {
       );
     }
     return rows.slice(0, 60);
-  }, [available, position, query]);
+  }, [available, availableSpecialists, picked, all, query]);
 
   const best = available[0] ?? null;
   const depth = useMemo(() => positionDepth(available), [available]);
@@ -252,19 +291,20 @@ export default function DraftRoom({ board, context, league }) {
     // quedaban doce: el corte caía dentro de la ventana y el resto del tier
     // estaba fuera. Un número que se lee como escasez y que era un artefacto
     // del scroll.
-    const pool = position === "ALL"
-      ? available
-      : available.filter((r) => r.position === position);
+    const rankedWanted = new Set(all ? RANKED_POSITIONS : RANKED_POSITIONS.filter((p) => picked.has(p)));
+    const tierPool = available.filter((r) => rankedWanted.has(r.position));
     for (const row of shown) {
-      if (marking && row.tier !== previous) {
-        const left = pool.filter((r) => r.tier === row.tier).length;
+      // Los especialistas no tienen tier y no generan cortes: un separador
+      // «Tier null» sería un tier inventado con nombre técnico.
+      if (marking && Number.isFinite(row.tier) && row.tier !== previous) {
+        const left = tierPool.filter((r) => r.tier === row.tier).length;
         out.push({ kind: "tier", tier: row.tier, left, key: `t${row.tier}` });
         previous = row.tier;
       }
       out.push({ kind: "player", row, key: row.player_id });
     }
     return out;
-  }, [shown, query, available, position]);
+  }, [shown, query, available, picked, all]);
 
   if (!ready) return <p className="caption">Loading draft room&hellip;</p>;
 
@@ -403,23 +443,23 @@ export default function DraftRoom({ board, context, league }) {
             <div className="pos-filter" role="group" aria-label="Filter by position">
               {POSITIONS.map((entry) => (
                 <button key={entry} type="button" className="pos-option"
-                        aria-pressed={position === entry}
-                        onClick={() => setPosition(entry)}>
+                        aria-pressed={entry === "ALL" ? all : picked.has(entry)}
+                        onClick={() => togglePosition(entry)}>
                   {entry}
                 </button>
               ))}
             </div>
           </div>
-          {!RANKED.has(position) ? (
-            /* K y DST existen en la liga y NO tienen proyección. Se dice; no se
-               inventa un orden para llenar un filtro que la interfaz ofrece. */
-            <p className="room-empty">
-              <strong>{position} is not projected.</strong> The kicker model was
-              rejected and team defence is design-only, so there is no ranking to
-              show here — only what the league needs.
+          {!all && SPECIAL_POSITIONS.some((p) => picked.has(p)) ? (
+            /* K y DST existen y se fichan, pero NO tienen valor calculado: el
+               orden de pateadores está rechazado (E8b) y el modelo de defensa
+               no existe. Sus filas llevan hechos de la temporada anterior. */
+            <p className="room-note">
+              K and DST are draftable, not ranked: no projection exists for them,
+              so their rows carry last season&rsquo;s facts only.
             </p>
-          ) : (
-            <ol className="room-list">
+          ) : null}
+          <ol className="room-list">
               {rows.map((entry) =>
                 entry.kind === "tier" ? (
                   /* El corte de tier, visible al escanear y sin ser un panel.
@@ -435,7 +475,7 @@ export default function DraftRoom({ board, context, league }) {
                         entera, que es lo que hace que un pick sea un toque. */}
                     <button type="button" className="room-row" disabled={replaying}
                             onClick={() => record(entry.row)}>
-                      <span className="room-row-rank">{entry.row.overall_rank}</span>
+                      <span className="room-row-rank">{entry.row.overall_rank ?? "—"}</span>
                       <span className="room-row-who">
                         <span className="nm">
                           {entry.row.player_full_name ?? entry.row.player_name}
@@ -443,11 +483,21 @@ export default function DraftRoom({ board, context, league }) {
                         <span className="meta">
                           <TeamMark abbr={entry.row.team} />
                           <span className={`ptag ptag--${entry.row.position.toLowerCase()}`}>
-                            {entry.row.position}{entry.row.position_rank}
+                            {entry.row.position}{entry.row.position_rank ?? ""}
                           </span>
+                          {/* Especialistas: HECHOS de la temporada anterior en
+                              vez del VOR que no tienen. */}
+                          {entry.row.position === "K" ? (
+                            <span>{entry.row.fg_made}/{entry.row.fg_att} FG last yr</span>
+                          ) : entry.row.position === "DST" ? (
+                            <span>{num(entry.row.points_allowed_pg, 1)} PA/g last yr</span>
+                          ) : null}
                         </span>
                       </span>
-                      <span className="room-row-vor">{num(entry.row.vor, 1)}</span>
+                      <span className="room-row-vor">
+                        {entry.row.vor === null || entry.row.vor === undefined
+                          ? "—" : num(entry.row.vor, 1)}
+                      </span>
                     </button>
                   </li>
                 )
@@ -468,12 +518,11 @@ export default function DraftRoom({ board, context, league }) {
                   ) : query.trim().length >= 2 ? (
                     <>No available player matches &ldquo;{query.trim()}&rdquo;.</>
                   ) : (
-                    <>No {position} left on the board.</>
+                    <>No {[...picked].join(" or ")} left on the board.</>
                   )}
                 </li>
               ) : null}
             </ol>
-          )}
         </section>
 
         {/* --- contexto: profundidad, plantilla y ticker -------------------- */}
@@ -629,7 +678,7 @@ export default function DraftRoom({ board, context, league }) {
             ) : (
               <ol className="room-feed">
                 {[...effective.picks].reverse().slice(0, 12).map((pick) => {
-                  const row = board.find((r) => r.player_id === pick.playerId);
+                  const row = pool.find((r) => r.player_id === pick.playerId);
                   const name = row?.player_full_name ?? row?.player_name ?? pick.playerId;
                   return (
                     <li key={pick.playerId} style={teamVars(row?.team)}

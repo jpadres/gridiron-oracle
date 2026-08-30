@@ -518,21 +518,65 @@ REGISTRY: tuple[Capability, ...] = (
         model_version=MODEL_VERSION,
     ),
     Capability(
+        id="KICKER_PROJECTION",
+        status=Status.VALIDATED,
+        evidence=(
+            "la proyección por oportunidad del equipo bate en MAE a la media de "
+            "liga y a la forma reciente del pateador (3,73 frente a 3,77 y 4,07)"
+        ),
+        experiment_id="E8",
+        metric="MAE 3.73 vs 3.77 (media de liga) y 4.07 (forma)",
+        sample_size=2108,
+        limitations=(
+            "Vale la PROYECCIÓN, no el orden: KICKER_ORDINAL_RANKING sigue "
+            "REJECTED (E8b) y la interfaz publica puntos sin columna K1…K12.",
+            "Todo el modelo es del equipo: la identidad del pateador no aporta "
+            "parámetros (r 0,024 año contra año en acierto).",
+        ),
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
+    ),
+    Capability(
+        id="CANDIDATE_SHORTLIST",
+        status=Status.VALIDATED,
+        evidence=(
+            "es PRESENTACIÓN del board validado: los primeros disponibles por VOR "
+            "de la liga (E18), sin ningún ajuste personal añadido"
+        ),
+        experiment_id="E18",
+        metric="hereda la validación del valor por liga; no añade número propio",
+        sample_size=861,
+        limitations=(
+            "Es una lista transparente («top available by VOR»), NO una "
+            "recomendación personalizada: no mira tu plantilla ni tu hueco.",
+            "Cualquier reordenación por conveniencia personal cae en "
+            "BEST_PICK_FOR_ME, que sigue BLOCKED.",
+            "En ligas de más de 14 equipos hereda el límite de DEEP_LEAGUE_VALUE.",
+        ),
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
+    ),
+    Capability(
         id="BEST_PICK_FOR_ME",
         status=Status.BLOCKED,
         evidence=(
-            "ordenar por «lo que le conviene a mi plantilla» exige dos cosas que "
-            "no están: valor por liga (LEAGUE_SPECIFIC_VALUE en NOT_READY) y una "
-            "regla de construcción de plantilla que nadie ha medido"
+            "ordenar por «lo que le conviene a mi plantilla» exige dos piezas "
+            "que no existen: una regla de construcción de plantilla MEDIDA y la "
+            "disponibilidad futura calibrada (¿aguanta X hasta mi próximo pick?)"
         ),
         experiment_id=None,
         metric=None,
         sample_size=None,
         limitations=(
-            "El ajuste por plantilla que ya existe (BENCH_VALUE) es una "
-            "convención declarada, no un resultado medido.",
-            "Hasta que haya evidencia, la pantalla enseña BEST AVAILABLE con el "
-            "contexto de plantilla al lado, sin fundir las dos cosas.",
+            "El multiplicador de necesidad que existió (VOR × 0,35 con plantilla "
+            "estándar supuesta) se RETIRÓ en 2026-08: era una convención "
+            "disfrazada de valor, sobre una estructura que nadie declaró.",
+            "La disponibilidad futura exige ADP con marca de tiempo por formato "
+            "y un estudio de calibración; la fuente está identificada (FFC) y "
+            "el estudio no está hecho: sin él, cualquier «probablemente vuelve» "
+            "es un número inventado.",
+            "Hasta que haya evidencia, la pantalla enseña BEST AVAILABLE por VOR "
+            "con el contexto de plantilla al lado, sin fundir las dos cosas.",
         ),
         last_validated=None,
         model_version=None,
