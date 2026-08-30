@@ -131,9 +131,24 @@ h1, h2, .player-row .nm, .num-mega {
    filas `.pick` del war room llevaban el color inline y pintaban el rail gris:
    la identidad faltaba justo donde el diseño la prometía, sin fallar nada. Se
    vio en la captura, no en el build. */
-.team-mark, .player-row, .pick { --team: var(--team-light, var(--chalk-dim)); }
+/* Y volvió a pasar, en el Draft Room. `.room-list > li`, `.room-roster > li` y
+   `.room-feed > li` reciben las variables por estilo inline y NO estaban en esta
+   lista, así que `var(--team, var(--yard-line))` caía al gris en las tres. Los
+   72 raíles del war room eran grises desde que existe la pantalla.
+
+   La lección se repite porque el puente es una LISTA: cada superficie nueva que
+   pinte identidad de equipo hay que añadirla aquí, y olvidarlo no rompe nada —
+   sólo borra la identidad justo donde el diseño la prometía. Quien añada una
+   cuarta superficie: esta línea. */
+.team-mark, .player-row, .pick,
+.room-list > li, .room-roster > li, .room-feed > li {
+  --team: var(--team-light, var(--chalk-dim));
+}
 @media (prefers-color-scheme: dark) {
-  .team-mark, .player-row, .pick { --team: var(--team-dark, var(--chalk-dim)); }
+  .team-mark, .player-row, .pick,
+  .room-list > li, .room-roster > li, .room-feed > li {
+    --team: var(--team-dark, var(--chalk-dim));
+  }
 }
 .matchup { --away-team: var(--away-light, var(--yard-line));
            --home-team: var(--home-light, var(--yard-line)); }

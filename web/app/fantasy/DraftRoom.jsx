@@ -191,16 +191,24 @@ export default function DraftRoom({ board, context, league }) {
     const out = [];
     let previous = null;
     const marking = query.trim().length < 2;
+    // El recuento del tier sale del pool DISPONIBLE de esa vista, no de las 60
+    // filas que se pintan. Contarlo sobre lo visible decía «3 left» cuando
+    // quedaban doce: el corte caía dentro de la ventana y el resto del tier
+    // estaba fuera. Un número que se lee como escasez y que era un artefacto
+    // del scroll.
+    const pool = position === "ALL"
+      ? available
+      : available.filter((r) => r.position === position);
     for (const row of shown) {
       if (marking && row.tier !== previous) {
-        const left = shown.filter((r) => r.tier === row.tier).length;
+        const left = pool.filter((r) => r.tier === row.tier).length;
         out.push({ kind: "tier", tier: row.tier, left, key: `t${row.tier}` });
         previous = row.tier;
       }
       out.push({ kind: "player", row, key: row.player_id });
     }
     return out;
-  }, [shown, query]);
+  }, [shown, query, available, position]);
 
   if (!ready) return <p className="caption">Loading draft room&hellip;</p>;
 
@@ -327,7 +335,24 @@ export default function DraftRoom({ board, context, league }) {
                 )
               )}
               {rows.length === 0 ? (
-                <li className="room-empty">No available player matches that.</li>
+                /* Board AGOTADO y búsqueda SIN RESULTADOS son cosas distintas y
+                   decían lo mismo. En una liga de 32 con banquillo profundo el
+                   pool publicado se acaba de verdad —480 huecos contra 344
+                   jugadores— y «no player matches that» mandaba a buscar un
+                   fallo de filtro donde no lo había. */
+                <li className="room-empty">
+                  {available.length === 0 ? (
+                    <>
+                      <strong>Board exhausted.</strong> Every published player is off the
+                      board. The published pool is {board.length} deep; a league this size
+                      drafts past it.
+                    </>
+                  ) : query.trim().length >= 2 ? (
+                    <>No available player matches &ldquo;{query.trim()}&rdquo;.</>
+                  ) : (
+                    <>No {position} left on the board.</>
+                  )}
+                </li>
               ) : null}
             </ol>
           )}
