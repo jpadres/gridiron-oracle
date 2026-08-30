@@ -165,15 +165,21 @@ export default function RoomShell({ board, context }) {
 
   return (
     <>
-      <p className="eyebrow">
-        {league.name || "Manual league"} · {league.teams}-team ·{" "}
-        {SCORING.find((s) => s.id === league.scoring)?.label ?? league.scoring} ·{" "}
-        {league.draftType}
-        {league.mySlot ? ` · slot ${league.mySlot}` : " · slot UNKNOWN"}
-        {" · "}
-        <button type="button" className="link" onClick={() => setEditing(true)}>edit</button>
-      </p>
-      <h1>Draft Room</h1>
+      {/* Cabecera de UNA línea. El titular de portada y su antetítulo ocupaban
+          250px por encima de la banda de estado — un cuarto de la pantalla del
+          móvil gastado en decir dónde estás cuando ya lo sabes: has entrado tú.
+          Lo que sí hace falta es la identidad de la liga, y cabe en la línea. */}
+      <header className="room-head">
+        <h1>Draft Room</h1>
+        <p>
+          <b>{league.name || "Manual league"}</b>
+          <span>{league.teams}-team</span>
+          <span>{SCORING.find((s) => s.id === league.scoring)?.label ?? league.scoring}</span>
+          <span>{league.draftType}</span>
+          <span>{league.mySlot ? `slot ${league.mySlot}` : "slot UNKNOWN"}</span>
+          <button type="button" className="link" onClick={() => setEditing(true)}>edit</button>
+        </p>
+      </header>
       <DraftRoom board={board} context={context} league={league} />
     </>
   );

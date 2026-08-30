@@ -806,180 +806,275 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
       plantilla — en vez de estirar el móvil.
    ========================================================================== */
 
-.room { margin-top: var(--space-4); }
+.room { margin-top: var(--space-3); }
 
-/* --- estado del draft ---------------------------------------------------- */
+/* Cabecera de una línea: la identidad de la liga sin gastar un cuarto de la
+   pantalla del móvil en un titular de portada. */
+.room-head {
+  display: flex; align-items: baseline; flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3); margin-bottom: var(--space-2);
+}
+.room-head h1 {
+  margin: 0; font-size: var(--text-headline); line-height: 1;
+}
+.room-head p {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--space-2);
+  margin: 0; font-size: var(--text-micro); color: var(--chalk-dim);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.room-head b { color: var(--chalk); }
+.room-head span::before { content: "· "; opacity: 0.45; }
+/* «edit» era lo más brillante de la cabecera por ser un botón blanco. Es una
+   acción secundaria: se comporta como enlace y pesa como enlace. */
+.room-head .link {
+  background: none; border: none; padding: 0; font: inherit;
+  letter-spacing: inherit; text-transform: inherit;
+  color: var(--chalk-dim); text-decoration: underline;
+  text-underline-offset: 3px; cursor: pointer; min-height: 44px;
+}
+.room-head .link:hover { color: var(--live); }
+.room-h {
+  font-family: var(--face-display); font-variation-settings: "wdth" 80;
+  font-size: var(--text-dense); font-weight: 700; letter-spacing: 0.01em;
+  margin: 0 0 var(--space-2); color: var(--chalk-dim);
+  display: flex; align-items: baseline; gap: var(--space-2);
+}
+.room-h-n {
+  font-variant-numeric: tabular-nums; color: var(--chalk);
+  font-size: var(--text-micro); font-weight: 400;
+}
+.room-empty { margin: 0; font-size: var(--text-dense); color: var(--chalk-dim); }
+.room-note {
+  margin: var(--space-2) 0 0; font-size: var(--text-micro);
+  color: var(--chalk-dim); max-width: 34ch;
+}
+
+/* --- BANDA DE ESTADO ------------------------------------------------------
+   Lo más fuerte de la pantalla, y con tipografía en vez de con tamaño de caja.
+   Antes ocupaba 138px en móvil para decir «2» y aun así el elemento más
+   llamativo de la página era un botón amarillo. */
 .room-state {
   position: sticky; top: 0; z-index: 5;
   background: var(--field-sunken);
   border-bottom: 1px solid var(--yard-line);
   margin-inline: calc(50% - 50vw);
-  padding: var(--space-3) max(var(--space-5), calc(50vw - 31rem + var(--space-5)));
+  padding: var(--space-2) max(var(--space-5), calc(50vw - 31rem + var(--space-5)));
+  display: flex; align-items: baseline; gap: var(--space-3) var(--space-5);
+  flex-wrap: wrap;
 }
-/* En el reloj: el ámbar aparece UNA vez en la pantalla, y es aquí. */
-.room-state--clock {
-  background: var(--live-field);
-  border-bottom-color: var(--live);
+.room-state--clock { background: var(--live-field); border-bottom-color: var(--live); }
+@media (min-width: 48rem) {
+  /* El número primero: en la versión anterior flotaba entre dos textos y
+     parecía accidental en vez de compuesto. */
+  .room-state { flex-wrap: nowrap; align-items: center; gap: var(--space-5); }
+  .room-until { order: -1; }
+  .room-clock { order: -1; }
+  .room-where { margin-left: auto; }
 }
-.room-pick {
-  font-family: var(--face-display); font-variation-settings: "wdth" 72;
-  font-weight: 700; font-size: var(--text-hero); line-height: 0.95;
-  margin: 0; color: var(--chalk); font-variant-numeric: tabular-nums;
-}
-.room-state--clock .room-pick { color: var(--live); }
-.room-pick small {
-  display: block; font-family: var(--face-body);
-  font-variation-settings: "wdth" 100; font-size: var(--text-dense);
-  font-weight: 400; color: var(--chalk-dim); line-height: var(--leading-snug);
-  margin-top: var(--space-1);
-}
-.room-pick--unknown { font-size: var(--text-headline); color: var(--chalk-dim); }
-.room-count { margin: var(--space-2) 0 0; font-size: var(--text-micro); color: var(--chalk-dim); }
 
-/* --- deshacer ------------------------------------------------------------- */
+/* DÓNDE estamos. Sin la ronda, «2 picks» no sitúa a nadie en el draft. */
+.room-where {
+  margin: 0; font-size: var(--text-micro); color: var(--chalk-dim);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  display: flex; align-items: baseline; gap: var(--space-2);
+}
+.room-where b {
+  font-family: var(--face-display); font-variation-settings: "wdth" 78;
+  font-size: var(--text-dense); color: var(--chalk);
+  font-variant-numeric: tabular-nums; font-weight: 700;
+}
+.room-where-sep { opacity: 0.4; }
+.room-count { margin: 0; }
+
+/* CUÁNTO falta. El número es el protagonista. */
+.room-until { margin: 0; display: flex; align-items: baseline; gap: var(--space-3); }
+.room-until-n {
+  font-family: var(--face-display); font-variation-settings: "wdth" 70;
+  font-weight: 700; font-size: var(--text-hero); line-height: 0.85;
+  color: var(--chalk); font-variant-numeric: tabular-nums;
+}
+.room-until-t {
+  font-size: var(--text-dense); color: var(--chalk);
+  line-height: var(--leading-snug);
+}
+.room-until-t small { display: block; font-size: var(--text-micro); color: var(--chalk-dim); }
+.room-until--unknown .room-until-n { color: var(--chalk-dim); }
+
+/* Una sola línea SIEMPRE. «You're on the clock» se partía en dos a 390 y la
+   banda se comía el 30% de la pantalla; el sujeto ya se entiende, y la ronda y
+   el pick están justo encima. El tamaño escala con el ancho, no al revés. */
+.room-clock {
+  margin: 0; font-family: var(--face-display); font-variation-settings: "wdth" 70;
+  font-weight: 700; font-size: clamp(1.9rem, 8.5vw, 3.25rem); line-height: 0.95;
+  color: var(--live); text-transform: uppercase; letter-spacing: 0.005em;
+  white-space: nowrap;
+}
+@media (min-width: 48rem) { .room-clock { font-size: clamp(2rem, 4vw, 3rem); } }
+
+/* --- deshacer: temporal y discreto ---------------------------------------- */
+/* Ancho de contenido, no de página: es transitorio y no debe pesar más que la
+   banda de estado, que fue lo que pasó en la versión anterior. */
 .room-flash {
-  display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap;
-  margin: var(--space-3) 0 0; padding: var(--space-2) var(--space-3);
+  display: inline-flex; align-items: center; gap: var(--space-2) var(--space-3);
+  flex-wrap: wrap; margin: var(--space-2) 0 0; max-width: 100%;
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-3);
   background: var(--field-raised); border-left: 3px solid var(--live);
-  font-size: var(--text-dense);
+  font-size: var(--text-dense); color: var(--chalk-dim);
 }
-.room-flash button { margin-left: auto; min-height: 44px; }
+.room-flash strong { color: var(--chalk); }
+.room-undo {
+  min-height: 44px; padding-inline: var(--space-3);
+  background: none; border: 1px solid var(--yard-line); color: var(--chalk);
+  font: inherit; cursor: pointer;
+}
+.room-undo:hover { border-color: var(--live); color: var(--live); }
+.room-undo:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
 
-/* --- composición ---------------------------------------------------------- */
-.room-grid { display: grid; gap: var(--space-5); margin-top: var(--space-4); }
-@media (min-width: 64rem) {
-  /* War room de verdad: tablero a la izquierda, decisión en el centro,
-     plantilla y feed a la derecha. */
-  .room-grid { grid-template-columns: 1.1fr 1.2fr 0.9fr; align-items: start; }
-  .room-decision { order: 2; position: sticky; top: 8rem; }
-  .room-board { order: 1; }
-  .room-side { order: 3; position: sticky; top: 8rem; }
+/* --- composición ----------------------------------------------------------
+   Dos columnas y no tres. La versión anterior ponía la decisión en una columna
+   central que a 1440 se quedaba en pila de tarjetas con 400px de negro debajo,
+   y además repetía como tarjeta al mismo jugador que ya era la fila 1 del
+   tablero. El héroe ahora ES la primera fila: no hay duplicado que colocar. */
+.room-grid { display: grid; gap: var(--space-5); margin-top: var(--space-3); }
+@media (min-width: 48rem) {
+  .room-grid { grid-template-columns: minmax(0, 1.55fr) minmax(15rem, 1fr); align-items: start; }
+  .room-side { position: sticky; top: 7rem; }
 }
-
-/* --- decisión ------------------------------------------------------------- */
-.room-best {
-  display: grid; grid-template-columns: auto minmax(0, 1fr) max-content;
-  align-items: center; gap: var(--space-3);
-  background: var(--field-raised); border-left: 4px solid var(--team, var(--yard-line));
-  padding: var(--space-4);
+@media (min-width: 75rem) {
+  .room-grid { grid-template-columns: minmax(0, 1.9fr) minmax(18rem, 0.9fr); }
 }
-.room-best h3 {
-  font-family: var(--face-display); font-variation-settings: "wdth" 80;
-  font-size: var(--text-headline); font-weight: 700; line-height: 1;
-  margin: 0; color: var(--chalk); text-wrap: balance;
-}
-.room-best-meta {
-  display: flex; align-items: center; flex-wrap: wrap; gap: var(--gap-chip);
-  margin: var(--space-2) 0 0; font-size: var(--text-micro); color: var(--chalk-dim);
-}
-.room-best-vor {
-  font-family: var(--face-display); font-variation-settings: "wdth" 74;
-  font-weight: 700; font-size: var(--num-mega); line-height: 1;
-  color: var(--chalk); font-variant-numeric: tabular-nums; text-align: right;
-}
-.room-best-vor small {
-  display: block; font-size: var(--text-micro); font-weight: 400;
-  font-variation-settings: "wdth" 100; color: var(--chalk-dim);
-}
-.room-depth {
-  margin: var(--space-3) 0 0; font-size: var(--text-dense);
-  color: var(--chalk); font-weight: var(--weight-semibold);
-}
-.room-actions { display: flex; gap: var(--space-2); margin-top: var(--space-4); }
-.room-limit { margin-top: var(--space-3); max-width: 42ch; }
 
 /* --- tablero disponible --------------------------------------------------- */
-.room-tools { display: grid; gap: var(--space-2); margin-bottom: var(--space-3); }
+.room-tools {
+  display: grid; gap: var(--space-2); margin-bottom: 0;
+  position: sticky; top: 3.5rem; z-index: 4; background: var(--field);
+  padding-block: var(--space-2);
+}
 .room-list { list-style: none; margin: 0; padding: 0; }
 .room-list > li { border-left: 3px solid var(--team, var(--yard-line)); }
 .room-list > li + li { border-top: 1px solid var(--yard-line); }
-/* La fila ENTERA es el objetivo. Un botón dentro de la fila obliga a apuntar,
-   y apuntar con el pulgar mientras corre el reloj es donde se falla. */
+
+/* El corte de tier: se escanea, no es un panel. */
+.room-tier {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--space-3); padding: var(--space-2) var(--space-3) var(--space-1);
+  border-left-color: transparent !important;
+  font-size: var(--text-micro); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--chalk-dim);
+}
+.room-tier + li { border-top: 1px solid var(--chalk-dim); }
+.room-tier-left { font-variant-numeric: tabular-nums; }
+
 .room-row {
-  display: grid; grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  display: grid; grid-template-columns: 2.25rem minmax(0, 1fr) auto;
   align-items: center; gap: var(--space-3);
-  width: 100%; min-height: 56px; padding: var(--space-2) var(--space-3);
+  width: 100%; padding: var(--space-3); min-height: 56px;
   background: none; border: none; text-align: left; cursor: pointer;
   color: inherit; font: inherit;
 }
 .room-row:hover { background: var(--field-raised); }
 .room-row:focus-visible { outline: 2px solid var(--live); outline-offset: -2px; }
 .room-row-rank {
-  font-family: var(--face-display); font-variation-settings: "wdth" 68;
-  font-weight: 700; font-size: var(--num-lead); color: var(--chalk-dim);
-  text-align: right; font-variant-numeric: tabular-nums;
+  font-family: var(--face-display); font-variation-settings: "wdth" 74;
+  font-weight: 700; font-size: var(--text-dense); color: var(--chalk-dim);
+  font-variant-numeric: tabular-nums; text-align: right;
 }
 .room-row-who .nm {
-  display: block; font-weight: 650; color: var(--chalk);
-  line-height: var(--leading-tight);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: block; font-weight: var(--weight-semibold); color: var(--chalk);
+  font-size: var(--text-body); line-height: var(--leading-snug);
 }
 .room-row-who .meta {
   display: flex; align-items: center; gap: var(--gap-chip);
-  font-size: var(--text-micro); color: var(--chalk-dim);
+  margin-top: 2px; font-size: var(--text-micro); color: var(--chalk-dim);
 }
 .room-row-vor {
-  font-family: var(--face-display); font-variation-settings: "wdth" 78;
-  font-weight: 700; color: var(--chalk); font-variant-numeric: tabular-nums;
+  font-family: var(--face-display); font-variation-settings: "wdth" 74;
+  font-weight: 700; font-size: var(--text-body); color: var(--chalk);
+  font-variant-numeric: tabular-nums;
 }
 
-/* --- plantilla y feed ------------------------------------------------------ */
+/* EL HÉROE ES LA PRIMERA FILA, no una tarjeta encima que la repita. */
+.room-list > li.is-best { border-left-width: 5px; background: var(--field-raised); }
+.room-list > li.is-best .room-row { min-height: 76px; padding-block: var(--space-4); }
+.room-list > li.is-best .nm {
+  font-family: var(--face-display); font-variation-settings: "wdth" 82;
+  font-weight: 700; font-size: clamp(1.15rem, 2.1vw, 1.6rem); line-height: 1;
+}
+.room-list > li.is-best .room-row-rank { color: var(--live); font-size: var(--text-body); }
+.room-list > li.is-best .room-row-vor { font-size: var(--num-mega); line-height: 0.9; }
+
+/* --- barra de contexto ---------------------------------------------------- */
 .room-side { display: grid; gap: var(--space-5); }
-.room-roster, .room-feed { list-style: none; margin: 0; padding: 0; }
-.room-roster > li, .room-feed > li {
-  display: flex; align-items: center; gap: var(--gap-chip);
-  padding: var(--space-2) var(--space-3);
-  border-left: 3px solid var(--team, var(--yard-line));
-  border-bottom: 1px solid var(--yard-line);
+.room-depth, .room-roster, .room-feed { list-style: none; margin: 0; padding: 0; }
+
+.room-depth > li {
+  display: grid; grid-template-columns: 2.75rem 1fr auto; align-items: baseline;
+  gap: var(--space-2); padding: var(--space-2) 0;
+  font-size: var(--text-micro); color: var(--chalk-dim);
+}
+.room-depth > li + li { border-top: 1px solid var(--yard-line); }
+.room-depth-left { color: var(--chalk); font-variant-numeric: tabular-nums; }
+.room-depth-left b {
+  font-family: var(--face-display); font-variation-settings: "wdth" 74;
   font-size: var(--text-dense);
 }
+.room-depth-total { grid-column: 2 / -1; font-size: var(--text-micro); opacity: 0.7; }
+@media (min-width: 48rem) {
+  /* Con sitio, la profundidad cabe en una línea y cada posición ocupa la mitad. */
+  .room-depth > li { grid-template-columns: 2.75rem auto 1fr auto; }
+  .room-depth-total { grid-column: auto; text-align: right; }
+}
+
+.room-roster > li, .room-feed > li {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  border-left: 3px solid var(--team, var(--yard-line));
+  font-size: var(--text-dense);
+}
+.room-roster > li + li, .room-feed > li + li { border-top: 1px solid var(--yard-line); }
 .room-roster .nm, .feed-who {
-  flex: 1; min-width: 0; color: var(--chalk);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  flex: 1 1 auto; min-width: 0; color: var(--chalk);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .feed-pick {
   font-family: var(--face-display); font-variation-settings: "wdth" 74;
-  font-weight: 700; color: var(--chalk-dim); font-variant-numeric: tabular-nums;
-  min-width: 2.8rem;
+  font-weight: 700; font-size: var(--text-micro); color: var(--chalk-dim);
+  font-variant-numeric: tabular-nums; min-width: 2.75rem;
 }
 .room-feed .is-mine .feed-pick { color: var(--live); }
-.room-roster button, .room-feed button { min-height: 44px; }
 
-/* --- alta de liga ---------------------------------------------------------- */
+/* Deshacer en el feed: presente, recesivo, y con objetivo táctil de verdad.
+   Un botón por cada pick pasado convertía el ticker en una tabla. */
+.room-x {
+  flex: 0 0 auto; width: 44px; height: 44px; margin: -10px 0;
+  background: none; border: none; cursor: pointer;
+  color: var(--chalk-dim); opacity: 0.45;
+  font-size: 1.1rem; line-height: 1;
+}
+.room-x:hover, .room-x:focus-visible { opacity: 1; color: var(--live); }
+.room-x:focus-visible { outline: 2px solid var(--live); outline-offset: -4px; }
+
+/* --- metodología, detrás de divulgación ----------------------------------- */
+.room-method { font-size: var(--text-micro); color: var(--chalk-dim); }
+.room-method summary {
+  cursor: pointer; padding: var(--space-2) 0; min-height: 44px;
+  display: flex; align-items: center; color: var(--chalk-dim);
+}
+.room-method summary:hover { color: var(--chalk); }
+.room-method p { margin: 0 0 var(--space-2); max-width: 44ch; }
+
 .room-setup { display: grid; gap: var(--space-4); max-width: 26rem; margin-top: var(--space-4); }
 .room-setup fieldset { border: none; margin: 0; padding: 0; }
 .room-setup legend { padding: 0; }
 
-/* --- correcciones vistas en la captura ------------------------------------ */
-
-/* 1. «Amon-Ra St. Brown» partía en TRES líneas en la columna central: el
-      titular estaba a tamaño de portada dentro de una columna estrecha. Escala
-      con el ancho disponible en vez de con la página. */
-.room-best h3 { font-size: clamp(1.25rem, 2.2vw, 1.75rem); }
-.room-best { grid-template-columns: auto minmax(0, 1fr) auto; }
-.room-best-vor { font-size: clamp(1.5rem, 3vw, 2.25rem); }
-
-/* 2. A 1440 la banda de estado ocupaba un tercio de la pantalla para decir «2».
-      En escritorio se compone en horizontal: la misma información, una franja. */
-@media (min-width: 64rem) {
-  .room-state {
-    display: flex; align-items: baseline; gap: var(--space-5);
-    padding-block: var(--space-3);
+/* Movimiento: sólo donde ayuda a entender el estado en vivo. */
+@media (prefers-reduced-motion: no-preference) {
+  .room-feed > li:first-child { animation: room-enter 220ms ease-out; }
+  @keyframes room-enter {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: none; }
   }
-  .room-state .eyebrow { margin: 0; }
-  .room-pick { font-size: var(--text-headline); display: flex; align-items: baseline;
-               gap: var(--space-3); }
-  .room-pick small { display: inline; margin: 0; }
-  .room-count { margin: 0 0 0 auto; }
 }
-
-/* 3. Los «undo» del feed pesaban tanto como el pick. El objetivo táctil se
-      mantiene en 44px con relleno; lo que baja es el peso visual. */
-.room-feed button, .room-roster button {
-  background: none; border: none; padding: 0 var(--space-2);
-  font-size: var(--text-micro); color: var(--chalk-dim); cursor: pointer;
-}
-.room-feed button:hover, .room-roster button:hover { color: var(--chalk); }
 
 /* Puerta al Draft Room desde el board. */
 .room-entry {
