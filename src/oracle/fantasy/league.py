@@ -79,11 +79,15 @@ class LeagueContext:
     season: int | None
     teams: int
     starters: dict[str, float]
-    """Titulares por equipo y posición, con el flex ya repartido."""
+    """Titulares por equipo y posición, con el flex ya repartido por pesos."""
     has_kicker: bool = False
     has_defense: bool = False
     bench: int = 0
     source: str = "sleeper"
+    dedicated: dict[str, int] | None = None
+    """Huecos DEDICADOS por equipo, sin flex. Es lo que necesita el voraz."""
+    flex: int = 0
+    superflex: int = 0
 
     def replacement_rank(self, position: str) -> int:
         """Puesto del jugador de reemplazo en esa posición, 1-indexado."""
@@ -96,6 +100,23 @@ class LeagueContext:
     def is_superflex(self) -> bool:
         """Más de un quarterback titular por equipo, con margen de redondeo."""
         return self.starters.get("QB", 0.0) > 1.05
+
+    @property
+    def starter_slots(self) -> int:
+        """Huecos titulares de fantasy en la liga entera.
+
+        Es el número que la asignación voraz tiene que consumir EXACTAMENTE.
+        Pateador y defensa no cuentan: no entran en el board por VOR.
+        """
+        per_team = sum((self.dedicated or {}).values()) + self.flex + self.superflex
+        return int(self.teams * per_team)
+
+    def describe(self) -> str:
+        """La liga en una línea, para que la interfaz no invente la etiqueta."""
+        parts = [f"{self.teams}-team"]
+        if self.is_superflex:
+            parts.append("Superflex")
+        return " · ".join(parts)
 
 
 def roster_context(
@@ -147,6 +168,11 @@ def roster_context(
             "Añádelos al mapa antes de generar un board con esta liga."
         )
 
+    # Los huecos DEDICADOS, antes de repartir nada. El voraz los necesita
+    # enteros: repartir primero y deshacer después perdería la información de
+    # qué huecos son de una posición y cuáles se comparten.
+    dedicated = {position: int(count) for position, count in starters.items()}
+
     for position, weight in FLEX_WEIGHTS.items():
         starters[position] += flex * weight
     for position, weight in SUPERFLEX_WEIGHTS.items():
@@ -158,4 +184,120 @@ def roster_context(
     return LeagueContext(
         league_id=league_id, season=season, teams=teams, starters=starters,
         has_kicker=has_kicker, has_defense=has_defense, bench=bench,
+        dedicated=dedicated, flex=int(flex), superflex=int(superflex),
     )
+
+
+# Qué posiciones admite cada clase de hueco compartido. Es la tabla que hace que
+# la competencia por el flex sea explícita en vez de postulada.
+FLEX_ELIGIBLE: tuple[str, ...] = ("RB", "WR", "TE")
+SUPERFLEX_ELIGIBLE: tuple[str, ...] = ("QB", "RB", "WR", "TE")
+
+
+def greedy_replacement(
+    points_by_position: dict[str, list[float]],
+    context: LeagueContext,
+) -> tuple[dict[str, float], dict[str, int], int]:
+    """Nivel de reemplazo asignando de verdad los huecos compartidos.
+
+    ## Qué está mal en repartir el flex por pesos
+
+    El reparto por pesos calcula el reemplazo de cada posición **como si el hueco
+    compartido no existiera**: le suma a RB su trozo, a WR el suyo, a TE el suyo,
+    y redondea cada uno por separado. Dos consecuencias:
+
+    1. La demanda total deja de cuadrar. Tres redondeos independientes no suman
+       los huecos que la liga define, así que el board se calcula contra una liga
+       que no es la del usuario — por poco, pero sistemáticamente.
+    2. El peso es una convención, no una medida. Dice que el 45% de los flex son
+       corredores **antes** de mirar quiénes están disponibles, cuando eso es
+       justo lo que decide quién ocupa el hueco.
+
+    ## Lo que hace esto
+
+    Llena los huecos dedicados de toda la liga, y después cada hueco compartido
+    se lo lleva la posición cuyo **mejor jugador libre vale más** en ese momento.
+    El reemplazo de una posición es su mejor jugador que no entró de titular.
+
+    La competencia entre RB, WR y TE por el flex —y del QB por el superflex—
+    queda dentro del cálculo en vez de en una constante. Y la demanda cuadra por
+    construcción: se consume un jugador por hueco, ni uno más.
+
+    ## Lo que este reparto NO resuelve, dicho aquí
+
+    Los huecos compartidos se asignan por **puntos brutos**, que es como los
+    llena un mánager de verdad: alineas al que más suma. Para un FLEX entre RB,
+    WR y TE eso está bien — son escalas comparables.
+
+    Para un SUPER_FLEX que admite quarterback **no** lo está del todo: el QB suma
+    del orden de 1,7 veces más que un receptor, así que gana el hueco por escala
+    y no por valor marginal. En datos reales apunta al mismo sitio que la
+    realidad —los superflex se llenan con quarterbacks— pero coincide por el
+    motivo aproximado, no por el exacto. El reparto correcto iteraría hasta un
+    punto fijo sobre el VOR, que es circular: el VOR depende del reemplazo y el
+    reemplazo del reparto. No se ha hecho, y por eso no se afirma.
+
+    Se vio con un fixture sintético cuyo QB24 valía menos que el WR40: allí el
+    voraz mandaba huecos de superflex a receptores, correctamente para ese pool y
+    absurdamente para el fútbol. El fixture estaba mal calibrado; la lección es
+    que la regla es sensible a la escala relativa entre posiciones.
+
+    Devuelve `(puntos_de_reemplazo, rank_de_reemplazo, huecos_consumidos)`.
+    """
+    ranked = {
+        position: sorted(points, reverse=True)
+        for position, points in points_by_position.items()
+    }
+    taken = dict.fromkeys(ranked, 0)
+    dedicated = context.dedicated or {}
+
+    def best_available(position: str) -> float | None:
+        pool = ranked.get(position) or []
+        index = taken.get(position, 0)
+        return pool[index] if index < len(pool) else None
+
+    def claim(position: str) -> bool:
+        if best_available(position) is None:
+            return False
+        taken[position] += 1
+        return True
+
+    consumed = 0
+    # 1. Huecos dedicados. Se llenan todos los equipos a la vez porque el orden
+    #    entre equipos no cambia quién queda libre al final, sólo quién se lleva
+    #    a quién — y el reemplazo depende de cuántos salen, no de a qué equipo.
+    for position, per_team in dedicated.items():
+        for _ in range(int(per_team) * context.teams):
+            if claim(position):
+                consumed += 1
+
+    # 2. Huecos compartidos, en orden de valor. Cada uno va a la posición cuyo
+    #    mejor jugador libre vale más AHORA: por eso el primer flex se lo puede
+    #    llevar un RB y el décimo un TE, sin que nadie lo haya decidido antes.
+    shared: list[tuple[str, ...]] = []
+    shared += [SUPERFLEX_ELIGIBLE] * (context.superflex * context.teams)
+    shared += [FLEX_ELIGIBLE] * (context.flex * context.teams)
+    for eligible in shared:
+        candidates = [
+            (best_available(position), position)
+            for position in eligible
+            if best_available(position) is not None
+        ]
+        if not candidates:
+            continue
+        _, position = max(candidates)
+        if claim(position):
+            consumed += 1
+
+    replacement: dict[str, float] = {}
+    rank: dict[str, int] = {}
+    for position, pool in ranked.items():
+        if not pool:
+            continue
+        # El reemplazo es el mejor que NO entró de titular. Si se agotó la
+        # posición entera se usa el último: no hay nadie peor al que apuntar, y
+        # decir cero fabricaría un VOR enorme para toda la posición.
+        index = min(taken.get(position, 0), len(pool) - 1)
+        replacement[position] = float(pool[index])
+        rank[position] = index + 1
+    return replacement, rank, consumed

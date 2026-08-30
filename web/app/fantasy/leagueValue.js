@@ -64,6 +64,7 @@ export function rosterContext(rosterPositions, teams) {
   if (unknown.length > 0) {
     return { supported: false, reason: `unsupported roster slots: ${[...new Set(unknown)].sort().join(", ")}` };
   }
+  const dedicated = Object.fromEntries(Object.entries(starters));
   for (const [position, weight] of Object.entries(FLEX_WEIGHTS)) starters[position] += flex * weight;
   for (const [position, weight] of Object.entries(SUPERFLEX_WEIGHTS)) starters[position] += superflex * weight;
 
@@ -72,8 +73,86 @@ export function rosterContext(rosterPositions, teams) {
   }
   return {
     supported: true, teams, starters, bench, hasKicker, hasDefense,
+    // Los huecos DEDICADOS, sin repartir: es lo que necesita el voraz. Se
+    // capturan antes de sumar el flex, igual que en Python.
+    dedicated, flex, superflex,
     isSuperflex: starters.QB > 1.05,
+    slots: teams * (Object.values(dedicated).reduce((a, b) => a + b, 0) + flex + superflex),
   };
+}
+
+// Qué admite cada hueco compartido. Espejo de `league.py`.
+export const FLEX_ELIGIBLE = ["RB", "WR", "TE"];
+export const SUPERFLEX_ELIGIBLE = ["QB", "RB", "WR", "TE"];
+
+/**
+ * Nivel de reemplazo asignando de verdad los huecos compartidos.
+ *
+ * Espejo exacto de `league.greedy_replacement`. Repartir el flex por pesos fijos
+ * calcula el reemplazo de cada posición **como si el hueco compartido no
+ * existiera**, y al redondear cada una por su lado la demanda total deja de
+ * cuadrar con los huecos que la liga define: en E18, hasta un hueco de desvío en
+ * seis de las siete plantillas probadas. El voraz consume exactamente los que
+ * hay, porque asigna uno por hueco.
+ *
+ * Devuelve también `short`: las posiciones cuyo reemplazo cae FUERA del pool
+ * publicado. Ahí no hay valor calculable, y decirlo es la diferencia entre un
+ * board de tu liga y uno que parece de tu liga.
+ */
+export function greedyReplacement(pointsByPosition, context) {
+  const ranked = {};
+  for (const [position, points] of Object.entries(pointsByPosition)) {
+    ranked[position] = [...points].sort((a, b) => b - a);
+  }
+  const taken = Object.fromEntries(Object.keys(ranked).map((p) => [p, 0]));
+  const dedicated = context.dedicated ?? {};
+
+  const bestAvailable = (position) => {
+    const pool = ranked[position];
+    const index = taken[position] ?? 0;
+    return pool && index < pool.length ? pool[index] : null;
+  };
+  const claim = (position) => {
+    if (bestAvailable(position) === null) return false;
+    taken[position] += 1;
+    return true;
+  };
+
+  let consumed = 0;
+  for (const [position, perTeam] of Object.entries(dedicated)) {
+    for (let i = 0; i < perTeam * context.teams; i += 1) if (claim(position)) consumed += 1;
+  }
+  const shared = [
+    ...Array((context.superflex ?? 0) * context.teams).fill(SUPERFLEX_ELIGIBLE),
+    ...Array((context.flex ?? 0) * context.teams).fill(FLEX_ELIGIBLE),
+  ];
+  for (const eligible of shared) {
+    let best = null;
+    let bestPosition = null;
+    for (const position of eligible) {
+      const value = bestAvailable(position);
+      if (value !== null && (best === null || value > best)) {
+        best = value;
+        bestPosition = position;
+      }
+    }
+    if (bestPosition && claim(bestPosition)) consumed += 1;
+  }
+
+  const replacement = {};
+  const rank = {};
+  const short = [];
+  for (const [position, pool] of Object.entries(ranked)) {
+    if (pool.length === 0) continue;
+    // Si la posición se agotó, el reemplazo cae fuera de lo publicado: no se usa
+    // el último y se sigue como si nada, se DICE. Usar el último inflaría el VOR
+    // de toda la posición y el board saldría mal justo donde la liga es rara.
+    if ((taken[position] ?? 0) >= pool.length) short.push(position);
+    const index = Math.min(taken[position] ?? 0, pool.length - 1);
+    replacement[position] = pool[index];
+    rank[position] = index + 1;
+  }
+  return { replacement, rank, consumed, short };
 }
 
 /** Puesto del jugador de reemplazo de una posición, 1-indexado. */
@@ -135,6 +214,15 @@ export function setComponentOrder(order) {
 
 /**
  * El board de una liga: puntos compilados, reemplazo, VOR y orden.
+ *
+ * Devuelve `{rows, replacement, rank, short, consumed}`. `short` son las
+ * posiciones cuyo reemplazo cae fuera del pool publicado: ahí el VOR no es
+ * calculable y quien lo pinte tiene que decirlo, no enseñar un número.
+ *
+ * El pool se eligió por VOR en la liga por defecto (12 equipos, PPR), así que
+ * para otra liga no es el top-N que le correspondería. Con la profundidad que se
+ * publica por posición alcanza para las ligas soportadas; cuando no alcanza sale
+ * en `short` en vez de en un número silenciosamente malo.
  */
 export function buildLeagueBoard({
   players, rules, context, compilePoints, games = 15.5,
@@ -151,22 +239,36 @@ export function buildLeagueBoard({
     return { ...row, projected_points: projected };
   });
 
-  const replacement = {};
-  for (const position of FANTASY_POSITIONS) {
-    const ranked = scored
-      .filter((row) => row.position === position)
-      .sort((a, b) => b.projected_points - a.projected_points);
-    if (ranked.length === 0) continue;
-    const index = Math.min(replacementRank(context, position), ranked.length) - 1;
-    replacement[position] = ranked[index].projected_points;
+  const byPosition = {};
+  for (const row of scored) {
+    if (!Number.isFinite(row.projected_points)) continue;
+    (byPosition[row.position] ??= []).push(row.projected_points);
   }
+  const { replacement, rank, consumed, short } = greedyReplacement(byPosition, context);
+  const shortSet = new Set(short);
 
-  return scored
-    .map((row) => ({
-      ...row,
-      replacement_points: replacement[row.position] ?? 0,
-      vor: row.projected_points - (replacement[row.position] ?? 0),
-    }))
-    .sort((a, b) => b.vor - a.vor)
+  const rows = scored
+    .map((row) => {
+      // Una posición sin reemplazo calculable NO recibe un VOR inventado: queda
+      // `null` y se ordena al final. Un cero diría «vale lo mismo que su
+      // reemplazo», que es una afirmación y no la ausencia de una.
+      const base = replacement[row.position];
+      const usable = base !== undefined && !shortSet.has(row.position)
+        && Number.isFinite(row.projected_points);
+      return {
+        ...row,
+        replacement_points: usable ? base : null,
+        vor: usable ? row.projected_points - base : null,
+        value_known: usable,
+      };
+    })
+    .sort((a, b) => {
+      if (a.vor === null && b.vor === null) return 0;
+      if (a.vor === null) return 1;
+      if (b.vor === null) return -1;
+      return b.vor - a.vor;
+    })
     .map((row, i) => ({ ...row, overall_rank: i + 1 }));
+
+  return { rows, replacement, rank, consumed, short };
 }

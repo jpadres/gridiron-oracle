@@ -42,6 +42,7 @@ import numpy as np
 import pandas as pd
 
 from .components import COMPONENTS, weighted_components
+from .league import LeagueContext, greedy_replacement
 from .scoring import PPR, ScoringRules, score_player_weeks
 
 # Ponderación de las tres últimas temporadas. Suma 1.
@@ -244,16 +245,42 @@ TIER_RANGE = (6, 16)
 def draft_board(
     projections: pd.DataFrame,
     settings: LeagueSettings | None = None,
+    *,
+    context: LeagueContext | None = None,
 ) -> pd.DataFrame:
-    """Ordena por VOR y agrupa en tiers."""
+    """Ordena por VOR y agrupa en tiers.
+
+    Con `context` el reemplazo sale de la asignación voraz de
+    `league.greedy_replacement`: los huecos compartidos se reparten según quién
+    queda libre, no según una constante. Sin él se conserva la ruta histórica
+    por `LeagueSettings`, que es la que fija la equivalencia de la línea base.
+
+    ## La diferencia de definición, que no es un detalle
+
+    La ruta histórica toma como reemplazo **al último titular** (el QB12 en una
+    liga de 12). La ruta con contexto toma **al primero que no es titular** (el
+    QB13), que es la definición que dice el docstring de `league.py`: «el mejor
+    que sigue libre cuando ya todos han llenado esa posición».
+
+    Un puesto de diferencia parece nada y no lo es: el desplazamiento no es igual
+    en todas las posiciones —depende de lo plana que sea la curva de cada una— y
+    lo que compara el board es precisamente entre posiciones.
+    """
     settings = settings or LeagueSettings()
     board = projections.copy()
 
-    replacement: dict[str, float] = {}
-    for position, group in board.groupby("position", observed=True):
-        ranked = group.sort_values("projected_points", ascending=False)
-        index = min(settings.replacement_rank(position), len(ranked)) - 1
-        replacement[position] = float(ranked["projected_points"].iloc[index])
+    if context is not None:
+        points = {
+            position: group["projected_points"].tolist()
+            for position, group in board.groupby("position", observed=True)
+        }
+        replacement, _, _ = greedy_replacement(points, context)
+    else:
+        replacement = {}
+        for position, group in board.groupby("position", observed=True):
+            ranked = group.sort_values("projected_points", ascending=False)
+            index = min(settings.replacement_rank(position), len(ranked)) - 1
+            replacement[position] = float(ranked["projected_points"].iloc[index])
 
     board["replacement_points"] = board["position"].map(replacement)
     board["vor"] = board["projected_points"] - board["replacement_points"]

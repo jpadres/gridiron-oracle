@@ -376,24 +376,36 @@ REGISTRY: tuple[Capability, ...] = (
     ),
     Capability(
         id="LEAGUE_SPECIFIC_VALUE",
-        status=Status.NOT_READY,
+        status=Status.VALIDATED,
         evidence=(
-            "el compilador de puntuación reproduce los puntos EXACTAMENTE desde los "
-            "componentes canónicos (máx |Δ| 1,07e-14 sobre 998 jugadores y 7 perfiles), "
-            "el board canónico sale idéntico (Δ = 0, sin cambios de orden ni de tier) "
-            "y superflex mueve el reemplazo de QB de 12 a 24 reordenando el board"
+            "el valor responde a las REGLAS de la liga, no sólo a su puntuación: "
+            "16 propiedades preregistradas sobre 861 proyecciones reales y 13 "
+            "configuraciones. Superflex lleva el reemplazo del QB de QB13 a QB25 "
+            "y sube su VOR una mediana de +26,4 puntos; 10/12/14 equipos "
+            "profundizan el reemplazo de forma monótona; el TE premium sube a "
+            "todos los TE y a nadie más (Δ exactamente 0 fuera de TE)"
         ),
-        experiment_id="E15",
-        metric="máx |Δ| = 1.07e-14 puntos por partido",
-        sample_size=998,
+        experiment_id="E18",
+        metric="16/16 propiedades con umbral; huecos titulares consumidos 100%",
+        sample_size=861,
         limitations=(
-            "Demuestra CORRECCIÓN de la compilación, no que un board por liga "
-            "produzca mejores drafts. Eso es una afirmación de resultado y nadie la "
-            "ha medido: por eso INFORM y no RECOMMEND.",
-            "Los bonus por partido (300/100 yardas) NO se pueden compilar desde "
-            "medias por partido. Esas ligas quedan sin board, no con uno aproximado.",
-            "Una regla de puntuación o un hueco de plantilla sin traducir dejan la "
-            "liga como no soportada en vez de caer a un valor por defecto.",
+            "Prueba que el CÁLCULO responde correctamente a las reglas. NO prueba "
+            "que draftear por este valor mejore la temporada: eso exige medir "
+            "contra resultados y no está hecho.",
+            "Los TIERS siguen siendo los del board publicado. Salen de los huecos "
+            "de VOR y se moverían solos, pero nadie ha validado que los cortes "
+            "signifiquen algo en otra liga, así que no se presentan como suyos.",
+            "Los huecos compartidos se reparten por PUNTOS BRUTOS, que es como los "
+            "llena un mánager. Para un SUPER_FLEX que admite QB eso favorece al "
+            "quarterback por escala y no por valor marginal: acierta en datos "
+            "reales por el motivo aproximado. El reparto exacto iteraría a un "
+            "punto fijo sobre el VOR y sería circular; no se ha hecho.",
+            "El pool publicado se eligió por VOR en la liga por defecto. Se "
+            "garantiza profundidad por posición para el sobre soportado (hasta 14 "
+            "equipos, superflex, 3 flex); fuera de él `buildLeagueBoard` declara "
+            "la posición corta en vez de dar un número.",
+            "Sin pateadores, sin defensas y sin novatos: ninguno tiene componentes "
+            "proyectados, así que no entran en la comparación entre posiciones.",
         ),
         last_validated="2026-08-30",
         model_version=MODEL_VERSION,

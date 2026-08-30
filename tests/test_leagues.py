@@ -112,9 +112,20 @@ def test_flex_is_split_between_running_backs_and_receivers():
     """
     settings = sleeper.league_settings_from(_league())
     starters = dict(settings.starters)
-    assert starters["RB"] == 2.5
-    assert starters["WR"] == 2.5
+    # 0,45 / 0,45 / 0,10 — el reparto ÚNICO del proyecto desde E18.
+    #
+    # Este test exigía 2,5 y 3,5, que era el reparto propio que tenía el
+    # adaptador de Sleeper: mitad y mitad entre corredor y receptor, nada al ala
+    # cerrada. Eran tres modelos distintos para la misma liga —éste,
+    # `draft.DEFAULT_STARTERS` y `league.roster_context`— y daban el reemplazo
+    # del receptor en el puesto 42, 36 y 41. Ahora hay uno.
+    assert starters["RB"] == pytest.approx(2.45)
+    assert starters["WR"] == pytest.approx(2.45)
+    assert starters["TE"] == pytest.approx(1.10)
     assert starters["QB"] == 1.0
+    # La propiedad que de verdad importa y que no depende de los pesos: el flex
+    # se REPARTE entero, ni se ignora ni se duplica.
+    assert sum(starters.values()) == pytest.approx(1 + 2 + 2 + 1 + 1)
 
 
 def test_superflex_changes_what_a_quarterback_is_worth():
@@ -140,7 +151,10 @@ def test_broken_league_payloads_are_rejected():
         sleeper.league_settings_from({"roster_positions": ["QB"]})
     with pytest.raises(sleeper.SleeperError, match="roster_positions"):
         sleeper.league_settings_from({"total_rosters": 12})
-    with pytest.raises(sleeper.SleeperError, match="reconocible"):
+    # El mensaje lo da ahora el compilador único; la propiedad es la misma —una
+    # plantilla que es sólo banquillo se rechaza— y el texto sigue nombrando por
+    # qué, que es lo que hace útil un error.
+    with pytest.raises(sleeper.SleeperError, match="posición de fantasy"):
         sleeper.league_settings_from(_league(roster_positions=["BN", "IR"]))
 
 

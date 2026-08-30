@@ -207,8 +207,13 @@ for (const [status, esperado, deberiaRecomendar] of ESCENARIOS) {
   check(`${status}: el puesto sale de draft_order`, /SLOT 8\b/.test(texto));
   check(`${status}: el tipo y las rondas se leen`,
         texto.includes("SNAKE") && texto.includes("ROUNDS 15"));
-  check(`${status}: la limitación del board está a la vista`,
-        texto.includes("NOT LEAGUE-SPECIFIC"));
+  // El simulacro NO sirve `/league/{id}`, así que la configuración de la liga no
+  // se puede leer y el board que se enseña es el publicado. Lo que se exige es
+  // que ESO se diga: antes la cadena era «NOT LEAGUE-SPECIFIC» y desde E18 es
+  // «PUBLISHED BOARD · NOT YOURS», porque cuando la liga SÍ se puede leer la
+  // etiqueta pasa a nombrarla. La propiedad no cambia: se dice qué board es.
+  check(`${status}: se dice qué board se está enseñando`,
+        texto.includes("PUBLISHED BOARD") && texto.includes("NOT YOURS"), texto.slice(0, 90));
   // Un draft terminado no tiene «siguiente pick»: enseñarlo invita a mirar un
   // turno que ya no llega.
   check(`${status}: el siguiente turno sólo si el draft sigue vivo`,
@@ -216,6 +221,56 @@ for (const [status, esperado, deberiaRecomendar] of ESCENARIOS) {
   const recomienda = await page.locator(".onclock:not(.onclock--held)").count();
   check(`${status}: ${deberiaRecomendar ? "recomienda" : "NO recomienda"} un pick`,
         (recomienda > 0) === deberiaRecomendar);
+  await context.close();
+}
+
+// --- una liga legible se NOMBRA, no se describe como ajena -------------------
+//
+// Es la mitad que faltaba: los tres escenarios de arriba comprueban que se dice
+// «este board no es el tuyo» cuando la liga no se puede leer. Desde E18 hay un
+// caso nuevo —la liga se lee y el board se recompila— y sin este bloque nadie
+// comprobaría que la etiqueta cambia cuando debe.
+console.log("\n=== liga legible: el board se nombra ===");
+{
+  const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await context.newPage();
+  await page.route("**/api.sleeper.app/v1/league/*/drafts", (route) =>
+    route.fulfill({ status: 200, contentType: "application/json",
+      body: JSON.stringify([{ draft_id: "d1", season: "2026", status: "drafting",
+        type: "snake", settings: { teams: 12, rounds: 15 },
+        draft_order: { u1: 8 } }]) }));
+  await page.route("**/api.sleeper.app/v1/draft/*/picks", (route) =>
+    route.fulfill({ status: 200, contentType: "application/json", body: "[]" }));
+  await page.route("**/api.sleeper.app/v1/league/*/users", (route) =>
+    route.fulfill({ status: 200, contentType: "application/json", body: "[]" }));
+  // La liga, con plantilla y puntuación de verdad. Superflex a propósito: es el
+  // formato donde el valor por liga más se mueve.
+  await page.route(/api\.sleeper\.app\/v1\/league\/\d+$/, (route) =>
+    route.fulfill({ status: 200, contentType: "application/json",
+      body: JSON.stringify({
+        total_rosters: 12,
+        roster_positions: ["QB", "RB", "RB", "WR", "WR", "WR", "TE", "FLEX",
+                           "SUPER_FLEX", "K", "DEF", "BN", "BN", "BN", "BN", "BN", "BN"],
+        scoring_settings: { pass_yd: 0.04, pass_td: 4, pass_int: -2, rush_yd: 0.1,
+          rush_td: 6, rec_yd: 0.1, rec_td: 6, rec: 1, fum_lost: -2 },
+      }) }));
+
+  await page.addInitScript(() => {
+    localStorage.setItem("gridiron-draft-prefs-v1",
+      JSON.stringify({ league: "111222333", userId: "u1" }));
+  });
+  await page.goto(`${BASE}/fantasy`, { waitUntil: "networkidle" });
+  await page.waitForSelector(".draft-context", { timeout: 15000 });
+  await page.waitForFunction(
+    () => /TEAM/.test(document.querySelector(".draft-context")?.innerText ?? ""),
+    { timeout: 15000 }
+  ).catch(() => {});
+  const texto = (await page.locator(".draft-context").innerText())
+    .replace(/\s+/g, " ").toUpperCase();
+  check("la liga legible se nombra en la tira de contexto",
+        texto.includes("12-TEAM"), texto.slice(0, 120));
+  check("y se dice que es superflex", texto.includes("SUPERFLEX"), texto.slice(0, 120));
+  check("ya NO se describe como board ajeno", !texto.includes("NOT YOURS"));
   await context.close();
 }
 

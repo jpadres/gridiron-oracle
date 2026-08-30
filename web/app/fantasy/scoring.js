@@ -157,6 +157,11 @@ export function rulesFromSleeper(settings) {
 
   return {
     rules,
+    // La etiqueta se DERIVA de las reglas, nunca de un argumento. Publicar «ppr»
+    // sobre un board de media recepción porque lo decía el parámetro ya costó
+    // una iteración en `fantasy_build.py`; el nombre tiene que salir del mismo
+    // sitio que los números.
+    label: scoringLabel(rules),
     unsupported: unsupported.sort(),
     bonuses: bonuses.sort(),
     supported: unsupported.length === 0 && bonuses.length === 0,
@@ -167,6 +172,24 @@ export function rulesFromSleeper(settings) {
           ? `unmapped scoring rules: ${unsupported.join(", ")}`
           : "",
   };
+}
+
+/**
+ * El nombre de una puntuación, a partir de las reglas que se van a usar.
+ *
+ * Sólo nombra lo que de verdad separa a las ligas corrientes: cuánto vale una
+ * recepción, y si el ala cerrada cobra distinto. Un pase de 6 puntos no entra en
+ * el nombre a propósito — E18 midió que no cambia el orden del board, así que
+ * ponerlo sugeriría una diferencia de valor que no existe.
+ */
+export function scoringLabel(rules) {
+  if (!rules) return "UNKNOWN scoring";
+  const rec = Number(rules.reception);
+  const base = !Number.isFinite(rec)
+    ? "UNKNOWN scoring"
+    : rec === 0 ? "Standard" : rec === 0.5 ? "Half PPR" : rec === 1 ? "PPR" : `${rec} pt/rec`;
+  const te = rules.reception_by_position?.TE;
+  return Number.isFinite(te) && te !== rec ? `${base} · TE premium` : base;
 }
 
 /** Puntos por partido de un jugador, dados sus componentes y unas reglas. */

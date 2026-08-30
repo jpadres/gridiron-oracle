@@ -33,7 +33,13 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-from oracle.fantasy.draft import DEFAULT_STARTERS, LeagueSettings
+from oracle.fantasy.draft import LeagueSettings
+from oracle.fantasy.league import (
+    FANTASY_POSITIONS,
+    LeagueContext,
+    UnsupportedRoster,
+    roster_context,
+)
 from oracle.fantasy.scoring import ScoringRules
 
 from ..data.ingest import normalize_team
@@ -149,47 +155,59 @@ def scoring_from(league: dict[str, Any], *, strict: bool = True) -> ScoringRules
     return ScoringRules(**fields)
 
 
-def league_settings_from(league: dict[str, Any]) -> LeagueSettings:
-    """Número de equipos y titulares por posición, desde `roster_positions`.
+def roster_context_from(league: dict[str, Any]) -> LeagueContext:
+    """Contexto de liga desde `roster_positions`. Delega en el compilador único.
 
-    El hueco flexible se reparte entre RB y WR a partes iguales. No es exacto —
-    en la práctica el flex se llena más con corredores— pero repartirlo es mucho
-    mejor que ignorarlo: sin él, el nivel de reemplazo de las dos posiciones sale
-    demasiado alto y el VOR de todos ellos, demasiado bajo.
+    Antes esto tenía su PROPIO reparto del flex (mitad RB, mitad WR, nada al ala
+    cerrada), distinto del de `league.roster_context` y distinto del de
+    `draft.DEFAULT_STARTERS`. Tres modelos para la misma liga: para
+    QB/RB/RB/WR/WR/WR/TE/FLEX en 12 equipos daban el reemplazo del receptor en el
+    puesto 36, 42 y 41. Ninguno era «el» modelo y nada decía cuál se estaba
+    usando.
+
+    Y algo peor que la discrepancia: llevaba
+    `counts[position] or DEFAULT_STARTERS[position]`, así que una liga **sin ala
+    cerrada titular** recibía un TE inventado. Un valor por defecto colado como
+    configuración real es justo lo que la regla 6 prohíbe — y el `or` lo hacía
+    invisible, porque cero es falso en Python.
     """
-    teams = league.get("total_rosters")
-    if not isinstance(teams, int) or teams < 2:
-        raise SleeperError(f"`total_rosters` inesperado: {teams!r}")
-
-    positions = league.get("roster_positions")
-    if not isinstance(positions, list):
+    # Los campos se validan aquí, con los NOMBRES DE SLEEPER. `roster_context` es
+    # genérico y habla de «equipos» y «plantilla»; quien depura esto está mirando
+    # un JSON de Sleeper y necesita saber qué clave falta.
+    if not isinstance(league.get("total_rosters"), int) or league["total_rosters"] < 2:
+        raise SleeperError(
+            f"`total_rosters` inesperado: {league.get('total_rosters')!r}"
+        )
+    if not isinstance(league.get("roster_positions"), list) or not league["roster_positions"]:
         raise SleeperError("La liga no trae `roster_positions`.")
+    try:
+        return roster_context(
+            league.get("roster_positions"),
+            league.get("total_rosters"),
+            league_id=str(league.get("league_id") or "") or None,
+            season=int(league["season"]) if str(league.get("season", "")).isdigit() else None,
+        )
+    except UnsupportedRoster as error:
+        # El compilador levanta `UnsupportedRoster`, que es de `fantasy` y no
+        # sabe de Sleeper. Quien llama a este módulo captura `SleeperError`, así
+        # que se traduce: delegar el cálculo no puede cambiar el contrato de
+        # errores del adaptador, o un `except SleeperError` de antes deja de
+        # capturar una liga rota y el fallo sube sin filtrar.
+        raise SleeperError(str(error)) from error
 
-    counts = dict.fromkeys(("QB", "RB", "WR", "TE"), 0.0)
-    flex = 0.0
-    superflex = 0.0
-    for slot in positions:
-        if slot in counts:
-            counts[slot] += 1.0
-        elif slot in ("FLEX", "REC_FLEX", "WRRB_FLEX"):
-            flex += 1.0
-        elif slot in ("SUPER_FLEX", "QB_FLEX"):
-            superflex += 1.0
 
-    counts["RB"] += flex / 2
-    counts["WR"] += flex / 2
-    # El superflex se llena casi siempre con un quarterback, y por eso cambia
-    # tanto el valor de la posición: deja de haber uno por equipo.
-    counts["QB"] += superflex
+def league_settings_from(league: dict[str, Any]) -> LeagueSettings:
+    """Compatibilidad: `LeagueSettings` derivado del contexto único.
 
-    if sum(counts.values()) == 0:
-        raise SleeperError(f"Ninguna posición reconocible en {positions!r}")
-
-    starters = tuple(
-        (position, counts[position] or DEFAULT_STARTERS.get(position, 1.0))
-        for position in ("QB", "RB", "WR", "TE")
+    Se conserva porque la ruta histórica del board la usa y es la que fija la
+    equivalencia de la línea base. Los titulares salen ya del compilador, así
+    que el modelo de flex es uno solo.
+    """
+    context = roster_context_from(league)
+    return LeagueSettings(
+        teams=context.teams,
+        starters=tuple((position, context.starters[position]) for position in FANTASY_POSITIONS),
     )
-    return LeagueSettings(teams=teams, starters=starters)
 
 
 # --- llamadas ---------------------------------------------------------------

@@ -252,7 +252,7 @@ export default function BoardShell({
         {/* El board va ENTERO. El filtro viaja aparte porque DraftMode lo usa
             para el índice de Sleeper, el recuento de tu plantilla y el ajuste
             por posición: recortarlo aquí le rompía las tres cosas. */}
-        <DraftMode board={board} positionFilter={position} season={context.season} />
+        <DraftMode board={board} positionFilter={position} context={context} />
         {draftNote}
       </div>
 

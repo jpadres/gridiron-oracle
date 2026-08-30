@@ -29,9 +29,19 @@ Estados: **PASA** · **FALLA** · **NO CONCLUYENTE** · **RETIRADO**
 | E15 | Los componentes canónicos reproducen los puntos exactamente | 998 jugadores × 7 perfiles, 2022-2025 | el cálculo directo por semana | máx \|Δ\| en puntos por partido | **< 1e-9** | 1,07e-14 (epsilon de coma flotante) | **PASA** |
 | E16 | El Draft Room manual registra picks sin perderlos ni filtrarlos | 27 escenarios × navegador real | — | fugas, duplicados, picks perdidos | **cero** en los 27 | 27/27, pick en 35-60 ms | **PASA** |
 | E17 | Board y Draft Room son un solo estado de draft | 10 unitarios + 19 en navegador | dos estados separados, uno por pantalla | picks divergentes, fugas, deshacer perdido | **21/21**, cero fugas | 21/21; E14 y E16 siguen verdes | **PASA** |
+| E18 | El valor por liga responde a las REGLAS de la liga, no sólo a su puntuación | 861 proyecciones × 13 configuraciones | el board publicado (12 equipos, PPR) | reemplazo, VOR, orden entre posiciones | **16/16** propiedades preregistradas | 16/16; superflex QB13→QB25 y +26,4 pts de VOR mediano | **PASA** |
 | E10b | Ese efecto es explotable contra el mercado | 457 partidos | total de cierre | residuo, IC95% | — | −2,22 aparente, **pero el clima es observado, no pronosticado** | **FALLA** (fuga) |
 
 ## Conocimiento negativo — cosas que NO funcionan
+
+0. **Un pase de touchdown de 6 puntos NO cambia el board.** Sube a todos los
+   quarterbacks y sube su nivel de reemplazo exactamente igual (241 → 284
+   puntos), así que el VOR queda intacto: solapamiento **25/25 en el top-25 y
+   50/50 en el top-50** contra la liga de 4 puntos. Es el contraejemplo más
+   limpio de que **puntuación no es valor** — y en sentido contrario, superflex
+   no toca ni una regla de puntuación y reordena 13 de los 50 primeros. Por eso
+   la etiqueta de puntuación no menciona el pase de 6 puntos: nombrar una
+   diferencia que no mueve el valor sugiere una que no existe.
 
 1. **El desacuerdo del modelo con la línea no predice el acierto contra el
    spread.** Tres tramos de desacuerdo dan 49,3%, 50,9% y 48,8%: plano y por

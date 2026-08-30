@@ -30,6 +30,7 @@ from oracle.fantasy.draft import (
     draft_board,
     project_season,
 )
+from oracle.fantasy.league import roster_context
 from oracle.fantasy.scoring import ScoringRules, rules_from_name, score_player_weeks
 
 # Temporadas sobre las que se reporta la validación. Se fija antes de mirar el
@@ -185,6 +186,50 @@ def _bust_training(
     return pd.concat(rows, ignore_index=True) if rows else None
 
 
+# La plantilla por defecto, escrita como `roster_positions` de verdad y no como
+# titulares ya repartidos: así el board publicado pasa por el MISMO compilador
+# que una liga sincronizada, y no hay una segunda ruta con sus propios números.
+DEFAULT_ROSTER: tuple[str, ...] = (
+    "QB", "RB", "RB", "WR", "WR", "WR", "TE", "FLEX", "K", "DEF",
+    "BN", "BN", "BN", "BN", "BN", "BN",
+)
+
+# Profundidad mínima publicada por posición.
+#
+# El payload se recortaba al top-250 por VOR **de la liga por defecto**, y eso
+# dejaba 28 quarterbacks. Una liga superflex de 14 equipos necesita el QB43 para
+# saber su nivel de reemplazo, así que el navegador no podía calcularla: se
+# quedaba sin pool justo en el formato donde el valor por liga más cambia.
+#
+# Los números son el rank de reemplazo MÁXIMO sobre el sobre soportado (hasta 14
+# equipos, 2 QB, 4 RB, 4 WR, 2 TE, 3 flex y 1 superflex) más margen. Medido, no
+# elegido: QB 43, RB 73, WR 69, TE 29.
+MIN_DEPTH: dict[str, int] = {"QB": 48, "RB": 78, "WR": 76, "TE": 34}
+BOARD_LIMIT = 250
+
+
+def _roster_positions(synced: dict | None, args) -> list[str] | None:
+    """La plantilla de la liga sincronizada, o la de por defecto."""
+    if synced and not args.ignore_league and isinstance(synced.get("roster_positions"), list):
+        return list(synced["roster_positions"])
+    return list(DEFAULT_ROSTER)
+
+
+def _publish_slice(board: pd.DataFrame) -> pd.DataFrame:
+    """El top del board MÁS la profundidad mínima por posición.
+
+    Sin el segundo trozo, una liga rara no se puede calcular en el navegador y
+    —peor— no se nota: el reemplazo cae fuera del pool y sale un VOR inflado para
+    la posición entera. Con él, o se calcula o `buildLeagueBoard` lo declara
+    corto. Cuesta unas pocas decenas de filas.
+    """
+    keep = set(board.head(BOARD_LIMIT)["player_id"])
+    for position, depth in MIN_DEPTH.items():
+        rows = board[board["position"] == position].nlargest(depth, "projected_points")
+        keep.update(rows["player_id"])
+    return board[board["player_id"].isin(keep)].copy()
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Genera el board de draft.")
     parser.add_argument("--root", default=None)
@@ -241,7 +286,22 @@ def main(argv: list[str] | None = None) -> int:
     ages = ages_for_season(birth_dates(paths.raw), season)
     print(f"Proyectando {season} ({_scoring_label(rules)}, liga de {settings.teams})...")
     print(f"  curva de edad activa: {ages.notna().sum()} fechas de nacimiento.")
-    board = draft_board(project_season(players, season, rules, ages=ages), settings)
+    # El board publicado usa el modelo de reemplazo VALIDADO en E18: los huecos
+    # compartidos se asignan de verdad en vez de repartirse por pesos fijos.
+    #
+    # Rompe a propósito con el VOR anterior, y la ruptura está medida: el modelo
+    # viejo consumía 95 de los 96 huecos titulares de una liga estándar de 12
+    # —tres redondeos independientes no suman los huecos que hay— y tomaba como
+    # reemplazo al ÚLTIMO TITULAR en vez de al primero que no lo es, que es la
+    # definición. Solapamiento top-25 entre el board viejo y el nuevo: 24 de 25.
+    context = roster_context(
+        _roster_positions(synced, args) if not args.ignore_league else None,
+        settings.teams,
+        season=season,
+    ) if _roster_positions(synced, args) else None
+    board = draft_board(
+        project_season(players, season, rules, ages=ages), settings, context=context
+    )
 
     # Etiqueta de riesgo. Validada contra el error realizado en
     # `scripts/fantasy_risk_validate.py`: Spearman +0.12 y el tercio de riesgo
@@ -330,8 +390,19 @@ def main(argv: list[str] | None = None) -> int:
                 # juegan en ella.
                 "league": _league_name_to_publish(args, synced),
                 "teams": settings.teams,
-                "starters": dict(settings.starters),
-                "board": board.head(250).round(3).to_dict(orient="records"),
+                # Los titulares que se PUBLICAN son los del contexto que calculó
+                # el board, no los de `LeagueSettings`. Publicar unos y calcular
+                # con otros es la misma clase de fallo que etiquetar «ppr» un
+                # board de media recepción: el número y su nombre tienen que
+                # salir del mismo sitio.
+                "starters": {k: round(v, 3) for k, v in (
+                    context.starters if context else dict(settings.starters)
+                ).items()},
+                "roster": _roster_positions(synced, args),
+                # Cómo se repartieron los huecos compartidos. Sin esto no se
+                # puede saber si el board de arriba usó el modelo validado.
+                "replacement_model": "greedy" if context else "weights",
+                "board": _publish_slice(board).round(3).to_dict(orient="records"),
                 "validation": validation.round(4).to_dict(orient="records"),
             },
             ensure_ascii=False,

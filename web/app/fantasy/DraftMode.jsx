@@ -52,8 +52,8 @@ import {
 import {
   DRAFT_STATUS, agoLabel, mySlot, pickSchedule, picksUntilMe, syncState,
 } from "./draftSync.js";
-import { rulesFromSleeper } from "./scoring.js";
-import { rosterContext } from "./leagueValue.js";
+import { compilePoints, rulesFromSleeper } from "./scoring.js";
+import { buildLeagueBoard, rosterContext, setComponentOrder } from "./leagueValue.js";
 
 
 // El único destino externo de todo el sitio. La CSP no permite ningún otro, y
@@ -279,7 +279,8 @@ function useSleeperDraft(board, league, userId) {
   }, [status, league, tick]);
 }
 
-export default function DraftMode({ board, positionFilter = "ALL", season = 2026 }) {
+export default function DraftMode({ board, positionFilter = "ALL", context = {} }) {
+  const season = context.season ?? 2026;
   // El estado de draft es el REGISTRO, la misma clave que lee el Draft Room.
   // Antes esta pantalla guardaba `{gone, mine}` en su propia clave y la otra
   // guardaba eventos en la suya: dos versiones del mismo draft que nunca se
@@ -372,15 +373,83 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
     [events, sync.canonical]
   );
 
+  // --- ¿se puede valorar EN ESTA liga? ---------------------------------------
+  //
+  // Dos preguntas separadas a propósito: la puntuación y la estructura. Se puede
+  // saber traducir la una y no la otra, y en ese caso el board sigue sin ser de
+  // tu liga. Sólo con las DOS soportadas se dice que lo es.
+  //
+  // Mientras `LEAGUE_SPECIFIC_VALUE` sea NOT_READY el board publicado se sigue
+  // calculando en PPR de 12 equipos, así que la etiqueta dice lo que hay: los
+  // datos de la liga se leen y se enseñan, y el valor todavía no es suyo.
+  const leagueFit = useMemo(() => {
+    if (!leagueInfo) return { known: false };
+    const scoring = rulesFromSleeper(leagueInfo.scoring_settings);
+    const roster = rosterContext(leagueInfo.roster_positions, leagueInfo.total_rosters);
+    return {
+      known: true,
+      scoring,
+      roster,
+      supported: scoring.supported && roster.supported,
+      reason: scoring.supported ? roster.reason : scoring.reason,
+    };
+  }, [leagueInfo]);
+
+  /**
+   * El board RECOMPILADO en la liga del usuario. Es lo que E18 valida.
+   *
+   * Se recompila entero —puntos, reemplazo y VOR— y no se ajusta el publicado:
+   * el encogimiento hacia la media posicional ocurre en espacio de puntos, así
+   * que la media a la que se encoge depende de la puntuación. Un board estándar
+   * obtenido restándole recepciones a uno de PPR no es de esa liga.
+   *
+   * Lo que NO se recalcula son los TIERS. Salen de los huecos de VOR y se
+   * moverían solos, pero nadie ha validado que los cortes signifiquen algo en
+   * una liga distinta de la publicada, así que el tier que se enseña sigue
+   * siendo el global y la interfaz lo dice.
+   */
+  const leagueBoard = useMemo(() => {
+    if (!leagueFit.supported || !context.positionPriors) return null;
+    if (context.componentOrder) setComponentOrder(context.componentOrder);
+    const order = context.componentOrder ?? [];
+    const players = board
+      .filter((row) => Array.isArray(row.c) && row.c.length === order.length)
+      .map((row) => ({
+        ...row,
+        components: Object.fromEntries(order.map((name, i) => [name, row.c[i]])),
+        weighted_games: row.wg ?? 0,
+      }));
+    if (players.length === 0) return null;
+    return buildLeagueBoard({
+      players,
+      rules: leagueFit.scoring.rules,
+      context: leagueFit.roster,
+      compilePoints,
+      games: context.projectedGames ?? 15.5,
+      priors: context.positionPriors,
+      shrinkPriorGames: context.shrinkPriorGames ?? 10,
+      tdPersistence: context.tdPersistence ?? 0.55,
+    });
+  }, [board, leagueFit, context]);
+
+  // El board efectivo: el de tu liga si se pudo compilar, el publicado si no.
+  // Nunca una mezcla — un VOR de una liga con el orden de otra sería el error
+  // que E18 existe para impedir.
+  const activeBoard = useMemo(() => {
+    if (!leagueBoard) return board;
+    const known = leagueBoard.rows.filter((row) => row.value_known);
+    return known.length > 0 ? known : board;
+  }, [leagueBoard, board]);
+
   const counts = useMemo(() => {
     const out = { QB: 0, RB: 0, WR: 0, TE: 0 };
-    for (const row of board) if (state.mine.has(row.player_id)) out[row.position] += 1;
+    for (const row of activeBoard) if (state.mine.has(row.player_id)) out[row.position] += 1;
     return out;
-  }, [board, state]);
+  }, [activeBoard, state]);
 
   const available = useMemo(
-    () => board.filter((row) => !state.byPlayer.has(row.player_id)),
-    [board, state]
+    () => activeBoard.filter((row) => !state.byPlayer.has(row.player_id)),
+    [activeBoard, state]
   );
 
   // La sugerencia: VOR ajustado por lo que ya tienes en esa posición.
@@ -499,28 +568,6 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
     () => pickSchedule({ slot, teams: draftTeams, rounds: draftRounds, type: draftType }),
     [slot, draftTeams, draftRounds, draftType]
   );
-  // --- ¿se puede valorar EN ESTA liga? ---------------------------------------
-  //
-  // Dos preguntas separadas a propósito: la puntuación y la estructura. Se puede
-  // saber traducir la una y no la otra, y en ese caso el board sigue sin ser de
-  // tu liga. Sólo con las DOS soportadas se dice que lo es.
-  //
-  // Mientras `LEAGUE_SPECIFIC_VALUE` sea NOT_READY el board publicado se sigue
-  // calculando en PPR de 12 equipos, así que la etiqueta dice lo que hay: los
-  // datos de la liga se leen y se enseñan, y el valor todavía no es suyo.
-  const leagueFit = useMemo(() => {
-    if (!leagueInfo) return { known: false };
-    const scoring = rulesFromSleeper(leagueInfo.scoring_settings);
-    const roster = rosterContext(leagueInfo.roster_positions, leagueInfo.total_rosters);
-    return {
-      known: true,
-      scoring,
-      roster,
-      supported: scoring.supported && roster.supported,
-      reason: scoring.supported ? roster.reason : scoring.reason,
-    };
-  }, [leagueInfo]);
-
   const nextPick = useMemo(
     // En un draft terminado no hay «siguiente turno»: enseñarlo invita a
     // esperar un pick que ya no llega.
@@ -590,7 +637,7 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
     return <p className="caption">Loading draft mode…</p>;
   }
 
-  const picked = board.filter((row) => state.mine.has(row.player_id));
+  const picked = activeBoard.filter((row) => state.mine.has(row.player_id));
   // El recuento real, sincronizados incluidos. La versión anterior sumaba sólo
   // las marcas manuales, así que con Sleeper conectado decía «3 off the board»
   // con treinta jugadores tachados.
@@ -644,21 +691,38 @@ export default function DraftMode({ board, positionFilter = "ALL", season = 2026
               desplegable: el estado de la liga es real y el valor de los
               jugadores no está personalizado a ella, y las dos cosas se leen
               juntas o la primera hace creer la segunda. */}
+          {/* Qué board se está enseñando, nombrado. La versión anterior decía
+              «not league-specific» incluso cuando la liga era legible, porque
+              LEAGUE_SPECIFIC_VALUE estaba NOT_READY. Con E18 el valor por liga
+              está validado, así que la etiqueta pasa a nombrar la liga de
+              verdad — y sigue diciendo lo que NO se ha validado, que son los
+              tiers. */}
           <span
-            className={leagueFit.supported ? "ctx ctx--ready" : "ctx ctx--warn"}
+            className={leagueBoard ? "ctx ctx--ready" : "ctx ctx--warn"}
             title={
-              leagueFit.supported
-                ? "Your scoring and roster are both readable, so this league's board can be compiled. LEAGUE_SPECIFIC_VALUE is NOT_READY: the numbers are correct, but a per-league board has not been shown to produce better drafts."
+              leagueBoard
+                ? "Projections, replacement level and VOR are recomputed for this league's scoring and roster (E18). Tiers are not: they come from the published board and are not validated per league."
                 : leagueFit.known
-                  ? `Cannot compile this league's board: ${leagueFit.reason}. The board below uses 12-team PPR with QB1/RB2/WR3/TE1.`
-                  : "League settings not read. The board below uses 12-team PPR with QB1/RB2/WR3/TE1."
+                  ? `Cannot compile this league's board: ${leagueFit.reason}. Showing the published board — 12-team PPR, QB1/RB2/WR3/TE1.`
+                  : "League settings not read. Showing the published board — 12-team PPR, QB1/RB2/WR3/TE1."
             }
           >
             <span className="k">Board</span>
             <span className="v">
-              {leagueFit.supported ? "compilable · not yet applied" : "not league-specific"}
+              {leagueBoard
+                ? `${leagueFit.roster.teams}-team · ${leagueFit.scoring.label}${
+                    leagueFit.roster.isSuperflex ? " · Superflex" : ""
+                  }`
+                : "published board · not yours"}
             </span>
           </span>
+          {leagueBoard?.short?.length ? (
+            <span className="ctx ctx--warn"
+                  title="This league's replacement level for those positions falls outside the published player pool, so their value cannot be computed. They are left out rather than given a number that would be wrong.">
+              <span className="k">Not valued</span>
+              <span className="v">{leagueBoard.short.join(", ")} · pool too shallow</span>
+            </span>
+          ) : null}
           {nextPick ? (
             <span className="ctx ctx--next">
               <span className="k">Next pick</span>

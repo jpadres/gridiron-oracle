@@ -38,27 +38,44 @@ function player(id, position, overrides = {}) {
   };
 }
 
-// Una población con la profundidad suficiente para que el reemplazo caiga
-// dentro de la lista en todas las configuraciones que se prueban.
+// Una población con profundidad suficiente para que el reemplazo caiga dentro de
+// la lista en todas las configuraciones que se prueban.
+//
+// Las curvas están calibradas para PARECERSE AL FÚTBOL, y eso importa desde
+// E18: el reparto de los huecos compartidos es voraz sobre puntos, así que un
+// pool donde el QB24 vale menos que el WR40 manda huecos de superflex a
+// receptores. Con la curva vieja pasaba exactamente eso, y una propiedad que en
+// datos reales se cumple —el superflex no toca el valor de los no-quarterback—
+// fallaba por culpa del fixture. En los datos de verdad el reemplazo del QB
+// ronda los 15,5 puntos por partido y el del WR los 9,3; estas curvas mantienen
+// esa separación.
 const POOL = [
   ...Array.from({ length: 32 }, (_, i) =>
-    player(`qb${i}`, "QB", { passing_yards: 300 - i * 6, passing_tds: 2.1 - i * 0.045 })),
+    player(`qb${i}`, "QB", { passing_yards: 290 - i * 3.5, passing_tds: 2.0 - i * 0.028 })),
   ...Array.from({ length: 60 }, (_, i) =>
     player(`rb${i}`, "RB", { rushing_yards: 110 - i * 1.4, rushing_tds: 0.8 - i * 0.011,
                              receptions: 4.5 - i * 0.05 })),
   ...Array.from({ length: 80 }, (_, i) =>
-    player(`wr${i}`, "WR", { receptions: 7.5 - i * 0.06, receiving_yards: 100 - i * 0.9,
-                             receiving_tds: 0.6 - i * 0.005 })),
+    player(`wr${i}`, "WR", { receptions: 7.5 - i * 0.09, receiving_yards: 100 - i * 1.4,
+                             receiving_tds: 0.6 - i * 0.008 })),
   ...Array.from({ length: 30 }, (_, i) =>
     player(`te${i}`, "TE", { receptions: 6 - i * 0.14, receiving_yards: 70 - i * 1.7 })),
 ];
 
-const board = (rosterPositions, teams, rules = DEFAULT_RULES) =>
-  buildLeagueBoard({
+// `buildLeagueBoard` devuelve `{rows, short, ...}` desde E18: el board y las
+// posiciones cuyo reemplazo se sale del pool. Aquí se desenvuelve `rows`, pero
+// se EXIGE que `short` esté vacío: si la población de prueba se quedara corta,
+// los VOR saldrían `null` y estas aserciones pasarían por el motivo equivocado.
+const board = (rosterPositions, teams, rules = DEFAULT_RULES) => {
+  const result = buildLeagueBoard({
     players: POOL, rules,
     context: rosterContext(rosterPositions, teams),
     compilePoints,
   });
+  assert.deepEqual(result.short, [],
+                   `la población de prueba se queda corta en ${result.short}`);
+  return result.rows;
+};
 
 const rankOf = (rows, id) => rows.findIndex((r) => r.player_id === id) + 1;
 const bestQbRank = (rows) => rows.findIndex((r) => r.position === "QB") + 1;

@@ -43,6 +43,14 @@ export default function Fantasy() {
         scoring: fantasy.scoring,
         teams: fantasy.teams,
         league: fantasy.league,
+        // Lo que hace falta para RECOMPILAR el board en la liga del usuario. Son
+        // los mismos números con los que se calculó el publicado, así que el
+        // navegador reproduce la cadena entera y no una aproximación suya.
+        componentOrder: fantasy.components ?? null,
+        positionPriors: fantasy.position_priors ?? null,
+        shrinkPriorGames: fantasy.shrink_prior_games ?? 10,
+        tdPersistence: fantasy.td_persistence ?? 0.55,
+        projectedGames: fantasy.projected_games ?? 15.5,
       }}
       methodology={
         <>

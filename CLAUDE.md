@@ -137,6 +137,28 @@ guardaba lo suyo en su propia clave y las dos tenían razón, que es la forma de
 estar roto que no falla. Si añades una tercera superficie de draft, va por ahí:
 consumir el registro, no inventarse otro. E17 lo prueba en las dos pantallas.
 
+### 6b. Puntuación no es valor
+
+    COMPILAR LA PUNTUACIÓN NO ES CALCULAR EL VALOR.
+
+Un jugador que suma más puntos no vale más en el draft. El contraejemplo está
+medido en E18: **un pase de TD de 6 puntos no cambia el board** —sube a todos los
+quarterbacks y sube su reemplazo exactamente igual, 241 → 284, así que el VOR
+queda intacto y el top-50 coincide entero. Y al revés: **superflex no toca ni una
+regla de puntuación** y reordena 13 de los 50 primeros, porque mueve el reemplazo
+del QB de QB13 a QB25.
+
+De ahí que las dos cosas vivan en ficheros distintos y no se mezclen:
+`scoring.py` convierte componentes en puntos, `league.py` convierte puntos en
+valor. Si un día vuelven a caber en la misma función, es que alguien ha vuelto a
+creer que personalizar la puntuación termina el trabajo.
+
+Los huecos compartidos se reparten **asignándolos**, no por pesos fijos: cada
+flex va a la posición cuyo mejor jugador libre vale más. Es lo que hace que la
+demanda cuadre con los huecos que la liga define de verdad — el reparto por pesos
+consumía 95 de 96. Y el reemplazo es **el primero que no es titular**, no el
+último que sí lo es.
+
 ### 7. Sleeper es un adaptador, no el producto
 
     EL DRAFT ROOM CONSUME EVENTOS DE PICK CANÓNICOS.
@@ -291,6 +313,11 @@ comentario está para que no los reintroduzcas.
 | Códigos de equipo sin normalizar en el importador | `scripts/dossier_import.py` | Un `LA` que debía ser `LAR` no emparejaba con nada y el jugador nunca se colgaba de su fila. Fallo silencioso. Todo código pasa por `normalize_team` |
 | Publicar «ppr» sobre un board de media recepción | `scripts/fantasy_build.py` | La etiqueta salía del argumento y no de las reglas usadas. Ahora la deriva de `ScoringRules`: si la liga sincronizada manda, la etiqueta también |
 | Una señal de ausencia que parecía enorme | `fantasy/availability.py` | Spearman +0,48 sobre todos los jugadores era **el puesto en la plantilla**, no propensión a lesionarse: entre titulares de 16+ partidos se cae a +0,09. Se publica el +0,24 de la población del board, que es donde se enseña el número |
+| Tres modelos de flex para la misma liga | `draft.py`, `leagues/sleeper.py`, `fantasy/league.py` | Daban el reemplazo del receptor en el puesto 36, 42 y 41, y nada decía cuál se usaba. Un reparto, en `roster_context` |
+| `counts[pos] or DEFAULT_STARTERS[pos]` | `leagues/sleeper.py` | Cero es falso en Python, así que una liga **sin TE titular** recibía un TE inventado. Un valor por defecto colado como configuración real, e invisible |
+| El reemplazo era el ÚLTIMO titular | `draft.py` | La definición es **el primero que no lo es**. El desplazamiento no es igual en todas las posiciones, así que distorsionaba justo la comparación entre posiciones para la que existe el VOR |
+| Sólo 28 quarterbacks en el payload | `scripts/fantasy_build.py` | El recorte era el top-250 por VOR **de la liga por defecto**. Una superflex de 14 equipos necesita el QB43: el navegador se quedaba sin pool justo en el formato donde el valor por liga más cambia |
+| Un fixture de test con el QB24 por debajo del WR40 | `web/tests/scoring.test.mjs` | El reparto voraz compara puntos brutos, así que mandaba huecos de superflex a receptores — correcto para ese pool, absurdo para el fútbol. Un fixture que no se parece al dominio hace fallar propiedades verdaderas |
 | El validador de cifras rechazaba textos correctos | `narrative/factcheck.py` | «Cae 4,9 puntos» con el dato en -4.9. Se admite el valor absoluto: en prosa el signo lo lleva el verbo. Un validador con falsos positivos acaba desactivado |
 
 ---

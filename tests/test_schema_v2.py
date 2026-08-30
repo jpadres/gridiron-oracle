@@ -178,3 +178,4 @@ def test_decision_log_survives_a_corrupt_line(tmp_path):
         handle.write('{"at": "roto"\n')
 
     assert len(decisions.read(tmp_path)) == 1
+
