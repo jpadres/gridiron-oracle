@@ -62,15 +62,21 @@ def test_six_point_passing_touchdown_is_respected():
 def test_unknown_offensive_scoring_raises_instead_of_being_ignored():
     """El caso importante: una regla que no sabemos traducir **para**.
 
-    Una prima por recepción de ala cerrada cambia el valor de la posición
-    entera. Aplicar un valor por defecto y seguir produciría un board de otra
-    liga sin que nada fallase.
+    Aplicar un valor por defecto y seguir produciría un board de otra liga sin
+    que nada fallase.
+
+    El ejemplo era `bonus_rec_te`, y dejó de servir cuando el traductor aprendió
+    a leerlo: una prima por recepción de ala cerrada **sí** se traduce ahora. Se
+    cambia por un bonus por yardas en un partido, que sigue siendo intraducible
+    y por un motivo real — depende de la distribución semana a semana, no de la
+    media, así que desde los componentes no se puede calcular. La propiedad que
+    se protege es la misma; sólo caducó el ejemplo.
     """
-    settings = {**_league()["scoring_settings"], "bonus_rec_te": 0.5}
+    settings = {**_league()["scoring_settings"], "bonus_rec_yd_200": 3.0}
     with pytest.raises(sleeper.UnmappedScoring) as error:
         sleeper.scoring_from(_league(scoring_settings=settings))
-    assert "bonus_rec_te" in error.value.keys
-    assert "0.5" in str(error.value)
+    assert "bonus_rec_yd_200" in error.value.keys
+    assert "3.0" in str(error.value)
 
 
 def test_defensive_and_kicker_scoring_is_ignored_on_purpose():
@@ -222,3 +228,36 @@ def test_picked_players_survives_a_pick_without_metadata():
     assert result["matched"] == []
     assert len(result["unmatched"]) == 1
     assert result["unmatched"][0]["name"] is None
+
+
+def test_te_premium_se_lee_de_sleeper():
+    """El bonus de recepción por posición, que es como Sleeper expresa el premium.
+
+    Estaba en el traductor de JavaScript y no en el de Python, así que
+    `scoring_from` levantaba ante `bonus_rec_te` y el pipeline rechazaba la liga
+    entera — mientras el navegador la leía sin problema. Dos traductores del
+    mismo formato con distinta cobertura es peor que uno incompleto: el producto
+    parecía soportar una liga que no podía sincronizar.
+    """
+    base = {"pass_yd": 0.04, "pass_td": 4, "pass_int": -2, "rush_yd": 0.1,
+            "rush_td": 6, "rec_yd": 0.1, "rec_td": 6, "rec": 1, "fum_lost": -2}
+
+    plano = sleeper.scoring_from({"scoring_settings": base})
+    assert plano.reception_by_position is None
+    assert plano.reception_value("TE") == 1.0
+
+    # El bonus es un EXTRA sobre la base, no el valor total: rec 1 + bonus 1 = 2.
+    premium = sleeper.scoring_from({"scoring_settings": {**base, "bonus_rec_te": 1.0}})
+    assert premium.reception_value("TE") == 2.0
+    assert premium.reception_value("WR") == 1.0
+
+    # Y con base de media recepción, «el doble» son 1,0 y no 2,0.
+    media = sleeper.scoring_from(
+        {"scoring_settings": {**base, "rec": 0.5, "bonus_rec_te": 0.5}}
+    )
+    assert media.reception_value("TE") == 1.0
+    assert media.reception_value("WR") == 0.5
+
+    # Un bonus a cero no inventa una regla por posición.
+    cero = sleeper.scoring_from({"scoring_settings": {**base, "bonus_rec_te": 0}})
+    assert cero.reception_by_position is None

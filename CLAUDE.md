@@ -318,6 +318,7 @@ comentario está para que no los reintroduzcas.
 | El reemplazo era el ÚLTIMO titular | `draft.py` | La definición es **el primero que no lo es**. El desplazamiento no es igual en todas las posiciones, así que distorsionaba justo la comparación entre posiciones para la que existe el VOR |
 | Sólo 28 quarterbacks en el payload | `scripts/fantasy_build.py` | El recorte era el top-250 por VOR **de la liga por defecto**. Una superflex de 14 equipos necesita el QB43: el navegador se quedaba sin pool justo en el formato donde el valor por liga más cambia |
 | Un fixture de test con el QB24 por debajo del WR40 | `web/tests/scoring.test.mjs` | El reparto voraz compara puntos brutos, así que mandaba huecos de superflex a receptores — correcto para ese pool, absurdo para el fútbol. Un fixture que no se parece al dominio hace fallar propiedades verdaderas |
+| El TE premium se leía en el navegador y no en Python | `leagues/sleeper.py` | `bonus_rec_te` estaba en el traductor de JS y no en el de Python, así que `sleeper_sync.py` **rechazaba la liga entera** mientras la web la leía sin problema. Dos traductores del mismo formato con distinta cobertura es peor que uno incompleto: el producto parecía soportar una liga que no podía sincronizar |
 | El validador de cifras rechazaba textos correctos | `narrative/factcheck.py` | «Cae 4,9 puntos» con el dato en -4.9. Se admite el valor absoluto: en prosa el signo lo lleva el verbo. Un validador con falsos positivos acaba desactivado |
 
 ---

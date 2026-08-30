@@ -31,6 +31,7 @@ from __future__ import annotations
 import json
 import urllib.error
 import urllib.request
+from dataclasses import replace
 from typing import Any
 
 from oracle.fantasy.draft import LeagueSettings
@@ -119,6 +120,19 @@ IGNORED = frozenset({
 })
 
 
+# Bonus de recepción POR POSICIÓN. Sleeper los publica como un EXTRA sobre `rec`,
+# no como el valor total: en una liga con `rec: 1` y `bonus_rec_te: 1`, el ala
+# cerrada cobra 2 por recepción, no 1.
+#
+# Estaban en el traductor de JavaScript y NO aquí, así que `scoring_from`
+# levantaba `UnmappedScoring` ante `bonus_rec_te` y `sleeper_sync.py` rechazaba
+# la liga entera. Dos traductores del mismo formato con distinta cobertura: el
+# navegador sabía leer una liga que el pipeline no podía sincronizar.
+RECEPTION_BY_POSITION: dict[str, str] = {
+    "bonus_rec_te": "TE", "bonus_rec_rb": "RB", "bonus_rec_wr": "WR",
+}
+
+
 def scoring_from(league: dict[str, Any], *, strict: bool = True) -> ScoringRules:
     """Traduce `scoring_settings` de Sleeper a las reglas de este proyecto.
 
@@ -133,8 +147,13 @@ def scoring_from(league: dict[str, Any], *, strict: bool = True) -> ScoringRules
         )
 
     fields: dict[str, float] = {}
+    per_position: dict[str, float] = {}
     unmapped: list[str] = []
     for key, value in settings.items():
+        if key in RECEPTION_BY_POSITION:
+            if float(value) != 0.0:
+                per_position[RECEPTION_BY_POSITION[key]] = float(value)
+            continue
         attribute = SCORING_MAP.get(key)
         if attribute is None:
             if key not in IGNORED:
@@ -152,7 +171,18 @@ def scoring_from(league: dict[str, Any], *, strict: bool = True) -> ScoringRules
     if unmapped and strict:
         raise UnmappedScoring(sorted(unmapped), {k: settings[k] for k in unmapped})
 
-    return ScoringRules(**fields)
+    rules = ScoringRules(**fields)
+    if per_position:
+        # El bonus es un EXTRA sobre la recepción base. Sumarlo mal aquí
+        # convierte un TE premium de 2,0 en 1,0 — y con un ala cerrada valiendo
+        # la mitad, el board entero de una liga como esa sale en otro orden.
+        rules = replace(
+            rules,
+            reception_by_position={
+                position: rules.reception + extra for position, extra in per_position.items()
+            },
+        )
+    return rules
 
 
 def roster_context_from(league: dict[str, Any]) -> LeagueContext:
