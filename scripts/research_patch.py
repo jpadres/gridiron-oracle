@@ -26,7 +26,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from export_web_data import write_payload  # noqa: E402
+from export_web_data import attach_today, write_payload  # noqa: E402
 
 from oracle.config import paths as resolve_paths
 
@@ -52,9 +52,16 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 0
 
-    payload["research"] = json.loads(research_file.read_text(encoding="utf-8"))
+    # `attach_today` es la MISMA función que usa la regeneración semanal. Antes
+    # aquí se escribía la sección sin ella, así que el barrido diario dejaba la
+    # web sin «Today's Intelligence» hasta el miércoles siguiente.
+    payload["research"] = attach_today(json.loads(research_file.read_text(encoding="utf-8")))
     write_payload(paths.web_data, payload)
-    print(f"Payload actualizado con {len(payload['research'].get('items', []))} fichas.")
+    research = payload["research"]
+    print(
+        f"Payload actualizado con {len(research.get('items', []))} fichas, "
+        f"{len(research.get('today') or [])} en Today's Intelligence."
+    )
     return 0
 
 

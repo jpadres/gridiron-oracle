@@ -51,7 +51,10 @@ jobs:
           args=""
           if [ -n "${{ inputs.beats }}" ]; then args="--beats ${{ inputs.beats }}"; fi
           if [ -n "${{ inputs.effort }}" ]; then args="$args --effort ${{ inputs.effort }}"; fi
-          python scripts/research_build.py $args
+          # --require-key: aquí barrer es la ÚNICA tarea del trabajo. Sin clave
+          # salía verde, no barría nada y encima commiteaba «barrido del
+          # <fecha>» — el 30 y el 31 de agosto de 2026 pasó exactamente eso.
+          python scripts/research_build.py --require-key $args
 
       # El payload de la web se regenera SIN reentrenar el modelo: el barrido no
       # toca los números, sólo añade la sección de prensa. Reentrenar aquí a
@@ -78,5 +81,14 @@ jobs:
             echo "Sin novedades hoy; no hay nada que publicar."
             exit 0
           fi
-          git commit -m "research: barrido del $(date -u +%Y-%m-%d)"
+          # El mensaje describe lo que PASÓ, no lo que se pretendía. Si el
+          # barrido no dejó fichero del día, esto no fue un barrido: fue una
+          # reconsolidación del archivo, y decir otra cosa convierte el
+          # historial de git en un registro falso de actividad diaria.
+          hoy="$(date -u +%Y-%m-%d)"
+          if git diff --cached --name-only | grep -q "^research/$hoy.json"; then
+            git commit -m "research: barrido del $hoy"
+          else
+            git commit -m "research: reconsolidar el archivo ($hoy, sin fichas nuevas)"
+          fi
           git push

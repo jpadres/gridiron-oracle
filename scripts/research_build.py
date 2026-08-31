@@ -25,7 +25,10 @@ sección igual que se construye sin los artefactos de fantasy.
 from __future__ import annotations
 
 import argparse
+import base64
+import gzip
 import json
+import re
 import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -58,6 +61,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--effort", default="medium", choices=["low", "medium", "high", "xhigh"])
     parser.add_argument("--model", default=None, help="Sobrescribe ORACLE_NARRATIVE_MODEL.")
     parser.add_argument("--window", type=int, default=WINDOW_DAYS, help="Días que van a la web.")
+    parser.add_argument(
+        "--require-key",
+        action="store_true",
+        help="Falla si no hay clave o no se puede enlazar. Para CI: allí el trabajo "
+             "NO tiene otra tarea, así que no poder hacerlo es un fallo, no un aviso.",
+    )
     args = parser.parse_args(argv)
 
     paths = resolve_paths(args.root).ensure()
@@ -71,8 +80,15 @@ def main(argv: list[str] | None = None) -> int:
         )
         # Se refresca de todos modos por si hay archivo de días anteriores: la
         # sección debe seguir viva aunque hoy no se pueda barrer.
-        _publish(paths.root, paths.out, today, args.window)
-        return 0
+        ok = _publish(paths.root, paths.out, today, args.window)
+        if args.require_key:
+            # En CI barrer ES la única tarea del trabajo. Salir con 0 lo pintaba
+            # verde y encima commiteaba «barrido del <fecha>»: un trabajo que no
+            # puede hacer lo suyo tiene que ponerse ROJO, no informar de un
+            # barrido que no existió.
+            print("ERROR: se exigía la clave (--require-key) y no está.", file=sys.stderr)
+            return 1
+        return 0 if ok else 1
 
     selection = [name.strip() for name in args.beats.split(",")] if args.beats else None
     todo = research.beats(selection)
@@ -139,19 +155,64 @@ def _reporters(root: Path) -> list[dict]:
     return json.loads(path.read_text(encoding="utf-8")).get("reporters", [])
 
 
-def _publish(root: Path, out: Path, today: date, window: int) -> None:
-    """Consolida la ventana y cuelga cada ficha de los jugadores del ranking."""
+def _ranking_players(root: Path, out: Path) -> list[dict]:
+    """Las filas del ranking semanal, de donde se pueda.
+
+    Dos fuentes, y la segunda es la que hacía falta: `out/` está en
+    `.gitignore`, así que en CI `fantasy_weekly.json` NO EXISTE NUNCA y el
+    enlazado se quedaba sin índice — cada barrido diario publicaba las fichas
+    con cero `player_ids`. El payload publicado sí está versionado y lleva las
+    tres columnas que el índice necesita (`player_id`, `player_name`, `team`),
+    así que sirve exactamente igual.
+    """
     weekly = out / "fantasy_weekly.json"
-    players = []
     if weekly.exists():
-        players = json.loads(weekly.read_text(encoding="utf-8")).get("rankings", [])
+        rows = json.loads(weekly.read_text(encoding="utf-8")).get("rankings", [])
+        if rows:
+            return rows
+    payload_file = root / "web" / "data" / "model.b64.js"
+    if not payload_file.exists():
+        return []
+    try:
+        match = re.search(r'MODEL_B64\s*=\s*"([^"]*)"', payload_file.read_text(encoding="utf-8"))
+        if not match or not match.group(1):
+            return []
+        payload = json.loads(gzip.decompress(base64.b64decode(match.group(1))).decode("utf-8"))
+    except Exception:
+        # Un payload ilegible no puede tumbar el barrido: se devuelve vacío y
+        # quien llama decide (y decide NO publicar, que es lo seguro).
+        return []
+    return (payload.get("fantasy_weekly") or {}).get("rankings", []) or []
+
+
+def _publish(root: Path, out: Path, today: date, window: int) -> bool:
+    """Consolida la ventana y cuelga cada ficha de los jugadores del ranking.
+
+    Devuelve `False` si no se pudo publicar. **No reescribe nada cuando no hay
+    ranking contra el que enlazar**, y ésa es la corrección importante: `out/`
+    está en `.gitignore`, así que en CI `fantasy_weekly.json` no existe nunca.
+    La versión anterior seguía adelante con la lista de jugadores VACÍA y
+    publicaba las mismas 45 fichas con cero enlaces — borrando en producción las
+    marcas de las filas del ranking y vaciando «Today's Intelligence», en verde
+    y con un commit que decía «barrido del <fecha>». Degradar en silencio algo
+    que ya funcionaba es peor que no ejecutarse.
+    """
+    players = _ranking_players(root, out)
+    if not players:
+        print(
+            "Sin ranking contra el que enlazar. Publicar así BORRA los enlaces que\n"
+            "  ya estaban, así que no se toca nada. Genera el semanal\n"
+            "  (scripts/fantasy_weekly_build.py) o repara web/data/model.b64.js.",
+            file=sys.stderr,
+        )
+        return False
 
     payload = archive.consolidate(
         root, days=window, today=today, players=players, limit=WEB_ITEMS
     )
     if payload is None:
         print("No hay archivo de research todavía; no se escribe out/research.json.")
-        return
+        return False
 
     # SIN marca de tiempo a propósito. Un `generated_at` de reloj hace que el
     # payload comprimido cambie cada día aunque el archivo sea idéntico, y
@@ -164,6 +225,7 @@ def _publish(root: Path, out: Path, today: date, window: int) -> None:
         f"Escrito out/research.json — {len(payload['items'])} de {payload['total']} fichas, "
         f"{linked} enlazadas a un jugador del ranking."
     )
+    return True
 
 
 if __name__ == "__main__":

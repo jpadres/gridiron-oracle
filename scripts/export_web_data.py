@@ -242,15 +242,7 @@ def main(argv: list[str] | None = None) -> int:
     # --- research (prensa e insiders) ---------------------------------------
     # Viaja aparte de todo lo anterior a propósito: son afirmaciones de terceros
     # con su fuente al lado, no salidas del modelo, y no entran en ningún cálculo.
-    payload["research"] = _strip_runtime_fields(_research(paths, payload))
-    # Today's Intelligence: el subconjunto que puede cambiar una decisión hoy.
-    # Se calcula aquí y no en la web para que el filtro viva junto al resto de
-    # las reglas del modelo, en Python y con tests.
-    if payload["research"]:
-        from oracle.narrative import intelligence
-        payload["research"]["today"] = intelligence.todays(
-            payload["research"].get("items", []), limit=10
-        )
+    payload["research"] = attach_today(_strip_runtime_fields(_research(paths, payload)))
 
     # --- dossier curado (parte médico, campamento, reporteros) ---------------
     # Atribuido y fechado, pero SIN enlace: por eso viaja aparte del research y
@@ -604,6 +596,26 @@ def _load_optional(path: Path) -> object:
         print(f"  (aviso) falta {path.name}: la sección saldrá vacía en la web.")
         return None
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def attach_today(research: dict | None) -> dict | None:
+    """Añade «Today's Intelligence»: el subconjunto que puede cambiar hoy una
+    decisión. Se calcula en Python y no en la web para que el filtro viva junto
+    al resto de las reglas del modelo, con tests.
+
+    Es una FUNCIÓN COMPARTIDA y no dos copias porque ya divergieron: el parche
+    diario (`research_patch.py`) sustituía la sección entera sin esta clave, de
+    modo que cada barrido BORRABA la sección de la web hasta la siguiente
+    regeneración semanal. Dos caminos que escriben el mismo campo con distinta
+    cobertura es exactamente el fallo que este proyecto ya cometió con los dos
+    traductores de puntuación de Sleeper.
+    """
+    if not research:
+        return research
+    from oracle.narrative import intelligence
+
+    research["today"] = intelligence.todays(research.get("items", []), limit=10)
+    return research
 
 
 def _trim_records(section: object, key: str, columns: tuple[str, ...]) -> object:
