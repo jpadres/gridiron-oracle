@@ -197,6 +197,7 @@ def weekly_rankings(
             starters = _starters(squad, position)
             for _, player in starters.iterrows():
                 projection = _project_player(player, position, volume, rules)
+                stat_lines = _project_stats(player, position, volume)
                 multiplier = _matchup_multiplier(matchup, opponent, position)
                 model_points = projection * multiplier * calibration.get(position)
 
@@ -232,6 +233,10 @@ def weekly_rankings(
                         "is_home": int(game_team["is_home"]),
                         "pred_margin_for": float(game_team["pred_margin_for"]),
                         "pred_total": float(game_team["pred_total"]),
+                        # Líneas de stats: MEDIAS del mecanismo volumen ×
+                        # eficiencia, sin ajuste de rival ni calibración (esas
+                        # capas operan en puntos). Contexto de props, no props.
+                        **{k: float(v) for k, v in stat_lines.items()},
                     }
                 )
 
@@ -472,6 +477,41 @@ def _project_player(
     Ese es todo el mecanismo: separar lo que el jugador controla de lo que
     controla el partido.
     """
+    stats = _project_stats(player, position, volume)
+    if position == "QB":
+        return (
+            stats["proj_pass_yds"] * rules.passing_yards
+            + stats["proj_pass_tds"] * rules.passing_td
+            # Sin este término la proyección de QB era casi una constante: se
+            # quedaba con lo que menos distingue —yardas y touchdowns de pase
+            # sobre un volumen de intentos casi igual para todos— y perdía los
+            # tres términos que sí separan a un quarterback de otro.
+            + stats["proj_pass_ints"] * rules.interception
+            + stats["proj_rush_yds"] * rules.rushing_yards
+            + stats["proj_rush_tds"] * rules.rushing_td
+        )
+    return (
+        stats["proj_rush_yds"] * rules.rushing_yards
+        + stats["proj_rush_tds"] * rules.rushing_td
+        + stats["proj_rec_yds"] * rules.receiving_yards
+        + stats["proj_receptions"] * rules.reception
+        + stats["proj_rec_tds"] * rules.receiving_td
+    )
+
+
+def _project_stats(player: pd.Series, position: str, volume: TeamVolume) -> dict[str, float]:
+    """Las LÍNEAS DE STATS esperadas de un titular: el mecanismo entero.
+
+    Es la misma aritmética que siempre puntuó `_project_player`, sacada a la luz
+    para que las medias por estadística (intentos, yardas, recepciones…) se
+    puedan publicar como contexto de props. Dos cosas que NO son:
+
+    - No están ajustadas por rival ni calibradas: el multiplicador de defensa y
+      la calibración se aplican a los PUNTOS, y estirarlos por stat sería una
+      transformación que nadie ha validado.
+    - Son MEDIAS, no distribuciones: E7 valida el agregado en puntos; el nivel
+      de stat individual no tiene validación propia y la interfaz lo dice.
+    """
     if position == "QB":
         attempts = volume.pass_attempts
         yards_per_attempt = _safe_ratio(player["passing_yards"], player["attempts"], 7.0)
@@ -488,39 +528,32 @@ def _project_player(
         # La tasa por defecto es alta a propósito: un acarreo de quarterback
         # pasa cerca de la línea de gol mucho más a menudo que uno de corredor.
         rush_td_rate = _safe_ratio(player["rushing_tds"], player["carries"], 0.045)
+        return {
+            "proj_pass_att": attempts,
+            "proj_pass_yds": attempts * yards_per_attempt,
+            "proj_pass_tds": attempts * td_per_attempt,
+            "proj_pass_ints": attempts * int_per_attempt,
+            "proj_carries": carries,
+            "proj_rush_yds": carries * yards_per_carry,
+            "proj_rush_tds": carries * rush_td_rate,
+        }
 
-        return (
-            attempts * yards_per_attempt * rules.passing_yards
-            + attempts * td_per_attempt * rules.passing_td
-            # Sin este término la proyección de QB era casi una constante: se
-            # quedaba con lo que menos distingue —yardas y touchdowns de pase
-            # sobre un volumen de intentos casi igual para todos— y perdía los
-            # tres términos que sí separan a un quarterback de otro.
-            + attempts * int_per_attempt * rules.interception
-            + carries * yards_per_carry * rules.rushing_yards
-            + carries * rush_td_rate * rules.rushing_td
-        )
-
-    if position == "RB":
-        carries = volume.rush_attempts * player["rush_share"]
-        targets = volume.pass_attempts * player["target_share"]
-    else:  # WR y TE
-        carries = volume.rush_attempts * player["rush_share"]
-        targets = volume.pass_attempts * player["target_share"]
-
+    carries = volume.rush_attempts * player["rush_share"]
+    targets = volume.pass_attempts * player["target_share"]
     yards_per_carry = _safe_ratio(player["rushing_yards"], player["carries"], 4.2)
     yards_per_target = _safe_ratio(player["receiving_yards"], player["targets"], 7.8)
     catch_rate = _safe_ratio(player["receptions"], player["targets"], 0.65)
     rush_td_rate = _safe_ratio(player["rushing_tds"], player["carries"], 0.030)
     rec_td_rate = _safe_ratio(player["receiving_tds"], player["targets"], 0.055)
-
-    return (
-        carries * yards_per_carry * rules.rushing_yards
-        + carries * rush_td_rate * rules.rushing_td
-        + targets * yards_per_target * rules.receiving_yards
-        + targets * catch_rate * rules.reception
-        + targets * rec_td_rate * rules.receiving_td
-    )
+    return {
+        "proj_carries": carries,
+        "proj_rush_yds": carries * yards_per_carry,
+        "proj_rush_tds": carries * rush_td_rate,
+        "proj_targets": targets,
+        "proj_receptions": targets * catch_rate,
+        "proj_rec_yds": targets * yards_per_target,
+        "proj_rec_tds": targets * rec_td_rate,
+    }
 
 
 def _safe_ratio(numerator: float, denominator: float, default: float) -> float:

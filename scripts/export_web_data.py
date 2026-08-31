@@ -81,6 +81,13 @@ WEEKLY_COLUMNS = (
     # una cuenta que no cuadra es peor que no publicarlo.
     "projected_points", "model_points", "baseline_points", "blend_weight",
     "matchup_multiplier", "is_home",
+    # Líneas de stats (MEDIAS del volumen × eficiencia, sin ajuste de rival ni
+    # calibración): el contexto del board de props. Los TD de carrera/recepción
+    # se quedan fuera a propósito — «anytime TD» pide un modelo de eventos que
+    # no existe, y publicar su media invitaría a leerla como ese modelo.
+    "proj_pass_att", "proj_pass_yds", "proj_pass_tds", "proj_pass_ints",
+    "proj_carries", "proj_rush_yds", "proj_targets", "proj_receptions",
+    "proj_rec_yds",
 )
 # Pateadores: proyección validada (E8) SIN rank ordinal — publicarlo es lo que
 # E8b rechaza. Defensas: hechos y nada más — sin proyección ni rank, porque no

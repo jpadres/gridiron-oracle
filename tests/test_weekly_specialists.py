@@ -157,6 +157,32 @@ def test_defense_recent_means_use_the_window(predictions):
     assert board.loc["AAA", "takeaways_recent"] == pytest.approx(1.5)
 
 
+def test_stat_lines_travel_with_the_ranking(kicker_weeks, team_points, predictions):
+    """Las medias por stat existen donde su posición las define, y no donde no.
+
+    No valida su magnitud — E7 valida el AGREGADO en puntos — pero sí el
+    contrato: un QB lleva intentos y yardas de pase; un receptor lleva targets
+    y ninguna columna de pase con valor.
+    """
+    from oracle.fantasy.weekly import TeamVolume, _project_stats
+    volume = TeamVolume(63.0, 36.0, 32.0, 27.0, 2.4, 2.2)
+    qb = pd.Series({"passing_yards": 4200.0, "attempts": 550.0, "passing_tds": 30.0,
+                    "interceptions": 10.0, "rushing_yards": 300.0, "carries": 60.0,
+                    "rushing_tds": 3.0, "rush_share": 0.08})
+    stats = _project_stats(qb, "QB", volume)
+    assert stats["proj_pass_att"] == pytest.approx(32.0)
+    assert 180 < stats["proj_pass_yds"] < 300
+    assert "proj_targets" not in stats
+
+    wr = pd.Series({"rushing_yards": 20.0, "carries": 4.0, "rushing_tds": 0.0,
+                    "receiving_yards": 1100.0, "targets": 140.0, "receptions": 95.0,
+                    "receiving_tds": 8.0, "rush_share": 0.01, "target_share": 0.24})
+    stats = _project_stats(wr, "WR", volume)
+    assert stats["proj_targets"] == pytest.approx(32.0 * 0.24)  # intentos de pase × cuota
+    assert stats["proj_receptions"] < stats["proj_targets"]
+    assert "proj_pass_att" not in stats
+
+
 def test_defense_without_history_says_so(predictions):
     """Equipo sin partidos: NaN y cero partidos, nunca un número inventado."""
     empty = _team_games().iloc[0:0]

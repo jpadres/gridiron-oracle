@@ -1452,3 +1452,121 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 }
 .matchup-why .why-home { color: var(--chalk); }
 .matchup-why .why-away { color: var(--chalk-dim); }
+
+/* ==========================================================================
+   BETTING COMMAND CENTER (.bk)
+   --------------------------------------------------------------------------
+   El primer viewport es la tesis: MI DINERO arriba (banca, disponible,
+   expuesto, P/L) y QUÉ MIRAR HOY inmediatamente debajo. La metodología va al
+   final tras divulgación. Nada de neón ni urgencia: terminal, no casino.
+   ========================================================================== */
+.bk h1 { margin-block: 0 var(--space-1); }
+.bk-start { max-width: 34rem; }
+.bk-start-form, .bk-newmonth { display: flex; gap: var(--space-3); align-items: end; flex-wrap: wrap; }
+.bk-start-form label, .bk-newmonth label, .bk-slip label {
+  display: flex; flex-direction: column; gap: 0.2rem;
+  font-size: var(--text-micro); color: var(--chalk-dim);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.bk input, .bk select {
+  font: inherit; color: var(--chalk); background: var(--field);
+  border: 1px solid var(--yard-line); padding: 0.45rem 0.6rem; min-height: 44px;
+  font-variant-numeric: tabular-nums;
+}
+.bk button { min-height: 44px; font: inherit; cursor: pointer; }
+.bk-primary {
+  background: var(--chalk); color: var(--field); border: none;
+  padding-inline: var(--space-4); font-weight: var(--weight-semibold);
+}
+.bk button:not(.bk-primary):not(.pos-option) {
+  background: none; border: 1px solid var(--yard-line); color: var(--chalk);
+  padding-inline: var(--space-3);
+}
+
+/* --- cabecera del mes ------------------------------------------------------ */
+.bk-head {
+  display: flex; justify-content: space-between; align-items: end; gap: var(--space-4);
+  flex-wrap: wrap; padding-block: var(--space-3);
+  border-bottom: 2px solid var(--chalk);
+}
+.bk-month { display: flex; flex-direction: column; gap: var(--space-1); }
+.bk-starting { color: var(--chalk-dim); font-size: var(--text-dense); }
+.bk-stats { display: flex; gap: var(--space-5); margin: 0; flex-wrap: wrap; }
+.bk-stats dt {
+  font-size: var(--text-micro); color: var(--chalk-dim);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.bk-stats dd {
+  margin: 0; font-family: var(--face-display); font-variation-settings: "wdth" 76;
+  font-size: var(--text-h2); font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+.bk-stats dd small { display: block; font-family: var(--face-text); font-size: var(--text-micro); color: var(--chalk-dim); font-weight: normal; }
+.bk-stats .is-up dd { color: var(--turf-ink, #1c7a43); }
+.bk-stats .is-down dd { color: var(--flag-ink, #a33b3b); }
+
+.bk-h { display: flex; align-items: baseline; gap: var(--space-3); margin-top: var(--space-5); }
+.bk-h small { font-size: var(--text-micro); color: var(--chalk-dim); font-weight: normal; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* --- top leans ------------------------------------------------------------- */
+.bk-leans { list-style: none; margin: var(--space-2) 0; padding: 0; counter-reset: lean; }
+.bk-leans > li {
+  display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap;
+  padding: var(--space-2) 0; border-top: 1px solid var(--yard-line);
+  counter-increment: lean;
+}
+.bk-leans > li::before {
+  content: counter(lean); font-family: var(--face-display); font-weight: 700;
+  color: var(--chalk-dim); min-width: 1.2rem;
+}
+.bk-lean-what { flex: 1 1 14rem; display: flex; flex-direction: column; }
+.bk-lean-what b { font-size: var(--text-body); }
+.bk-lean-what small, .bk-slip-what small { color: var(--chalk-dim); font-size: var(--text-micro); }
+.bk-lean-nums { display: flex; gap: var(--space-4); font-variant-numeric: tabular-nums; }
+.bk-lean-nums small {
+  display: block; font-size: var(--text-nano, 0.62rem); color: var(--chalk-dim);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.bk-lean-nums em { font-style: normal; color: var(--chalk-dim); font-size: var(--text-micro); }
+.bk-side { color: var(--chalk); }
+.bk-nomarket { color: var(--chalk-dim); font-size: var(--text-micro); text-transform: uppercase; letter-spacing: 0.05em; }
+.bk-proj { text-align: right; }
+.bk-line { width: 5.5rem; }
+
+/* --- slip, abiertas, historial --------------------------------------------- */
+.bk-slip, .bk-open, .bk-history { list-style: none; margin: var(--space-2) 0; padding: 0; }
+.bk-slip > li, .bk-open > li {
+  display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap;
+  padding: var(--space-2) 0; border-top: 1px solid var(--yard-line);
+}
+.bk-slip-what { flex: 1 1 16rem; display: flex; flex-direction: column; }
+.bk-slip-math { font-size: var(--text-dense); font-variant-numeric: tabular-nums; }
+.bk-slip-math small { display: block; color: var(--chalk-dim); }
+.bk-warn { flex-basis: 100%; color: var(--flag-ink, #a33b3b); font-size: var(--text-micro); }
+.bk-x { border: none !important; color: var(--chalk-dim); font-size: 1.2rem; }
+.bk-slip-foot {
+  display: flex; justify-content: space-between; align-items: center; gap: var(--space-3);
+  flex-wrap: wrap; padding-top: var(--space-2); border-top: 2px solid var(--chalk);
+}
+.bk-settle { display: flex; gap: var(--space-1); }
+.bk-settle button { font-size: var(--text-micro); text-transform: uppercase; }
+.bk-history > li {
+  display: grid; grid-template-columns: 5rem 1fr auto; gap: var(--space-3);
+  padding: var(--space-1) 0; border-top: 1px solid var(--yard-line);
+  font-size: var(--text-dense);
+}
+.bk-hist--won b { color: var(--turf-ink, #1c7a43); }
+.bk-hist--lost b { color: var(--flag-ink, #a33b3b); }
+.bk-hist--push b, .bk-hist--void b { color: var(--chalk-dim); }
+.bk-newmonth { margin-top: var(--space-4); }
+
+@media (max-width: 40rem) {
+  .bk-stats { gap: var(--space-3); }
+  .bk-stats dd { font-size: var(--text-h3); }
+  .bk-lean-nums { flex-basis: 100%; }
+}
+
+/* Los chips de categoría de props llevan etiquetas largas («Receiving yards»):
+   envuelven con hueco en vez de amontonarse truncados en una sola fila. */
+.bk .pos-filter { flex-wrap: wrap; gap: 0.25rem; }
+.bk .pos-option { min-width: auto; padding-inline: 0.7rem; }

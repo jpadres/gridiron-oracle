@@ -209,6 +209,30 @@ REGISTRY: tuple[Capability, ...] = (
         model_version=MODEL_VERSION,
     ),
     Capability(
+        id="MODEL_LEAN",
+        status=Status.VALIDATED,
+        evidence=(
+            "es ARITMÉTICA entre dos cantidades validadas por separado: el signo "
+            "de (margen o total del modelo, E20) menos (línea real del mercado)"
+        ),
+        experiment_id="E20",
+        metric="hereda E20; el lean no añade número propio",
+        sample_size=3829,
+        limitations=(
+            "Un lean dice DÓNDE CAE el modelo, no que convenga apostarlo: E4 "
+            "midió que el tamaño del desacuerdo NO predice el acierto contra el "
+            "spread (49,3/50,9/48,8% por cubo, plano).",
+            "Nunca se presenta como edge, confianza, lock ni «best bet»; la "
+            "interfaz lo llama «model lean» y lleva el resultado de E4 al lado.",
+            "En props el lean exige una línea REAL tecleada por el usuario: sin "
+            "línea, MARKET UNAVAILABLE — jamás una línea inventada.",
+            "El orden del board normaliza por la dispersión de desacuerdos de "
+            "cada familia esa jornada: descriptivo, no probabilístico.",
+        ),
+        last_validated="2026-08-30",
+        model_version=MODEL_VERSION,
+    ),
+    Capability(
         id="BEST_VALUE_BET",
         status=Status.NOT_READY,
         evidence=(

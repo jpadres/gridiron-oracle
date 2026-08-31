@@ -24,6 +24,7 @@ const PAGES = [
   { href: "/modelo", label: "Model" },
   { href: "/validacion", label: "Validation" },
   { href: "/predicciones", label: "Predictions" },
+  { href: "/betting", label: "Betting" },
   { href: "/fantasy", label: "Draft" },
   { href: "/fantasy/draft", label: "Room" },
   { href: "/fantasy/leagues", label: "Leagues" },
