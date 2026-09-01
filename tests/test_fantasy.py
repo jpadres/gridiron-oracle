@@ -169,8 +169,58 @@ def test_replacement_level_depends_on_league_size(player_weeks):
 def test_tiers_come_from_real_gaps(player_weeks):
     board = draft_board(project_season(player_weeks, season=2025))
     assert board["tier"].min() == 1
-    assert board["tier"].is_monotonic_increasing
     assert board["tier"].nunique() > 1
+    # Los tiers cubren el pool DRAFTEABLE y después son `null`: fuera de él no
+    # hay grupo del que nadie elija a nadie. Así que la monotonía se exige
+    # donde hay tier, y los nulos tienen que estar todos al final.
+    con_tier = board["tier"].notna()
+    assert board.loc[con_tier, "tier"].is_monotonic_increasing
+    assert con_tier.to_numpy().argmin() == int(con_tier.sum()) or con_tier.all()
+
+
+def test_los_tiers_de_arriba_no_dependen_de_cuanta_morralla_haya_debajo(player_weeks):
+    """Añadir jugadores PEORES que todos no puede mover un corte de la 1ª ronda.
+
+    Es la propiedad que se rompió el día que entraron los novatos. Como todos
+    los de una misma celda posición-ronda valen exactamente lo mismo, los huecos
+    más grandes del board se mudaron al fondo y los cortes se fueron detrás: un
+    tier con 358 jugadores cubriendo del puesto 10 al 370, justo donde los tiers
+    se usan. No falló nada — el board seguía ordenado y los tiers seguían
+    saliendo de huecos reales.
+
+    El test inyecta el mismo escenario: doscientas filas empatadas y muy por
+    debajo del pool. Con el corte sobre la población entera se pone rojo.
+    """
+    # Pool fabricado y no el fixture: con pocos jugadores por posición el
+    # reemplazo cae fuera del pool, añadir filas lo mueve, y entonces el test
+    # mediría el reemplazo en vez de los tiers. Sesenta por posición dejan el
+    # reemplazo holgadamente dentro en las dos versiones.
+    filas = [
+        {"player_id": f"{position}{i}", "position": position,
+         "projected_points": 300.0 - 2.0 * i - 7.0 * (i % 5 == 0)}
+        for position in ("QB", "RB", "WR", "TE")
+        for i in range(60)
+    ]
+    projections = pd.DataFrame(filas)
+    base = draft_board(projections)
+
+    peor = float(projections["projected_points"].min())
+    morralla = pd.DataFrame([
+        {"player_id": f"relleno-{position}-{i}", "position": position,
+         # Empatados entre sí y muy por debajo de todo: el hueco más grande del
+         # board pasa a estar aquí abajo, que es lo que movía los cortes.
+         "projected_points": peor - 100.0}
+        for position in ("QB", "RB", "WR", "TE")
+        for i in range(50)
+    ])
+    ampliado = draft_board(pd.concat([projections, morralla], ignore_index=True))
+
+    izquierda = base.head(50)[["player_id", "tier"]].reset_index(drop=True)
+    derecha = ampliado.head(50)[["player_id", "tier"]].reset_index(drop=True)
+    assert izquierda["player_id"].tolist() == derecha["player_id"].tolist()
+    assert izquierda["tier"].tolist() == derecha["tier"].tolist(), (
+        "los tiers de los 50 primeros cambiaron al añadir jugadores al final"
+    )
 
 
 def test_no_tier_has_a_single_player(player_weeks):

@@ -939,6 +939,14 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-why-out b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
 .room-why-risk b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
 
+/* % PRIOR: de dónde sale el número. Ni alarma ni riesgo — procedencia. Por eso
+   comparte la tinta discreta del ROOKIE y no el rojo de SIN EQUIPO. */
+.room-row-prior, .mark--prior {
+  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .04em;
+  color: var(--chalk-dim); border: 1px dashed currentColor;
+  border-radius: 2px; padding: 0 3px; align-self: center; white-space: nowrap;
+}
+
 /* ROOKIE: informativo, no alarma. Tinta secundaria, sin rojo. */
 .room-row-rookie {
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .08em;

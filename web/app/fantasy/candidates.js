@@ -24,7 +24,7 @@
  * otros — y esa autoridad es justo lo que no tienen.
  */
 
-import { SLOT_ELIGIBILITY } from "./leagueValue.js";
+import { MIN_WEIGHTED_GAMES, SLOT_ELIGIBILITY, priorShare } from "./leagueValue.js";
 
 /** Posiciones cuyo ORDEN está validado. K y DST quedan fuera a propósito. */
 export const RANKED_POSITIONS = ["QB", "RB", "WR", "TE"];
@@ -62,10 +62,27 @@ export function candidates(available, { slots = null, limit = 4 } = {}) {
   //
   // `RISK` (PUP activo, holdout, duda) NO sale: sacar a alguien del board por
   // una duda es tomar por quien draftea una decisión que es suya.
+  //
+  // Y no se recomienda a quien NO TIENE NÚMERO PROPIO. Con menos de tres
+  // partidos ponderados de historial NFL, el encogimiento le da más del 75% de
+  // su proyección desde la media de su posición: el board enseñaba a Phil
+  // Mafah, Kevin Harris, Zach Evans y siete corredores más entre los puestos
+  // 150 y 180, todos con ~112 puntos porque 112 ES la media del corredor. Eso
+  // no es una lista de valor, es el ancla repetida con nombres distintos.
+  //
+  // No hace falta validar nada para excluirlos: `prior = 10/(wg+10)` es la
+  // propia fórmula del encogimiento leída al revés, no una predicción. Siguen
+  // en el board, buscables y fichables — lo que no hacen es encabezar una lista
+  // que dice «lo mejor disponible».
+  //
+  // Un NOVATO no entra en esta regla: su número sale de la previa por capital
+  // de draft, que está validada aparte y no es la media de la posición.
   const pool = available.filter(
     (row) => RANKED_POSITIONS.includes(row.position)
       && row.rostered !== false
       && row.status_severity !== "OUT"
+      && (row.rookie || !Number.isFinite(Number(row.weighted_games ?? row.wg))
+          || Number(row.weighted_games ?? row.wg) >= MIN_WEIGHTED_GAMES)
   );
   if (pool.length === 0) return [];
   const openPositions = slots ? openSlotPositions(slots) : null;

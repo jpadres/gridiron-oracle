@@ -1020,6 +1020,10 @@ def validate(
         except ValueError:
             continue
 
+        # El MISMO board con el ancla del encogimiento por tamaño de muestra.
+        # Preregistro en `docs/PREREGISTRO_ancla.md`: se mide, no se activa.
+        con_ancla = project_season(players, season, rules, anchor="sample")
+
         # El MISMO board con partidos esperados por jugador, para poder dar el
         # antes/después sobre el pool congelado sin recorrer nada dos veces.
         con_disponibilidad = None
@@ -1089,6 +1093,8 @@ def validate(
         if con_disponibilidad is not None:
             con = con_disponibilidad.set_index("player_id")["projected_points"]
             modelos["model_availability"] = con.reindex(pool).to_numpy(dtype=float)
+        ancla = con_ancla.set_index("player_id")["projected_points"]
+        modelos["model_anchor"] = ancla.reindex(pool).to_numpy(dtype=float)
 
         for position in FANTASY_POSITIONS:
             mask = (sub["position"] == position).to_numpy()

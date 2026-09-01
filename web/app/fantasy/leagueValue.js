@@ -300,6 +300,31 @@ export function setComponentOrder(order) {
 }
 
 /**
+ * Cuánto de la proyección de un jugador es SUYA y cuánto es el prior.
+ *
+ *     fiabilidad = wg / (wg + 10)      ->     prior = 1 - fiabilidad
+ *
+ * No es una predicción ni una opinión: es la propia fórmula del encogimiento,
+ * leída al revés. Un jugador con 0,3 partidos ponderados recibe el 97% de su
+ * número de la media de su posición — MarShawn Lloyd salía en el puesto 155 con
+ * 116 puntos, y 113 de esos 116 eran «el running back medio», no él.
+ *
+ * Un NOVATO devuelve 0: su número no viene de la media de la posición sino de su
+ * propia previa por capital de draft, que es otra cosa y está validada aparte.
+ */
+export function priorShare(row, shrinkPriorGames = 10) {
+  if (!row || row.rookie) return 0;
+  const wg = Number(row.weighted_games ?? row.wg);
+  if (!Number.isFinite(wg) || wg < 0) return null;
+  return shrinkPriorGames / (wg + shrinkPriorGames);
+}
+
+/** Muestra por debajo de la cual el número no es del jugador. Ver `candidates.js`. */
+export const MIN_WEIGHTED_GAMES = 3;
+/** A partir de aquí la fila lo DICE: más de la mitad del número es prior. */
+export const PRIOR_SHARE_VISIBLE = 0.6;
+
+/**
  * El board de una liga: puntos compilados, reemplazo, VOR y orden.
  *
  * Devuelve `{rows, replacement, rank, short, consumed}`. `short` son las

@@ -424,6 +424,15 @@ export default function Fantasy() {
           <h2>Limitations</h2>
           <ul>
             <li>
+              <strong>Some numbers are the positional average wearing a name.</strong> A
+              projection is shrunk toward the positional mean by sample size, so a player with
+              almost no NFL history gets almost all of it from that mean: at 0.3 weighted games,
+              97% of the number is &ldquo;the average running back,&rdquo; not him. Those rows
+              carry a <span className="mark mark--prior">% PRIOR</span> mark, and below three
+              weighted games they are kept off the shortlist — they stay on the board, ranked
+              and draftable, but they will not be offered as the best available.
+            </li>
+            <li>
               <strong>A rookie&rsquo;s number knows his draft round and nothing else.</strong>
               Two rookies taken in the same round at the same position get the same
               projection, because that is all the prior can tell them apart. Within a round

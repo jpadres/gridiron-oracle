@@ -218,6 +218,17 @@ export function RankTable({
                           {row.status_label}
                         </span>
                       ) : null}
+                      {/* Cuánto del número es el prior de la posición y no
+                          el jugador. Se deriva de `wg`, que ya viaja: es la
+                          fórmula del encogimiento leída al revés. */}
+                      {!row.rookie && Number.isFinite(row.wg) && 10 / (row.wg + 10) >= 0.6 ? (
+                        <span className="mark mark--prior"
+                              title={`${Math.round(1000 / (row.wg + 10))}% of this projection is `
+                                + `the positional average, not him: ${row.wg.toFixed(1)} weighted `
+                                + "games of NFL history."}>
+                          {Math.round(1000 / (row.wg + 10))}% PRIOR
+                        </span>
+                      ) : null}
                       {health ? <AvailabilityTag entry={health} /> : null}
                       {risk && row.risk_label && row.risk_label !== "Normal" ? (
                         <RiskTag row={row} />

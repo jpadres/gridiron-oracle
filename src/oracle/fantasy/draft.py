@@ -64,6 +64,14 @@ SEASON_WEIGHTS = (0.56, 0.30, 0.14)
 # usa cuando no hay historial de disponibilidad para alguien.
 PROJECTED_GAMES = 15.5
 
+# Cubos de muestra para el ancla del encogimiento, en `weighted_games`.
+#
+# Con pesos 56/30/14 sobre temporadas de 17 partidos el máximo posible ronda 17,
+# así que estos cuatro tramos son suplente profundo / rotación / titular a
+# medias / titular. Son cortes DECLARADOS y no ajustados: si el experimento
+# saliera regular, la respuesta es que la hipótesis no vale, no probar otros.
+SAMPLE_BUCKETS: tuple[float, ...] = (3.0, 8.0, 14.0)
+
 # Partidos de prior del encogimiento hacia la media posicional. 10 ≈ media
 # temporada: con menos de eso, la proyección es sobre todo la media de su
 # posición, que es exactamente lo que debe ser.
@@ -122,6 +130,7 @@ def project_season(
     rules: ScoringRules = PPR,
     ages: pd.Series | None = None,
     expected_games: pd.Series | None = None,
+    anchor: str = "position",
 ) -> pd.DataFrame:
     """Proyección de temporada completa para `season`.
 
@@ -156,10 +165,21 @@ def project_season(
         position_mean = np.average(
             group["points_per_game"], weights=group["weighted_games"]
         )
-        # Encogimiento hacia la media de la posición.
+        # EL ANCLA. Por defecto, la media de la posición ponderada por partidos:
+        # o sea, el punto por partido del PARTIDO medio, que lo fija quien más
+        # juega. Con `anchor="sample"` cada jugador se encoge hacia la media de
+        # los que tienen una muestra parecida a la suya — la hipótesis es que un
+        # jugador del que apenas hay partidos no es un titular medio, sino
+        # alguien que no ha conseguido rol. Preregistro en
+        # `docs/PREREGISTRO_ancla.md`; se calcula sobre el MISMO historial
+        # anterior a `season`, así que no entra ni un partido del futuro.
+        anchor_value = (
+            _anchor_by_sample(group, position_mean) if anchor == "sample" else position_mean
+        )
+        # Encogimiento hacia el ancla.
         reliability = group["weighted_games"] / (group["weighted_games"] + SHRINK_PRIOR_GAMES)
-        group["ppg_shrunk"] = position_mean + reliability * (
-            group["points_per_game"] - position_mean
+        group["ppg_shrunk"] = anchor_value + reliability * (
+            group["points_per_game"] - anchor_value
         )
         # Los TD se tratan aparte y se encogen más. Se descuenta el exceso de TD
         # sobre lo esperado y se devuelve sólo la parte que persiste.
@@ -214,6 +234,42 @@ def project_season(
     )
     board["season"] = season
     return board.sort_values("projected_points", ascending=False).reset_index(drop=True)
+
+
+def _anchor_by_sample(group: pd.DataFrame, fallback: float) -> np.ndarray:
+    """Ancla por tamaño de muestra: hacia dónde encoger a quien apenas ha jugado.
+
+    Devuelve un ancla POR JUGADOR: la media de puntos por partido —ponderada por
+    partidos, igual que la global— de los jugadores de su mismo cubo de
+    `weighted_games`. Un cubo con menos de veinte jugadores no manda: se cae a la
+    media de la posición, porque un ancla estimada con cuatro nombres es más
+    ruido que información.
+
+    El ancla es MONÓTONA por construcción: se fuerza a no subir al bajar de cubo.
+    Sin eso, un cubo ruidoso podría dar a los de menos muestra un ancla MAYOR que
+    a los titulares, que es exactamente lo contrario de la hipótesis y produciría
+    un board raro sin que nada fallara.
+    """
+    games = group["weighted_games"].to_numpy(dtype=float)
+    ppg = group["points_per_game"].to_numpy(dtype=float)
+    edges = (0.0, *SAMPLE_BUCKETS, float("inf"))
+
+    means: list[float] = []
+    for low, high in zip(edges[:-1], edges[1:], strict=True):
+        mask = (games >= low) & (games < high)
+        peso = float(games[mask].sum())
+        means.append(
+            float(np.average(ppg[mask], weights=games[mask]))
+            if int(mask.sum()) >= 20 and peso > 0 else fallback
+        )
+    # De más muestra a menos, el ancla no puede subir.
+    for i in range(len(means) - 2, -1, -1):
+        means[i] = min(means[i], means[i + 1])
+
+    out = np.full(len(group), fallback, dtype=float)
+    for (low, high), value in zip(zip(edges[:-1], edges[1:], strict=True), means, strict=True):
+        out[(games >= low) & (games < high)] = value
+    return out
 
 
 def _weighted_player_row(group: pd.DataFrame) -> pd.Series:
@@ -328,7 +384,29 @@ def draft_board(
     board["position_rank"] = board.groupby("position", observed=True)["vor"].rank(
         ascending=False, method="first"
     ).astype(int)
-    board["tier"] = _tiers(board["vor"].to_numpy(dtype=float))
+    # LOS TIERS SE CORTAN SOBRE EL POOL QUE SE DRAFTEA, NO SOBRE TODO EL BOARD.
+    #
+    # Un tier dice «entre éstos da igual a quién coges», y esa afirmación sólo
+    # tiene sentido donde de verdad vas a elegir. Cortar sobre las 1.088 filas
+    # rompió los tiers el día que entraron los novatos: como todos los de una
+    # misma celda posición-ronda valen EXACTAMENTE lo mismo, los huecos más
+    # grandes del board se mudaron al fondo —los saltos entre celdas— y los
+    # quince cortes se fueron detrás. Resultado: un tier con 358 jugadores
+    # cubriendo del puesto 10 al 370, justo donde los tiers se usan.
+    #
+    # No fue el bug de los novatos: fue que el corte dependía de la población, y
+    # la población cambió. Con el pool acotado a lo drafteable, meter mil filas
+    # más al final no puede volver a mover un corte de la primera ronda.
+    draftable = min(len(board), context.teams * (
+        sum((context.dedicated or {}).values()) + context.flex + context.superflex
+        + context.bench
+    ) or len(board))
+    tiers = np.full(len(board), np.nan)
+    tiers[:draftable] = _tiers(board["vor"].to_numpy(dtype=float)[:draftable])
+    # Fuera del pool no se inventa un tier: es `null` y la interfaz ya sabe no
+    # pintarlo. Un «tier 16» sobre el puesto 700 sería un grupo del que nadie
+    # elige a nadie.
+    board["tier"] = tiers
     return board
 
 

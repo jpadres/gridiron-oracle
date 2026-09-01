@@ -62,3 +62,37 @@ test("el conteo del tier se hace sobre el pool RECOMENDABLE, no sobre el board",
   const [primero] = candidates(pool, { limit: 1 });
   assert.equal(primero.sameTier, 1, "sólo queda uno de verdad");
 });
+
+test("no se recomienda a quien no tiene número propio", () => {
+  // El caso real: del puesto 150 al 180 el board se llenó de corredores de
+  // plantilla profunda, todos con ~112 puntos porque 112 ES la media del
+  // corredor. Con 0,3 partidos ponderados, el 97% de esa cifra es el ancla.
+  const pool = [
+    fila("mafah", 40, { weighted_games: 0.56 }),
+    fila("lloyd", 39, { weighted_games: 0.3 }),
+    fila("titular", 30, { weighted_games: 15 }),
+  ];
+  const out = candidates(pool, { limit: 4 });
+  assert.equal(out.length, 1);
+  assert.equal(out[0].row.player_id, "titular");
+});
+
+test("un NOVATO no cae en esa regla: su número no es la media de la posición", () => {
+  // Su previa viene del capital de draft (E9), validada aparte. Excluirlo por
+  // no tener partidos NFL sería excluirlo por ser novato.
+  const pool = [
+    fila("novato", 40, { weighted_games: 0, rookie: true }),
+    fila("titular", 30, { weighted_games: 15 }),
+  ];
+  const out = candidates(pool, { limit: 4 });
+  assert.equal(out.length, 2);
+  assert.equal(out[0].row.player_id, "novato");
+});
+
+test("sin dato de muestra no se excluye a nadie", () => {
+  // Ausencia de dato no es evidencia de muestra corta. Un board publicado por
+  // una versión anterior no trae `wg`, y vaciar la lista corta por eso sería
+  // peor que el problema.
+  const out = candidates([fila("sinwg", 40), fila("otro", 30)], { limit: 4 });
+  assert.equal(out.length, 2);
+});

@@ -41,7 +41,9 @@ import {
   takeEvent, undoEvent, untilMyTurn,
 } from "./draftLog.js";
 import { loadOrMigrateLog, logScopeFor, saveLog } from "./draftStorage.js";
-import { assignSlots, VALIDATED_MAX_TEAMS, valueConfidence } from "./leagueValue.js";
+import {
+  assignSlots, PRIOR_SHARE_VISIBLE, priorShare, VALIDATED_MAX_TEAMS, valueConfidence,
+} from "./leagueValue.js";
 import { candidates as buildCandidates } from "./candidates.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
@@ -106,6 +108,28 @@ function statusBrief(row) {
   return `${row.status_label} — ${row.status_detail}${since}${games} ${checked}`
     + (outlets ? ` Source: ${outlets}.` : "")
     + " This changes no number on this row: the projection and VOR are untouched.";
+}
+
+/**
+ * El aviso de que un número es sobre todo el prior de su posición.
+ *
+ * Devuelve `null` cuando el jugador tiene historial suficiente para que el
+ * número sea suyo. No es una alarma de riesgo —eso es otra cosa, y `risk_label`
+ * daba «Normal» a un corredor cuyo 97% era el ancla— sino una etiqueta sobre el
+ * ORIGEN del número.
+ */
+function priorNote(row) {
+  const share = priorShare(row);
+  if (share === null || share < PRIOR_SHARE_VISIBLE) return null;
+  const wg = Number(row.weighted_games ?? row.wg);
+  return {
+    pct: Math.round(share * 100),
+    title: `${Math.round(share * 100)}% of this projection is the positional average, `
+      + `not him: ${wg.toFixed(1)} weighted games of NFL history. `
+      + (wg < 3
+        ? "Below three he is kept off the shortlist — the number is the anchor, not a projection."
+        : "Treat the number as a floor-shaped guess, not a read on his role."),
+  };
 }
 
 function tierDepth(available, position) {
@@ -826,6 +850,16 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                         <span className="room-row-noteam"
                               title="Not on any 2026 NFL roster. The projection comes from his production with a team he is no longer on.">
                           SIN EQUIPO
+                        </span>
+                      ) : null}
+                      {priorNote(entry.row) ? (
+                        /* DE DÓNDE SALE EL NÚMERO. Un jugador con muestra
+                           mínima recibe casi toda su proyección de la media de
+                           su posición, y hasta hoy eso no se veía en ninguna
+                           parte: `risk_label` decía «Normal» sobre un 97% de
+                           ancla. La marca describe el cálculo — no predice. */
+                        <span className="room-row-prior" title={priorNote(entry.row).title}>
+                          {priorNote(entry.row).pct}% PRIOR
                         </span>
                       ) : null}
                       {entry.row.rookie ? (
