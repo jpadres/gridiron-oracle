@@ -243,7 +243,15 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
   );
 
   const onClock = isMyTurn({ overall: state.count + 1, teams, type, mySlot });
-  const next = untilMyTurn({ count: state.count, teams, type, mySlot, rounds });
+  /* DÓNDE VA EL DRAFT lo dice el PROVEEDOR, no cuántos picks pudimos resolver.
+     Un novato de 2026 no está en el board publicado, así que su pick entra
+     UNMAPPED y no produce evento canónico. Contando sólo lo resuelto, «picks
+     until me» se quedaba corto un pick por cada novato elegido — y en un draft
+     de 2026 eso son varios. El tablero sigue derivando de lo resuelto; la
+     POSICIÓN del draft, de lo que el proveedor dice que ya se eligió. */
+  const providerPicks = sleeperLeague && sync.state === "ok" ? (sync.total ?? 0) : 0;
+  const draftCount = Math.max(state.count, providerPicks);
+  const next = untilMyTurn({ count: draftCount, teams, type, mySlot, rounds });
 
   /**
    * Registrar un pick. **Una sola interacción.**
@@ -368,10 +376,11 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
 
   if (!ready) return <p className="caption">Loading draft room&hellip;</p>;
 
-  const overall = effective.count + 1;
+  // En replay manda el cursor; en vivo, la posición autoritativa del proveedor.
+  const overall = (replaying ? effective.count : draftCount) + 1;
   const here = slotForOverall(overall, teams, type);
   // Completo sólo si la liga declaró tamaño y rondas: sin ellos no se afirma.
-  const complete = Boolean(teams && rounds && state.count >= teams * rounds);
+  const complete = Boolean(teams && rounds && draftCount >= teams * rounds);
   // Dónde está el cursor, en lenguaje de draft: el pick N y su casilla.
   const cursorHere = replaying && replayCursor > 0
     ? slotForOverall(replayCursor, teams, type)
@@ -582,6 +591,13 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                   {entry.reasons.map((reason) => (
                     <li key={reason.kind}>{reason.text}</li>
                   ))}
+                  {context.briefs?.[entry.row.player_id] ? (
+                    /* El contexto actual va con los hechos, marcado como lo que
+                       es. No entra en el VOR ni reordena la lista. */
+                    <li className="room-why-news">
+                      <b>News</b> {context.briefs[entry.row.player_id]}
+                    </li>
+                  ) : null}
                 </ul>
               </li>
             ))}
@@ -670,6 +686,15 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                           ) : null}
                         </span>
                       </span>
+                      {context.briefs?.[entry.row.player_id] ? (
+                        /* NOTICIA, no penalización. Se ve y no mueve el orden:
+                           el VOR de al lado es el mismo con marca y sin ella.
+                           Convertir una nota de prensa en un número es
+                           exactamente lo que la regla 8 prohíbe. */
+                        <span className="room-row-news" title={context.briefs[entry.row.player_id]}>
+                          NEWS
+                        </span>
+                      ) : null}
                       <span className="room-row-vor">
                         {entry.row.vor === null || entry.row.vor === undefined
                           ? "—" : num(entry.row.vor, 1)}

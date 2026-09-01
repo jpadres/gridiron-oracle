@@ -1,4 +1,4 @@
-import { model } from "../../../data/model.js";
+import { briefsByPlayer, model } from "../../../data/model.js";
 import { NoDataYet } from "../../ui.jsx";
 import RoomShell from "./RoomShell.jsx";
 
@@ -44,6 +44,11 @@ export default function DraftRoomPage() {
         // IDENTIFICADOR en vez de por nombre. Sin él, el adaptador marca
         // UNMAPPED en lugar de adivinar.
         sleeperIds: fantasy.sleeper_ids ?? null,
+        // CONTEXTO ACTUAL, al lado del valor y nunca dentro. El board de
+        // `/fantasy` ya lo enseñaba y el asistente NO lo recibía: la pantalla
+        // que se mira en mitad del draft era la única sin las noticias.
+        // Se pinta como marca; no toca ni un número (regla 8).
+        briefs: briefsByPlayer(model.dossier, model.research),
         // K y DST fichables: hechos de la temporada anterior, sin valor. El
         // board de VOR no los ordena y la sala tampoco lo finge.
         specialists: fantasy.specialists ?? null,

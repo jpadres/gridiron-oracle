@@ -208,6 +208,8 @@ const DATOS_PREFIJOS = [
   // palabra que nadie lea. Se declara entero por prefijo porque las claves
   // son los propios ids y cambian con el board.
   ".fantasy.sleeper_ids",
+  // Marcas de tiempo ISO de las fichas de hoy: fechas, no prosa.
+  ".research.today[].published_at",
   // Pateadores y defensas del semanal, y los fichables del draft: ids GSIS o
   // sintéticos (DST_KC), nombres propios y códigos de equipo — datos, no prosa.
   ".fantasy_weekly.kickers[]", ".fantasy_weekly.defenses[]",

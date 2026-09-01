@@ -890,7 +890,17 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   .room-until { order: -1; }
   .room-clock { order: -1; }
   .room-where { margin-left: auto; }
-  .room-scope { order: 10; flex-basis: 100%; margin-left: 0; }
+  /* Marca de noticia: se VE y no pesa. Cualquier cosa que la hiciera parecer una
+   nota numérica invitaría a leerla como una penalización que nadie ha medido. */
+.room-row-news {
+  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .08em;
+  color: var(--flag-ink, #a33b3b); border: 1px solid currentColor;
+  border-radius: 2px; padding: 0 3px; align-self: center;
+}
+.room-why-news { color: var(--chalk); }
+.room-why-news b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
+
+.room-scope { order: 10; flex-basis: 100%; margin-left: 0; }
 }
 
 /* DÓNDE estamos. Sin la ronda, «2 picks» no sitúa a nadie en el draft. */
