@@ -12,7 +12,6 @@ import pytest
 
 from oracle.fantasy.draft import (
     AGE_CURVES,
-    LeagueSettings,
     _age_factor,
     draft_board,
     project_season,
@@ -158,8 +157,8 @@ def test_vor_not_total_points_drives_the_board(player_weeks):
 
 def test_replacement_level_depends_on_league_size(player_weeks):
     projections = project_season(player_weeks, season=2025)
-    small = draft_board(projections, LeagueSettings(teams=8))
-    large = draft_board(projections, LeagueSettings(teams=14))
+    small = draft_board(projections, teams=8)
+    large = draft_board(projections, teams=14)
 
     small_qb = small[small["position"] == "QB"]["replacement_points"].iloc[0]
     large_qb = large[large["position"] == "QB"]["replacement_points"].iloc[0]

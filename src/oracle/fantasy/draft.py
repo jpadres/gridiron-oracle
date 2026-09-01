@@ -42,7 +42,7 @@ import numpy as np
 import pandas as pd
 
 from .components import COMPONENTS, weighted_components
-from .league import LeagueContext, greedy_replacement
+from .league import LeagueContext, greedy_replacement, roster_context
 from .scoring import PPR, ScoringRules, score_player_weeks
 
 # Ponderación de las tres últimas temporadas. Suma 1.
@@ -72,9 +72,19 @@ AGE_CURVES: dict[str, tuple[float, float, float]] = {
     "TE": (27.0, 0.030, 0.025),
 }
 
-# Titulares por equipo en una liga estándar de 12. El nivel de reemplazo sale de
-# aquí: en una liga de 10 o con dos QB, cambia — y cambia el board entero.
-DEFAULT_STARTERS = {"QB": 1.0, "RB": 2.5, "WR": 3.0, "TE": 1.0}
+# La plantilla por defecto: liga de 12 con tres receptores y un flex. Es una
+# CONFIGURACIÓN declarada, no una convención escondida — y de ella sale el
+# reemplazo por la misma asignación voraz que usa cualquier otra liga.
+#
+# Lo que había antes era `DEFAULT_STARTERS = {"QB": 1.0, "RB": 2.5, "WR": 3.0,
+# "TE": 1.0}`: el 2,5 y el 3,0 eran el hueco flexible repartido a ojo, y con él
+# el reemplazo del corredor caía en el RB30 «porque en la práctica se draftean
+# más de los que se alinean». Eso es una postulación sobre el comportamiento del
+# mercado metida dentro de un cálculo de valor.
+DEFAULT_ROSTER: tuple[str, ...] = (
+    "QB", "RB", "RB", "WR", "WR", "WR", "TE", "FLEX", "K", "DEF",
+    "BN", "BN", "BN", "BN", "BN", "BN",
+)
 DEFAULT_TEAMS = 12
 
 FANTASY_POSITIONS = ("QB", "RB", "WR", "TE")
@@ -82,17 +92,18 @@ FANTASY_POSITIONS = ("QB", "RB", "WR", "TE")
 
 @dataclass(frozen=True)
 class LeagueSettings:
+    """Descripción de la liga para PUBLICARLA, no para calcular con ella.
+
+    Ya no sabe calcular un nivel de reemplazo. Tenía un `replacement_rank` que
+    multiplicaba `teams` por unos titulares por equipo con el flex repartido a
+    ojo, y era el segundo modelo de reemplazo del proyecto: el board publicado
+    salía por ahí siempre que nadie pasara un contexto, y por la asignación
+    voraz cuando sí. Dos respuestas a «cuál es el reemplazo del corredor», y
+    ninguna forma de saber cuál estabas mirando.
+    """
+
     teams: int = DEFAULT_TEAMS
-    starters: tuple[tuple[str, float], ...] = tuple(DEFAULT_STARTERS.items())
-
-    def replacement_rank(self, position: str) -> int:
-        """Puesto del jugador de reemplazo en esa posición.
-
-        RB y WR llevan 0.5 de más por el hueco flexible: en la práctica se
-        draftean más de los que se alinean.
-        """
-        per_team = dict(self.starters).get(position, 1.0)
-        return max(int(round(self.teams * per_team)), 1)
+    starters: tuple[tuple[str, float], ...] = ()
 
 
 def project_season(
@@ -244,43 +255,40 @@ TIER_RANGE = (6, 16)
 
 def draft_board(
     projections: pd.DataFrame,
-    settings: LeagueSettings | None = None,
-    *,
     context: LeagueContext | None = None,
+    *,
+    teams: int = DEFAULT_TEAMS,
 ) -> pd.DataFrame:
-    """Ordena por VOR y agrupa en tiers.
+    """Ordena por VOR y agrupa en tiers. **Un solo modelo de reemplazo.**
 
-    Con `context` el reemplazo sale de la asignación voraz de
-    `league.greedy_replacement`: los huecos compartidos se reparten según quién
-    queda libre, no según una constante. Sin él se conserva la ruta histórica
-    por `LeagueSettings`, que es la que fija la equivalencia de la línea base.
+    El reemplazo sale siempre de `league.greedy_replacement`: se llenan los
+    huecos dedicados de toda la liga y después cada hueco compartido se lo lleva
+    la posición cuyo mejor jugador libre vale más. Sin contexto se usa la
+    plantilla por defecto (`DEFAULT_ROSTER`, 12 equipos), que es una liga
+    declarada — no otro modelo.
 
-    ## La diferencia de definición, que no es un detalle
+    ## Por qué había dos y por qué ya no
 
-    La ruta histórica toma como reemplazo **al último titular** (el QB12 en una
-    liga de 12). La ruta con contexto toma **al primero que no es titular** (el
-    QB13), que es la definición que dice el docstring de `league.py`: «el mejor
-    que sigue libre cuando ya todos han llenado esa posición».
+    La ruta histórica tomaba como reemplazo **al último titular** (el QB12 en
+    una liga de 12) a partir de unos titulares por equipo con el flex repartido
+    a ojo. La voraz toma **al primero que no es titular** (el QB13), que es la
+    definición: «el mejor que sigue libre cuando ya todos han llenado esa
+    posición».
 
-    Un puesto de diferencia parece nada y no lo es: el desplazamiento no es igual
-    en todas las posiciones —depende de lo plana que sea la curva de cada una— y
-    lo que compara el board es precisamente entre posiciones.
+    Un puesto de diferencia parece nada y no lo es: el desplazamiento no es
+    igual en todas las posiciones —depende de lo plana que sea la curva de cada
+    una— y lo que compara el board es precisamente entre posiciones. Con dos
+    caminos vivos, qué board veías dependía de si quien llamaba pasó un
+    contexto, y nada en la salida lo decía.
     """
-    settings = settings or LeagueSettings()
     board = projections.copy()
-
-    if context is not None:
-        points = {
-            position: group["projected_points"].tolist()
-            for position, group in board.groupby("position", observed=True)
-        }
-        replacement, _, _ = greedy_replacement(points, context)
-    else:
-        replacement = {}
-        for position, group in board.groupby("position", observed=True):
-            ranked = group.sort_values("projected_points", ascending=False)
-            index = min(settings.replacement_rank(position), len(ranked)) - 1
-            replacement[position] = float(ranked["projected_points"].iloc[index])
+    if context is None:
+        context = roster_context(list(DEFAULT_ROSTER), teams)
+    points = {
+        position: group["projected_points"].tolist()
+        for position, group in board.groupby("position", observed=True)
+    }
+    replacement, _, _ = greedy_replacement(points, context)
 
     board["replacement_points"] = board["position"].map(replacement)
     board["vor"] = board["projected_points"] - board["replacement_points"]

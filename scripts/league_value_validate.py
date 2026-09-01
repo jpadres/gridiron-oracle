@@ -332,10 +332,9 @@ def _superflex(player_weeks: pd.DataFrame, teams: int = 12) -> None:
 
 def _baseline(player_weeks: pd.DataFrame) -> None:
     """Los PUNTOS tienen que coincidir; el VOR puede romper y se explica."""
-    from oracle.fantasy.draft import LeagueSettings
 
     projections = _projection(player_weeks, PPR)
-    old = draft_board(projections, LeagueSettings())
+    old = draft_board(projections)
     context = roster_context(BASE + BENCH, 12)
     new = draft_board(projections, context=context)
 

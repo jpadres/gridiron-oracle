@@ -142,12 +142,17 @@ def test_superflex_changes_what_a_quarterback_is_worth():
     positions = ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "SUPER_FLEX", "BN"]
     settings = sleeper.league_settings_from(_league(roster_positions=positions))
     assert dict(settings.starters)["QB"] == 2.0
-    assert settings.replacement_rank("QB") == 24
+    # La propiedad se comprueba por el contexto de liga, no por `LeagueSettings`:
+    # ese objeto ya no sabe calcular un reemplazo, y era el segundo modelo del
+    # proyecto. El número exigido es el mismo.
+    assert sleeper.roster_context_from(
+        _league(roster_positions=positions)
+    ).replacement_rank("QB") == 24
 
 
 def test_league_size_drives_the_replacement_level():
-    small = sleeper.league_settings_from(_league(total_rosters=8))
-    large = sleeper.league_settings_from(_league(total_rosters=14))
+    small = sleeper.roster_context_from(_league(total_rosters=8))
+    large = sleeper.roster_context_from(_league(total_rosters=14))
     assert small.replacement_rank("QB") == 8
     assert large.replacement_rank("QB") == 14
 

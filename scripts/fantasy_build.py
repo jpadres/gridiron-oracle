@@ -306,7 +306,7 @@ def main(argv: list[str] | None = None) -> int:
         season=season,
     ) if _roster_positions(synced, args) else None
     board = draft_board(
-        project_season(players, season, rules, ages=ages), settings, context=context
+        project_season(players, season, rules, ages=ages), context, teams=settings.teams
     )
 
     # Etiqueta de riesgo. Validada contra el error realizado en
@@ -415,7 +415,8 @@ def main(argv: list[str] | None = None) -> int:
                 "roster": _roster_positions(synced, args),
                 # Cómo se repartieron los huecos compartidos. Sin esto no se
                 # puede saber si el board de arriba usó el modelo validado.
-                "replacement_model": "greedy" if context else "weights",
+                # Ya no hay dos: la asignación voraz es el único camino.
+                "replacement_model": "greedy",
                 "board": _publish_slice(board).round(3).to_dict(orient="records"),
                 # K y DST: FICHABLES, no valorados. Sin esto el Draft Room no
                 # puede registrar un pick de pateador o defensa y los huecos
@@ -607,6 +608,12 @@ def _metrics(predicted: np.ndarray, observed: np.ndarray) -> dict:
         "n": int(predicted.size),
         "zero_share": zeros,
         "mae": float(np.mean(np.abs(predicted - observed))),
+        # ERROR MEDIO CON SIGNO, al lado del absoluto. El MAE dice cuánto nos
+        # equivocamos; el bias dice hacia dónde. Si `PROJECTED_GAMES = 15.5`
+        # está por encima de los partidos que se juegan de verdad, todas las
+        # proyecciones están infladas a la vez y esto sale positivo y constante
+        # — que es una firma distinta de la del ruido, y se lee de un vistazo.
+        "bias": float(np.mean(predicted - observed)),
     }
     # Con varianza nula la correlación no está definida: se dice NaN, no 0.
     if predicted.size >= 3 and np.std(predicted) > 0 and np.std(observed) > 0:
@@ -679,7 +686,12 @@ def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> dict:
         # primeros: eso no es un board, es la lista de QBs, y medir ahí no dice
         # nada de las decisiones de un draft. VOR existe precisamente para que
         # las posiciones sean comparables, y es el orden que el producto enseña.
-        board = draft_board(projected, settings)
+        # El MISMO reemplazo que publica el board. Antes esto llamaba a la ruta
+        # por pesos, así que la línea base se midió sobre un modelo que el
+        # producto ya no usaba.
+        board = draft_board(
+            projected, roster_context(list(DEFAULT_ROSTER), settings.teams, season=season)
+        )
         projected = board.set_index("player_id")
         truth = actual.xs(season, level="season")
 
@@ -750,6 +762,7 @@ def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> dict:
             pearson=("pearson", "mean"),
             spearman=("spearman", "mean"),
             mae=("mae", "mean"),
+            bias=("bias", "mean"),
         )
 
     hits = pd.DataFrame(aciertos)
