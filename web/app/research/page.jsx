@@ -1,5 +1,6 @@
 import { model } from "../../data/model.js";
 import { AVAILABILITY_LABEL, Callout, ImpactTag, NoDataYet, Sources, Stat } from "../ui.jsx";
+import { byDay as agruparPorDia, partition } from "./select.js";
 
 export const metadata = {
   title: "Gridiron Oracle — Research",
@@ -255,15 +256,12 @@ export default function Research() {
   // payload viejo, que en un sitio con datos horneados pasa en cada despliegue
   // hasta que se regenera.
   const today = research?.today ?? [];
-  const headline = items.filter((item) => (item.fantasy_relevance ?? 1) >= 4);
-  const rest = items.filter((item) => (item.fantasy_relevance ?? 1) < 4);
-
-  const byDay = new Map();
-  for (const item of rest) {
-    const day = item.date ?? NO_DATE;
-    if (!byDay.has(day)) byDay.set(day, []);
-    byDay.get(day).push(item);
-  }
+  // El reparto vive en `select.js` y no aquí: es lógica con un fallo real
+  // detrás —30 de las 40 fichas importantes no se pintaban en ninguna caja— y
+  // eso pide un test, que un componente no puede tener.
+  const { destacadas, resto: rest } = partition(items, today);
+  const destacadasPorDia = agruparPorDia(destacadas, NO_DATE);
+  const byDay = agruparPorDia(rest, NO_DATE);
 
   const linked = items.filter((item) => item.player_ids?.length).length;
   const lastSweep = items[0]?.date;
@@ -294,7 +292,8 @@ export default function Research() {
 
       <div className="grid">
         <Stat label="Items" value={items.length} hint={`${research.window_days}-day window`} />
-        <Stat label="Move a lineup" value={headline.length} hint="Relevance 4 or 5" />
+        <Stat label="Move a lineup" value={today.length + destacadas.length}
+              hint="Relevance 4 or 5" />
         <Stat label="Linked to a player" value={linked} hint="From the weekly rankings" />
         <Stat
           label="Last sweep"
@@ -326,6 +325,28 @@ export default function Research() {
         </p>
         <TodaysIntelligence items={today} />
       </section>
+
+      {destacadasPorDia.size > 0 ? (
+        <>
+          {/* Lo que no cabe en los diez accionables SIGUE PUBLICÁNDOSE. Antes
+              se calculaba esta lista y no se pintaba en ninguna parte: con 40
+              fichas de relevancia alta, treinta desaparecían y la página se
+              veía llena igual. Van por día y por delante del contexto. */}
+          <h2>The rest of what matters</h2>
+          <p className="caption">
+            Relevance 4 and 5 that did not make the ten above — same bar, less immediate.
+            Nothing the sweep flags as lineup-moving is dropped.
+          </p>
+          {[...destacadasPorDia.entries()].map(([day, dayItems]) => (
+            <section key={`alta-${day}`} id={`alta-${day}`}>
+              <h3 className="day">{day === NO_DATE ? day : longDate(day)}</h3>
+              {dayItems.map((item, index) => (
+                <Note key={`alta-${day}-${index}`} item={item} />
+              ))}
+            </section>
+          ))}
+        </>
+      ) : null}
 
       {byDay.size > 0 ? (
         <>
