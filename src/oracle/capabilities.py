@@ -653,7 +653,9 @@ REGISTRY: tuple[Capability, ...] = (
             "La ingesta se ejercita contra un DOBLE de la API de Sleeper servido "
             "por el navegador de pruebas. Prueba el adaptador entero —sondeo, "
             "emparejamiento, plegado y frescura—, NO que la red del usuario llegue "
-            "a `api.sleeper.app`: eso sigue siendo SLEEPER_LIVE_BROWSER, BLOCKED.",
+            "a `api.sleeper.app`: eso es SLEEPER_LIVE_BROWSER, hoy NOT_READY — el "
+            "transporte está verificado desde un runner real y el mock no cubre la "
+            "identidad de la liga.",
         ),
         last_validated="2026-09-01",
         model_version=MODEL_VERSION,
