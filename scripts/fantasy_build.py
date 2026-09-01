@@ -372,7 +372,7 @@ def main(argv: list[str] | None = None) -> int:
     print(view.to_string(index=False, float_format=lambda x: f"{x:8.1f}"))
 
     print("\nValidando la metodología sobre temporadas pasadas...")
-    validation = validate(players, rules, settings)
+    validation = validate(players, rules, settings, team_games=team_games)
     fmt = lambda x: f"{x:7.3f}"  # noqa: E731
     print(f"\nTemporadas: {validation['seasons']}")
     print("\nPor posición (los proyectados que no jugaron cuentan 0):")
@@ -595,6 +595,9 @@ TOP_N = 24
 # TITULARES, y eso exige acotar el pool ANTES de conectarlo.
 DRAFTABLE = 180
 
+# Partidos de temporada regular. El techo de lo que alguien puede jugar.
+SEASON_LENGTH = 17.0
+
 
 def _metrics(predicted: np.ndarray, observed: np.ndarray) -> dict:
     """Correlaciones y error, con los empates dichos en vez de escondidos.
@@ -625,6 +628,41 @@ def _metrics(predicted: np.ndarray, observed: np.ndarray) -> dict:
     return out
 
 
+def expected_games_for(
+    season_av: pd.DataFrame, positions: pd.Series, season: int, pool: set[str] | None = None
+) -> pd.Series:
+    """Partidos esperados por jugador: 17 x (1 - tasa de ausencia).
+
+    ## Cómo está calibrado lo que hay debajo, y por qué importa la población
+
+    `availability.history` devuelve una TASA de partidos perdidos —no partidos
+    esperados—, ponderada 56/30/14 y encogida hacia la media de su posición. La
+    conversión es directa; lo que no es directo es sobre QUIÉN se calcula esa
+    media.
+
+    Sobre el universo entero de jugadores, la tasa mediana de ausencia es del
+    49%: la mitad de las filas son suplentes profundos y subidas de un partido,
+    y su «ausencia» no es fragilidad, es no ser titular. Con ese prior el
+    encogimiento aplasta a todo el mundo y **el jugador más durable no pasa de
+    14,09 partidos** — por debajo incluso de la constante que veníamos usando.
+    Es el mismo error que ya documentó este módulo: un Spearman de +0,48 sobre
+    todos los jugadores medía el puesto en la plantilla, no la propensión a
+    lesionarse.
+
+    Restringiendo la población a los drafteables, la mediana cae al 12-14% y el
+    techo sube a 16,2-16,25, con 11-14 jugadores por encima de 16. Eso ya es una
+    escala de disponibilidad y no un ranking de titularidad.
+    """
+    source = season_av if pool is None else season_av[season_av["player_id"].isin(pool)]
+    rates = avail.history(source, positions, season)
+    if rates.empty:
+        return pd.Series(dtype=float)
+    return pd.Series(
+        (SEASON_LENGTH * (1.0 - rates["missed_rate"])).to_numpy(),
+        index=rates["player_id"].to_numpy(),
+    )
+
+
 def _last_season_points(actual: pd.Series, season: int, index: pd.Index) -> np.ndarray:
     """La baseline honesta: lo que hizo cada jugador la temporada ANTERIOR.
 
@@ -642,7 +680,10 @@ def _last_season_points(actual: pd.Series, season: int, index: pd.Index) -> np.n
     return previous.reindex(index).fillna(0.0).to_numpy(dtype=float)
 
 
-def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> dict:
+def validate(
+    players: pd.DataFrame, rules, settings: LeagueSettings,
+    team_games: pd.DataFrame | None = None,
+) -> dict:
     """Proyección de pretemporada frente al resultado real, temporada a temporada.
 
     Cada temporada se proyecta usando **sólo** lo anterior. Es la misma regla
@@ -668,6 +709,10 @@ def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> dict:
     scored = players.copy()
     scored["fantasy_points"] = score_player_weeks(scored, rules)
     actual = scored.groupby(["player_id", "season"], observed=True)["fantasy_points"].sum()
+    posiciones = players.drop_duplicates("player_id").set_index("player_id")["position"]
+    season_av = (
+        avail.season_availability(players, team_games) if team_games is not None else None
+    )
 
     por_posicion: list[dict] = []
     por_banda: list[dict] = []
@@ -680,6 +725,35 @@ def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> dict:
             projected = project_season(players, season, rules)
         except ValueError:
             continue
+
+        # El MISMO board con partidos esperados por jugador, para poder dar el
+        # antes/después sobre el pool congelado sin recorrer nada dos veces.
+        con_disponibilidad = None
+        if season_av is not None:
+            previos_pool = actual.xs(season - 1, level="season", drop_level=True)
+            previos_pool = previos_pool[
+                previos_pool.index.map(posiciones).isin(FANTASY_POSITIONS)
+            ]
+            base_pool = set(previos_pool.nlargest(DRAFTABLE).index)
+            juegos = expected_games_for(season_av, posiciones, season, base_pool)
+            if not juegos.empty:
+                con_disponibilidad = project_season(
+                    players, season, rules, expected_games=juegos
+                )
+        # EL POOL DE EVALUACIÓN, CONGELADO. Se define UNA vez por temporada y
+        # de forma independiente del modelo: los 180 primeros por puntos de la
+        # temporada previa, que es el orden de la baseline.
+        #
+        # Sin esto, cada cambio del modelo reordena el board y por tanto cambia
+        # QUIÉNES entran en la muestra, así que el delta medido mezcla «el
+        # modelo ordena mejor» con «se está midiendo sobre otros jugadores».
+        # Ya arruinó la lectura del commit del reemplazo, donde modelo y
+        # baseline se movieron a la vez; con disponibilidad, que reordena de
+        # forma agresiva, sería peor que el efecto que se quiere medir.
+        previos = actual.xs(season - 1, level="season", drop_level=True)
+        previos = previos[previos.index.map(posiciones).isin(FANTASY_POSITIONS)]
+        congelado = list(previos.nlargest(DRAFTABLE).index)
+
         # Las bandas se cortan sobre el board, o sea sobre VOR — NO sobre puntos
         # brutos. Un quarterback suma del orden de 1,7 veces más que un
         # receptor, así que ordenar por puntos pone 43 quarterbacks en los 50
@@ -703,20 +777,24 @@ def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> dict:
 
         orden = projected["overall_rank"]
 
-        # LA MUESTRA ACOTADA: los 180 primeros del board. Todo lo que sigue
-        # —modelo y baseline— se mide sobre EXACTAMENTE estos jugadores.
-        pool = projected.index[orden <= DRAFTABLE]
+        # La muestra es el pool CONGELADO, intersecado con lo proyectable.
+        pool = projected.index.intersection(pd.Index(congelado))
+        if len(pool) < 60:
+            continue
         sub = projected.loc[pool]
         obs_pool = observed_all.loc[pool]
-        base_pool = _last_season_points(actual, season, pool)
+        base_puntos = _last_season_points(actual, season, pool)
 
         # Los dos predictores, uno al lado del otro. La baseline no es un
         # adorno: sin ella, «Spearman .35» no dice si le ganamos a mirar la
         # tabla del año pasado, que es lo único que hay que batir para aportar.
         modelos = {
             "model": sub["projected_points"].to_numpy(dtype=float),
-            "last_season": base_pool,
+            "last_season": base_puntos,
         }
+        if con_disponibilidad is not None:
+            con = con_disponibilidad.set_index("player_id")["projected_points"]
+            modelos["model_availability"] = con.reindex(pool).to_numpy(dtype=float)
 
         for position in FANTASY_POSITIONS:
             mask = (sub["position"] == position).to_numpy()

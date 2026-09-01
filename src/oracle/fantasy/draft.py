@@ -51,7 +51,17 @@ SEASON_WEIGHTS = (0.56, 0.30, 0.14)
 # Partidos proyectados para todos. Es una simplificación consciente y está en
 # las limitaciones del README: no se diferencia el riesgo de lesión individual,
 # porque las lesiones pasadas predicen las futuras mucho peor de lo que se cree
-# y una proyección "ajustada por lesiones" mal hecha es peor que ninguna.
+# Partidos de RESPALDO, cuando no hay disponibilidad por jugador.
+#
+# Era la constante que se aplicaba a TODO el mundo, y ahí estaba el sesgo: una
+# temporada tiene 17 partidos, así que 15,5 ya es un descuento medio de liga —
+# pero repartido por igual entre el titular durable y el frágil. Al primero le
+# quedaba corto y al segundo le regalaba partidos que no iba a jugar, que es
+# exactamente lo que la baseline «puntos del año pasado» no hace: un total de
+# temporada ya lleva dentro los partidos jugados.
+#
+# Ahora `project_season` acepta partidos esperados POR JUGADOR y esto sólo se
+# usa cuando no hay historial de disponibilidad para alguien.
 PROJECTED_GAMES = 15.5
 
 # Partidos de prior del encogimiento hacia la media posicional. 10 ≈ media
@@ -111,6 +121,7 @@ def project_season(
     season: int,
     rules: ScoringRules = PPR,
     ages: pd.Series | None = None,
+    expected_games: pd.Series | None = None,
 ) -> pd.DataFrame:
     """Proyección de temporada completa para `season`.
 
@@ -187,7 +198,20 @@ def project_season(
         board["age"] = np.nan
         board["age_factor"] = 1.0
 
-    board["projected_points"] = board["ppg_shrunk"] * board["age_factor"] * PROJECTED_GAMES
+    # PARTIDOS ESPERADOS POR JUGADOR. No es un multiplicador encima de la
+    # constante —eso descontaría dos veces—: la sustituye. Quien no tenga
+    # historial de disponibilidad se queda con el respaldo, y se dice cuál se
+    # usó en cada fila en vez de dejarlo indistinguible.
+    if expected_games is not None:
+        games = board["player_id"].map(expected_games).astype(float)
+        board["expected_games"] = games.fillna(PROJECTED_GAMES)
+        board["games_source"] = np.where(games.notna(), "player", "default")
+    else:
+        board["expected_games"] = float(PROJECTED_GAMES)
+        board["games_source"] = "default"
+    board["projected_points"] = (
+        board["ppg_shrunk"] * board["age_factor"] * board["expected_games"]
+    )
     board["season"] = season
     return board.sort_values("projected_points", ascending=False).reset_index(drop=True)
 

@@ -9,12 +9,22 @@ export const metadata = {
     "Value over replacement board with per-position rankings and the VOR curve that shows where each position falls off.",
 };
 
+// El tercer predictor es el modelo con partidos esperados POR JUGADOR en vez de
+// la constante de liga. Se publica al lado porque el resultado es mixto y esa
+// es la información: esconderlo detrás de una media daría una respuesta que los
+// datos no dan.
+const PREDICTOR_LABEL = {
+  model: "This model",
+  last_season: "Last season's points",
+  model_availability: "This model + per-player games",
+};
+
 const VALIDATION_COLUMNS = [
   { key: "position", label: "Position", format: (v) => <PositionChip position={v} /> },
   {
     key: "predictor",
     label: "Predictor",
-    format: (v) => (v === "model" ? "This model" : "Last season's points"),
+    format: (v) => PREDICTOR_LABEL[v] ?? v,
   },
   { key: "pearson", label: "Correlation", format: (v) => num(v, 2) },
   { key: "spearman", label: "Spearman", format: (v) => num(v, 2) },
@@ -26,7 +36,7 @@ const BAND_COLUMNS = [
   {
     key: "predictor",
     label: "Predictor",
-    format: (v) => (v === "model" ? "This model" : "Last season's points"),
+    format: (v) => PREDICTOR_LABEL[v] ?? v,
   },
   { key: "spearman", label: "Spearman", format: (v) => num(v, 2) },
   { key: "mae", label: "MAE (pts)", format: (v) => num(v, 0) },
