@@ -258,34 +258,50 @@ export default function Fantasy() {
           </p>
           <Table columns={VALIDATION_COLUMNS} rows={fantasy.validation ?? []} />
 
-          <Callout title="These numbers went down, and the old ones were wrong">
+          <Callout title="Three measurement bugs, and what each one hid">
             <p>
               An earlier version of this table reported Spearman around{" "}
-              <strong>0.61 to 0.69</strong>. It measured only players who actually appeared
-              that season — anyone who missed the year was dropped from the sample instead of
-              counting as what he was: <strong>a burned pick</strong>. That is survivorship,
-              and it inflates every figure.
+              <strong>0.61 to 0.69</strong>. Three separate faults in the harness produced
+              that number, and they did not all point the same way.
             </p>
             <p>
-              Now a projected player who never played scores a real <strong>0</strong>, and
-              the sample is capped at the <strong>top 180 of the board</strong> — twelve teams
-              by fifteen rounds. Measuring the full projected pool answered &ldquo;is this an
-              NFL player?&rdquo; rather than &ldquo;is this a good pick?&rdquo;
+              <strong>Survivorship.</strong> Only players who actually appeared that season
+              were scored; anyone who missed the year was dropped instead of counting as what
+              he was — <em>a burned pick</em>. That inflated everything, and it made the cost
+              of injury invisible. A projected player who never played now scores a real{" "}
+              <strong>0</strong>.
             </p>
             <p>
-              The lower numbers are the honest ones. The change was to the measurement, not to
-              the projections.
+              <strong>An unbounded pool.</strong> Measuring all 353 projected receivers
+              answered &ldquo;is this an NFL player?&rdquo; rather than &ldquo;is this a good
+              pick?&rdquo; The sample is now <strong>180 players</strong> — twelve teams by
+              fifteen rounds.
             </p>
+            <p>
+              <strong>A sample the model chose.</strong> The pool used to be the top of{" "}
+              <em>this board</em>, so every change to the model changed who was being graded,
+              and the comparison ran against players the model itself had selected. The pool
+              is now frozen before the model runs: the top 180 by{" "}
+              <strong>last season&rsquo;s points</strong>, which is the baseline&rsquo;s own
+              order. That fault ran <em>against</em> us — correcting it moved the verdict in
+              the model&rsquo;s favour.
+            </p>
+            <p>The numbers here are the measurement, not the projections.</p>
           </Callout>
 
           <p>
             The second row of each position is the comparison that matters:{" "}
             <strong>ordering players by what they scored last season</strong>. That is the bar
-            a projection has to clear to be worth anything, and on this sample{" "}
-            <strong>it is not cleared</strong> — the model wins in{" "}
-            <strong>8 of 16</strong> season-by-position cells, which is a coin flip. It is
-            ahead where picks are expensive (board ranks 1&ndash;50) and behind deep in the
-            board.
+            a projection has to clear to be worth anything. On the frozen pool the model leads
+            at <strong>three of four positions</strong> — quarterback, running back and
+            receiver — and trails at tight end.
+          </p>
+          <p>
+            That lead is real but not comfortable. Season by season it is{" "}
+            <strong>8 of 16</strong> position-seasons: the model wins less often than it
+            leads, and leads because it wins by wider margins than it loses by. Four seasons
+            and roughly two hundred draftable players is not enough to call a small edge, and
+            we do not.
           </p>
 
           <h3>By board rank</h3>
