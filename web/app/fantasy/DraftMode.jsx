@@ -708,8 +708,9 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
                         )
                         .filter(Boolean)
                         .join(", ")}
-                      {sync.unmatched.length > 5 ? "…" : ""}. Almost always rookies: with no
-                      NFL game played they are not on the board.
+                      {sync.unmatched.length > 5 ? "…" : ""}. Usually a player with no
+                      Sleeper id in the baked identity map — resolving him by name could
+                      cross off the wrong one, so he stays available and this line says so.
                     </>
                   ) : null}
                 </>

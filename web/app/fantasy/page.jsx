@@ -423,12 +423,19 @@ export default function Fantasy() {
 
           <h2>Limitations</h2>
           <ul>
-            <li>Rookies do not appear: with no NFL games there is no history to project.</li>
+            <li>
+              <strong>A rookie&rsquo;s number knows his draft round and nothing else.</strong>
+              Two rookies taken in the same round at the same position get the same
+              projection, because that is all the prior can tell them apart. Within a round
+              they are ordered by pick, which is a fact, not a claim about the gap.
+            </li>
             <li>
               <strong>Projections do not discount injuries.</strong> They come from games
-              played and count on a player even when he is ruled out. The availability tag next
-              to the name comes from the dossier and is a <em>parallel</em> fact: it does not
-              touch the number on the right, it contradicts it when it should.
+              played and count on a player even when he is ruled out. Two parallel facts sit
+              beside the name instead of inside the number: the availability tag from the
+              dossier, and the red mark for anyone suspended, on the exempt list, on IR or on
+              season PUP &mdash; that one is reported, dated and sourced, because roster data
+              says <code>ACT</code> for a player the league has set aside.
             </li>
             <li>The internal split of a new backfield is inherited from last year.</li>
             <li>
