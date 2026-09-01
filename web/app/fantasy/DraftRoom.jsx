@@ -156,7 +156,14 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
   }, [context.specialists]);
   // El POOL completo — para plantilla, feed y búsqueda. `available` (la lista
   // ordenada por VOR) sigue siendo sólo el board.
-  const pool = useMemo(() => board.concat(specialists), [board, specialists]);
+  /* NOVATOS. Existen y se pueden draftear aunque el modelo no los proyecte.
+     Van en su propio cubo, como K y DST, porque comparten exactamente la misma
+     propiedad: identidad resuelta, valor UNKNOWN. Mezclarlos en `available`
+     —la lista ORDENADA por VOR— exigiría darles un número, y no lo tienen. */
+  const rookies = useMemo(() => context.rookies ?? [], [context.rookies]);
+  const pool = useMemo(
+    () => board.concat(specialists, rookies), [board, specialists, rookies]
+  );
 
   // Un solo pliegue para las dos fuentes. El orden lo resuelve `fold`, que ya
   // sabe que a igualdad de instante manda MANUAL sobre SLEEPER: una corrección
@@ -193,6 +200,10 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
   const availableSpecialists = useMemo(
     () => specialists.filter((row) => !effective.byPlayer.has(row.player_id)),
     [specialists, effective]
+  );
+  const availableRookies = useMemo(
+    () => rookies.filter((row) => !effective.byPlayer.has(row.player_id)),
+    [rookies, effective]
   );
   const roster = useMemo(
     () => pool.filter((row) => effective.mine.has(row.player_id)),
@@ -312,7 +323,11 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
     // que competir por un puesto en el orden. En ALL quedan fuera de la ventana
     // de 60 salvo búsqueda — con su filtro se ven enteros.
     let rows = available.filter((r) => rankedWanted.has(r.position))
-      .concat(availableSpecialists.filter((r) => specialWanted.has(r.position)));
+      .concat(availableSpecialists.filter((r) => specialWanted.has(r.position)))
+      // Los novatos, detrás de los que sí tienen valor. En ALL caen fuera de la
+      // ventana de 60 y por eso la BÚSQUEDA es su vía principal: si sé a quién
+      // quiero, tengo que encontrarlo, y esta noche eso es lo que importa.
+      .concat(availableRookies.filter((r) => rankedWanted.has(r.position)));
     if (text.length >= 2) {
       rows = rows.filter(
         (row) =>
@@ -322,7 +337,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
       );
     }
     return rows.slice(0, 60);
-  }, [available, availableSpecialists, picked, all, query]);
+  }, [available, availableSpecialists, availableRookies, picked, all, query]);
 
   const best = available[0] ?? null;
   const depth = useMemo(() => positionDepth(available), [available]);
@@ -464,6 +479,16 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
           <span className="room-where-sep" aria-hidden="true">·</span>
           <span className="room-count">
             <strong>{state.count}</strong> recorded
+          </span>
+          <span className="room-where-sep" aria-hidden="true">·</span>
+          {/* RANKEADOS != DRAFTEABLES. Enseñar sólo 344 hacía parecer que el
+              universo del draft eran los jugadores con VOR, y los novatos y los
+              especialistas quedaban fuera de esa cuenta sin dejar rastro. */}
+          <span className="room-pool">
+            <strong>{available.length}</strong> ranked
+            <small>
+              of {available.length + availableSpecialists.length + availableRookies.length} draftable
+            </small>
           </span>
         </p>
 
@@ -623,6 +648,16 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
       <div className="room-grid">
         {/* --- tablero disponible ------------------------------------------ */}
         <section className="room-board" aria-label="Available players">
+          {/* La lista se ordena por VOR y un novato no tiene, así que queda
+              fuera del orden. Excluirlo es correcto; CALLARLO no, porque se
+              leería como «no hay nadie más». Que falte el número no dice que el
+              jugador sea peor — dice que el modelo no opina. */}
+          {availableRookies.length > 0 ? (
+            <p className="room-rookie-note">
+              {availableRookies.length} rookies available without validated model value —
+              search by name to draft one
+            </p>
+          ) : null}
           <div className="room-tools">
             <input
               type="search"
@@ -695,9 +730,18 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                           NEWS
                         </span>
                       ) : null}
+                      {entry.row.rookie ? (
+                        /* EXISTE y se puede draftear; su VALOR es UNKNOWN. Son
+                           dos cosas distintas y la fila dice las dos. Sin
+                           alarma: no es un aviso, es el alcance del modelo. */
+                        <span className="room-row-rookie"
+                              title="Rookie — no NFL games yet, so the model has no projection. Draftable, not ranked.">
+                          ROOKIE
+                        </span>
+                      ) : null}
                       <span className="room-row-vor">
                         {entry.row.vor === null || entry.row.vor === undefined
-                          ? "—" : num(entry.row.vor, 1)}
+                          ? (entry.row.rookie ? "UNKNOWN" : "—") : num(entry.row.vor, 1)}
                       </span>
                     </button>
                   </li>

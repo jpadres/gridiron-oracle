@@ -445,3 +445,60 @@ def sleeper_id_map(
         if code:
             index[code] = f"DST_{code}"
     return index
+
+
+def rookies_2026(raw_dir: Path, season: int = 2026) -> list[dict]:
+    """Los novatos de la temporada, con identidad verificada y SIN valor.
+
+    Existen aunque el modelo no los proyecte. Un draft real los ofrece, así que
+    el asistente tiene que poder enseñarlos, buscarlos y tacharlos cuando
+    alguien los elige — y sobre todo resolver su pick de Sleeper por id, porque
+    marcarlos UNMAPPED descuadraría el contador del draft.
+
+        EXISTIR != DRAFTEABLE != PROYECTADO != RANKEADO != RECOMENDABLE
+
+    Lo que NO se hace aquí es inventarles un número. Sin partidos NFL no hay
+    proyección defendible, así que no viajan ni `vor` ni `projected_points` ni
+    `tier`: la interfaz escribe UNKNOWN. Un cero diría «vale lo que su
+    reemplazo», que es una afirmación, no la ausencia de una.
+
+    La identidad sale de los rosters de nflverse —`entry_year`, `sleeper_id` y
+    `gsis_id` en la misma fila—, no de emparejar nombres.
+    """
+    path = raw_dir / f"roster_{season}.parquet"
+    if not path.exists():
+        return []
+    columns = [
+        "gsis_id", "sleeper_id", "full_name", "position", "team",
+        "entry_year", "draft_number", "draft_club",
+    ]
+    frame = pd.read_parquet(path, columns=columns)
+    frame = frame[
+        (frame["entry_year"] == season)
+        & (frame["position"].isin(FANTASY_POSITIONS))
+        & frame["gsis_id"].notna()
+        & frame["sleeper_id"].notna()
+    ].drop_duplicates("gsis_id")
+
+    out: list[dict] = []
+    for row in frame.itertuples(index=False):
+        team = normalize_team(row.team)
+        if not team:
+            continue
+        pick = row.draft_number
+        out.append({
+            "player_id": str(row.gsis_id),
+            "sleeper_id": str(row.sleeper_id),
+            "player_full_name": str(row.full_name),
+            "player_name": str(row.full_name),
+            "position": str(row.position),
+            "team": team,
+            # El capital de draft es un HECHO comprobable, no una proyección.
+            # Se publica porque ordena la lista de forma defendible; no es un
+            # ranking del modelo y la interfaz no lo llama así.
+            "draft_pick": int(pick) if pick == pick and pick is not None else None,
+            "rookie": True,
+        })
+    # Los elegidos primero y por número de pick; los no elegidos, después.
+    out.sort(key=lambda r: (r["draft_pick"] is None, r["draft_pick"] or 0, r["player_full_name"]))
+    return out

@@ -44,6 +44,9 @@ export default function DraftRoomPage() {
         // IDENTIFICADOR en vez de por nombre. Sin él, el adaptador marca
         // UNMAPPED en lugar de adivinar.
         sleeperIds: fantasy.sleeper_ids ?? null,
+        // Novatos: identidad verificada, valor UNKNOWN. Existir y estar
+        // proyectado no son lo mismo, y un draft real ofrece a los dos.
+        rookies: fantasy.rookies ?? null,
         // CONTEXTO ACTUAL, al lado del valor y nunca dentro. El board de
         // `/fantasy` ya lo enseñaba y el asistente NO lo recibía: la pantalla
         // que se mira en mitad del draft era la única sin las noticias.

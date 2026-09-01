@@ -39,7 +39,7 @@ from oracle.config import paths as resolve_paths
 from oracle.data import identity
 from oracle.fantasy.components import COMPONENTS
 from oracle.fantasy.draft import PROJECTED_GAMES, SHRINK_PRIOR_GAMES, TD_PERSISTENCE
-from oracle.leagues.sleeper import sleeper_id_map
+from oracle.leagues.sleeper import rookies_2026, sleeper_id_map
 from oracle.pipeline import Oracle
 
 # Límite de aviso del payload comprimido. No es un límite técnico: es la señal
@@ -429,11 +429,23 @@ def _attach_sleeper_ids(fantasy: dict) -> None:
     raw_dir = Path("data/raw")
     if not raw_dir.exists():
         return
+
+    # NOVATOS. Existen y se pueden draftear aunque el modelo no los proyecte.
+    # Viajan SIN vor, sin proyección y sin tier: la interfaz escribe UNKNOWN.
+    try:
+        rookies = rookies_2026(raw_dir, int(fantasy.get("season") or 0))
+    except Exception:  # noqa: BLE001 - sin novatos se publica igual
+        rookies = []
+    if rookies:
+        fantasy["rookies"] = rookies
     specialists = fantasy.get("specialists") or {}
     kickers = specialists.get("kickers") or [] if isinstance(specialists, dict) else []
     defenses = specialists.get("defenses") or [] if isinstance(specialists, dict) else []
     ids = {row.get("player_id") for row in board if isinstance(row, dict)}
     ids |= {row.get("player_id") for row in kickers if isinstance(row, dict)}
+    # Sin esto, el pick de un novato sería UNMAPPED: identidad NO resuelta. Y no
+    # es eso — su identidad se resuelve perfectamente; lo que falta es su valor.
+    ids |= {row["player_id"] for row in rookies}
     try:
         mapping = sleeper_id_map(
             raw_dir,

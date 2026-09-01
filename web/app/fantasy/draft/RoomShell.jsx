@@ -163,8 +163,12 @@ export default function RoomShell({ board, context }) {
      pateador o una defensa fichados en Sleeper también salen del tablero. */
   const pool = useMemo(() => {
     const s = context.specialists;
-    return [...board, ...(s?.kickers ?? []), ...(s?.defenses ?? [])];
-  }, [board, context.specialists]);
+    // Los NOVATOS entran aquí. Sin ellos el adaptador no los tiene en su índice
+    // y el pick de un novato sale UNMAPPED — «identidad no resuelta», que es
+    // justo lo que NO pasa: su identidad de Sleeper está verificada; lo que le
+    // falta es valor. Y un UNMAPPED de más descuadra el contador del draft.
+    return [...board, ...(s?.kickers ?? []), ...(s?.defenses ?? []), ...(context.rookies ?? [])];
+  }, [board, context.specialists, context.rookies]);
 
   /* La sincronización vive AQUÍ y no dentro del asistente porque de ella sale
      también la configuración real de la liga, y con ella el valor. Si la
