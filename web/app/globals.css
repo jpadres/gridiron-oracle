@@ -397,6 +397,12 @@ footer { border-top: 1px solid var(--line); margin-top: var(--space-7); padding-
   background: var(--accent); color: #fff; cursor: pointer;
 }
 .retry:hover { filter: brightness(1.08); }
+/* La segunda acción es de recuperación, no la principal: mismo tamaño táctil,
+   menos peso visual, para que «Retry» siga siendo lo primero que se pulsa. */
+.retry--alt {
+  background: transparent; color: var(--accent);
+}
+.state-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
 
 /* Sólo para lectores de pantalla. El esqueleto no dice nada en voz alta por sí
    mismo, y «cargando» es justo lo que hace falta anunciar. */
