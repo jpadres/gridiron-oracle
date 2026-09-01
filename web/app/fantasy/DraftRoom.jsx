@@ -58,6 +58,33 @@ const SPECIAL_POSITIONS = ["K", "DST"];
  * comprobable; «probablemente aguante hasta tu turno» sería una probabilidad que
  * nadie ha calibrado.
  */
+/**
+ * Lo que hay que saber para leer el número de un novato, en una línea.
+ *
+ * El valor sale de la previa por capital de draft (E9, Spearman 0,604
+ * walk-forward), no de partidos NFL que no existen. Por eso viaja siempre con
+ * su intervalo OBSERVADO y su muestra: la celda del quarterback de segunda
+ * ronda promedia 63,4 puntos con mediana 15,9 —o juega o no juega— y enseñar
+ * sólo la media describiría a casi ninguno de ellos.
+ */
+function rookieBrief(row) {
+  if (!row?.rookie) return "";
+  const round = Number(row.rookie_round);
+  const capital = row.draft_pick
+    ? `pick ${row.draft_pick}`
+    : Number.isFinite(round) && round >= 8 ? "undrafted" : "draft capital UNKNOWN";
+  const band = ["rookie_p25", "rookie_p50", "rookie_p75"].every((k) => Number.isFinite(row[k]))
+    ? ` Past rookies in this cell scored ${Math.round(row.rookie_p25)}–`
+      + `${Math.round(row.rookie_p50)}–${Math.round(row.rookie_p75)} points `
+      + `(25th/median/75th, n=${row.rookie_sample}).`
+    : "";
+  const split = row.rookie_bimodal
+    ? " That cell splits: most score near zero and a few carry the average."
+    : "";
+  return `Rookie — ${capital}. Value comes from draft capital, not NFL games.${band}${split}`
+    + " No risk, absence or bust signal: those need NFL history.";
+}
+
 function tierDepth(available, position) {
   const rows = available.filter((row) => row.position === position);
   if (rows.length === 0) return null;
@@ -616,6 +643,19 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                   {entry.row.rostered === false ? (
                     <li className="room-why-noteam"><b>No NFL team</b> — free agent</li>
                   ) : null}
+                  {entry.row.rookie ? (
+                    /* Un novato en la lista corta tiene que llegar con su
+                       intervalo. El valor de al lado es la media encogida de su
+                       celda y las celdas son anchas: sin el rango, un número
+                       solo sugiere una precisión que la previa no tiene. */
+                    <li className="room-why-rookie" title={rookieBrief(entry.row)}>
+                      <b>Rookie</b>
+                      {Number.isFinite(entry.row.rookie_p25)
+                        ? ` — past rookies here: ${Math.round(entry.row.rookie_p25)}–`
+                          + `${Math.round(entry.row.rookie_p75)} pts (n=${entry.row.rookie_sample})`
+                        : " — value from draft capital, no NFL games yet"}
+                    </li>
+                  ) : null}
                   {entry.reasons.map((reason) => (
                     <li key={reason.kind}>{reason.text}</li>
                   ))}
@@ -651,10 +691,11 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
       <div className="room-grid">
         {/* --- tablero disponible ------------------------------------------ */}
         <section className="room-board" aria-label="Available players">
-          {/* La lista se ordena por VOR y un novato no tiene, así que queda
-              fuera del orden. Excluirlo es correcto; CALLARLO no, porque se
-              leería como «no hay nadie más». Que falte el número no dice que el
-              jugador sea peor — dice que el modelo no opina. */}
+          {/* Los novatos CON previa están en el board, ordenados como todos.
+              Aquí quedan sólo aquéllos a los que no se les puede aplicar
+              ninguna celda —posición fuera de las cuatro, o sin muestra— y de
+              ésos el modelo sigue sin opinar. Excluirlos del orden es correcto;
+              CALLARLO no, porque se leería como «no hay nadie más». */}
           {availableRookies.length > 0 ? (
             <p className="room-rookie-note">
               {availableRookies.length} rookies available without validated model value —
@@ -743,11 +784,15 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                         </span>
                       ) : null}
                       {entry.row.rookie ? (
-                        /* EXISTE y se puede draftear; su VALOR es UNKNOWN. Son
-                           dos cosas distintas y la fila dice las dos. Sin
-                           alarma: no es un aviso, es el alcance del modelo. */
-                        <span className="room-row-rookie"
-                              title="Rookie — no NFL games yet, so the model has no projection. Draftable, not ranked.">
+                        /* ROOKIE, y desde agosto de 2026 CON número: la previa
+                           por capital de draft está validada walk-forward (E9).
+                           Sin alarma —no es un aviso, es de dónde sale el
+                           valor— y con el intervalo observado de su celda en el
+                           título, porque una previa de novato sin su dispersión
+                           es justo el número que la capacidad prohíbe publicar
+                           solo: el QB de segunda ronda promedia 63 y su mediana
+                           es 16. */
+                        <span className="room-row-rookie" title={rookieBrief(entry.row)}>
                           ROOKIE
                         </span>
                       ) : null}

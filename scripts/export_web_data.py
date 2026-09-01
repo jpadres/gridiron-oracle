@@ -70,6 +70,16 @@ DRAFT_COLUMNS = (
     # oráculo, y de esos no se puede discrepar.
     "risk_label", "risk_score", "risk_reasons",
     "risk_sample", "risk_shrink", "risk_touchdown",
+    # NOVATO. La marca y, con ella, lo que hace falta para leer su número sin
+    # confundirlo con el de un veterano: la ronda en que lo eligieron, el
+    # intervalo OBSERVADO de su celda (p25-p50-p75), cuántos rookies la
+    # sostienen y si esa celda es bimodal — «o juega o no juega», que es el caso
+    # del quarterback de segunda ronda: media 63,4 y mediana 15,9.
+    #
+    # El intervalo viaja aunque ocupe: una previa de novato sin su dispersión es
+    # exactamente el número que la capacidad prohíbe publicar solo.
+    "rookie", "draft_pick", "rookie_round",
+    "rookie_p25", "rookie_p50", "rookie_p75", "rookie_sample", "rookie_bimodal",
     # Ausencia y bust. Son señales distintas de la volatilidad y por eso viajan
     # aparte: la volatilidad mide cuánto puede moverse la proyección en los dos
     # sentidos, `p_bust` sólo la cola de abajo, y `missed_rate` cuántos partidos
@@ -435,14 +445,24 @@ def _attach_sleeper_ids(fantasy: dict) -> None:
     if not raw_dir.exists():
         return
 
-    # NOVATOS. Existen y se pueden draftear aunque el modelo no los proyecte.
-    # Viajan SIN vor, sin proyección y sin tier: la interfaz escribe UNKNOWN.
+    # NOVATOS SIN PREVIA APLICABLE. Los que SÍ la tienen van en el board, con su
+    # valor y su intervalo, desde que `ROOKIE_PRIOR` pasó a VALIDATED. Aquí
+    # queda sólo el resto: existen, se pueden draftear y la interfaz escribe
+    # UNKNOWN, que sigue siendo la respuesta correcta cuando no hay nada medido
+    # que decir.
+    #
+    # El filtro contra el board no es cosmético: publicar a un novato en las dos
+    # listas lo pintaría dos veces en el tablero y descuadraría el conteo de
+    # disponibles, que es lo que el asistente usa para decir cuántos quedan.
+    en_board = {row.get("player_id") for row in board if isinstance(row, dict)}
     try:
-        rookies = rookies_2026(raw_dir, int(fantasy.get("season") or 0))
+        rookies = [
+            row for row in rookies_2026(raw_dir, int(fantasy.get("season") or 0))
+            if row["player_id"] not in en_board
+        ]
     except Exception:  # noqa: BLE001 - sin novatos se publica igual
         rookies = []
-    if rookies:
-        fantasy["rookies"] = rookies
+    fantasy["rookies"] = rookies
     specialists = fantasy.get("specialists") or {}
     kickers = specialists.get("kickers") or [] if isinstance(specialists, dict) else []
     defenses = specialists.get("defenses") or [] if isinstance(specialists, dict) else []

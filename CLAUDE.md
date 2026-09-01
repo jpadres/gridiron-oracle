@@ -227,6 +227,8 @@ src/oracle/
   fantasy/risk.py        volatilidad de la proyección, VALIDADA contra el error real
   fantasy/availability.py tasa de ausencia: partidos del equipo en que no aparece
   fantasy/bust.py        P(terminar bajo el 70% de la proyección), calibrada
+  fantasy/rookies.py     previa por capital de draft: la ÚNICA fuente de valor
+                         de un novato, en componentes y con intervalo
   pipeline.py            Oracle.train() -> predict() -> value_bets()
   cli.py                 comando `oracle`
 research/                archivo diario de prensa + dossier curado — SÍ se versiona
@@ -335,6 +337,9 @@ comentario está para que no los reintroduzcas.
 | Un doble de Sleeper por laboratorio | `tools/lab/sleeper-double.mjs` | Al resolver por id y derivar la identidad de `draft_order`, un doble al que le falte un campo no falla: prueba otra cosa y sale VERDE. Tres copias eran tres coberturas distintas del mismo formato — el fallo de los dos traductores, por cuarta vez. Uno solo, compartido |
 | El mapa de identidad, pedido en caliente | `export_web_data.py` | El catálogo de jugadores de Sleeper son 5 MB y su documentación pide no bajarlo a menudo. Es información ESTABLE: se hornea en el build desde los rosters de nflverse, que ya publican `sleeper_id` junto al `gsis_id` del board. Cero peticiones extra, y los 4 que no cuadran salen UNMAPPED en vez de emparejarse por nombre |
 | El asistente decía «tu liga» sobre el board publicado | `draft/page.jsx` | La superflex de 12 daba el MISMO orden que la PPR de 12 porque a esa página nunca le llegaron `positionPriors` ni `componentOrder`: `leagueBoardFrom` devolvía `null` en silencio y se caía al publicado. El compilador estaba bien; el contexto llegaba pobre. **Un fallback silencioso a algo correcto-para-otra-cosa no falla, miente** |
+| Publicar UNKNOWN teniendo la medición hecha | `scripts/fantasy_build.py` | El board no proyectaba novatos y la interfaz escribía UNKNOWN mientras `ROOKIE_PRIOR` llevaba meses VALIDATED (Spearman 0,604 walk-forward). UNKNOWN > INVENTADO sigue en pie; **UNKNOWN > MEDIDO no**. Callar una medición no es prudencia, es media medición |
+| El novato, encogido dos veces | `leagueValue.js` | `projectPlayer` encoge con `weighted_games` como fiabilidad y un novato tiene CERO: devolvía la media de la posición, la misma para el pick 3 y para la séptima ronda. O sea, borraba justo la señal por la que existe la previa. Un novato se compila y no se vuelve a encoger |
+| El novato cae bajo, y está medido | `scripts/rookie_placement_validate.py` | A igual proyección y posición, los novatos de 2019-2025 realizaron 127,2 puntos y los veteranos de al lado 19,6. Las escalas no son la misma —el veterano se proyecta como si jugara 15,5 partidos; la previa de novato es el total observado con sus ceros— y el sesgo se publica **sin corregir**: no hay corrección validada, y un multiplicador a ojo sería peor que el sesgo conocido |
 | Un fixture de Sleeper sin `metadata.position` | `tools/lab/live-assistant.mjs` | El emparejamiento cruza por nombre Y posición. El doble no la mandaba, así que no casaba NADA y el laboratorio esperaba 180 veces su timeout. El fallo no estaba en el producto sino en un doble que no se parecía al original: **un doble que miente en un campo prueba otra cosa** |
 | Contar WR sobre las filas pintadas | `tools/lab/live-assistant-matrix.mjs` | La lista se corta en 60, así que «cuántos receptores quedan» medía el scroll. Es el artefacto exacto del «2 left in tier», reaparecido en el TEST esta vez. Se cuenta sobre el pool que el producto declara |
 
@@ -355,8 +360,11 @@ dependencias + verificación de cabeceras, workflow semanal que regenera y publi
 
 - **Líneas de apertura** (M2). El backtest mide contra el **cierre**, que nadie
   apuesta. Ahí es donde está el edge real, no en más features.
-- **Rookies en fantasy** (M5). Hoy no aparecen: sin partidos NFL no hay historial.
-  El capital de draft es el mejor predictor público que existe para ellos.
+- **La escala del novato contra la del veterano** (M5). Los novatos ya están en
+  el board, con la previa por capital de draft. Lo que queda es que las dos
+  escalas no son comparables —medido: +107,6 puntos a favor del novato a igual
+  proyección— y arreglarlo de verdad pasa por el lado del VETERANO, cuya
+  proyección supone 15,5 partidos para todo el mundo.
 - **Line shopping** (M2). Buena parte del edge no está en el modelo, está en
   apostar el mismo número donde mejor lo pagan.
 

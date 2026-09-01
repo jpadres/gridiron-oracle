@@ -918,6 +918,11 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   margin: calc(var(--space-1) * -1) 0 var(--space-2);
   font-size: var(--text-micro); color: var(--chalk-dim);
 }
+/* La línea del novato en la lista corta: mismo peso que el resto de hechos.
+   No lleva el rojo de SIN EQUIPO porque no invalida el número de al lado — lo
+   acota. */
+.room-why-rookie { color: var(--chalk); }
+.room-why-rookie b { color: var(--chalk-dim); letter-spacing: .06em; }
 .room-pool { font-size: var(--text-micro); color: var(--chalk-dim); }
 .room-pool small { color: var(--chalk-dim); font-weight: 400; }
 

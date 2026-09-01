@@ -10,7 +10,6 @@ Baseline B: la media de todos los rookies de esa posición, sin capital de draft
 from __future__ import annotations
 
 import argparse
-import glob
 import json
 import sys
 from pathlib import Path
@@ -21,39 +20,21 @@ import pandas as pd
 from scipy.stats import spearmanr
 
 from oracle.config import paths as resolve_paths
-from oracle.fantasy.rookies import FANTASY_POSITIONS, draft_round, fit, predict
-from oracle.fantasy.scoring import PPR, score_player_weeks
+from oracle.fantasy.rookies import FANTASY_POSITIONS, fit, predict, season_table
+from oracle.fantasy.scoring import PPR
 
 FIRST_TRAINING_SEASON = 2006
 EVALUATION = range(2016, 2026)
 
 
 def rookie_table(paths) -> pd.DataFrame:
-    """Rookies con su capital de draft y los puntos que hicieron ese año."""
-    frames = []
-    for path in sorted(glob.glob(str(paths.raw / "roster_*.parquet"))):
-        roster = pd.read_parquet(path)
-        columns = [c for c in ("season", "gsis_id", "position", "draft_number", "years_exp")
-                   if c in roster.columns]
-        frames.append(roster[columns])
-    rosters = pd.concat(frames, ignore_index=True).dropna(subset=["gsis_id"])
-    rosters["draft_number"] = pd.to_numeric(rosters["draft_number"], errors="coerce")
+    """Rookies con su capital de draft y los puntos que hicieron ese año.
 
-    rookies = rosters[
-        (rosters["years_exp"] == 0) & rosters["position"].isin(FANTASY_POSITIONS)
-    ].drop_duplicates(["gsis_id", "season"]).copy()
-
-    players = pd.read_parquet(paths.player_weeks)
-    players = players[players["season_type"] == "REG"].copy()
-    players["fp"] = score_player_weeks(players, PPR)
-    totals = players.groupby(["player_id", "season"])["fp"].sum().reset_index()
-    totals.columns = ["gsis_id", "season", "points"]
-
-    table = rookies.merge(totals, on=["gsis_id", "season"], how="left")
-    # Un rookie que no jugó ni un partido hizo cero puntos. Aquí el cero SÍ es un
-    # cero: estuvo en la plantilla y no puntuó.
-    table["points"] = table["points"].fillna(0.0)
-    table["draft_round"] = table["draft_number"].map(draft_round)
+    La construye `oracle.fantasy.rookies.season_table`, que es la MISMA que usa
+    el board. Antes vivía aquí duplicada, y una tabla de validación que no es la
+    de producción valida otra cosa.
+    """
+    table = season_table(paths.raw, pd.read_parquet(paths.player_weeks), PPR)
     return table[table["season"] >= FIRST_TRAINING_SEASON]
 
 

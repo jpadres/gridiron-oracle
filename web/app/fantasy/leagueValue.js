@@ -316,13 +316,27 @@ export function buildLeagueBoard({
   priors = null, shrinkPriorGames = 10, tdPersistence = 0.55,
 }) {
   const scored = players.map((row) => {
-    const projected = priors
-      ? projectPlayer({
-          components: row.components, position: row.position,
-          weightedGames: row.weighted_games ?? 0, ageFactor: row.age_factor ?? 1,
-          rules, priors, shrinkPriorGames, tdPersistence, compilePoints, games,
-        })
-      : compilePoints(row.components, rules, row.position) * (row.age_factor ?? 1) * games;
+    // UN NOVATO NO PASA POR EL ENCOGIMIENTO DE VETERANO.
+    //
+    // `projectPlayer` encoge hacia la media de la posición con `weighted_games`
+    // como fiabilidad, y un novato tiene cero: le devolvería la media de la
+    // posición EXACTA, la misma para el elegido en el tercer pick que para el
+    // de la séptima ronda. O sea, borraría justo la señal por la que existe la
+    // previa — el capital de draft.
+    //
+    // Sus componentes ya vienen encogidos con su propia muestra (la de su
+    // celda posición-ronda), así que aquí sólo se compilan con las reglas de la
+    // liga. Es el mismo compilador y la misma constante de partidos: lo único
+    // que cambia es de dónde salieron los componentes.
+    const projected = row.rookie
+      ? compilePoints(row.components, rules, row.position) * games
+      : priors
+        ? projectPlayer({
+            components: row.components, position: row.position,
+            weightedGames: row.weighted_games ?? 0, ageFactor: row.age_factor ?? 1,
+            rules, priors, shrinkPriorGames, tdPersistence, compilePoints, games,
+          })
+        : compilePoints(row.components, rules, row.position) * (row.age_factor ?? 1) * games;
     return { ...row, projected_points: projected };
   });
 

@@ -121,3 +121,54 @@ test("E18b · una liga de 32 sigue calculando: no se afirma, no se bloquea", () 
   assert.equal(consumed, context.slots, "el reparto cuadra igual que a 12");
   assert.ok(rank.QB > 30, `el reemplazo se profundiza: QB${rank.QB}`);
 });
+
+/**
+ * E9 en el navegador: un novato NO pasa por el encogimiento de veterano.
+ *
+ * El fallo que esto caza es silencioso y grande: `projectPlayer` encoge con
+ * `weighted_games` como fiabilidad, y un novato tiene cero. Sin la rama, TODOS
+ * los novatos de una posición reciben exactamente la media de esa posición —el
+ * elegido en el pick 3 y el de la séptima ronda, el mismo número— o sea, se
+ * borra justo la señal por la que existe la previa.
+ */
+test("E9 · el novato se compila con sus propios componentes, sin encogerse otra vez", () => {
+  const context = rosterContext(PARITY.cases.base12.roster, 12);
+  // Priors para las CUATRO posiciones: sin ellos `projectPlayer` devuelve null,
+  // esas posiciones desaparecen del pool y el reparto manda todos los huecos
+  // compartidos al receptor. El test acabaría midiendo eso.
+  const prior = { mean_components: [0, 0, 0, 0, 0, 5, 50, 0.3, 0, 0], td_mean: 0.3 };
+  const priors = { QB: prior, RB: prior, WR: prior, TE: prior };
+  // Dos novatos de la MISMA posición con componentes distintos: es lo que
+  // distingue una ronda de otra.
+  const players = [
+    { player_id: "r1", position: "WR", rookie: true, weighted_games: 0,
+      components: { receptions: 4, receiving_yards: 40 } },
+    { player_id: "r2", position: "WR", rookie: true, weighted_games: 0,
+      components: { receptions: 1, receiving_yards: 10 } },
+    // El pool entero de las cuatro posiciones: si alguna se agotara, su VOR
+    // saldría `null` con razón y el test estaría probando otra cosa.
+    ...["QB", "RB", "WR", "TE"].flatMap((position) =>
+      PARITY.points[position].map((p, i) => ({
+        player_id: `${position}${i}`, position, weighted_games: 40,
+        components: { receptions: p / 40, receiving_yards: 0 },
+      }))),
+  ];
+  // `rushing_td` y `passing_td` hacen falta aunque el compilador de mentira no
+  // los use: el encogimiento de veterano convierte la corrección de TD a puntos
+  // con ellos, y sin ellos sale NaN — todos los veteranos se caen del pool y el
+  // test mide un board vacío.
+  const rules = { reception: 1, receiving_yards: 0.1, rushing_td: 6, passing_td: 4 };
+  const compile = (c, r, _p) =>
+    (Number(c.receptions) || 0) * r.reception + (Number(c.receiving_yards) || 0) * r.receiving_yards;
+  const { rows } = buildLeagueBoard({
+    players, rules, context, compilePoints: compile, games: 10, priors,
+  });
+  const a = rows.find((r) => r.player_id === "r1");
+  const b = rows.find((r) => r.player_id === "r2");
+  assert.equal(a.projected_points, 80, "4 rec + 40 yd, diez partidos");
+  assert.equal(b.projected_points, 20);
+  assert.ok(a.projected_points > b.projected_points,
+            "dos novatos con distinto capital NO pueden salir iguales");
+  // Y el VOR se calcula igual que para cualquiera: mismo reemplazo, misma resta.
+  assert.equal(a.vor, a.projected_points - a.replacement_points);
+});

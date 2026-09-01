@@ -23,9 +23,12 @@ from scipy.stats import pearsonr, spearmanr
 from oracle.config import paths as resolve_paths
 from oracle.fantasy import availability as avail
 from oracle.fantasy import risk
+from oracle.fantasy import rookies as rookie_prior
 from oracle.fantasy.ages import ages_for_season, birth_dates
+from oracle.fantasy.components import COMPONENTS, compile_points
 from oracle.fantasy.draft import (
     FANTASY_POSITIONS,
+    PROJECTED_GAMES,
     LeagueSettings,
     _td_points,
     draft_board,
@@ -269,6 +272,127 @@ def mark_rostered(board: pd.DataFrame, raw_dir: Path, season: int) -> pd.DataFra
     return board
 
 
+# Primera temporada de rookies que entra en la previa. nflverse publica
+# `draft_number` de forma fiable desde 2006, y es la misma ventana con la que se
+# validó (E9, 3.538 temporadas de rookie).
+FIRST_ROOKIE_SEASON = 2006
+
+
+def rookie_rows(
+    paths, players: pd.DataFrame, rules: ScoringRules, season: int
+) -> tuple[pd.DataFrame, list[dict]]:
+    """Los novatos de `season`, con la previa por capital de draft ya aplicada.
+
+    ## Por qué ahora sí tienen número
+
+    Hasta hoy el board no los proyectaba y la interfaz escribía UNKNOWN. Eso era
+    correcto mientras no hubiera nada validado que decir — y dejaba de serlo
+    desde que `ROOKIE_PRIOR` pasó a VALIDATED: hay una previa walk-forward que
+    bate a los dos baselines (Spearman 0,604 frente a 0,093 de la media de
+    posición; MAE 23,68 frente a 24,06 de predecir cero). Publicar UNKNOWN
+    teniendo eso medido ya no es prudencia, es esconder una medición.
+
+    ## En COMPONENTES, no en puntos
+
+    La previa devuelve componentes de temporada encogidos, no un número de
+    puntos, y por eso un novato entra por la misma puerta que un veterano: se
+    compila con las reglas de TU liga. Si se publicara «136,9 puntos» ese número
+    sería de la liga que construyó el board, y en una liga de media recepción
+    estaría mal sin que nada lo dijera.
+
+    Los componentes se dividen entre `PROJECTED_GAMES` porque el board trabaja
+    con medias por partido y multiplica al final. La previa es un TOTAL de
+    temporada —incluye a quien no jugó ni un partido, que es la mitad de la
+    señal—, así que dividir y volver a multiplicar por la misma constante la
+    deja intacta. No es una tasa por partido jugado y no debe leerse así.
+
+    ## La comparación con un veterano, dicha aquí
+
+    Un veterano se proyecta como `puntos por partido × 15,5`: la escala supone
+    que juega. La previa de novato es el total observado de su año de rookie,
+    ceros incluidos. Las dos escalas NO son la misma, y la diferencia empuja al
+    novato hacia abajo. Se publica así porque es lo que está validado; corregirlo
+    exigiría un modelo de «probabilidad de ser titular» que no existe.
+
+    Devuelve las filas proyectadas y la lista de los que se quedan SIN previa —
+    esos siguen publicándose aparte, sin valor, como hasta ahora.
+    """
+    path = paths.raw / f"roster_{season}.parquet"
+    if not path.exists():
+        return pd.DataFrame(), []
+
+    table = rookie_prior.season_table(paths.raw, players, rules)
+    table = table[table["season"] >= FIRST_ROOKIE_SEASON]
+    priors = rookie_prior.fit(table, season)
+    if not priors:
+        return pd.DataFrame(), []
+
+    frame = pd.read_parquet(path)
+    frame = frame[
+        (frame["entry_year"] == season)
+        & (frame["position"].isin(FANTASY_POSITIONS))
+        & frame["gsis_id"].notna()
+    ].drop_duplicates("gsis_id")
+
+    rows: list[dict] = []
+    sin_previa: list[dict] = []
+    for row in frame.itertuples(index=False):
+        prior = rookie_prior.predict(priors, row.position, row.draft_number)
+        name = str(row.full_name)
+        short = f"{name[0]}.{name.split(' ', 1)[-1]}" if " " in name else name
+        pick = row.draft_number
+        pick = int(pick) if pick == pick and pick is not None else None
+        if prior is None or not prior.components:
+            sin_previa.append({"player_id": str(row.gsis_id), "player_name": short})
+            continue
+        # Componente por partido = total de temporada / la misma constante por la
+        # que el board multiplica. Ida y vuelta exacta.
+        components = {
+            name_: value / PROJECTED_GAMES
+            for name_, value in zip(COMPONENTS, prior.components, strict=True)
+        }
+        rows.append({
+            "player_id": str(row.gsis_id),
+            "player_name": short,
+            "player_full_name": name,
+            "position": str(row.position),
+            "team": str(row.team),
+            **components,
+            # Sin historial NFL: cero partidos ponderados. Es lo que hace que el
+            # navegador NO le aplique el encogimiento de veterano — ya viene
+            # encogido con su propia muestra.
+            "weighted_games": 0.0,
+            "points_per_game": 0.0,
+            "td_per_game": 0.0,
+            "age": np.nan,
+            "age_factor": 1.0,
+            "expected_games": float(PROJECTED_GAMES),
+            "games_source": "rookie_prior",
+            "season": season,
+            "rookie": True,
+            "draft_pick": pick,
+            "rookie_round": prior.draft_round,
+            # El intervalo OBSERVADO de su celda, que es lo que de verdad
+            # describe a un novato: el QB de segunda ronda promedia 63 con
+            # mediana 16. Publicar sólo la media sería el peor número posible.
+            "rookie_p25": prior.p25,
+            "rookie_p50": prior.p50,
+            "rookie_p75": prior.p75,
+            "rookie_sample": prior.sample,
+            "rookie_bimodal": bool(prior.bimodal_warning),
+        })
+
+    if not rows:
+        return pd.DataFrame(), sin_previa
+
+    board = pd.DataFrame(rows)
+    board["projected_points"] = (
+        compile_points(board[list(COMPONENTS)], rules, board["position"])
+        * board["age_factor"] * board["expected_games"]
+    )
+    return board, sin_previa
+
+
 def _publish_slice(board: pd.DataFrame) -> pd.DataFrame:
     """El top del board MÁS la profundidad mínima por posición.
 
@@ -281,6 +405,12 @@ def _publish_slice(board: pd.DataFrame) -> pd.DataFrame:
     for position, depth in MIN_DEPTH.items():
         rows = board[board["position"] == position].nlargest(depth, "projected_points")
         keep.update(rows["player_id"])
+    # TODOS los novatos, tengan el VOR que tengan. Un draft real los ofrece —y
+    # en las últimas rondas se cogen precisamente porque valen poco ahora— así
+    # que recortarlos por valor los volvería a dejar fuera del tablero, que es
+    # el agujero que se acaba de tapar. Son unas decenas de filas.
+    if "rookie" in board.columns:
+        keep.update(board.loc[board["rookie"].astype(bool), "player_id"])
     return board[board["player_id"].isin(keep)].copy()
 
 
@@ -353,9 +483,24 @@ def main(argv: list[str] | None = None) -> int:
         settings.teams,
         season=season,
     ) if _roster_positions(synced, args) else None
-    board = draft_board(
-        project_season(players, season, rules, ages=ages), context, teams=settings.teams
-    )
+    proyecciones = project_season(players, season, rules, ages=ages)
+
+    # NOVATOS, con su previa por capital de draft. Entran ANTES de calcular el
+    # VOR y no después: el reemplazo de una posición es «el mejor que sigue
+    # libre cuando todos han llenado esa posición», y un novato drafteable
+    # ocupa uno de esos huecos. Calcular el reemplazo sin ellos y colgarlos
+    # luego daría dos boards distintos —el de los veteranos y el de todos— y
+    # ninguna forma de saber cuál estabas leyendo.
+    novatos, sin_previa = rookie_rows(paths, players, rules, season)
+    if not novatos.empty:
+        proyecciones = pd.concat([proyecciones, novatos], ignore_index=True)
+        print(f"Novatos con previa: {len(novatos)} "
+              f"({len(sin_previa)} sin celda aplicable, se publican sin valor).")
+    proyecciones["rookie"] = proyecciones.get(
+        "rookie", pd.Series(False, index=proyecciones.index)
+    ).fillna(False).astype(bool)
+
+    board = draft_board(proyecciones, context, teams=settings.teams)
     # Quién sigue en una plantilla de la NFL. NO toca proyecciones ni VOR: sólo
     # añade el hecho, para que la interfaz pueda decirlo.
     board = mark_rostered(board, paths.raw, season)
@@ -367,9 +512,21 @@ def main(argv: list[str] | None = None) -> int:
     # yerra un 10.7% más. Pasa el umbral, y lo pasa por poco — la web lo dice
     # así, porque «predice el error» y «predice el error un poco» son
     # afirmaciones distintas.
+    #
+    # LOS NOVATOS SE QUEDAN FUERA DE LAS TRES SEÑALES DE RIESGO, A PROPÓSITO.
+    # Volatilidad, ausencia y bust se calculan sobre el historial NFL del
+    # jugador y un novato no tiene ninguno. Pasarlos por aquí les colgaría la
+    # media del board —«riesgo medio», «pierde 2,4 partidos»— que es un número
+    # inventado con nombre de medición. Sus columnas quedan vacías y la interfaz
+    # lo dice. La limitación está escrita en la propia capacidad: el modelo de
+    # bust de veteranos NO aplica a quien no tiene historial.
+    es_novato = board["rookie"].to_numpy(dtype=bool)
+    veteranos = board[~es_novato].copy()
+    novatos_board = board[es_novato].copy()
+
     td_points = {pos: _td_points(pos, rules) for pos in ("QB", "RB", "WR", "TE")}
-    board = risk.score(board, td_points)
-    board["risk_reasons"] = [risk.reasons(row) for _, row in board.iterrows()]
+    veteranos = risk.score(veteranos, td_points)
+    veteranos["risk_reasons"] = [risk.reasons(row) for _, row in veteranos.iterrows()]
 
     # Ausencia y bust. Las dos están validadas con umbral preregistrado en
     # `docs/PREREGISTRO_riesgo.md`:
@@ -382,7 +539,12 @@ def main(argv: list[str] | None = None) -> int:
     # variar la proyección **en los dos sentidos**. El bust mira sólo la cola de
     # abajo, que es la pregunta que se hace en un draft.
     team_games = pd.read_parquet(paths.team_games)
-    board = _attach_risk(players, team_games, board, season, rules)
+    veteranos = _attach_risk(players, team_games, veteranos, season, rules)
+    board = (
+        pd.concat([veteranos, novatos_board], ignore_index=True)
+        .sort_values("overall_rank")
+        .reset_index(drop=True)
+    )
 
     # Nombre completo, además del abreviado que se pinta.
     #
@@ -415,7 +577,15 @@ def main(argv: list[str] | None = None) -> int:
         .groupby("player_id", observed=True)["player_display_name"]
         .last()
     )
-    board["player_full_name"] = board["player_id"].map(full_names)
+    # El nombre completo de un novato NO sale de `player_weeks` —no ha jugado—,
+    # así que viene de su fila del roster y aquí sólo se rellena lo que falte.
+    # Sobrescribir con el mapa dejaría a los novatos sin nombre completo, que es
+    # justo la clave con la que se cruzan los picks de Sleeper.
+    mapeado = board["player_id"].map(full_names)
+    board["player_full_name"] = (
+        mapeado.fillna(board["player_full_name"])
+        if "player_full_name" in board.columns else mapeado
+    )
 
     print("\nTop 20 por VOR:\n")
     view = board.head(20)[

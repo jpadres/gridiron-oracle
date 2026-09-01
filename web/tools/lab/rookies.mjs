@@ -1,12 +1,21 @@
 /**
- * NOVATOS: existen, se buscan, se draftean — y NO tienen valor inventado.
+ * NOVATOS: existen, se buscan, se draftean — y su valor SALE DE ALGO MEDIDO.
  *
  *     EXISTIR != DRAFTEABLE != PROYECTADO != RANKEADO != RECOMENDABLE
  *
- * Lo que se prueba es la frontera: un novato tiene identidad de Sleeper
- * verificada (así que su pick se resuelve y el reloj avanza) y NO tiene VOR
- * (así que no entra en la lista corta y la interfaz escribe UNKNOWN). El fallo
- * que esto vigila es que alguien «arregle» el hueco con un cero.
+ * La frontera se movió, y esto vigila dónde quedó. Hasta agosto de 2026 un
+ * novato no tenía número y la interfaz escribía UNKNOWN, que era correcto
+ * mientras no hubiera nada validado que decir. Desde que `ROOKIE_PRIOR` está
+ * VALIDATED (E9: Spearman 0,604 walk-forward frente a 0,093 de la media de
+ * posición) esconder esa medición ya no es prudencia.
+ *
+ * Lo que sigue prohibido —y lo que esto caza— es el número SIN respaldo:
+ *
+ *   - un novato no lleva jamás señal de riesgo, ausencia ni bust: esas se
+ *     calculan sobre historial NFL y no lo tiene;
+ *   - su número viaja SIEMPRE con el intervalo observado de su celda, porque
+ *     la media sola de una celda bimodal no describe a casi nadie;
+ *   - dos novatos de rondas distintas NO pueden salir con el mismo valor.
  */
 import { spawn } from "node:child_process";
 import path from "node:path";
@@ -35,16 +44,43 @@ const browser=await chromium.launch({executablePath:"/opt/pw-browsers/chromium-1
 let fallos=0;
 const check=(n,ok,d="")=>{if(!ok)fallos+=1;console.log(`  ${ok?"ok   ":"FALLA"} ${n}${d?` — ${d}`:""}`);};
 
+const NOVATOS_BOARD = BOARD.filter(r=>r.rookie);
+
 console.log("=== el universo publicado ===");
-check("hay novatos publicados",ROOKIES.length>0,`${ROOKIES.length}`);
-check("NINGUNO trae vor, proyección, rank ni tier",
-      ROOKIES.every(r=>r.vor===undefined&&r.projected_points===undefined
-                     &&r.overall_rank===undefined&&r.tier===undefined),
-      "UNKNOWN > INVENTED");
-check("todos tienen identidad de Sleeper verificada",
-      ROOKIES.every(r=>SLEEPER_OF[r.player_id]),
-      `${ROOKIES.filter(r=>SLEEPER_OF[r.player_id]).length}/${ROOKIES.length}`);
-check("y ninguno duplica a un jugador del board",
+check("hay novatos en el board, con valor",NOVATOS_BOARD.length>0,`${NOVATOS_BOARD.length}`);
+check("todos traen VOR, proyección y rank",
+      NOVATOS_BOARD.every(r=>Number.isFinite(r.vor)&&Number.isFinite(r.projected_points)
+                           &&Number.isFinite(r.overall_rank)),
+      "el valor sale de la previa por capital de draft, no de un cero");
+check("y ninguno trae señal de riesgo, ausencia ni bust",
+      NOVATOS_BOARD.every(r=>r.risk_label==null&&r.p_bust==null&&r.missed_rate==null),
+      "esas tres necesitan historial NFL");
+check("cada uno viaja con el intervalo observado de su celda y su muestra",
+      NOVATOS_BOARD.every(r=>Number.isFinite(r.rookie_p25)&&Number.isFinite(r.rookie_p50)
+                           &&Number.isFinite(r.rookie_p75)&&r.rookie_sample>0),
+      "una previa sin dispersión es el número que la capacidad prohíbe publicar solo");
+check("el intervalo está ordenado: p25 <= p50 <= p75",
+      NOVATOS_BOARD.every(r=>r.rookie_p25<=r.rookie_p50&&r.rookie_p50<=r.rookie_p75));
+{
+  // La señal por la que existe la previa: el capital de draft ORDENA. Si dos
+  // rondas distintas de la misma posición salieran iguales, el encogimiento se
+  // habría comido justo lo que se quería medir.
+  const porPosicion={};
+  for(const r of NOVATOS_BOARD){
+    if(!Number.isFinite(r.rookie_round)) continue;
+    (porPosicion[r.position] ??= new Map()).set(r.rookie_round, r.projected_points);
+  }
+  const monotono=Object.entries(porPosicion).every(([,celdas])=>{
+    const rondas=[...celdas.keys()].sort((a,b)=>a-b);
+    return rondas.length<2 || celdas.get(rondas[0])>celdas.get(rondas[rondas.length-1]);
+  });
+  check("una ronda mejor vale más que la peor de su posición",monotono,
+        Object.entries(porPosicion).map(([p,c])=>`${p}:${c.size} celdas`).join(" · "));
+}
+check("los novatos SIN celda aplicable siguen publicándose sin valor",
+      ROOKIES.every(r=>r.vor===undefined&&r.projected_points===undefined),
+      `${ROOKIES.length} sin previa`);
+check("y ninguno de ésos duplica a un jugador del board",
       !ROOKIES.some(r=>BOARD.some(b=>b.player_id===r.player_id)));
 
 const TEAMS=12, ROUNDS=15, MY_SLOT=3;
@@ -64,7 +100,7 @@ await page.waitForSelector(".room-list button");
 await page.clock.runFor(1_000);
 
 console.log("\n=== visible y buscable ===");
-const objetivo=ROOKIES[0];
+const objetivo=NOVATOS_BOARD[0];
 const nombre=objetivo.player_full_name;
 await page.fill(".room-board input", nombre);
 await page.waitForTimeout(150);
@@ -73,25 +109,33 @@ check("el novato aparece al buscarlo por nombre",await fila.count()>0,`${nombre}
 const texto=await fila.innerText();
 check("con su posición correcta",texto.includes(objetivo.position),texto.split("\n").join(" · "));
 check("marcado ROOKIE",/ROOKIE/.test(texto));
-check("y su valor dice UNKNOWN, no un número",/UNKNOWN/.test(texto)&&!/\d+\.\d/.test(texto.replace(/\d+\s*$/,"")),
-      texto.split("\n").join(" · "));
+// El número pintado NO tiene por qué ser el publicado: la pantalla recompila
+// el board con las reglas y la plantilla de ESTA liga, y ahí el reemplazo es
+// otro. Lo que se exige es que haya número y que no diga UNKNOWN.
+const vorPintado=(await fila.locator(".room-row-vor").innerText()).trim();
+check("con su VOR pintado como el de cualquiera, no UNKNOWN",
+      /^-?\d+(\.\d+)?$/.test(vorPintado),
+      `pintado ${vorPintado} · publicado ${objetivo.vor.toFixed(1)}`);
+check("y la marca explica de dónde sale el número, con el intervalo",
+      /draft capital/i.test(await fila.locator(".room-row-rookie").getAttribute("title"))
+      && /25th\/median\/75th/.test(await fila.locator(".room-row-rookie").getAttribute("title")),
+      await fila.locator(".room-row-rookie").getAttribute("title"));
 check("el contador distingue rankeados de drafteables",
       /of \d+ draftable/i.test(await page.locator(".room-pool").innerText()),
       await page.locator(".room-pool").innerText());
 await page.fill(".room-board input","");
 
-console.log("\n=== la lista corta no los traga como cero ===");
-await page.waitForSelector(".room-rookie-note",{timeout:5000}).catch(()=>{});
-check("se avisa de que hay novatos sin valor validado",
-      (await page.locator(".room-rookie-note").count())===1,
-      await page.locator(".room-rookie-note").innerText().catch(()=>"sin aviso"));
-const cands=await page.locator(".room-cands .nm").allInnerTexts();
+console.log("\n=== la lista corta y el aviso ===");
+check("el aviso de «sin valor validado» sólo sale si de verdad hay alguno así",
+      (await page.locator(".room-rookie-note").count())===(ROOKIES.length>0?1:0),
+      `${ROOKIES.length} sin previa`);
 const nombresNovatos=new Set(ROOKIES.map(r=>r.player_full_name));
-check("y NINGÚN novato entra en la lista corta ordenada por VOR",
+const cands=await page.locator(".room-cands .nm").allInnerTexts();
+check("ningún novato SIN previa entra en la lista corta ordenada por VOR",
       cands.every(n=>!nombresNovatos.has(n)),cands.join(" · "));
 
 console.log("\n=== el rival ficha un novato ===");
-const rival=ROOKIES[1];
+const rival=NOVATOS_BOARD[1];
 emitirPick(PROV,1,rival,SLEEPER_OF);
 emitirPick(PROV,2,BOARD[0],SLEEPER_OF);
 await page.clock.runFor(16_000);
@@ -113,7 +157,7 @@ check("el novato fichado desaparece de disponibles",
 await page.fill(".room-board input","");
 
 console.log("\n=== lo ficho yo ===");
-const mio=ROOKIES[2];
+const mio=NOVATOS_BOARD[2];
 emitirPick(PROV,3,mio,SLEEPER_OF);   // pick 3 = mi puesto
 await page.clock.runFor(16_000);
 await page.waitForFunction(()=>document.querySelector(".room-count strong")?.textContent==="3",

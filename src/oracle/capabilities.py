@@ -410,8 +410,16 @@ REGISTRY: tuple[Capability, ...] = (
             "La distribución es bimodal en varias celdas — el QB de 2ª ronda promedia "
             "63,4 con mediana 15,9. Hay que publicar intervalo, nunca un punto.",
             "El modelo de bust de veteranos NO aplica a quien no tiene historial NFL.",
+            "SU SITIO EN EL BOARD ESTÁ MEDIDO Y ES CONSERVADOR. A igual proyección y "
+            "misma posición, el novato realizó 127,2 puntos y el veterano 19,6 "
+            "(2019-2025, n=128 emparejados: +107,6). Las dos escalas no son la misma "
+            "—el veterano se proyecta como si jugara 15,5 partidos y la previa de "
+            "novato es el total observado, ceros incluidos— así que el novato cae "
+            "por debajo de donde produce. Se publica sin corregir: no hay ninguna "
+            "corrección validada, y un multiplicador a ojo sería peor que el sesgo. "
+            "Medido en scripts/rookie_placement_validate.py.",
         ),
-        last_validated="2026-08-29",
+        last_validated="2026-09-01",
         model_version=MODEL_VERSION,
     ),
     Capability(

@@ -5,12 +5,14 @@ from __future__ import annotations
 import pandas as pd
 import pytest
 
+from oracle.fantasy.components import COMPONENTS, compile_points
 from oracle.fantasy.rookies import (
     UDFA_ROUND,
     draft_round,
     fit,
     predict,
 )
+from oracle.fantasy.scoring import HALF_PPR, PPR
 
 
 def _cohorte(season: int) -> list[dict]:
@@ -99,3 +101,86 @@ def test_avisa_cuando_la_distribucion_es_bimodal():
     celda = priors[("QB", 2)]
     assert celda.bimodal_warning is True
     assert celda.p50 < celda.mean
+
+
+def _cohorte_con_componentes(season: int) -> list[dict]:
+    """La misma cohorte, con los componentes que producen esos puntos en PPR.
+
+    Los puntos NO se escriben a mano: se compilan de los componentes con las
+    mismas reglas. Escribirlos aparte dejaría pasar justo el fallo que el test
+    existe para cazar — que una de las dos mitades cambie sin la otra.
+    """
+    filas = []
+    for pick, (rec, yardas, tds) in (
+        (5, (70.0, 900.0, 8.0)), (12, (60.0, 800.0, 6.0)), (28, (50.0, 700.0, 5.0)),
+        (200, (12.0, 150.0, 1.0)), (230, (4.0, 40.0, 0.0)),
+    ):
+        for _ in range(6):
+            filas.append({
+                "season": season, "position": "WR", "draft_number": pick,
+                "draft_round": draft_round(pick),
+                "receptions": rec, "receiving_yards": yardas, "receiving_tds": tds,
+                "passing_yards": 0.0, "passing_tds": 0.0, "interceptions": 0.0,
+                "rushing_yards": 0.0, "rushing_tds": 0.0, "fumbles_lost": 0.0,
+                "two_point_conversions": 0.0,
+            })
+    for _ in range(20):
+        filas.append({
+            "season": season, "position": "WR", "draft_number": None,
+            "draft_round": UDFA_ROUND,
+            "receptions": 0.0, "receiving_yards": 0.0, "receiving_tds": 0.0,
+            "passing_yards": 0.0, "passing_tds": 0.0, "interceptions": 0.0,
+            "rushing_yards": 0.0, "rushing_tds": 0.0, "fumbles_lost": 0.0,
+            "two_point_conversions": 0.0,
+        })
+    frame = pd.DataFrame(filas)
+    frame["points"] = compile_points(frame[list(COMPONENTS)], PPR, frame["position"])
+    return frame
+
+
+def test_compilar_los_componentes_reproduce_los_puntos_de_la_previa():
+    """La previa en componentes y la previa en puntos son la MISMA cantidad.
+
+    Es lo que permite que un novato entre en el board por la misma puerta que un
+    veterano: sus componentes se compilan con las reglas de TU liga en vez de
+    llevar un número de puntos cocinado con las de otra. Si esta igualdad se
+    rompe, el board publica un valor de novato que no corresponde a la
+    puntuación con la que se está jugando — y no lo dice nadie.
+
+    La tolerancia es de coma flotante (1e-9), no de modelo: son la misma suma
+    hecha en distinto orden.
+    """
+    frame = pd.concat([_cohorte_con_componentes(s) for s in range(2018, 2024)],
+                      ignore_index=True)
+    priors = fit(frame, 2024)
+    assert priors, "sin previas no hay nada que comprobar"
+    for prior in priors.values():
+        assert len(prior.components) == len(COMPONENTS)
+        compilado = float(compile_points(
+            pd.DataFrame([dict(zip(COMPONENTS, prior.components, strict=True))]),
+            PPR,
+            pd.Series([prior.position]),
+        ).iloc[0])
+        assert compilado == pytest.approx(prior.shrunk_mean, abs=1e-9), (
+            f"{prior.position} ronda {prior.draft_round}: "
+            f"{compilado} vs {prior.shrunk_mean}"
+        )
+
+
+def test_otra_puntuacion_cambia_el_valor_del_novato():
+    """Media recepción tiene que dar MENOS que PPR. Si no, no se compiló nada.
+
+    Un novato con un número de puntos fijo pasaría este test por accidente sólo
+    si el número fuera cero. Con componentes, la diferencia es exactamente la
+    que dicen las reglas.
+    """
+    frame = pd.concat([_cohorte_con_componentes(s) for s in range(2018, 2024)],
+                      ignore_index=True)
+    prior = fit(frame, 2024)[("WR", 1)]
+    componentes = pd.DataFrame([dict(zip(COMPONENTS, prior.components, strict=True))])
+    ppr = float(compile_points(componentes, PPR, pd.Series(["WR"])).iloc[0])
+    media = float(compile_points(componentes, HALF_PPR, pd.Series(["WR"])).iloc[0])
+    assert media < ppr
+    # La diferencia es media recepción por recepción: comprobable a mano.
+    recepciones = prior.components[COMPONENTS.index("receptions")]
+    assert ppr - media == pytest.approx(0.5 * recepciones, abs=1e-9)

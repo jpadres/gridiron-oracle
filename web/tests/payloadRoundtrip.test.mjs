@@ -57,14 +57,21 @@ test("los componentes publicados reproducen la proyección publicada", () => {
   let peor = null;
   for (const row of fantasy.board) {
     const components = Object.fromEntries(COMPONENTS.map((name, i) => [name, row.c[i]]));
-    const projected = projectPlayer({
-      components, position: row.position, weightedGames: row.wg,
-      ageFactor: row.age_factor, rules: DEFAULT_RULES,
-      priors: fantasy.position_priors,
-      shrinkPriorGames: fantasy.shrink_prior_games,
-      tdPersistence: fantasy.td_persistence,
-      compilePoints, games: fantasy.projected_games,
-    });
+    // El novato NO pasa por el encogimiento de veterano: sus componentes ya
+    // vienen encogidos con la muestra de su celda posición-ronda, y
+    // `weighted_games` es cero, así que `projectPlayer` le devolvería la media
+    // de la posición — la misma para todos. La ida y vuelta que hay que exigir
+    // es la del camino que el producto usa de verdad, que es éste.
+    const projected = row.rookie
+      ? compilePoints(components, DEFAULT_RULES, row.position) * fantasy.projected_games
+      : projectPlayer({
+          components, position: row.position, weightedGames: row.wg,
+          ageFactor: row.age_factor, rules: DEFAULT_RULES,
+          priors: fantasy.position_priors,
+          shrinkPriorGames: fantasy.shrink_prior_games,
+          tdPersistence: fantasy.td_persistence,
+          compilePoints, games: fantasy.projected_games,
+        });
     const delta = Math.abs(projected - row.projected_points);
     if (delta > worst) { worst = delta; peor = row.player_name; }
   }
@@ -80,5 +87,25 @@ test("el VOR publicado es puntos menos reemplazo", () => {
     // Consistencia interna del board publicado: si esto se rompe, el board y su
     // VOR vienen de dos cálculos distintos.
     assert.ok(row.projected_points >= row.vor - 1e-6, row.player_name);
+  }
+});
+
+test("un novato del payload trae su intervalo y NO trae señales de veterano", () => {
+  const rookies = fantasy.board.filter((row) => row.rookie);
+  assert.ok(rookies.length > 0, "el board publica novatos");
+  for (const row of rookies) {
+    // El intervalo viaja SIEMPRE. Un valor de novato sin su dispersión es
+    // exactamente el número que `ROOKIE_PRIOR` prohíbe publicar solo.
+    for (const key of ["rookie_p25", "rookie_p50", "rookie_p75", "rookie_sample"]) {
+      assert.ok(Number.isFinite(row[key]), `${row.player_name}: falta ${key}`);
+    }
+    assert.ok(row.rookie_p25 <= row.rookie_p50 && row.rookie_p50 <= row.rookie_p75,
+              `${row.player_name}: intervalo desordenado`);
+    // Riesgo, ausencia y bust se calculan sobre historial NFL. Un novato no lo
+    // tiene, así que un número ahí sería la media del board disfrazada de
+    // medición.
+    for (const key of ["risk_label", "risk_score", "p_bust", "missed_rate"]) {
+      assert.ok(row[key] == null, `${row.player_name}: ${key} no debería existir`);
+    }
   }
 });

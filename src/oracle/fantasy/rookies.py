@@ -33,10 +33,15 @@ y quien lea el board tiene que poder verlo.
 
 from __future__ import annotations
 
+import glob
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
+
+from .components import COMPONENTS, component_series
+from .scoring import PPR, ScoringRules, score_player_weeks
 
 FANTASY_POSITIONS = ("QB", "RB", "WR", "TE")
 PICKS_PER_ROUND = 32
@@ -67,6 +72,16 @@ class RookiePrior:
     p75: float
     mean: float
     shrunk_mean: float
+    # Los mismos puntos, en COMPONENTES de temporada y ya encogidos.
+    #
+    # No es un extra: es lo que permite que un rookie pase por el MISMO
+    # compilador que un veterano en vez de llevar un número de puntos calculado
+    # con las reglas de otra liga. La puntuación es lineal y el encogimiento
+    # también, así que compilar estos componentes con las reglas de la liga da
+    # exactamente `shrunk_mean` cuando esas reglas son las del ajuste — y da lo
+    # que corresponde cuando no lo son. `tests/test_rookies.py` lo exige con
+    # diferencia CERO, no con tolerancia.
+    components: tuple[float, ...] = ()
 
     @property
     def is_udfa(self) -> bool:
@@ -119,10 +134,25 @@ def fit(rookie_seasons: pd.DataFrame, through_season: int) -> dict[tuple[str, in
             continue
         position_mean = float(by_position["points"].mean())
 
+        # Las medias de COMPONENTES de la posición, para encoger hacia ellas
+        # exactamente igual que se encogen los puntos. Si no están las columnas
+        # —una tabla de sólo puntos, como la que usaba la validación antigua—
+        # las previas salen sin componentes y quien las necesite lo verá vacío
+        # en vez de recibir ceros con pinta de dato.
+        has_components = all(name in by_position.columns for name in COMPONENTS)
+        position_components = (
+            {name: float(by_position[name].mean()) for name in COMPONENTS}
+            if has_components else {}
+        )
+
         for round_number, group in by_position.groupby("draft_round", observed=True):
             points = group["points"].to_numpy(dtype=float)
             n = len(points)
             weight = n / (n + SHRINK_PRIOR_N)
+            components = tuple(
+                weight * float(group[name].mean()) + (1 - weight) * position_components[name]
+                for name in COMPONENTS
+            ) if has_components else ()
             priors[(position, int(round_number))] = RookiePrior(
                 position=position,
                 draft_round=int(round_number),
@@ -132,8 +162,58 @@ def fit(rookie_seasons: pd.DataFrame, through_season: int) -> dict[tuple[str, in
                 p75=float(np.percentile(points, 75)),
                 mean=float(points.mean()),
                 shrunk_mean=float(weight * points.mean() + (1 - weight) * position_mean),
+                components=components,
             )
     return priors
+
+
+def season_table(
+    raw_dir: Path | str, player_weeks: pd.DataFrame, rules: ScoringRules = PPR
+) -> pd.DataFrame:
+    """Temporadas de rookie con su capital de draft, sus puntos y sus componentes.
+
+    Vive aquí y no en un script porque la usan DOS: el que valida la previa y el
+    que construye el board. Tenerla dos veces sería, otra vez, dos traductores
+    del mismo formato con distinta cobertura — el fallo que ya costó
+    `bonus_rec_te` entre JS y Python y `attach_today` entre los dos barridos.
+
+    Los puntos se calculan con las **mismas reglas** que los componentes que se
+    devuelven al lado. Ésa es la condición que hace que compilar los componentes
+    reproduzca los puntos con diferencia cero en vez de «casi».
+    """
+    frames = []
+    for path in sorted(glob.glob(str(Path(raw_dir) / "roster_*.parquet"))):
+        roster = pd.read_parquet(path)
+        columns = [c for c in ("season", "gsis_id", "position", "draft_number", "years_exp")
+                   if c in roster.columns]
+        frames.append(roster[columns])
+    if not frames:
+        return pd.DataFrame()
+    rosters = pd.concat(frames, ignore_index=True).dropna(subset=["gsis_id"])
+    rosters["draft_number"] = pd.to_numeric(rosters["draft_number"], errors="coerce")
+    rookies = rosters[
+        (rosters["years_exp"] == 0) & rosters["position"].isin(FANTASY_POSITIONS)
+    ].drop_duplicates(["gsis_id", "season"]).copy()
+
+    weeks = player_weeks[player_weeks["season_type"] == "REG"].copy()
+    weeks["points"] = score_player_weeks(weeks, rules)
+    for name in COMPONENTS:
+        weeks[name] = component_series(weeks, name)
+    totals = (
+        weeks.groupby(["player_id", "season"], observed=True)[["points", *COMPONENTS]]
+        .sum()
+        .reset_index()
+        .rename(columns={"player_id": "gsis_id"})
+    )
+
+    table = rookies.merge(totals, on=["gsis_id", "season"], how="left")
+    # Un rookie que no jugó ni un partido hizo cero puntos. Aquí el cero SÍ es un
+    # cero: estuvo en la plantilla y no puntuó. Es también la mitad de la
+    # bimodalidad que obliga a publicar intervalo.
+    for column in ("points", *COMPONENTS):
+        table[column] = table[column].fillna(0.0)
+    table["draft_round"] = table["draft_number"].map(draft_round)
+    return table
 
 
 def predict(

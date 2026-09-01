@@ -121,6 +121,28 @@ export default function Fantasy() {
             Tiers come from real gaps in VOR, not from slicing the list into twelves. If the
             player you want is the last of his tier, you cannot wait another round.
           </p>
+          {/* NOVATOS. Se dice aquí porque su número se lee distinto del de un
+              veterano y la diferencia no se ve en la tabla: sale de la celda
+              posición-ronda, no de partidos NFL. Y el sesgo medido va con él —
+              publicar el ranking y callar que es conservador sería publicar
+              media medición. */}
+          <p>
+            <strong>Rookies are ranked from draft capital</strong>, not from NFL games they
+            have not played: the pick they went at, walk-forward against every rookie class
+            since 2006 (Spearman 0.604 against 0.093 for a positional average). Each rookie
+            row carries the observed 25th–median–75th range of past rookies from his exact
+            position and round, because several of those cells split in two — the
+            second-round quarterback averages 63 points with a median of 16.
+          </p>
+          <p className="caption">
+            Measured and left uncorrected: at the same projection and position, rookies from
+            2019&ndash;2025 went on to score <strong>127 points against 20</strong> for the
+            veterans they were ranked beside (n=128 matched). The two scales differ — a
+            veteran is projected as if he plays 15.5 games, a rookie prior is the observed
+            season total with the zeros in it — so the board places rookies low. There is no
+            validated correction for that gap, and inventing a multiplier would be worse
+            than the bias, so the number stands and this note travels with it.
+          </p>
           {fantasy.league ? null : (
             <p className="caption">
               Scoring is <strong>assumed</strong>, not synced. If your league scores
