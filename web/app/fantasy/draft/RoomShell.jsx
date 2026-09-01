@@ -25,7 +25,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import DraftRoom from "../DraftRoom.jsx";
 // La misma constante que lee el board para saber en qué draft está: si cada
 // pantalla escribiera la suya, volverían a ser dos contextos con un nombre.
-import { ROOM_LEAGUE_KEY as KEY, saveLeagueToCatalog } from "../draftStorage.js";
+import { ROOM_LEAGUE_KEY as KEY, loadPrefs, saveLeagueToCatalog } from "../draftStorage.js";
 import {
   activeBoardFrom, leagueBoardFrom, rosterContext, rosterFromCounts, setComponentOrder,
 } from "../leagueValue.js";
@@ -77,7 +77,7 @@ const STANDARD_PRESET = Object.freeze({
 const ROSTER_FIELDS = ["QB", "RB", "WR", "TE", "FLEX", "SUPER_FLEX", "DEF", "K", "BN"];
 
 const BLANK = {
-  name: "", platform: "manual", leagueId: "", draftId: "",
+  name: "", platform: "manual", leagueId: "", draftId: "", userId: "",
   teams: 12, scoring: "ppr", draftType: "snake", rounds: 15, mySlot: null,
   rosterCounts: NO_ROSTER,
 };
@@ -120,6 +120,17 @@ export default function RoomShell({ board, context }) {
       // Rellenar el catálogo con la liga activa que ya existía: las ligas
       // configuradas antes de que hubiera catálogo también son ligas.
       saveLeagueToCatalog(saved, window.localStorage);
+    } else {
+      // Si ya conectaste Sleeper en el Draft Board, el formulario llega
+      // relleno. Vivían en dos claves distintas y NADA las puenteaba, así que
+      // había que teclear la liga dos veces — o, peor, no encontrar dónde.
+      const prefs = loadPrefs(window.localStorage);
+      if (prefs?.league) {
+        setDraft((d) => ({
+          ...d, leagueId: String(prefs.league), userId: String(prefs.userId ?? ""),
+          platform: "sleeper",
+        }));
+      }
     }
     setReady(true);
   }, []);
@@ -135,6 +146,10 @@ export default function RoomShell({ board, context }) {
     // de una no pueda contaminar a otra, igual que en el board.
     const complete = {
       ...entry,
+      // Con id de Sleeper la plataforma es sleeper; sin él, manual. Se deriva
+      // del dato y no de un interruptor aparte, que es como acaban discrepando.
+      platform: entry.leagueId ? "sleeper" : "manual",
+      userId: entry.userId ?? "",
       leagueId: entry.leagueId || `manual-${Date.now().toString(36)}`,
       draftId: entry.draftId || `d-${Date.now().toString(36)}`,
       roster: configured
@@ -267,6 +282,29 @@ export default function RoomShell({ board, context }) {
             <input type="text" value={entry.name}
                    onChange={(e) => set({ name: e.target.value })}
                    placeholder="Work league" />
+          </label>
+
+          {/* SLEEPER. Los dos campos que encienden la sincronización. Vacíos, el
+              asistente funciona igual en modo manual — que no es un plan B: es
+              el modo que funciona en ESPN, en Yahoo y alrededor de una mesa.
+              Con ellos, lo que diga Sleeper manda sobre el resto del formulario:
+              tamaño, rondas, tipo, plantilla, puntuación y tu puesto se
+              DERIVAN, y estos campos de abajo pasan a ser sólo el respaldo. */}
+          <label className="field-label">
+            Sleeper league ID <span className="caption">optional — turns on live sync</span>
+            <input type="text" inputMode="numeric" value={entry.leagueId}
+                   onChange={(e) => set({
+                     leagueId: e.target.value.trim(),
+                     platform: e.target.value.trim() ? "sleeper" : "manual",
+                   })}
+                   placeholder="1234567890123456789" />
+          </label>
+
+          <label className="field-label">
+            Sleeper username <span className="caption">so it knows which picks are yours</span>
+            <input type="text" value={entry.userId}
+                   onChange={(e) => set({ userId: e.target.value.trim() })}
+                   placeholder="your Sleeper handle" />
           </label>
 
           <label className="field-label">
