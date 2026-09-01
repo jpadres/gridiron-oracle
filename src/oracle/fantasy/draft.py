@@ -316,7 +316,14 @@ def draft_board(
 
     board["replacement_points"] = board["position"].map(replacement)
     board["vor"] = board["projected_points"] - board["replacement_points"]
-    board = board.sort_values("vor", ascending=False).reset_index(drop=True)
+    # ORDEN ESTABLE. Con los veteranos daba igual —dos VOR en coma flotante no
+    # empatan— pero la previa de novato es por celda posición-ronda, así que
+    # todos los de una misma celda tienen EXACTAMENTE el mismo valor. Sin
+    # estabilidad, el elegido en el pick 3 salía por debajo del pick 32 según
+    # cómo cayera la ordenación, que es ruido leído como criterio. Quien llame
+    # ordena antes lo que empata (por número de elección, que es un hecho) y
+    # aquí se respeta.
+    board = board.sort_values("vor", ascending=False, kind="mergesort").reset_index(drop=True)
     board["overall_rank"] = np.arange(1, len(board) + 1)
     board["position_rank"] = board.groupby("position", observed=True)["vor"].rank(
         ascending=False, method="first"

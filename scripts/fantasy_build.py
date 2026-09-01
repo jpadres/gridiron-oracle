@@ -387,6 +387,14 @@ def rookie_rows(
         return pd.DataFrame(), sin_previa
 
     board = pd.DataFrame(rows)
+    # Los de una misma celda valen lo mismo —la previa sabe la ronda y nada
+    # más—, así que el desempate lo pone el número de elección: un HECHO, no una
+    # afirmación sobre cuánto separa a uno del otro. `draft_board` ordena de
+    # forma estable, así que este orden sobrevive al VOR. Los no elegidos van
+    # después, y entre ellos por nombre para que el board no baile entre builds.
+    board = board.sort_values(
+        by=["draft_pick", "player_full_name"], na_position="last", kind="mergesort"
+    ).reset_index(drop=True)
     board["projected_points"] = (
         compile_points(board[list(COMPONENTS)], rules, board["position"])
         * board["age_factor"] * board["expected_games"]
