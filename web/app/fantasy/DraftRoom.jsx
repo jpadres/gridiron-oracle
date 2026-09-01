@@ -37,11 +37,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { num } from "../../data/model.js";
 import { TeamMark, teamVars } from "../sports.jsx";
 import {
-  ROSTER, SOURCE, fold, isMyTurn, pickLabel, replayState, slotForOverall, takeEvent,
-  undoEvent, untilMyTurn,
+  ROSTER, SOURCE, fold, isMyTurn, pickLabel, providerEvents, replayState, slotForOverall,
+  takeEvent, undoEvent, untilMyTurn,
 } from "./draftLog.js";
 import { loadOrMigrateLog, logScopeFor, saveLog } from "./draftStorage.js";
-import { assignSlots } from "./leagueValue.js";
+import { assignSlots, VALIDATED_MAX_TEAMS, valueConfidence } from "./leagueValue.js";
+import { candidates as buildCandidates } from "./candidates.js";
+import { useSleeperDraft } from "./useSleeperDraft.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
 // El board de VOR sólo ordena estas cuatro. K y DST son FICHABLES —existen en
@@ -77,7 +79,7 @@ function positionDepth(available) {
     .filter((entry) => entry.total > 0);
 }
 
-export default function DraftRoom({ board, context, league }) {
+export default function DraftRoom({ board, context, league, leagueValue = null }) {
   const [events, setEvents] = useState([]);
   const [ready, setReady] = useState(false);
   const [query, setQuery] = useState("");
@@ -89,7 +91,28 @@ export default function DraftRoom({ board, context, league }) {
   const [flash, setFlash] = useState(null);
   const flashTimer = useRef(null);
 
+  /**
+   * INGESTA AUTOMÁTICA. El adaptador sondea Sleeper en el navegador y emite
+   * picks canónicos; aquí se convierten en eventos EFÍMEROS que se pliegan
+   * junto a los manuales. No se persisten: la verdad del proveedor se vuelve a
+   * derivar en cada sondeo, así que guardarlos duplicaría el estado — que es
+   * exactamente lo que E17 prohíbe.
+   *
+   * `league.leagueId` sólo alimenta esto cuando la liga es de Sleeper. Una liga
+   * manual no sondea nada y el modo manual sigue siendo el que funciona en
+   * todas partes.
+   */
+  const sleeperLeague = league?.platform === "sleeper" ? String(league.leagueId ?? "") : "";
+  const sync = useSleeperDraft(board, sleeperLeague, league?.userId ?? "");
+
   const teams = league?.teams ?? null;
+  // Sólo con el tamaño declarado. Sin tamaño no se avisa de profundidad:
+  // sería inventar una configuración que el usuario no ha dado.
+  const deepLeague = Boolean(teams) && valueConfidence({ teams }) === "UNVALIDATED_DEPTH";
+  // ¿Los números que se pintan son de ESTA liga? Es lo que decide qué puede
+  // decir el encabezado de la lista corta, y hasta ahora decía «tu liga»
+  // siempre porque nadie se lo preguntaba.
+  const leagueCompiled = Boolean(leagueValue?.board);
   const type = league?.draftType ?? null;
   const mySlot = league?.mySlot ?? null;
   const rounds = league?.rounds ?? null;
@@ -120,7 +143,13 @@ export default function DraftRoom({ board, context, league }) {
     saveLog(scope, events, typeof window === "undefined" ? null : window.localStorage);
   }, [scope, events, ready]);
 
-  const state = useMemo(() => fold(events), [events]);
+  // Un solo pliegue para las dos fuentes. El orden lo resuelve `fold`, que ya
+  // sabe que a igualdad de instante manda MANUAL sobre SLEEPER: una corrección
+  // tuya nunca la pisa el proveedor.
+  const state = useMemo(
+    () => fold([...events, ...providerEvents(sync.canonical ?? [], { source: SOURCE.SLEEPER })]),
+    [events, sync.canonical]
+  );
 
   /**
    * REPLAY. `null` = en vivo; un número = «después del pick N».
@@ -195,6 +224,17 @@ export default function DraftRoom({ board, context, league }) {
       ["BN", "BE", "BENCH"].includes(String(slot).toUpperCase())).length;
     return { slots, unassigned, benchSize };
   }, [league, roster]);
+
+  /**
+   * LA LISTA CORTA. Se recalcula desde `available`, así que si alguien ficha al
+   * primer candidato mientras miras, desaparece solo: no hay estado propio que
+   * pueda quedarse viejo. Ése es el requisito de «sin candidato rancio», y se
+   * cumple por construcción y no por un efecto que haya que acordarse de poner.
+   */
+  const shortlist = useMemo(
+    () => buildCandidates(available, { slots: construction?.slots ?? null, limit: 4 }),
+    [available, construction]
+  );
 
   const onClock = isMyTurn({ overall: state.count + 1, teams, type, mySlot });
   const next = untilMyTurn({ count: state.count, teams, type, mySlot, rounds });
@@ -293,14 +333,28 @@ export default function DraftRoom({ board, context, league }) {
     // del scroll.
     const rankedWanted = new Set(all ? RANKED_POSITIONS : RANKED_POSITIONS.filter((p) => picked.has(p)));
     const tierPool = available.filter((r) => rankedWanted.has(r.position));
+    // Los tiers salen de los huecos del board PUBLICADO y la lista se ordena por
+    // el VOR de TU liga. Arriba las dos ordenaciones coinciden; en la cola dejan
+    // de hacerlo, y entonces el separador repetía el mismo tier —«TIER 12» tres
+    // veces— con la misma `key`, así que React se comía las filas de en medio.
+    //
+    // El arreglo no es sólo la key: un separador afirma «de aquí para abajo,
+    // otro escalón», y en cuanto el tier RETROCEDE esa afirmación es falsa. Así
+    // que se marca mientras la secuencia no decrezca y se deja de marcar en
+    // cuanto lo hace. El tier de cada fila sigue ahí — es un hecho del jugador;
+    // lo que se retira es el corte, que es una afirmación sobre el orden.
+    let monotonic = true;
     for (const row of shown) {
       // Los especialistas no tienen tier y no generan cortes: un separador
       // «Tier null» sería un tier inventado con nombre técnico.
-      if (marking && Number.isFinite(row.tier) && row.tier !== previous) {
+      if (Number.isFinite(row.tier) && previous !== null && row.tier < previous) {
+        monotonic = false;
+      }
+      if (marking && monotonic && Number.isFinite(row.tier) && row.tier !== previous) {
         const left = tierPool.filter((r) => r.tier === row.tier).length;
         out.push({ kind: "tier", tier: row.tier, left, key: `t${row.tier}` });
-        previous = row.tier;
       }
+      if (Number.isFinite(row.tier)) previous = row.tier;
       out.push({ kind: "player", row, key: row.player_id });
     }
     return out;
@@ -350,6 +404,15 @@ export default function DraftRoom({ board, context, league }) {
       ) : (
       <section className={onClock ? "room-state room-state--clock" : "room-state"}
                aria-live="polite">
+        {/* ESTADO DE CONEXIÓN. `syncState` ya decide cuándo se puede escribir
+            LIVE: exige sondeo reciente Y que Sleeper diga que el draft está en
+            curso. Sin liga de Sleeper el estado es MANUAL, que no es un fallo
+            ni un modo degradado — es el que funciona en todas partes. */}
+        <p className={`room-link room-link--${sleeperLeague ? sync.view.level.toLowerCase() : "manual"}`}>
+          <b>{sleeperLeague ? sync.view.label : "Manual"}</b>
+          {sleeperLeague && sync.view.detail ? <small>{sync.view.detail}</small> : null}
+          {!sleeperLeague ? <small>Record picks as they happen — works anywhere</small> : null}
+        </p>
         <p className="room-where">
           {here ? (
             <>Round <b>{here.round}</b> · Pick <b>{here.inRound}</b></>
@@ -411,6 +474,86 @@ export default function DraftRoom({ board, context, league }) {
           <button type="button" onClick={() => setReplayCursor(state.count)}
                   disabled={replayCursor === state.count} aria-label="Jump to end">&#187;</button>
         </div>
+      ) : null}
+
+      {/* --- LA LISTA CORTA -------------------------------------------------
+             Sólo cuando es tu turno y el draft sigue vivo. Fuera del turno
+             ocuparía el sitio de lo que sí importa entonces: el board.
+
+             Se llama TOP AVAILABLE y no «tu mejor pick» porque eso es lo que
+             es: los primeros por valor de TU liga (E18), con hechos al lado.
+             `BEST_PICK_FOR_ME` sigue BLOCKED y esta pantalla no lo desbloquea
+             por necesitar algo que enseñar. -------------------------------- */}
+      {onClock && !replaying && !complete && shortlist.length > 0 ? (
+        <section className="room-shortlist" aria-label="Top available">
+          <h2 className="room-h">
+            Top available
+            <small>
+              by {leagueCompiled ? "your league\u2019s" : "the published"} value — not a
+              personalised recommendation
+            </small>
+          </h2>
+          {/* La profundidad CALIFICA la lista, no la esconde. El board del
+              modo draft ya lo decía y esta pantalla no: la misma liga de 32
+              enseñaba VOR sin matizar aquí y matizado allí. E18 validó la
+              MAGNITUD hasta 14 equipos; la estructura responde más allá. */}
+          {/* Dos avisos DISTINTOS, y no se funden: uno dice que el valor sí es
+              de tu liga pero a esta profundidad no está validado en magnitud;
+              el otro, que no se pudo compilar y estos números son del board
+              publicado. Decir «not validated» cuando además no es tu board
+              sería juntar dos límites en una frase que no describe ninguno. */}
+          {!leagueCompiled ? (
+            <p className="room-depth-warn">
+              Published board — not your league&rsquo;s value
+              <small>
+                {leagueValue?.reason
+                  ? `Could not compile this league: ${leagueValue.reason}.`
+                  : "This league's value could not be compiled."}{" "}
+                Ordering is the published {context.teams}-team {context.scoring} board.
+              </small>
+            </p>
+          ) : deepLeague ? (
+            <p className="room-depth-warn">
+              {teams} teams · value not validated past {VALIDATED_MAX_TEAMS}
+              <small>
+                E18 holds the magnitude to 10-14 teams. The order still responds to
+                your settings; how big the gaps are does not hold up this deep.
+              </small>
+            </p>
+          ) : null}
+          <ol className="room-cands">
+            {shortlist.map((entry, index) => (
+              <li key={entry.row.player_id} style={teamVars(entry.row.team)}
+                  className={index === 0 ? "is-top" : undefined}>
+                <button type="button" className="room-cand" onClick={() => record(entry.row)}>
+                  <span className="room-cand-rank">{entry.row.overall_rank}</span>
+                  <span className="room-cand-who">
+                    <span className="nm">{entry.row.player_full_name ?? entry.row.player_name}</span>
+                    <span className="meta">
+                      <TeamMark abbr={entry.row.team} />
+                      <span className={`ptag ptag--${entry.row.position.toLowerCase()}`}>
+                        {entry.row.position}{entry.row.position_rank}
+                      </span>
+                      {Number.isFinite(entry.row.tier) ? <span>Tier {entry.row.tier}</span> : null}
+                      {context.byes?.[entry.row.team] ? (
+                        <span>Bye {context.byes[entry.row.team]}</span>
+                      ) : null}
+                    </span>
+                  </span>
+                  <span className="room-cand-vor">{num(entry.row.vor, 1)}<small>VOR</small></span>
+                </button>
+                {/* El «why» son HECHOS compuestos, no prosa: el primero por
+                    valor, el hueco elegible abierto y el conteo de su tier.
+                    Nada de «suelo seguro» ni «gran techo». */}
+                <ul className="room-why">
+                  {entry.reasons.map((reason) => (
+                    <li key={reason.kind}>{reason.text}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
+        </section>
       ) : null}
 
       {/* Deshacer: temporal y discreto. No compite con la banda de estado. */}
@@ -671,6 +814,55 @@ export default function DraftRoom({ board, context, league }) {
             )}
           </section>
 
+          {/* --- LA PARRILLA ---------------------------------------------
+                 Del MISMO estado plegado que todo lo demás: no hay una
+                 segunda verdad del draft. Se pinta sólo si la liga declaró
+                 tamaño y rondas; sin eso no se sabe dónde cae cada pick y
+                 dibujar una rejilla sería inventarse la estructura. ------- */}
+          {teams && rounds && type ? (
+            <section aria-label="Draft board">
+              <h2 className="room-h">Draft board</h2>
+              <div className="room-grid" style={{ "--cols": teams }}>
+                {Array.from({ length: rounds }, (_, r) => (
+                  <div className="room-grid-row" key={r}>
+                    {Array.from({ length: teams }, (_, c) => {
+                      const inRound = c + 1;
+                      const slot = type === "snake" && (r + 1) % 2 === 0 ? teams - inRound + 1 : inRound;
+                      const no = r * teams + inRound;
+                      const pick = effective.picks.find((x) => x.overall === no) ?? null;
+                      const row = pick ? pool.find((x) => x.player_id === pick.playerId) : null;
+                      const isMine = mySlot && slot === mySlot;
+                      const isNow = no === effective.count + 1 && !complete;
+                      return (
+                        <span key={c} style={teamVars(row?.team)}
+                              className={[
+                                "room-cell",
+                                pick ? "is-taken" : "",
+                                isMine ? "is-mine" : "",
+                                isNow ? "is-now" : "",
+                              ].filter(Boolean).join(" ")}
+                              title={row ? `${no}: ${row.player_full_name ?? row.player_name}` : `Pick ${no}`}>
+                          {row ? (
+                            <>
+                              <b>{(row.player_full_name ?? row.player_name).split(" ").pop()}</b>
+                              <small>{row.position}</small>
+                            </>
+                          ) : (
+                            <small>{r + 1}.{String(inRound).padStart(2, "0")}</small>
+                          )}
+                        </span>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+              <p className="caption">
+                Your slot is outlined; the current pick is marked. Same folded state as
+                everything else on this screen.
+              </p>
+            </section>
+          ) : null}
+
           <section aria-label="Recent picks">
             <h2 className="room-h">Recent picks</h2>
             {state.picks.length === 0 ? (
@@ -710,11 +902,28 @@ export default function DraftRoom({ board, context, league }) {
           <details className="room-method">
             <summary>What these numbers are</summary>
             <p>
-              Values come from the published board{boardContext ? ` (${boardContext})` : ""} —
-              best available by VOR, <strong>not</strong> a recommendation tuned to your
+              {leagueCompiled ? (
+                <>
+                  Values are recompiled for <strong>this league</strong> ({teams}-team
+                  {leagueValue?.label ? ` · ${leagueValue.label}` : ""}) — points, replacement
+                  level and VOR, by the same compiler the board screen uses.
+                </>
+              ) : (
+                <>
+                  Values come from the published board{boardContext ? ` (${boardContext})` : ""}.
+                </>
+              )}{" "}
+              Best available by VOR, <strong>not</strong> a recommendation tuned to your
               roster. Your roster context sits beside it, never folded into it.
             </p>
-            {leagueDiffers ? (
+            {leagueCompiled ? (
+              <p>
+                Tiers are <strong>not</strong> recompiled. They come from gaps in the
+                published board&rsquo;s VOR; nobody has validated that those cuts mean
+                anything in a different league, so the global tier is what is shown.
+              </p>
+            ) : null}
+            {leagueDiffers && !leagueCompiled ? (
               <p>
                 Your league has <strong>{teams} teams</strong> and the published board is
                 built for {context.teams}. Replacement level moves with league size, so

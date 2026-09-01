@@ -359,3 +359,53 @@ export function buildLeagueBoard({
 
   return { rows, replacement, rank, consumed, short };
 }
+
+/**
+ * El board de UNA liga, desde el payload horneado y su configuración.
+ *
+ * Existe porque ahora lo necesitan DOS pantallas —el board de `/fantasy` y el
+ * Live Draft Assistant— y copiar el montaje habría repetido el fallo que ya
+ * costó dos iteraciones en este proyecto: dos traductores del mismo formato con
+ * distinta cobertura. La primera vez fue `bonus_rec_te` entre JS y Python; la
+ * segunda, `attach_today` entre el barrido semanal y el diario. Aquí duele más:
+ * dos boards distintos para la misma liga, cada uno con razón en su pantalla.
+ *
+ * Devuelve `null` cuando NO se puede compilar con garantías (puntuación o
+ * plantilla no soportadas, payload sin priors, componentes que no cuadran). El
+ * que llama enseña entonces el board publicado y lo DICE — nunca una mezcla,
+ * que es exactamente el error que E18 existe para impedir.
+ */
+export function leagueBoardFrom({ board, context, rules, roster, compilePoints }) {
+  if (!rules || !roster?.supported || !context?.positionPriors) return null;
+  const order = context.componentOrder ?? [];
+  const players = board
+    .filter((row) => Array.isArray(row.c) && row.c.length === order.length)
+    .map((row) => ({
+      ...row,
+      components: Object.fromEntries(order.map((name, i) => [name, row.c[i]])),
+      weighted_games: row.wg ?? 0,
+    }));
+  if (players.length === 0) return null;
+  return buildLeagueBoard({
+    players,
+    rules,
+    context: roster,
+    compilePoints,
+    games: context.projectedGames ?? 15.5,
+    priors: context.positionPriors,
+    shrinkPriorGames: context.shrinkPriorGames ?? 10,
+    tdPersistence: context.tdPersistence ?? 0.55,
+  });
+}
+
+/**
+ * Las filas utilizables de un board de liga, o el publicado.
+ *
+ * Nunca una mezcla: un VOR de una liga con el orden de otra sería el error que
+ * E18 existe para impedir.
+ */
+export function activeBoardFrom(leagueBoard, published) {
+  if (!leagueBoard) return published;
+  const known = leagueBoard.rows.filter((row) => row.value_known);
+  return known.length > 0 ? known : published;
+}

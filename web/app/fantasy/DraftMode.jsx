@@ -53,100 +53,23 @@ import {
   DRAFT_STATUS, agoLabel, mySlot, pickSchedule, picksUntilMe, syncState,
 } from "./draftSync.js";
 import { compilePoints, rulesFromSleeper } from "./scoring.js";
+import { useSleeperDraft } from "./useSleeperDraft.js";
 import {
-  buildLeagueBoard, rosterContext, setComponentOrder, valueConfidence,
+  activeBoardFrom, leagueBoardFrom, rosterContext, setComponentOrder, valueConfidence,
 } from "./leagueValue.js";
 
 
-// El único destino externo de todo el sitio. La CSP no permite ningún otro, y
-// CI comprueba que este fichero no llame a otra cosa.
-const SLEEPER = "https://api.sleeper.app/v1";
-
-// Cada cuánto se preguntan los picks. 15 s es un compromiso: un pick tarda
-// entre 30 y 90 segundos, así que nunca vas más de un pick por detrás, y son
-// unas 240 peticiones en un draft de dos horas contra un endpoint público que
-// devuelve unos kilobytes.
-const POLL_MS = 15000;
-
-/**
- * Normaliza un nombre para poder cruzarlo entre fuentes.
- *
- * Quita acentos, puntuación y los sufijos de generación. «Amon-Ra St. Brown» y
- * «Amon Ra St Brown» tienen que dar lo mismo, y «Brian Robinson Jr.» tiene que
- * dar lo mismo que «Brian Robinson»: Sleeper y nflverse no se ponen de acuerdo
- * en ninguna de las dos cosas.
- */
-function normalize(name) {
-  return String(name ?? "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/\b(jr|sr|ii|iii|iv|v)\b/g, "")
-    .replace(/[^a-z ]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-/**
- * Índice para cruzar los picks de Sleeper con este board.
- *
- * Se cruza por **nombre completo y posición**, no por el abreviado que se pinta
- * en la tabla: «B.Robinson» no distingue a Bijan de Brian Robinson, y ese error
- * exacto ya costó una iteración en el dossier. El equipo sólo se usa para
- * deshacer empates, y a propósito no como parte de la clave: en pretemporada el
- * equipo del board y el de Sleeper pueden discrepar legítimamente por un
- * traspaso, y exigir que coincidan haría fallar emparejamientos correctos.
- *
- * Si después del desempate por equipo sigue habiendo dos candidatos, **no se
- * empareja ninguno**. Tachar al jugador equivocado en mitad de un draft es peor
- * que no tachar a nadie: te borra del tablero a alguien que sí puedes elegir.
- */
-function buildIndex(board) {
-  const index = new Map();
-  for (const row of board) {
-    const key = `${normalize(row.player_full_name ?? row.player_name)}|${row.position}`;
-    const bucket = index.get(key);
-    if (bucket) bucket.push(row);
-    else index.set(key, [row]);
-  }
-  return index;
-}
-
-function resolvePick(index, pick) {
-  const metadata = pick?.metadata ?? {};
-  const name = normalize(`${metadata.first_name ?? ""} ${metadata.last_name ?? ""}`);
-  if (!name) return null;
-  const candidates = index.get(`${name}|${metadata.position}`);
-  if (!candidates || candidates.length === 0) return null;
-  if (candidates.length === 1) return candidates[0];
-  const byTeam = candidates.filter((row) => row.team === metadata.team);
-  return byTeam.length === 1 ? byTeam[0] : null;
-}
-
 // Cuántos titulares tienes ya de cada posición, para DECIRLO como hecho junto
-// a la sugerencia. Antes esto era un multiplicador (VOR × 0,35 si la posición
-// «estaba llena» según una plantilla estándar hardcodeada) que convertía el
-// board validado en una recomendación personalizada que ningún experimento
-// midió — y encima sobre una estructura que nadie había declarado. El VOR se
-// enseña puro; lo que tienes se enseña aparte, como conteo.
+// a la sugerencia. No es un multiplicador: el VOR se enseña puro y lo que
+// llevas se cuenta al lado.
 const TYPICAL_STARTERS = { QB: 1, RB: 2, WR: 3, TE: 1 };
 
 /**
- * Sincronización con el draft de Sleeper.
- *
- * Devuelve el estado del sondeo y los picks ya cruzados con el board. Vive en su
- * propio hook para que el modo draft siga funcionando entero sin él: si la red
- * falla, si Sleeper cambia algo o si simplemente no lo activas, lo que queda es
- * el tablero manual de siempre. Una integración que al romperse se lleva por
- * delante la pantalla no vale para un draft.
- */
-/**
  * Resumen de puntuación en una línea, sólo con lo que se puede afirmar.
  *
- * Se mira `rec` porque es lo que separa PPR de estándar y es lo que primero se
- * pregunta. **No se dice «PPR» cuando falta el campo**: se dice UNKNOWN. Una
- * etiqueta de puntuación equivocada cambia el orden del board entero, así que
- * es exactamente el sitio donde un valor por defecto hace más daño.
+ * Se mira `rec` porque es lo que separa PPR de estándar. NO se dice «PPR»
+ * cuando falta el campo: se dice UNKNOWN, porque una etiqueta de puntuación
+ * equivocada cambia el orden del board entero.
  */
 function scoringSummary(settings) {
   if (!settings || typeof settings !== "object") return "UNKNOWN scoring";
@@ -156,127 +79,6 @@ function scoringSummary(settings) {
   if (rec === 0.5) return "Half PPR";
   if (rec === 1) return "PPR";
   return `${rec} pt/rec`;
-}
-
-function useSleeperDraft(board, league, userId) {
-  const [status, setStatus] = useState({ state: "idle" });
-  const [tick, setTick] = useState(0);
-  const index = useMemo(() => buildIndex(board), [board]);
-
-  // Reloj de pantalla. Sin él, «última sincronización hace 8s» se congela en 8s
-  // hasta el siguiente sondeo: la etiqueta envejecería a saltos de 15 segundos
-  // y en los huecos diría algo falso.
-  useEffect(() => {
-    const timer = setInterval(() => setTick((n) => n + 1), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    if (!league) {
-      setStatus({ state: "idle" });
-      return undefined;
-    }
-    let cancelled = false;
-    let draft = null;
-
-    async function poll() {
-      try {
-        if (!draft) {
-          const response = await fetch(`${SLEEPER}/league/${league}/drafts`);
-          if (!response.ok) throw new Error(`the league returned ${response.status}`);
-          const drafts = await response.json();
-          if (!Array.isArray(drafts) || drafts.length === 0) {
-            throw new Error("that league has no draft yet");
-          }
-          // Se prefiere el que está EN CURSO, y sólo si no hay ninguno se coge
-          // el más reciente. Antes se cogía `drafts[0]` sin mirar `status`, así
-          // que un draft terminado hace tres semanas se sondeaba y se pintaba
-          // igual que uno vivo.
-          const sorted = [...drafts].sort(
-            (a, b) => String(b.season ?? "").localeCompare(String(a.season ?? ""))
-          );
-          draft = sorted.find((d) => d.status === DRAFT_STATUS.DRAFTING) ?? sorted[0];
-        }
-        const response = await fetch(`${SLEEPER}/draft/${draft.draft_id}/picks`);
-        if (!response.ok) throw new Error(`the picks returned ${response.status}`);
-        const picks = await response.json();
-        if (cancelled) return;
-
-        // El sondeo emite PICKS CANÓNICOS, no dos listas de ids. Es lo que
-        // convierte a Sleeper en un adaptador: quien consume esto no sabe de
-        // dónde vino, y el modo manual produce exactamente la misma forma.
-        //
-        // Sin `userId` el dueño es UNKNOWN y no OPPONENT: «no sé de quién es»
-        // y «es de otro» no son lo mismo, y el segundo te borraría tus propios
-        // picks de tu plantilla sin decir nada.
-        const canonical = [];
-        const unmatched = [];
-        for (const pick of Array.isArray(picks) ? picks : []) {
-          if (!pick?.player_id) continue;
-          const row = resolvePick(index, pick);
-          if (!row) {
-            unmatched.push(pick);
-            continue;
-          }
-          canonical.push({
-            playerId: row.player_id,
-            roster: !userId
-              ? ROSTER.UNKNOWN
-              : String(pick.picked_by) === String(userId)
-                ? ROSTER.MINE
-                : ROSTER.OPPONENT,
-            pickNo: Number(pick.pick_no) || null,
-            providerId: String(pick.player_id),
-          });
-        }
-        setStatus({
-          state: "ok",
-          // `lastSyncAt` es el instante del último sondeo CORRECTO, y es lo que
-          // se pinta. La versión anterior lo guardaba y no lo enseñaba nunca.
-          lastSyncAt: Date.now(),
-          draft,
-          total: Array.isArray(picks) ? picks.length : 0,
-          canonical,
-          unmatched,
-        });
-      } catch (error) {
-        // El error NO borra `lastSyncAt`: «falló hace un momento, pero lo último
-        // bueno es de hace 40 segundos» son dos hechos distintos y los dos
-        // importan.
-        if (!cancelled) {
-          setStatus((previous) => ({
-            ...previous,
-            state: "error",
-            message: String(error.message ?? error),
-          }));
-        }
-      }
-    }
-
-    poll();
-    const timer = setInterval(poll, POLL_MS);
-    return () => {
-      cancelled = true;
-      clearInterval(timer);
-    };
-  }, [league, userId, index]);
-
-  // `tick` entra en la dependencia para que la etiqueta de antigüedad se
-  // recalcule cada segundo aunque no haya llegado ningún sondeo nuevo.
-  return useMemo(() => {
-    const draft = status.draft ?? null;
-    return {
-      ...status,
-      draft,
-      view: syncState({
-        connected: Boolean(league),
-        error: status.state === "error" ? status.message : null,
-        lastSyncAt: status.lastSyncAt ?? null,
-        draftStatus: draft?.status,
-      }),
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status, league, tick]);
 }
 
 export default function DraftMode({ board, positionFilter = "ALL", context = {} }) {
@@ -409,37 +211,20 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
    * siendo el global y la interfaz lo dice.
    */
   const leagueBoard = useMemo(() => {
-    if (!leagueFit.supported || !context.positionPriors) return null;
+    if (!leagueFit.supported) return null;
     if (context.componentOrder) setComponentOrder(context.componentOrder);
-    const order = context.componentOrder ?? [];
-    const players = board
-      .filter((row) => Array.isArray(row.c) && row.c.length === order.length)
-      .map((row) => ({
-        ...row,
-        components: Object.fromEntries(order.map((name, i) => [name, row.c[i]])),
-        weighted_games: row.wg ?? 0,
-      }));
-    if (players.length === 0) return null;
-    return buildLeagueBoard({
-      players,
-      rules: leagueFit.scoring.rules,
-      context: leagueFit.roster,
-      compilePoints,
-      games: context.projectedGames ?? 15.5,
-      priors: context.positionPriors,
-      shrinkPriorGames: context.shrinkPriorGames ?? 10,
-      tdPersistence: context.tdPersistence ?? 0.55,
+    return leagueBoardFrom({
+      board, context, rules: leagueFit.scoring.rules,
+      roster: leagueFit.roster, compilePoints,
     });
   }, [board, leagueFit, context]);
 
   // El board efectivo: el de tu liga si se pudo compilar, el publicado si no.
   // Nunca una mezcla — un VOR de una liga con el orden de otra sería el error
   // que E18 existe para impedir.
-  const activeBoard = useMemo(() => {
-    if (!leagueBoard) return board;
-    const known = leagueBoard.rows.filter((row) => row.value_known);
-    return known.length > 0 ? known : board;
-  }, [leagueBoard, board]);
+  const activeBoard = useMemo(
+    () => activeBoardFrom(leagueBoard, board), [leagueBoard, board]
+  );
 
   const counts = useMemo(() => {
     const out = { QB: 0, RB: 0, WR: 0, TE: 0 };
@@ -836,7 +621,7 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
             </>
           ) : null}
         </div>
-        <div className="draft-roster" title="Your picks so far, against a TYPICAL starting lineup — not your league's declared roster. The Draft Room draws the real structure once you configure it.">
+        <div className="draft-roster" title="Your picks so far, against a TYPICAL starting lineup — not your league's declared roster. The Draft Assistant draws the real structure once you configure it.">
           {Object.keys(TYPICAL_STARTERS).map((position) => (
             <span
               key={position}

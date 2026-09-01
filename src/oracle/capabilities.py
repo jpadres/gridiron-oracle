@@ -624,25 +624,30 @@ REGISTRY: tuple[Capability, ...] = (
         id="LIVE_DRAFT_ROOM",
         status=Status.VALIDATED,
         evidence=(
-            "modo manual construido sobre un registro de eventos canónico: 25 tests "
-            "de fold, deshacer y turno, más 27 comprobaciones en navegador a "
-            "390/768/1440 — un pick en 35-60 ms, veinte seguidos sin duplicar, "
-            "deshacer renumera, recargar conserva el draft y no hay fuga entre ligas"
+            "registro de eventos canónico con dos suites en navegador. E16: 27 "
+            "comprobaciones a 390/768/1440 — un pick en 35-60 ms, veinte seguidos "
+            "sin duplicar, deshacer renumera, recargar conserva el draft. E19: un "
+            "draft de 12 equipos ENTERO (180 picks) entrando por el adaptador sin "
+            "una sola intervención manual, con los 15 turnos propios detectados "
+            "solos y con lista corta, más la matriz de configuraciones, la corrida "
+            "de posición y la frescura de la sincronización"
         ),
-        experiment_id="E16",
-        metric="27/27 comprobaciones de navegador, latencia de pick 35-60 ms",
-        sample_size=27,
+        experiment_id="E19",
+        metric="15/15 (draft completo) + 31/31 (matriz); p95 de pick manual 84 ms",
+        sample_size=46,
         limitations=(
-            "Es CORRECCIÓN del registro y de la interacción, no una afirmación "
-            "sobre la calidad de las decisiones que se tomen con él.",
+            "Es CORRECCIÓN del registro, de la ingesta y de la interacción, no una "
+            "afirmación sobre la calidad de las decisiones que se tomen con él.",
             "Enseña BEST AVAILABLE (board validado) con el contexto de plantilla "
             "al lado. NO «best pick for me», que sigue BLOCKED.",
             "NO depende de SLEEPER_LIVE_BROWSER: el modo manual funciona en "
             "cualquier plataforma y en un draft presencial.",
-            "Enseña Best Available (validado), tiers y plantilla. NO «best pick "
-            "for me», que no está validado.",
+            "La ingesta se ejercita contra un DOBLE de la API de Sleeper servido "
+            "por el navegador de pruebas. Prueba el adaptador entero —sondeo, "
+            "emparejamiento, plegado y frescura—, NO que la red del usuario llegue "
+            "a `api.sleeper.app`: eso sigue siendo SLEEPER_LIVE_BROWSER, BLOCKED.",
         ),
-        last_validated="2026-08-30",
+        last_validated="2026-09-01",
         model_version=MODEL_VERSION,
     ),
     Capability(
@@ -728,14 +733,22 @@ REGISTRY: tuple[Capability, ...] = (
         status=Status.VALIDATED,
         evidence=(
             "es PRESENTACIÓN del board validado: los primeros disponibles por VOR "
-            "de la liga (E18), sin ningún ajuste personal añadido"
+            "de la liga (E18), sin ningún ajuste personal añadido. Desde E19 el "
+            "board que la alimenta se RECOMPILA de verdad en la liga del usuario "
+            "por el mismo compilador que usa la pantalla de board: la superflex "
+            "de 12 pasa de 5 a 17 quarterbacks entre los 50 primeros, y media "
+            "recepción cambia quién encabeza la lista"
         ),
-        experiment_id="E18",
+        experiment_id="E19",
         metric="hereda la validación del valor por liga; no añade número propio",
         sample_size=861,
         limitations=(
             "Es una lista transparente («top available by VOR»), NO una "
             "recomendación personalizada: no mira tu plantilla ni tu hueco.",
+            "Cuando la liga NO se puede compilar (puntuación desconocida, "
+            "plantilla no soportada) la lista sale del board publicado y el "
+            "encabezado lo dice: «by the published value». Los dos casos no se "
+            "escriben igual porque no son la misma afirmación.",
             "Cualquier reordenación por conveniencia personal cae en "
             "BEST_PICK_FOR_ME, que sigue BLOCKED.",
             "En ligas de más de 14 equipos hereda el límite de DEEP_LEAGUE_VALUE.",
@@ -787,6 +800,12 @@ REGISTRY: tuple[Capability, ...] = (
             "ALCANCE, y es permanente: bloquea la SINCRONIZACIÓN AUTOMÁTICA y decir "
             "LIVE sobre datos de Sleeper. NO bloquea el Draft Room, que consume "
             "eventos de pick canónicos y funciona en modo manual sin red.",
+            "Lo que FALTA es exactamente una cosa: que la petición salga de un "
+            "navegador de verdad. El adaptador entero está ejercitado contra un "
+            "doble de la API (E19) —180 picks, emparejamiento, frescura, caída y "
+            "recuperación— así que un draft real contesta esta capacidad en una "
+            "tarde. No se sube sola por haber pasado el laboratorio: un doble "
+            "prueba el código, no la red.",
         ),
         last_validated=None,
         model_version=None,

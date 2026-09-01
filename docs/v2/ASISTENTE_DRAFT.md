@@ -109,3 +109,74 @@ existe como hecho: mayor VOR disponible (E18), corte de tier a N jugadores
 board). La explicación correcta es la composición de esos hechos con sus
 números — nunca prosa generada sin datos detrás. Requisito previo: nada. Es
 presentación de lo que ya se calcula. Se hará cuando una pantalla lo necesite.
+
+---
+
+# Addendum, 2026-09-01: el asistente en vivo (E19)
+
+Lo anterior era la escalera. Esto es lo que pasó al **ejercitarla entera con un
+draft de verdad entrando por el adaptador**, que es lo único que separa un
+diseño correcto de un producto que funciona.
+
+## Lo que se ejecutó
+
+Un draft de **12 equipos × 15 rondas = 180 picks**, todos llegando por la API
+de Sleeper (servida desde un doble en el navegador de pruebas, porque el proxy
+del contenedor bloquea `api.sleeper.app`). Sin tocar nada: cero picks perdidos,
+cero duplicados, **15 de 15 turnos propios detectados solos** y con lista corta,
+y el estado final declarándose completo. Más 31 comprobaciones de matriz:
+corrida de posición, cinco configuraciones de liga, frescura de sincronización
+y rendimiento del pick manual (p95 **84 ms**).
+
+El reloj del navegador se controla (`page.clock`). Los 180 picks reales serían
+45 minutos de espera y lo que se prueba es la INGESTA, no la paciencia. El
+intervalo de producción no se toca: cambiarlo para que quepa el test sería
+cambiar el sistema para que pase el test.
+
+## Los dos defectos reales que encontró
+
+Ninguno de los dos rompía nada visible. Los dos mentían.
+
+**1. El `status` del draft se cacheaba y no se releía nunca.** `LIVE` exige tres
+condiciones y la tercera es que Sleeper diga `drafting`. El adaptador leía el
+objeto del draft una vez y guardaba la copia; el sondeo de picks seguía saliendo
+bien, así que un draft que **terminaba mientras mirabas** seguía diciendo `LIVE`
+para siempre. Exactamente el fallo que `draftSync.js` existe para impedir,
+colado por la puerta de atrás de una caché. Ahora el id del draft se pinnea —no
+se salta de draft a mitad de uno— y su estado se relee en cada sondeo.
+
+**2. El asistente enseñaba el board publicado y lo llamaba «tu liga».** El
+encabezado decía *by your league's value* y la superflex de 12 daba **el mismo
+orden exacto** que la PPR de 12, porque a esta pantalla nunca le llegaron los
+priors del payload: `leagueBoardFrom` devolvía `null` en silencio y se caía al
+board publicado. La causa no era el compilador sino la página, que pasaba un
+contexto más pobre que el de `/fantasy`. Corregido, superflex pasa de **5 a 17
+quarterbacks entre los 50 primeros** y media recepción cambia quién encabeza la
+lista.
+
+Los dos son el mismo patrón que este proyecto ya se había cobrado dos veces
+—**dos traductores del mismo formato con distinta cobertura**— y por eso la
+corrección no fue copiar el montaje sino extraerlo: `leagueBoardFrom` y
+`activeBoardFrom` viven en `leagueValue.js` y los usan las DOS pantallas.
+
+## Lo que NO se desbloqueó
+
+`SLEEPER_LIVE_BROWSER` **sigue BLOCKED**, y pasar este laboratorio no lo sube.
+Un doble prueba el código; no prueba que la red del usuario llegue a Sleeper.
+Lo que sí cambia es el tamaño de lo que falta: el adaptador entero está
+ejercitado, así que un draft real contesta la capacidad en una tarde.
+
+`BEST_PICK_FOR_ME` sigue BLOCKED por lo de siempre: no hay regla de construcción
+de plantilla medida ni disponibilidad futura calibrada. La lista corta se llama
+**Top available** y dice de dónde salen sus números — «by your league's value»
+cuando la liga se pudo compilar, **«by the published value» cuando no**. Son dos
+afirmaciones distintas y no se escriben igual.
+
+## La calificación de profundidad, que faltaba aquí
+
+La pantalla de board avisaba de que por encima de 14 equipos E18 no sostiene la
+magnitud del valor; el asistente no. La misma liga de 32 salía matizada en una
+pantalla y sin matizar en la otra. Ahora el aviso vive pegado al título de la
+lista corta —donde están los números que califica— y son **dos avisos distintos
+que no se funden**: «no validado a esta profundidad» y «esto no es el valor de
+tu liga» describen límites diferentes.

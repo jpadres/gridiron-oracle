@@ -1570,3 +1570,80 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
    envuelven con hueco en vez de amontonarse truncados en una sola fila. */
 .bk .pos-filter { flex-wrap: wrap; gap: 0.25rem; }
 .bk .pos-option { min-width: auto; padding-inline: 0.7rem; }
+
+/* --- LIVE DRAFT ASSISTANT: conexión, lista corta y parrilla ---------------- */
+/* El estado de conexión NUNCA depende sólo del color: cada nivel lleva su
+   palabra, porque «verde» y «rojo» no se distinguen en todas las pantallas ni
+   en todos los ojos. LIVE sólo lo escribe `syncState`, y sólo con evidencia. */
+.room-link { display: flex; align-items: baseline; gap: var(--space-2); margin: 0 0 var(--space-1); }
+.room-link b {
+  font-size: var(--text-micro); text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 0.1rem 0.45rem; border: 1px solid var(--yard-line);
+}
+.room-link small { font-size: var(--text-micro); color: var(--chalk-dim); }
+.room-link--live b { border-color: var(--live); color: var(--live); }
+.room-link--stale b, .room-link--error b { border-color: var(--flag-ink, #a33b3b); color: var(--flag-ink, #a33b3b); }
+.room-link--manual b, .room-link--offline b { color: var(--chalk-dim); }
+
+.room-shortlist { margin-block: var(--space-3); }
+/* La calificación de profundidad va PEGADA al título de la lista: si vive
+   lejos, se lee como un aviso general del sitio y no como lo que es —el
+   alcance de ESTOS números. */
+.room-depth-warn {
+  margin: calc(var(--space-1) * -1) 0 var(--space-2);
+  font-size: var(--text-micro); font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--flag-ink, #a33b3b);
+}
+.room-depth-warn small {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--text-micro); font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--chalk-dim);
+}
+.room-cands { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: grid; gap: var(--space-2); }
+.room-cands > li { border-left: 3px solid var(--team, var(--yard-line)); background: var(--field-raised); }
+.room-cands > li.is-top { border-left-width: 6px; }
+.room-cand {
+  display: flex; align-items: center; gap: var(--space-3); width: 100%;
+  background: none; border: 0; text-align: left; cursor: pointer;
+  padding: var(--space-2) var(--space-3); min-height: 44px; font: inherit; color: inherit;
+}
+.room-cand-rank {
+  font-family: var(--face-display); font-variation-settings: "wdth" 76;
+  font-size: var(--text-h3); color: var(--chalk-dim); min-width: 2ch;
+}
+.room-cand-who { flex: 1 1 auto; min-width: 0; }
+.room-cand-who .nm { display: block; font-size: var(--text-body); font-weight: var(--weight-semibold); }
+/* La misma fila de datos que en el board, y por eso el mismo trato. Sin regla
+   propia caía a `inline` y se leía «Tier 5Bye 11»: dos hechos distintos pegados
+   en una palabra que no existe. Envuelve porque a 390 px no caben en una línea
+   equipo, posición, tier y bye. */
+.room-cand-who .meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-chip);
+  margin-top: 2px; font-size: var(--text-micro); color: var(--chalk-dim);
+}
+.room-cand-vor {
+  font-family: var(--face-display); font-variation-settings: "wdth" 76;
+  font-size: var(--text-h3); font-variant-numeric: tabular-nums;
+}
+.room-cand-vor small { display: block; font-size: var(--text-nano, 0.62rem); color: var(--chalk-dim); }
+.room-why { list-style: none; margin: 0; padding: 0 var(--space-3) var(--space-2) 3.5rem; }
+.room-why li { font-size: var(--text-micro); color: var(--chalk-dim); }
+
+.room-grid { display: grid; gap: 2px; margin-top: var(--space-2); }
+.room-grid-row { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: 2px; }
+.room-cell {
+  min-height: 2.1rem; padding: 0.15rem 0.2rem; overflow: hidden;
+  background: var(--field-raised); font-size: var(--text-nano, 0.62rem); line-height: 1.15;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.room-cell b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.room-cell small { color: var(--chalk-dim); }
+.room-cell.is-taken { border-left: 3px solid var(--team, var(--yard-line)); }
+.room-cell.is-mine { outline: 1px solid var(--chalk-dim); outline-offset: -1px; }
+/* El pick actual no se marca sólo con color: lleva su propio borde grueso. */
+.room-cell.is-now { outline: 2px solid var(--live); outline-offset: -2px; }

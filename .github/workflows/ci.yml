@@ -149,12 +149,14 @@ jobs:
             exit 1
           fi
 
-          # `fetch` sólo puede aparecer en el modo draft. En cualquier otro
-          # sitio significa que una página que se anuncia como estática ha
-          # empezado a pedir cosas, que es exactamente lo que este control
-          # existe para detectar.
+          # `fetch` sólo puede aparecer en el ADAPTADOR DE SLEEPER y en la
+          # pantalla que lo usaba antes de extraerlo. En cualquier otro sitio
+          # significa que una página que se anuncia como estática ha empezado a
+          # pedir cosas, que es exactamente lo que este control existe para
+          # detectar. La lista se AMPLÍA a mano, fichero a fichero: un control
+          # que se relaja hasta no comprobar nada es peor que no tenerlo.
           culpables=$(grep -rlE "\bfetch\(|XMLHttpRequest|new WebSocket" app data \
-                      | grep -v "^app/fantasy/DraftMode.jsx$" || true)
+                      | grep -vE "^app/fantasy/(DraftMode.jsx|useSleeperDraft.js)$" || true)
           if [ -n "$culpables" ]; then
             echo "Peticiones de red fuera del modo draft:"
             echo "$culpables"
@@ -171,9 +173,9 @@ jobs:
           # Y el destino tiene que ser Sleeper. Un fetch a otro host pasaría este
           # fichero pero lo bloquearía el navegador por CSP: mejor que falle aquí,
           # donde se lee el motivo, que en la consola de alguien en mitad de un draft.
-          if grep -nE "\bfetch\(" app/fantasy/DraftMode.jsx \
+          if grep -nE "\bfetch\(" app/fantasy/DraftMode.jsx app/fantasy/useSleeperDraft.js \
              | grep -qvE "SLEEPER|api\.sleeper\.app"; then
-            echo "El modo draft sólo puede llamar a api.sleeper.app."
+            echo "El adaptador sólo puede llamar a api.sleeper.app."
             exit 1
           fi
 

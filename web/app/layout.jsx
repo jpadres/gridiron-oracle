@@ -25,8 +25,11 @@ const PAGES = [
   { href: "/validacion", label: "Validation" },
   { href: "/predicciones", label: "Predictions" },
   { href: "/betting", label: "Betting" },
-  { href: "/fantasy", label: "Draft" },
-  { href: "/fantasy/draft", label: "Room" },
+  // «Draft» y «Room» no decían qué hacía cada una: las dos son del draft y una
+  // se llamaba por su mueble. Ahora se nombran por su trabajo — el board es
+  // valor por liga, el asistente es la pantalla que se mira DURANTE el draft.
+  { href: "/fantasy", label: "Board" },
+  { href: "/fantasy/draft", label: "Draft Assistant" },
   { href: "/fantasy/leagues", label: "Leagues" },
   { href: "/fantasy/semanal", label: "Weekly" },
   { href: "/survivor", label: "Survivor" },

@@ -1,0 +1,224 @@
+/**
+ * LIVE DRAFT ASSISTANT — la simulación que el bloque pide ver funcionando.
+ *
+ * Un draft de 12 equipos entero con los picks entrando por el ADAPTADOR (se
+ * intercepta la red y se sirve la API de Sleeper desde un fixture, que es la
+ * única forma de ejercitar la ingesta automática desde este contenedor: el
+ * proxy bloquea api.sleeper.app). En cada pick se comprueba el pool, el turno,
+ * la parrilla, la plantilla y la lista corta; y se prueban las dos carreras
+ * que importan: que fichen a tu candidato mientras miras, y mientras decides.
+ */
+import { spawn } from "node:child_process";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { chromium } from "playwright";
+
+const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+const PORT = Number(process.env.PORT ?? 4510);
+const BASE = `http://127.0.0.1:${PORT}`;
+const OUT = "/tmp/claude-0/-home-user-gridiron-oracle/2ba586eb-a73c-5614-b014-9ed94d875f6d/scratchpad/shots";
+async function libre(b){try{await fetch(b,{signal:AbortSignal.timeout(1500)});}catch{return;}throw new Error(`zombi en ${b}`);}
+await libre(BASE);
+const { model } = await import(path.join(WEB, "data/model.js"));
+const BOARD = model.fantasy.board;
+if(!process.env.SKIP_BUILD){
+  console.log("construyendo…");
+  await new Promise((r,j)=>{const b=spawn("npx",["next","build"],{cwd:WEB,stdio:"ignore"});b.on("exit",c=>c===0?r():j(new Error(`build ${c}`)));});
+}
+const server=spawn("npx",["next","start","-p",String(PORT)],{cwd:WEB,stdio:"ignore",detached:true});
+const stop=()=>{try{process.kill(-server.pid);}catch{/* ya no está */}};process.on("exit",stop);
+for(let i=0;i<60;i+=1){try{if((await fetch(BASE)).ok)break;}catch{/* aún no */}await new Promise(r=>setTimeout(r,400));}
+
+const browser=await chromium.launch({executablePath:"/opt/pw-browsers/chromium-1194/chrome-linux/chrome"});
+let fallos=0;
+const check=(n,ok,d="")=>{if(!ok)fallos+=1;console.log(`  ${ok?"ok   ":"FALLA"} ${n}${d?` — ${d}`:""}`);};
+
+const TEAMS=12, ROUNDS=15, MY_SLOT=7;
+const LIGA={name:"Sunday Twelve",platform:"sleeper",leagueId:"LG12",draftId:"DR12",userId:"me",
+  teams:TEAMS,scoring:"ppr",draftType:"snake",rounds:ROUNDS,mySlot:MY_SLOT,
+  roster:["QB","RB","RB","WR","WR","TE","FLEX","DEF","K","BN","BN","BN","BN","BN","BN"],
+  rosterSource:"MANUAL"};
+const slotOf=(no)=>{const r=Math.floor((no-1)/TEAMS)+1,i=((no-1)%TEAMS)+1;
+  return r%2===0?TEAMS-i+1:i;};
+const mine=(no)=>slotOf(no)===MY_SLOT;
+
+/** El servidor de picks: el fixture que el adaptador consume como si fuera Sleeper. */
+let PICKS=[];
+async function montar(ctx){
+  await ctx.route("**/api.sleeper.app/**", async (route)=>{
+    const url=route.request().url();
+    if(url.includes("/drafts")){
+      return route.fulfill({status:200,contentType:"application/json",
+        body:JSON.stringify([{draft_id:"DR12",status:"drafting",season:"2026",
+          settings:{teams:TEAMS,rounds:ROUNDS},type:"snake"}])});
+    }
+    if(url.includes("/picks")){
+      return route.fulfill({status:200,contentType:"application/json",body:JSON.stringify(PICKS)});
+    }
+    return route.fulfill({status:404,body:"[]"});
+  });
+}
+/** Añade el pick N con un jugador real del board, como lo emite Sleeper. */
+function emitir(no, row, porOtro=false){
+  const [first,...rest]=(row.player_full_name ?? row.player_name).split(" ");
+  // `metadata.position` NO es decorado: `resolvePick` cruza por nombre Y
+  // posición, y el equipo sólo desempata. Un fixture sin posición no emparejaba
+  // NADA y el laboratorio se quedaba esperando 180 veces — el fallo no estaba
+  // en el producto sino en un doble de Sleeper que no se parecía a Sleeper.
+  PICKS.push({pick_no:no, player_id:`sl-${row.player_id}`,
+    picked_by: (!porOtro && mine(no)) ? "me" : `otro-${slotOf(no)}`,
+    metadata:{first_name:first, last_name:rest.join(" "),
+              position:row.position, team:row.team}});
+}
+const cuenta=(p)=>p.locator(".room-count strong").innerText();
+const esperar=async(p,n)=>p.waitForFunction((x)=>document.querySelector(".room-count strong")?.textContent===String(x),n,{timeout:8000});
+
+const ctx=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:"reduce"});
+await montar(ctx);
+await ctx.addInitScript((l)=>localStorage.setItem("gridiron-room-league-v1",JSON.stringify(l)),LIGA);
+const page=await ctx.newPage();
+// El adaptador sondea cada 15 s de reloj real. Se controla el reloj del
+// navegador en vez de esperarlo: 180 picks reales serían 45 minutos, y lo que
+// se quiere probar es la INGESTA, no la paciencia. El intervalo de producción
+// no se toca — eso sería cambiar el sistema para que pase el test.
+await page.clock.install();
+await page.goto(`${BASE}/fantasy/draft`,{waitUntil:"domcontentloaded"});
+await page.waitForSelector(".room-list button");
+
+console.log("=== conexión y arranque ===");
+check("el estado de conexión aparece y NO dice LIVE sin evidencia todavía",
+      (await page.locator(".room-link b").count())===1);
+check("la parrilla se pinta con las 15 rondas de 12",
+      (await page.locator(".room-grid-row").count())===ROUNDS &&
+      (await page.locator(".room-grid-row").first().locator(".room-cell").count())===TEAMS);
+check("mi columna está marcada en cada ronda",
+      (await page.locator(".room-cell.is-mine").count())===ROUNDS);
+await page.screenshot({path:`${OUT}/lda-1440-waiting.png`});
+
+/* === el draft entero, pick a pick, por el proveedor ====================== */
+console.log("\n=== 180 picks por el adaptador ===");
+const libres=()=>BOARD.filter(r=>!PICKS.some(p=>p.player_id===`sl-${r.player_id}`));
+let errores=0, misTurnosVerificados=0; const t0=Date.now();
+for(let no=1; no<=180; no+=1){
+  if(mine(no)){
+    // MI TURNO: el asistente tiene que detectarlo SIN que yo pulse nada.
+    await page.waitForSelector(".room-state--clock",{timeout:8000}).catch(()=>{});
+    const enReloj=(await page.locator(".room-state--clock").count())===1;
+    const listaCorta=await page.locator(".room-cands > li").count();
+    if(!enReloj||listaCorta===0) errores+=1;
+    else misTurnosVerificados+=1;
+  }
+  emitir(no, libres()[0]);
+  await page.clock.runFor(16_000);             // dispara el siguiente sondeo
+  let entro=true;
+  await esperar(page,no).catch(()=>{ errores+=1; entro=false; });
+  if(no===24) await page.screenshot({path:`${OUT}/lda-1440-onclock.png`});
+  if(no%20===0||!entro){
+    console.log(`  pick ${no} · ${await cuenta(page)} registrados · ${errores} errores · ${Math.round((Date.now()-t0)/1000)}s`);
+  }
+  // Si la ingesta se rompe, se PARA y se dice. Reintentar 180 veces con un
+  // timeout de 8 s cada una convierte un fallo de dos segundos en media hora
+  // de espera que no informa de nada nuevo.
+  if(errores>=3){ console.log("  ABORTA: la ingesta no avanza"); break; }
+}
+check("los 180 picks entraron por el proveedor sin intervención manual",
+      (await cuenta(page))==="180" && errores===0, `${errores} errores`);
+check("mis 15 turnos se detectaron solos y con lista corta",misTurnosVerificados===15,
+      `${misTurnosVerificados}/15`);
+check("el draft se declara completo y ofrece revisarlo",
+      /draft complete/i.test(await page.locator(".room-state").innerText()) &&
+      (await page.locator(".room-replay-enter").count())===1);
+check("y ya NO hay lista corta ni reloj",
+      (await page.locator(".room-cands").count())===0 &&
+      (await page.locator(".room-state--clock").count())===0);
+await page.screenshot({path:`${OUT}/lda-1440-complete.png`});
+await ctx.close();
+
+/* === la carrera: te fichan al candidato ================================== */
+/* El planteamiento ingenuo —«que otro lo fiche mientras tú estás en el
+   reloj»— NO PUEDE OCURRIR y por eso no se prueba así: la lista corta sólo
+   existe cuando te toca, y cuando te toca nadie más elige. Lo que sí ocurre
+   de verdad en Sleeper es el AUTODRAFT: se te acaba el tiempo, el proveedor
+   registra TU pick con tu candidato, y cuando vuelves a estar en el reloj ese
+   jugador ya no puede aparecer. Eso es lo que se comprueba. */
+console.log("\n=== candidato fichado (autodraft en tu turno) ===");
+{
+  PICKS=[];
+  const c2=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:"reduce"});
+  await montar(c2);
+  await c2.addInitScript((l)=>localStorage.setItem("gridiron-room-league-v1",JSON.stringify(l)),
+    {...LIGA,mySlot:1});
+  const p2=await c2.newPage();
+  await p2.clock.install();
+  await p2.goto(`${BASE}/fantasy/draft`,{waitUntil:"domcontentloaded"});
+  await p2.waitForSelector(".room-cands > li");
+  const top=await p2.locator(".room-cands .nm").first().innerText();
+  check("con el puesto 1 el asistente arranca en el reloj y con candidatos",top.length>0,top);
+
+  // Se te acaba el reloj: el pick 1 entra por el proveedor, con TU candidato,
+  // y a nombre de otro (comisionado o autodraft ajeno).
+  const libres2=()=>BOARD.filter(r=>!PICKS.some(x=>x.player_id===`sl-${r.player_id}`));
+  emitir(1, BOARD.find(r=>(r.player_full_name??r.player_name)===top), true);
+  await p2.clock.runFor(16_000);
+  await p2.waitForFunction(()=>document.querySelector(".room-count strong")?.textContent==="1",
+                           null,{timeout:8000});
+  check("el candidato fichado sale del board de disponibles en el acto",
+        !(await p2.locator(".room-list .nm").allInnerTexts()).includes(top));
+  check("y con el turno pasado NO queda lista corta colgada",
+        (await p2.locator(".room-cands").count())===0);
+
+  // Hasta mi siguiente turno (pick 24 en snake con el puesto 1).
+  for(let no=2;no<=23;no+=1) emitir(no, libres2()[0]);
+  await p2.clock.runFor(16_000);
+  await p2.waitForFunction(()=>document.querySelector(".room-count strong")?.textContent==="23",
+                           null,{timeout:8000});
+  await p2.waitForSelector(".room-cands > li",{timeout:8000});
+  const nuevo=await p2.locator(".room-cands .nm").first().innerText();
+  check("en mi siguiente turno la lista se recalculó sola",nuevo!==top,`${top} -> ${nuevo}`);
+  check("y el fichado NO reaparece en ninguna fila de la lista corta",
+        !(await p2.locator(".room-cands .nm").allInnerTexts()).includes(top));
+  await p2.screenshot({path:`${OUT}/lda-1440-stolen.png`});
+  await c2.close();
+}
+
+/* === aislamiento entre dos drafts ======================================== */
+console.log("\n=== aislamiento A/B ===");
+{
+  const c3=await browser.newContext({viewport:{width:1440,height:900}});
+  await c3.route("**/api.sleeper.app/**",(r)=>r.fulfill({status:200,contentType:"application/json",body:"[]"}));
+  await c3.addInitScript(()=>localStorage.setItem("gridiron-room-league-v1",JSON.stringify({
+    name:"B",platform:"manual",leagueId:"LB",draftId:"DB",teams:10,scoring:"ppr",
+    draftType:"snake",rounds:15,mySlot:3,roster:["QB","RB","WR","TE","FLEX","BN"],rosterSource:"MANUAL"})));
+  const p3=await c3.newPage();
+  await p3.goto(`${BASE}/fantasy/draft`,{waitUntil:"domcontentloaded"});
+  await p3.waitForSelector(".room-list button");
+  check("la liga B (manual) empieza vacía pese al draft completo de A",(await cuenta(p3))==="0");
+  check("y su estado de conexión dice MANUAL, no LIVE",
+        /manual/i.test(await p3.locator(".room-link b").innerText()));
+  await c3.close();
+}
+
+/* === móvil ============================================================== */
+console.log("\n=== 390 y 768 ===");
+for(const [w,h] of [[390,844],[768,1024]]){
+  PICKS=[];
+  const c4=await browser.newContext({viewport:{width:w,height:h},reducedMotion:"reduce"});
+  await montar(c4);
+  await c4.addInitScript((l)=>localStorage.setItem("gridiron-room-league-v1",JSON.stringify(l)),
+    {...LIGA,mySlot:1});
+  const p4=await c4.newPage();
+  await p4.clock.install();
+  await p4.goto(`${BASE}/fantasy/draft`,{waitUntil:"domcontentloaded"});
+  await p4.waitForSelector(".room-cands > li");
+  const caja=await p4.locator(".room-cands > li").first().boundingBox();
+  check(`${w}px: el primer candidato entra en el primer viewport`,caja!==null&&caja.y+caja.height<h,
+        `y=${Math.round(caja?.y??-1)}`);
+  check(`${w}px: sin desbordamiento`,
+        await p4.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth));
+  await p4.screenshot({path:`${OUT}/lda-${w}-onclock.png`});
+  await c4.close();
+}
+
+await browser.close(); stop();
+console.log(fallos===0?"\nSIN FALLOS":`\n${fallos} FALLOS`);
+process.exit(fallos===0?0:1);

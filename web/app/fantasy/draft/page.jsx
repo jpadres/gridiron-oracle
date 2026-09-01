@@ -3,7 +3,7 @@ import { NoDataYet } from "../../ui.jsx";
 import RoomShell from "./RoomShell.jsx";
 
 export const metadata = {
-  title: "Gridiron Oracle — Draft Room",
+  title: "Gridiron Oracle — Draft Assistant",
   description:
     "Live draft companion. Works on any platform — mark picks as they happen and the board reacts.",
 };
@@ -13,7 +13,7 @@ export default function DraftRoomPage() {
   if (!fantasy?.board?.length) {
     return (
       <>
-        <h1>Draft Room</h1>
+        <h1>Draft Assistant</h1>
         <NoDataYet />
       </>
     );
@@ -29,6 +29,16 @@ export default function DraftRoomPage() {
         // Draft Room tiene su propia ruta, así que el contexto se pasa aquí y
         // no en el `page.jsx` del board — dos páginas, dos sitios.
         byes: fantasy.byes ?? null,
+        // Lo que hace falta para RECOMPILAR el board en la liga del usuario.
+        // Faltaban aquí, así que el asistente enseñaba el board publicado
+        // mientras el encabezado decía «by your league's value»: no era que el
+        // compilador fallara, es que nunca le llegaban los priors. Los mismos
+        // campos que pasa el board de `/fantasy`, por el mismo compilador.
+        componentOrder: fantasy.components ?? null,
+        positionPriors: fantasy.position_priors ?? null,
+        shrinkPriorGames: fantasy.shrink_prior_games ?? 10,
+        tdPersistence: fantasy.td_persistence ?? 0.55,
+        projectedGames: fantasy.projected_games ?? 15.5,
         // K y DST fichables: hechos de la temporada anterior, sin valor. El
         // board de VOR no los ordena y la sala tampoco lo finge.
         specialists: fantasy.specialists ?? null,

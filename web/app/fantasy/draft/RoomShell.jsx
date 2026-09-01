@@ -20,19 +20,38 @@
  * Sleeper, cuando exista, rellenará estos mismos campos solo.
  */
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import DraftRoom from "../DraftRoom.jsx";
 // La misma constante que lee el board para saber en qué draft está: si cada
 // pantalla escribiera la suya, volverían a ser dos contextos con un nombre.
 import { ROOM_LEAGUE_KEY as KEY, saveLeagueToCatalog } from "../draftStorage.js";
-import { rosterFromCounts } from "../leagueValue.js";
+import {
+  activeBoardFrom, leagueBoardFrom, rosterContext, rosterFromCounts, setComponentOrder,
+} from "../leagueValue.js";
+import { DEFAULT_RULES, compilePoints, scoringLabel } from "../scoring.js";
 
 const SCORING = [
   { id: "ppr", label: "PPR" },
   { id: "half", label: "Half PPR" },
   { id: "standard", label: "Standard" },
 ];
+
+/**
+ * Puntos por recepción de cada preajuste del configurador.
+ *
+ * El configurador manual ofrece TRES puntuaciones y nada más, así que esto es
+ * la traducción completa de lo que puede elegirse — no un valor por defecto
+ * colado como configuración. Una liga sincronizada de Sleeper trae sus reglas
+ * de verdad por `rulesFromSleeper`; esto es para la liga que se teclea.
+ */
+const RECEPTION = { ppr: 1, half: 0.5, standard: 0 };
+function rulesFor(scoring) {
+  const rec = RECEPTION[scoring];
+  // Sin puntuación conocida NO se inventa PPR: no hay reglas, y sin reglas no
+  // hay board de liga. La pantalla enseña el publicado y lo dice.
+  return rec === undefined ? null : { ...DEFAULT_RULES, reception: rec };
+}
 const TYPES = [
   { id: "snake", label: "Snake" },
   { id: "linear", label: "Linear" },
@@ -134,6 +153,30 @@ export default function RoomShell({ board, context }) {
     } catch { /* modo privado: se puede draftear igual, sin recordar la liga */ }
   }, []);
 
+  /* El board RECOMPILADO en ESTA liga, por el MISMO compilador que usa el
+     board de `/fantasy`. Antes el asistente enseñaba el publicado mientras el
+     encabezado decía «by your league's value»: la superflex de 12 y la PPR de
+     12 daban exactamente el mismo orden porque nadie recalculaba nada. Lo
+     encontró la matriz de configuraciones, no un test unitario. */
+  const leagueValue = useMemo(() => {
+    if (!league) return { board: null, roster: null, rules: null };
+    if (context.componentOrder) setComponentOrder(context.componentOrder);
+    const rules = rulesFor(league.scoring);
+    const roster = rosterContext(league.roster, league.teams);
+    const built = leagueBoardFrom({ board, context, rules, roster, compilePoints });
+    return {
+      board: built,
+      roster: roster.supported ? roster : null,
+      rules,
+      label: rules ? scoringLabel(rules) : null,
+      // Por qué NO se pudo, para poder decirlo en vez de callarlo.
+      reason: built ? null : (!rules ? "UNKNOWN scoring" : roster.reason || "board unavailable"),
+    };
+  }, [board, context, league]);
+  const activeBoard = useMemo(
+    () => activeBoardFrom(leagueValue.board, board), [leagueValue, board]
+  );
+
   if (!ready) return <p className="caption">Loading&hellip;</p>;
 
   if (!league || editing) {
@@ -147,7 +190,7 @@ export default function RoomShell({ board, context }) {
     const set = (patch) => setDraft({ ...entry, ...patch });
     return (
       <>
-        <p className="eyebrow">{context.season} · Draft Room</p>
+        <p className="eyebrow">{context.season} · Draft Assistant</p>
         <h1>Set up your league</h1>
         <p className="lede">
           Works with any platform. Draft on Sleeper, ESPN, Yahoo or around a kitchen table —
@@ -266,7 +309,7 @@ export default function RoomShell({ board, context }) {
           móvil gastado en decir dónde estás cuando ya lo sabes: has entrado tú.
           Lo que sí hace falta es la identidad de la liga, y cabe en la línea. */}
       <header className="room-head">
-        <h1>Draft Room</h1>
+        <h1>Draft Assistant</h1>
         <p>
           <b>{league.name || "Manual league"}</b>
           <span>{league.teams}-team</span>
@@ -276,7 +319,8 @@ export default function RoomShell({ board, context }) {
           <button type="button" className="link" onClick={beginEdit}>edit</button>
         </p>
       </header>
-      <DraftRoom board={board} context={context} league={league} />
+      <DraftRoom board={activeBoard} context={context} league={league}
+                 leagueValue={leagueValue} />
     </>
   );
 }

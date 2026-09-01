@@ -80,7 +80,7 @@ export default function LeaguesShell({ board, context }) {
         <div className="cc-empty">
           <p className="lede">No leagues yet.</p>
           <p>
-            Set up a manual league in the <a href="/fantasy/draft">Draft Room</a> — it works
+            Set up a manual league in the <a href="/fantasy/draft">Draft Assistant</a> — it works
             for drafts on any platform — or connect a Sleeper league from the{" "}
             <a href="/fantasy">Draft Board</a>.
           </p>
@@ -188,7 +188,7 @@ export default function LeaguesShell({ board, context }) {
           <p className="caption cc-note">
             Everything here is recorded state: your picks, your configuration, the published
             schedule. Nothing is recommended — an open slot is a fact, not advice. Opening a
-            league makes it the active one in the Draft Room.
+            league makes it the active one in the Draft Assistant.
           </p>
         </>
       )}
