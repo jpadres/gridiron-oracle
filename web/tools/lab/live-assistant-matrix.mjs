@@ -22,6 +22,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 
+import { HALF, PPR, USERNAME, crearLiga, emitir as emitirPick, libres as libresDe, montar as montarDoble }
+  from "./sleeper-double.mjs";
+
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const PORT = Number(process.env.PORT ?? 4511);
 const BASE = `http://127.0.0.1:${PORT}`;
@@ -30,6 +33,9 @@ async function libre(b){try{await fetch(b,{signal:AbortSignal.timeout(1500)});}c
 await libre(BASE);
 const { model } = await import(path.join(WEB, "data/model.js"));
 const BOARD = model.fantasy.board;
+// El mapa horneado del producto: el doble emite ids de Sleeper de verdad.
+const SLEEPER_OF = Object.fromEntries(
+  Object.entries(model.fantasy.sleeper_ids).map(([s, g]) => [g, s]));
 if(!process.env.SKIP_BUILD){
   await new Promise((r,j)=>{const b=spawn("npx",["next","build"],{cwd:WEB,stdio:"ignore"});b.on("exit",c=>c===0?r():j(new Error(`build ${c}`)));});
 }
@@ -41,31 +47,30 @@ const browser=await chromium.launch({executablePath:"/opt/pw-browsers/chromium-1
 let fallos=0;
 const check=(n,ok,d="")=>{if(!ok)fallos+=1;console.log(`  ${ok?"ok   ":"FALLA"} ${n}${d?` — ${d}`:""}`);};
 
-/** El doble de Sleeper. `estado` decide qué contesta y si contesta. */
-const provider={picks:[],estado:"drafting",caido:false};
-async function montar(ctx){
-  await ctx.route("**/api.sleeper.app/**", async (route)=>{
-    if(provider.caido) return route.fulfill({status:503,contentType:"application/json",body:'{"error":"down"}'});
-    const url=route.request().url();
-    if(url.includes("/drafts")){
-      return route.fulfill({status:200,contentType:"application/json",
-        body:JSON.stringify([{draft_id:"DRX",status:provider.estado,season:"2026",
-          settings:{teams:12,rounds:15},type:"snake"}])});
-    }
-    if(url.includes("/picks")){
-      return route.fulfill({status:200,contentType:"application/json",body:JSON.stringify(provider.picks)});
-    }
-    return route.fulfill({status:404,body:"[]"});
-  });
+/* El doble es el compartido. `provider.actual` es la liga que se está
+   sirviendo: cada bloque la reconstruye con SUS ajustes, porque desde este
+   bloque lo que dice el proveedor manda sobre lo que se teclea — y un doble
+   que no lleve los ajustes del caso probaría otra configuración. */
+const provider={actual:null};
+function prov({teams=12,roster=ROSTER_12,scoring=PPR,mySlot=1,id="LGX",draftId="DRX",rounds=15}={}){
+  provider.actual=crearLiga({id,draftId,teams,roster,scoring,mySlot,rounds});
+  return provider.actual;
 }
-function emitir(no,row,dueño="otro"){
-  const [first,...rest]=(row.player_full_name ?? row.player_name).split(" ");
-  provider.picks.push({pick_no:no, player_id:`sl-${row.player_id}`, picked_by:dueño,
-    metadata:{first_name:first,last_name:rest.join(" "),position:row.position,team:row.team}});
-}
-const libres=()=>BOARD.filter(r=>!provider.picks.some(p=>p.player_id===`sl-${r.player_id}`));
+async function montar(ctx){ await montarDoble(ctx,[provider.actual]); }
+function emitir(no,row){ emitirPick(provider.actual,no,row,SLEEPER_OF); }
+const libres=()=>libresDe(provider.actual,BOARD,SLEEPER_OF);
+const ROSTER_12=["QB","RB","RB","WR","WR","TE","FLEX","DEF","K","BN","BN","BN","BN","BN","BN"];
 
-async function abrir(liga,{width=1440,height=1000}={}){
+const ESCALA={ppr:PPR,half:HALF};
+/** Los mismos ajustes que la liga guardada, en forma de proveedor. */
+const desde=(l)=>prov({teams:l.teams,roster:l.roster,scoring:ESCALA[l.scoring]??PPR,
+                       mySlot:l.mySlot,id:l.leagueId,draftId:l.draftId,rounds:l.rounds});
+
+async function abrir(liga,{width=1440,height=1000,conservar=false}={}){
+  // Por defecto el doble se reconstruye con los ajustes de ESTA liga. Los
+  // bloques que emiten picks antes de abrir llaman a `desde` ellos y pasan
+  // `conservar`, para no tirar lo que acaban de sembrar.
+  if(!conservar) desde(liga);
   const ctx=await browser.newContext({viewport:{width,height},reducedMotion:"reduce"});
   await montar(ctx);
   await ctx.addInitScript((l)=>localStorage.setItem("gridiron-room-league-v1",JSON.stringify(l)),liga);
@@ -83,7 +88,6 @@ const BASE_LIGA={name:"Matrix",platform:"sleeper",leagueId:"LGX",draftId:"DRX",u
 /* === 1. CORRIDA DE POSICIÓN ============================================== */
 console.log("=== corrida: cinco receptores seguidos ===");
 {
-  provider.picks=[]; provider.estado="drafting"; provider.caido=false;
   const {ctx,page}=await abrir({...BASE_LIGA,mySlot:6});
   // Se cuenta sobre el POOL que el producto declara («N on board»), NO sobre
   // las filas pintadas: la lista se corta en 60 y contar lo renderizado es el
@@ -123,7 +127,7 @@ console.log("=== corrida: cinco receptores seguidos ===");
 
   // Y en mi turno (pick 6) la lista corta ya refleja la corrida.
   emitir(6,libres()[0]); // no: mi turno es el 6, así que no lo emito.
-  provider.picks.pop();
+  provider.actual.picks.pop();
   await page.waitForSelector(".room-cands > li",{timeout:8000});
   const listaTop=await page.locator(".room-cands .nm").allInnerTexts();
   check("en mi turno la lista corta no ofrece a ninguno de los fichados",
@@ -150,7 +154,6 @@ const CONFIGS=[
 ];
 const ordenes={};
 for(const {etiqueta,liga,profundo} of CONFIGS){
-  provider.picks=[]; provider.estado="drafting"; provider.caido=false;
   const {ctx,page}=await abrir(liga);
   await page.waitForSelector(".room-cands > li",{timeout:8000});
   const top=await page.locator(".room-cands .nm").allInnerTexts();
@@ -172,7 +175,6 @@ for(const {etiqueta,liga,profundo} of CONFIGS){
 console.log("\n=== superflex: donde E18b dice que se mueve ===");
 {
   const qbTop=async(liga)=>{
-    provider.picks=[]; provider.estado="drafting"; provider.caido=false;
     const {ctx,page}=await abrir(liga);
     const n=await page.evaluate(()=>
       [...document.querySelectorAll(".room-list .ptag")].slice(0,50)
@@ -190,7 +192,6 @@ console.log("\n=== superflex: donde E18b dice que se mueve ===");
 /* === 3. FRESCURA DE LA SINCRONIZACIÓN ==================================== */
 console.log("\n=== frescura: LIVE, envejecer, caer y volver ===");
 {
-  provider.picks=[]; provider.estado="drafting"; provider.caido=false;
   const {ctx,page}=await abrir({...BASE_LIGA,name:"FRESH",leagueId:"LGF",draftId:"DRF"});
   const banda=()=>page.locator(".room-link b").innerText();
   const nivel=()=>page.locator(".room-link").getAttribute("class");
@@ -202,7 +203,7 @@ console.log("\n=== frescura: LIVE, envejecer, caer y volver ===");
         /live/i.test(await banda()) && /room-link--live/.test(await nivel()),await banda());
 
   // Envejecer sin sondeo: el reloj corre pero la red no contesta.
-  provider.caido=true;
+  provider.actual.caido=true;
   await page.clock.runFor(40_000);
   const trasCaida=await banda();
   check("caída la red, la banda NO sigue diciendo LIVE",!/^live$/i.test(trasCaida.trim()),trasCaida);
@@ -213,7 +214,7 @@ console.log("\n=== frescura: LIVE, envejecer, caer y volver ===");
   await page.screenshot({path:`${OUT}/lda-1440-syncerror.png`});
 
   // Vuelve la red y llega un pick: se recupera sola, sin botón.
-  provider.caido=false;
+  provider.actual.caido=false;
   emitir(1,libres()[0]);
   await page.clock.runFor(16_000);
   await page.waitForFunction(()=>document.querySelector(".room-count strong")?.textContent==="1",
@@ -222,7 +223,7 @@ console.log("\n=== frescura: LIVE, envejecer, caer y volver ===");
         /live/i.test(await banda()),await banda());
 
   // Draft terminado según el proveedor: no se puede seguir diciendo que pasa algo.
-  provider.estado="complete";
+  provider.actual.draft.status="complete";
   await page.clock.runFor(16_000);
   await page.waitForFunction(()=>!/^live$/i.test(document.querySelector(".room-link b")?.textContent?.trim()??""),
                              null,{timeout:8000}).catch(()=>{});
@@ -239,9 +240,10 @@ console.log("\n=== frescura: LIVE, envejecer, caer y volver ===");
    test, así que aquí queda el test. */
 console.log("\n=== separadores de tier al fondo del pool ===");
 {
-  provider.picks=[]; provider.estado="drafting"; provider.caido=false;
+  const tail={...BASE_LIGA,name:"TAIL",leagueId:"LGT",draftId:"DRT"};
+  desde(tail);                       // el doble PRIMERO: hay que sembrarlo
   for(let no=1;no<=180;no+=1) emitir(no,libres()[0]);
-  const {ctx,page}=await abrir({...BASE_LIGA,name:"TAIL",leagueId:"LGT",draftId:"DRT"});
+  const {ctx,page}=await abrir(tail,{conservar:true});
   await page.clock.runFor(16_000);
   await page.waitForFunction(()=>document.querySelector(".room-count strong")?.textContent==="180",
                              null,{timeout:8000});
@@ -270,7 +272,6 @@ console.log("\n=== separadores de tier al fondo del pool ===");
 /* === 4. FALLBACK MANUAL Y RENDIMIENTO ==================================== */
 console.log("\n=== manual y rendimiento ===");
 {
-  provider.picks=[]; provider.estado="drafting"; provider.caido=false;
   const {ctx,page}=await abrir({...BASE_LIGA,name:"MAN",platform:"manual",leagueId:"LGM",draftId:"DRM"});
   check("sin liga de Sleeper la banda dice Manual y no un fallo",
         /manual/i.test(await page.locator(".room-link b").innerText()));

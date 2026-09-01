@@ -155,6 +155,10 @@ jobs:
           # pedir cosas, que es exactamente lo que este control existe para
           # detectar. La lista se AMPLÍA a mano, fichero a fichero: un control
           # que se relaja hasta no comprobar nada es peor que no tenerlo.
+          # DraftMode conserva sus PROPIAS peticiones, y no es duplicación del
+          # adaptador: son el descubrimiento de ligas (buscar tu usuario, listar
+          # tus ligas) — un flujo de configuración, no de sincronización. El
+          # sondeo del draft vive sólo en `useSleeperDraft.js`.
           culpables=$(grep -rlE "\bfetch\(|XMLHttpRequest|new WebSocket" app data \
                       | grep -vE "^app/fantasy/(DraftMode.jsx|useSleeperDraft.js)$" || true)
           if [ -n "$culpables" ]; then

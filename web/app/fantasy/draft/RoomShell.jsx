@@ -29,7 +29,8 @@ import { ROOM_LEAGUE_KEY as KEY, saveLeagueToCatalog } from "../draftStorage.js"
 import {
   activeBoardFrom, leagueBoardFrom, rosterContext, rosterFromCounts, setComponentOrder,
 } from "../leagueValue.js";
-import { DEFAULT_RULES, compilePoints, scoringLabel } from "../scoring.js";
+import { DEFAULT_RULES, compilePoints, rulesFromSleeper, scoringLabel } from "../scoring.js";
+import { useSleeperDraft } from "../useSleeperDraft.js";
 
 const SCORING = [
   { id: "ppr", label: "PPR" },
@@ -158,11 +159,65 @@ export default function RoomShell({ board, context }) {
      encabezado decía «by your league's value»: la superflex de 12 y la PPR de
      12 daban exactamente el mismo orden porque nadie recalculaba nada. Lo
      encontró la matriz de configuraciones, no un test unitario. */
+  /* EL POOL COMPLETO. El adaptador resuelve por id contra él, así que un
+     pateador o una defensa fichados en Sleeper también salen del tablero. */
+  const pool = useMemo(() => {
+    const s = context.specialists;
+    return [...board, ...(s?.kickers ?? []), ...(s?.defenses ?? [])];
+  }, [board, context.specialists]);
+
+  /* La sincronización vive AQUÍ y no dentro del asistente porque de ella sale
+     también la configuración real de la liga, y con ella el valor. Si la
+     pidiera la pantalla de abajo habría dos respuestas a «cuántos equipos
+     tiene esta liga» —la tecleada y la del proveedor— y ninguna forma de saber
+     cuál se usó. */
+  const sync = useSleeperDraft(pool, {
+    leagueId: league?.platform === "sleeper" ? String(league.leagueId ?? "") : "",
+    season: context.season,
+    userId: league?.userId ?? "",
+    idMap: context.sleeperIds,
+  });
+
+  /**
+   * La liga EFECTIVA: lo que dice Sleeper manda sobre lo que se tecleó.
+   *
+   * El preajuste manual es respaldo, no relleno. Si el proveedor dice 10
+   * equipos y el formulario decía 12, el asistente trabaja con 10 —y con el
+   * puesto DERIVADO del `draft_order`, no con el que alguien escribió—, porque
+   * un calendario de picks construido sobre el tamaño equivocado es plausible y
+   * falso. Lo que el proveedor no diga se queda como estaba.
+   */
+  const effectiveLeague = useMemo(() => {
+    const provider = sync.stable;
+    if (!league || !provider) return league;
+    const s = provider.settings ?? {};
+    const merged = { ...league, providerBacked: true };
+    if (s.teams) merged.teams = s.teams;
+    if (s.rounds) merged.rounds = s.rounds;
+    if (s.type === "snake" || s.type === "linear") merged.draftType = s.type;
+    if (Array.isArray(s.rosterPositions) && s.rosterPositions.length > 0) {
+      merged.roster = s.rosterPositions;
+      merged.rosterSource = "SLEEPER";
+    }
+    if (provider.slot) merged.mySlot = provider.slot;
+    if (provider.draftId) merged.draftId = provider.draftId;
+    if (s.name) merged.name = s.name;
+    return merged;
+  }, [league, sync.stable]);
+
   const leagueValue = useMemo(() => {
-    if (!league) return { board: null, roster: null, rules: null };
+    const active = effectiveLeague;
+    if (!active) return { board: null, roster: null, rules: null };
     if (context.componentOrder) setComponentOrder(context.componentOrder);
-    const rules = rulesFor(league.scoring);
-    const roster = rosterContext(league.roster, league.teams);
+    // La puntuación REAL de la liga si el proveedor la da; el preajuste sólo
+    // como respaldo. `rulesFromSleeper` deriva además la etiqueta de las
+    // reglas y no de un argumento — publicar «PPR» sobre un board de media
+    // recepción porque lo decía el parámetro ya costó una iteración.
+    const fromProvider = sync.stable?.settings?.scoringSettings
+      ? rulesFromSleeper(sync.stable.settings.scoringSettings)
+      : null;
+    const rules = fromProvider?.supported ? fromProvider.rules : rulesFor(active.scoring);
+    const roster = rosterContext(active.roster, active.teams);
     const built = leagueBoardFrom({ board, context, rules, roster, compilePoints });
     return {
       board: built,
@@ -172,7 +227,7 @@ export default function RoomShell({ board, context }) {
       // Por qué NO se pudo, para poder decirlo en vez de callarlo.
       reason: built ? null : (!rules ? "UNKNOWN scoring" : roster.reason || "board unavailable"),
     };
-  }, [board, context, league]);
+  }, [board, context, effectiveLeague, sync.stable]);
   const activeBoard = useMemo(
     () => activeBoardFrom(leagueValue.board, board), [leagueValue, board]
   );
@@ -310,17 +365,30 @@ export default function RoomShell({ board, context }) {
           Lo que sí hace falta es la identidad de la liga, y cabe en la línea. */}
       <header className="room-head">
         <h1>Draft Assistant</h1>
+        {/* La cabecera lee la liga EFECTIVA, no la tecleada. Con Sleeper
+            conectado enseñaba «12-team · slot 9» mientras la parrilla dibujaba
+            10 columnas y marcaba el puesto 2: los dos números en pantalla a la
+            vez, y el equivocado en el sitio que se lee primero. */}
         <p>
-          <b>{league.name || "Manual league"}</b>
-          <span>{league.teams}-team</span>
-          <span>{SCORING.find((s) => s.id === league.scoring)?.label ?? league.scoring}</span>
-          <span>{league.draftType}</span>
-          <span>{league.mySlot ? `slot ${league.mySlot}` : "slot UNKNOWN"}</span>
+          <b>{effectiveLeague.name || "Manual league"}</b>
+          <span>{effectiveLeague.teams}-team</span>
+          <span>
+            {leagueValue.label
+              ?? SCORING.find((s) => s.id === effectiveLeague.scoring)?.label
+              ?? effectiveLeague.scoring}
+          </span>
+          <span>{effectiveLeague.draftType}</span>
+          <span>
+            {effectiveLeague.mySlot ? `slot ${effectiveLeague.mySlot}` : "slot UNKNOWN"}
+          </span>
+          {effectiveLeague.providerBacked ? (
+            <span className="room-head-src">from Sleeper</span>
+          ) : null}
           <button type="button" className="link" onClick={beginEdit}>edit</button>
         </p>
       </header>
-      <DraftRoom board={activeBoard} context={context} league={league}
-                 leagueValue={leagueValue} />
+      <DraftRoom board={activeBoard} context={context} league={effectiveLeague}
+                 leagueValue={leagueValue} sync={sync} />
     </>
   );
 }

@@ -47,3 +47,6 @@ web/tools/shots/
 # (research/league.json) porque el board se regenera en CI y sin ellas caería
 # en PPR por defecto sin decir nada.
 research/league_private.json
+
+# Artefactos de build en la raíz (un `next build` lanzado desde aquí)
+.next/

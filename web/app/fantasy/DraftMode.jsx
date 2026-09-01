@@ -108,7 +108,12 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   // calcular; sin ella no se afirma nada sobre la liga.
   const [leagueInfo, setLeagueInfo] = useState(null);
 
-  const sync = useSleeperDraft(board, ready ? prefs.league : "", prefs.userId);
+  const sync = useSleeperDraft(board, {
+    leagueId: ready ? prefs.league : "",
+    season: context.season,
+    userId: prefs.userId,
+    idMap: context.sleeperIds,
+  });
   const draft = sync.draft;
 
   // La identidad del contexto. Sin las tres partes no hay clave, y sin clave no

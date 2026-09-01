@@ -785,13 +785,16 @@ REGISTRY: tuple[Capability, ...] = (
         id="SLEEPER_LIVE_BROWSER",
         status=Status.BLOCKED,
         evidence=(
-            "sin comprobar. El alcance desde servidor está demostrado (E13), pero el "
-            "camino que usan el modo draft y Game Day es el del navegador del usuario, "
-            "y eso sólo lo contesta un draft de verdad"
+            "sin comprobar CONTRA SLEEPER. El alcance desde servidor está demostrado "
+            "(E13) y el adaptador entero está ejercitado contra un doble fiel de la "
+            "API (E21: entrar con el draft en 3.05, identidad derivada, resolución "
+            "por id, reconexión tras perder cuatro picks, dos drafts a la vez), pero "
+            "el camino que usa el producto es el navegador del usuario, y eso sólo "
+            "lo contesta un draft de verdad"
         ),
-        experiment_id=None,
-        metric=None,
-        sample_size=None,
+        experiment_id="E21",
+        metric="22/22 en el laboratorio; 0 peticiones reales a api.sleeper.app",
+        sample_size=22,
         limitations=(
             "La CSP ya permite connect-src a api.sleeper.app: el camino está abierto "
             "por diseño, sólo falta ejecutarlo una vez.",

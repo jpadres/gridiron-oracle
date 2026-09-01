@@ -1,32 +1,58 @@
 /**
- * El adaptador de Sleeper: sondeo, identidad de jugador y estado de frescura.
+ * El adaptador de Sleeper: seguir UN draft concreto y decir la verdad sobre él.
  *
- * Vive aquí y no dentro de una pantalla porque AHORA LO USAN DOS: el board de
- * /fantasy y el Live Draft Assistant. Copiarlo habría sido el mismo fallo que
- * ya costó dos iteraciones en este proyecto —dos traductores del mismo formato
- * con distinta cobertura— aplicado al sitio donde más duele: el estado de un
- * draft en curso.
+ * Vive aquí y no dentro de una pantalla porque lo usan DOS: el board de
+ * `/fantasy` y el Draft Assistant. Copiarlo habría sido el mismo fallo que ya
+ * costó dos iteraciones en este proyecto —dos traductores del mismo formato con
+ * distinta cobertura— aplicado al sitio donde más duele: el estado de un draft
+ * en curso.
  *
- * Lo que emite son PICKS CANÓNICOS, no dos listas de ids. Ésa es la frontera
- * que hace de Sleeper un adaptador y no el producto: quien consume esto no
- * sabe de dónde vino, y el modo manual produce exactamente la misma forma.
+ * Lo que emite son PICKS CANÓNICOS. Ésa es la frontera que hace de Sleeper un
+ * adaptador y no el producto: quien consume esto no sabe de dónde vino, y el
+ * modo manual produce exactamente la misma forma.
  *
- * ## Sobre `SLEEPER_LIVE_BROWSER`
+ * ## Lo ESTABLE se pide una vez; lo VIVO, cada quince segundos
  *
- * El sondeo corre en el NAVEGADOR del usuario. La CSP ya permite `connect-src`
- * a `api.sleeper.app` —es el único destino externo de todo el sitio— y no hace
- * falta ni backend ni ruta de servidor. Desde el contenedor de desarrollo el
- * proxy devuelve 403, así que aquí no se puede EJERCITAR; eso es exactamente
- * lo que mantiene la capacidad en BLOCKED, y por qué el modo manual no es un
- * plan B sino el camino que se sabe que funciona.
+ *     ESTABLE (una vez, en caché)     VIVO (cada sondeo)
+ *     -------------------------      ------------------
+ *     liga: puntuación, plantilla     los picks del draft
+ *     tamaño y temporada              el `status` del draft
+ *     rosters: quién es cada uno
+ *     draft: orden y puestos
+ *
+ * Volver a pedir la configuración de la liga cada quince segundos sería gastar
+ * la cuota de otro en datos que no cambian durante un draft. Y al revés: el
+ * `status` **tiene** que releerse, porque es la tercera condición de `LIVE` y
+ * cachearlo dejaba a un draft terminado diciendo LIVE para siempre.
+ *
+ * ## Un draft, no «los drafts de la liga»
+ *
+ * La sesión se ata a `{league_id, draft_id, season}`. El id se resuelve una vez
+ * —prefiriendo el que está en curso de esta temporada— y a partir de ahí se
+ * sondea ESE draft. Sin eso, un mock de la semana pasada o el draft del año
+ * anterior entran por la misma puerta y nadie lo nota.
+ *
+ * ## Identidad: se DERIVA, no se adivina
+ *
+ * El usuario da su nombre de Sleeper. De ahí se saca su `user_id`, de los
+ * rosters su `roster_id`, y del draft su puesto (`draft_order`, y si no
+ * `slot_to_roster_id`). Ninguna comparación por nombre visible. Lo que no se
+ * pueda establecer queda `null`: un puesto inventado produce un calendario de
+ * picks inventado, que es peor que no tener calendario.
+ *
+ * ## Gridiron NO ficha en Sleeper
+ *
+ * Sleeper no publica una API de escritura para drafts. Este adaptador es de
+ * SÓLO LECTURA y la pantalla lo dice donde se pulsa: tú eliges en Sleeper y
+ * Gridiron se entera.
  */
 
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { ROSTER } from "./draftLog.js";
-import { DRAFT_STATUS, syncState } from "./draftSync.js";
+import { DRAFT_STATUS, mySlot as slotFromDraft, syncState } from "./draftSync.js";
 
 // El único destino externo de todo el sitio. La CSP no permite ningún otro, y
 // CI comprueba que `fetch` no aparezca fuera de los ficheros declarados.
@@ -37,83 +63,54 @@ const SLEEPER = "https://api.sleeper.app/v1";
 // pick tarda de treinta segundos a dos minutos.
 export const POLL_MS = 15000;
 
-function normalize(name) {
-  return String(name ?? "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/\b(jr|sr|ii|iii|iv|v)\b/g, "")
-    .replace(/[^a-z ]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+async function getJSON(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`${url.replace(SLEEPER, "")} returned ${response.status}`);
+  return response.json();
 }
 
 /**
- * Índice para cruzar los picks de Sleeper con este board.
+ * Índice de identidad: `sleeper_id` -> fila del board.
  *
- * Se cruza por **nombre completo y posición**, no por el abreviado que se pinta
- * en la tabla: «B.Robinson» no distingue a Bijan de Brian Robinson, y ese error
- * exacto ya costó una iteración en el dossier. El equipo sólo se usa para
- * deshacer empates, y a propósito no como parte de la clave: en pretemporada el
- * equipo del board y el de Sleeper pueden discrepar legítimamente por un
- * traspaso, y exigir que coincidan haría fallar emparejamientos correctos.
+ * El mapa viaja HORNEADO en el payload (`fantasy.sleeper_ids`), construido en
+ * el build desde los rosters de nflverse, que publican `sleeper_id` junto al
+ * `gsis_id` que usa el board. Resolver por identificador es lo único correcto:
+ * el nombre abreviado no distingue a los dos «B.Robinson» de Atlanta, y en
+ * mitad de un draft tachar al jugador equivocado te borra del tablero a alguien
+ * que sí puedes elegir.
  *
- * Si después del desempate por equipo sigue habiendo dos candidatos, **no se
- * empareja ninguno**. Tachar al jugador equivocado en mitad de un draft es peor
- * que no tachar a nadie: te borra del tablero a alguien que sí puedes elegir.
+ * Sin mapa no hay resolución por nombre de repuesto. Se marca UNMAPPED.
  */
-function buildIndex(board) {
+function buildIndex(pool, idMap) {
+  const byPlayerId = new Map();
+  for (const row of pool) byPlayerId.set(String(row.player_id), row);
   const index = new Map();
-  for (const row of board) {
-    const key = `${normalize(row.player_full_name ?? row.player_name)}|${row.position}`;
-    const bucket = index.get(key);
-    if (bucket) bucket.push(row);
-    else index.set(key, [row]);
+  for (const [sleeperId, playerId] of Object.entries(idMap ?? {})) {
+    const row = byPlayerId.get(String(playerId));
+    if (row) index.set(String(sleeperId), row);
   }
   return index;
 }
 
-function resolvePick(index, pick) {
-  const metadata = pick?.metadata ?? {};
-  const name = normalize(`${metadata.first_name ?? ""} ${metadata.last_name ?? ""}`);
-  if (!name) return null;
-  const candidates = index.get(`${name}|${metadata.position}`);
-  if (!candidates || candidates.length === 0) return null;
-  if (candidates.length === 1) return candidates[0];
-  const byTeam = candidates.filter((row) => row.team === metadata.team);
-  return byTeam.length === 1 ? byTeam[0] : null;
-}
-
-// Cuántos titulares tienes ya de cada posición, para DECIRLO como hecho junto
-// a la sugerencia. Antes esto era un multiplicador (VOR × 0,35 si la posición
-// «estaba llena» según una plantilla estándar hardcodeada) que convertía el
-// board validado en una recomendación personalizada que ningún experimento
-// midió — y encima sobre una estructura que nadie había declarado. El VOR se
-// enseña puro; lo que tienes se enseña aparte, como conteo.
-const TYPICAL_STARTERS = { QB: 1, RB: 2, WR: 3, TE: 1 };
-
 /**
- * Sincronización con el draft de Sleeper.
+ * Sincronización con UN draft de Sleeper.
  *
- * Devuelve el estado del sondeo y los picks ya cruzados con el board. Vive en su
- * propio hook para que el modo draft siga funcionando entero sin él: si la red
- * falla, si Sleeper cambia algo o si simplemente no lo activas, lo que queda es
- * el tablero manual de siempre. Una integración que al romperse se lleva por
+ * Devuelve el estado del sondeo, los picks ya resueltos contra el board y lo
+ * que se pudo establecer de la liga y de mi identidad. Vive en su propio hook
+ * para que la pantalla siga funcionando entera sin él: si la red falla, si
+ * Sleeper cambia algo o si simplemente no lo activas, lo que queda es el
+ * tablero manual de siempre. Una integración que al romperse se lleva por
  * delante la pantalla no vale para un draft.
  */
-/**
- * Resumen de puntuación en una línea, sólo con lo que se puede afirmar.
- *
- * Se mira `rec` porque es lo que separa PPR de estándar y es lo que primero se
- * pregunta. **No se dice «PPR» cuando falta el campo**: se dice UNKNOWN. Una
- * etiqueta de puntuación equivocada cambia el orden del board entero, así que
- * es exactamente el sitio donde un valor por defecto hace más daño.
- */
-
-export function useSleeperDraft(board, league, userId) {
+export function useSleeperDraft(pool, { leagueId, season, userId, idMap } = {}) {
   const [status, setStatus] = useState({ state: "idle" });
   const [tick, setTick] = useState(0);
-  const index = useMemo(() => buildIndex(board), [board]);
+  const index = useMemo(() => buildIndex(pool, idMap), [pool, idMap]);
+  // El índice cambia de identidad en cada render del padre aunque su contenido
+  // sea el mismo; guardarlo en una ref evita reiniciar el sondeo —y con él la
+  // reconciliación entera— por un cambio que no es un cambio.
+  const indexRef = useRef(index);
+  indexRef.current = index;
 
   // Reloj de pantalla. Sin él, «última sincronización hace 8s» se congela en 8s
   // hasta el siguiente sondeo: la etiqueta envejecería a saltos de 15 segundos
@@ -124,93 +121,146 @@ export function useSleeperDraft(board, league, userId) {
   }, []);
 
   useEffect(() => {
-    if (!league) {
+    if (!leagueId) {
       setStatus({ state: "idle" });
       return undefined;
     }
     let cancelled = false;
-    // El draft ELEGIDO se fija una vez; su ESTADO se relee en cada sondeo.
-    //
-    // Antes se cacheaba el objeto entero y no se volvía a mirar nunca. Como
-    // `status` es la tercera condición de LIVE, un draft que TERMINABA mientras
-    // mirabas seguía diciendo LIVE para siempre: el sondeo de picks seguía
-    // saliendo bien y la copia en memoria seguía diciendo `drafting`. Exactamente
-    // el fallo que `draftSync.js` existe para impedir, colado por la puerta de
-    // atrás de una caché. Lo encontró la matriz de frescura.
-    //
-    // El id se mantiene pinneado a propósito: releer la lista no debe hacernos
-    // SALTAR de draft a mitad de uno en curso.
-    let draftId = null;
+    // LO ESTABLE, resuelto una vez y reutilizado en cada sondeo.
+    let stable = null;
+
+    /** Liga, rosters, draft e identidad. Una vez por liga. */
+    async function resolveStable() {
+      const league = await getJSON(`${SLEEPER}/league/${leagueId}`);
+      const drafts = await getJSON(`${SLEEPER}/league/${leagueId}/drafts`);
+      if (!Array.isArray(drafts) || drafts.length === 0) {
+        throw new Error("that league has no draft yet");
+      }
+      // El draft de ESTA temporada, prefiriendo el que está en curso. Sin este
+      // filtro, un mock de la semana pasada o el draft del año anterior entran
+      // por la misma puerta y se pintan igual que uno vivo.
+      const wanted = String(season ?? league?.season ?? "");
+      const sameSeason = drafts.filter((d) => !wanted || String(d.season ?? "") === wanted);
+      const pool_ = sameSeason.length > 0 ? sameSeason : drafts;
+      const chosen = pool_.find((d) => d.status === DRAFT_STATUS.DRAFTING)
+        ?? pool_.find((d) => d.status === DRAFT_STATUS.PRE)
+        ?? pool_[0];
+      const draftId = String(chosen.draft_id);
+      // El objeto completo del draft: `draft_order` y `slot_to_roster_id` no
+      // vienen en el listado de la liga, y son de donde sale mi puesto.
+      const draft = await getJSON(`${SLEEPER}/draft/${draftId}`).catch(() => chosen);
+
+      // IDENTIDAD, derivada. El usuario escribe su nombre de Sleeper; de ahí
+      // sale el `user_id`, de los rosters el `roster_id` y del draft el puesto.
+      let resolvedUser = null;
+      let rosterId = null;
+      if (userId) {
+        resolvedUser = await getJSON(`${SLEEPER}/user/${encodeURIComponent(userId)}`)
+          .then((u) => (u?.user_id ? String(u.user_id) : null))
+          .catch(() => null);
+        // Si `/user` no lo reconoce puede ser que ya sea un user_id.
+        if (!resolvedUser && /^\d+$/.test(String(userId))) resolvedUser = String(userId);
+        const rosters = await getJSON(`${SLEEPER}/league/${leagueId}/rosters`).catch(() => []);
+        const mine = (Array.isArray(rosters) ? rosters : []).find(
+          (r) => String(r?.owner_id) === String(resolvedUser)
+            || (Array.isArray(r?.co_owners) && r.co_owners.map(String).includes(String(resolvedUser)))
+        );
+        if (mine?.roster_id != null) rosterId = String(mine.roster_id);
+      }
+      const slot = slotFromDraft({ draft, userId: resolvedUser, rosterId });
+      return {
+        leagueId: String(leagueId),
+        draftId,
+        season: String(draft?.season ?? chosen?.season ?? wanted ?? ""),
+        league,
+        draft,
+        userId: resolvedUser,
+        rosterId,
+        slot,
+        // La configuración REAL de la liga. Lo que no venga queda fuera: el
+        // preajuste manual es respaldo, no relleno silencioso.
+        settings: {
+          teams: Number(draft?.settings?.teams ?? league?.total_rosters) || null,
+          rounds: Number(draft?.settings?.rounds) || null,
+          type: typeof draft?.type === "string" ? draft.type : null,
+          rosterPositions: Array.isArray(league?.roster_positions)
+            ? league.roster_positions : null,
+          scoringSettings: league?.scoring_settings ?? null,
+          name: typeof league?.name === "string" ? league.name : null,
+          pickTimer: Number(draft?.settings?.pick_timer) || null,
+        },
+      };
+    }
 
     async function poll() {
       try {
-        const response = await fetch(`${SLEEPER}/league/${league}/drafts`);
-        if (!response.ok) throw new Error(`the league returned ${response.status}`);
-        const drafts = await response.json();
-        if (!Array.isArray(drafts) || drafts.length === 0) {
-          throw new Error("that league has no draft yet");
-        }
-        // Se prefiere el que está EN CURSO, y sólo si no hay ninguno se coge
-        // el más reciente. Antes se cogía `drafts[0]` sin mirar `status`, así
-        // que un draft terminado hace tres semanas se sondeaba y se pintaba
-        // igual que uno vivo.
-        const sorted = [...drafts].sort(
-          (a, b) => String(b.season ?? "").localeCompare(String(a.season ?? ""))
-        );
-        const draft = (draftId && sorted.find((d) => d.draft_id === draftId))
-          ?? sorted.find((d) => d.status === DRAFT_STATUS.DRAFTING)
-          ?? sorted[0];
-        draftId = draft.draft_id;
-        const picksResponse = await fetch(`${SLEEPER}/draft/${draft.draft_id}/picks`);
-        if (!picksResponse.ok) throw new Error(`the picks returned ${picksResponse.status}`);
-        const picks = await picksResponse.json();
+        setStatus((previous) => ({ ...previous, syncing: true }));
+        if (!stable) stable = await resolveStable();
+        // LO VIVO: el estado del draft y sus picks, y nada más.
+        const [draft, picks] = await Promise.all([
+          getJSON(`${SLEEPER}/draft/${stable.draftId}`).catch(() => stable.draft),
+          getJSON(`${SLEEPER}/draft/${stable.draftId}/picks`),
+        ]);
         if (cancelled) return;
 
-        // El sondeo emite PICKS CANÓNICOS, no dos listas de ids. Es lo que
-        // convierte a Sleeper en un adaptador: quien consume esto no sabe de
-        // dónde vino, y el modo manual produce exactamente la misma forma.
+        // Resolución POR IDENTIFICADOR. Un pick que no está en el mapa se
+        // cuenta como UNMAPPED y no se resuelve por nombre: emparejar al
+        // jugador equivocado es peor que no emparejar a nadie.
         //
-        // Sin `userId` el dueño es UNKNOWN y no OPPONENT: «no sé de quién es»
-        // y «es de otro» no son lo mismo, y el segundo te borraría tus propios
-        // picks de tu plantilla sin decir nada.
+        // La reconciliación es total en cada sondeo —se recorre la lista
+        // entera, no «lo nuevo»— así que reconectar después de perderse cuatro
+        // picks los recupera sin duplicar ninguno: la lista de Sleeper ES el
+        // estado, y `pick_no` la hace idempotente.
         const canonical = [];
-        const unmatched = [];
+        const unmapped = [];
+        const current = indexRef.current;
         for (const pick of Array.isArray(picks) ? picks : []) {
           if (!pick?.player_id) continue;
-          const row = resolvePick(index, pick);
+          const row = current.get(String(pick.player_id));
           if (!row) {
-            unmatched.push(pick);
+            unmapped.push(pick);
             continue;
           }
+          // El dueño sale del `roster_id`, que Sleeper rellena también en los
+          // autopicks, y `picked_by` sólo como respaldo. Sin identidad
+          // establecida es UNKNOWN y no OPPONENT: «no sé de quién es» y «es de
+          // otro» no son lo mismo, y el segundo te borraría tus propios picks
+          // de tu plantilla sin decir nada.
+          const mineByRoster = stable.rosterId != null && pick.roster_id != null
+            && String(pick.roster_id) === String(stable.rosterId);
+          const mineByUser = stable.userId != null && pick.picked_by != null
+            && String(pick.picked_by) === String(stable.userId);
+          const known = stable.rosterId != null || stable.userId != null;
           canonical.push({
             playerId: row.player_id,
-            roster: !userId
+            roster: !known
               ? ROSTER.UNKNOWN
-              : String(pick.picked_by) === String(userId)
-                ? ROSTER.MINE
-                : ROSTER.OPPONENT,
+              : (mineByRoster || mineByUser) ? ROSTER.MINE : ROSTER.OPPONENT,
             pickNo: Number(pick.pick_no) || null,
             providerId: String(pick.player_id),
           });
         }
         setStatus({
           state: "ok",
+          syncing: false,
           // `lastSyncAt` es el instante del último sondeo CORRECTO, y es lo que
           // se pinta. La versión anterior lo guardaba y no lo enseñaba nunca.
           lastSyncAt: Date.now(),
           draft,
+          stable,
           total: Array.isArray(picks) ? picks.length : 0,
           canonical,
-          unmatched,
+          unmapped,
         });
       } catch (error) {
-        // El error NO borra `lastSyncAt`: «falló hace un momento, pero lo último
-        // bueno es de hace 40 segundos» son dos hechos distintos y los dos
-        // importan.
+        // El error NO borra `lastSyncAt` ni los picks ya reconciliados: «falló
+        // hace un momento, pero lo último bueno es de hace 40 segundos» son dos
+        // hechos distintos y los dos importan. El tablero se queda en pantalla.
         if (!cancelled) {
           setStatus((previous) => ({
             ...previous,
             state: "error",
+            syncing: false,
             message: String(error.message ?? error),
           }));
         }
@@ -223,22 +273,25 @@ export function useSleeperDraft(board, league, userId) {
       cancelled = true;
       clearInterval(timer);
     };
-  }, [league, userId, index]);
+  }, [leagueId, season, userId]);
 
   // `tick` entra en la dependencia para que la etiqueta de antigüedad se
   // recalcule cada segundo aunque no haya llegado ningún sondeo nuevo.
   return useMemo(() => {
     const draft = status.draft ?? null;
+    const stable = status.stable ?? null;
     return {
       ...status,
       draft,
+      stable,
       view: syncState({
-        connected: Boolean(league),
+        connected: Boolean(leagueId),
         error: status.state === "error" ? status.message : null,
         lastSyncAt: status.lastSyncAt ?? null,
         draftStatus: draft?.status,
+        syncing: Boolean(status.syncing),
       }),
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status, league, tick]);
+  }, [status, leagueId, tick]);
 }

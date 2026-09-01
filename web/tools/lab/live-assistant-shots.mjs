@@ -9,12 +9,17 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 
+import { USERNAME, crearLiga, emitir as emitirPick, libres as libresDe, montar }
+  from "./sleeper-double.mjs";
+
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const PORT = Number(process.env.PORT ?? 4512);
 const BASE = `http://127.0.0.1:${PORT}`;
 const OUT = "/tmp/claude-0/-home-user-gridiron-oracle/2ba586eb-a73c-5614-b014-9ed94d875f6d/scratchpad/shots";
 const { model } = await import(path.join(WEB, "data/model.js"));
 const BOARD = model.fantasy.board;
+const SLEEPER_OF = Object.fromEntries(
+  Object.entries(model.fantasy.sleeper_ids).map(([s, g]) => [g, s]));
 if(!process.env.SKIP_BUILD){
   await new Promise((r,j)=>{const b=spawn("npx",["next","build"],{cwd:WEB,stdio:"ignore"});b.on("exit",c=>c===0?r():j(new Error(`build ${c}`)));});
 }
@@ -24,18 +29,18 @@ for(let i=0;i<60;i+=1){try{if((await fetch(BASE)).ok)break;}catch{/* aún no */}
 const browser=await chromium.launch({executablePath:"/opt/pw-browsers/chromium-1194/chrome-linux/chrome"});
 
 const TEAMS=12, ROUNDS=15;
-const provider={picks:[],estado:"drafting",caido:false};
-const slotOf=(no)=>{const r=Math.floor((no-1)/TEAMS)+1,i=((no-1)%TEAMS)+1;return r%2===0?TEAMS-i+1:i;};
-function emitir(no,row,mySlot){
-  const [first,...rest]=(row.player_full_name ?? row.player_name).split(" ");
-  // MIS picks van a mi nombre. Con todo a nombre de otros, la captura del draft
-  // terminado enseñaba una plantilla vacía después de 180 picks: una imagen
-  // falsa de un estado correcto.
-  provider.picks.push({pick_no:no,player_id:`sl-${row.player_id}`,
-    picked_by: slotOf(no)===mySlot ? "me" : `otro-${slotOf(no)}`,
-    metadata:{first_name:first,last_name:rest.join(" "),position:row.position,team:row.team}});
+/* El doble compartido: los cuatro laboratorios sirven el MISMO Sleeper. */
+const TEAMS_=TEAMS;
+const provider={actual:null};
+const ROSTER=["QB","RB","RB","WR","WR","TE","FLEX","DEF","K","BN","BN","BN","BN","BN","BN"];
+function prov(l){
+  provider.actual=crearLiga({id:l.leagueId,draftId:l.draftId,teams:l.teams,
+    roster:l.roster??ROSTER,mySlot:l.mySlot,rounds:l.rounds??ROUNDS});
+  return provider.actual;
 }
-const libres=()=>BOARD.filter(r=>!provider.picks.some(p=>p.player_id===`sl-${r.player_id}`));
+function emitir(no,row){ emitirPick(provider.actual,no,row,SLEEPER_OF); }
+const libres=()=>libresDe(provider.actual,BOARD,SLEEPER_OF);
+
 const LIGA={name:"Sunday Twelve",platform:"sleeper",leagueId:"LGS",draftId:"DRS",userId:"me",
   teams:TEAMS,scoring:"ppr",draftType:"snake",rounds:ROUNDS,mySlot:11,
   roster:["QB","RB","RB","WR","WR","TE","FLEX","DEF","K","BN","BN","BN","BN","BN","BN"],
@@ -55,25 +60,16 @@ const ESTADOS=[
 ];
 for(const est of ESTADOS){
   for(const [w,h] of ANCHOS){
-    provider.picks=[]; provider.estado="drafting"; provider.caido=false;
+    prov(est.liga);
     // La corrida: cinco receptores seguidos justo antes de mi turno.
     for(let no=1;no<=est.hasta;no+=1){
       const pool=libres();
       const fila=(est.corrida && no>est.hasta-5)
         ? pool.find(r=>r.position==="WR") : pool[0];
-      emitir(no,fila,est.liga.mySlot);
+      emitir(no,fila);
     }
     const ctx=await browser.newContext({viewport:{width:w,height:h},reducedMotion:"reduce"});
-    await ctx.route("**/api.sleeper.app/**",async(route)=>{
-      if(provider.caido) return route.fulfill({status:503,contentType:"application/json",body:'{"e":1}'});
-      const u=route.request().url();
-      if(u.includes("/drafts")) return route.fulfill({status:200,contentType:"application/json",
-        body:JSON.stringify([{draft_id:"DRS",status:provider.estado,season:"2026",
-          settings:{teams:TEAMS,rounds:ROUNDS},type:"snake"}])});
-      if(u.includes("/picks")) return route.fulfill({status:200,contentType:"application/json",
-        body:JSON.stringify(provider.picks)});
-      return route.fulfill({status:404,body:"[]"});
-    });
+    await montar(ctx,[provider.actual]);
     await ctx.addInitScript((l)=>localStorage.setItem("gridiron-room-league-v1",JSON.stringify(l)),est.liga);
     const page=await ctx.newPage();
     await page.clock.install();
@@ -84,7 +80,7 @@ for(const est of ESTADOS){
       await page.waitForFunction((n)=>document.querySelector(".room-count strong")?.textContent===String(n),
                                  est.hasta,{timeout:8000}).catch(()=>{});
     }
-    if(est.caida){ provider.caido=true; await page.clock.runFor(40_000); }
+    if(est.caida){ provider.actual.caido=true; await page.clock.runFor(40_000); }
     await page.screenshot({path:`${OUT}/lda-${w}-${est.id}.png`});
     await ctx.close();
   }

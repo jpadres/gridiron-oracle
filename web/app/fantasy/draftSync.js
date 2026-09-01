@@ -76,7 +76,9 @@ export function agoLabel(lastSyncAt, now = Date.now()) {
  * recomienda un pick, porque el jugador que se sugiera puede llevar cuatro
  * picks fuera del tablero.
  */
-export function syncState({ connected, error, lastSyncAt, draftStatus, now = Date.now() }) {
+export function syncState({
+  connected, error, lastSyncAt, draftStatus, syncing = false, now = Date.now(),
+}) {
   if (!connected) {
     return {
       level: "OFFLINE", label: "Not connected",
@@ -110,6 +112,18 @@ export function syncState({ connected, error, lastSyncAt, draftStatus, now = Dat
   const level = freshness(lastSyncAt, now);
   const ago = agoLabel(lastSyncAt, now);
   if (level === "UNKNOWN") {
+    // SYNCING y «no verificado» NO son lo mismo. El primero dice que hay una
+    // petición en vuelo y todavía no ha vuelto —el estado normal de los dos
+    // primeros segundos y el de una reconexión—; el segundo, que no hay nada y
+    // nadie está intentándolo. Fundirlos hacía que reconectar pareciera un
+    // fallo. Ninguno de los dos permite recomendar: no hay evidencia todavía.
+    if (syncing) {
+      return {
+        level: "SYNCING", label: "Syncing",
+        detail: "Reading the draft from Sleeper\u2026",
+        canRecommend: false,
+      };
+    }
     return {
       level: "UNKNOWN", label: "Not verified",
       detail: "No successful sync yet.",

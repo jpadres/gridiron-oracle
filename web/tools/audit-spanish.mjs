@@ -203,6 +203,11 @@ const DATOS_PREFIJOS = [
   ".dossier.sources[].url", ".dossier.sources[].publisher",
   ".dossier.strategy[]", ".dossier.teams[]",
   ".fantasy_weekly.rankings[]",
+  // El mapa `sleeper_id` -> jugador. Son IDENTIFICADORES de dos catálogos
+  // (Sleeper y nflverse) y códigos de equipo para las defensas: ni una
+  // palabra que nadie lea. Se declara entero por prefijo porque las claves
+  // son los propios ids y cambian con el board.
+  ".fantasy.sleeper_ids",
   // Pateadores y defensas del semanal, y los fichables del draft: ids GSIS o
   // sintéticos (DST_KC), nombres propios y códigos de equipo — datos, no prosa.
   ".fantasy_weekly.kickers[]", ".fantasy_weekly.defenses[]",

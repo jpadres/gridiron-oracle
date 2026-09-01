@@ -180,3 +180,73 @@ pantalla y sin matizar en la otra. Ahora el aviso vive pegado al título de la
 lista corta —donde están los números que califica— y son **dos avisos distintos
 que no se funden**: «no validado a esta profundidad» y «esto no es el valor de
 tu liga» describen límites diferentes.
+
+---
+
+# Addendum 2, 2026-09-01: seguir el Draft Room de Sleeper
+
+El corrector de este bloque: el asistente ingería picks, pero seguía siendo yo
+quien tenía que darle de comer. Ahora sigue **un draft concreto** de Sleeper.
+
+## La pregunta de arquitectura, contestada de nuevo y no repetida
+
+La conclusión anterior («browser polling, y punto») se dio por buena sin
+comprobar una cosa: **este proyecto NO tiene `output: export`.** Es una app de
+Next.js en Vercel, así que las rutas de servidor SÍ están disponibles. Eso
+obliga a rehacer la comparación en vez de repetirla:
+
+| dónde | qué compra | qué cuesta |
+|---|---|---|
+| navegador (lo que hay) | cero infra; la CSP ya lo permite; el estado vive donde se mira | el id de liga sale del navegador (ya es público) |
+| ruta de servidor | cachear entre usuarios; esconder el id | una función por sondeo, un secreto más que cuidar, y **cero** mejora de latencia para UN usuario |
+
+Para un solo usuario la ruta de servidor no compra nada que se note y añade una
+pieza que puede caerse aparte. **Se queda el navegador.**
+
+Donde el argumento sí cambiaba era en la IDENTIDAD de los jugadores: el
+catálogo de Sleeper son 5 MB y su documentación pide no bajarlo a menudo. La
+solución no es una ruta de servidor: es **hornearlo**. nflverse publica
+`sleeper_id` junto al `gsis_id` que ya usa el board, así que el mapa se
+construye en el build desde ficheros que ya están en disco —404 entradas, 340
+de los 344 del board, los 32 D/ST y 31 de 32 pateadores— y viaja en el payload.
+Un pick se resuelve por identificador sin una sola petición extra.
+
+Los 4 que faltan no se emparejan por nombre: se marcan **UNMAPPED** y se dicen
+en pantalla. Es la misma regla de los dos «B.Robinson» de Atlanta — ante la
+duda no se empareja — aplicada donde más caro sale.
+
+## Estable contra vivo
+
+```
+UNA VEZ, en caché                 CADA 15 s
+-----------------                 ---------
+/league/{id}                      /draft/{draft_id}        (el `status`)
+/league/{id}/drafts               /draft/{draft_id}/picks  (los picks)
+/league/{id}/rosters
+/user/{username}
+/draft/{draft_id}                 (orden y puestos)
+```
+
+Dos peticiones por sondeo, cuatro por minuto. La configuración de una liga no
+cambia durante su draft; el `status` sí, y es la tercera condición de `LIVE`.
+
+## La identidad se deriva, no se teclea
+
+    username -> user_id -> roster_id -> draft slot
+                (/user)   (/rosters)   (draft_order, si no slot_to_roster_id)
+
+Y el dueño de cada pick sale de `roster_id` —que Sleeper rellena también en los
+autopicks— con `picked_by` de respaldo. Lo que no se establece queda `null` o
+`UNKNOWN`: un puesto inventado produce un calendario de picks inventado.
+
+**Lo que dice Sleeper manda sobre lo que se tecleó.** En la prueba, el
+formulario decía 12 equipos, PPR y puesto 9; el proveedor decía 10, media
+recepción y puesto 2. Gana el proveedor, en la cabecera y en la parrilla, y la
+cabecera lleva `FROM SLEEPER` para que no haya que adivinar de dónde salió.
+
+## Lo que Gridiron NO hace
+
+Sleeper no publica API de escritura para drafts. El adaptador es de sólo
+lectura y la pantalla lo dice donde se mira: **tú eliges en Sleeper, Gridiron se
+entera.** Y no hay cuenta atrás: sin datos de tiempo fiables se escribe `ON THE
+CLOCK` a secas, porque un `00:43` inventado es peor que no tener reloj.

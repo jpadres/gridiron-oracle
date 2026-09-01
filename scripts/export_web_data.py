@@ -39,6 +39,7 @@ from oracle.config import paths as resolve_paths
 from oracle.data import identity
 from oracle.fantasy.components import COMPONENTS
 from oracle.fantasy.draft import PROJECTED_GAMES, SHRINK_PRIOR_GAMES, TD_PERSISTENCE
+from oracle.leagues.sleeper import sleeper_id_map
 from oracle.pipeline import Oracle
 
 # Límite de aviso del payload comprimido. No es un límite técnico: es la señal
@@ -402,6 +403,49 @@ def _attach_components(payload: dict, source: dict | None) -> None:
         fantasy["position_priors"] = priors
         fantasy["shrink_prior_games"] = SHRINK_PRIOR_GAMES
         fantasy["td_persistence"] = TD_PERSISTENCE
+
+    _attach_sleeper_ids(fantasy)
+
+
+def _attach_sleeper_ids(fantasy: dict) -> None:
+    """El mapa `sleeper_id` -> jugador del board, horneado.
+
+    Es lo que permite resolver un pick en vivo **por identificador** y no por
+    nombre. El nombre abreviado ya costó una iteración en este proyecto (los dos
+    «B.Robinson» de Atlanta) y en un draft el precio es peor: tachar al jugador
+    equivocado te borra del tablero a alguien que sí puedes elegir.
+
+    Es información ESTABLE, así que viaja en el payload y no se pide en caliente:
+    el catálogo de jugadores de Sleeper son 5 MB y su propia documentación pide
+    no bajarlo a menudo. Aquí sale de los rosters de nflverse, que ya están en
+    disco porque el board se construye con ellos.
+
+    Si no se puede construir **no se inventa nada**: sin mapa, el adaptador
+    marca cada pick como UNMAPPED en vez de adivinar por nombre.
+    """
+    board = fantasy.get("board")
+    if not isinstance(board, list) or not board:
+        return
+    raw_dir = Path("data/raw")
+    if not raw_dir.exists():
+        return
+    specialists = fantasy.get("specialists") or {}
+    kickers = specialists.get("kickers") or [] if isinstance(specialists, dict) else []
+    defenses = specialists.get("defenses") or [] if isinstance(specialists, dict) else []
+    ids = {row.get("player_id") for row in board if isinstance(row, dict)}
+    ids |= {row.get("player_id") for row in kickers if isinstance(row, dict)}
+    try:
+        mapping = sleeper_id_map(
+            raw_dir,
+            board_ids={i for i in ids if isinstance(i, str)},
+            defense_teams=[
+                row.get("team") for row in defenses if isinstance(row, dict) and row.get("team")
+            ],
+        )
+    except Exception:  # noqa: BLE001 - sin mapa se sigue publicando, sin resolver por id
+        return
+    if mapping:
+        fantasy["sleeper_ids"] = dict(sorted(mapping.items()))
 
 
 def _research(paths, payload: dict) -> dict | None:

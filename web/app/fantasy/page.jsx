@@ -51,6 +51,11 @@ export default function Fantasy() {
         shrinkPriorGames: fantasy.shrink_prior_games ?? 10,
         tdPersistence: fantasy.td_persistence ?? 0.55,
         projectedGames: fantasy.projected_games ?? 15.5,
+        // `sleeper_id` -> jugador, horneado en el build desde los rosters de
+        // nflverse. Es lo que permite resolver un pick en vivo POR
+        // IDENTIFICADOR en vez de por nombre. Sin él, el adaptador marca
+        // UNMAPPED en lugar de adivinar.
+        sleeperIds: fantasy.sleeper_ids ?? null,
         // Semanas de descanso: un HECHO derivado del calendario publicado, no
         // una proyección. Se publica entero o no se publica.
         byes: fantasy.byes ?? null,

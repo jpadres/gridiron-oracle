@@ -881,10 +881,16 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 @media (min-width: 48rem) {
   /* El número primero: en la versión anterior flotaba entre dos textos y
      parecía accidental en vez de compuesto. */
-  .room-state { flex-wrap: nowrap; align-items: center; gap: var(--space-5); }
+  /* Se permite envolver para que la banda de alcance caiga en su propia línea;
+     lo de arriba NO se encoge. Sin esto, añadir el alcance robaba ancho a la
+     cuenta atrás y «2 picks until you» salía partido en tres líneas — el número
+     más importante de la pantalla, estrujado por una nota. */
+  .room-state { flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); }
+  .room-until, .room-clock, .room-done, .room-link { flex: 0 0 auto; }
   .room-until { order: -1; }
   .room-clock { order: -1; }
   .room-where { margin-left: auto; }
+  .room-scope { order: 10; flex-basis: 100%; margin-left: 0; }
 }
 
 /* DÓNDE estamos. Sin la ronda, «2 picks» no sitúa a nadie en el draft. */
@@ -1584,6 +1590,25 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-link--live b { border-color: var(--live); color: var(--live); }
 .room-link--stale b, .room-link--error b { border-color: var(--flag-ink, #a33b3b); color: var(--flag-ink, #a33b3b); }
 .room-link--manual b, .room-link--offline b { color: var(--chalk-dim); }
+
+/* El alcance de la sincronización: qué draft, y qué NO hace Gridiron. Va en la
+   banda de estado porque es donde se mira cuando algo no cuadra. */
+/* De dónde salen los datos de la cabecera. Sin esto, «10-team» tecleado y
+   «10-team» leído de Sleeper se ven igual, y sólo uno se puede corregir. */
+.room-head-src {
+  text-transform: uppercase; letter-spacing: .08em;
+  font-weight: 700; color: var(--live, var(--chalk));
+}
+
+.room-scope {
+  flex-basis: 100%;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2);
+  margin: var(--space-1) 0 0; font-size: var(--text-micro); color: var(--chalk-dim);
+}
+.room-scope-k { text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
+.room-scope-link { color: var(--chalk); font-variant-numeric: tabular-nums; }
+.room-scope-note { flex: 1 1 12rem; }
+.room-scope-warn { flex-basis: 100%; color: var(--flag-ink, #a33b3b); font-weight: 700; }
 
 .room-shortlist { margin-block: var(--space-3); }
 /* La calificación de profundidad va PEGADA al título de la lista: si vive

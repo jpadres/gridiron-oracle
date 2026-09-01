@@ -43,7 +43,6 @@ import {
 import { loadOrMigrateLog, logScopeFor, saveLog } from "./draftStorage.js";
 import { assignSlots, VALIDATED_MAX_TEAMS, valueConfidence } from "./leagueValue.js";
 import { candidates as buildCandidates } from "./candidates.js";
-import { useSleeperDraft } from "./useSleeperDraft.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
 // El board de VOR sólo ordena estas cuatro. K y DST son FICHABLES —existen en
@@ -79,7 +78,14 @@ function positionDepth(available) {
     .filter((entry) => entry.total > 0);
 }
 
-export default function DraftRoom({ board, context, league, leagueValue = null }) {
+/**
+ * `sync` llega desde arriba y no se pide aquí. La configuración de la liga —de
+ * dónde salen el tamaño, las rondas y mi puesto— y el VALOR de la liga tienen
+ * que salir de la misma resolución: si esta pantalla sondeara por su cuenta,
+ * habría dos respuestas a «cuántos equipos tiene» y las dos con razón. Es el
+ * fallo de los dos traductores, que en este proyecto ya ha aparecido tres veces.
+ */
+export default function DraftRoom({ board, context, league, leagueValue = null, sync }) {
   const [events, setEvents] = useState([]);
   const [ready, setReady] = useState(false);
   const [query, setQuery] = useState("");
@@ -103,7 +109,6 @@ export default function DraftRoom({ board, context, league, leagueValue = null }
    * todas partes.
    */
   const sleeperLeague = league?.platform === "sleeper" ? String(league.leagueId ?? "") : "";
-  const sync = useSleeperDraft(board, sleeperLeague, league?.userId ?? "");
 
   const teams = league?.teams ?? null;
   // Sólo con el tamaño declarado. Sin tamaño no se avisa de profundidad:
@@ -143,6 +148,16 @@ export default function DraftRoom({ board, context, league, leagueValue = null }
     saveLog(scope, events, typeof window === "undefined" ? null : window.localStorage);
   }, [scope, events, ready]);
 
+  // K y DST fichables, aparte del board de VOR: no tienen valor calculado y no
+  // se les inventa uno mezclándolos en la lista ordenada.
+  const specialists = useMemo(() => {
+    const s = context.specialists;
+    return [...(s?.kickers ?? []), ...(s?.defenses ?? [])];
+  }, [context.specialists]);
+  // El POOL completo — para plantilla, feed y búsqueda. `available` (la lista
+  // ordenada por VOR) sigue siendo sólo el board.
+  const pool = useMemo(() => board.concat(specialists), [board, specialists]);
+
   // Un solo pliegue para las dos fuentes. El orden lo resuelve `fold`, que ya
   // sabe que a igualdad de instante manda MANUAL sobre SLEEPER: una corrección
   // tuya nunca la pisa el proveedor.
@@ -171,15 +186,6 @@ export default function DraftRoom({ board, context, league, leagueValue = null }
   // TODO lo que se pinta deriva del estado EFECTIVO: board disponible,
   // plantilla, feed, cortes de tier y profundidad. Un solo interruptor aguas
   // arriba, y ninguna vista puede mezclar el presente con el pasado.
-  // K y DST fichables, aparte del board de VOR: no tienen valor calculado y no
-  // se les inventa uno mezclándolos en la lista ordenada.
-  const specialists = useMemo(() => {
-    const s = context.specialists;
-    return [...(s?.kickers ?? []), ...(s?.defenses ?? [])];
-  }, [context.specialists]);
-  // El POOL completo — para plantilla, feed y búsqueda. `available` (la lista
-  // ordenada por VOR) sigue siendo sólo el board.
-  const pool = useMemo(() => board.concat(specialists), [board, specialists]);
   const available = useMemo(
     () => board.filter((row) => !effective.byPlayer.has(row.player_id)),
     [board, effective]
@@ -413,6 +419,33 @@ export default function DraftRoom({ board, context, league, leagueValue = null }
           {sleeperLeague && sync.view.detail ? <small>{sync.view.detail}</small> : null}
           {!sleeperLeague ? <small>Record picks as they happen — works anywhere</small> : null}
         </p>
+        {/* EL ALCANCE, visible. Qué draft exactamente, y el límite del producto:
+            Sleeper no publica API de escritura para drafts, así que Gridiron
+            NUNCA ficha por ti. Decirlo aquí y no en un pie evita la única
+            confusión cara que tiene esta pantalla — creer que has fichado. */}
+        {sleeperLeague && sync.stable?.draftId ? (
+          <p className="room-scope">
+            <span className="room-scope-k">Following</span>
+            <a className="room-scope-link"
+               href={`https://sleeper.com/draft/nfl/${sync.stable.draftId}`}
+               target="_blank" rel="noreferrer noopener">
+              draft {sync.stable.draftId}
+              {sync.stable.season ? ` · ${sync.stable.season}` : ""}
+            </a>
+            <span className="room-scope-note">
+              You pick in Sleeper — Gridiron watches and never drafts for you
+            </span>
+            {sync.unmapped?.length ? (
+              /* Un pick que no se pudo resolver POR ID se dice, no se resuelve
+                 por nombre. Callarlo dejaría a un jugador fichado apareciendo
+                 como disponible sin que nada lo indicara. */
+              <span className="room-scope-warn">
+                {sync.unmapped.length} pick{sync.unmapped.length === 1 ? "" : "s"} UNMAPPED
+                — not in the published pool, still on the board
+              </span>
+            ) : null}
+          </p>
+        ) : null}
         <p className="room-where">
           {here ? (
             <>Round <b>{here.round}</b> · Pick <b>{here.inRound}</b></>

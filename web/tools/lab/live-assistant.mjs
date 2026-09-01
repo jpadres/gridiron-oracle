@@ -13,6 +13,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 
+import { USERNAME, crearLiga, emitir as emitirPick, libres as libresDe, montar, slotOf as slotDe }
+  from "./sleeper-double.mjs";
+
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const PORT = Number(process.env.PORT ?? 4510);
 const BASE = `http://127.0.0.1:${PORT}`;
@@ -21,6 +24,11 @@ async function libre(b){try{await fetch(b,{signal:AbortSignal.timeout(1500)});}c
 await libre(BASE);
 const { model } = await import(path.join(WEB, "data/model.js"));
 const BOARD = model.fantasy.board;
+// El MISMO mapa horneado que usa el producto: el doble emite `player_id` de
+// Sleeper y el adaptador lo resuelve contra este mapa. Inventar el id aquí
+// probaría el laboratorio y no el emparejamiento.
+const SLEEPER_OF = Object.fromEntries(
+  Object.entries(model.fantasy.sleeper_ids).map(([s, g]) => [g, s]));
 if(!process.env.SKIP_BUILD){
   console.log("construyendo…");
   await new Promise((r,j)=>{const b=spawn("npx",["next","build"],{cwd:WEB,stdio:"ignore"});b.on("exit",c=>c===0?r():j(new Error(`build ${c}`)));});
@@ -34,47 +42,37 @@ let fallos=0;
 const check=(n,ok,d="")=>{if(!ok)fallos+=1;console.log(`  ${ok?"ok   ":"FALLA"} ${n}${d?` — ${d}`:""}`);};
 
 const TEAMS=12, ROUNDS=15, MY_SLOT=7;
-const LIGA={name:"Sunday Twelve",platform:"sleeper",leagueId:"LG12",draftId:"DR12",userId:"me",
-  teams:TEAMS,scoring:"ppr",draftType:"snake",rounds:ROUNDS,mySlot:MY_SLOT,
-  roster:["QB","RB","RB","WR","WR","TE","FLEX","DEF","K","BN","BN","BN","BN","BN","BN"],
-  rosterSource:"MANUAL"};
-const slotOf=(no)=>{const r=Math.floor((no-1)/TEAMS)+1,i=((no-1)%TEAMS)+1;
-  return r%2===0?TEAMS-i+1:i;};
+const ROSTER=["QB","RB","RB","WR","WR","TE","FLEX","DEF","K","BN","BN","BN","BN","BN","BN"];
+const LIGA={name:"Sunday Twelve",platform:"sleeper",leagueId:"LG12",draftId:"DR12",
+  userId:USERNAME,teams:TEAMS,scoring:"ppr",draftType:"snake",rounds:ROUNDS,mySlot:MY_SLOT,
+  roster:ROSTER,rosterSource:"MANUAL"};
+let PROV=crearLiga({id:"LG12",draftId:"DR12",teams:TEAMS,roster:ROSTER,mySlot:MY_SLOT,
+                    rounds:ROUNDS,name:"Sunday Twelve"});
+const slotOf=(no)=>slotDe(no,TEAMS);
+/** Reinicia el doble. `slot` es el puesto REAL, el que manda desde `draft_order`. */
+const reiniciar=(slot=MY_SLOT)=>{
+  PROV=crearLiga({id:"LG12",draftId:"DR12",teams:TEAMS,roster:ROSTER,mySlot:slot,
+                  rounds:ROUNDS,name:"Sunday Twelve"});
+};
 const mine=(no)=>slotOf(no)===MY_SLOT;
 
-/** El servidor de picks: el fixture que el adaptador consume como si fuera Sleeper. */
-let PICKS=[];
-async function montar(ctx){
-  await ctx.route("**/api.sleeper.app/**", async (route)=>{
-    const url=route.request().url();
-    if(url.includes("/drafts")){
-      return route.fulfill({status:200,contentType:"application/json",
-        body:JSON.stringify([{draft_id:"DR12",status:"drafting",season:"2026",
-          settings:{teams:TEAMS,rounds:ROUNDS},type:"snake"}])});
-    }
-    if(url.includes("/picks")){
-      return route.fulfill({status:200,contentType:"application/json",body:JSON.stringify(PICKS)});
-    }
-    return route.fulfill({status:404,body:"[]"});
-  });
+/* El doble vive en `sleeper-double.mjs`: lo usan los tres laboratorios y
+   copiarlo habría sido la cuarta vez que dos traductores del mismo formato
+   divergen en este proyecto. */
+async function montarDoble(ctx){ await montar(ctx,[PROV]); }
+function emitir(no,row,porOtro=false){
+  emitirPick(PROV,no,row,SLEEPER_OF);
+  // `porOtro` fuerza que el pick NO sea mío aunque caiga en mi puesto: es el
+  // autodraft del comisionado, que es como te pueden quitar tu candidato.
+  if(porOtro){ const p=PROV.picks[PROV.picks.length-1]; p.picked_by=`ajeno`; p.roster_id=0; }
 }
-/** Añade el pick N con un jugador real del board, como lo emite Sleeper. */
-function emitir(no, row, porOtro=false){
-  const [first,...rest]=(row.player_full_name ?? row.player_name).split(" ");
-  // `metadata.position` NO es decorado: `resolvePick` cruza por nombre Y
-  // posición, y el equipo sólo desempata. Un fixture sin posición no emparejaba
-  // NADA y el laboratorio se quedaba esperando 180 veces — el fallo no estaba
-  // en el producto sino en un doble de Sleeper que no se parecía a Sleeper.
-  PICKS.push({pick_no:no, player_id:`sl-${row.player_id}`,
-    picked_by: (!porOtro && mine(no)) ? "me" : `otro-${slotOf(no)}`,
-    metadata:{first_name:first, last_name:rest.join(" "),
-              position:row.position, team:row.team}});
-}
+const libres=()=>libresDe(PROV,BOARD,SLEEPER_OF);
+
 const cuenta=(p)=>p.locator(".room-count strong").innerText();
 const esperar=async(p,n)=>p.waitForFunction((x)=>document.querySelector(".room-count strong")?.textContent===String(x),n,{timeout:8000});
 
 const ctx=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:"reduce"});
-await montar(ctx);
+await montarDoble(ctx);
 await ctx.addInitScript((l)=>localStorage.setItem("gridiron-room-league-v1",JSON.stringify(l)),LIGA);
 const page=await ctx.newPage();
 // El adaptador sondea cada 15 s de reloj real. Se controla el reloj del
@@ -97,7 +95,6 @@ await page.screenshot({path:`${OUT}/lda-1440-waiting.png`});
 
 /* === el draft entero, pick a pick, por el proveedor ====================== */
 console.log("\n=== 180 picks por el adaptador ===");
-const libres=()=>BOARD.filter(r=>!PICKS.some(p=>p.player_id===`sl-${r.player_id}`));
 let errores=0, misTurnosVerificados=0; const t0=Date.now();
 for(let no=1; no<=180; no+=1){
   if(mine(no)){
@@ -143,9 +140,9 @@ await ctx.close();
    jugador ya no puede aparecer. Eso es lo que se comprueba. */
 console.log("\n=== candidato fichado (autodraft en tu turno) ===");
 {
-  PICKS=[];
+  reiniciar(1);
   const c2=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:"reduce"});
-  await montar(c2);
+  await montarDoble(c2);
   await c2.addInitScript((l)=>localStorage.setItem("gridiron-room-league-v1",JSON.stringify(l)),
     {...LIGA,mySlot:1});
   const p2=await c2.newPage();
@@ -157,7 +154,7 @@ console.log("\n=== candidato fichado (autodraft en tu turno) ===");
 
   // Se te acaba el reloj: el pick 1 entra por el proveedor, con TU candidato,
   // y a nombre de otro (comisionado o autodraft ajeno).
-  const libres2=()=>BOARD.filter(r=>!PICKS.some(x=>x.player_id===`sl-${r.player_id}`));
+  const libres2=()=>libresDe(PROV,BOARD,SLEEPER_OF);
   emitir(1, BOARD.find(r=>(r.player_full_name??r.player_name)===top), true);
   await p2.clock.runFor(16_000);
   await p2.waitForFunction(()=>document.querySelector(".room-count strong")?.textContent==="1",
@@ -201,9 +198,9 @@ console.log("\n=== aislamiento A/B ===");
 /* === móvil ============================================================== */
 console.log("\n=== 390 y 768 ===");
 for(const [w,h] of [[390,844],[768,1024]]){
-  PICKS=[];
+  reiniciar(1);
   const c4=await browser.newContext({viewport:{width:w,height:h},reducedMotion:"reduce"});
-  await montar(c4);
+  await montarDoble(c4);
   await c4.addInitScript((l)=>localStorage.setItem("gridiron-room-league-v1",JSON.stringify(l)),
     {...LIGA,mySlot:1});
   const p4=await c4.newPage();

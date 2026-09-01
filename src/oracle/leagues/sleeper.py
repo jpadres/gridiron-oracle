@@ -31,8 +31,12 @@ from __future__ import annotations
 import json
 import urllib.error
 import urllib.request
+from collections.abc import Iterable
 from dataclasses import replace
+from pathlib import Path
 from typing import Any
+
+import pandas as pd
 
 from oracle.fantasy.draft import LeagueSettings
 from oracle.fantasy.league import (
@@ -383,3 +387,61 @@ def picked_players(picks: list[dict], index: dict[str, str]) -> dict[str, list]:
             entry["sleeper_id"] = sleeper_id or None
             unmatched.append(entry)
     return {"matched": matched, "unmatched": unmatched}
+
+
+# Temporadas de rosters que se unen para construir el mapa de identidad. Un
+# `sleeper_id` no cambia con los años, así que unir varias temporadas recupera a
+# quien no esté en el roster de la actual —lesionados, agentes libres, veteranos
+# sin equipo en pretemporada— sin arriesgar nada: el par (gsis, sleeper) es el
+# mismo en todas.
+IDENTITY_SEASONS = 8
+
+
+def sleeper_id_map(
+    raw_dir: Path,
+    *,
+    board_ids: Iterable[str] = (),
+    defense_teams: Iterable[str] = (),
+    seasons: int = IDENTITY_SEASONS,
+) -> dict[str, str]:
+    """`sleeper_id` -> `player_id` de nflverse, desde los rosters ya descargados.
+
+    **Por qué desde nflverse y no desde el catálogo de Sleeper.** El catálogo son
+    5 MB y una petición de red en tiempo de build; los rosters ya están en disco
+    porque el board se construye con ellos. Da el MISMO par —nflverse publica
+    `sleeper_id` junto a `gsis_id`— y deja el exportador sin red.
+
+    **Por qué se hornea.** Es información ESTABLE: la identidad de un jugador no
+    cambia durante un draft. Resolverla en caliente obligaría a bajar el catálogo
+    entero en el navegador, que es justo lo que Sleeper pide que no se haga a
+    menudo. Horneada, un pick se resuelve por id sin una sola petición extra.
+
+    Las defensas van aparte: Sleeper las identifica por el código del equipo
+    (`ARI`), no por un id de jugador, y el board las llama `DST_ARI`.
+    """
+    wanted = set(board_ids)
+    index: dict[str, str] = {}
+    files = sorted(raw_dir.glob("roster_*.parquet"))[-seasons:]
+    for path in files:
+        frame = pd.read_parquet(path, columns=["gsis_id", "sleeper_id"])
+        for gsis, sleeper in zip(frame["gsis_id"], frame["sleeper_id"], strict=True):
+            if not isinstance(gsis, str) or not gsis.strip():
+                continue
+            if sleeper is None or str(sleeper).strip() in {"", "nan", "None"}:
+                continue
+            key = str(sleeper).strip()
+            value = gsis.strip()
+            if wanted and value not in wanted:
+                continue
+            # El primero que aparece manda y los repetidos se ignoran: un
+            # `sleeper_id` que apuntara a dos jugadores distintos sería un
+            # emparejamiento ambiguo, y ante la duda no se empareja.
+            if key in index and index[key] != value:
+                index.pop(key, None)
+                continue
+            index[key] = value
+    for team in defense_teams:
+        code = normalize_team(team)
+        if code:
+            index[code] = f"DST_{code}"
+    return index
