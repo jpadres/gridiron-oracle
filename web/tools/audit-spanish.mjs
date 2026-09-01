@@ -244,6 +244,13 @@ const DATOS_PREFIJOS = [
   ".research.items[].published", ".research.items[].beat",
   ".research.items[].kind", ".research.items[].impact",
   ".research.items[].confidence", ".research.items[].source_type",
+  // Marca de cuándo se CONFIRMÓ el hecho y con qué clase de evidencia
+  // (OFFICIAL / REPORTED / OBSERVED). Fecha ISO y token de la jerarquía de la
+  // regla 5, no prosa. Aparecen al reconsolidar desde `research/`, que es la
+  // ruta que corre CI; la caché de `out/` no los traía — dos caminos que
+  // publicaban campos distintos, que es la versión suave del fallo de los dos
+  // traductores.
+  ".research.items[].confirmed_at", ".research.items[].evidence_type",
   ".research.items[].sources[].url", ".research.items[].sources[].outlet",
   ".survivor.board[].opponent",
   ".survivor.board[].plan[]", ".survivor.board[].team", ".survivor.plan[]",

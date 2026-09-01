@@ -550,11 +550,27 @@ def _research(paths, payload: dict) -> dict | None:
     existe — y sin reconstruirla desde `research/`, la sección de prensa
     desaparecería de la web cada miércoles.
     """
+    from oracle.narrative import archive
+
+    # LA CACHÉ NO PUEDE GANARLE A UNA FICHA MÁS NUEVA.
+    #
+    # `out/research.json` lo escribe el barrido y trae el enlazado ya hecho, así
+    # que se prefiere... **mientras sea la más reciente**. Editar una ficha del
+    # archivo versionado y regenerar publicaba la caché vieja sin decir nada: es
+    # el mismo fallo que el `status` cacheado del draft, donde una copia en
+    # memoria seguía diciendo LIVE sobre un draft terminado. Una caché que gana
+    # sobre la fuente y no lo dice es indistinguible de que no hayas guardado.
+    #
+    # En CI no pasaba —`out/` está en .gitignore y allí nunca existe— que es
+    # justo por lo que puede vivir meses en local sin que nadie lo note.
     cached = paths.out / "research.json"
     if cached.exists():
-        return json.loads(cached.read_text(encoding="utf-8"))
-
-    from oracle.narrative import archive
+        archivo = sorted((paths.root / "research").glob("2*.json"))
+        mas_nueva = max((p.stat().st_mtime for p in archivo), default=0.0)
+        if mas_nueva <= cached.stat().st_mtime:
+            return json.loads(cached.read_text(encoding="utf-8"))
+        print("  (aviso) hay fichas más nuevas que out/research.json: "
+              "se reconsolida desde research/ como hace CI.")
 
     weekly = payload.get("fantasy_weekly") or {}
     section = archive.consolidate(paths.root, days=10, players=weekly.get("rankings", []))
