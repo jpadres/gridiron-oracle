@@ -580,6 +580,20 @@ RANK_BANDS: tuple[tuple[str, int, int], ...] = (
 # posición, ¿cuántos terminaron ahí?
 TOP_N = 24
 
+# El universo DRAFTEABLE: 12 equipos x 15 rondas. Es el mismo rango que cubren
+# las bandas y no es una preferencia, es corrección.
+#
+# Medir sobre el pool proyectado entero —353 receptores— no contesta «¿es buen
+# pick?» sino «¿es jugador de NFL?». El MAE de 160 puntos en quarterback lo
+# delataba: un error así es imposible en un pool real y sólo se explica porque
+# la mitad de la muestra hizo cero.
+#
+# Y hay un motivo más fuerte, de cara a medir disponibilidad: con un 50% de
+# ceros, cualquier modelo de ausencias parece brillante prediciendo que el WR300
+# no juega, que es trivial. Lo que hay que medir es si acierta las ausencias de
+# TITULARES, y eso exige acotar el pool ANTES de conectarlo.
+DRAFTABLE = 180
+
 
 def _metrics(predicted: np.ndarray, observed: np.ndarray) -> dict:
     """Correlaciones y error, con los empates dichos en vez de escondidos.
@@ -602,6 +616,23 @@ def _metrics(predicted: np.ndarray, observed: np.ndarray) -> dict:
         out["pearson"] = float("nan")
         out["spearman"] = float("nan")
     return out
+
+
+def _last_season_points(actual: pd.Series, season: int, index: pd.Index) -> np.ndarray:
+    """La baseline honesta: lo que hizo cada jugador la temporada ANTERIOR.
+
+    Es el único comparador que sobrevivió al descarte del ADP, y es el listón
+    que de verdad importa: si el motor no le gana a ordenar por los puntos del
+    año pasado, no está aportando nada por encima de mirar la tabla final.
+
+    Quien no jugó la temporada anterior vale 0, igual que en el lado del
+    resultado. No es un valor por defecto: es el dato — no anotó.
+    """
+    try:
+        previous = actual.xs(season - 1, level="season")
+    except KeyError:
+        return np.zeros(len(index), dtype=float)
+    return previous.reindex(index).fillna(0.0).to_numpy(dtype=float)
 
 
 def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> dict:
@@ -660,40 +691,59 @@ def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> dict:
 
         orden = projected["overall_rank"]
 
-        for position in FANTASY_POSITIONS:
-            mask = projected["position"] == position
-            if int(mask.sum()) < 15:
-                continue
-            pred = projected.loc[mask, "projected_points"].to_numpy(dtype=float)
-            obs = observed_all[mask.to_numpy()].to_numpy(dtype=float)
-            por_posicion.append({"season": season, "position": position, **_metrics(pred, obs)})
+        # LA MUESTRA ACOTADA: los 180 primeros del board. Todo lo que sigue
+        # —modelo y baseline— se mide sobre EXACTAMENTE estos jugadores.
+        pool = projected.index[orden <= DRAFTABLE]
+        sub = projected.loc[pool]
+        obs_pool = observed_all.loc[pool]
+        base_pool = _last_season_points(actual, season, pool)
 
-            # Hit rate del top-24 de la posición: de los que pusimos arriba,
-            # cuántos terminaron arriba. Es inmune a los empates en cero, que es
-            # justo lo que Spearman no es con esta muestra.
-            k = min(TOP_N, int(mask.sum()))
-            sub_pred = projected.loc[mask, "projected_points"]
-            sub_obs = observed_all[mask.to_numpy()]
-            top_pred = set(sub_pred.nlargest(k).index)
-            top_obs = set(sub_obs.nlargest(k).index)
-            aciertos.append({
-                "season": season, "position": position, "k": k,
-                "hit_rate": len(top_pred & top_obs) / k,
-            })
+        # Los dos predictores, uno al lado del otro. La baseline no es un
+        # adorno: sin ella, «Spearman .35» no dice si le ganamos a mirar la
+        # tabla del año pasado, que es lo único que hay que batir para aportar.
+        modelos = {
+            "model": sub["projected_points"].to_numpy(dtype=float),
+            "last_season": base_pool,
+        }
+
+        for position in FANTASY_POSITIONS:
+            mask = (sub["position"] == position).to_numpy()
+            if int(mask.sum()) < 10:
+                continue
+            obs = obs_pool.to_numpy(dtype=float)[mask]
+            for nombre, pred_all in modelos.items():
+                por_posicion.append({
+                    "season": season, "position": position, "predictor": nombre,
+                    **_metrics(pred_all[mask], obs),
+                })
+                # Hit rate del top-24 de la posición: de los que ese predictor
+                # puso arriba, cuántos terminaron arriba. Es inmune a los
+                # empates en cero, que es justo lo que Spearman no es aquí.
+                ids = sub.index[mask]
+                k = min(TOP_N, int(mask.sum()))
+                top_pred = set(pd.Series(pred_all[mask], index=ids).nlargest(k).index)
+                top_obs = set(pd.Series(obs, index=ids).nlargest(k).index)
+                aciertos.append({
+                    "season": season, "position": position, "predictor": nombre,
+                    "k": k, "hit_rate": len(top_pred & top_obs) / k,
+                })
 
         for label, lo, hi in RANK_BANDS:
-            banda = (orden >= lo) & (orden <= hi)
+            banda = ((orden.loc[pool] >= lo) & (orden.loc[pool] <= hi)).to_numpy()
             if int(banda.sum()) < 10:
                 continue
-            pred = projected.loc[banda, "projected_points"].to_numpy(dtype=float)
-            obs = observed_all[banda.to_numpy()].to_numpy(dtype=float)
-            por_banda.append({"season": season, "band": label, **_metrics(pred, obs)})
+            obs = obs_pool.to_numpy(dtype=float)[banda]
+            for nombre, pred_all in modelos.items():
+                por_banda.append({
+                    "season": season, "band": label, "predictor": nombre,
+                    **_metrics(pred_all[banda], obs),
+                })
 
     def _resumen(rows: list[dict], key: str) -> pd.DataFrame:
         frame = pd.DataFrame(rows)
         if frame.empty:
             return frame
-        return frame.groupby(key, as_index=False).agg(
+        return frame.groupby([key, "predictor"], as_index=False).agg(
             seasons=("season", "nunique"),
             n=("n", "mean"),
             zero_share=("zero_share", "mean"),
@@ -707,11 +757,15 @@ def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> dict:
         "by_position": _resumen(por_posicion, "position"),
         "by_band": _resumen(por_banda, "band"),
         "top_n": (
-            hits.groupby("position", as_index=False).agg(
+            hits.groupby(["position", "predictor"], as_index=False).agg(
                 seasons=("season", "nunique"), k=("k", "max"), hit_rate=("hit_rate", "mean"))
             if not hits.empty else hits
         ),
+        # Temporada a temporada, sin promediar: la regla de aceptación exige que
+        # un cambio ayude en TODAS, y una media esconde justo eso.
+        "by_season": pd.DataFrame(por_posicion),
         "seasons": sorted({r["season"] for r in por_posicion}),
+        "draftable": DRAFTABLE,
     }
 
 

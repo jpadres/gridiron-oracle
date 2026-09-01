@@ -11,7 +11,23 @@ export const metadata = {
 
 const VALIDATION_COLUMNS = [
   { key: "position", label: "Position", format: (v) => <PositionChip position={v} /> },
+  {
+    key: "predictor",
+    label: "Predictor",
+    format: (v) => (v === "model" ? "This model" : "Last season's points"),
+  },
   { key: "pearson", label: "Correlation", format: (v) => num(v, 2) },
+  { key: "spearman", label: "Spearman", format: (v) => num(v, 2) },
+  { key: "mae", label: "MAE (pts)", format: (v) => num(v, 0) },
+];
+
+const BAND_COLUMNS = [
+  { key: "band", label: "Board rank" },
+  {
+    key: "predictor",
+    label: "Predictor",
+    format: (v) => (v === "model" ? "This model" : "Last season's points"),
+  },
   { key: "spearman", label: "Spearman", format: (v) => num(v, 2) },
   { key: "mae", label: "MAE (pts)", format: (v) => num(v, 0) },
 ];
@@ -231,11 +247,48 @@ export default function Fantasy() {
             what came before it.
           </p>
           <Table columns={VALIDATION_COLUMNS} rows={fantasy.validation ?? []} />
+
+          <Callout title="These numbers went down, and the old ones were wrong">
+            <p>
+              An earlier version of this table reported Spearman around{" "}
+              <strong>0.61 to 0.69</strong>. It measured only players who actually appeared
+              that season — anyone who missed the year was dropped from the sample instead of
+              counting as what he was: <strong>a burned pick</strong>. That is survivorship,
+              and it inflates every figure.
+            </p>
+            <p>
+              Now a projected player who never played scores a real <strong>0</strong>, and
+              the sample is capped at the <strong>top 180 of the board</strong> — twelve teams
+              by fifteen rounds. Measuring the full projected pool answered &ldquo;is this an
+              NFL player?&rdquo; rather than &ldquo;is this a good pick?&rdquo;
+            </p>
+            <p>
+              The lower numbers are the honest ones. The change was to the measurement, not to
+              the projections.
+            </p>
+          </Callout>
+
           <p>
-            A high Spearman here does not mean the season is predictable: the set includes
-            very low-volume players, and separating a starter from a backup is easy. The hard
-            part — ordering the top twenty at a position — is far noisier, and rankings are
-            mostly good for <strong>not making large mistakes</strong>.
+            The second row of each position is the comparison that matters:{" "}
+            <strong>ordering players by what they scored last season</strong>. That is the bar
+            a projection has to clear to be worth anything, and on this sample{" "}
+            <strong>it is not cleared</strong> — the model wins in{" "}
+            <strong>8 of 16</strong> season-by-position cells, which is a coin flip. It is
+            ahead where picks are expensive (board ranks 1&ndash;50) and behind deep in the
+            board.
+          </p>
+
+          <h3>By board rank</h3>
+          <p className="caption">
+            One correlation over the whole pool is dominated by easy calls. These bands are cut
+            on VOR — the order the board is actually sorted in.
+          </p>
+          <Table columns={BAND_COLUMNS} rows={fantasy.validation_bands ?? []} />
+
+          <p>
+            A high Spearman here does not mean the season is predictable: the hard part —
+            ordering the top twenty at a position — is far noisier, and rankings are mostly
+            good for <strong>not making large mistakes</strong>.
           </p>
 
           <Callout title="35 players on this board changed teams, and their projection is the old one">

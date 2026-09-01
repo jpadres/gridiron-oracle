@@ -210,6 +210,11 @@ const DATOS_PREFIJOS = [
   ".fantasy.sleeper_ids",
   // Novatos: nombre propio, posición, equipo e identificadores. No es prosa.
   ".fantasy.rookies[]",
+  // Claves de la validación: "model" / "last_season", las bandas y la posición.
+  // Son ETIQUETAS de serie, y el texto que se pinta lo pone la página en inglés.
+  ".fantasy.validation[].predictor",
+  ".fantasy.validation_bands[]",
+  ".fantasy.validation_top_n[]",
   // Marcas de tiempo ISO de las fichas de hoy: fechas, no prosa.
   ".research.today[].published_at",
   // Pateadores y defensas del semanal, y los fichables del draft: ids GSIS o
