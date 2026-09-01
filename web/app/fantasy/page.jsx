@@ -19,6 +19,21 @@ const PREDICTOR_LABEL = {
   model_availability: "This model + per-player games",
 };
 
+const VALUE_COLUMNS = [
+  { key: "position", label: "Position", format: (v) => <PositionChip position={v} /> },
+  {
+    key: "predictor",
+    label: "Predictor",
+    format: (v) => PREDICTOR_LABEL[v] ?? v,
+  },
+  { key: "k", label: "Starters", format: (v) => num(v, 0) },
+  {
+    key: "value_captured",
+    label: "Value captured",
+    format: (v) => (v === null || v === undefined ? "—" : `${(v * 100).toFixed(1)}%`),
+  },
+];
+
 const VALIDATION_COLUMNS = [
   { key: "position", label: "Position", format: (v) => <PositionChip position={v} /> },
   {
@@ -255,6 +270,49 @@ export default function Fantasy() {
           <p className="caption">
             Preseason projection against actual result, with every season projected using only
             what came before it.
+          </p>
+          <h3>Value captured</h3>
+          <p className="caption">
+            Of the value that was actually there to be had at each position, how much does
+            drafting off this order get you? Replacement level comes from the same starter
+            count, applied to the season that happened.
+          </p>
+          <Table columns={VALUE_COLUMNS} rows={fantasy.validation_value ?? []} />
+          <p>
+            This is the primary measure, and it replaced rank correlation for a reason.{" "}
+            <strong>Spearman is blind to who you end up with.</strong> Two boards can have
+            identical rank correlation and hand you different rosters: one that misorders two
+            players inside your starters costs nothing, one that misorders across the starter
+            boundary costs a real player. In a constructed case with{" "}
+            <em>identical</em> Spearman to twelve decimal places, value captured separates
+            them by <strong>5.1 points</strong>.
+          </p>
+          <p>
+            It is also invariant to level — adding or scaling every projection leaves it
+            unchanged — so it cannot be moved by calibration, only by ordering.
+          </p>
+
+          <Callout title="At quarterback this board adds nothing over last season's points">
+            <p>
+              63.2% against 62.3%. That gap is not a result. Whatever the model knows about
+              quarterbacks, ordering them by what they scored last year knows about as much.
+            </p>
+            <p>
+              The likely cause is measurable: <strong>38%</strong> of the weeks a drafted
+              quarterback records no statistics are weeks he was on the active roster — he
+              lost the job, or never had it. Neither this model nor the baseline predicts
+              that, and the feature set contains nothing that could.
+            </p>
+            <p>
+              At running back the same comparison is <strong>81.0% against 73.0%</strong>. Use
+              the board where it earns its keep.
+            </p>
+          </Callout>
+
+          <h3>Rank correlation</h3>
+          <p className="caption">
+            Kept visible because it is what earlier versions of this page published, and it is
+            the only way to compare against those numbers.
           </p>
           <Table columns={VALIDATION_COLUMNS} rows={fantasy.validation ?? []} />
 

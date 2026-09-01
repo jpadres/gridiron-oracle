@@ -31,7 +31,12 @@ from oracle.fantasy.draft import (
     draft_board,
     project_season,
 )
-from oracle.fantasy.league import roster_context
+from oracle.fantasy.league import (
+    BENCH_SLOTS,
+    FLEX_SLOTS,
+    SUPERFLEX_SLOTS,
+    roster_context,
+)
 from oracle.fantasy.scoring import ScoringRules, rules_from_name, score_player_weeks
 
 # Temporadas sobre las que se reporta la validación. Se fija antes de mirar el
@@ -379,6 +384,8 @@ def main(argv: list[str] | None = None) -> int:
     print(validation["by_position"].to_string(index=False, float_format=fmt))
     print("\nPor banda de rank proyectado:")
     print(validation["by_band"].to_string(index=False, float_format=fmt))
+    print("\nVALOR CAPTURADO (métrica primaria) — fracción del VOR real disponible:")
+    print(validation["value_captured"].to_string(index=False, float_format=fmt))
     print(f"\nAcierto del top-{TOP_N} por posición:")
     print(validation["top_n"].to_string(index=False, float_format=fmt))
     print(
@@ -430,6 +437,11 @@ def main(argv: list[str] | None = None) -> int:
                 "validation": validation["by_position"].round(4).to_dict(orient="records"),
                 "validation_bands": validation["by_band"].round(4).to_dict(orient="records"),
                 "validation_top_n": validation["top_n"].round(4).to_dict(orient="records"),
+                # La métrica PRIMARIA. Va primero en la página porque es la
+                # única que pesa por valor y la única invariante al nivel.
+                "validation_value": (
+                    validation["value_captured"].round(4).to_dict(orient="records")
+                ),
             },
             ensure_ascii=False,
             default=str,
@@ -628,6 +640,59 @@ def _metrics(predicted: np.ndarray, observed: np.ndarray) -> dict:
     return out
 
 
+def starters_by_position(roster_positions, teams: int) -> dict[str, int]:
+    """Titulares que la liga consume en cada posición, desde la ESTRUCTURA.
+
+    `K_P = equipos x slots dedicados a P`. Sólo los dedicados: repartir el flex
+    exige puntos y eso volvería el corte circular —el valor dependería de un
+    corte que depende del valor—. Es una cota inferior del pool consumido en esa
+    posición, fijada antes de mirar ningún resultado.
+    """
+    dedicated = dict.fromkeys(FANTASY_POSITIONS, 0)
+    for raw in roster_positions:
+        slot = str(raw).upper().strip()
+        if slot in BENCH_SLOTS or slot in ("K", "DEF", "DST"):
+            continue
+        if slot in FLEX_SLOTS or slot in SUPERFLEX_SLOTS:
+            continue
+        if slot in dedicated:
+            dedicated[slot] += 1
+    return {position: teams * count for position, count in dedicated.items()}
+
+
+def value_captured(order: pd.Series, actual_points: pd.Series, k: int) -> float:
+    """Qué fracción del VOR REAL disponible captura este orden.
+
+    ## Por qué esta métrica y no una correlación
+
+    El board es una herramienta de ORDENAR, pero Spearman trata igual confundir
+    al RB3 con el RB5 que al RB40 con el RB42, y en un draft lo primero cuesta y
+    lo segundo no. Peor: es ciego a lo único que decide un pick, que es a QUIÉN
+    te llevas — dos boards con el mismo Spearman pueden dejarte plantillas
+    distintas.
+
+    Aquí el peso es el valor mismo, sin coeficientes inventados: fallar a un
+    élite cuesta mucho porque su VOR real es alto; permutar dos medianos no
+    cuesta casi nada porque el suyo es casi igual.
+
+    El reemplazo sale del MISMO `k` estructural aplicado a la temporada
+    realizada, así que numerador y denominador comparten criterio por
+    construcción. Se acota en 0: quien queda por debajo del reemplazo no aporta
+    valor capturable — eso es lo que significa el reemplazo.
+
+    Es INVARIANTE al nivel: sumar o multiplicar todas las proyecciones no la
+    mueve ni en 1e-12. Cualquier delta es reordenamiento.
+    """
+    if len(actual_points) < k + 2:
+        return float("nan")
+    replacement = float(actual_points.nlargest(k + 1).iloc[-1])
+    vor = (actual_points - replacement).clip(lower=0.0)
+    best = float(vor.nlargest(k).sum())
+    if best <= 0:
+        return float("nan")
+    return float(vor.loc[order.nlargest(k).index].sum() / best)
+
+
 def expected_games_for(
     season_av: pd.DataFrame, positions: pd.Series, season: int, pool: set[str] | None = None
 ) -> pd.Series:
@@ -714,6 +779,8 @@ def validate(
         avail.season_availability(players, team_games) if team_games is not None else None
     )
 
+    starters = starters_by_position(DEFAULT_ROSTER, settings.teams)
+    capturado: list[dict] = []
     por_posicion: list[dict] = []
     por_banda: list[dict] = []
     aciertos: list[dict] = []
@@ -817,6 +884,18 @@ def validate(
                     "season": season, "position": position, "predictor": nombre,
                     "k": k, "hit_rate": len(top_pred & top_obs) / k,
                 })
+                # VALOR CAPTURADO: la métrica primaria. `k_pos` sale de la
+                # estructura de la liga, no del pool medido.
+                k_pos = starters.get(position, 0)
+                if k_pos:
+                    capturado.append({
+                        "season": season, "position": position, "predictor": nombre,
+                        "k": k_pos,
+                        "value_captured": value_captured(
+                            pd.Series(pred_all[mask], index=ids),
+                            pd.Series(obs, index=ids), k_pos,
+                        ),
+                    })
 
         for label, lo, hi in RANK_BANDS:
             banda = ((orden.loc[pool] >= lo) & (orden.loc[pool] <= hi)).to_numpy()
@@ -844,7 +923,15 @@ def validate(
         )
 
     hits = pd.DataFrame(aciertos)
+    caps = pd.DataFrame(capturado)
     return {
+        "value_captured": (
+            caps.groupby(["position", "predictor"], as_index=False).agg(
+                seasons=("season", "nunique"), k=("k", "max"),
+                value_captured=("value_captured", "mean"))
+            if not caps.empty else caps
+        ),
+        "value_captured_by_season": caps,
         "by_position": _resumen(por_posicion, "position"),
         "by_band": _resumen(por_banda, "band"),
         "top_n": (
