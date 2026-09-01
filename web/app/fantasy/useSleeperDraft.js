@@ -17,13 +17,20 @@
  *     -------------------------      ------------------
  *     liga: puntuación, plantilla     los picks del draft
  *     tamaño y temporada              el `status` del draft
- *     rosters: quién es cada uno
- *     draft: orden y puestos
+ *     rosters: quién es cada uno      mi puesto en la parrilla
+ *     mi user_id y mi roster_id       equipos, rondas y reloj
  *
  * Volver a pedir la configuración de la liga cada quince segundos sería gastar
  * la cuota de otro en datos que no cambian durante un draft. Y al revés: el
  * `status` **tiene** que releerse, porque es la tercera condición de `LIVE` y
  * cachearlo dejaba a un draft terminado diciendo LIVE para siempre.
+ *
+ * El puesto está en la columna de la derecha por la misma razón, y no porque
+ * cambie: **aparece tarde**. `draft_order` no existe hasta que se sortea el
+ * orden, así que quien abre el asistente antes del sorteo lo derivaba una vez,
+ * le salía `null`, y se quedaba sin columna y sin calendario el resto de la
+ * noche. La derivación es pura y el objeto del draft ya viene en el sondeo:
+ * rehacerla no cuesta ni una petición.
  *
  * ## Un draft, no «los drafts de la liga»
  *
@@ -218,6 +225,38 @@ export function useSleeperDraft(pool, { leagueId, season, userId, idMap } = {}) 
           getJSON(`${SLEEPER}/draft/${stable.draftId}/picks`),
         ]);
         if (cancelled) return;
+
+        // EL PUESTO SE REDERIVA EN CADA SONDEO, PORQUE APARECE TARDE.
+        //
+        // Sleeper no publica `draft_order` hasta que se sortea el orden, que en
+        // una liga corriente pasa minutos antes de empezar. Derivarlo sólo en la
+        // primera resolución dejaba el puesto en UNKNOWN para toda la sesión si
+        // abrías el asistente antes del sorteo: la parrilla no marcaba tu
+        // columna y el calendario de picks no existía, y lo único que lo
+        // arreglaba era recargar la página — algo que nadie hace en mitad de un
+        // draft porque nada en pantalla dice que haga falta.
+        //
+        // La derivación es pura y sobre el draft que ya se acaba de pedir, así
+        // que no cuesta ninguna petición extra. `stable` se sustituye sólo
+        // cuando el valor CAMBIA de verdad: reasignarlo en cada sondeo obligaría
+        // a recalcular la parrilla y la plantilla cada quince segundos.
+        const freshSlot = slotFromDraft({
+          draft, userId: stable.userId, rosterId: stable.rosterId,
+        });
+        const freshSettings = {
+          ...stable.settings,
+          teams: Number(draft?.settings?.teams ?? stable.league?.total_rosters)
+            || stable.settings.teams,
+          rounds: Number(draft?.settings?.rounds) || stable.settings.rounds,
+          pickTimer: Number(draft?.settings?.pick_timer) || stable.settings.pickTimer,
+          type: typeof draft?.type === "string" ? draft.type : stable.settings.type,
+        };
+        const settingsChanged = ["teams", "rounds", "pickTimer", "type"].some(
+          (key) => freshSettings[key] !== stable.settings[key]
+        );
+        if ((freshSlot != null && freshSlot !== stable.slot) || settingsChanged) {
+          stable = { ...stable, draft, slot: freshSlot ?? stable.slot, settings: freshSettings };
+        }
 
         // Resolución POR IDENTIFICADOR. Un pick que no está en el mapa se
         // cuenta como UNMAPPED y no se resuelve por nombre: emparejar al
