@@ -18,7 +18,7 @@
       "player": "Josh Jacobs",
       "team": "GB",
       "status": "EXEMPT",
-      "detail": "On the Commissioner's Exempt List since 30 August, with no return date. He is paid and counts against the roster, but cannot play or practise until the league lifts it.",
+      "detail": "On the Commissioner's Exempt List since 30 August and will open the regular season on it: he is paid and may be at the facility for meetings and treatment, but cannot practise or play until the league lifts it. His first court date is 17 November, and the league does not have to wait for the legal process to discipline him.",
       "games_out": null,
       "effective_at": "2026-08-30",
       "verified_at": "2026-09-01",
@@ -30,6 +30,10 @@
         {
           "outlet": "NBC Sports",
           "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-30/josh-jacobs-placed-on-commissioners-exempt-list"
+        },
+        {
+          "outlet": "NFL.com",
+          "url": "https://www.nfl.com/news/nfl-places-packers-rb-josh-jacobs-commissioner-exempt-list"
         }
       ]
     },
@@ -54,7 +58,7 @@
       "player": "James Conner",
       "team": "ARI",
       "status": "IR",
-      "detail": "Opens the season on injured reserve: out at least the first four games.",
+      "detail": "Foot. Opens the season on injured reserve with a designation to return: out at least the first four games.",
       "games_out": 4,
       "effective_at": "2026-08-30",
       "verified_at": "2026-09-01",
@@ -74,7 +78,7 @@
       "player": "Zach Charbonnet",
       "team": "SEA",
       "status": "RESERVE_PUP",
-      "detail": "Moved to reserve/PUP in the cut to 53: out a minimum of four games.",
+      "detail": "Knee. Moved from active/PUP to reserve/PUP in the cut to 53: out a minimum of four games.",
       "games_out": 4,
       "effective_at": "2026-08-30",
       "verified_at": "2026-09-01",
@@ -114,7 +118,7 @@
       "player": "Tank Dell",
       "team": "HOU",
       "status": "IR",
-      "detail": "On injured reserve with a return designation: out at least four games.",
+      "detail": "Knee. Opens the season on injured reserve with a designation to return: out at least four games.",
       "games_out": 4,
       "effective_at": "2026-08-30",
       "verified_at": "2026-09-01",
@@ -130,7 +134,7 @@
       "player": "Christian Kirk",
       "team": "SF",
       "status": "IR",
-      "detail": "San Francisco placed him on injured reserve in the cut to 53.",
+      "detail": "Calf. San Francisco placed him on injured reserve with a designation to return in the cut to 53.",
       "games_out": 4,
       "effective_at": "2026-08-30",
       "verified_at": "2026-09-01",
@@ -238,6 +242,42 @@
         {
           "outlet": "NBC Sports Bay Area",
           "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/christian-kirk-injured-reserve/1958616/"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0040644",
+      "player": "Trevor Etienne",
+      "team": "CAR",
+      "status": "IR",
+      "detail": "Ankle, hurt in Friday's preseason finale against Houston. Placed on IR with a designation to return: eligible in Week 5. Not the same player as Travis Etienne, who is New Orleans' starter.",
+      "games_out": 4,
+      "effective_at": "2026-08-30",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "CBS Sports",
+          "url": "https://www.cbssports.com/fantasy/football/news/panthers-trevor-etienne-placed-on-ir-designated-to-return/"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0040236",
+      "player": "Kyle Monangai",
+      "team": "CHI",
+      "status": "QUESTIONABLE",
+      "detail": "Hyperextended right knee. His head coach called him week-to-week and Week 1 is openly in doubt; D'Andre Swift is the starter either way.",
+      "games_out": null,
+      "effective_at": "2026-08-17",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/nfl/story/_/id/49643703/bears-rb-kyle-monangai-knee-expected-miss-multiple-weeks-source-says"
+        },
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-17/kyle-monangai-knee-to-miss-multiple-weeks"
         }
       ]
     }
