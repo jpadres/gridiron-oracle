@@ -25,6 +25,7 @@ from oracle.fantasy import availability as avail
 from oracle.fantasy import risk
 from oracle.fantasy.ages import ages_for_season, birth_dates
 from oracle.fantasy.draft import (
+    FANTASY_POSITIONS,
     LeagueSettings,
     _td_points,
     draft_board,
@@ -372,11 +373,19 @@ def main(argv: list[str] | None = None) -> int:
 
     print("\nValidando la metodología sobre temporadas pasadas...")
     validation = validate(players, rules, settings)
-    print(validation.to_string(index=False, float_format=lambda x: f"{x:7.3f}"))
+    fmt = lambda x: f"{x:7.3f}"  # noqa: E731
+    print(f"\nTemporadas: {validation['seasons']}")
+    print("\nPor posición (los proyectados que no jugaron cuentan 0):")
+    print(validation["by_position"].to_string(index=False, float_format=fmt))
+    print("\nPor banda de rank proyectado:")
+    print(validation["by_band"].to_string(index=False, float_format=fmt))
+    print(f"\nAcierto del top-{TOP_N} por posición:")
+    print(validation["top_n"].to_string(index=False, float_format=fmt))
     print(
-        "\nSpearman ~0.55 está en línea con lo mejor que se publica — y aun así\n"
-        "significa que una de cada tres parejas de jugadores termina en el orden\n"
-        "contrario. Los rankings sirven para no cometer errores grandes."
+        "\n`zero_share` es la fracción de la muestra que terminó en 0 puntos.\n"
+        "Va al lado de Spearman a propósito: con muchos empates en cero, el\n"
+        "coeficiente deja de significar lo que uno cree, y el hit rate del\n"
+        "top-24 —que no depende de los empates— es la lectura honesta."
     )
 
     destination = paths.out / "fantasy_draft.json"
@@ -415,7 +424,11 @@ def main(argv: list[str] | None = None) -> int:
                 # más: ni proyección ni VOR, porque el orden de pateadores está
                 # rechazado (E8b) y el modelo de DST no existe (DESIGN_ONLY).
                 "specialists": _specialists(players, team_games, season),
-                "validation": validation.round(4).to_dict(orient="records"),
+                # Las tres vistas viajan por separado: una sola correlación
+                # sobre el pool entero es justo la que no contesta nada.
+                "validation": validation["by_position"].round(4).to_dict(orient="records"),
+                "validation_bands": validation["by_band"].round(4).to_dict(orient="records"),
+                "validation_top_n": validation["top_n"].round(4).to_dict(orient="records"),
             },
             ensure_ascii=False,
             default=str,
@@ -553,18 +566,74 @@ def _league_name_to_publish(args, synced) -> str | None:
     return synced.get("name")
 
 
-def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> pd.DataFrame:
+# Bandas de rank PROYECTADO. Son el equivalente offline de las bandas de ADP:
+# una correlación sobre el pool entero está dominada por lo fácil —el QB1 por
+# encima del WR80— y no dice nada sobre las decisiones que de verdad se toman.
+RANK_BANDS: tuple[tuple[str, int, int], ...] = (
+    ("1-50", 1, 50),
+    ("51-100", 51, 100),
+    ("101-180", 101, 180),
+)
+
+# Cuántos por posición cuentan como titulares de verdad en una liga de 12. Es el
+# corte del hit rate: de los que proyectamos entre los 24 mejores de su
+# posición, ¿cuántos terminaron ahí?
+TOP_N = 24
+
+
+def _metrics(predicted: np.ndarray, observed: np.ndarray) -> dict:
+    """Correlaciones y error, con los empates dichos en vez de escondidos.
+
+    Con los ausentes puntuados a 0 aparecen muchos empates en la cola, y
+    Spearman con empates masivos deja de significar lo que uno cree: la
+    proporción de ceros va al lado del número, siempre.
+    """
+    zeros = float(np.mean(observed == 0.0))
+    out = {
+        "n": int(predicted.size),
+        "zero_share": zeros,
+        "mae": float(np.mean(np.abs(predicted - observed))),
+    }
+    # Con varianza nula la correlación no está definida: se dice NaN, no 0.
+    if predicted.size >= 3 and np.std(predicted) > 0 and np.std(observed) > 0:
+        out["pearson"] = float(pearsonr(predicted, observed)[0])
+        out["spearman"] = float(spearmanr(predicted, observed)[0])
+    else:
+        out["pearson"] = float("nan")
+        out["spearman"] = float("nan")
+    return out
+
+
+def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> dict:
     """Proyección de pretemporada frente al resultado real, temporada a temporada.
 
     Cada temporada se proyecta usando **sólo** lo anterior. Es la misma regla
     walk-forward del modelo de partidos, y por el mismo motivo: proyectar 2023
     con datos de 2023 da correlaciones preciosas y completamente falsas.
+
+    ## El sesgo de supervivencia que esto quita
+
+    La versión anterior cruzaba `projected ∩ actual` y medía sólo sobre los
+    jugadores que **sí** aparecieron esa temporada. O sea que el que se perdió el
+    año entero desaparecía de la muestra en vez de contar como lo que fue: un
+    pick quemado. Eso infla todas las cifras y, peor, deja el instrumento CIEGO
+    justo al problema que más distorsiona el board — proyectar a todo el mundo
+    con 15,5 partidos. Un arreglo de disponibilidad no podía verse porque el
+    coste de la lesión estaba borrado del conjunto de evaluación.
+
+    Ahora un jugador proyectado que no jugó puntúa **0 real**, que es lo que se
+    come el drafteador.
+
+    Devuelve tres vistas, porque una sola no contesta lo que importa: por
+    posición, por banda de rank proyectado, y el acierto del top-24.
     """
     scored = players.copy()
     scored["fantasy_points"] = score_player_weeks(scored, rules)
     actual = scored.groupby(["player_id", "season"], observed=True)["fantasy_points"].sum()
 
-    rows = []
+    por_posicion: list[dict] = []
+    por_banda: list[dict] = []
+    aciertos: list[dict] = []
     available = sorted(players["season"].unique())
     for season in VALIDATION_SEASONS:
         if season not in available:
@@ -573,42 +642,77 @@ def validate(players: pd.DataFrame, rules, settings: LeagueSettings) -> pd.DataF
             projected = project_season(players, season, rules)
         except ValueError:
             continue
-        projected = projected.set_index("player_id")
+        # Las bandas se cortan sobre el board, o sea sobre VOR — NO sobre puntos
+        # brutos. Un quarterback suma del orden de 1,7 veces más que un
+        # receptor, así que ordenar por puntos pone 43 quarterbacks en los 50
+        # primeros: eso no es un board, es la lista de QBs, y medir ahí no dice
+        # nada de las decisiones de un draft. VOR existe precisamente para que
+        # las posiciones sean comparables, y es el orden que el producto enseña.
+        board = draft_board(projected, settings)
+        projected = board.set_index("player_id")
         truth = actual.xs(season, level="season")
 
-        common = projected.index.intersection(truth.index)
-        if len(common) < 30:
+        # El universo es lo PROYECTADO. Quien no aparece en `truth` no se cae de
+        # la muestra: vale 0. Es la línea que quita el survivorship.
+        observed_all = truth.reindex(projected.index).fillna(0.0)
+        if len(projected) < 30:
             continue
 
-        for position in ("QB", "RB", "WR", "TE"):
-            subset = projected.loc[common]
-            subset = subset[subset["position"] == position]
-            if len(subset) < 15:
-                continue
-            predicted = subset["projected_points"].to_numpy(dtype=float)
-            observed = truth.loc[subset.index].to_numpy(dtype=float)
-            rows.append(
-                {
-                    "season": season,
-                    "position": position,
-                    "players": len(subset),
-                    "pearson": float(pearsonr(predicted, observed)[0]),
-                    "spearman": float(spearmanr(predicted, observed)[0]),
-                    "mae": float(np.mean(np.abs(predicted - observed))),
-                }
-            )
+        orden = projected["overall_rank"]
 
-    frame = pd.DataFrame(rows)
-    if frame.empty:
-        return frame
-    # Se reporta la media por posición sobre todas las temporadas validadas.
-    return frame.groupby("position", as_index=False).agg(
-        seasons=("season", "nunique"),
-        players=("players", "mean"),
-        pearson=("pearson", "mean"),
-        spearman=("spearman", "mean"),
-        mae=("mae", "mean"),
-    )
+        for position in FANTASY_POSITIONS:
+            mask = projected["position"] == position
+            if int(mask.sum()) < 15:
+                continue
+            pred = projected.loc[mask, "projected_points"].to_numpy(dtype=float)
+            obs = observed_all[mask.to_numpy()].to_numpy(dtype=float)
+            por_posicion.append({"season": season, "position": position, **_metrics(pred, obs)})
+
+            # Hit rate del top-24 de la posición: de los que pusimos arriba,
+            # cuántos terminaron arriba. Es inmune a los empates en cero, que es
+            # justo lo que Spearman no es con esta muestra.
+            k = min(TOP_N, int(mask.sum()))
+            sub_pred = projected.loc[mask, "projected_points"]
+            sub_obs = observed_all[mask.to_numpy()]
+            top_pred = set(sub_pred.nlargest(k).index)
+            top_obs = set(sub_obs.nlargest(k).index)
+            aciertos.append({
+                "season": season, "position": position, "k": k,
+                "hit_rate": len(top_pred & top_obs) / k,
+            })
+
+        for label, lo, hi in RANK_BANDS:
+            banda = (orden >= lo) & (orden <= hi)
+            if int(banda.sum()) < 10:
+                continue
+            pred = projected.loc[banda, "projected_points"].to_numpy(dtype=float)
+            obs = observed_all[banda.to_numpy()].to_numpy(dtype=float)
+            por_banda.append({"season": season, "band": label, **_metrics(pred, obs)})
+
+    def _resumen(rows: list[dict], key: str) -> pd.DataFrame:
+        frame = pd.DataFrame(rows)
+        if frame.empty:
+            return frame
+        return frame.groupby(key, as_index=False).agg(
+            seasons=("season", "nunique"),
+            n=("n", "mean"),
+            zero_share=("zero_share", "mean"),
+            pearson=("pearson", "mean"),
+            spearman=("spearman", "mean"),
+            mae=("mae", "mean"),
+        )
+
+    hits = pd.DataFrame(aciertos)
+    return {
+        "by_position": _resumen(por_posicion, "position"),
+        "by_band": _resumen(por_banda, "band"),
+        "top_n": (
+            hits.groupby("position", as_index=False).agg(
+                seasons=("season", "nunique"), k=("k", "max"), hit_rate=("hit_rate", "mean"))
+            if not hits.empty else hits
+        ),
+        "seasons": sorted({r["season"] for r in por_posicion}),
+    }
 
 
 if __name__ == "__main__":
