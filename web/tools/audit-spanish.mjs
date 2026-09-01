@@ -215,6 +215,7 @@ const DATOS_PREFIJOS = [
   ".fantasy.validation[].predictor",
   ".fantasy.validation_bands[]",
   ".fantasy.validation_top_n[]",
+  ".fantasy.validation_value[]",
   // Marcas de tiempo ISO de las fichas de hoy: fechas, no prosa.
   ".research.today[].published_at",
   // Pateadores y defensas del semanal, y los fichables del draft: ids GSIS o
