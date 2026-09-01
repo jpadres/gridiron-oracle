@@ -200,6 +200,24 @@ export function RankTable({
                           !
                         </span>
                       ) : null}
+                      {/* NO VA A JUGAR. Es lo primero que hay que ver de una
+                          fila, antes que el riesgo y antes que la nota: el
+                          jugador está en su plantilla, su número es normal y
+                          aun así no cuenta. Los datos de plantilla no lo saben
+                          —un exento figura ACT— y por eso lo trae la prensa,
+                          con fuente y fecha en el título. */}
+                      {row.status_label ? (
+                        <span
+                          className={row.status_severity === "OUT"
+                            ? "mark mark--out" : "mark mark--risk"}
+                          title={`${row.status_detail} `
+                            + (row.status_freshness === "CURRENT"
+                              ? `Verified ${row.status_verified_at}.`
+                              : `LAST VERIFIED ${row.status_verified_at}.`)
+                            + " Changes no number on this row."}>
+                          {row.status_label}
+                        </span>
+                      ) : null}
                       {health ? <AvailabilityTag entry={health} /> : null}
                       {risk && row.risk_label && row.risk_label !== "Normal" ? (
                         <RiskTag row={row} />

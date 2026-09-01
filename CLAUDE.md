@@ -186,6 +186,25 @@ cuenta como fuera del board sin entrar en la plantilla de nadie.
 un cálculo, ni como feature ni como ajuste ni como multiplicador. Se publica al
 lado de los rankings, con su fuente y su etiqueta de fiabilidad.
 
+**Marcar no es calcular, y por eso sí se hace.** Desde septiembre de 2026 la
+prensa aporta lo que los datos no tienen: quién está suspendido, exento, en IR o
+en PUP de temporada. Un apartado figura `ACT` en su plantilla —cobra y ocupa
+sitio— así que `mark_rostered` no puede verlo, y Josh Jacobs salía en el puesto
+38 del board como si nada. El fichero curado es `research/player_status.json`,
+por id resuelto a mano y con fuente; el traductor, `narrative/status.py`.
+
+La frontera es la de siempre y está escrita en el propio módulo: **el número de
+la fila es el mismo con marca y sin ella**. Lo que cambia es que se dice, y que
+un OUT deja de encabezar la lista corta — igual que ya pasaba con SIN EQUIPO.
+`attach()` sólo escribe campos con prefijo `status_`, para que la regla se pueda
+comprobar leyendo veinte líneas.
+
+Y el estado dura mientras la comprobación caduca: `effective_at` es cuándo
+empezó y `verified_at` cuándo se comprobó. Pasada una semana sin recomprobar la
+marca **no se borra** —diría «disponible» de alguien apartado— sino que deja de
+afirmarse como actual y pasa a «last verified [fecha]». Es la regla 5 aplicada a
+un estado en vez de a una cifra.
+
 No es purismo: la garantía anti-fuga se demuestra recalculando features con el
 historial truncado. Una noticia de agosto no tiene fecha comprobable dentro de esa
 pasada, así que en cuanto moviera un número, esa demostración deja de valer — y
@@ -221,6 +240,7 @@ src/oracle/
   betting/               de-vig (Shin), EV, Kelly fraccionado
   fantasy/               puntuación, proyecciones de draft, ranking semanal
   narrative/             textos generados y barrido de prensa (opcional, con clave)
+  narrative/status.py    suspensiones, exentos y listas: MARCA, no calcula
   freshness.py           ventanas por dominio: qué se puede afirmar como ACTUAL
   survivor/              plan de survivor: asignación lineal sobre log-probabilidades
   leagues/sleeper.py     liga, puntuación y picks del draft (API pública, sin clave)
@@ -337,6 +357,7 @@ comentario está para que no los reintroduzcas.
 | Un doble de Sleeper por laboratorio | `tools/lab/sleeper-double.mjs` | Al resolver por id y derivar la identidad de `draft_order`, un doble al que le falte un campo no falla: prueba otra cosa y sale VERDE. Tres copias eran tres coberturas distintas del mismo formato — el fallo de los dos traductores, por cuarta vez. Uno solo, compartido |
 | El mapa de identidad, pedido en caliente | `export_web_data.py` | El catálogo de jugadores de Sleeper son 5 MB y su documentación pide no bajarlo a menudo. Es información ESTABLE: se hornea en el build desde los rosters de nflverse, que ya publican `sleeper_id` junto al `gsis_id` del board. Cero peticiones extra, y los 4 que no cuadran salen UNMAPPED en vez de emparejarse por nombre |
 | El asistente decía «tu liga» sobre el board publicado | `draft/page.jsx` | La superflex de 12 daba el MISMO orden que la PPR de 12 porque a esa página nunca le llegaron `positionPriors` ni `componentOrder`: `leagueBoardFrom` devolvía `null` en silencio y se caía al publicado. El compilador estaba bien; el contexto llegaba pobre. **Un fallback silencioso a algo correcto-para-otra-cosa no falla, miente** |
+| Josh Jacobs, apartado y en el puesto 38 | `narrative/status.py` | La proyección no comprueba si el jugador puede jugar, y un exento del comisionado figura `ACT` en su equipo: `mark_rostered` no lo ve porque **sí** está en la plantilla. Dos agujeros distintos —sin equipo y apartado— con dos remedios distintos, y el segundo sólo lo puede traer la prensa |
 | Publicar UNKNOWN teniendo la medición hecha | `scripts/fantasy_build.py` | El board no proyectaba novatos y la interfaz escribía UNKNOWN mientras `ROOKIE_PRIOR` llevaba meses VALIDATED (Spearman 0,604 walk-forward). UNKNOWN > INVENTADO sigue en pie; **UNKNOWN > MEDIDO no**. Callar una medición no es prudencia, es media medición |
 | El novato, encogido dos veces | `leagueValue.js` | `projectPlayer` encoge con `weighted_games` como fiabilidad y un novato tiene CERO: devolvía la media de la posición, la misma para el pick 3 y para la séptima ronda. O sea, borraba justo la señal por la que existe la previa. Un novato se compila y no se vuelve a encoger |
 | El novato cae bajo, y está medido | `scripts/rookie_placement_validate.py` | A igual proyección y posición, los novatos de 2019-2025 realizaron 127,2 puntos y los veteranos de al lado 19,6. Las escalas no son la misma —el veterano se proyecta como si jugara 15,5 partidos; la previa de novato es el total observado con sus ceros— y el sesgo se publica **sin corregir**: no hay corrección validada, y un multiplicador a ojo sería peor que el sesgo conocido |

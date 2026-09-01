@@ -50,8 +50,22 @@ export function candidates(available, { slots = null, limit = 4 } = {}) {
   // un equipo en el que ya no está, así que ofrecerlo como «lo mejor
   // disponible» es afirmar algo que los datos contradicen. Sigue en el board,
   // marcado y buscable — lo que no hace es encabezar la lista.
+  //
+  // Y tampoco se recomienda a quien NO VA A JUGAR aunque siga en su plantilla:
+  // suspendido, en la Lista de Exentos, en IR o en PUP de temporada. Ese hecho
+  // no lo tienen los datos de nflverse —Josh Jacobs figura ACT en Green Bay
+  // estando apartado sin fecha— y lo trae la capa de prensa con su fuente.
+  //
+  // Marcar y dejar de recomendar NO es calcular: el número de la fila es el
+  // mismo con marca y sin ella, y el jugador sigue en el board y buscable. Lo
+  // que no hace es encabezar una lista que dice «lo mejor disponible».
+  //
+  // `RISK` (PUP activo, holdout, duda) NO sale: sacar a alguien del board por
+  // una duda es tomar por quien draftea una decisión que es suya.
   const pool = available.filter(
-    (row) => RANKED_POSITIONS.includes(row.position) && row.rostered !== false
+    (row) => RANKED_POSITIONS.includes(row.position)
+      && row.rostered !== false
+      && row.status_severity !== "OUT"
   );
   if (pool.length === 0) return [];
   const openPositions = slots ? openSlotPositions(slots) : null;

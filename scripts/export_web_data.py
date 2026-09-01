@@ -255,6 +255,12 @@ def main(argv: list[str] | None = None) -> int:
         payload["fantasy_weekly"], "defenses", DST_COLUMNS
     )
 
+    # --- estado de disponibilidad (suspensiones, exentos, IR, PUP) ----------
+    # Va DESPUÉS del recorte a propósito: no es una columna del board, es una
+    # marca que se cuelga encima, igual que los componentes. Y no toca ningún
+    # número — la regla 8 no tiene excepción aquí (ver narrative/status.py).
+    _attach_status(payload, paths)
+
     # --- research (prensa e insiders) ---------------------------------------
     # Viaja aparte de todo lo anterior a propósito: son afirmaciones de terceros
     # con su fuente al lado, no salidas del modelo, y no entran en ningún cálculo.
@@ -365,6 +371,57 @@ def _attach_byes(payload: dict, fantasy: dict) -> None:
     if not schedule.complete or len(schedule.bye_week) != len(schedule.teams):
         return
     fantasy["byes"] = dict(sorted(schedule.bye_week.items()))
+
+
+def _attach_status(payload: dict, paths) -> None:
+    """Marca a quien no va a jugar aunque figure en su plantilla.
+
+    Es el remedio del segundo agujero, el que `mark_rostered` no puede ver:
+    Josh Jacobs aparece `ACT` en Green Bay estando en la Lista de Exentos del
+    Comisionado. nflverse no publica eso; la capa de prensa sí, con su fuente.
+
+    Se cuelga del board de draft **y** del ranking semanal: un jugador apartado
+    tiene que verse en las dos pantallas o la que no lo diga sigue mintiendo.
+    """
+    from oracle.narrative import status as status_module
+
+    entries = status_module.load(paths.root / "research" / "player_status.json")
+    if not entries:
+        return
+    fantasy = payload.get("fantasy")
+    weekly = payload.get("fantasy_weekly")
+    marcadas = 0
+    for section, key in ((fantasy, "board"), (weekly, "rankings")):
+        rows = section.get(key) if isinstance(section, dict) else None
+        if isinstance(rows, list):
+            marcadas += status_module.attach(rows, entries)
+    if isinstance(fantasy, dict):
+        # El catálogo viaja para que la interfaz no tenga que repetirlo: qué
+        # estados existen y cuáles son OUT. Duplicar esa tabla en JS sería el
+        # fallo de los dos traductores otra vez, y aquí decidiría a quién se
+        # deja de recomendar.
+        fantasy["status_catalog"] = {
+            code: {"label": status_module.LABEL[code], "severity": severity}
+            for code, severity in sorted(status_module.SEVERITY.items())
+        }
+    board_ids = set()
+    if isinstance(fantasy, dict) and isinstance(fantasy.get("board"), list):
+        board_ids = {row.get("player_id") for row in fantasy["board"]}
+    huerfanas = [e.player for e in entries if e.player_id not in board_ids]
+    print(f"  estado de jugador: {marcadas} filas marcadas de {len(entries)} entradas.")
+    # Una entrada sin recomprobar no se borra —diría «disponible» de alguien
+    # apartado— pero deja de afirmarse como actual, y quien construye tiene que
+    # enterarse aquí y no en la pantalla del que draftea.
+    viejas = [e.player for e in entries if e.freshness() != "CURRENT"]
+    if viejas:
+        print(f"    (aviso) sin recomprobar desde hace más de una semana: {', '.join(viejas)}")
+        print("            la web las pinta como «last verified», no como actuales.")
+    if huerfanas:
+        # No es un error —un retirado no tiene por qué estar en el board— pero
+        # se DICE: una entrada que no empareja con nadie es indistinguible de
+        # una entrada con el id mal escrito, y callarla es cómo se queda una
+        # marca sin efecto durante meses.
+        print(f"    sin fila en el board: {', '.join(huerfanas)}")
 
 
 def _attach_components(payload: dict, source: dict | None) -> None:

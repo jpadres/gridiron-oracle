@@ -85,6 +85,29 @@ function rookieBrief(row) {
     + " No risk, absence or bust signal: those need NFL history.";
 }
 
+/**
+ * El estado de un jugador en una línea, con su fecha y su fuente.
+ *
+ * Las dos fechas hacen cosas distintas y por eso se enseñan las dos: el estado
+ * empezó el `effective_at` y se comprobó por última vez el `verified_at`. Una
+ * suspensión no envejece sola —sigue en vigor hasta que la levanten— pero
+ * nuestra comprobación sí, y pasada la ventana esto deja de afirmarse como
+ * actual y dice «last verified». UNKNOWN > STALE PRESENTADO COMO ACTUAL.
+ */
+function statusBrief(row) {
+  if (!row?.status_label) return "";
+  const checked = row.status_freshness === "CURRENT"
+    ? `Verified ${row.status_verified_at}.`
+    : `LAST VERIFIED ${row.status_verified_at} — not re-checked since.`;
+  const since = row.status_effective_at ? ` In effect since ${row.status_effective_at}.` : "";
+  const games = Number.isFinite(row.status_games_out)
+    ? ` At least ${row.status_games_out} games.` : "";
+  const outlets = (row.status_sources ?? []).map((s) => s.outlet).filter(Boolean).join(", ");
+  return `${row.status_label} — ${row.status_detail}${since}${games} ${checked}`
+    + (outlets ? ` Source: ${outlets}.` : "")
+    + " This changes no number on this row: the projection and VOR are untouched.";
+}
+
 function tierDepth(available, position) {
   const rows = available.filter((row) => row.position === position);
   if (rows.length === 0) return null;
@@ -640,7 +663,13 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                     valor, el hueco elegible abierto y el conteo de su tier.
                     Nada de «suelo seguro» ni «gran techo». */}
                 <ul className="room-why">
-                  {entry.row.rostered === false ? (
+                  {entry.row.status_severity ? (
+                    <li className={entry.row.status_severity === "OUT"
+                      ? "room-why-out" : "room-why-risk"}>
+                      <b>{entry.row.status_label}</b> {entry.row.status_detail}
+                    </li>
+                  ) : null}
+                  {entry.row.rostered === false && entry.row.status_severity !== "OUT" ? (
                     <li className="room-why-noteam"><b>No NFL team</b> — free agent</li>
                   ) : null}
                   {entry.row.rookie ? (
@@ -774,10 +803,26 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                           NEWS
                         </span>
                       ) : null}
-                      {entry.row.rostered === false ? (
+                      {entry.row.status_severity === "OUT" ? (
+                        /* NO VA A JUGAR, y los datos de plantilla no lo saben:
+                           un suspendido o un exento figura ACT en su equipo.
+                           Va la primera de todas las marcas porque es la que
+                           cambia la decisión — el número de al lado sigue
+                           siendo el mismo, y por eso hace falta decirlo. */
+                        <span className="room-row-out" title={statusBrief(entry.row)}>
+                          {entry.row.status_label}
+                        </span>
+                      ) : entry.row.status_severity === "RISK" ? (
+                        <span className="room-row-risk" title={statusBrief(entry.row)}>
+                          {entry.row.status_label}
+                        </span>
+                      ) : null}
+                      {entry.row.rostered === false && entry.row.status_severity !== "OUT" ? (
                         /* SIN EQUIPO. Va antes que cualquier otra marca porque
                            invalida el número de al lado: la proyección salió de
-                           lo que hizo en un equipo en el que ya no está. */
+                           lo que hizo en un equipo en el que ya no está. Si ya
+                           hay una marca de OUT no se repite: «FREE AGENT» y
+                           «SIN EQUIPO» juntos dicen lo mismo dos veces. */
                         <span className="room-row-noteam"
                               title="Not on any 2026 NFL roster. The projection comes from his production with a team he is no longer on.">
                           SIN EQUIPO

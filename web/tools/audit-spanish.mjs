@@ -166,6 +166,13 @@ const COPY = new Set([
   ".dossier.medical[].status", ".dossier.medical[].situation",
   ".dossier.camp[].report",
   ".dossier.sources[].article", ".dossier.sources[].used_for",
+  // Estado de disponibilidad: la etiqueta que se pinta en la fila («EXEMPT
+  // LIST») y el motivo que va en el título. Lo escribimos nosotros a partir de
+  // fuentes, así que es COPY y tiene que estar en inglés — es justo el sitio
+  // donde una nota curada en español se colaría a la pantalla sin que nadie la
+  // viera, porque sólo aparece al pasar el ratón.
+  ".fantasy.board[].status_label", ".fantasy.board[].status_detail",
+  ".fantasy.status_catalog.label",
 ]);
 
 // Datos: nombres propios, códigos, fechas, y la prosa ajena que se cita con su
@@ -210,6 +217,13 @@ const DATOS_PREFIJOS = [
   ".fantasy.sleeper_ids",
   // Novatos: nombre propio, posición, equipo e identificadores. No es prosa.
   ".fantasy.rookies[]",
+  // Estado del jugador: el CÓDIGO («EXEMPT»), la severidad («OUT»), las dos
+  // fechas ISO y la fuente. Tokens de máquina y datos ajenos; la etiqueta y el
+  // motivo, que sí se pintan, van declarados arriba como COPY.
+  ".fantasy.board[].status", ".fantasy.board[].status_severity",
+  ".fantasy.board[].status_freshness", ".fantasy.board[].status_effective_at",
+  ".fantasy.board[].status_verified_at", ".fantasy.board[].status_sources[]",
+  ".fantasy.status_catalog.",
   // Claves de la validación: "model" / "last_season", las bandas y la posición.
   // Son ETIQUETAS de serie, y el texto que se pinta lo pone la página en inglés.
   ".fantasy.validation[].predictor",

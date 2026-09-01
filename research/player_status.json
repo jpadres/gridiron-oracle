@@ -1,0 +1,245 @@
+{
+  "_comentario": [
+    "Estados de disponibilidad que NO están en los datos de nflverse: un jugador",
+    "puede figurar ACT en su plantilla y estar apartado sin fecha de vuelta.",
+    "Cada entrada lleva su fuente y sus dos fechas — `effective_at` es cuándo",
+    "empezó el estado y `verified_at` cuándo se comprobó por última vez. La",
+    "segunda es la que caduca: pasada la ventana, la interfaz deja de decir que",
+    "es actual y escribe «último verificado».",
+    "NADA de esto entra en ninguna cuenta: ni proyección, ni VOR, ni tier.",
+    "Los `player_id` son de nflverse y están resueltos a mano contra el board.",
+    "Un id que no exista no emparejará con nadie, y el build lo dice."
+  ],
+  "season": 2026,
+  "updated_at": "2026-09-01",
+  "entries": [
+    {
+      "player_id": "00-0035700",
+      "player": "Josh Jacobs",
+      "team": "GB",
+      "status": "EXEMPT",
+      "detail": "On the Commissioner's Exempt List since 30 August, with no return date. He is paid and counts against the roster, but cannot play or practise until the league lifts it.",
+      "games_out": null,
+      "effective_at": "2026-08-30",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/nfl/story/_/id/49774523/packers-rb-josh-jacobs-placed-commission-exempt-list"
+        },
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-30/josh-jacobs-placed-on-commissioners-exempt-list"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0039710",
+      "player": "Jeshaun Jones",
+      "team": "MIN",
+      "status": "SUSPENDED",
+      "detail": "Suspended for the first three games of 2026. Eligible to return in Week 4.",
+      "games_out": 3,
+      "effective_at": "2026-08-30",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "Sports Illustrated",
+          "url": "https://www.si.com/nfl/every-player-suspended-start-season"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0033553",
+      "player": "James Conner",
+      "team": "ARI",
+      "status": "IR",
+      "detail": "Opens the season on injured reserve: out at least the first four games.",
+      "games_out": 4,
+      "effective_at": "2026-08-30",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "Draft Sharks",
+          "url": "https://www.draftsharks.com/fantasy-football-news/82412/james-conner-to-open-2026-on-ir-missing-cardinals-first-4-gam"
+        },
+        {
+          "outlet": "ClutchPoints",
+          "url": "https://clutchpoints.com/nfl/arizona-cardinals/cardinals-news-james-conner-miss-at-least-4-games-latest-injury-move"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0039165",
+      "player": "Zach Charbonnet",
+      "team": "SEA",
+      "status": "RESERVE_PUP",
+      "detail": "Moved to reserve/PUP in the cut to 53: out a minimum of four games.",
+      "games_out": 4,
+      "effective_at": "2026-08-30",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "Pro Football Rumors",
+          "url": "https://www.profootballrumors.com/2026/08/zach-charbonnet-shifts-to-reserve-pup-list-seahawks-reduce-roster-to"
+        },
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-30/seahawks-release-final-roster-cuts"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0041029",
+      "player": "Jordyn Tyson",
+      "team": "NO",
+      "status": "IR",
+      "detail": "The No. 8 pick starts on IR with the hamstring: at least four games out.",
+      "games_out": 4,
+      "effective_at": "2026-08-30",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "Draft Sharks",
+          "url": "https://www.draftsharks.com/fantasy-football-news/82408/saints-put-jordyn-tyson-on-ir-rookie-wr-out-at-least-four-gam"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/orleans-saints-place-first-round-231251600.html"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0038977",
+      "player": "Tank Dell",
+      "team": "HOU",
+      "status": "IR",
+      "detail": "On injured reserve with a return designation: out at least four games.",
+      "games_out": 4,
+      "effective_at": "2026-08-30",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-30/tank-dell-lands-on-injured-reserve-return"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0034775",
+      "player": "Christian Kirk",
+      "team": "SF",
+      "status": "IR",
+      "detail": "San Francisco placed him on injured reserve in the cut to 53.",
+      "games_out": 4,
+      "effective_at": "2026-08-30",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "NBC Sports Bay Area",
+          "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/christian-kirk-injured-reserve/1958616/"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/49ers-place-former-4th-round-212007671.html"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0040130",
+      "player": "Jayden Higgins",
+      "team": "HOU",
+      "status": "OUT_FOR_SEASON",
+      "detail": "Torn ACL in a joint practice on 18 August. Out for the whole 2026 season.",
+      "games_out": 17,
+      "effective_at": "2026-08-18",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/nfl/story/_/id/49660770/sources-texans-jayden-higgins-torn-acl-season"
+        },
+        {
+          "outlet": "NFL.com",
+          "url": "https://www.nfl.com/news/texans-wr-jayden-higgins-torn-acl-out-2026-season"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0039916",
+      "player": "Ricky Pearsall",
+      "team": "SF",
+      "status": "OUT_FOR_SEASON",
+      "detail": "Knee surgery (PCL): ruled out for all of 2026.",
+      "games_out": 17,
+      "effective_at": "2026-08-15",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "NFL.com",
+          "url": "https://www.nfl.com/news/niners-wr-ricky-pearsall-knee-surgery-will-miss-2026-season"
+        },
+        {
+          "outlet": "CBS Sports",
+          "url": "https://www.cbssports.com/nfl/news/ricky-pearsall-injury-49ers-receiver-season-ending-surgery/"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0033040",
+      "player": "Tyreek Hill",
+      "team": "MIA",
+      "status": "UNSIGNED",
+      "detail": "Released by Miami in February and still unsigned, coming back from a dislocated knee with multiple torn ligaments. May not play in 2026.",
+      "games_out": null,
+      "effective_at": "2026-02-01",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "CBS Sports",
+          "url": "https://www.cbssports.com/fantasy/football/news/2026-outlook-tyreek-hill/"
+        },
+        {
+          "outlet": "Gridiron Experts",
+          "url": "https://gridironexperts.com/tyreek-hills-2026-fantasy-season-in-serious-doubt/"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0034791",
+      "player": "Nick Chubb",
+      "team": "HOU",
+      "status": "RETIRED",
+      "detail": "Retired after eight seasons, announced 21 August.",
+      "games_out": 17,
+      "effective_at": "2026-08-21",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-chubb-retires-from-the-nfl"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0039363",
+      "player": "Isaac Guerendo",
+      "team": "SF",
+      "status": "RESERVE_PUP",
+      "detail": "San Francisco placed him on reserve/PUP in the cut to 53: out a minimum of four games.",
+      "games_out": 4,
+      "effective_at": "2026-08-30",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/49ers-place-former-4th-round-212007671.html"
+        },
+        {
+          "outlet": "NBC Sports Bay Area",
+          "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/christian-kirk-injured-reserve/1958616/"
+        }
+      ]
+    }
+  ]
+}

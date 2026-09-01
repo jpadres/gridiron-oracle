@@ -255,8 +255,9 @@ def mark_rostered(board: pd.DataFrame, raw_dir: Path, season: int) -> pd.DataFra
 
     Suspensiones y la lista de exentos del comisionado **no están en este
     fichero**: Josh Jacobs figura `ACT` en Green Bay estando apartado sin fecha
-    de vuelta. Eso lo tiene que cazar la capa de prensa, no ésta. Dos agujeros
-    distintos con dos remedios distintos.
+    de vuelta. Eso lo caza la capa de prensa —`research/player_status.json`, que
+    se cuelga en `export_web_data._attach_status`— y no ésta. Dos agujeros
+    distintos con dos remedios distintos, y ninguno de los dos toca un número.
     """
     path = raw_dir / f"roster_{season}.parquet"
     if not path.exists():

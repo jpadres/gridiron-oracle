@@ -908,6 +908,37 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 }
 .room-why-noteam b { color: var(--flag-ink, #a33b3b); }
 
+/* Las mismas dos marcas en la tabla publicada. Comparten tinta con las del
+   Draft Room a propósito: la misma cosa se pinta igual en las dos pantallas. */
+.mark--out {
+  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
+  color: #fff; background: var(--flag-ink, #a33b3b);
+  border-radius: 2px; padding: 0 4px; white-space: nowrap;
+}
+.mark--risk {
+  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
+  color: var(--flag-ink, #a33b3b); border: 1px solid currentColor;
+  border-radius: 2px; padding: 0 3px; white-space: nowrap;
+}
+
+/* NO VA A JUGAR: suspendido, exento, IR, PUP de temporada. Es la marca más
+   fuerte de la fila —más que SIN EQUIPO— porque el jugador SÍ está en su
+   plantilla y todo lo demás en pantalla dice que está disponible. */
+.room-row-out {
+  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
+  color: #fff; background: var(--flag-ink, #a33b3b);
+  border-radius: 2px; padding: 0 4px; align-self: center; white-space: nowrap;
+}
+/* DUDA: puede jugar y puede no jugar. Contorno, no relleno: la diferencia entre
+   «no va a jugar» y «a lo mejor no juega» tiene que verse a un metro. */
+.room-row-risk {
+  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
+  color: var(--flag-ink, #a33b3b); border: 1px solid currentColor;
+  border-radius: 2px; padding: 0 3px; align-self: center; white-space: nowrap;
+}
+.room-why-out b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
+.room-why-risk b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
+
 /* ROOKIE: informativo, no alarma. Tinta secundaria, sin rojo. */
 .room-row-rookie {
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .08em;
