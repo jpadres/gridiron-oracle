@@ -287,6 +287,14 @@ export default function Fantasy() {
               the model&rsquo;s favour.
             </p>
             <p>The numbers here are the measurement, not the projections.</p>
+            <p>
+              One caveat that came out of the same work:{" "}
+              <strong>the availability signal is not comparable across positions</strong>.
+              It counts weeks a player recorded no statistics, and at quarterback{" "}
+              <strong>38%</strong> of those weeks are players on the active roster — so there
+              it partly measures <em>losing the job</em> rather than durability. At running
+              back the same figure is 7%.
+            </p>
           </Callout>
 
           <p>
