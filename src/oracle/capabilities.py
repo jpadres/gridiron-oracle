@@ -783,26 +783,46 @@ REGISTRY: tuple[Capability, ...] = (
     ),
     Capability(
         id="SLEEPER_LIVE_BROWSER",
-        status=Status.BLOCKED,
+        status=Status.NOT_READY,
         evidence=(
-            "sin comprobar CONTRA SLEEPER. El alcance desde servidor está demostrado "
-            "(E13) y el adaptador entero está ejercitado contra un doble fiel de la "
-            "API (E21: entrar con el draft en 3.05, identidad derivada, resolución "
-            "por id, reconexión tras perder cuatro picks, dos drafts a la vez), pero "
-            "el camino que usa el producto es el navegador del usuario, y eso sólo "
-            "lo contesta un draft de verdad"
+            "el TRANSPORTE está verificado por dos vías independientes. Por "
+            "construcción: `/fantasy/draft` se compila como página estática, no "
+            "existe ni una ruta de servidor ni una server action en todo el repo, "
+            "y el `fetch` vive dentro de un `useEffect` de un componente de "
+            "cliente — o sea que la petición sale del navegador del usuario y "
+            "NUNCA del servidor. Y en la práctica: el dueño siguió un mock draft "
+            "completo desde su portátil. El 403 que veía el contenedor era su "
+            "proxy de egreso, no el producto. El adaptador entero está además "
+            "ejercitado contra un doble fiel (E21)"
         ),
         experiment_id="E21",
-        metric="22/22 en el laboratorio; 0 peticiones reales a api.sleeper.app",
+        metric="22/22 en laboratorio + 1 mock draft real seguido de principio a fin",
         sample_size=22,
         limitations=(
             "La CSP ya permite connect-src a api.sleeper.app: el camino está abierto "
             "por diseño, sólo falta ejecutarlo una vez.",
             "El 403 de desarrollo NO era de Sleeper — era el proxy del contenedor, que "
             "bloquea también Google y el propio sitio de producción de este proyecto.",
-            "ALCANCE, y es permanente: bloquea la SINCRONIZACIÓN AUTOMÁTICA y decir "
-            "LIVE sobre datos de Sleeper. NO bloquea el Draft Room, que consume "
-            "eventos de pick canónicos y funciona en modo manual sin red.",
+            "NOT_READY y no VALIDATED porque un mock NO cubre el camino de un "
+            "draft de liga real. Lo que el mock demuestra es el transporte; lo que "
+            "no demuestra es la RESOLUCIÓN DE IDENTIDAD, que en un draft de liga "
+            "pasa por `/league/{id}/rosters` y `draft_order`.",
+            "DEFECTO 1, identificado y sin corregir: `/league/{id}/drafts` "
+            "devuelve también los mocks creados desde esa liga. La selección "
+            "prefiere el que esté `drafting`, así que un mock abandonado en ese "
+            "estado SECUESTRA la sesión — y el `draft_id` se fija en la primera "
+            "resolución, así que se queda con el equivocado toda la noche.",
+            "DEFECTO 2, identificado y sin corregir: `resolveStable()` corre UNA "
+            "vez. Si al abrir todavía no hay `draft_order` —Sleeper lo rellena "
+            "cuando se fija el orden— el puesto queda `null` y NO se vuelve a "
+            "derivar: sin reloj, sin «picks until me» y sin lista corta hasta "
+            "recargar la página.",
+            "DEFECTO 3: el `fetch` no lleva timeout. Un sondeo colgado no rechaza "
+            "nunca, y como el intervalo sigue disparando, una respuesta vieja "
+            "puede aterrizar DESPUÉS de una nueva y pisarla con su lista de picks "
+            "anterior y un `lastSyncAt` fresco.",
+            "ALCANCE: NO afecta al Draft Room, que consume eventos de pick "
+            "canónicos y funciona entero en modo manual sin red.",
             "Lo que FALTA es exactamente una cosa: que la petición salga de un "
             "navegador de verdad. El adaptador entero está ejercitado contra un "
             "doble de la API (E19) —180 picks, emparejamiento, frescura, caída y "
@@ -810,8 +830,8 @@ REGISTRY: tuple[Capability, ...] = (
             "tarde. No se sube sola por haber pasado el laboratorio: un doble "
             "prueba el código, no la red.",
         ),
-        last_validated=None,
-        model_version=None,
+        last_validated="2026-08-31",
+        model_version=MODEL_VERSION,
     ),
 )
 

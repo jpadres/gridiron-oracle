@@ -116,8 +116,17 @@ def test_sleeper_separa_el_alcance_de_servidor_del_de_navegador():
     para impedir.
     """
     assert get("SLEEPER_SYNC_PERIODIC").status is Status.VALIDATED
-    assert get("SLEEPER_LIVE_BROWSER").status is Status.BLOCKED
-    assert get("SLEEPER_LIVE_BROWSER").authority is Authority.HIDE
+    # El navegador dejó de estar sin comprobar —la petición sale de una página
+    # estática, no hay ruta de servidor en el repo, y el dueño siguió un mock
+    # draft entero— pero un mock NO cubre la resolución de identidad de un
+    # draft de liga, así que INFORMA y no RECOMIENDA.
+    assert get("SLEEPER_LIVE_BROWSER").status is Status.NOT_READY
+    assert get("SLEEPER_LIVE_BROWSER").authority is Authority.INFORM
+    # Lo que este test protege sigue en pie: son DOS capacidades y ninguna
+    # hereda la evidencia de la otra.
+    assert get("SLEEPER_SYNC_PERIODIC").experiment_id != get(
+        "SLEEPER_LIVE_BROWSER"
+    ).experiment_id
 
 
 def test_el_payload_lleva_estado_y_autoridad_de_cada_capacidad():
