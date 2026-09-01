@@ -46,7 +46,13 @@ export function openSlotPositions(slots) {
  * lista corta: es el board otra vez.
  */
 export function candidates(available, { slots = null, limit = 4 } = {}) {
-  const pool = available.filter((row) => RANKED_POSITIONS.includes(row.position));
+  // Un jugador sin equipo NO se recomienda. Su VOR salió de lo que produjo en
+  // un equipo en el que ya no está, así que ofrecerlo como «lo mejor
+  // disponible» es afirmar algo que los datos contradicen. Sigue en el board,
+  // marcado y buscable — lo que no hace es encabezar la lista.
+  const pool = available.filter(
+    (row) => RANKED_POSITIONS.includes(row.position) && row.rostered !== false
+  );
   if (pool.length === 0) return [];
   const openPositions = slots ? openSlotPositions(slots) : null;
 

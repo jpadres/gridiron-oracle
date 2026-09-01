@@ -226,6 +226,49 @@ def _roster_positions(synced: dict | None, args) -> list[str] | None:
     return list(DEFAULT_ROSTER)
 
 
+def mark_rostered(board: pd.DataFrame, raw_dir: Path, season: int) -> pd.DataFrame:
+    """Marca a quien NO aparece en ningún roster de la temporada.
+
+    ## El agujero que esto tapa
+
+    La proyección sale de tres años de producción y **nunca comprueba si el
+    jugador sigue en la NFL**. El equipo que se publica es el último en el que
+    jugó. Resultado: 74 de 344 jugadores del board de 2026 no están en ningún
+    roster — y no eran casos de relleno, estaban arriba. Tyreek Hill salía en el
+    puesto 58 con equipo «MIA» cuando Miami lo cortó en febrero y no ha firmado
+    con nadie.
+
+    Un board que te ofrece agentes libres sin decirlo no es un board optimista:
+    es un board que miente sobre un hecho comprobable con datos que ya están en
+    disco.
+
+    ## Se MARCA, no se borra
+
+    Un agente libre puede firmar mañana y volver a valer. Lo que no puede es
+    parecer un titular. La fila lo dice y el orden lo baja; el jugador sigue
+    ahí, buscable.
+
+    ## Lo que esto NO detecta, dicho aquí
+
+    Suspensiones y la lista de exentos del comisionado **no están en este
+    fichero**: Josh Jacobs figura `ACT` en Green Bay estando apartado sin fecha
+    de vuelta. Eso lo tiene que cazar la capa de prensa, no ésta. Dos agujeros
+    distintos con dos remedios distintos.
+    """
+    path = raw_dir / f"roster_{season}.parquet"
+    if not path.exists():
+        # Sin fichero NO se marca a nadie: decir «sin equipo» de todos por no
+        # tener el dato sería peor que el problema que esto arregla.
+        board["rostered"] = True
+        return board
+    roster = pd.read_parquet(path, columns=["gsis_id", "status"])
+    # Cualquier situación de plantilla cuenta como «tiene equipo», incluida la
+    # reserva y el practice squad: lo que se busca es quien no está en NINGUNA.
+    on_a_team = set(roster["gsis_id"].dropna().astype(str))
+    board["rostered"] = board["player_id"].astype(str).isin(on_a_team)
+    return board
+
+
 def _publish_slice(board: pd.DataFrame) -> pd.DataFrame:
     """El top del board MÁS la profundidad mínima por posición.
 
@@ -313,6 +356,11 @@ def main(argv: list[str] | None = None) -> int:
     board = draft_board(
         project_season(players, season, rules, ages=ages), context, teams=settings.teams
     )
+    # Quién sigue en una plantilla de la NFL. NO toca proyecciones ni VOR: sólo
+    # añade el hecho, para que la interfaz pueda decirlo.
+    board = mark_rostered(board, paths.raw, season)
+    sin_equipo = int((~board["rostered"]).sum())
+    print(f"Sin equipo en {season}: {sin_equipo} de {len(board)} jugadores del board.")
 
     # Etiqueta de riesgo. Validada contra el error realizado en
     # `scripts/fantasy_risk_validate.py`: Spearman +0.12 y el tercio de riesgo

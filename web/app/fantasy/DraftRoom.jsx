@@ -613,6 +613,9 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                     valor, el hueco elegible abierto y el conteo de su tier.
                     Nada de «suelo seguro» ni «gran techo». */}
                 <ul className="room-why">
+                  {entry.row.rostered === false ? (
+                    <li className="room-why-noteam"><b>No NFL team</b> — free agent</li>
+                  ) : null}
                   {entry.reasons.map((reason) => (
                     <li key={reason.kind}>{reason.text}</li>
                   ))}
@@ -728,6 +731,15 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                            exactamente lo que la regla 8 prohíbe. */
                         <span className="room-row-news" title={context.briefs[entry.row.player_id]}>
                           NEWS
+                        </span>
+                      ) : null}
+                      {entry.row.rostered === false ? (
+                        /* SIN EQUIPO. Va antes que cualquier otra marca porque
+                           invalida el número de al lado: la proyección salió de
+                           lo que hizo en un equipo en el que ya no está. */
+                        <span className="room-row-noteam"
+                              title="Not on any 2026 NFL roster. The projection comes from his production with a team he is no longer on.">
+                          SIN EQUIPO
                         </span>
                       ) : null}
                       {entry.row.rookie ? (

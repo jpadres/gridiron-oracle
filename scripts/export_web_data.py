@@ -58,6 +58,11 @@ DRAFT_COLUMNS = (
     # la proyección hereda el reparto de uso del equipo ANTERIOR, así que en
     # estos 146 el volumen proyectado es el del sitio del que se fue.
     "team_changed", "previous_team",
+    # SIGUE EN LA NFL, o no. La proyección viene de tres años de producción y no
+    # comprueba si el jugador está en una plantilla: el equipo que se publica es
+    # el último en el que jugó. Sin este campo, un agente libre sin firmar se ve
+    # exactamente igual que un titular.
+    "rostered",
     "tier", "projected_points", "vor",
     # Riesgo: la etiqueta, sus tres componentes y los motivos que se nombran.
     # Las componentes viajan aunque no se pinten en una columna porque el

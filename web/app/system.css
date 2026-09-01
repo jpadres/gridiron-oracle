@@ -900,6 +900,14 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-why-news { color: var(--chalk); }
 .room-why-news b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
 
+/* SIN EQUIPO: esto SÍ es una alarma. El número de al lado no vale. */
+.room-row-noteam {
+  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
+  color: #fff; background: var(--flag-ink, #a33b3b);
+  border-radius: 2px; padding: 0 4px; align-self: center; white-space: nowrap;
+}
+.room-why-noteam b { color: var(--flag-ink, #a33b3b); }
+
 /* ROOKIE: informativo, no alarma. Tinta secundaria, sin rojo. */
 .room-row-rookie {
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .08em;
