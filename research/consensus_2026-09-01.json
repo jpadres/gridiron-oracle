@@ -1,0 +1,951 @@
+{
+  "generated": "2026-09-01",
+  "method": "mediana del puesto overall PPR entre las fuentes que lo publican; n = fuentes",
+  "sources": {
+    "pfn": {
+      "outlet": "Pro Football Network",
+      "url": "https://www.profootballnetwork.com/fantasy-hq/overall-rankings-ppr",
+      "date": "<=2026-08-30",
+      "note": "Lista con Jacobs en el 38: anterior a la lista de exentos",
+      "ranks": [
+        "Jahmyr Gibbs",
+        "Bijan Robinson",
+        "Ja'Marr Chase",
+        "Puka Nacua",
+        "Jaxon Smith-Njigba",
+        "Amon-Ra St. Brown",
+        "Jonathan Taylor",
+        "James Cook",
+        "Christian McCaffrey",
+        "Saquon Barkley",
+        "Justin Jefferson",
+        "Chase Brown",
+        "CeeDee Lamb",
+        "De'Von Achane",
+        "Drake London",
+        "Derrick Henry",
+        "Nico Collins",
+        "A.J. Brown",
+        "Brock Bowers",
+        "Kenneth Walker III",
+        "Malik Nabers",
+        "George Pickens",
+        "Omarion Hampton",
+        "Rashee Rice",
+        "Ashton Jeanty",
+        "Chris Olave",
+        "Trey McBride",
+        "Jeremiyah Love",
+        "Zay Flowers",
+        "Tee Higgins",
+        "Jaylen Waddle",
+        "Colston Loveland",
+        "DeVonta Smith",
+        "Javonte Williams",
+        "Ladd McConkey",
+        "Emeka Egbuka",
+        "Travis Etienne",
+        "Josh Jacobs",
+        "Terry McLaurin",
+        "Josh Allen"
+      ]
+    },
+    "si": {
+      "outlet": "Sports Illustrated (Fabiano)",
+      "url": "https://www.si.com/onsi/fantasy/rankings/2026-fantasy-football-top-200-overall-ppr-rankings-aj-brown-soars-after-being-paired-with-drake-maye",
+      "date": "~2026-08-29",
+      "note": "Posterior al traspaso de A.J. Brown; 1-17 y 63-100 leídos",
+      "ranks": [
+        "Bijan Robinson",
+        "Jahmyr Gibbs",
+        "Ja'Marr Chase",
+        "Puka Nacua",
+        "Jonathan Taylor",
+        "Amon-Ra St. Brown",
+        "Jaxon Smith-Njigba",
+        "De'Von Achane",
+        "A.J. Brown",
+        "Omarion Hampton",
+        "Justin Jefferson",
+        "Drake London",
+        "CeeDee Lamb",
+        "James Cook",
+        "Chase Brown",
+        "Trey McBride",
+        "Christian McCaffrey"
+      ]
+    },
+    "rotowire": {
+      "outlet": "RotoWire consensus (5 expertos)",
+      "url": "https://www.rotowire.com/football/cheatsheet-ppr.php",
+      "date": "~2026-08-31",
+      "note": "Consenso de cinco; 1-18 leídos",
+      "ranks": [
+        "Jahmyr Gibbs",
+        "Bijan Robinson",
+        "Ja'Marr Chase",
+        "Puka Nacua",
+        "Jaxon Smith-Njigba",
+        "Amon-Ra St. Brown",
+        "Christian McCaffrey",
+        "James Cook",
+        "Justin Jefferson",
+        "Jonathan Taylor",
+        "CeeDee Lamb",
+        "Chase Brown",
+        "A.J. Brown",
+        "Omarion Hampton",
+        "Saquon Barkley",
+        "Brock Bowers",
+        "Kenneth Walker III",
+        "De'Von Achane"
+      ]
+    },
+    "cbs": {
+      "outlet": "CBS / SportsLine",
+      "url": "https://www.cbssports.com/fantasy/football/news/fantasy-football-rankings-2026-top-sleepers-breakouts-busts-via-model-that-hit-daniel-jones-big-year/",
+      "date": "~2026-08-30",
+      "note": "Modelo SportsLine con ADP; 1-15 leídos",
+      "ranks": [
+        "Jahmyr Gibbs",
+        "Bijan Robinson",
+        "Ja'Marr Chase",
+        "Jonathan Taylor",
+        "Puka Nacua",
+        "Jaxon Smith-Njigba",
+        "Christian McCaffrey",
+        "Amon-Ra St. Brown",
+        "James Cook",
+        "De'Von Achane",
+        "Chase Brown",
+        "Derrick Henry",
+        "Saquon Barkley",
+        "Ashton Jeanty",
+        "CeeDee Lamb"
+      ]
+    },
+    "walter": {
+      "outlet": "WalterFootball",
+      "url": "https://walterfootball.com/fantasy2026spreadsheets.php",
+      "date": "2026-08-29",
+      "note": "Cheat sheet PPR, fecha en la página",
+      "ranks": [
+        "Jahmyr Gibbs",
+        "Bijan Robinson",
+        "Ja'Marr Chase",
+        "James Cook",
+        "Omarion Hampton",
+        "Saquon Barkley",
+        "Chase Brown",
+        "De'Von Achane",
+        "Jonathan Taylor",
+        "Christian McCaffrey",
+        "Kenneth Walker III"
+      ]
+    },
+    "pff": {
+      "outlet": "PFF (Jahnke)",
+      "url": "https://www.pff.com/news/2026-fantasy-football-rankings-ppr-top-250-for-drafts",
+      "date": "~2026-08-30",
+      "note": "Sólo el top-3 legible",
+      "ranks": [
+        "Jahmyr Gibbs",
+        "Bijan Robinson",
+        "Christian McCaffrey"
+      ]
+    },
+    "yahoo": {
+      "outlet": "Yahoo consensus (6 analistas)",
+      "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-full-ppr-rankings-top-300-drafts-175205585.html",
+      "date": "~2026-08-31",
+      "note": "Puestos 7-15 leídos; el resto no era legible",
+      "explicit": {
+        "James Cook": 7,
+        "Jonathan Taylor": 8,
+        "Ashton Jeanty": 9,
+        "Christian McCaffrey": 10,
+        "Drake London": 11,
+        "Justin Jefferson": 12,
+        "Nico Collins": 13,
+        "CeeDee Lamb": 14,
+        "Saquon Barkley": 15
+      }
+    }
+  },
+  "positional": {
+    "outlet": "ESPN (Mike Clay)",
+    "url": "https://www.espn.com/fantasy/football/story/_/id/47513496/2026-fantasy-football-rankings-ppr-mike-clay",
+    "date": "2026-08-31",
+    "RB": [
+      "Jahmyr Gibbs",
+      "Bijan Robinson",
+      "Christian McCaffrey",
+      "Jonathan Taylor",
+      "De'Von Achane",
+      "James Cook",
+      "Jeremiyah Love",
+      "Saquon Barkley",
+      "Derrick Henry",
+      "Ashton Jeanty",
+      "Kenneth Walker III",
+      "Chase Brown",
+      "Omarion Hampton",
+      "Breece Hall",
+      "Javonte Williams",
+      "Travis Etienne",
+      "Kyren Williams",
+      "Quinshon Judkins",
+      "Cam Skattebo",
+      "Bucky Irving"
+    ],
+    "WR": [
+      "Ja'Marr Chase",
+      "Puka Nacua",
+      "Jaxon Smith-Njigba",
+      "Amon-Ra St. Brown",
+      "CeeDee Lamb",
+      "Justin Jefferson",
+      "Drake London",
+      "Rashee Rice",
+      "Nico Collins",
+      "A.J. Brown",
+      "Chris Olave",
+      "Malik Nabers",
+      "Garrett Wilson",
+      "George Pickens",
+      "Zay Flowers",
+      "Tetairoa McMillan",
+      "DeVonta Smith",
+      "Emeka Egbuka",
+      "Davante Adams",
+      "Ladd McConkey"
+    ],
+    "QB": [
+      "Josh Allen",
+      "Jayden Daniels",
+      "Lamar Jackson",
+      "Drake Maye",
+      "Jalen Hurts",
+      "Joe Burrow",
+      "Jaxson Dart",
+      "Trevor Lawrence",
+      "Dak Prescott",
+      "Bo Nix",
+      "Brock Purdy",
+      "Matthew Stafford"
+    ],
+    "TE": [
+      "Trey McBride",
+      "Brock Bowers"
+    ]
+  },
+  "market": [
+    {
+      "player": "Jeremiyah Love",
+      "metric": "ADP",
+      "value": 21,
+      "outlet": "FantasyPros ADP PPR",
+      "date": "~2026-08-31",
+      "note": "RB12 por ADP; NFFC lo tiene en 25"
+    },
+    {
+      "player": "Kenneth Walker III",
+      "metric": "ADP",
+      "value": 22.3,
+      "outlet": "ESPN ADP",
+      "date": "~2026-08-31",
+      "note": ""
+    },
+    {
+      "player": "Ladd McConkey",
+      "metric": "ADP",
+      "value": 50.1,
+      "outlet": "ESPN ADP",
+      "date": "~2026-08-31",
+      "note": ""
+    },
+    {
+      "player": "Brock Bowers",
+      "metric": "ADP",
+      "value": 23,
+      "outlet": "Underdog (half PPR)",
+      "date": "2026-08-21",
+      "note": "best ball"
+    },
+    {
+      "player": "Josh Jacobs",
+      "metric": "mock",
+      "value": 87,
+      "outlet": "ESPN 12-team mock",
+      "date": "~2026-08-31",
+      "note": "Iba 36 la semana anterior; RB33"
+    },
+    {
+      "player": "MarShawn Lloyd",
+      "metric": "mock",
+      "value": 70,
+      "outlet": "ESPN 12-team mock",
+      "date": "~2026-08-31",
+      "note": "RB26; era RB40"
+    },
+    {
+      "player": "Cam Skattebo",
+      "metric": "ADP",
+      "value": 69,
+      "outlet": "FanRanked",
+      "date": "2026-08-22",
+      "note": "consenso FanRanked 42"
+    },
+    {
+      "player": "Jadarian Price",
+      "metric": "ADP",
+      "value": 69,
+      "outlet": "Bleacher Report",
+      "date": "~2026-08-28",
+      "note": ""
+    },
+    {
+      "player": "Omarion Hampton",
+      "metric": "ADP",
+      "value": 20,
+      "outlet": "CBS",
+      "date": "~2026-08-30",
+      "note": ""
+    }
+  ],
+  "consensus": [
+    {
+      "player": "Jahmyr Gibbs",
+      "median": 1.0,
+      "n": 6,
+      "lo": 1,
+      "hi": 2,
+      "per_source": {
+        "pfn": 1,
+        "si": 2,
+        "rotowire": 1,
+        "cbs": 1,
+        "walter": 1,
+        "pff": 1
+      },
+      "position": "RB",
+      "team": "DET",
+      "board_rank": 3,
+      "rank": 1
+    },
+    {
+      "player": "Bijan Robinson",
+      "median": 2.0,
+      "n": 6,
+      "lo": 1,
+      "hi": 2,
+      "per_source": {
+        "pfn": 2,
+        "si": 1,
+        "rotowire": 2,
+        "cbs": 2,
+        "walter": 2,
+        "pff": 2
+      },
+      "position": "RB",
+      "team": "ATL",
+      "board_rank": 2,
+      "rank": 2
+    },
+    {
+      "player": "Ja'Marr Chase",
+      "median": 3,
+      "n": 5,
+      "lo": 3,
+      "hi": 3,
+      "per_source": {
+        "pfn": 3,
+        "si": 3,
+        "rotowire": 3,
+        "cbs": 3,
+        "walter": 3
+      },
+      "position": "WR",
+      "team": "CIN",
+      "board_rank": 4,
+      "rank": 3
+    },
+    {
+      "player": "Puka Nacua",
+      "median": 4.0,
+      "n": 4,
+      "lo": 4,
+      "hi": 5,
+      "per_source": {
+        "pfn": 4,
+        "si": 4,
+        "rotowire": 4,
+        "cbs": 5
+      },
+      "position": "WR",
+      "team": "LAR",
+      "board_rank": 1,
+      "rank": 4
+    },
+    {
+      "player": "Jaxon Smith-Njigba",
+      "median": 5.5,
+      "n": 4,
+      "lo": 5,
+      "hi": 7,
+      "per_source": {
+        "pfn": 5,
+        "si": 7,
+        "rotowire": 5,
+        "cbs": 6
+      },
+      "position": "WR",
+      "team": "SEA",
+      "board_rank": 8,
+      "rank": 5
+    },
+    {
+      "player": "Amon-Ra St. Brown",
+      "median": 6.0,
+      "n": 4,
+      "lo": 6,
+      "hi": 8,
+      "per_source": {
+        "pfn": 6,
+        "si": 6,
+        "rotowire": 6,
+        "cbs": 8
+      },
+      "position": "WR",
+      "team": "DET",
+      "board_rank": 5,
+      "rank": 6
+    },
+    {
+      "player": "Jonathan Taylor",
+      "median": 7.5,
+      "n": 6,
+      "lo": 4,
+      "hi": 10,
+      "per_source": {
+        "pfn": 7,
+        "si": 5,
+        "rotowire": 10,
+        "cbs": 4,
+        "walter": 9,
+        "yahoo": 8
+      },
+      "position": "RB",
+      "team": "IND",
+      "board_rank": 10,
+      "rank": 7
+    },
+    {
+      "player": "James Cook",
+      "median": 8.0,
+      "n": 6,
+      "lo": 4,
+      "hi": 14,
+      "per_source": {
+        "pfn": 8,
+        "si": 14,
+        "rotowire": 8,
+        "cbs": 9,
+        "walter": 4,
+        "yahoo": 7
+      },
+      "position": "RB",
+      "team": "BUF",
+      "board_rank": 13,
+      "rank": 8
+    },
+    {
+      "player": "Christian McCaffrey",
+      "median": 9,
+      "n": 7,
+      "lo": 3,
+      "hi": 17,
+      "per_source": {
+        "pfn": 9,
+        "si": 17,
+        "rotowire": 7,
+        "cbs": 7,
+        "walter": 10,
+        "pff": 3,
+        "yahoo": 10
+      },
+      "position": "RB",
+      "team": "SF",
+      "board_rank": 12,
+      "rank": 9
+    },
+    {
+      "player": "De'Von Achane",
+      "median": 10,
+      "n": 5,
+      "lo": 8,
+      "hi": 18,
+      "per_source": {
+        "pfn": 14,
+        "si": 8,
+        "rotowire": 18,
+        "cbs": 10,
+        "walter": 8
+      },
+      "position": "RB",
+      "team": "MIA",
+      "board_rank": 6,
+      "rank": 10
+    },
+    {
+      "player": "Justin Jefferson",
+      "median": 11.0,
+      "n": 4,
+      "lo": 9,
+      "hi": 12,
+      "per_source": {
+        "pfn": 11,
+        "si": 11,
+        "rotowire": 9,
+        "yahoo": 12
+      },
+      "position": "WR",
+      "team": "MIN",
+      "board_rank": 18,
+      "rank": 11
+    },
+    {
+      "player": "Chase Brown",
+      "median": 12,
+      "n": 5,
+      "lo": 7,
+      "hi": 15,
+      "per_source": {
+        "pfn": 12,
+        "si": 15,
+        "rotowire": 12,
+        "cbs": 11,
+        "walter": 7
+      },
+      "position": "RB",
+      "team": "CIN",
+      "board_rank": 21,
+      "rank": 12
+    },
+    {
+      "player": "Omarion Hampton",
+      "median": 12.0,
+      "n": 4,
+      "lo": 5,
+      "hi": 23,
+      "per_source": {
+        "pfn": 23,
+        "si": 10,
+        "rotowire": 14,
+        "walter": 5
+      },
+      "position": "RB",
+      "team": "LAC",
+      "board_rank": 55,
+      "rank": 13
+    },
+    {
+      "player": "Drake London",
+      "median": 12,
+      "n": 3,
+      "lo": 11,
+      "hi": 15,
+      "per_source": {
+        "pfn": 15,
+        "si": 12,
+        "yahoo": 11
+      },
+      "position": "WR",
+      "team": "ATL",
+      "board_rank": 19,
+      "rank": 14
+    },
+    {
+      "player": "Saquon Barkley",
+      "median": 13,
+      "n": 5,
+      "lo": 6,
+      "hi": 15,
+      "per_source": {
+        "pfn": 10,
+        "rotowire": 15,
+        "cbs": 13,
+        "walter": 6,
+        "yahoo": 15
+      },
+      "position": "RB",
+      "team": "PHI",
+      "board_rank": 30,
+      "rank": 15
+    },
+    {
+      "player": "CeeDee Lamb",
+      "median": 13,
+      "n": 5,
+      "lo": 11,
+      "hi": 15,
+      "per_source": {
+        "pfn": 13,
+        "si": 13,
+        "rotowire": 11,
+        "cbs": 15,
+        "yahoo": 14
+      },
+      "position": "WR",
+      "team": "DAL",
+      "board_rank": 9,
+      "rank": 16
+    },
+    {
+      "player": "A.J. Brown",
+      "median": 13,
+      "n": 3,
+      "lo": 9,
+      "hi": 18,
+      "per_source": {
+        "pfn": 18,
+        "si": 9,
+        "rotowire": 13
+      },
+      "position": "WR",
+      "team": "NE",
+      "board_rank": 25,
+      "rank": 17
+    },
+    {
+      "player": "Ashton Jeanty",
+      "median": 14,
+      "n": 3,
+      "lo": 9,
+      "hi": 25,
+      "per_source": {
+        "pfn": 25,
+        "cbs": 14,
+        "yahoo": 9
+      },
+      "position": "RB",
+      "team": "LV",
+      "board_rank": 32,
+      "rank": 18
+    },
+    {
+      "player": "Derrick Henry",
+      "median": 14.0,
+      "n": 2,
+      "lo": 12,
+      "hi": 16,
+      "per_source": {
+        "pfn": 16,
+        "cbs": 12
+      },
+      "position": "RB",
+      "team": "BAL",
+      "board_rank": 136,
+      "rank": 19
+    },
+    {
+      "player": "Nico Collins",
+      "median": 15.0,
+      "n": 2,
+      "lo": 13,
+      "hi": 17,
+      "per_source": {
+        "pfn": 17,
+        "yahoo": 13
+      },
+      "position": "WR",
+      "team": "HOU",
+      "board_rank": 14,
+      "rank": 20
+    },
+    {
+      "player": "Kenneth Walker III",
+      "median": 17,
+      "n": 3,
+      "lo": 11,
+      "hi": 20,
+      "per_source": {
+        "pfn": 20,
+        "rotowire": 17,
+        "walter": 11
+      },
+      "position": "RB",
+      "team": "KC",
+      "board_rank": 22,
+      "rank": 21
+    },
+    {
+      "player": "Brock Bowers",
+      "median": 17.5,
+      "n": 2,
+      "lo": 16,
+      "hi": 19,
+      "per_source": {
+        "pfn": 19,
+        "rotowire": 16
+      },
+      "position": "TE",
+      "team": "LV",
+      "board_rank": 28,
+      "rank": 22
+    },
+    {
+      "player": "Malik Nabers",
+      "median": 21,
+      "n": 1,
+      "lo": 21,
+      "hi": 21,
+      "per_source": {
+        "pfn": 21
+      },
+      "position": "WR",
+      "team": "NYG",
+      "board_rank": 36,
+      "rank": 23
+    },
+    {
+      "player": "Trey McBride",
+      "median": 21.5,
+      "n": 2,
+      "lo": 16,
+      "hi": 27,
+      "per_source": {
+        "pfn": 27,
+        "si": 16
+      },
+      "position": "TE",
+      "team": "ARI",
+      "board_rank": 7,
+      "rank": 24
+    },
+    {
+      "player": "George Pickens",
+      "median": 22,
+      "n": 1,
+      "lo": 22,
+      "hi": 22,
+      "per_source": {
+        "pfn": 22
+      },
+      "position": "WR",
+      "team": "DAL",
+      "board_rank": 17,
+      "rank": 25
+    },
+    {
+      "player": "Rashee Rice",
+      "median": 24,
+      "n": 1,
+      "lo": 24,
+      "hi": 24,
+      "per_source": {
+        "pfn": 24
+      },
+      "position": "WR",
+      "team": "KC",
+      "board_rank": 23,
+      "rank": 26
+    },
+    {
+      "player": "Chris Olave",
+      "median": 26,
+      "n": 1,
+      "lo": 26,
+      "hi": 26,
+      "per_source": {
+        "pfn": 26
+      },
+      "position": "WR",
+      "team": "NO",
+      "board_rank": 20,
+      "rank": 27
+    },
+    {
+      "player": "Jeremiyah Love",
+      "median": 28,
+      "n": 1,
+      "lo": 28,
+      "hi": 28,
+      "per_source": {
+        "pfn": 28
+      },
+      "position": "RB",
+      "team": "ARI",
+      "board_rank": 85,
+      "rank": 28
+    },
+    {
+      "player": "Zay Flowers",
+      "median": 29,
+      "n": 1,
+      "lo": 29,
+      "hi": 29,
+      "per_source": {
+        "pfn": 29
+      },
+      "position": "WR",
+      "team": "BAL",
+      "board_rank": 24,
+      "rank": 29
+    },
+    {
+      "player": "Tee Higgins",
+      "median": 30,
+      "n": 1,
+      "lo": 30,
+      "hi": 30,
+      "per_source": {
+        "pfn": 30
+      },
+      "position": "WR",
+      "team": "CIN",
+      "board_rank": 27,
+      "rank": 30
+    },
+    {
+      "player": "Jaylen Waddle",
+      "median": 31,
+      "n": 1,
+      "lo": 31,
+      "hi": 31,
+      "per_source": {
+        "pfn": 31
+      },
+      "position": "WR",
+      "team": "DEN",
+      "board_rank": 51,
+      "rank": 31
+    },
+    {
+      "player": "Colston Loveland",
+      "median": 32,
+      "n": 1,
+      "lo": 32,
+      "hi": 32,
+      "per_source": {
+        "pfn": 32
+      },
+      "position": "TE",
+      "team": "CHI",
+      "board_rank": 119,
+      "rank": 32
+    },
+    {
+      "player": "DeVonta Smith",
+      "median": 33,
+      "n": 1,
+      "lo": 33,
+      "hi": 33,
+      "per_source": {
+        "pfn": 33
+      },
+      "position": "WR",
+      "team": "PHI",
+      "board_rank": 31,
+      "rank": 33
+    },
+    {
+      "player": "Javonte Williams",
+      "median": 34,
+      "n": 1,
+      "lo": 34,
+      "hi": 34,
+      "per_source": {
+        "pfn": 34
+      },
+      "position": "RB",
+      "team": "DAL",
+      "board_rank": 37,
+      "rank": 34
+    },
+    {
+      "player": "Ladd McConkey",
+      "median": 35,
+      "n": 1,
+      "lo": 35,
+      "hi": 35,
+      "per_source": {
+        "pfn": 35
+      },
+      "position": "WR",
+      "team": "LAC",
+      "board_rank": 40,
+      "rank": 35
+    },
+    {
+      "player": "Emeka Egbuka",
+      "median": 36,
+      "n": 1,
+      "lo": 36,
+      "hi": 36,
+      "per_source": {
+        "pfn": 36
+      },
+      "position": "WR",
+      "team": "TB",
+      "board_rank": 96,
+      "rank": 36
+    },
+    {
+      "player": "Travis Etienne",
+      "median": 37,
+      "n": 1,
+      "lo": 37,
+      "hi": 37,
+      "per_source": {
+        "pfn": 37
+      },
+      "position": "RB",
+      "team": "NO",
+      "board_rank": 41,
+      "rank": 37
+    },
+    {
+      "player": "Josh Jacobs",
+      "median": 38,
+      "n": 1,
+      "lo": 38,
+      "hi": 38,
+      "per_source": {
+        "pfn": 38
+      },
+      "position": "RB",
+      "team": "GB",
+      "board_rank": 38,
+      "rank": 38
+    },
+    {
+      "player": "Terry McLaurin",
+      "median": 39,
+      "n": 1,
+      "lo": 39,
+      "hi": 39,
+      "per_source": {
+        "pfn": 39
+      },
+      "position": "WR",
+      "team": "WAS",
+      "board_rank": 62,
+      "rank": 39
+    },
+    {
+      "player": "Josh Allen",
+      "median": 40,
+      "n": 1,
+      "lo": 40,
+      "hi": 40,
+      "per_source": {
+        "pfn": 40
+      },
+      "position": "QB",
+      "team": "BUF",
+      "board_rank": 15,
+      "rank": 40
+    }
+  ]
+}

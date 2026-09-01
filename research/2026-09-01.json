@@ -525,6 +525,223 @@
           "author": null
         }
       ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "ARI",
+      "players": [
+        "Jeremiyah Love",
+        "Tyler Allgeier"
+      ],
+      "player_ids": [],
+      "kind": "lesion",
+      "headline": "Jeremiyah Love has a high-ankle sprain; his coach says he is progressing toward Week 1",
+      "summary": "The No. 3 pick hurt the ankle on his final touch of his preseason debut and Schefter reported a high-ankle sprain on 16 August. He has been limited to individual work for two weeks. On 31 August Mike LaFleur said he is 'confident that he's progressing well' and that Love 'took another step'. The team hopes for the 13 September opener against the Chargers; a high-ankle sprain typically runs four to six weeks, so Week 1 sits at the early edge. Tyler Allgeier opens if he cannot go, with Conner on IR.",
+      "impact": "baja",
+      "confidence": "confirmado",
+      "evidence_type": "REPORTED",
+      "fantasy_relevance": 5,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "confirmed_at": "2026-08-16",
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "CBS Sports",
+          "title": "Jeremiyah Love injury update: Cardinals rookie has high ankle sprain",
+          "url": "https://www.cbssports.com/nfl/news/jeremiyah-love-injury-update-cardinals-rookie-has-high-ankle-sprain/",
+          "author": null
+        },
+        {
+          "outlet": "Heavy",
+          "title": "Cardinals HC Mike LaFleur Issues Jeremiyah Love Update After Cutdowns",
+          "url": "https://heavy.com/sports/nfl/arizona-cardinals/mike-lafleur-jeremiyah-love-injury-update/",
+          "author": null
+        }
+      ]
+    },
+    {
+      "beat": "Market",
+      "team": "GB",
+      "players": [
+        "Josh Jacobs",
+        "MarShawn Lloyd"
+      ],
+      "player_ids": [],
+      "kind": "rol",
+      "headline": "The market has already repriced Green Bay: Jacobs fell from 36th to 87th in ESPN's mock, Lloyd rose to 70th",
+      "summary": "In ESPN's 12-team PPR mock draft held after the exempt-list news, Josh Jacobs — 36th overall the week before — went 87th, the 33rd running back taken. MarShawn Lloyd went 70th (RB26) after being RB40 in the previous mock. FantasyPros' ADP tracker had Lloyd up 16 spots in a week before the news broke. Expect the same in any draft this week: Jacobs is a stash, not a starter, and Lloyd will not last past the sixth round.",
+      "impact": "neutro",
+      "confidence": "informado",
+      "evidence_type": "OBSERVED",
+      "fantasy_relevance": 4,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "ESPN",
+          "title": "Fantasy football mock draft: Josh Jacobs drops, MarShawn Lloyd goes in Round 6",
+          "url": "https://www.espn.com/fantasy/football/story/_/page/FFMockDraft26-49782349/fantasy-football-mock-draft-12-teams-ppr",
+          "author": null
+        },
+        {
+          "outlet": "FantasyPros",
+          "title": "15 Fantasy Football ADP Risers & Fallers (2026)",
+          "url": "https://www.fantasypros.com/2026/08/15-fantasy-football-adp-risers-fallers-2026/",
+          "author": null
+        }
+      ]
+    },
+    {
+      "beat": "Roster",
+      "team": "IND",
+      "players": [
+        "Keenan Allen",
+        "Josh Downs",
+        "Alec Pierce"
+      ],
+      "player_ids": [],
+      "kind": "transaccion",
+      "headline": "Keenan Allen signed with the Colts on 19 August; Alec Pierce came off PUP on the 27th with no second procedure",
+      "summary": "Allen signed a one-year, $8.32 million deal with Indianapolis on 19 August, reuniting with Shane Steichen. He has run most of his career from the slot, where Josh Downs runs 81% of his routes, so Downs is the one squeezed. An earlier report that Pierce had a second ankle procedure is wrong per GM Chris Ballard: a PRP injection in January, surgery in March, and he was activated from PUP on 27 August with two-plus weeks of practice before the 13 September opener.",
+      "impact": "neutro",
+      "confidence": "confirmado",
+      "evidence_type": "OFFICIAL",
+      "fantasy_relevance": 3,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "confirmed_at": "2026-08-27",
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "FantasyPros",
+          "title": "Fantasy Football Impact: Colts Sign Keenan Allen (2026)",
+          "url": "https://www.fantasypros.com/2026/08/fantasy-football-impact-colts-sign-keenan-allen-2026/",
+          "author": null
+        },
+        {
+          "outlet": "Pro Football Rumors",
+          "title": "Colts Activate Alec Pierce From PUP List",
+          "url": "https://www.profootballrumors.com/2026/08/colts-activate-alec-pierce-from-pup-list",
+          "author": null
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "KC",
+      "players": [
+        "Rashee Rice"
+      ],
+      "player_ids": [],
+      "kind": "rol",
+      "headline": "Rashee Rice is not suspended to open 2026: the league closed its review with no discipline",
+      "summary": "After a 30-day jail sentence for a positive THC test, the NFL will not suspend Rice under the personal conduct policy — the league no longer suspends for marijuana. He is available from Week 1 with no discipline pending, which matters because he sits WR8 in Mike Clay's 31 August rankings and the draft market had priced in risk.",
+      "impact": "alza",
+      "confidence": "confirmado",
+      "evidence_type": "OFFICIAL",
+      "fantasy_relevance": 3,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Heavy",
+          "title": "Chiefs WR Rashee Rice Gets Definitive Answer on NFL Punishment",
+          "url": "https://heavy.com/sports/nfl/kansas-city-chiefs/chiefs-rashee-rice-suspension-answer/",
+          "author": null
+        }
+      ]
+    },
+    {
+      "beat": "Market",
+      "team": null,
+      "players": [
+        "Omarion Hampton",
+        "Saquon Barkley",
+        "Ashton Jeanty",
+        "Derrick Henry",
+        "Colston Loveland",
+        "Emeka Egbuka",
+        "Puka Nacua",
+        "Trey McBride",
+        "Josh Allen"
+      ],
+      "player_ids": [],
+      "kind": "rol",
+      "headline": "Where the market and this board disagree most, from eight ranking sources dated 29-31 August",
+      "summary": "Median overall PPR rank across PFN, SI (Fabiano), RotoWire consensus, CBS/SportsLine, WalterFootball, PFF, Yahoo consensus and ESPN (Mike Clay, positional) against this board. The market takes these earlier than the board does, so you cannot wait on them: Omarion Hampton (market 12, board 55 — six weighted games of history, so 64% of his number is the positional prior), Saquon Barkley (13 vs 30 — age factor 0.78 at 29), Ashton Jeanty (14 vs 32 — 51% prior after an injured rookie year), Derrick Henry (14 vs 136 — age factor 0.61 at 32, the curve's most aggressive point), Colston Loveland (32 vs 119 — 50% prior) and Emeka Egbuka (36 vs 96 — 51% prior). The board is higher than the market on Puka Nacua (1 vs 4), Trey McBride (7 vs 21, tight-end scarcity), De'Von Achane (6 vs 10) and Josh Allen (15 vs 40 — the market waits on quarterbacks; a 12-team single-QB VOR does not). None of this changes a number: the model is walk-forward validated and the age curve improved running-back error most of all, but at 32 it is an extrapolation and the market says so.",
+      "impact": "neutro",
+      "confidence": "informado",
+      "evidence_type": "OBSERVED",
+      "fantasy_relevance": 5,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "ESPN",
+          "title": "Mike Clay's 2026 fantasy football PPR rankings (31 August)",
+          "url": "https://www.espn.com/fantasy/football/story/_/id/47513496/2026-fantasy-football-rankings-ppr-mike-clay",
+          "author": "Mike Clay"
+        },
+        {
+          "outlet": "RotoWire",
+          "title": "2026 Fantasy Football PPR Cheat Sheet (consensus)",
+          "url": "https://www.rotowire.com/football/cheatsheet-ppr.php",
+          "author": null
+        },
+        {
+          "outlet": "Sports Illustrated",
+          "title": "2026 Fantasy Football Top 200 Overall PPR Rankings",
+          "url": "https://www.si.com/onsi/fantasy/rankings/2026-fantasy-football-top-200-overall-ppr-rankings-aj-brown-soars-after-being-paired-with-drake-maye",
+          "author": "Michael Fabiano"
+        },
+        {
+          "outlet": "CBS Sports",
+          "title": "Fantasy football rankings 2026 (SportsLine model)",
+          "url": "https://www.cbssports.com/fantasy/football/news/fantasy-football-rankings-2026-top-sleepers-breakouts-busts-via-model-that-hit-daniel-jones-big-year/",
+          "author": null
+        },
+        {
+          "outlet": "Pro Football Network",
+          "title": "PPR Rankings 2026: Fantasy Football Top 200 Board",
+          "url": "https://www.profootballnetwork.com/fantasy-hq/overall-rankings-ppr",
+          "author": null
+        },
+        {
+          "outlet": "WalterFootball",
+          "title": "2026 Fantasy Football Rankings: Downloadable Spreadsheets",
+          "url": "https://walterfootball.com/fantasy2026spreadsheets.php",
+          "author": null
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Fantasy Football Full PPR Rankings: Top 300 players for 2026 drafts",
+          "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-full-ppr-rankings-top-300-drafts-175205585.html",
+          "author": null
+        },
+        {
+          "outlet": "PFF",
+          "title": "2026 Fantasy Football Rankings: PPR top 250 for drafts",
+          "url": "https://www.pff.com/news/2026-fantasy-football-rankings-ppr-top-250-for-drafts",
+          "author": "Nathan Jahnke"
+        }
+      ]
     }
   ],
   "model": "manual",

@@ -56,6 +56,22 @@ def player_key(name: str) -> str:
     return f"{initial}.{_fold(' '.join(tokens[1:]))}"
 
 
+def full_name_key(name: str) -> str:
+    """Clave del nombre COMPLETO: «Bijan Robinson» y «Brian Robinson Jr.» son distintas.
+
+    `player_key` reduce los dos a «b.robinson» a propósito, porque el formato
+    abreviado de nflverse no da más. Pero el board lleva `player_full_name`
+    desde agosto de 2026 exactamente para esto, y cuando las DOS partes tienen
+    el nombre entero, tirarlo para comparar iniciales es cómo Bijan (#2 del
+    consenso) acabó emparejado con Brian (#318 del board): «el consenso sube a
+    Robinson 316 puestos», sobre el Robinson equivocado.
+    """
+    tokens = [token for token in re.split(r"\s+", name.strip()) if token]
+    while len(tokens) > 1 and _fold(tokens[-1]) in _SUFFIXES:
+        tokens.pop()
+    return " ".join(_fold(token) for token in tokens)
+
+
 def build_index(players: Iterable[dict]) -> dict[tuple[str, str], str]:
     """Índice (clave, equipo) -> player_id a partir de las filas del ranking."""
     index: dict[tuple[str, str], str] = {}

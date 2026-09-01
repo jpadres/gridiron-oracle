@@ -599,6 +599,12 @@ def _dossier(paths, payload: dict) -> dict | None:
     # Contraste con el consenso de expertos. Lo valioso es el desacuerdo: si los
     # dos boards dicen lo mismo, daba igual cuál mirases.
     consensus = data.pop("consensus", [])
+    # El consenso anterior (la hoja del 17 de agosto) se conserva en el archivo
+    # bajo su fecha, pero NO viaja: son doscientas filas viejas que la web no
+    # pinta y que, publicadas al lado del actual, serían dos consensos con
+    # fechas distintas en el mismo payload.
+    for key in [k for k in data if k.startswith("consensus_20")]:
+        data.pop(key)
     if consensus and board:
         data["gap"] = dossier_module.consensus_gap(board, consensus)
         data["ambiguous"] = dossier_module.ambiguous_names(consensus)

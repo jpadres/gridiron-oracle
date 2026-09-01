@@ -280,6 +280,150 @@
           "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-17/kyle-monangai-knee-to-miss-multiple-weeks"
         }
       ]
+    },
+    {
+      "player_id": "00-0041027",
+      "player": "Jeremiyah Love",
+      "team": "ARI",
+      "status": "QUESTIONABLE",
+      "detail": "High-ankle sprain on his last touch of his preseason debut (reported by Schefter, 16 August). Out of team practice for two weeks; head coach Mike LaFleur said on 31 August he is 'progressing well' and 'took another step'. The team hopes for the 13 September opener; a high-ankle sprain usually runs 4-6 weeks.",
+      "games_out": null,
+      "effective_at": "2026-08-16",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "CBS Sports",
+          "url": "https://www.cbssports.com/nfl/news/jeremiyah-love-injury-update-cardinals-rookie-has-high-ankle-sprain/"
+        },
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-16/schefter-jeremiyah-love-has-high-ankle-sprain"
+        },
+        {
+          "outlet": "Heavy",
+          "url": "https://heavy.com/sports/nfl/arizona-cardinals/mike-lafleur-jeremiyah-love-injury-update/"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0040122",
+      "player": "Ashton Jeanty",
+      "team": "LV",
+      "status": "QUESTIONABLE",
+      "detail": "Low ankle sprain from 23 August practice. Head coach Klint Kubiak said on 28 August he is 'still on the mend' but the team is 'counting on' him for Week 1; Las Vegas kept him off IR, which caps any absence under four games. Rookie Mike Washington Jr. took the first-team reps.",
+      "games_out": null,
+      "effective_at": "2026-08-23",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-28/kubiak-jeanty-ankle-still-on-the-mend"
+        },
+        {
+          "outlet": "NFL.com",
+          "url": "https://www.nfl.com/news/raiders-rb-ashton-jeanty-apparent-right-leg-injury"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0039075",
+      "player": "Puka Nacua",
+      "team": "LAR",
+      "status": "QUESTIONABLE",
+      "detail": "Psoas soreness since the 11 August joint practice with Dallas: about two weeks off the practice field, working on a side field with the training staff on 31 August. McVay treats it as minor and is being cautious with the 10 September opener against San Francisco in mind.",
+      "games_out": null,
+      "effective_at": "2026-08-11",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "Rams.com",
+          "url": "https://www.therams.com/news/rams-puka-nacua-injury-update-cowboys-joint-practice-psoas"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/rams-share-injury-puka-nacua-204147681.html"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0033873",
+      "player": "Patrick Mahomes",
+      "team": "KC",
+      "status": "QUESTIONABLE",
+      "detail": "Eight months out from a torn ACL and LCL. Fully cleared for practice since the start of camp and has not missed a first-team rep, but Andy Reid has not confirmed him for Week 1: 'taking it day by day', with the medical staff having the final say.",
+      "games_out": null,
+      "effective_at": "2026-01-11",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-no-predictions-on-patrick-mahomes-for-season-opener"
+        },
+        {
+          "outlet": "CBS Sports",
+          "url": "https://www.cbssports.com/fantasy/football/news/chiefs-patrick-mahomes-eyeing-week-1-return-in-2026"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0040129",
+      "player": "Emeka Egbuka",
+      "team": "TB",
+      "status": "QUESTIONABLE",
+      "detail": "Toe sprain from the 12 August joint practice with the Jets, confirmed stable by a specialist. Todd Bowles: 'day to day, week to week', and 'not sure at this time' on Week 1. The team is optimistic; his status stays murky until he returns to full practice.",
+      "games_out": null,
+      "effective_at": "2026-08-12",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "CBS Sports",
+          "url": "https://www.cbssports.com/fantasy/football/news/buccaneers-emeka-egbuka-focus-remains-on-week-1/"
+        },
+        {
+          "outlet": "Bucs Nation",
+          "url": "https://www.bucsnation.com/tampa-bay-buccaneers-injuries/68151/egbuka-toe-injury-deemed-stable"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0033288",
+      "player": "George Kittle",
+      "team": "SF",
+      "status": "QUESTIONABLE",
+      "detail": "Torn Achilles on 11 January. Activated from active/PUP on 23 August, in full pads for individual work but not team drills as of the last report, no setbacks. A real chance to play the 10 September opener against the Rams in Australia; the decision comes down to how practice goes this week.",
+      "games_out": null,
+      "effective_at": "2026-08-23",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-george-kittle-from-pup-list"
+        },
+        {
+          "outlet": "49ers.com",
+          "url": "https://www.49ers.com/news/day-16-of-2026-training-camp-george-kittle-s-remarkable-return"
+        }
+      ]
+    },
+    {
+      "player_id": "00-0036555",
+      "player": "Chuba Hubbard",
+      "team": "CAR",
+      "status": "QUESTIONABLE",
+      "detail": "'A legit hamstring' per Dave Canales, week-to-week since mid-August, but the coach is 'very confident he'll be ready for game one' on 13 September against Chicago. Carolina plans a committee with Jonathon Brooks to open the year.",
+      "games_out": null,
+      "effective_at": "2026-08-13",
+      "verified_at": "2026-09-01",
+      "sources": [
+        {
+          "outlet": "Panthers.com",
+          "url": "https://www.panthers.com/news/training-camp-observations-chuba-hubbard-week-to-week-with-hamstring-darren-waller-preseason-bills"
+        },
+        {
+          "outlet": "FOX Sports",
+          "url": "https://www.foxsports.com/stories/nfl/carolina-panthers-running-back-chuba-hubbard-injury"
+        }
+      ]
     }
   ]
 }

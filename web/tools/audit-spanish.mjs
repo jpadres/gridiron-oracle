@@ -173,6 +173,8 @@ const COPY = new Set([
   // viera, porque sólo aparece al pasar el ratón.
   ".fantasy.board[].status_label", ".fantasy.board[].status_detail",
   ".fantasy.status_catalog.label",
+  // La nota que dice de dónde sale el consenso y con qué fecha. Prosa nuestra.
+  ".dossier.consensus_note",
 ]);
 
 // Datos: nombres propios, códigos, fechas, y la prosa ajena que se cita con su
@@ -207,6 +209,8 @@ const DATOS_PREFIJOS = [
   ".dossier.medical[].position", ".dossier.medical[].level",
   ".dossier.medical[].player_id", ".dossier.medical[].source",
   ".dossier.reporters[]", ".dossier.sleepers[]",
+  // Fecha ISO del consenso multi-fuente.
+  ".dossier.consensus_generated",
   ".dossier.sources[].url", ".dossier.sources[].publisher",
   ".dossier.strategy[]", ".dossier.teams[]",
   ".fantasy_weekly.rankings[]",
@@ -251,6 +255,8 @@ const DATOS_PREFIJOS = [
   // publicaban campos distintos, que es la versión suave del fallo de los dos
   // traductores.
   ".research.items[].confirmed_at", ".research.items[].evidence_type",
+  // Firma del artículo: nombre propio.
+  ".research.items[].sources[].author",
   ".research.items[].sources[].url", ".research.items[].sources[].outlet",
   ".survivor.board[].opponent",
   ".survivor.board[].plan[]", ".survivor.board[].team", ".survivor.plan[]",
@@ -268,7 +274,8 @@ const DATOS_PREFIJOS = [
 const DATOS_RESEARCH_TODAY = [
   "beat", "category", "confidence", "date", "icon", "impact", "kind",
   "player_ids[]", "players[]", "published", "source_type", "team",
-  "sources[].outlet", "sources[].url",
+  "sources[].outlet", "sources[].url", "sources[].author",
+  "confirmed_at", "evidence_type",
 ].map((campo) => `.research.today[].${campo}`);
 
 /* El registro de capacidades viaja al payload pero **no lo pinta ninguna

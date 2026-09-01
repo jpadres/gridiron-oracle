@@ -123,6 +123,10 @@ def consensus_gap(board: list[dict], consensus: list[dict]) -> list[dict]:
     # de los varios «M.Williams» de la liga, esta vez con consecuencias.
     seen: dict[tuple[str, str], object] = {}
     collisions: set[tuple[str, str]] = set()
+    # Y por nombre COMPLETO, que es lo que se usa cuando las dos partes lo
+    # traen. La colisión de arriba protege al consenso; ésta protege al board,
+    # que también tiene a los dos Robinson de Atlanta y sólo uno es el #2.
+    by_full: dict[tuple[str, str], object] = {}
     for entry in consensus:
         key = matching.player_key(entry.get("player", ""))
         if not key or not entry.get("rank"):
@@ -131,13 +135,25 @@ def consensus_gap(board: list[dict], consensus: list[dict]) -> list[dict]:
         if pair in seen:
             collisions.add(pair)
         seen[pair] = entry
+        by_full[(matching.full_name_key(entry.get("player", "")), entry.get("team", ""))] = entry
     ranked = {pair: entry for pair, entry in seen.items() if pair not in collisions}
+
+    # Claves abreviadas que apuntan a más de una fila DEL BOARD. Si el board no
+    # trae nombre completo para desempatar, no se compara ninguna de las dos.
+    board_keys: dict[tuple[str, str], int] = {}
+    for player in board:
+        pair = (matching.player_key(str(player.get("player_name", ""))), str(player.get("team", "")))
+        board_keys[pair] = board_keys.get(pair, 0) + 1
 
     rows = []
     for player in board:
-        key = matching.player_key(str(player.get("player_name", "")))
         team = str(player.get("team", ""))
-        entry = ranked.get((key, team))
+        full = str(player.get("player_full_name") or "")
+        if full:
+            entry = by_full.get((matching.full_name_key(full), team))
+        else:
+            key = matching.player_key(str(player.get("player_name", "")))
+            entry = ranked.get((key, team)) if board_keys.get((key, team), 0) == 1 else None
         if entry is None:
             continue
         gap = int(entry["rank"]) - int(player["overall_rank"])

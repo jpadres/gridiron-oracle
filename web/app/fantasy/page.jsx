@@ -171,30 +171,41 @@ export default function Fantasy() {
       }
       consensusNotes={
         <>
-          <Callout title="The disagreements land exactly where the model is blind">
+          {/* El consenso es el MULTI-FUENTE del 1 de septiembre —mediana del
+              puesto overall PPR en PFN, SI, RotoWire, CBS/SportsLine,
+              WalterFootball, PFF y Yahoo, fechados 29-31 de agosto— y no la
+              hoja de cálculo del 17 de agosto, que sigue en `research/` como
+              archivo. Sólo entran los jugadores que alguna fuente publicó con
+              puesto overall: cuarenta. Un consenso de doscientos que mezclara
+              fechas sería la regla 5 rota con nombre de consenso. */}
+          <Callout title="Where the market and this board disagree, and why">
             <p>
-              These are not random errors, and that is why they matter:{" "}
-              <strong>each cluster of disagreement points at a limitation that is already
-              documented</strong>.
+              Consensus here is the <strong>median overall PPR rank across seven ranking
+              sources dated 29–31 August</strong> — PFN, SI (Fabiano), RotoWire&rsquo;s
+              five-expert consensus, CBS/SportsLine, WalterFootball, PFF and Yahoo&rsquo;s
+              six-analyst consensus. Only players a source ranked overall are compared, so the
+              list is short and current rather than long and stale. The disagreements cluster
+              where the model is documented to be blind:
             </p>
             <ul>
               <li>
-                <strong>Injured players the model ranks up.</strong> Consensus has already
-                marked them down because it knows the injury report; the model projects off
-                games played and knows nothing. Trust consensus here — check the availability
-                tag.
+                <strong>Short histories the model shrinks toward the average.</strong> Omarion
+                Hampton (market 12, here 55), Ashton Jeanty, Colston Loveland, Emeka Egbuka:
+                half or more of each number is the positional prior, and the market is pricing
+                a role these data cannot see. You will not get them at this board&rsquo;s
+                price.
               </li>
               <li>
-                <strong>Veterans the model ranks up.</strong> This was the largest source of
-                disagreement until the age curve went live, and it{" "}
-                <strong>shrank sharply</strong>: Kelce went from +75 to +13 against consensus,
-                Kamara from +106 to +8. What is left is real disagreement, not a hole in the
-                model.
+                <strong>Age at the far end of the curve.</strong> Derrick Henry (market 14,
+                here 136) carries an age factor of 0.61 at 32; Saquon Barkley 0.78 at 29. The
+                curve is validated and improved running-back error most of all — but 32 is an
+                extrapolation, and the market disagrees.
               </li>
               <li>
-                <strong>Young players the model ranks down.</strong> No history means no
-                projection, and a second-year player in a new role is exactly what the model
-                cannot see. Consensus has information these data do not contain.
+                <strong>Where this board is higher.</strong> Puka Nacua first overall, Trey
+                McBride 7th on tight-end scarcity, De&rsquo;Von Achane 6th, and Josh Allen
+                15th where the market waits on quarterbacks until the 40s. Those are the
+                players you can let come to you.
               </li>
             </ul>
           </Callout>

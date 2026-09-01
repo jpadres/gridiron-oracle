@@ -423,3 +423,41 @@ def test_a_league_wide_item_keeps_its_team_as_liga():
     cleaned = research._clean(item, "Liga")
     assert cleaned is not None
     assert cleaned["team"] == "LIGA"
+
+
+def test_los_dos_robinson_del_board_no_se_confunden_con_el_del_consenso():
+    """El consenso trae a Bijan (#2); el board trae a Bijan (#2) y a Brian (#318).
+
+    La colisión ya se vigilaba en el consenso. En el board no, y el abreviado
+    «B.Robinson · ATL» emparejaba al Brian del puesto 318 con el Bijan del
+    consenso: «el consenso lo sube 316 puestos», sobre el Robinson equivocado.
+    Con nombre completo en las dos partes no hay nada que adivinar.
+    """
+    from oracle.narrative import dossier
+
+    board = [
+        {"player_id": "bijan", "player_name": "B.Robinson", "player_full_name": "Bijan Robinson",
+         "team": "ATL", "position": "RB", "overall_rank": 2},
+        {"player_id": "brian", "player_name": "B.Robinson", "player_full_name": "Brian Robinson Jr.",
+         "team": "ATL", "position": "RB", "overall_rank": 318},
+    ]
+    consensus = [{"rank": 2, "player": "Bijan Robinson", "team": "ATL", "position": "RB"}]
+    gap = dossier.consensus_gap(board, consensus)
+    assert [row["player_id"] for row in gap] == ["bijan"]
+    assert gap[0]["gap"] == 0
+
+
+def test_sin_nombre_completo_una_clave_repetida_en_el_board_no_se_compara():
+    """Board viejo, sin `player_full_name`: dos filas con la misma clave y equipo
+    no se emparejan con nadie. Adivinar sería peor que callar."""
+    from oracle.narrative import dossier
+
+    board = [
+        {"player_id": "a", "player_name": "B.Robinson", "team": "ATL", "position": "RB", "overall_rank": 2},
+        {"player_id": "b", "player_name": "B.Robinson", "team": "ATL", "position": "RB", "overall_rank": 318},
+        {"player_id": "c", "player_name": "J.Gibbs", "team": "DET", "position": "RB", "overall_rank": 1},
+    ]
+    consensus = [{"rank": 2, "player": "Bijan Robinson", "team": "ATL"},
+                 {"rank": 1, "player": "Jahmyr Gibbs", "team": "DET"}]
+    gap = dossier.consensus_gap(board, consensus)
+    assert [row["player_id"] for row in gap] == ["c"]
