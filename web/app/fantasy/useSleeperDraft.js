@@ -142,7 +142,23 @@ export function useSleeperDraft(pool, { leagueId, season, userId, idMap } = {}) 
       const wanted = String(season ?? league?.season ?? "");
       const sameSeason = drafts.filter((d) => !wanted || String(d.season ?? "") === wanted);
       const pool_ = sameSeason.length > 0 ? sameSeason : drafts;
-      const chosen = pool_.find((d) => d.status === DRAFT_STATUS.DRAFTING)
+
+      // EL DRAFT DE LA LIGA MANDA SOBRE CUALQUIER MOCK.
+      //
+      // `/league/{id}/drafts` devuelve también los mocks creados desde esa liga,
+      // y elegir «el que esté drafting» dejaba que un mock abandonado en ese
+      // estado SECUESTRARA la sesión: el asistente seguía el draft equivocado y
+      // nada en pantalla lo decía. Peor, el id se fija en la primera resolución,
+      // así que se quedaba con el mock toda la noche.
+      //
+      // El objeto de la liga trae su `draft_id` —el de verdad— y ésa es la
+      // fuente autoritativa. La heurística por estado queda sólo para cuando la
+      // liga no lo publica.
+      const oficial = league?.draft_id
+        ? pool_.find((d) => String(d.draft_id) === String(league.draft_id))
+        : null;
+      const chosen = oficial
+        ?? pool_.find((d) => d.status === DRAFT_STATUS.DRAFTING)
         ?? pool_.find((d) => d.status === DRAFT_STATUS.PRE)
         ?? pool_[0];
       const draftId = String(chosen.draft_id);
