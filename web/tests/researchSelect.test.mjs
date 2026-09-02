@@ -6,7 +6,6 @@
  * barrido, 30 no aparecían en ninguna sección — y la página se veía llena.
  */
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import path from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
@@ -48,9 +47,10 @@ test("el umbral es el declarado y el agrupado conserva el orden", () => {
   assert.deepEqual(grupos.get("2026-09-01").map((i) => i.headline), ["x", "z"]);
 });
 
-test("contra el payload real: la cuenta cuadra", () => {
+test("contra el payload real: la cuenta cuadra", async () => {
   const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-  const payload = JSON.parse(readFileSync(path.join(WEB, "data/model.json"), "utf8"));
+  // El payload VERSIONADO, no `model.json` (que en CI no existe).
+  const { model: payload } = await import(path.join(WEB, "data/model.js"));
   const research = payload.research ?? {};
   const items = research.items ?? [];
   if (items.length === 0) return;

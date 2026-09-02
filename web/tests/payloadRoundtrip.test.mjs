@@ -10,7 +10,6 @@
  * fallos se ve leyendo el código de un solo lado.
  */
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import path from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
@@ -19,7 +18,10 @@ import { COMPONENTS, DEFAULT_RULES, compilePoints } from "../app/fantasy/scoring
 import { projectPlayer, setComponentOrder } from "../app/fantasy/leagueValue.js";
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const payload = JSON.parse(readFileSync(path.join(WEB, "data/model.json"), "utf8"));
+// El payload VERSIONADO (`model.b64.js`), descomprimido por el mismo módulo
+// que usa la web. `model.json` no se versiona: en CI no existe nunca, y leerlo
+// aquí ponía el test rojo por un fichero que no es del test.
+const { model: payload } = await import(path.join(WEB, "data/model.js"));
 const fantasy = payload.fantasy;
 
 test("el payload declara el orden de los componentes", () => {

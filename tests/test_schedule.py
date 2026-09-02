@@ -9,6 +9,8 @@ equipo eliminado en playoffs no «descansa», y un equipo del que faltan datos n
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pandas as pd
 import pytest
 
@@ -146,6 +148,12 @@ def test_roster_byes_sin_semana_devuelve_el_reparto_completo():
 
 
 @pytest.mark.parametrize("season", [2025, 2026])
+@pytest.mark.skipif(
+    not Path("data/processed/games.parquet").exists(),
+    # `data/processed` no se versiona y en CI no existe nunca (sin `oracle refresh`).
+    # Se SALTA y se dice, en vez de ponerse rojo por un fichero que no es del test.
+    reason="requiere data/processed/games.parquet (oracle refresh && oracle features)",
+)
 def test_el_calendario_real_da_32_descansos_de_32_equipos(season):
     """Sobre los datos de verdad, no sobre un fixture."""
     games = pd.read_parquet("data/processed/games.parquet")
