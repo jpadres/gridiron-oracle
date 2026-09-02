@@ -136,3 +136,39 @@ Lo que NO se pudo comprobar desde el contenedor de desarrollo: el proxy bloquea
 `sleepercdn.com`, así que los laboratorios ven las iniciales de respaldo, no las
 fotos. El patrón de URL es el público de Sleeper; la primera visita desde un
 navegador real lo confirma o el `onError` lo tapa.
+
+## La semana de una liga (2 de septiembre, tarde)
+
+La instantánea guarda ahora **todas** las plantillas de cada liga (ids, dueño,
+récord) y el enfrentamiento de la semana del payload
+(`/league/{id}/matchups/{week}`). Con eso, tres cosas nuevas, todas hechos:
+
+- **El semanal por liga** (`/fantasy/semanal`): un selector de liga y una marca
+  por fila resuelta por `sleeper_id` — `MINE`, `FA` (nadie lo tiene en esa
+  liga) o el nombre del dueño. K y DEF incluidos; la defensa se posee por
+  código de equipo, que es su id en Sleeper.
+- **El matchup** en el panel de cada liga: mi alineación contra la del rival,
+  con la proyección semanal publicada de cada titular sumada. Lo que no tiene
+  proyección (defensa, hueco vacío, id desconocido) se cuenta y no puntúa. Una
+  suma de proyecciones no es un pronóstico validado del enfrentamiento y la
+  página lo dice.
+- **La profundidad por equipo** (plegable): cuántos tiene cada equipo en cada
+  posición y cuánto proyectan sus mejores N esta semana, con N = titulares
+  dedicados de la liga y el mío marcado. Es el dato con el que se piensa un
+  trade —dónde sobra y dónde falta—; «ofrécele X» no se escribe porque nadie
+  lo ha validado.
+
+`leagueWeek.js` (puro, con tests) hace las cuentas; el doble sirve
+`/matchups/{week}` y el laboratorio comprueba el matchup, la profundidad de los
+doce y las marcas del semanal en dos ligas.
+
+## «Sync details» en el Draft Room
+
+Plegado bajo la banda de conexión: qué draft se sigue (y si es un mock), qué
+dice Sleeper del estado, último sondeo bueno y picks leídos, último error, la
+identidad derivada (usuario, roster, puesto y de dónde salió) y los picks sin
+resolver por id con el nombre que Sleeper les da — enseñado como dato, nunca
+usado para resolver. Cuando el asistente «se comporta raro» en un draft real,
+lo que se copia de ahí es lo que hace falta para diagnosticarlo. El workflow
+manual `Inspeccionar Sleeper` (`sleeper-inspect.yml`) vuelca desde CI la forma
+real de la cuenta y del draft, para comparar con el doble.

@@ -1904,3 +1904,16 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-sync-details dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px var(--space-3); margin: var(--space-2) 0 0; }
 .room-sync-details dt { font-weight: var(--weight-semibold); color: var(--chalk); }
 .room-sync-details dd { margin: 0; word-break: break-word; }
+
+/* --- MERCADOS: cada lado con su probabilidad --------------------------------- */
+.bk-bets { list-style: none; margin: var(--space-2) 0 var(--space-3); padding: 0; }
+.bk-bets > li {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr) auto; gap: var(--space-3);
+  align-items: center; padding: var(--space-2) 0; border-top: 1px solid var(--yard-line);
+  border-left: 3px solid var(--live); padding-left: var(--space-3);
+}
+.bk-bets .bk-lean-nums span em { display: block; font-style: normal; font-size: var(--text-micro); color: var(--chalk-dim); }
+.bk-markets td, .bk-markets th { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bk-markets tr.bk-game-first td { border-top: 2px solid var(--yard-line); }
+.bk-markets td small { color: var(--chalk-dim); }
+@media (max-width: 640px) { .bk-bets > li { grid-template-columns: minmax(0, 1fr); } }

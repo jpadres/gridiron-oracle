@@ -52,7 +52,15 @@ function currentMonthId() {
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
 }
 
-export default function BettingShell({ predictions, weekly, context }) {
+/** Cuota americana justa para una probabilidad: sin margen, lo que pagaría una casa sin vig. */
+function fairAmerican(p) {
+  if (!Number.isFinite(p) || p <= 0 || p >= 1) return null;
+  const decimal = 1 / p;
+  return decimal >= 2 ? `+${Math.round((decimal - 1) * 100)}` : `${Math.round(-100 / (decimal - 1))}`;
+}
+const pctOf = (p) => `${num(p * 100, 1)}%`;
+
+export default function BettingShell({ predictions, weekly, context, markets = [], bets = [] }) {
   const [months, setMonths] = useState(null);
   const [active, setActive] = useState(null);
   const [record, setRecord] = useState(null);
@@ -281,6 +289,103 @@ export default function BettingShell({ predictions, weekly, context }) {
           </table>
         </div>
       </section>
+
+      {/* ============ MERCADOS: el motor de valor, partido a partido ======= */}
+      {markets.length > 0 ? (
+        <section aria-label="Markets">
+          <h2 className="bk-h">
+            Markets <small>model probability vs the house without vig · every spread, both sides</small>
+          </h2>
+          {/* Las apuestas que PASAN el umbral, con su stake a ESTE bankroll. Son
+              pocas o ninguna a propósito: el modelo iguala al mercado, y la
+              ficha histórica de su clase suele decir «below breakeven». */}
+          {bets.length > 0 ? (
+            <ol className="bk-bets">
+              {bets.map((bet) => (
+                <li key={`${bet.game_id}:${bet.market}:${bet.selection}`}>
+                  <span className="bk-lean-what">
+                    <b>{bet.selection} {bet.market}</b>
+                    <small>{bet.matchup} · model {pctOf(bet.model_prob)} vs house {pctOf(bet.market_prob)} · EV {num(bet.ev * 100, 1)}%</small>
+                  </span>
+                  <span className="bk-lean-nums">
+                    <span><small>Stake</small>{money(bet.stake_fraction * record.starting)}<em>{num(bet.stake_fraction * 100, 2)}% bank</em></span>
+                    <span><small>History</small>{bet.evidence_label}<em>{bet.evidence_bets ? `${bet.evidence_bets} bets · ${num(bet.evidence_win_rate * 100, 1)}% · ${bet.evidence_verdict}` : "no sample"}</em></span>
+                  </span>
+                  <button type="button" onClick={() => toSlip({
+                    market: bet.market.startsWith("spread") ? "SPREAD" : "MONEYLINE",
+                    label: `${bet.selection} ${bet.market}`, selection: bet.selection,
+                    line: Number(String(bet.market).replace(/[^-+\d.]/g, "")) || null,
+                    odds: -110, stake: Math.round(bet.stake_fraction * record.starting),
+                    gameId: bet.game_id, team: bet.selection,
+                    snapshot: { model: bet.model_prob, market: bet.market_prob, family: bet.market },
+                  })}>Add to slip</button>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className="caption">
+              No market clears the staking threshold this week (minimum edge 1.5 points of
+              probability after shrinkage). That is the normal state for a model that
+              matches the closing line; the table below still shows where it stands.
+            </p>
+          )}
+          <div className="table-wrap">
+            <table className="rank-table bk-markets">
+              <thead>
+                <tr>
+                  <th>Game</th><th>Model score</th><th>Fair ML</th>
+                  <th>Side</th><th>Cover</th><th>House</th><th>Edge</th><th>EV at −110</th><th>Stake</th><th>History</th>
+                </tr>
+              </thead>
+              <tbody>
+                {predictions.map((game) => {
+                  const sides = markets.filter((m) => m.game_id === game.game_id && String(m.market).startsWith("spread"));
+                  const fairHome = fairAmerican(Number(game.home_win_prob));
+                  const fairAway = fairAmerican(1 - Number(game.home_win_prob));
+                  if (sides.length === 0) {
+                    return (
+                      <tr key={game.game_id}>
+                        <td className="who"><span className="nm">{game.away_team} @ {game.home_team}</span></td>
+                        <td>{num(game.pred_away_points, 1)}&ndash;{num(game.pred_home_points, 1)}</td>
+                        <td>{fairHome ? `${game.home_team} ${fairHome} · ${game.away_team} ${fairAway}` : "—"}</td>
+                        <td colSpan={7}><span className="bk-nomarket">market unavailable</span></td>
+                      </tr>
+                    );
+                  }
+                  return sides.map((side, i) => (
+                    <tr key={`${game.game_id}:${side.selection}`} className={i === 0 ? "bk-game-first" : undefined}>
+                      {i === 0 ? (
+                        <>
+                          <td className="who" rowSpan={sides.length}><span className="nm">{game.away_team} @ {game.home_team}</span></td>
+                          <td rowSpan={sides.length}>{num(game.pred_away_points, 1)}&ndash;{num(game.pred_home_points, 1)}</td>
+                          <td rowSpan={sides.length}>{fairHome ? <>{game.home_team} {fairHome}<br />{game.away_team} {fairAway}</> : "—"}</td>
+                        </>
+                      ) : null}
+                      <td><b className="bk-side">{side.selection} {String(side.market).replace("spread ", "")}</b></td>
+                      <td>{pctOf(side.model_prob)}{side.push_prob > 0 ? <small> · push {pctOf(side.push_prob)}</small> : null}</td>
+                      <td>{pctOf(side.market_prob)}</td>
+                      <td className={side.edge >= 0 ? "wk-up" : "wk-down"}>{side.edge > 0 ? "+" : ""}{num(side.edge * 100, 1)}</td>
+                      <td className={side.ev >= 0 ? "wk-up" : "wk-down"}>{side.ev > 0 ? "+" : ""}{num(side.ev * 100, 1)}%</td>
+                      <td>{side.stake_fraction > 0 ? money(side.stake_fraction * record.starting) : "0"}</td>
+                      <td><small>{side.evidence_label}{side.evidence_bets ? ` · ${num(side.evidence_win_rate * 100, 1)}%` : ""}</small></td>
+                    </tr>
+                  ));
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p className="caption">
+            Cover probabilities come from the model&rsquo;s margin distribution with key
+            numbers (3 and 7) and the push split out; the house is −110 both ways de-vigged
+            (Shin), so 50/50. Fair ML is the model&rsquo;s win probability turned into a
+            no-vig price — compare it with your book&rsquo;s. Stake is fractional Kelly with
+            the project&rsquo;s brakes (quarter Kelly, edge halved, 2% cap, 1.5-point
+            minimum) at this month&rsquo;s starting bankroll. &ldquo;History&rdquo; is the
+            out-of-sample record of bets with this size of model–market disagreement: read
+            it before the edge. Totals have no distribution here, so they stay leans.
+          </p>
+        </section>
+      ) : null}
 
       {/* ============ GAME LINES =========================================== */}
       <section aria-label="Game lines">

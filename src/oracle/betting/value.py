@@ -72,6 +72,43 @@ def value_bets(
     return frame.sort_values("ev", ascending=False).reset_index(drop=True)
 
 
+def enumerate_markets(
+    predictions: pd.DataFrame,
+    config: KellyConfig | None = None,
+    distribution: MarginDistribution | None = None,
+) -> pd.DataFrame:
+    """TODOS los mercados evaluados de una jornada, con o sin valor.
+
+    `value_bets` devuelve sólo lo que pasa el umbral de Kelly, que casi siempre
+    es una apuesta o ninguna: correcto para apostar, pobre para LEER. La web
+    quiere ver, partido a partido, qué probabilidad da el modelo a cada lado
+    contra la que da la casa sin margen, cuánto vale a -110 y cuánto tocaría
+    apostar — aunque sea cero. Misma aritmética que `value_bets`, sin el filtro
+    final: lo que aquí sale con `stake_fraction` 0 es exactamente lo que allí
+    no aparece.
+    """
+    config = config or KellyConfig()
+    rows: list[dict] = []
+    for _, game in predictions.iterrows():
+        rows.extend(_moneyline_candidates(game))
+        if distribution is not None and pd.notna(game.get("spread_line")):
+            rows.extend(_spread_candidates(game, distribution))
+    if not rows:
+        return _empty_frame()
+    frame = pd.DataFrame(rows)
+    frame["edge"] = frame["model_prob"] - frame["market_prob"]
+    frame["ev"] = [
+        expected_value(p, o) for p, o in zip(frame["model_prob"], frame["decimal_odds"], strict=True)
+    ]
+    frame["stake_fraction"] = [
+        stake_fraction(p, o, m, config)
+        for p, o, m in zip(
+            frame["model_prob"], frame["decimal_odds"], frame["market_prob"], strict=True
+        )
+    ]
+    return frame.sort_values(["game_id", "market", "selection"]).reset_index(drop=True)
+
+
 def _moneyline_candidates(game: pd.Series) -> list[dict]:
     home_ml, away_ml = game.get("home_moneyline"), game.get("away_moneyline")
     if pd.isna(home_ml) or pd.isna(away_ml):
@@ -105,22 +142,30 @@ def _spread_candidates(game: pd.Series, distribution: MarginDistribution) -> lis
     decimal = float(american_to_decimal(DEFAULT_SPREAD_ODDS))
     fair = devig_shin(np.array([decimal, decimal]))
 
+    # `spread_line` es el MARGEN esperado del local (positivo = local favorito,
+    # convención de nflverse). El handicap de una casa lleva el signo CONTRARIO:
+    # un local favorito por 3,5 se apuesta como «LOCAL -3.5» y el visitante
+    # como «+3.5». Hasta el 2 de septiembre de 2026 se publicaba al revés —
+    # «MIA -3.5» para un MIA que recibía 3,5— con la probabilidad correcta al
+    # lado, que es la clase de error que nadie ve porque el número cuadra.
     return [
-        _candidate(game, f"spread {_handicap(line)}", game["home_team"], home_prob, decimal, fair[0],
+        _candidate(game, f"spread {_handicap(-line)}", game["home_team"], home_prob, decimal, fair[0],
                    push=push),
-        _candidate(game, f"spread {_handicap(-line)}", game["away_team"], away_prob, decimal, fair[1],
+        _candidate(game, f"spread {_handicap(line)}", game["away_team"], away_prob, decimal, fair[1],
                    push=push),
     ]
 
 
-def _handicap(line: float) -> str:
+def _handicap(handicap: float) -> str:
     """Handicap tal y como se publica: punto decimal, como el resto de la interfaz.
 
-    Esta cadena viaja al payload y se pinta en la columna «Market». Cuando la
-    web estaba en español llevaba coma; con la interfaz en inglés, una coma
-    aquí y un punto en la celda de al lado se lee como un error de datos.
+    Recibe el handicap del LADO (negativo para el favorito), no el margen del
+    local. Esta cadena viaja al payload y se pinta en la columna «Market».
+    Cuando la web estaba en español llevaba coma; con la interfaz en inglés,
+    una coma aquí y un punto en la celda de al lado se lee como un error de
+    datos.
     """
-    return f"{line:+.1f}"
+    return f"{handicap:+.1f}"
 
 
 def _candidate(

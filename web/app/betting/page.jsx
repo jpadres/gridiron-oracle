@@ -21,6 +21,11 @@ export default function BettingPage() {
   return (
     <BettingShell
       predictions={predictions}
+      // TODOS los mercados evaluados por el mismo motor que `bets`, con o sin
+      // valor, y las apuestas que pasan el umbral. Sin `markets` en el payload
+      // (build anterior a septiembre) la página sigue con las líneas de siempre.
+      markets={model.markets ?? []}
+      bets={model.bets ?? []}
       weekly={model.fantasy_weekly?.rankings ?? []}
       context={{
         season: model.week?.season ?? null,

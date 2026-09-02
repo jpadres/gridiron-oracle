@@ -25,7 +25,7 @@ from oracle.betting.odds import (
     decimal_to_american,
     decimal_to_implied,
 )
-from oracle.betting.value import value_bets
+from oracle.betting.value import enumerate_markets, value_bets
 from oracle.models.distribution import MarginDistribution
 
 # ---------------------------------------------------------------------------
@@ -249,3 +249,53 @@ def test_empty_result_still_has_the_right_columns():
     assert empty.empty
     for column in ("matchup", "market", "selection", "edge", "ev", "stake"):
         assert column in empty.columns
+
+
+def test_enumerate_markets_lists_both_sides_of_every_spread_with_stake_zero_allowed():
+    """Lo que `value_bets` filtra, aquí se ve: cada lado con su probabilidad."""
+    distribution = MarginDistribution()
+    distribution.fit(pd.DataFrame({"margin": np.random.default_rng(0).normal(2, 13, 2000).round()}))
+    predictions = pd.DataFrame([
+        {"game_id": "g1", "season": 2026, "week": 1, "home_team": "KC", "away_team": "BUF",
+         "pred_margin": 0.5, "pred_total": 47.0, "home_win_prob": 0.52, "spread_line": 3.5},
+        {"game_id": "g2", "season": 2026, "week": 1, "home_team": "SF", "away_team": "LAR",
+         "pred_margin": -6.0, "pred_total": 44.0, "home_win_prob": 0.33, "spread_line": -6.0},
+    ])
+    markets = enumerate_markets(predictions, distribution=distribution)
+    # Dos partidos, dos lados cada uno; sin moneyline no hay candidatos de moneyline.
+    assert len(markets) == 4
+    assert set(markets["selection"]) == {"KC", "BUF", "SF", "LAR"}
+    # Los dos lados de un spread se reparten la probabilidad decidida.
+    g1 = markets[markets["game_id"] == "g1"]
+    assert abs(g1["model_prob"].sum() - 1.0) < 1e-9
+    # El lado con menos probabilidad que la casa no tiene stake, pero SÍ aparece.
+    assert (markets["stake_fraction"] == 0).any()
+    assert set(markets.columns) >= {"edge", "ev", "stake_fraction", "push_prob", "market_prob"}
+    # Y lo apostable de `value_bets` es un subconjunto de esto.
+    bets = value_bets(predictions, distribution=distribution)
+    for _, bet in bets.iterrows():
+        match = markets[(markets["game_id"] == bet["game_id"]) & (markets["selection"] == bet["selection"])]
+        assert len(match) == 1
+        assert abs(float(match["model_prob"].iloc[0]) - float(bet["model_prob"])) < 1e-12
+
+
+def test_spread_labels_follow_betting_convention_not_margin_sign():
+    """Local favorito por 3,5: el local se apuesta a -3.5 y el visitante a +3.5.
+
+    `spread_line` de nflverse es el margen del local; el handicap de la casa
+    lleva el signo contrario. Publicarlo con el signo del margen daba «MIA -3.5»
+    para un MIA que RECIBÍA 3,5 puntos, con la probabilidad correcta al lado.
+    """
+    distribution = MarginDistribution()
+    distribution.fit(pd.DataFrame({"margin": np.random.default_rng(1).normal(2, 13, 2000).round()}))
+    predictions = pd.DataFrame([
+        {"game_id": "g", "season": 2026, "week": 1, "home_team": "LV", "away_team": "MIA",
+         "pred_margin": 1.8, "pred_total": 44.0, "home_win_prob": 0.56, "spread_line": 3.5},
+    ])
+    markets = enumerate_markets(predictions, distribution=distribution)
+    by = dict(zip(markets["selection"], markets["market"], strict=True))
+    assert by["LV"] == "spread -3.5"
+    assert by["MIA"] == "spread +3.5"
+    # Y el que cubre más a menudo con un margen esperado por debajo de la línea es el que recibe.
+    probs = dict(zip(markets["selection"], markets["model_prob"], strict=True))
+    assert probs["MIA"] > probs["LV"]

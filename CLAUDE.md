@@ -371,6 +371,7 @@ comentario está para que no los reintroduzcas.
 | El novato cae bajo, y está medido | `scripts/rookie_placement_validate.py` | A igual proyección y posición, los novatos de 2019-2025 realizaron 127,2 puntos y los veteranos de al lado 19,6. Las escalas no son la misma —el veterano se proyecta como si jugara 15,5 partidos; la previa de novato es el total observado con sus ceros— y el sesgo se publica **sin corregir**: no hay corrección validada, y un multiplicador a ojo sería peor que el sesgo conocido |
 | Un fixture de Sleeper sin `metadata.position` | `tools/lab/live-assistant.mjs` | El emparejamiento cruza por nombre Y posición. El doble no la mandaba, así que no casaba NADA y el laboratorio esperaba 180 veces su timeout. El fallo no estaba en el producto sino en un doble que no se parecía al original: **un doble que miente en un campo prueba otra cosa** |
 | Contar WR sobre las filas pintadas | `tools/lab/live-assistant-matrix.mjs` | La lista se corta en 60, así que «cuántos receptores quedan» medía el scroll. Es el artefacto exacto del «2 left in tier», reaparecido en el TEST esta vez. Se cuenta sobre el pool que el producto declara |
+| «MIA -3.5» para un MIA que recibía 3,5 | `betting/value.py` | `spread_line` es el MARGEN del local (positivo = favorito); el handicap que se apuesta lleva el signo CONTRARIO. La etiqueta salía con el signo del margen y la probabilidad correcta al lado — el número cuadraba y nadie miró el signo. Se cazó al exponer TODOS los mercados en la web, donde los dos lados se leen juntos |
 
 ---
 

@@ -34,6 +34,7 @@ import pandas as pd
 from oracle import capabilities, decisions
 from oracle.backtest.metrics import calibration_table, evaluate, summarize_ats
 from oracle.backtest.walkforward import season_table, walk_forward
+from oracle.betting.value import enumerate_markets
 from oracle.config import DEFAULT_BACKTEST_START
 from oracle.config import paths as resolve_paths
 from oracle.data import identity
@@ -222,6 +223,12 @@ def main(argv: list[str] | None = None) -> int:
 
     bets = oracle.value_bets(week_predictions)
     payload["bets"] = _enrich_bets(bets, week_predictions)
+    # TODOS los mercados evaluados, con o sin valor: lo que la página de
+    # apuestas enseña partido a partido. `bets` sigue siendo lo apostable.
+    payload["markets"] = _enrich_bets(
+        enumerate_markets(week_predictions, distribution=oracle.model.distribution),
+        week_predictions, keep_zero=True,
+    )
 
     payload["ratings"] = _round_frame(oracle.team_ratings()).to_dict(orient="records")
 
@@ -294,7 +301,7 @@ def main(argv: list[str] | None = None) -> int:
 MIN_STAKE = 1.0
 
 
-def _enrich_bets(bets, predictions) -> list[dict]:
+def _enrich_bets(bets, predictions, keep_zero: bool = False) -> list[dict]:
     """Cada apuesta con la ficha histórica de su clase, y sin las de céntimos.
 
     La ficha histórica es lo que sustituye a la «confianza» que no se puede
@@ -309,7 +316,7 @@ def _enrich_bets(bets, predictions) -> list[dict]:
     lines = predictions.set_index("game_id")
     rows = []
     for record in _round_frame(bets).to_dict(orient="records"):
-        if float(record.get("stake") or 0) < MIN_STAKE:
+        if not keep_zero and float(record.get("stake") or 0) < MIN_STAKE:
             continue
         game = lines.loc[record["game_id"]]
         disagreement = abs(float(game["pred_margin"]) - float(game["spread_line"]))

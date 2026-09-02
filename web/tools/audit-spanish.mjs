@@ -150,6 +150,8 @@ if (hallazgos.length === 0) {
 // Copy que escribimos nosotros y se pinta tal cual. Tiene que estar en inglés.
 const COPY = new Set([
   ".bets[].evidence_label", ".bets[].evidence_verdict", ".bets[].market",
+  // `.markets[]`: los mismos campos que `.bets[]`, del mismo motor, sin el filtro de stake.
+  ".markets[].evidence_label", ".markets[].evidence_verdict", ".markets[].market",
   ".fantasy.board[].bust_label", ".fantasy.board[].risk_label",
   ".fantasy.board[].risk_reasons[]", ".dossier.gap[].risk_label",
   ".research.today[].label", ".separation_bands[].wording",
@@ -184,6 +186,7 @@ const COPY = new Set([
 // vayan entrando fichas nuevas; reescribir las viejas sería inventar una cita.
 const DATOS = new Set([
   ".bets[].game_id", ".bets[].matchup", ".bets[].selection",
+  ".markets[].game_id", ".markets[].matchup", ".markets[].selection",
   ".dossier.ambiguous[][]", ".dossier.generated", ".dossier.sources_books[]",
   ".fantasy.board[].player_full_name", ".fantasy.board[].player_id",
   ".fantasy.board[].player_name", ".fantasy.board[].position",
