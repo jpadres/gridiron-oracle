@@ -286,3 +286,22 @@ peso al ancla, no una resta), con la misma predicción y el mismo umbral, y
 con la expectativa escrita de INCONCLUSO. La señal que ordena dentro de los
 movers no está en estos datos: sería el depth chart de agosto, que es prensa,
 y la prensa no toca el modelo.
+
+---
+
+# E22 — CERRADO SIN CORRER. Negativo. 2026-09-02
+
+Ni descuento plano ni encogimiento extra. Los tres números que lo cierran:
+
+- **efecto / sd = 0,32** en RB (media −18,7, desviación 73,0);
+- **interacción mover × vacante +10,5 ± 33,8**: signo correcto, error tres
+  veces el coeficiente;
+- **un tercio de los movers rinde por encima de su historial**.
+
+Motivo de no correr ni la variante: el autor predijo INCONCLUSO antes de
+correrla. Un experimento cuyo resultado esperado está escrito como inconcluso
+no es un experimento, es gastar el turno; y un positivo con esa predicción
+delante tampoco sería creíble.
+
+Lo que queda establecido con datos, y se puede citar: mover cuesta ~20 puntos
+de media y el modelo no lo descuenta; a quién le cuesta no está en estos datos.
