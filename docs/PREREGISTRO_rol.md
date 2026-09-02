@@ -305,3 +305,152 @@ delante tampoco sería creíble.
 
 Lo que queda establecido con datos, y se puede citar: mover cuesta ~20 puntos
 de media y el modelo no lo descuenta; a quién le cuesta no está en estos datos.
+
+
+---
+
+# Diagnóstico RB 2025 — 2026-09-02. No es decadencia, y el instrumento está roto
+
+Reproducción del arnés por jugador (`scripts/rb_2025_diagnostic.py`): mismo pool
+congelado, mismo `k`, mismo reemplazo real.
+
+## Antes de las tres preguntas: el quinto instrumento
+
+`validate()` proyecta cada temporada con `project_season(players, season,
+rules)` — **sin curva de edad** —, mientras el board que se publica se
+construye con `ages=ages`. **El arnés valida un modelo que no es el que se
+publica.** Se comprobó las dos formas: sin edad el diagnóstico reproduce el
+arnés al milésimo (0,864 / 0,718 / 0,883 / 0,773); con edad, que es lo que
+ve el usuario, sale otra serie.
+
+| RB, valor capturado | 2022 | 2023 | 2024 | 2025 | media | gana |
+|---|---|---|---|---|---|---|
+| baseline (puntos previos) | 0,643 | 0,670 | 0,831 | 0,775 | 0,730 | — |
+| **arnés: modelo SIN edad** (lo publicado como 0,810) | 0,864 | 0,718 | 0,883 | 0,773 | 0,810 | 3 + empate |
+| **modelo CON edad** (el board real) | 0,864 | 0,662 | 0,796 | **0,830** | 0,788 | 2 de 4 |
+
+Dos consecuencias que importan más que 2025:
+
+1. **El «empate perdido» de 2025 es del modelo sin edad.** El modelo que se
+   publica GANA 2025: 0,830 contra 0,775. Los ocho picks del arnés que valieron
+   cero en 2025 son casi todos de 29-30 años —Jones, Kamara, Ekeler, Mixon,
+   Conner— y la curva de edad los saca del top-24. Ahí la curva vale +0,057.
+2. **Pero la curva cuesta 2024 (−0,087, Henry a los 31: modelo #30, baseline
+   #12, 206 de VOR) y 2023 (−0,056).** La curva se aceptó en
+   `PREREGISTRO_edad` por MAE, y por ORDEN es mixta: el modelo publicado gana
+   2 de 4 en RB, que por nuestra regla es **INCONCLUSO**. La misma trampa —
+   calibración contra orden — que ya cazó dos veces esta semana, esta vez en un
+   cambio que ya está en producción.
+
+Recomendación, sin ejecutarla porque pediste diagnóstico: (a) que `validate()`
+proyecte con la misma llamada que producción —una línea— y se republiquen las
+tablas; (b) reevaluar la curva de edad con valor capturado por temporada, con
+umbral escrito, porque hoy está aceptada por una métrica que no mide lo que el
+board hace.
+
+## Las tres preguntas, en los términos del arnés (sin edad, que es lo citado)
+
+**1. ¿Mejoró la baseline o empeoramos nosotros?** Mejoró la baseline. Nivel
+del modelo: 0,864 / 0,718 / 0,883 / 0,773 — plano dentro del ruido. Nivel de la
+baseline: 0,643 / 0,670 / **0,831 / 0,775** — salta en 2024-25. El motivo está
+en la composición (pregunta 3): en 2024-25 hubo menos *breakouts*, y ordenar por
+el año pasado acierta más cuando el año pasado se repite. En 2025 el modelo y la
+baseline comparten **21 de 24 picks**: la diferencia entera es de tres nombres.
+
+**2. ¿En qué RB perdimos 2025?** En tres, y con explicación común:
+
+| | modelo # | baseline # | VOR real |
+|---|---|---|---|
+| Chase Brown (el modelo lo dejó fuera) | 26 | 12 | **140** |
+| Rico Dowdle, mover (fuera) | 31 | 23 | 76 |
+| Kenneth Walker (el modelo lo tenía) | 15 | 29 | 124 |
+| Rhamondre Stevenson (lo tenía) | 24 | 30 | 88 |
+
+Chase Brown solo son 140 de 2.596 de VOR disponible: el 5,4%, más que la
+diferencia total (0,2 puntos). Los cinco que **ninguno** de los dos tenía
+—Etienne, Javonte Williams, Warren, Charbonnet, Tracy— son los mismos para
+los dos. Es **ruido de dos o tres jugadores, no fallo repartido**: los aciertos
+del top real son 16 y 16.
+
+**3. ¿Cambió la composición?** No en 2025 en particular; cambió en 2024-25
+contra 2022-23:
+
+| | 2022 | 2023 | 2024 | 2025 |
+|---|---|---|---|---|
+| RB en el pool congelado | 55 | 48 | 49 | 43 |
+| cuota del VOR real hecha por jugadores fuera del top-24 previo (*breakouts*) | 0,357 | 0,330 | 0,169 | 0,225 |
+| movers en el top-24 real | 0,00 | 0,17 | 0,33 | 0,13 |
+| muestra corta (< 8 wg) en el top-24 real | 0,08 | 0,08 | 0,04 | 0,00 |
+
+Menos breakouts es la temporada en que la baseline mejor funciona, y ahí el
+modelo no puede separarse mucho. Nada de novatos (el pool congelado los excluye
+por construcción) ni una explosión de comités.
+
+**Veredicto: 2025 es ruido de tres jugadores sobre una baseline que mejoró
+porque 2024-25 se repitieron más. No hay decadencia medible en RB — y lo que
+sí hay es que la cifra que se publica es de un modelo que no es el publicado.**
+
+---
+
+# E23 — cuota de objetivos para WR y TE. Preregistro. 2026-09-02
+
+> Aviso: la referencia de WR y TE está medida con el arnés SIN curva de edad
+> (ver el diagnóstico de arriba). Los criterios de E23 son relativos —3 de 4
+> contra la baseline, no perder más de 0,010 contra el modelo actual— así que
+> sobreviven a corregir el instrumento, pero la corrida tiene que hacerse
+> DESPUÉS de que `validate()` proyecte el modelo publicado.
+
+## Qué compite contra qué
+
+WR y TE son **INCONCLUSOS** por la regla del proyecto: el modelo empata con
+ordenar por los puntos del año pasado (WR 0,839 vs 0,838; TE 0,730 vs 0,709,
+ganando 2 de 4 cada uno). E23 no defiende una ventaja: intenta convertir un
+empate en una ventaja. El listón se define en consecuencia.
+
+## La señal, medida en Fase 1
+
+Condicionada a los puntos del año anterior, la cuota de objetivos añade
+**parcial 0,11 en WR y 0,12 en TE**; la cuota de air yards, 0,09 y **0,19**.
+ΔR² +0,004 (WR) y +0,011 (TE). Es una señal pequeña y real. En RB no añade
+nada (−0,03), y por eso E23 **no toca RB**: el cambio se aplica sólo a WR y
+TE, y el arnés tiene que devolver RB y QB idénticos al decimal — si se mueven,
+el experimento está mal montado.
+
+## El cambio (una variante, sin segundo intento)
+
+El encogimiento hacia la media de la posición se hace hoy con
+`reliability = wg / (wg + 10)` sobre puntos por partido. E23 añade a la
+proyección de WR/TE un término de OPORTUNIDAD estimado walk-forward:
+
+    ppg_E23 = ppg_shrunk + β_pos · (share_prev − share_media_pos)
+
+donde `share_prev` es la cuota de objetivos ponderada 56/30/14 del propio
+historial (mismo denominador de equipo que en `weekly.py`) y `β_pos` se
+estima por posición con temporadas < S por regresión de los puntos realizados
+sobre `ppg_shrunk` y la cuota. Sin parámetro elegido a ojo: β sale de los datos
+anteriores, y si en alguna temporada sale ≤ 0 el término es cero.
+
+## Predicción escrita
+
+Efecto pequeño, del tamaño del ΔR²: **WR +0,005 a +0,015; TE +0,010 a
++0,025** en valor capturado medio. No espero un cambio de orden en los diez
+primeros.
+
+## Qué cuenta como éxito, fijado ahora
+
+Como se compite contra un empate, la magnitud no basta: hace falta
+**consistencia**.
+
+- **Éxito:** en WR y en TE, `model_E23` gana a la baseline en **3 de 4
+  temporadas** Y no empeora respecto al modelo actual en más de 0,010 en
+  ninguna temporada. Las dos posiciones a la vez; si una pasa y la otra no, la
+  que pasa se acepta y la otra no.
+- **Cordura obligatoria:** RB y QB idénticos al decimal (la señal no los toca).
+  Cualquier movimiento ahí invalida la corrida.
+- **Fracaso:** gana en ≤ 2 de 4 en las dos, o empeora al modelo actual > 0,010
+  en alguna temporada. Se publica y se cierra.
+- **INCONCLUSO:** cualquier otra combinación. No se reintenta con otro β ni
+  con la cuota de air yards: si la de objetivos no ordena, la otra —más
+  ruidosa— tampoco.
+
+Umbral fijado antes de correr; el resultado se publica salga como salga.
