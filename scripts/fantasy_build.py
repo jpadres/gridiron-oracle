@@ -1157,13 +1157,31 @@ def validate(
 
     hits = pd.DataFrame(aciertos)
     caps = pd.DataFrame(capturado)
+    value = (
+        caps.groupby(["position", "predictor"], as_index=False).agg(
+            seasons=("season", "nunique"), k=("k", "max"),
+            value_captured=("value_captured", "mean"))
+        if not caps.empty else caps
+    )
+    if not value.empty:
+        # UN número global, y el que reproduce el arnés: la media por posición
+        # ponderada por `k` (los titulares que la liga alinea de cada una).
+        # Hasta hoy el arnés no publicaba ninguno, y circulaba un «82,6%» que
+        # no salía de ningún sitio. Un número que el propio arnés no reproduce
+        # no es una métrica: es un recuerdo.
+        total = value.groupby("predictor", as_index=False).apply(
+            lambda g: pd.Series({
+                "position": "ALL", "seasons": int(g["seasons"].max()), "k": int(g["k"].sum()),
+                "value_captured": float(np.average(g["value_captured"], weights=g["k"])),
+            }), include_groups=False,
+        ).reset_index(drop=True)
+        value = pd.concat([value, total[value.columns]], ignore_index=True)
     return {
-        "value_captured": (
-            caps.groupby(["position", "predictor"], as_index=False).agg(
-                seasons=("season", "nunique"), k=("k", "max"),
-                value_captured=("value_captured", "mean"))
-            if not caps.empty else caps
-        ),
+        "value_captured": value,
+        # La tabla SIN agregar. La media de cuatro temporadas esconde si la
+        # ventaja es de dos buenas y dos flojas, y la regla de aceptación del
+        # proyecto es por temporada: sin esto no se puede aplicar a la
+        # comparación principal, que es justo donde nunca se aplicó.
         "value_captured_by_season": caps,
         "by_position": _resumen(por_posicion, "position"),
         "by_band": _resumen(por_banda, "band"),

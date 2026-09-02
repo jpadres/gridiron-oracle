@@ -324,6 +324,16 @@ export default function Fantasy() {
             It is also invariant to level — adding or scaling every projection leaves it
             unchanged — so it cannot be moved by calibration, only by ordering.
           </p>
+          {/* La fila ALL es la ÚNICA cifra global, y sale del arnés: media por
+              posición ponderada por los titulares de cada una. Antes no se
+              publicaba ninguna y circulaba un 82,6% que no salía de ningún
+              fichero del repo — un número que el propio arnés no reproduce no es
+              una métrica, es un recuerdo. */}
+          <p className="caption">
+            The <strong>ALL</strong> row is the one global figure, and it is computed by the
+            harness: the positional values weighted by the starters each position fills (12,
+            24, 36, 12). Nothing else on this site is a global number for this metric.
+          </p>
 
           <Callout title="At quarterback this board adds nothing over last season's points">
             <p>

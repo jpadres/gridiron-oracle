@@ -27,6 +27,9 @@ export const POSITION_COLOR = {
   RB: "var(--pos-rb)",
   WR: "var(--pos-wr)",
   TE: "var(--pos-te)",
+  // La fila global de la tabla de valor capturado. Neutra a propósito: no es
+  // una posición, es la media ponderada de las cuatro.
+  ALL: "var(--chalk-dim)",
 };
 
 export const POSITIONS = ["QB", "RB", "WR", "TE"];

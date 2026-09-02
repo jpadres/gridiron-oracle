@@ -178,3 +178,27 @@ E22b fallan, la respuesta es que el cambio de equipo no ordena mejor.
 **Coste.** Un campo (`moved`) que el board ya calcula, una tabla walk-forward de
 penalizaciones por posición, un predictor más en `validate()`. Cero datasets
 nuevos, cero cambios en el navegador hasta que pase.
+
+---
+
+# Antes de E22 — 2026-09-02
+
+## 1. El «82,6% global» no existe en ningún sitio
+
+Se buscó en el código, la web, los docs, el payload y el historial de git
+(`git log -S`): **ningún fichero del repo publica ni calculó nunca un 82,6%**.
+Los tres «82.6» del historial son cifras del fixture de paridad de E18. La web
+publica el valor capturado **por posición**, y el arnés no agregaba nada.
+
+La cifra correcta es la que reproduce el arnés: **media por posición ponderada
+por `k`**, los titulares que la liga alinea de cada una (QB 12, RB 24, WR 36,
+TE 12).
+
+| predictor | QB | RB | TE | WR | **ALL (k)** |
+|---|---|---|---|---|---|
+| modelo | 0,631 | 0,810 | 0,730 | 0,839 | **0,785** |
+| baseline (puntos del año anterior) | 0,623 | 0,730 | 0,709 | 0,838 | **0,758** |
+
+Desde este commit el arnés publica la fila `ALL` con ese cálculo, en la misma
+tabla que la web pinta, para que sólo exista un número global y sea el que
+sale del código. El 82,6 era un recuerdo, no una métrica.
