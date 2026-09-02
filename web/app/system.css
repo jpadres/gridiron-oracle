@@ -1897,3 +1897,10 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .cc-depth tr.is-mine td { background: var(--field-raised); font-weight: var(--weight-semibold); }
 .cc-depth td small { color: var(--chalk-dim); }
 @media (max-width: 640px) { .cc-matchup-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* --- DETALLES DE SINCRONIZACIÓN (plegados; para diagnosticar un draft real) */
+.room-sync-details { font-size: var(--text-micro); color: var(--chalk-dim); margin: 0 0 var(--space-2); }
+.room-sync-details summary { cursor: pointer; }
+.room-sync-details dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px var(--space-3); margin: var(--space-2) 0 0; }
+.room-sync-details dt { font-weight: var(--weight-semibold); color: var(--chalk); }
+.room-sync-details dd { margin: 0; word-break: break-word; }

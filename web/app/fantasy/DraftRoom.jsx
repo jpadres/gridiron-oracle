@@ -43,7 +43,7 @@ import {
 } from "./draftLog.js";
 import { loadOrMigrateLog, logScopeFor, saveLog } from "./draftStorage.js";
 // El reloj del pick: puro, en draftSync, y probado con node --test.
-import { clockLabel, pickClock } from "./draftSync.js";
+import { agoLabel, clockLabel, pickClock } from "./draftSync.js";
 import {
   assignSlots, PRIOR_SHARE_VISIBLE, priorShare, VALIDATED_MAX_TEAMS, valueConfidence,
 } from "./leagueValue.js";
@@ -546,6 +546,55 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
               </span>
             ) : null}
           </p>
+        ) : null}
+        {/* DETALLES DE SINCRONIZACIÓN. Cuando el asistente «se comporta raro»
+            en un draft de verdad, lo que hace falta es ver lo que el adaptador
+            resolvió y lo que Sleeper contestó: qué draft, en qué estado, cuándo
+            fue el último sondeo bueno, qué error dio el último malo, cuántos
+            picks leyó y cuáles no pudo resolver por id — con el nombre que
+            Sleeper les da, que se enseña como dato y NO se usa para resolver. */}
+        {sleeperLeague ? (
+          <details className="room-sync-details">
+            <summary>Sync details</summary>
+            <dl>
+              <dt>Draft</dt>
+              <dd>{sync.stable?.draftId ?? "not resolved yet"}{sync.stable?.isMock ? " · mock (no league)" : ""}</dd>
+              <dt>Sleeper says</dt>
+              <dd>{sync.draft?.status ?? "UNKNOWN"}{sync.draft?.type ? ` · ${sync.draft.type}` : ""}
+                {sync.stable?.settings?.teams ? ` · ${sync.stable.settings.teams} teams` : ""}
+                {sync.stable?.settings?.rounds ? ` · ${sync.stable.settings.rounds} rounds` : ""}</dd>
+              <dt>Last good sync</dt>
+              <dd>{sync.lastSyncAt ? `${agoLabel(sync.lastSyncAt)} · ${sync.total ?? 0} picks read` : "none yet"}</dd>
+              <dt>Last error</dt>
+              <dd>{sync.state === "error" ? sync.message : "none"}</dd>
+              <dt>Identity</dt>
+              <dd>
+                {sync.stable ? (
+                  <>
+                    user {sync.stable.userId ?? "UNKNOWN"} · roster {sync.stable.rosterId ?? "none (mock or not found)"} ·
+                    slot {sync.stable.slot ?? "UNKNOWN"}{" "}
+                    {sync.draft?.draft_order ? "(from draft_order)" : "(draft_order not published yet)"}
+                  </>
+                ) : "not resolved yet"}
+              </dd>
+              <dt>Polling</dt>
+              <dd>every 15 s while this page is open · {sync.syncing ? "request in flight" : "idle"}</dd>
+              {sync.unmapped?.length ? (
+                <>
+                  <dt>Unmapped picks</dt>
+                  <dd>
+                    {sync.unmapped.slice(0, 12).map((pick) => {
+                      const m = pick.metadata ?? {};
+                      const who = `${m.first_name ?? ""} ${m.last_name ?? ""}`.trim() || `id ${pick.player_id}`;
+                      return `${pick.pick_no ?? "?"}: ${who}${m.position ? ` ${m.position}` : ""}${m.team ? ` ${m.team}` : ""} (sleeper ${pick.player_id})`;
+                    }).join(" · ")}
+                    {sync.unmapped.length > 12 ? ` · +${sync.unmapped.length - 12} more` : ""}
+                    <small> — as Sleeper names them; shown, never used to resolve.</small>
+                  </dd>
+                </>
+              ) : null}
+            </dl>
+          </details>
         ) : null}
         <p className="room-where">
           {here ? (
