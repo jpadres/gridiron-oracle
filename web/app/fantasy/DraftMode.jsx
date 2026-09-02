@@ -44,8 +44,8 @@ import { num } from "../../data/model.js";
 import { TeamMark, teamVars } from "../sports.jsx";
 import { Headshot } from "../headshot.jsx";
 import {
-  activeIdentity, loadOrMigrateLog, loadPrefs, logScopeFor, migrateLegacy, savePrefs,
-  saveLog,
+  activeIdentity, browserStorage, loadOrMigrateLog, loadPrefs, logScopeFor, migrateLegacy,
+  savePrefs, saveLog,
 } from "./draftStorage.js";
 import {
   ROSTER, SOURCE, fold, providerEvents, takeEvent, undoEvent,
@@ -96,6 +96,8 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   const [events, setEvents] = useState([]);
   const [prefs, setPrefs] = useState({ league: "", userId: "" });
   const [ready, setReady] = useState(false);
+  // `false` = el navegador bloquea el almacenamiento: se draftea igual, sin memoria.
+  const [storageOk, setStorageOk] = useState(true);
   const [query, setQuery] = useState("");
   const [leagueDraft, setLeagueDraft] = useState("");
   const [members, setMembers] = useState(null);
@@ -131,7 +133,7 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   const identity = useMemo(
     () =>
       activeIdentity({
-        storage: ready && typeof window !== "undefined" ? window.localStorage : null,
+        storage: ready ? browserStorage() : null,
         season,
         sleeperDraft: draft,
         leagueId: prefs.league,
@@ -144,7 +146,8 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   // el servidor, donde no hay localStorage, y pintar cosas distintas en los dos
   // sitios rompe la hidratación de React.
   useEffect(() => {
-    const storage = typeof window === "undefined" ? null : window.localStorage;
+    const storage = browserStorage();
+    setStorageOk(storage !== null);
     migrateLegacy(storage, season);
     setPrefs(loadPrefs(storage));
     setReady(true);
@@ -154,18 +157,17 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   // anterior. Es la línea que hace que cambiar de liga no contamine.
   useEffect(() => {
     if (!ready) return;
-    const storage = typeof window === "undefined" ? null : window.localStorage;
-    setEvents(loadOrMigrateLog(scope, storage));
+    setEvents(loadOrMigrateLog(scope, browserStorage()));
   }, [scope, ready]);
 
   useEffect(() => {
     if (!ready) return;
-    saveLog(scope, events, typeof window === "undefined" ? null : window.localStorage);
+    saveLog(scope, events, browserStorage());
   }, [scope, events, ready]);
 
   useEffect(() => {
     if (!ready) return;
-    savePrefs(prefs, typeof window === "undefined" ? null : window.localStorage);
+    savePrefs(prefs, browserStorage());
   }, [prefs, ready]);
 
   // El estado canónico: lo guardado MÁS lo que trae el sondeo, fundido en cada
@@ -643,7 +645,12 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
 
       <p className="caption">
         Tap <strong>Mine</strong> or <strong>Gone</strong> as players come off the board.
-        Saved in your browser — you can reload mid-draft.{" "}
+        {storageOk ? (
+          <>Saved in your browser — you can reload mid-draft.{" "}</>
+        ) : (
+          <><strong>This browser blocks site storage</strong>, so nothing is saved between
+          reloads and the Sleeper connection cannot be remembered. Everything else works.{" "}</>
+        )}
         {/* Qué draft se está tachando. Sin esta línea el board y el Draft Room
             comparten estado sin decir cuál, y en cuanto hay dos ligas no hay
             forma de saber en cuál estás marcando. */}

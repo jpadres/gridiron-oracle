@@ -35,6 +35,32 @@
  * clave compartida y contaminar otra liga es peor, y además es invisible.
  */
 
+/**
+ * El almacenamiento del navegador, o `null` si no lo hay.
+ *
+ * `window.localStorage` no es una propiedad: es un getter que LANZA
+ * `SecurityError` cuando el navegador bloquea el almacenamiento del sitio
+ * (Chrome con «bloquear todas las cookies», una política de empresa, algunos
+ * modos privados). Leerlo a pelo dentro de un efecto tumbaba la página entera
+ * a «This page could not load» en /fantasy, /fantasy/draft, /leagues, /semanal
+ * y /betting a la vez — con un navegador perfectamente sano y sin estado
+ * guardado, que es justo el caso que el mensaje de error no contemplaba.
+ *
+ * Todo acceso pasa por aquí. Sin almacenamiento el sitio funciona igual y
+ * no recuerda nada entre recargas, y la pantalla lo dice.
+ */
+export function browserStorage() {
+  if (typeof window === "undefined") return null;
+  try {
+    const storage = window.localStorage;
+    // Algunos navegadores dan el objeto y fallan al USARLO: se prueba una vez.
+    storage.getItem("gridiron-probe");
+    return storage;
+  } catch {
+    return null;
+  }
+}
+
 export const PREFIX = "gridiron-draft-v2";
 export const LEGACY_KEY = "gridiron-draft-v1";
 

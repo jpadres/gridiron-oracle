@@ -41,7 +41,7 @@ import {
   ROSTER, SOURCE, fold, isMyTurn, pickLabel, providerEvents, replayState, slotForOverall,
   takeEvent, undoEvent, untilMyTurn,
 } from "./draftLog.js";
-import { loadOrMigrateLog, logScopeFor, saveLog } from "./draftStorage.js";
+import { browserStorage, loadOrMigrateLog, logScopeFor, saveLog } from "./draftStorage.js";
 // El reloj del pick: puro, en draftSync, y probado con node --test.
 import { agoLabel, clockLabel, pickClock } from "./draftSync.js";
 import {
@@ -212,7 +212,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
   // Se lee después de montar: en el servidor no hay `localStorage`, y pintar
   // cosas distintas en los dos sitios rompe la hidratación.
   useEffect(() => {
-    const storage = typeof window === "undefined" ? null : window.localStorage;
+    const storage = browserStorage();
     // La MISMA carga que hace el board, y por eso está en `draftStorage`. Antes
     // cada pantalla decidía por su cuenta qué heredar de las marcas v2, así que
     // cada una se construía su propia versión del mismo draft.
@@ -222,7 +222,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
 
   useEffect(() => {
     if (!ready) return;
-    saveLog(scope, events, typeof window === "undefined" ? null : window.localStorage);
+    saveLog(scope, events, browserStorage());
   }, [scope, events, ready]);
 
   // K y DST fichables, aparte del board de VOR: no tienen valor calculado y no

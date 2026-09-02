@@ -31,6 +31,7 @@ import {
   updateBet,
 } from "./bankroll.js";
 import { gameLeans, propLean, rankedLeans } from "./leans.js";
+import { browserStorage } from "../fantasy/draftStorage.js";
 
 const PROP_CATEGORIES = [
   { key: "proj_pass_yds", label: "Passing yards", positions: ["QB"], decimals: 1 },
@@ -68,7 +69,7 @@ export default function BettingShell({ predictions, weekly, context, markets = [
   const [category, setCategory] = useState("proj_pass_yds");
   const [newMonth, setNewMonth] = useState({ month: currentMonthId(), starting: "" });
 
-  const storage = typeof window === "undefined" ? null : window.localStorage;
+  const storage = browserStorage();
   const linesKey = `gridiron-prop-lines-v1:${context.season}-w${context.week}`;
 
   useEffect(() => {

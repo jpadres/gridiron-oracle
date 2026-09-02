@@ -27,6 +27,7 @@ import { useEffect, useMemo, useState } from "react";
 import { num } from "../../../data/model.js";
 import { Headshot } from "../../headshot.jsx";
 import { TeamMark } from "../../sports.jsx";
+import { browserStorage } from "../draftStorage.js";
 import { loadAccount, ownershipLabel, ownershipOf } from "../sleeperAccount.js";
 
 const OFFENSE = ["QB", "RB", "WR", "TE"];
@@ -85,7 +86,7 @@ export default function WeeklyExplorer({
   const [account, setAccount] = useState(null);
   const [leagueId, setLeagueId] = useState("");
   useEffect(() => {
-    const storage = typeof window === "undefined" ? null : window.localStorage;
+    const storage = browserStorage();
     const saved = loadAccount(storage);
     setAccount(saved);
     let wanted = "";
@@ -96,7 +97,7 @@ export default function WeeklyExplorer({
   }, []);
   const pickLeague = (id) => {
     setLeagueId(id);
-    try { window.localStorage.setItem("gridiron-weekly-league-v1", id); } catch { /* privado */ }
+    try { browserStorage()?.setItem("gridiron-weekly-league-v1", id); } catch { /* privado */ }
   };
   const league = useMemo(
     () => (account?.leagues ?? []).find((l) => l.leagueId === leagueId) ?? null,

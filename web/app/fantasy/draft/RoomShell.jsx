@@ -25,7 +25,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import DraftRoom from "../DraftRoom.jsx";
 // La misma constante que lee el board para saber en qué draft está: si cada
 // pantalla escribiera la suya, volverían a ser dos contextos con un nombre.
-import { ROOM_LEAGUE_KEY as KEY, loadPrefs, saveLeagueToCatalog } from "../draftStorage.js";
+import { ROOM_LEAGUE_KEY as KEY, browserStorage, loadPrefs, saveLeagueToCatalog } from "../draftStorage.js";
 import {
   activeBoardFrom, leagueBoardFrom, rosterContext, rosterFromCounts, setComponentOrder,
 } from "../leagueValue.js";
@@ -86,7 +86,7 @@ const BLANK = {
 function load() {
   if (typeof window === "undefined") return null;
   try {
-    const raw = window.localStorage.getItem(KEY);
+    const raw = browserStorage()?.getItem(KEY);
     return raw ? JSON.parse(raw) : null;
   } catch {
     return null;
@@ -120,12 +120,12 @@ export default function RoomShell({ board, context }) {
       setLeague(saved);
       // Rellenar el catálogo con la liga activa que ya existía: las ligas
       // configuradas antes de que hubiera catálogo también son ligas.
-      saveLeagueToCatalog(saved, window.localStorage);
+      saveLeagueToCatalog(saved, browserStorage());
     } else {
       // Si ya conectaste Sleeper en el Draft Board, el formulario llega
       // relleno. Vivían en dos claves distintas y NADA las puenteaba, así que
       // había que teclear la liga dos veces — o, peor, no encontrar dónde.
-      const prefs = loadPrefs(window.localStorage);
+      const prefs = loadPrefs(browserStorage());
       if (prefs?.league) {
         setDraft((d) => ({
           ...d, leagueId: String(prefs.league), userId: String(prefs.userId ?? ""),
@@ -168,11 +168,11 @@ export default function RoomShell({ board, context }) {
     setLeague(complete);
     setEditing(false);
     try {
-      window.localStorage.setItem(KEY, JSON.stringify(complete));
+      browserStorage()?.setItem(KEY, JSON.stringify(complete));
       // La clave activa dice EN QUÉ liga estás; el catálogo recuerda TODAS las
       // que has configurado. Cambiar de liga deja de borrar a la anterior del
       // mapa — que era la limitación que impedía un centro de mando.
-      saveLeagueToCatalog(complete, window.localStorage);
+      saveLeagueToCatalog(complete, browserStorage());
     } catch { /* modo privado: se puede draftear igual, sin recordar la liga */ }
   }, []);
 

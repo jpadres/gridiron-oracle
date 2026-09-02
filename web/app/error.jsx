@@ -73,9 +73,12 @@ export default function Error({ error, reset }) {
     <div className="state">
       <h1>This page could not load</h1>
       <p>
-        Two things can cause this. Either the page failed while unpacking the model
-        data — retrying fixes that — or the league setup saved in <em>this browser</em>{" "}
-        is incomplete, and then retrying reads the same bad setup and fails again.
+        Three things can cause this. The page failed while unpacking the model data —
+        retrying fixes that. The league setup saved in <em>this browser</em> is
+        incomplete — then retrying reads the same bad setup and fails again. Or this
+        browser blocks site storage (Chrome with all cookies blocked, a company policy,
+        some private modes) — the details below say <code>SecurityError</code>; allow
+        storage for this site or use another browser.
       </p>
       <p className="state-actions">
         <button type="button" className="retry" onClick={reset}>

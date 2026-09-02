@@ -45,7 +45,7 @@ import { Headshot } from "../../headshot.jsx";
 import {
   attentionItems, labelFor, leagueSnapshot, sortAttention, sortLeagues,
 } from "../attention.js";
-import { ROOM_LEAGUE_KEY, knownLeagues, saveLeagueToCatalog, scopeFor } from "../draftStorage.js";
+import { ROOM_LEAGUE_KEY, browserStorage, knownLeagues, saveLeagueToCatalog, scopeFor } from "../draftStorage.js";
 import { agoLabel } from "../draftSync.js";
 import {
   activeBoardFrom, assignSlots, leagueBoardFrom, rosterContext, setComponentOrder,
@@ -62,14 +62,14 @@ import { dedicatedStarters, depthByTeam, matchupView, weeklyIndex } from "../lea
 const FANTASY = ["QB", "RB", "WR", "TE"];
 
 function storageOrNull() {
-  return typeof window === "undefined" ? null : window.localStorage;
+  return browserStorage();
 }
 
 /** Abrir una liga = hacerla la ACTIVA del Draft Room y navegar. */
 function openInRoom(config) {
   if (!config) return;
   try {
-    window.localStorage.setItem(ROOM_LEAGUE_KEY, JSON.stringify(config));
+    browserStorage()?.setItem(ROOM_LEAGUE_KEY, JSON.stringify(config));
   } catch { /* modo privado: se navega igual y la antesala preguntará */ }
   window.location.href = "/fantasy/draft";
 }
