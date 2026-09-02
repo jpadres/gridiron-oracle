@@ -42,6 +42,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 // barrido de QA anterior había corregido en el resto de la web.
 import { num } from "../../data/model.js";
 import { TeamMark, teamVars } from "../sports.jsx";
+import { Headshot } from "../headshot.jsx";
 import {
   activeIdentity, loadOrMigrateLog, loadPrefs, logScopeFor, migrateLegacy, savePrefs,
   saveLog,
@@ -539,7 +540,8 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
           <p className="eyebrow">Best available by VOR</p>
           <div className="onclock-body">
             <span className="rank-numeral rank-numeral--hero">{onClock.position_rank}</span>
-            <div className="onclock-who">
+            <div className="onclock-who hs-who">
+              <Headshot sid={onClock.sid} team={onClock.team} position={onClock.position} name={onClock.player_full_name ?? onClock.player_name} size={56} className="hs--hero" />
               <h3 className="onclock-name">{onClock.player_full_name ?? onClock.player_name}</h3>
               <p className="onclock-meta">
                 <TeamMark abbr={onClock.team} solid />
@@ -585,7 +587,8 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
             {next.map((row, index) => (
               <li key={row.player_id} className="pick" style={teamVars(row.team)}>
                 <span className="pick-rank">{index + 2}</span>
-                <span className="pick-who">
+                <span className="pick-who hs-who">
+                  <Headshot sid={row.sid} team={row.team} position={row.position} name={row.player_full_name ?? row.player_name} size={32} />
                   <span className="nm">{row.player_full_name ?? row.player_name}</span>
                   <span className="meta">
                     <TeamMark abbr={row.team} />
@@ -830,7 +833,8 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
             {found.map((row) => (
               <li className="pick" key={row.player_id}>
                 <span className="pick-rank">{row.overall_rank}</span>
-                <span className="pick-who">
+                <span className="pick-who hs-who">
+                  <Headshot sid={row.sid} team={row.team} position={row.position} name={row.player_full_name ?? row.player_name} size={28} />
                   <span className="nm">{row.player_name}</span>
                   <span className="meta">
                     {row.position}

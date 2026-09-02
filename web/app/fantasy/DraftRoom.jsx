@@ -36,6 +36,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { num } from "../../data/model.js";
 import { TeamMark, teamVars } from "../sports.jsx";
+import { Headshot } from "../headshot.jsx";
 import {
   ROSTER, SOURCE, fold, isMyTurn, pickLabel, providerEvents, replayState, slotForOverall,
   takeEvent, undoEvent, untilMyTurn,
@@ -668,7 +669,8 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                   className={index === 0 ? "is-top" : undefined}>
                 <button type="button" className="room-cand" onClick={() => record(entry.row)}>
                   <span className="room-cand-rank">{entry.row.overall_rank}</span>
-                  <span className="room-cand-who">
+                  <span className="room-cand-who hs-who">
+                    <Headshot sid={entry.row.sid} team={entry.row.team} position={entry.row.position} name={entry.row.player_full_name ?? entry.row.player_name} size={40} />
                     <span className="nm">{entry.row.player_full_name ?? entry.row.player_name}</span>
                     <span className="meta">
                       <TeamMark abbr={entry.row.team} />
@@ -800,7 +802,8 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                     <button type="button" className="room-row" disabled={replaying}
                             onClick={() => record(entry.row)}>
                       <span className="room-row-rank">{entry.row.overall_rank ?? "—"}</span>
-                      <span className="room-row-who">
+                      <span className="room-row-who hs-who">
+                        <Headshot sid={entry.row.sid} team={entry.row.team} position={entry.row.position} name={entry.row.player_full_name ?? entry.row.player_name} size={32} />
                         <span className="nm">
                           {entry.row.player_full_name ?? entry.row.player_name}
                         </span>
@@ -953,6 +956,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                       </span>
                       {entry.player ? (
                         <>
+                          <Headshot sid={entry.player.sid} team={entry.player.team} position={entry.player.position} name={entry.player.player_full_name ?? entry.player.player_name} size={24} />
                           <span className="nm">
                             {entry.player.player_full_name ?? entry.player.player_name}
                             {/* En un hueco flexible, la posición REAL del
@@ -999,6 +1003,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                             <span className={`ptag ptag--${row.position.toLowerCase()}`}>
                               {row.position}
                             </span>
+                            <Headshot sid={row.sid} team={row.team} position={row.position} name={row.player_full_name ?? row.player_name} size={24} />
                             <span className="nm">{row.player_full_name ?? row.player_name}</span>
                             <TeamMark abbr={row.team} />
                             {context.byes?.[row.team] ? (
@@ -1027,6 +1032,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                         <span className={`ptag ptag--${row.position.toLowerCase()}`}>
                           {row.position}
                         </span>
+                        <Headshot sid={row.sid} team={row.team} position={row.position} name={row.player_full_name ?? row.player_name} size={24} />
                         <span className="nm">{row.player_full_name ?? row.player_name}</span>
                         <TeamMark abbr={row.team} />
                         {context.byes?.[row.team] ? (

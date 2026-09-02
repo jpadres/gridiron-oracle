@@ -7,6 +7,7 @@
 import { Fragment } from "react";
 
 import { pct } from "../data/model.js";
+import { Headshot } from "./headshot.jsx";
 
 export function Callout({ title, children }) {
   return (
@@ -187,7 +188,8 @@ export function RankTable({
                 ) : null}
                 <tr>
                   <td className="rk">{row.rank ?? index + 1}</td>
-                  <td className="who">
+                  <td className="who hs-who">
+                    <Headshot sid={row.sid} team={row.team} position={row.position} name={row.player_full_name ?? row.player_name} size={32} />
                     <span className="nm">
                       {row.player_name}
                       {hasNote ? (

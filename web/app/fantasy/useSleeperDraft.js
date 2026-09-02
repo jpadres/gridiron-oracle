@@ -75,7 +75,9 @@ const SLEEPER = "https://api.sleeper.app/v1";
 export const POLL_MS = 15000;
 
 async function getJSON(url) {
-  const response = await fetch(url);
+  // Sólo a Sleeper: otro host es un error de programación, no una petición.
+  if (!url.startsWith(SLEEPER)) throw new Error(`refusing to fetch outside Sleeper: ${url}`);
+  const response = await fetch(url); // SLEEPER: CI lee esta línea
   if (!response.ok) throw new Error(`${url.replace(SLEEPER, "")} returned ${response.status}`);
   return response.json();
 }

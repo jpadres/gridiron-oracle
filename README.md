@@ -432,7 +432,11 @@ es viable.
 Lo que eso cuesta y lo que no:
 
 - `connect-src` deja de estar vacío. Sigue siendo una **lista blanca de un solo
-  destino**: cualquier otro host lo bloquea el navegador.
+  destino**: cualquier otro host lo bloquea el navegador. Desde septiembre
+  `img-src` admite además `sleepercdn.com`, y sólo ahí: las fotos de los
+  jugadores se cargan por `sleeper_id` desde el CDN de Sleeper, sin referrer y
+  sin credenciales. Dos dominios, cada uno en su directiva, y CI comprueba que
+  no haya un tercero ni uno de ellos fuera de su sitio.
 - **No viaja ninguna credencial.** La API de Sleeper es pública y de sólo
   lectura: sin clave, sin OAuth, nada que rotar. Lo único que sale del navegador
   es el id de tu liga o tu nombre de usuario, que ya son públicos en la URL de

@@ -30,7 +30,10 @@ const CSP = [
   // 'unsafe-inline' la página no arranca. No se usa 'unsafe-eval'.
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data:",
+  // Las fotos de los jugadores, por `sleeper_id`, desde el CDN de Sleeper. Es
+  // el SEGUNDO dominio externo y sólo puede estar aquí: CI comprueba que la
+  // CSP lista exactamente estos dos, cada uno en su directiva.
+  "img-src 'self' data: https://sleepercdn.com",
   "font-src 'self'",
   // Sleeper y nada más. `connect-src` es una lista blanca: cualquier otro
   // destino sigue bloqueado por el navegador, así que un fallo o una dependencia

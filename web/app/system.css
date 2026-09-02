@@ -1063,6 +1063,12 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 
 .room-row {
   display: grid; grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+  /* Las MARCAS (NEWS, RISK, PRIOR, ROOKIE) son hijas directas de la fila y van
+     entre el nombre y el VOR. Sin esto, con tres columnas declaradas la cuarta
+     hija saltaba de línea y el VOR de un jugador con noticia aparecía DEBAJO,
+     a la izquierda: una fila con dos números en sitios distintos. Las columnas
+     implícitas van en fila y miden lo que ocupan; el VOR es la última. */
+  grid-auto-flow: column; grid-auto-columns: max-content;
   align-items: center; gap: var(--space-3);
   width: 100%; padding: var(--space-3); min-height: 56px;
   background: none; border: none; text-align: left; cursor: pointer;
@@ -1814,3 +1820,29 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-cell.is-mine { outline: 1px solid var(--chalk-dim); outline-offset: -1px; }
 /* El pick actual no se marca sólo con color: lleva su propio borde grueso. */
 .room-cell.is-now { outline: 2px solid var(--live); outline-offset: -2px; }
+
+/* --- LA FOTO DEL JUGADOR --------------------------------------------------
+   Por `sleeper_id` desde el CDN de Sleeper (ver headshot.jsx). Redonda,
+   pequeña y con las iniciales de respaldo: decora la fila, no la manda. Un
+   contenedor `.hs-who` es una parrilla de dos columnas con la foto a la
+   izquierda y nombre + meta apilados a la derecha, sin tocar el resto. */
+.hs {
+  flex: none; border-radius: 50%; object-fit: cover; object-position: top;
+  background: var(--field-raised); vertical-align: middle;
+  /* Un borde fino: sobre un fondo realzado (la fila héroe) el círculo vacío
+     era invisible mientras cargaba la foto. */
+  border: 1px solid var(--yard-line); box-sizing: border-box;
+}
+.hs--team { object-fit: contain; padding: 2px; background: #fff; }
+.hs--empty {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--chalk-dim);
+}
+.hs-who {
+  display: grid; grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--space-2); align-items: center;
+}
+.hs-who > .hs { grid-row: 1 / span 4; }
+.hs--hero { box-shadow: 0 0 0 2px var(--team, var(--yard-line)); }
+.room-roster li .hs { margin-right: 4px; }

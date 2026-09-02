@@ -66,10 +66,12 @@ README y verificado en CI.
 **La excepción de red, desde agosto de 2026:** el modo draft consulta
 `api.sleeper.app` en runtime para tachar los picks ya hechos, y desde
 septiembre `/fantasy/leagues` lee la cuenta enlazada (ligas, plantillas, mocks)
-por el mismo adaptador. Es el **único** destino externo de todo el sitio.
-Antes de añadir un segundo, ten claro que ahora mismo tres controles de CI
-comprueban que no exista: el dominio único en la CSP, que esté sólo en
-`connect-src`, y que `fetch` no aparezca fuera de `DraftMode.jsx` y
+por el mismo adaptador. Es el **único** destino de datos de todo el sitio.
+Las fotos de los jugadores (`headshot.jsx`) vienen de `sleepercdn.com` por
+`sleeper_id`, y ese dominio sólo puede estar en `img-src`. Antes de añadir
+un tercero, ten claro que ahora mismo tres controles de CI comprueban que no
+exista: exactamente esos dos dominios en la CSP, cada uno sólo en su
+directiva, y que `fetch` no aparezca fuera de `DraftMode.jsx` y
 `useSleeperDraft.js` (el adaptador; la traducción vive en `sleeperAccount.js`,
 sin red, para poder probarla con `node --test`). Están escritos como lista
 blanca a propósito — un control que se relaja hasta no comprobar nada es peor

@@ -46,7 +46,43 @@ function decode() {
   }
 }
 
-export const model = decode();
+/**
+ * El `sleeper_id` de cada fila, HORNEADO en el build.
+ *
+ * El payload trae el mapa `sleeper_id -> player_id` para el adaptador; aquí se
+ * invierte una vez y cada fila con `player_id` recibe su `sid`. Es lo que
+ * permite pintar la foto de un jugador por identificador sin una sola
+ * petición a la API y sin adivinar por nombre. Una fila sin id en el mapa se
+ * queda sin `sid`, y la interfaz enseña iniciales.
+ */
+function attachSleeperIds(payload) {
+  const map = payload?.fantasy?.sleeper_ids;
+  if (!map || typeof map !== "object") return payload;
+  const sidOf = new Map();
+  for (const [sid, playerId] of Object.entries(map)) sidOf.set(String(playerId), String(sid));
+  const mark = (rows) => {
+    if (!Array.isArray(rows)) return;
+    for (const row of rows) {
+      if (row && typeof row === "object" && row.player_id != null && !row.sid) {
+        const sid = sidOf.get(String(row.player_id));
+        if (sid) row.sid = sid;
+      }
+    }
+  };
+  const f = payload.fantasy ?? {};
+  mark(f.board);
+  mark(f.rookies);
+  mark(f.specialists?.kickers);
+  mark(f.specialists?.defenses);
+  const w = payload.fantasy_weekly ?? {};
+  if (Array.isArray(w.rankings)) mark(w.rankings);
+  else if (w.rankings && typeof w.rankings === "object") Object.values(w.rankings).forEach(mark);
+  mark(w.kickers);
+  mark(w.defenses);
+  return payload;
+}
+
+export const model = attachSleeperIds(decode());
 
 export const hasData = !model.placeholder && model.predictions.length > 0;
 

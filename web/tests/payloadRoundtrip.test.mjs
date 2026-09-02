@@ -24,6 +24,15 @@ const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const { model: payload } = await import(path.join(WEB, "data/model.js"));
 const fantasy = payload.fantasy;
 
+test("las filas del board llevan su `sid` de Sleeper horneado por model.js", () => {
+  // Es lo que permite la foto por identificador sin pedir nada a la API. Los
+  // que no están en el mapa se quedan sin `sid` (iniciales), nunca con el de otro.
+  const withSid = fantasy.board.filter((row) => row.sid);
+  assert.ok(withSid.length > fantasy.board.length * 0.7, `${withSid.length} de ${fantasy.board.length}`);
+  for (const row of withSid) assert.equal(fantasy.sleeper_ids[row.sid], row.player_id, row.player_name);
+  for (const row of fantasy.specialists.defenses) assert.ok(row.sid, row.player_id);
+});
+
 test("el payload declara el orden de los componentes", () => {
   // El navegador NO supone el orden: lo lee. Si Python añade uno en medio y el
   // array se lee por posición, sin esto todos los valores se desplazan.

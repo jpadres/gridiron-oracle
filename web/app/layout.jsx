@@ -94,8 +94,9 @@ export default function RootLayout({ children }) {
             </p>
             <p>
               Static site: no accounts, no database. The only network requests at runtime
-              go to Sleeper&rsquo;s public API — the draft sync and the linked-account view on
-              Leagues — and only if you turn them on. No other page requests anything.
+              go to Sleeper: its public API for the draft sync and the linked-account view on
+              Leagues, only if you turn them on, and its CDN for player photos on the fantasy
+              pages. Nothing else is requested.
             </p>
             <BuildStamp />
           </footer>

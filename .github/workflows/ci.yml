@@ -118,24 +118,33 @@ jobs:
             fail=1
           fi
 
-          # La CSP lista **exactamente un** dominio externo, y sólo en connect-src:
-          # api.sleeper.app, para que el modo draft lea los picks en vivo.
+          # La CSP lista **exactamente dos** dominios externos, cada uno en UNA
+          # directiva: api.sleeper.app sólo en connect-src (el modo draft y la
+          # cuenta enlazada leen la API pública) y sleepercdn.com sólo en img-src
+          # (las fotos de los jugadores, por `sleeper_id`).
           #
           # El control no se ha quitado, se ha vuelto una lista blanca: cualquier
-          # otro dominio, o Sleeper apareciendo en una directiva que no sea
-          # connect-src (script-src, por ejemplo, que sería mucho peor), falla el
+          # otro dominio, o uno de estos apareciendo en una directiva que no sea
+          # la suya (script-src, por ejemplo, que sería mucho peor), falla el
           # build. Un control que se relaja «porque ahora hace falta una
           # excepción» y pasa a no comprobar nada es peor que no tenerlo, porque
           # deja la sensación de que algo vigila.
           csp=$(grep -i "content-security-policy:" <<< "$headers")
           externos=$(grep -oE "https?://[a-zA-Z0-9.-]+" <<< "$csp" | sort -u)
-          if [ "$externos" != "https://api.sleeper.app" ]; then
+          esperados=$(printf "https://api.sleeper.app\nhttps://sleepercdn.com")
+          if [ "$externos" != "$esperados" ]; then
             echo "Dominios externos inesperados en la CSP:"
             echo "$externos"
             fail=1
           fi
-          if ! grep -qE "connect-src [^;]*https://api\.sleeper\.app" <<< "$csp"; then
+          if ! grep -qE "connect-src [^;]*https://api\.sleeper\.app" <<< "$csp" \
+             || [ "$(grep -o "https://api.sleeper.app" <<< "$csp" | wc -l)" != "1" ]; then
             echo "api.sleeper.app tiene que estar en connect-src y en ninguna otra directiva."
+            fail=1
+          fi
+          if ! grep -qE "img-src [^;]*https://sleepercdn\.com" <<< "$csp" \
+             || [ "$(grep -o "https://sleepercdn.com" <<< "$csp" | wc -l)" != "1" ]; then
+            echo "sleepercdn.com tiene que estar en img-src y en ninguna otra directiva."
             fail=1
           fi
 

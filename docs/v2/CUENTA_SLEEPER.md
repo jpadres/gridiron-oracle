@@ -36,7 +36,8 @@ deje una plantilla congelada con el VOR de la semana pasada.
 | `tools/lab/cuenta.mjs` | Laboratorio en navegador: enlazar, paneles, mock seguido en vivo, recarga | Doble compartido |
 
 CI sigue comprobando que `fetch` sólo aparece en los dos ficheros del adaptador
-y que el único host es `api.sleeper.app`.
+y que el único host de datos es `api.sleeper.app` (las fotos van aparte, por
+`img-src`; ver el final).
 
 ## El panel de una liga: hechos, no consejo
 
@@ -115,3 +116,23 @@ Con el doble compartido (`sleeper-double.mjs`, ahora con `/user/.../leagues`,
   en ese campo y sigue; no inventa 12 equipos PPR.
 - Transacciones, alineaciones y enfrentamientos siguen `false` en
   `providers.js`: la API los publica y nadie los ha validado aquí.
+
+## Las fotos de los jugadores (`headshot.jsx`, 2 de septiembre)
+
+Por **identificador**, no por nombre: `data/model.js` invierte el mapa
+`sleeper_ids` en el build y deja `row.sid` en cada fila del board, de los
+especialistas y del ranking semanal. La miniatura es
+`sleepercdn.com/content/nfl/players/thumb/<sid>.jpg`; una defensa lleva el
+escudo `images/team_logos/nfl/<equipo>.png`. Sin `sid` (los novatos del fondo
+del board que el mapa no cubre) se pintan las iniciales, nunca la cara de otro.
+
+Lo que cuesta: `sleepercdn.com` es el **segundo dominio externo** del sitio, y
+sólo puede estar en `img-src`. La CSP y CI lo listan como lista blanca de dos
+destinos, cada uno en su directiva, y CI falla si aparece un tercero o uno de
+los dos fuera de su sitio. La imagen se pide sin referrer y sin credenciales;
+si el CDN no responde, `onError` cambia la foto por las iniciales.
+
+Lo que NO se pudo comprobar desde el contenedor de desarrollo: el proxy bloquea
+`sleepercdn.com`, así que los laboratorios ven las iniciales de respaldo, no las
+fotos. El patrón de URL es el público de Sleeper; la primera visita desde un
+navegador real lo confirma o el `onError` lo tapa.

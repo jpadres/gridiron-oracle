@@ -25,6 +25,7 @@
 import { useMemo, useState } from "react";
 
 import { num } from "../../../data/model.js";
+import { Headshot } from "../../headshot.jsx";
 import { TeamMark } from "../../sports.jsx";
 
 const OFFENSE = ["QB", "RB", "WR", "TE"];
@@ -149,7 +150,8 @@ export default function WeeklyExplorer({
               {rows.slice(0, 80).map((row) => (
                 <tr key={row.player_id}>
                   <td className="rk">{row.shown_rank}</td>
-                  <td className="who">
+                  <td className="who hs-who">
+                    <Headshot sid={row.sid} team={row.team} position={row.position} name={row.player_name} size={32} />
                     <span className="nm">
                       {row.player_name}
                       <RowMarks id={row.player_id} notes={notes} news={news}
@@ -201,7 +203,8 @@ export default function WeeklyExplorer({
               <tbody>
                 {kickers.map((k) => (
                   <tr key={k.player_id}>
-                    <td className="who">
+                    <td className="who hs-who">
+                      <Headshot sid={k.sid} team={k.team} position="K" name={k.player_full_name ?? k.player_name} size={28} />
                       <span className="nm">
                         {k.player_full_name ?? k.player_name}
                         <RowMarks id={k.player_id} notes={notes} news={news}

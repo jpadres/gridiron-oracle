@@ -41,6 +41,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { num } from "../../../data/model.js";
 import { TeamMark } from "../../sports.jsx";
+import { Headshot } from "../../headshot.jsx";
 import {
   attentionItems, labelFor, leagueSnapshot, sortAttention, sortLeagues,
 } from "../attention.js";
@@ -563,7 +564,8 @@ function LeaguePanel({ panel, live, byes }) {
               {group.rows.map((row) => (
                 <li key={row.player_id} className={`cc-player${row.starter ? " cc-player--starter" : ""}`}>
                   <span className={`ptag ptag--${row.position.toLowerCase()}`}>{row.position}</span>
-                  <span className="cc-player-who">
+                  <span className="cc-player-who hs-who">
+                    <Headshot sid={row.sid} team={row.team} position={row.position} name={row.player_full_name ?? row.player_name} size={32} />
                     <span className="nm">{row.player_full_name ?? row.player_name}</span>
                     <span className="meta">
                       <TeamMark abbr={row.team} />
@@ -593,7 +595,8 @@ function LeaguePanel({ panel, live, byes }) {
               {specialists.map((row) => (
                 <li key={row.player_id} className={`cc-player${row.starter ? " cc-player--starter" : ""}`}>
                   <span className={`ptag ptag--${String(row.position).toLowerCase()}`}>{row.position}</span>
-                  <span className="cc-player-who">
+                  <span className="cc-player-who hs-who">
+                    <Headshot sid={row.sid} team={row.team} position={row.position} name={row.player_full_name ?? row.player_name} size={32} />
                     <span className="nm">{row.player_full_name ?? row.player_name}</span>
                     <span className="meta">
                       <TeamMark abbr={row.team} />
