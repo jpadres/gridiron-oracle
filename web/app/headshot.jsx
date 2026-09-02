@@ -23,19 +23,27 @@
  * iniciales y no se rompe nada.
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { headshotUrl, initials, isDefense } from "./headshot.js";
 
 /**
  * `size` en píxeles. Decorativa: el nombre va al lado, así que `alt` es vacío
  * y un lector de pantalla no oye el nombre dos veces.
+ *
+ * La `<img>` se crea DESPUÉS de montar. En una página estática el navegador
+ * pide la imagen del HTML antes de que React se hidrate, y si falla en ese
+ * hueco el `onError` nunca corre: quedaba el icono de imagen rota en vez de
+ * las iniciales. Con las iniciales como estado inicial y la foto creada en el
+ * cliente, el fallo siempre tiene quien lo escuche.
  */
 export function Headshot({ sid, team, position, name, size = 36, className = "" }) {
   const [failed, setFailed] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
   const url = headshotUrl({ sid, team, position });
   const style = { width: size, height: size };
-  if (!url || failed) {
+  if (!mounted || !url || failed) {
     return (
       <span className={`hs hs--empty ${className}`.trim()} style={style} aria-hidden="true">
         {initials(name)}
