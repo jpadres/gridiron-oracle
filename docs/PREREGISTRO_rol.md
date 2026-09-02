@@ -485,3 +485,89 @@ Como se compite contra un empate, la magnitud no basta: hace falta
   ruidosa— tampoco.
 
 Umbral fijado antes de correr; el resultado se publica salga como salga.
+
+## La curva de edad, medida por ORDEN con el instrumento corregido
+
+Instrumento: `scripts/age_curve_value.py` y `scripts/value_captured_by_season.py`,
+los dos con `validate()` ya igualado a producción. Pool congelado, k de la
+estructura, board con y sin `ages=`. **No se toca la curva; esto es medición.**
+
+### Con curva y sin curva, temporada a temporada (valor capturado)
+
+| posición | temporada | con curva | sin curva | la curva vale |
+|---|---|---|---|---|
+| QB | 2022 | 0,744 | 0,617 | +0,127 |
+| QB | 2023 | 0,743 | 0,656 | +0,087 |
+| QB | 2024 | 0,856 | 0,856 | 0,000 |
+| QB | 2025 | 0,376 | 0,397 | −0,021 |
+| RB | 2022 | 0,864 | 0,864 | 0,000 |
+| RB | 2023 | 0,662 | 0,718 | **−0,056** |
+| RB | 2024 | 0,796 | 0,883 | **−0,087** |
+| RB | 2025 | 0,830 | 0,773 | **+0,057** |
+| TE | 2022 | 0,903 | 0,903 | 0,000 |
+| TE | 2023 | 0,852 | 0,733 | +0,119 |
+| TE | 2024 | 0,600 | 0,600 | 0,000 |
+| TE | 2025 | 0,575 | 0,684 | −0,109 |
+| WR | 2022 | 0,867 | 0,857 | +0,010 |
+| WR | 2023 | 0,910 | 0,935 | −0,025 |
+| WR | 2024 | 0,728 | 0,728 | 0,000 |
+| WR | 2025 | 0,836 | 0,836 | 0,000 |
+
+Medias: QB +0,048 [−0,021, +0,127] · RB **−0,022** [−0,087, +0,057] ·
+TE +0,002 [−0,109, +0,119] · WR −0,004 [−0,025, +0,010].
+
+Lectura por la regla del proyecto: **la curva no ayuda en todas las temporadas
+en ninguna posición**. Donde más se nota es donde se diseñó, RB, y ahí es
+NEGATIVA de media: dos temporadas de coste claro (2023, 2024) contra una de
+ganancia (2025). En QB suma, pero por dos temporadas y con un −0,021 en 2025.
+Por MAE la curva estaba validada; por ORDEN es mixta. Es el mismo patrón que el
+ancla (E-ancla, rechazado) y que el castigo plano al mover (E22, cerrado):
+**calibrar el nivel no es ordenar**.
+
+### RB de 29+ en el pool: ¿Henry es un caso o hay más?
+
+| temporada | RB 29+ en pool | superaron su curva | sacados del top-24 por la curva | de esos, en el top real | VOR que costaron | de esos, valieron 0 |
+|---|---|---|---|---|---|---|
+| 2022 | 10 de 55 | 2 | 1 (Gordon) | 0 | 0 | 1 |
+| 2023 | 6 de 48 | 3 | 0 | 0 | 0 | 0 |
+| 2024 | 9 de 49 | 6 | 4 | 3 (Henry, Conner, Jones) | **358** (16,5% del mejor VOR) | 1 (Mostert) |
+| 2025 | 8 de 43 | 2 | 4 | 1 (Henry) | **136** (5,3%) | 3 (Conner, Jones, Ekeler) |
+
+«Superar su curva» = puntos reales por encima de la proyección CON curva.
+**13 de 33** RB de 29+ la superaron en las cuatro temporadas; los otros 20
+rindieron por debajo, y la mayoría de ésos valieron cero VOR (retiro, corte,
+suplencia). La curva acierta en la MASA y falla en la CABEZA: quita del top-24
+al que va a rendir y al que va a valer cero con el mismo factor.
+
+Henry es el caso repetido y el único que cuesta de verdad: a los 31 (2024) la
+curva lo baja del #8 al #30 y realiza 381 puntos (VOR 206, el mejor RB del
+año); a los 32 (2025) del #4 al #27 y realiza 280 (VOR 136). Sin curva estaba
+dentro las dos veces. Conner y Jones a los 29-30 en 2024 son el mismo fallo a
+menor escala (78 y 75 de VOR); un año después, a los 30-31, valieron cero —
+que es lo que la curva predice, un año tarde.
+
+### Lo que entra cuando sale un veterano
+
+El coste neto no es el del veterano: es el veterano menos el que ocupa su
+hueco. 2024: salen Henry, Conner, Jones, Mostert (358 de VOR); entran Cook
+(148), B.Robinson (15), Walker (5), J.Williams (0) = 169. Neto **−189
+(−0,087)**. 2025: salen Henry, Stevenson, Conner, Jones, Ekeler (225); entran
+C.Brown (140), Etienne (134), J.Williams (100), B.Robinson (0), Dobbins (0) =
+373. Neto **+148 (+0,057)**. 2023: sale B.Hall a los 22 (el ajuste del
+segundo año le quita el 5%, VOR 145) y Elliott (29); entran Singletary (50)
+y Pierce (0). Neto **−124 (−0,056)**.
+
+Es decir: la curva mueve a **ocho y diez jugadores** por temporada en la
+frontera del top-24 y el saldo depende de quién esté justo detrás. En 2025
+detrás había tres breakouts jóvenes; en 2024, uno.
+
+### Lo que NO dice esta medición
+
+- No dice que la curva sobre. Sin curva, Kamara (2025, 101 pts), Mixon (0),
+  Conner (33), Ekeler (13) están en el top-13 del board: la curva los baja y
+  acierta. Lo que falla es que baja a Henry con el mismo factor.
+- No dice qué factor es el bueno. Un cambio de pendiente o de suelo se
+  valida como todo lo demás: preregistro, umbral fijado antes y las cuatro
+  temporadas. Este documento no lo propone.
+- Cuatro temporadas, 33 corredores de 29+, un caso dominante. La medición
+  está; el tamaño no da para más que esto.
