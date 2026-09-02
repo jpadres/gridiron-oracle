@@ -1,0 +1,71 @@
+name: Inspeccionar Sleeper
+
+# Manual. Vuelca la FORMA REAL de lo que Sleeper devuelve para una cuenta: sus
+# ligas, sus drafts sueltos (donde viven los mocks) y el draft más reciente con
+# sus primeros picks. Sirve para comparar el doble de laboratorio con el
+# original cuando el asistente «se comporta raro» en un mock: desde el
+# contenedor de desarrollo la API no es alcanzable, y adivinar la forma de una
+# respuesta es exactamente cómo un doble acaba probando otra cosa.
+#
+# Sólo lectura, endpoints públicos, sin clave. No escribe nada en el repo.
+
+on:
+  workflow_dispatch:
+    inputs:
+      username:
+        description: "Nombre de usuario de Sleeper"
+        required: true
+      season:
+        description: "Temporada"
+        required: false
+        default: "2026"
+      draft_id:
+        description: "Id de un draft concreto (opcional; si no, el más reciente del usuario)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  inspeccionar:
+    name: Forma real de la cuenta y del draft
+    runs-on: ubuntu-latest
+    steps:
+      - name: Volcar
+        env:
+          USERNAME: ${{ inputs.username }}
+          SEASON: ${{ inputs.season }}
+          DRAFT_ID: ${{ inputs.draft_id }}
+        run: |
+          set -e
+          api="https://api.sleeper.app/v1"
+          get() { curl -sS --max-time 20 "$1"; }
+          echo "== /user/$USERNAME"
+          user=$(get "$api/user/$USERNAME")
+          echo "$user" | jq '{user_id, username, display_name}'
+          uid=$(echo "$user" | jq -r '.user_id')
+          if [ -z "$uid" ] || [ "$uid" = "null" ]; then echo "usuario no encontrado"; exit 1; fi
+
+          echo; echo "== /user/$uid/leagues/nfl/$SEASON (id, nombre, tamaño, draft_id, status)"
+          get "$api/user/$uid/leagues/nfl/$SEASON" \
+            | jq '[.[] | {league_id, name, total_rosters, draft_id, status, roster_positions: (.roster_positions|length), scoring_keys: (.scoring_settings|keys|length)}]'
+
+          echo; echo "== /user/$uid/drafts/nfl/$SEASON (los MOCKS tienen league_id null)"
+          drafts=$(get "$api/user/$uid/drafts/nfl/$SEASON")
+          echo "$drafts" | jq '[.[] | {draft_id, league_id, status, type, season, created, teams: .settings.teams, rounds: .settings.rounds, pick_timer: .settings.pick_timer, slots: (.settings|with_entries(select(.key|startswith("slots_")))), scoring_type: .metadata.scoring_type, name: .metadata.name, has_order: (.draft_order != null), last_picked}]'
+
+          if [ -n "$DRAFT_ID" ]; then did="$DRAFT_ID"; else
+            did=$(echo "$drafts" | jq -r 'sort_by(.created) | reverse | .[0].draft_id // empty')
+          fi
+          if [ -z "$did" ]; then echo "sin drafts"; exit 0; fi
+
+          echo; echo "== /draft/$did (claves de primer nivel, y lo que el adaptador lee)"
+          draft=$(get "$api/draft/$did")
+          echo "$draft" | jq 'keys'
+          echo "$draft" | jq '{draft_id, league_id, status, type, season, last_picked, settings, metadata, draft_order, slot_to_roster_id}'
+
+          echo; echo "== /draft/$did/picks (primeros 5, y cuántos)"
+          picks=$(get "$api/draft/$did/picks")
+          echo "$picks" | jq 'length'
+          echo "$picks" | jq '.[0:5] | [.[] | {pick_no, round, draft_slot, roster_id, picked_by, player_id, is_keeper, metadata: (.metadata | {first_name, last_name, position, team})}]'

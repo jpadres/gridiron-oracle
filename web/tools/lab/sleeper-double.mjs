@@ -175,6 +175,17 @@ export async function montar(ctx, ligas) {
         ? json({ user_id: USER_ID, username: USERNAME, display_name: USERNAME })
         : route.fulfill({ status: 404, body: "null" });
     }
+    if ((m = /\/league\/([^/?]+)\/matchups\/(\d+)/.exec(url))) {
+      // Enfrentamientos de la semana: el roster 1 contra el 2, el 3 contra el
+      // 4… con los titulares que cada uno tiene en su plantilla.
+      const L = porLiga[m[1]];
+      if (!L) return route.fulfill({ status: 404, body: "[]" });
+      if (L.caido) return caido();
+      return json(L.rosters.map((r) => ({
+        roster_id: r.roster_id, matchup_id: Math.ceil(r.roster_id / 2),
+        starters: r.starters, players: r.players, points: 0,
+      })));
+    }
     if ((m = /\/league\/([^/?]+)\/users/.exec(url))) {
       const L = porLiga[m[1]];
       if (!L) return route.fulfill({ status: 404, body: "[]" });

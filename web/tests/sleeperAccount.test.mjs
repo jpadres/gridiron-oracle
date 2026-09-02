@@ -19,10 +19,13 @@ import {
   leagueConfigFrom,
   leagueSnapshotFrom,
   loadAccount,
+  matchupFrom,
   mockDrafts,
   mockLeagueId,
   mockScoringSettings,
   myRosterOf,
+  ownershipLabel,
+  ownershipOf,
   rosterFromDraftSettings,
   rosterView,
   saveAccount,
@@ -288,4 +291,52 @@ test("un almacenamiento roto no tumba la página", () => {
   assert.equal(loadAccount(broken), null);
   assert.equal(saveAccount({ username: "a" }, broken), false);
   assert.equal(loadAccount(null), null);
+});
+
+// --- todas las plantillas, el enfrentamiento y la propiedad -------------
+
+const MATCHUPS = [
+  { roster_id: 1, matchup_id: 1, starters: ["4046"], players: ["4046"], points: 0 },
+  { roster_id: 3, matchup_id: 1, starters: ["6794", "ARI"], players: ["6794", "4046x", "ARI", "11631"], points: 0 },
+  { roster_id: 5, matchup_id: 2, starters: [], players: [], points: 0 },
+];
+
+test("la instantánea lleva TODAS las plantillas por id, con dueño y récord", () => {
+  const snap = leagueSnapshotFrom({
+    league: LEAGUE, draft: DRAFT, rosters: ROSTERS, users: USERS, userId: ME, season: 2026,
+  });
+  assert.equal(snap.teams.length, 2);
+  const rival = snap.teams.find((t) => t.rosterId === 1);
+  assert.equal(rival.owner, "rival");
+  assert.deepEqual(rival.players, ["4046"]);
+  assert.deepEqual(rival.record, { wins: 3, losses: 1, ties: 0 });
+  assert.equal(snap.teams.find((t) => t.rosterId === 3).owner, "Los Padres");
+});
+
+test("el enfrentamiento de la semana: mi roster y el rival con el mismo matchup_id", () => {
+  const m = matchupFrom({ matchups: MATCHUPS, rosterId: 3, week: 1 });
+  assert.equal(m.opponentRosterId, 1);
+  assert.deepEqual(m.myStarters, ["6794", "ARI"]);
+  assert.deepEqual(m.opponentStarters, ["4046"]);
+  assert.equal(m.week, 1);
+});
+
+test("sin rival (bye) o sin matchups no hay enfrentamiento inventado", () => {
+  assert.equal(matchupFrom({ matchups: MATCHUPS, rosterId: 5, week: 1 }).opponentRosterId, null);
+  assert.equal(matchupFrom({ matchups: null, rosterId: 3, week: 1 }), null);
+  assert.equal(matchupFrom({ matchups: MATCHUPS, rosterId: 9, week: 1 }), null);
+  assert.equal(matchupFrom({ matchups: MATCHUPS, rosterId: null, week: 1 }), null);
+});
+
+test("propiedad por id: mío, de otro o AGENTE LIBRE en esa liga", () => {
+  const snap = leagueSnapshotFrom({
+    league: LEAGUE, draft: DRAFT, rosters: ROSTERS, users: USERS, userId: ME, season: 2026,
+  });
+  const ownership = ownershipOf(snap);
+  assert.deepEqual(ownershipLabel({ ownership, sid: "6794", myRosterId: 3 }), { status: "MINE", rosterId: 3 });
+  assert.deepEqual(ownershipLabel({ ownership, sid: "4046", myRosterId: 3 }), { status: "TAKEN", rosterId: 1 });
+  assert.deepEqual(ownershipLabel({ ownership, sid: "9999", myRosterId: 3 }), { status: "FREE_AGENT", rosterId: null });
+  assert.equal(ownershipLabel({ ownership, sid: null, myRosterId: 3 }), null);
+  // Una defensa se posee por código de equipo, que es su id en Sleeper.
+  assert.equal(ownershipLabel({ ownership, sid: "ARI", myRosterId: 3 }).status, "MINE");
 });

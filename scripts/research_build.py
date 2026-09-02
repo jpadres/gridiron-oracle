@@ -5,7 +5,7 @@
     out/research.json          ventana de los últimos días, la lee export_web_data.py
 
 Lo que hace, en orden: lee los titulares que ya se publicaron los días
-anteriores, barre once beats (ocho divisiones y tres temas transversales)
+anteriores, barre catorce beats (ocho divisiones y seis temas transversales)
 buscando en internet, quita repetidos, cuelga cada ficha de los jugadores del
 ranking semanal que le correspondan, y guarda.
 

@@ -22,11 +22,12 @@
  * después, nunca al revés.
  */
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { num } from "../../../data/model.js";
 import { Headshot } from "../../headshot.jsx";
 import { TeamMark } from "../../sports.jsx";
+import { loadAccount, ownershipLabel, ownershipOf } from "../sleeperAccount.js";
 
 const OFFENSE = ["QB", "RB", "WR", "TE"];
 const CHIPS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
@@ -57,6 +58,19 @@ function RowMarks({ id, notes, news, availability }) {
   );
 }
 
+/**
+ * La marca de propiedad de una fila EN LA LIGA ACTIVA: mío, agente libre o
+ * de otro (con su dueño). Sale de la instantánea de la cuenta enlazada, por
+ * `sleeper_id`; sin cuenta o sin id no se pinta nada, que es la verdad.
+ */
+function OwnMark({ own, owners }) {
+  if (!own) return null;
+  if (own.status === "MINE") return <span className="own own--mine" title="On your roster in this league">MINE</span>;
+  if (own.status === "FREE_AGENT") return <span className="own own--fa" title="Not on any roster in this league">FA</span>;
+  const who = owners?.[String(own.rosterId)] ?? `roster ${own.rosterId}`;
+  return <span className="own own--taken" title={`On ${who}'s roster`}>{who}</span>;
+}
+
 export default function WeeklyExplorer({
   rankings, kickers, defenses, notes = {}, news = {}, availability = {},
 }) {
@@ -64,6 +78,37 @@ export default function WeeklyExplorer({
   // elegirlo todo explícitamente equivale a no filtrar.
   const [picked, setPicked] = useState(() => new Set());
   const [detail, setDetail] = useState(false);
+
+  // LA LIGA ACTIVA del ranking. La cuenta enlazada se lee después de montar
+  // (en el servidor no hay localStorage) y la liga elegida se recuerda por
+  // navegador. Sin cuenta, el ranking es el de siempre y no marca nada.
+  const [account, setAccount] = useState(null);
+  const [leagueId, setLeagueId] = useState("");
+  useEffect(() => {
+    const storage = typeof window === "undefined" ? null : window.localStorage;
+    const saved = loadAccount(storage);
+    setAccount(saved);
+    let wanted = "";
+    try { wanted = storage?.getItem("gridiron-weekly-league-v1") ?? ""; } catch { /* privado */ }
+    const leagues = saved?.leagues ?? [];
+    const first = leagues.find((l) => l.leagueId === wanted) ?? leagues[0];
+    setLeagueId(first?.leagueId ?? "");
+  }, []);
+  const pickLeague = (id) => {
+    setLeagueId(id);
+    try { window.localStorage.setItem("gridiron-weekly-league-v1", id); } catch { /* privado */ }
+  };
+  const league = useMemo(
+    () => (account?.leagues ?? []).find((l) => l.leagueId === leagueId) ?? null,
+    [account, leagueId]
+  );
+  const ownership = useMemo(() => (league ? ownershipOf(league) : null), [league]);
+  const ownersByRoster = useMemo(() => {
+    const out = {};
+    for (const team of league?.teams ?? []) out[String(team.rosterId)] = team.owner ?? `roster ${team.rosterId}`;
+    return out;
+  }, [league]);
+  const ownOf = (sid) => (league ? ownershipLabel({ ownership, sid, myRosterId: league.rosterId }) : null);
 
   const toggle = (chip) => {
     setPicked((prev) => {
@@ -98,6 +143,22 @@ export default function WeeklyExplorer({
 
   return (
     <section className="wk">
+      {account?.leagues?.length ? (
+        <div className="wk-league">
+          <label htmlFor="wk-league">
+            League
+            <select id="wk-league" value={leagueId} onChange={(e) => pickLeague(e.target.value)}>
+              {account.leagues.map((l) => (
+                <option key={l.leagueId} value={l.leagueId}>{l.name ?? l.leagueId}</option>
+              ))}
+            </select>
+          </label>
+          <span className="caption">
+            <b className="own own--mine">MINE</b> on your roster · <b className="own own--fa">FA</b>{" "}
+            free agent in this league · otherwise the owner. From Sleeper as last read on Leagues.
+          </span>
+        </div>
+      ) : null}
       <div className="wk-bar">
         <div className="pos-filter" role="group" aria-label="Filter by position">
           {CHIPS.map((chip) => (
@@ -154,6 +215,7 @@ export default function WeeklyExplorer({
                     <Headshot sid={row.sid} team={row.team} position={row.position} name={row.player_name} size={32} />
                     <span className="nm">
                       {row.player_name}
+                      <OwnMark own={ownOf(row.sid)} owners={ownersByRoster} />
                       <RowMarks id={row.player_id} notes={notes} news={news}
                                 availability={availability} />
                     </span>
@@ -207,6 +269,7 @@ export default function WeeklyExplorer({
                       <Headshot sid={k.sid} team={k.team} position="K" name={k.player_full_name ?? k.player_name} size={28} />
                       <span className="nm">
                         {k.player_full_name ?? k.player_name}
+                        <OwnMark own={ownOf(k.sid)} owners={ownersByRoster} />
                         <RowMarks id={k.player_id} notes={notes} news={news}
                                   availability={availability} />
                       </span>
@@ -254,7 +317,10 @@ export default function WeeklyExplorer({
                 {defenses.map((d) => (
                   <tr key={d.team}>
                     <td className="who">
-                      <span className="nm"><TeamMark abbr={d.team} solid /> {d.team}</span>
+                      <span className="nm">
+                        <TeamMark abbr={d.team} solid /> {d.team}
+                        <OwnMark own={ownOf(d.team)} owners={ownersByRoster} />
+                      </span>
                     </td>
                     <td className="wk-proj"><strong>{num(d.opponent_implied, 1)}</strong></td>
                     <td>{d.is_home === 0 ? "@" : "vs"} {d.opponent}</td>

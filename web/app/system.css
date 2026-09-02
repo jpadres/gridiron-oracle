@@ -1862,3 +1862,38 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-cell .hs { display: block; margin: 0 auto 2px; }
 .room-feed li .hs { margin-right: 6px; }
 .room-until-t .room-timer { display: flex; margin-left: 0; margin-top: 2px; }
+
+.state-details { margin: var(--space-3) 0; max-width: 72ch; }
+.state-details pre {
+  white-space: pre-wrap; word-break: break-word; font-size: var(--text-micro);
+  background: var(--field-raised); padding: var(--space-2); border-radius: 4px;
+}
+
+/* --- PROPIEDAD EN LA LIGA ACTIVA: mío, agente libre, de otro --------------- */
+.own {
+  display: inline-block; margin-left: 6px; padding: 0 4px; border-radius: 2px;
+  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
+  vertical-align: middle; white-space: nowrap;
+}
+.own--mine { color: #fff; background: var(--live); }
+.own--fa { color: var(--live); border: 1px solid currentColor; }
+.own--taken { color: var(--chalk-dim); border: 1px solid var(--yard-line); font-weight: 600; letter-spacing: 0; text-transform: none; max-width: 12ch; overflow: hidden; text-overflow: ellipsis; }
+.wk-league { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); align-items: center; margin-bottom: var(--space-3); }
+.wk-league label { display: flex; gap: var(--space-2); align-items: center; font-weight: var(--weight-semibold); }
+.wk-league select { font: inherit; padding: 4px 8px; }
+
+/* --- EL ENFRENTAMIENTO Y LA PROFUNDIDAD ----------------------------------- */
+.cc-matchup { margin-top: var(--space-3); border-top: 1px dashed var(--yard-line); padding-top: var(--space-3); }
+.cc-matchup h4 { margin: 0 0 var(--space-2); font-size: var(--text-dense); }
+.cc-matchup-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+.cc-lineup { list-style: none; margin: 0; padding: 0; font-size: var(--text-micro); }
+.cc-lineup li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--space-2); align-items: center; padding: 2px 0; border-top: 1px solid var(--yard-line); }
+.cc-lineup li.is-unknown { color: var(--chalk-dim); }
+.cc-lineup-total { font-family: var(--face-display); font-weight: 700; font-size: var(--text-lead); font-variant-numeric: tabular-nums; }
+.cc-lineup-total small { font-family: inherit; font-weight: 400; font-size: var(--text-micro); color: var(--chalk-dim); margin-left: 6px; }
+.cc-depth { width: 100%; border-collapse: collapse; font-size: var(--text-micro); margin-top: var(--space-2); }
+.cc-depth th, .cc-depth td { padding: 3px 6px; text-align: right; border-top: 1px solid var(--yard-line); font-variant-numeric: tabular-nums; }
+.cc-depth th:first-child, .cc-depth td:first-child { text-align: left; }
+.cc-depth tr.is-mine td { background: var(--field-raised); font-weight: var(--weight-semibold); }
+.cc-depth td small { color: var(--chalk-dim); }
+@media (max-width: 640px) { .cc-matchup-grid { grid-template-columns: minmax(0, 1fr); } }

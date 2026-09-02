@@ -279,7 +279,7 @@ export function clearAccount(storage) {
  * vigente— para que un payload nuevo no deje una plantilla vieja congelada
  * con el VOR de la semana pasada.
  */
-export function leagueSnapshotFrom({ league, draft, rosters, users, userId, season }) {
+export function leagueSnapshotFrom({ league, draft, rosters, users, userId, season, matchups = null, week = null }) {
   const mine = myRosterOf(rosters, userId);
   const config = leagueConfigFrom({
     league, draft, userId, rosterId: mine?.roster_id ?? null, season,
@@ -291,6 +291,19 @@ export function leagueSnapshotFrom({ league, draft, rosters, users, userId, seas
   const record = mine?.settings && Number.isFinite(Number(mine.settings.wins))
     ? { wins: Number(mine.settings.wins), losses: Number(mine.settings.losses ?? 0), ties: Number(mine.settings.ties ?? 0) }
     : null;
+  // TODAS las plantillas, por identificador: es lo que permite decir en el
+  // ranking semanal quién es mío, quién es agente libre y quién es de quién,
+  // y medir la profundidad de cada equipo. Sólo ids: unos 200 por liga.
+  const teams = Array.isArray(rosters) ? rosters.map((r) => ({
+    rosterId: r?.roster_id ?? null,
+    ownerId: r?.owner_id != null ? String(r.owner_id) : null,
+    owner: r?.owner_id != null ? (owners[String(r.owner_id)] ?? String(r.owner_id)) : null,
+    players: Array.isArray(r?.players) ? r.players.map(String) : [],
+    starters: Array.isArray(r?.starters) ? r.starters.map(String) : [],
+    record: r?.settings && Number.isFinite(Number(r.settings.wins))
+      ? { wins: Number(r.settings.wins), losses: Number(r.settings.losses ?? 0), ties: Number(r.settings.ties ?? 0) }
+      : null,
+  })) : null;
   return {
     leagueId: config?.leagueId ?? null,
     draftId: config?.draftId ?? null,
@@ -302,7 +315,55 @@ export function leagueSnapshotFrom({ league, draft, rosters, users, userId, seas
     record,
     owners,
     rosterCount: Array.isArray(rosters) ? rosters.length : null,
+    teams,
+    matchup: matchupFrom({ matchups, rosterId: mine?.roster_id ?? null, week }),
   };
+}
+
+/**
+ * Mi enfrentamiento de la semana desde `/league/{id}/matchups/{week}`.
+ *
+ * Sleeper devuelve una entrada por roster con `matchup_id`; los dos con el
+ * mismo id se enfrentan. Devuelve el roster rival y los titulares que cada
+ * uno tiene ALINEADOS esa semana (por id), o `null` si no se puede establecer
+ * — una semana de descanso, sin matchups todavía, o sin mi roster.
+ */
+export function matchupFrom({ matchups, rosterId, week }) {
+  if (!Array.isArray(matchups) || rosterId == null) return null;
+  const mine = matchups.find((m) => String(m?.roster_id) === String(rosterId));
+  if (!mine || mine.matchup_id == null) return null;
+  const rival = matchups.find((m) =>
+    String(m?.matchup_id) === String(mine.matchup_id) && String(m?.roster_id) !== String(rosterId));
+  return {
+    week: week ?? null,
+    matchupId: String(mine.matchup_id),
+    myStarters: Array.isArray(mine.starters) ? mine.starters.map(String) : [],
+    myPoints: Number.isFinite(Number(mine.points)) ? Number(mine.points) : null,
+    opponentRosterId: rival?.roster_id ?? null,
+    opponentStarters: Array.isArray(rival?.starters) ? rival.starters.map(String) : [],
+    opponentPoints: rival && Number.isFinite(Number(rival.points)) ? Number(rival.points) : null,
+  };
+}
+
+/**
+ * Quién tiene a cada jugador en una liga: `sleeper_id` -> rosterId.
+ * Un id que no está en ningún roster es AGENTE LIBRE en esa liga.
+ */
+export function ownershipOf(snapshot) {
+  const map = new Map();
+  for (const team of snapshot?.teams ?? []) {
+    for (const id of team.players ?? []) map.set(String(id), team.rosterId);
+  }
+  return map;
+}
+
+/** MINE / FREE_AGENT / TAKEN (con el rosterId del dueño), por id. */
+export function ownershipLabel({ ownership, sid, myRosterId }) {
+  if (!sid || !ownership) return null;
+  const owner = ownership.get(String(sid));
+  if (owner === undefined) return { status: "FREE_AGENT", rosterId: null };
+  if (myRosterId != null && String(owner) === String(myRosterId)) return { status: "MINE", rosterId: owner };
+  return { status: "TAKEN", rosterId: owner };
 }
 
 export const DEFAULT_RULES_FOR_TESTS = DEFAULT_RULES;

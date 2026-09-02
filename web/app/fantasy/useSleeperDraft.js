@@ -374,7 +374,7 @@ export function useSleeperDraft(pool, { leagueId, draftId: wantedDraftId, season
  * lectura entera: una liga con `/rosters` caído sigue existiendo, con su
  * plantilla UNKNOWN.
  */
-export async function readSleeperAccount({ username, season }) {
+export async function readSleeperAccount({ username, season, week = null }) {
   const name = String(username ?? "").trim();
   if (!name) throw new Error("no Sleeper username");
   const user = await getJSON(`${SLEEPER}/user/${encodeURIComponent(name)}`);
@@ -387,14 +387,19 @@ export async function readSleeperAccount({ username, season }) {
   ]);
   const detailed = await Promise.all(leagues.map(async (league) => {
     const id = String(league.league_id);
-    const [rosters, users, draft] = await Promise.all([
+    const [rosters, users, draft, matchups] = await Promise.all([
       getJSON(`${SLEEPER}/league/${id}/rosters`).then(list).catch(() => null),
       getJSON(`${SLEEPER}/league/${id}/users`).then(list).catch(() => null),
       league.draft_id
         ? getJSON(`${SLEEPER}/draft/${league.draft_id}`).catch(() => null)
         : Promise.resolve(null),
+      // El enfrentamiento de la semana que publica el payload. Sin semana
+      // no se pide: adivinarla daría el rival de otra jornada.
+      week
+        ? getJSON(`${SLEEPER}/league/${id}/matchups/${week}`).then(list).catch(() => null)
+        : Promise.resolve(null),
     ]);
-    return { league, rosters, users, draft };
+    return { league, rosters, users, draft, matchups };
   }));
   return {
     user: {

@@ -12,14 +12,41 @@
  * los límites de error no existen en el servidor.
  */
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+/**
+ * Lo que se enseña del error: mensaje y las primeras líneas de la pila.
+ *
+ * Antes la página escondía la excepción y sólo la mandaba a la consola, así
+ * que un fallo que dependía del estado guardado en UN navegador era imposible
+ * de diagnosticar desde fuera: el dueño veía «could not load» y nadie más
+ * veía nada. El sitio no tiene backend al que mandarlo; lo que sí puede es
+ * enseñarlo y dejar copiarlo.
+ */
+function details(error) {
+  const message = String(error?.message ?? error ?? "unknown error");
+  const stack = String(error?.stack ?? "").split("\n").slice(1, 7).join("\n");
+  const digest = error?.digest ? `digest ${error.digest}` : "";
+  return [message, digest, stack].filter(Boolean).join("\n");
+}
 
 export default function Error({ error, reset }) {
+  const [copied, setCopied] = useState(false);
   useEffect(() => {
     // A la consola y no a un servicio: el sitio no tiene backend y no va a
     // adquirir uno para esto. Quien depure, lo tiene delante.
     console.error("Page failed to render:", error);
   }, [error]);
+
+  const copy = async () => {
+    const text = `${details(error)}\nbuild ${process.env.NEXT_PUBLIC_BUILD_SHA ?? ""} · ${window.location.pathname}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  };
 
   /**
    * La segunda salida, que faltaba.
@@ -58,6 +85,13 @@ export default function Error({ error, reset }) {
           Reset league setup on this device
         </button>
       </p>
+      <details className="state-details" open>
+        <summary>What failed</summary>
+        <pre>{details(error)}</pre>
+        <button type="button" className="link" onClick={copy}>
+          {copied ? "copied" : "copy details"}
+        </button>
+      </details>
       <p className="caption">
         Resetting clears your league settings and Sleeper connection on this device
         only — <strong>recorded picks are kept</strong>, and you can set the league up

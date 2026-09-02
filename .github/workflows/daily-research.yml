@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       beats:
-        description: "Beats a barrer, separados por comas (vacío = los once)"
+        description: "Beats a barrer, separados por comas (vacío = los catorce)"
         required: false
       effort:
         description: "Profundidad: low, medium, high"

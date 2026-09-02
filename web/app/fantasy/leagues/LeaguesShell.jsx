@@ -57,6 +57,7 @@ import {
   leagueSnapshotFrom, loadAccount, mockDrafts, rosterView, saveAccount,
 } from "../sleeperAccount.js";
 import { readSleeperAccount } from "../useSleeperDraft.js";
+import { dedicatedStarters, depthByTeam, matchupView, weeklyIndex } from "../leagueWeek.js";
 
 const FANTASY = ["QB", "RB", "WR", "TE"];
 
@@ -105,6 +106,9 @@ export default function LeaguesShell({ board, context }) {
     return [...board, ...(s?.kickers ?? []), ...(s?.defenses ?? []), ...(context.rookies ?? [])];
   }, [board, context.specialists, context.rookies]);
   const index = useMemo(() => buildIndex(pool, context.sleeperIds), [pool, context.sleeperIds]);
+  // El ranking SEMANAL publicado, por sleeper_id: es lo que pone puntos a una
+  // alineación y a la profundidad de cada equipo. Sin semanal, no hay números.
+  const weekly = useMemo(() => weeklyIndex(context.weekly, context.weeklyKickers), [context.weekly, context.weeklyKickers]);
 
   /**
    * Enlazar (o refrescar): UNA lectura de la cuenta entera. Cada liga entra en
@@ -117,11 +121,14 @@ export default function LeaguesShell({ board, context }) {
     setLinking(true);
     setLinkError("");
     try {
-      const read = await readSleeperAccount({ username: wanted, season: context.season });
+      const read = await readSleeperAccount({
+        username: wanted, season: context.season, week: context.week ?? null,
+      });
       const storage = storageOrNull();
-      const leagues = read.leagues.map(({ league, draft, rosters, users }) => {
+      const leagues = read.leagues.map(({ league, draft, rosters, users, matchups }) => {
         const snap = leagueSnapshotFrom({
           league, draft, rosters, users, userId: read.user.userId, season: context.season,
+          matchups, week: context.week ?? null,
         });
         if (snap.config?.leagueId && snap.config?.draftId) saveLeagueToCatalog(snap.config, storage);
         return snap;
@@ -218,9 +225,13 @@ export default function LeaguesShell({ board, context }) {
       const scope = config ? scopeFor({
         platform: "sleeper", season: config.season, leagueId: config.leagueId, draftId: config.draftId,
       }) : null;
-      return { snap, config, view, players, openStarters, valueLabel, scope };
+      const matchup = weekly.size ? matchupView({ snapshot: snap, index: weekly }) : null;
+      const depth = weekly.size && snap.teams?.length
+        ? depthByTeam({ snapshot: snap, index: weekly, starters: dedicatedStarters(config?.roster) })
+        : null;
+      return { snap, config, view, players, openStarters, valueLabel, scope, matchup, depth };
     });
-  }, [account, board, context, index]);
+  }, [account, board, context, index, weekly]);
 
   const covered = useMemo(() => new Set(panels.map((p) => p.scope).filter(Boolean)), [panels]);
   const rest = useMemo(() => snapshots.filter((s) => !covered.has(s.scope)), [snapshots, covered]);
@@ -376,7 +387,8 @@ export default function LeaguesShell({ board, context }) {
               <h2>Your leagues</h2>
               {panels.map((panel) => (
                 <LeaguePanel key={panel.scope ?? panel.snap.leagueId} panel={panel}
-                             live={byScope.get(panel.scope) ?? null} byes={context.byes} />
+                             live={byScope.get(panel.scope) ?? null} byes={context.byes}
+                             week={context.week ?? null} />
               ))}
             </section>
           ) : null}
@@ -484,8 +496,8 @@ function DraftState({ snapshot }) {
  * por id con el VOR de ESTA liga, y los hechos que se preguntan en un draft:
  * ¿ya tengo defensa? ¿pateador? ¿cuántos huecos titulares quedan?
  */
-function LeaguePanel({ panel, live, byes }) {
-  const { snap, config, view, players, openStarters, valueLabel } = panel;
+function LeaguePanel({ panel, live, byes, week }) {
+  const { snap, config, view, players, openStarters, valueLabel, matchup, depth } = panel;
   const status = config?.status ?? null;
   const byPosition = FANTASY.map((position) => ({
     position, rows: players.filter((row) => row.position === position),
@@ -612,6 +624,91 @@ function LeaguePanel({ panel, live, byes }) {
       ) : rosterKnown ? (
         <p className="caption">No players on this roster yet.</p>
       ) : null}
+
+      {/* EL ENFRENTAMIENTO DE LA SEMANA. Titulares tal y como están alineados
+          en Sleeper, con la proyección semanal publicada de cada uno. Lo que
+          no tiene proyección (defensa, hueco vacío, id desconocido) se dice
+          y no cuenta como cero. Es una comparación de proyecciones, no un
+          pronóstico del partido: nadie ha validado la suma de titulares. */}
+      {matchup ? (
+        <div className="cc-matchup">
+          <h4>
+            Week {matchup.week ?? week ?? "?"} · vs {matchup.rivalName}
+            {matchup.rivalRecord ? ` (${matchup.rivalRecord.wins}-${matchup.rivalRecord.losses}${matchup.rivalRecord.ties ? `-${matchup.rivalRecord.ties}` : ""})` : ""}
+          </h4>
+          <div className="cc-matchup-grid">
+            <Lineup title="Your starters" lineup={matchup.mine} />
+            <Lineup title={`${matchup.rivalName}'s starters`} lineup={matchup.rival} />
+          </div>
+          <p className="caption">
+            Projected points are the published weekly projection per starter, summed.
+            Starters without a projection (defenses, empty slots, unmapped ids) are
+            counted, not scored. A sum of projections is not a validated game forecast.
+          </p>
+        </div>
+      ) : snap.matchup === null && week ? (
+        <p className="caption">No matchup for week {week} in this league (bye, or Sleeper has not published it).</p>
+      ) : null}
+
+      {/* PROFUNDIDAD POR EQUIPO. Hechos para pensar un trade: cuántos tiene
+          cada uno en cada posición y cuánto proyectan sus mejores N esta
+          semana. Dónde sobra y dónde falta se lee; «ofrécele X» no se dice. */}
+      {depth ? (
+        <details className="cc-depth-wrap">
+          <summary>League depth by position · who is deep, who is thin</summary>
+          <div className="table-wrap">
+            <table className="cc-depth">
+              <thead>
+                <tr>
+                  <th>Team</th>
+                  {FANTASY.map((p) => <th key={p}>{p} <small>top {depth[0]?.positions[p]?.starters ?? 1}</small></th>)}
+                  <th>Rostered</th>
+                </tr>
+              </thead>
+              <tbody>
+                {depth.map((team) => (
+                  <tr key={team.rosterId} className={team.mine ? "is-mine" : undefined}>
+                    <td>{team.owner ?? `roster ${team.rosterId}`}{team.mine ? " (you)" : ""}
+                      {team.record ? <small> {team.record.wins}-{team.record.losses}</small> : null}</td>
+                    {FANTASY.map((p) => (
+                      <td key={p}>{num(team.positions[p].top, 1)} <small>×{team.positions[p].count}</small></td>
+                    ))}
+                    <td>{team.size}{team.unknown ? <small> · {team.unknown} no proj</small> : null}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="caption">
+            Points are this week&rsquo;s projected total of each team&rsquo;s best N at the
+            position (N = the league&rsquo;s dedicated starters); ×n is how many they roster.
+            Defenses and players without a weekly projection are in &ldquo;no proj&rdquo;.
+          </p>
+        </details>
+      ) : null}
     </article>
+  );
+}
+
+/** Una alineación con su suma y lo que no se pudo proyectar. */
+function Lineup({ title, lineup }) {
+  return (
+    <div>
+      <p className="cc-lineup-total">
+        {num(lineup.projected, 1)}
+        <small>{title} · {lineup.count} starters{lineup.unknown ? ` · ${lineup.unknown} no proj` : ""}</small>
+      </p>
+      <ol className="cc-lineup">
+        {lineup.rows.map((entry, i) => (
+          <li key={`${entry.sid ?? "empty"}-${i}`} className={entry.points == null ? "is-unknown" : undefined}>
+            <span className={`ptag ptag--${String(entry.row?.position ?? (entry.empty ? "bn" : "def")).toLowerCase()}`}>
+              {entry.row?.position ?? (entry.empty ? "—" : "?")}
+            </span>
+            <span>{entry.row?.player_full_name ?? entry.row?.player_name ?? (entry.empty ? "empty slot" : `id ${entry.sid}`)}</span>
+            <span>{entry.points != null ? num(entry.points, 1) : "no proj"}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }

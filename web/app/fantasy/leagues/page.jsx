@@ -27,6 +27,12 @@ export default function LeaguesPage() {
       board={fantasy.board ?? []}
       context={{
         season: fantasy.season,
+        // La jornada del ranking semanal publicado: es la que se pide a
+        // Sleeper para el enfrentamiento, y la que da la proyección de cada
+        // titular. Sin ranking semanal no hay semana y no hay matchup.
+        week: model.fantasy_weekly?.week ?? null,
+        weekly: model.fantasy_weekly?.rankings ?? null,
+        weeklyKickers: model.fantasy_weekly?.kickers ?? null,
         byes: fantasy.byes ?? null,
         sleeperIds: fantasy.sleeper_ids ?? null,
         specialists: fantasy.specialists ?? null,

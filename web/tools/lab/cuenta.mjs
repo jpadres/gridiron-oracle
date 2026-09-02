@@ -75,7 +75,8 @@ for (const row of mine1) {
   no += 1;
 }
 const myRoster1 = L1.rosters.find((r) => r.roster_id === 7);
-myRoster1.starters = myRoster1.players.slice(0, 3);
+// Titulares: tres jugadores y la defensa, para que la alineación tenga algo SIN proyección.
+myRoster1.starters = [...myRoster1.players.slice(0, 3), myRoster1.players[3]];
 myRoster1.settings = { wins: 2, losses: 1, ties: 0 };
 
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: "reduce" });
@@ -125,6 +126,37 @@ const sync = await page.locator(".cc-sync").innerText();
 check("la frescura dice «synced … ago» y nunca LIVE", /synced/.test(sync) && !/LIVE/i.test(sync), sync);
 check("la página entera no escribe LIVE", !/\bLIVE\b/.test(await page.locator(".cc").innerText()));
 await page.screenshot({ path: `${OUT}/cuenta-1440-linked.png`, fullPage: true });
+
+/* === 1b. el enfrentamiento y la profundidad ============================= */
+console.log("\n=== matchup y profundidad ===");
+const panel1 = page.locator(".cc-panel", { hasText: "Sunday Twelve" });
+check("el panel enseña el enfrentamiento de la semana con el nombre del rival",
+  (await panel1.locator(".cc-matchup").count()) === 1
+  && /vs Team 8/.test(await panel1.locator(".cc-matchup h4").innerText()),
+  (await panel1.locator(".cc-matchup h4").innerText().catch(() => "sin matchup")));
+check("mi alineación suma proyecciones y cuenta lo que no tiene (la defensa)",
+  /no proj/.test(await panel1.locator(".cc-lineup-total").first().innerText()));
+await panel1.locator(".cc-depth-wrap summary").click();
+const depthRows = await panel1.locator(".cc-depth tbody tr").count();
+check("la profundidad lista los 12 equipos y marca el mío", depthRows === 12
+  && (await panel1.locator(".cc-depth tr.is-mine").count()) === 1, `${depthRows}`);
+
+/* === 1c. el semanal marca MINE y FA en la liga elegida =================== */
+await page.goto(`${BASE}/fantasy/semanal`, { waitUntil: "domcontentloaded" });
+await page.waitForSelector("#wk-league", { timeout: 8000 });
+await page.selectOption("#wk-league", "LG12");
+await page.waitForSelector(".own--mine", { timeout: 8000 }).catch(() => {});
+check("el semanal ofrece cambiar de liga y marca MINE en la mía",
+  (await page.locator("#wk-league option").count()) === 2 && (await page.locator(".wk-table .own--mine").count()) >= 2,
+  `${await page.locator(".wk-table .own--mine").count()} MINE`);
+check("y marca FA a los que nadie tiene en esa liga", (await page.locator(".wk-table .own--fa").count()) > 50);
+await page.selectOption("#wk-league", "LG10");
+await page.waitForTimeout(300);
+check("en la liga vacía nadie es MINE y todos son FA",
+  (await page.locator(".wk-table .own--mine").count()) === 0 && (await page.locator(".wk-table .own--fa").count()) > 50);
+await page.screenshot({ path: `${OUT}/cuenta-1440-semanal.png` });
+await page.goto(`${BASE}/fantasy/leagues`, { waitUntil: "domcontentloaded" });
+await page.waitForSelector(".cc-panel", { timeout: 8000 });
 
 /* === 2. los mocks ======================================================== */
 console.log("\n=== el mock ===");

@@ -70,6 +70,37 @@ LEAGUE_BEATS: dict[str, str] = {
         "movimientos de ADP, jugadores infravalorados y sobrevalorados, reparto de "
         "cuotas de uso proyectado, avisos sobre trampas de volumen."
     ),
+    # Desde el 2 de septiembre de 2026, a petición del dueño: el barrido pasa de
+    # tres temas transversales a seis. Más fuentes con nombre, no más ruido: cada
+    # ficha sigue exigiendo procedencia (`evidence_type`) y fecha del hecho, y
+    # NADA de esto entra en un cálculo (regla 8).
+    "analistas": (
+        "Los rankings y análisis de los analistas de fantasy con más reputación y "
+        "sus casas: FantasyPros (consenso ECR y sus expertos), ESPN (Mike Clay, "
+        "Field Yates, Tristan Cockcroft, Eric Karabell), CBS Sports y SportsLine "
+        "(Dave Richard, Jamey Eisenberg, Heath Cummings), Yahoo (Matt Harmon, Scott "
+        "Pianowski, Andy Behrens), NBC/Rotoworld (Denny Carter, Kyle Dvorchak), "
+        "The Athletic (Jake Ciely, Michael Salfino), PFF (Nathan Jahnke), "
+        "FantasyPoints (Scott Barrett, Graham Barfield), 4for4 (John Paulsen), "
+        "Footballguys, Establish The Run (Adam Levitan, Evan Silva), The Fantasy "
+        "Footballers, Underdog (Josh Norris, Hayden Winks), Dynasty Nerds y JJ Zachariason. "
+        "Lo que buscan: cambios de rank con motivo, cuotas de uso proyectadas, "
+        "avisos concretos sobre un jugador. Cada ficha con el analista y el medio."
+    ),
+    "reporteros": (
+        "Los reporteros de equipo (beat writers) de cada franquicia y los medios "
+        "locales: quién entrena y quién no, repeticiones con los titulares, cambios "
+        "en el depth chart oficial, lo que dice el entrenador jefe en rueda de "
+        "prensa sobre el reparto de balones, novatos que suben, veteranos que "
+        "pierden sitio. Nombrar siempre al reportero y al medio."
+    ),
+    "lesiones": (
+        "Partes de lesiones y de práctica OFICIALES de la semana (DNP, limitado, "
+        "completo), designaciones de partido (out, doubtful, questionable), "
+        "jugadores que vuelven de IR/PUP, cirugías y plazos dados por el equipo. "
+        "Distinguir siempre el parte oficial del equipo de lo que espera un "
+        "reportero: no son la misma clase de evidencia."
+    ),
 }
 
 # Esquema de salida. `additionalProperties: False` y `required` completo obligan
@@ -283,7 +314,7 @@ def _reporter_block(reporters: list[dict] | None, beat: str) -> str:
 
 
 def beats(selection: list[str] | None = None) -> dict[str, str]:
-    """Los beats a barrer hoy. Sin selección, los once."""
+    """Los beats a barrer hoy. Sin selección, los catorce."""
     everything = {
         f"{name}": (
             f"los equipos de la {name} de la NFL ({', '.join(teams)}): "
