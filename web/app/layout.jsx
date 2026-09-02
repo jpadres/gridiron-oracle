@@ -93,9 +93,9 @@ export default function RootLayout({ children }) {
               carries a risk of loss.
             </p>
             <p>
-              Static site: no accounts, no database. The only network request at runtime
-              is Draft Mode calling Sleeper&rsquo;s public API, and only if you turn it on.
-              No other page requests anything.
+              Static site: no accounts, no database. The only network requests at runtime
+              go to Sleeper&rsquo;s public API — the draft sync and the linked-account view on
+              Leagues — and only if you turn them on. No other page requests anything.
             </p>
             <BuildStamp />
           </footer>

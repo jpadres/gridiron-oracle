@@ -60,6 +60,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { ROSTER } from "./draftLog.js";
 import { DRAFT_STATUS, mySlot as slotFromDraft, syncState } from "./draftSync.js";
+// El índice de identidad y la traducción de un mock viven en el módulo puro:
+// una implementación para el draft en vivo y para la plantilla de la cuenta.
+import { buildIndex, mockLeagueId, mockScoringSettings, rosterFromDraftSettings }
+  from "./sleeperAccount.js";
 
 // El único destino externo de todo el sitio. La CSP no permite ningún otro, y
 // CI comprueba que `fetch` no aparezca fuera de los ficheros declarados.
@@ -77,29 +81,6 @@ async function getJSON(url) {
 }
 
 /**
- * Índice de identidad: `sleeper_id` -> fila del board.
- *
- * El mapa viaja HORNEADO en el payload (`fantasy.sleeper_ids`), construido en
- * el build desde los rosters de nflverse, que publican `sleeper_id` junto al
- * `gsis_id` que usa el board. Resolver por identificador es lo único correcto:
- * el nombre abreviado no distingue a los dos «B.Robinson» de Atlanta, y en
- * mitad de un draft tachar al jugador equivocado te borra del tablero a alguien
- * que sí puedes elegir.
- *
- * Sin mapa no hay resolución por nombre de repuesto. Se marca UNMAPPED.
- */
-function buildIndex(pool, idMap) {
-  const byPlayerId = new Map();
-  for (const row of pool) byPlayerId.set(String(row.player_id), row);
-  const index = new Map();
-  for (const [sleeperId, playerId] of Object.entries(idMap ?? {})) {
-    const row = byPlayerId.get(String(playerId));
-    if (row) index.set(String(sleeperId), row);
-  }
-  return index;
-}
-
-/**
  * Sincronización con UN draft de Sleeper.
  *
  * Devuelve el estado del sondeo, los picks ya resueltos contra el board y lo
@@ -109,7 +90,7 @@ function buildIndex(pool, idMap) {
  * tablero manual de siempre. Una integración que al romperse se lleva por
  * delante la pantalla no vale para un draft.
  */
-export function useSleeperDraft(pool, { leagueId, season, userId, idMap } = {}) {
+export function useSleeperDraft(pool, { leagueId, draftId: wantedDraftId, season, userId, idMap } = {}) {
   const [status, setStatus] = useState({ state: "idle" });
   const [tick, setTick] = useState(0);
   const index = useMemo(() => buildIndex(pool, idMap), [pool, idMap]);
@@ -128,7 +109,7 @@ export function useSleeperDraft(pool, { leagueId, season, userId, idMap } = {}) 
   }, []);
 
   useEffect(() => {
-    if (!leagueId) {
+    if (!leagueId && !wantedDraftId) {
       setStatus({ state: "idle" });
       return undefined;
     }
@@ -136,42 +117,61 @@ export function useSleeperDraft(pool, { leagueId, season, userId, idMap } = {}) 
     // LO ESTABLE, resuelto una vez y reutilizado en cada sondeo.
     let stable = null;
 
-    /** Liga, rosters, draft e identidad. Una vez por liga. */
+    /** Liga, rosters, draft e identidad. Una vez por liga (o por mock). */
     async function resolveStable() {
-      const league = await getJSON(`${SLEEPER}/league/${leagueId}`);
-      const drafts = await getJSON(`${SLEEPER}/league/${leagueId}/drafts`);
-      if (!Array.isArray(drafts) || drafts.length === 0) {
-        throw new Error("that league has no draft yet");
-      }
-      // El draft de ESTA temporada, prefiriendo el que está en curso. Sin este
-      // filtro, un mock de la semana pasada o el draft del año anterior entran
-      // por la misma puerta y se pintan igual que uno vivo.
-      const wanted = String(season ?? league?.season ?? "");
-      const sameSeason = drafts.filter((d) => !wanted || String(d.season ?? "") === wanted);
-      const pool_ = sameSeason.length > 0 ? sameSeason : drafts;
+      let league = null;
+      let chosen = null;
+      if (leagueId) {
+        league = await getJSON(`${SLEEPER}/league/${leagueId}`);
+        const drafts = await getJSON(`${SLEEPER}/league/${leagueId}/drafts`);
+        if (!Array.isArray(drafts) || drafts.length === 0) {
+          throw new Error("that league has no draft yet");
+        }
+        // El draft de ESTA temporada, prefiriendo el que está en curso. Sin este
+        // filtro, un mock de la semana pasada o el draft del año anterior entran
+        // por la misma puerta y se pintan igual que uno vivo.
+        const wanted = String(season ?? league?.season ?? "");
+        const sameSeason = drafts.filter((d) => !wanted || String(d.season ?? "") === wanted);
+        const pool_ = sameSeason.length > 0 ? sameSeason : drafts;
 
-      // EL DRAFT DE LA LIGA MANDA SOBRE CUALQUIER MOCK.
-      //
-      // `/league/{id}/drafts` devuelve también los mocks creados desde esa liga,
-      // y elegir «el que esté drafting» dejaba que un mock abandonado en ese
-      // estado SECUESTRARA la sesión: el asistente seguía el draft equivocado y
-      // nada en pantalla lo decía. Peor, el id se fija en la primera resolución,
-      // así que se quedaba con el mock toda la noche.
-      //
-      // El objeto de la liga trae su `draft_id` —el de verdad— y ésa es la
-      // fuente autoritativa. La heurística por estado queda sólo para cuando la
-      // liga no lo publica.
-      const oficial = league?.draft_id
-        ? pool_.find((d) => String(d.draft_id) === String(league.draft_id))
-        : null;
-      const chosen = oficial
-        ?? pool_.find((d) => d.status === DRAFT_STATUS.DRAFTING)
-        ?? pool_.find((d) => d.status === DRAFT_STATUS.PRE)
-        ?? pool_[0];
+        // EL DRAFT DE LA LIGA MANDA SOBRE CUALQUIER MOCK.
+        //
+        // `/league/{id}/drafts` devuelve también los mocks creados desde esa liga,
+        // y elegir «el que esté drafting» dejaba que un mock abandonado en ese
+        // estado SECUESTRARA la sesión: el asistente seguía el draft equivocado y
+        // nada en pantalla lo decía. Peor, el id se fija en la primera resolución,
+        // así que se quedaba con el mock toda la noche.
+        //
+        // El objeto de la liga trae su `draft_id` —el de verdad— y ésa es la
+        // fuente autoritativa. La heurística por estado queda sólo para cuando la
+        // liga no lo publica.
+        const oficial = league?.draft_id
+          ? pool_.find((d) => String(d.draft_id) === String(league.draft_id))
+          : null;
+        chosen = oficial
+          ?? pool_.find((d) => d.status === DRAFT_STATUS.DRAFTING)
+          ?? pool_.find((d) => d.status === DRAFT_STATUS.PRE)
+          ?? pool_[0];
+      } else {
+        // UN DRAFT SUELTO: el caso del mock. Sleeper lo publica sin liga
+        // (`league_id: null`), así que la configuración sale del propio draft y
+        // la identidad de `draft_order`. Si el draft sí tiene liga, se lee para
+        // tener puntuación y plantilla de verdad; si no se puede, se sigue sin
+        // ella y se dice UNKNOWN donde toque.
+        chosen = await getJSON(`${SLEEPER}/draft/${wantedDraftId}`);
+        if (!chosen?.draft_id) throw new Error("that draft does not exist");
+        if (chosen.league_id) {
+          league = await getJSON(`${SLEEPER}/league/${chosen.league_id}`).catch(() => null);
+        }
+      }
       const draftId = String(chosen.draft_id);
+      const wanted = String(season ?? league?.season ?? chosen?.season ?? "");
+      const realLeagueId = leagueId || chosen.league_id || null;
       // El objeto completo del draft: `draft_order` y `slot_to_roster_id` no
       // vienen en el listado de la liga, y son de donde sale mi puesto.
-      const draft = await getJSON(`${SLEEPER}/draft/${draftId}`).catch(() => chosen);
+      const draft = leagueId
+        ? await getJSON(`${SLEEPER}/draft/${draftId}`).catch(() => chosen)
+        : chosen;
 
       // IDENTIDAD, derivada. El usuario escribe su nombre de Sleeper; de ahí
       // sale el `user_id`, de los rosters el `roster_id` y del draft el puesto.
@@ -183,7 +183,9 @@ export function useSleeperDraft(pool, { leagueId, season, userId, idMap } = {}) 
           .catch(() => null);
         // Si `/user` no lo reconoce puede ser que ya sea un user_id.
         if (!resolvedUser && /^\d+$/.test(String(userId))) resolvedUser = String(userId);
-        const rosters = await getJSON(`${SLEEPER}/league/${leagueId}/rosters`).catch(() => []);
+        const rosters = realLeagueId
+          ? await getJSON(`${SLEEPER}/league/${realLeagueId}/rosters`).catch(() => [])
+          : [];
         const mine = (Array.isArray(rosters) ? rosters : []).find(
           (r) => String(r?.owner_id) === String(resolvedUser)
             || (Array.isArray(r?.co_owners) && r.co_owners.map(String).includes(String(resolvedUser)))
@@ -192,7 +194,9 @@ export function useSleeperDraft(pool, { leagueId, season, userId, idMap } = {}) 
       }
       const slot = slotFromDraft({ draft, userId: resolvedUser, rosterId });
       return {
-        leagueId: String(leagueId),
+        // Un mock recibe una liga SINTÉTICA para aislar su estado (regla 6).
+        leagueId: String(realLeagueId ?? mockLeagueId(draftId)),
+        isMock: !realLeagueId,
         draftId,
         season: String(draft?.season ?? chosen?.season ?? wanted ?? ""),
         league,
@@ -206,10 +210,13 @@ export function useSleeperDraft(pool, { leagueId, season, userId, idMap } = {}) 
           teams: Number(draft?.settings?.teams ?? league?.total_rosters) || null,
           rounds: Number(draft?.settings?.rounds) || null,
           type: typeof draft?.type === "string" ? draft.type : null,
-          rosterPositions: Array.isArray(league?.roster_positions)
-            ? league.roster_positions : null,
-          scoringSettings: league?.scoring_settings ?? null,
-          name: typeof league?.name === "string" ? league.name : null,
+          // Huecos y puntuación: de la liga si la hay; de `draft.settings` y
+          // `metadata.scoring_type` si es un mock. Lo que no venga, null.
+          rosterPositions: Array.isArray(league?.roster_positions) && league.roster_positions.length
+            ? league.roster_positions : rosterFromDraftSettings(draft?.settings),
+          scoringSettings: league?.scoring_settings ?? (realLeagueId ? null : mockScoringSettings(draft)),
+          name: typeof league?.name === "string" ? league.name
+            : (typeof draft?.metadata?.name === "string" ? draft.metadata.name : null),
           pickTimer: Number(draft?.settings?.pick_timer) || null,
         },
       };
@@ -328,7 +335,7 @@ export function useSleeperDraft(pool, { leagueId, season, userId, idMap } = {}) 
       cancelled = true;
       clearInterval(timer);
     };
-  }, [leagueId, season, userId]);
+  }, [leagueId, wantedDraftId, season, userId]);
 
   // `tick` entra en la dependencia para que la etiqueta de antigüedad se
   // recalcule cada segundo aunque no haya llegado ningún sondeo nuevo.
@@ -340,7 +347,7 @@ export function useSleeperDraft(pool, { leagueId, season, userId, idMap } = {}) 
       draft,
       stable,
       view: syncState({
-        connected: Boolean(leagueId),
+        connected: Boolean(leagueId || wantedDraftId),
         error: status.state === "error" ? status.message : null,
         lastSyncAt: status.lastSyncAt ?? null,
         draftStatus: draft?.status,
@@ -348,5 +355,53 @@ export function useSleeperDraft(pool, { leagueId, season, userId, idMap } = {}) 
       }),
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status, leagueId, tick]);
+  }, [status, leagueId, wantedDraftId, tick]);
+}
+
+/**
+ * Leer una cuenta de Sleeper entera: ligas de la temporada, y por liga sus
+ * plantillas, sus usuarios y su draft; más los drafts sueltos del usuario, que
+ * es donde viven los mocks.
+ *
+ * Es una LECTURA de una vez, no un sondeo: una plantilla cambia con los
+ * waivers, no cada quince segundos. Devuelve los objetos crudos de Sleeper con
+ * la hora de descarga; la traducción es de `sleeperAccount.js`, que no tiene
+ * red y se prueba sin levantar nada.
+ *
+ * Todo lo que pueda faltar falta en silencio POR LIGA (`null`), no tumba la
+ * lectura entera: una liga con `/rosters` caído sigue existiendo, con su
+ * plantilla UNKNOWN.
+ */
+export async function readSleeperAccount({ username, season }) {
+  const name = String(username ?? "").trim();
+  if (!name) throw new Error("no Sleeper username");
+  const user = await getJSON(`${SLEEPER}/user/${encodeURIComponent(name)}`);
+  if (!user?.user_id) throw new Error("no Sleeper account with that name");
+  const userId = String(user.user_id);
+  const list = (value) => (Array.isArray(value) ? value : []);
+  const [leagues, drafts] = await Promise.all([
+    getJSON(`${SLEEPER}/user/${userId}/leagues/nfl/${season}`).then(list),
+    getJSON(`${SLEEPER}/user/${userId}/drafts/nfl/${season}`).then(list).catch(() => []),
+  ]);
+  const detailed = await Promise.all(leagues.map(async (league) => {
+    const id = String(league.league_id);
+    const [rosters, users, draft] = await Promise.all([
+      getJSON(`${SLEEPER}/league/${id}/rosters`).then(list).catch(() => null),
+      getJSON(`${SLEEPER}/league/${id}/users`).then(list).catch(() => null),
+      league.draft_id
+        ? getJSON(`${SLEEPER}/draft/${league.draft_id}`).catch(() => null)
+        : Promise.resolve(null),
+    ]);
+    return { league, rosters, users, draft };
+  }));
+  return {
+    user: {
+      userId,
+      username: typeof user.username === "string" ? user.username : name,
+      displayName: typeof user.display_name === "string" ? user.display_name : null,
+    },
+    leagues: detailed,
+    drafts,
+    retrievedAt: Date.now(),
+  };
 }

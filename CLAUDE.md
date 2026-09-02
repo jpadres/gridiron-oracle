@@ -64,13 +64,16 @@ datos que proteger. Lo que sí se mantiene está en la sección de Seguridad del
 README y verificado en CI.
 
 **La excepción de red, desde agosto de 2026:** el modo draft consulta
-`api.sleeper.app` en runtime para tachar los picks ya hechos. Es el **único**
-destino externo de todo el sitio y la única página que pide algo. Antes de
-añadir un segundo, ten claro que ahora mismo tres controles de CI comprueban que
-no exista: el dominio único en la CSP, que esté sólo en `connect-src`, y que
-`fetch` no aparezca fuera de `DraftMode.jsx`. Están escritos como lista blanca a
-propósito — un control que se relaja hasta no comprobar nada es peor que no
-tenerlo, porque deja la sensación de que algo vigila.
+`api.sleeper.app` en runtime para tachar los picks ya hechos, y desde
+septiembre `/fantasy/leagues` lee la cuenta enlazada (ligas, plantillas, mocks)
+por el mismo adaptador. Es el **único** destino externo de todo el sitio.
+Antes de añadir un segundo, ten claro que ahora mismo tres controles de CI
+comprueban que no exista: el dominio único en la CSP, que esté sólo en
+`connect-src`, y que `fetch` no aparezca fuera de `DraftMode.jsx` y
+`useSleeperDraft.js` (el adaptador; la traducción vive en `sleeperAccount.js`,
+sin red, para poder probarla con `node --test`). Están escritos como lista
+blanca a propósito — un control que se relaja hasta no comprobar nada es peor
+que no tenerlo, porque deja la sensación de que algo vigila.
 
 La excepción es `ANTHROPIC_API_KEY`, que sí es una credencial de verdad: vive
 sólo como secret de GitHub Actions, el código nunca la nombra (la lee el SDK del

@@ -49,10 +49,55 @@ export function crearLiga({
     rosters: Array.from({ length: teams }, (_, i) => ({
       roster_id: i + 1,
       owner_id: i + 1 === mySlot ? USER_ID : `u${id}${i + 1}`,
+      // La plantilla, como la publica Sleeper: ids de jugador y titulares.
+      // Vacía hasta que un pick la rellene o el laboratorio la siembre.
+      players: [], starters: [],
+      settings: { wins: 0, losses: 0, ties: 0 },
+    })),
+    users: Array.from({ length: teams }, (_, i) => ({
+      user_id: i + 1 === mySlot ? USER_ID : `u${id}${i + 1}`,
+      display_name: i + 1 === mySlot ? USERNAME : `Rival ${i + 1}`,
+      metadata: { team_name: i + 1 === mySlot ? "Los Padres" : `Team ${i + 1}` },
     })),
     draft: {
-      draft_id: draftId, status: "drafting", season, type,
+      // `league_id` VA: Sleeper lo publica en todo draft de liga, y es lo que
+      // separa un draft de liga de un mock (`league_id: null`). Sin él, el
+      // doble hacía pasar los drafts de liga por mocks y el laboratorio no
+      // probaba lo que decía probar.
+      draft_id: draftId, league_id: id, status: "drafting", season, type,
       settings: { teams, rounds },
+      draft_order: order, slot_to_roster_id: slotToRoster,
+    },
+    picks: [],
+    caido: false,
+  };
+}
+
+/**
+ * Un MOCK del doble: un draft sin liga (`league_id: null`), con los huecos en
+ * `settings.slots_*` y la puntuación en `metadata.scoring_type`, que es
+ * exactamente lo que Sleeper publica para un mock. Reutiliza la forma de
+ * `crearLiga` para que `emitir`, `libres` y `slotOf` funcionen igual.
+ */
+export function crearMock({
+  draftId, teams, mySlot, rounds = 15, season = "2026", type = "snake",
+  scoringType = "ppr", slots = { qb: 1, rb: 2, wr: 3, te: 1, flex: 1, k: 1, def: 1, bn: 6 },
+  status = "drafting", name = "Mock draft", created = Date.now(),
+}) {
+  const slotToRoster = {};
+  const order = {};
+  for (let s = 1; s <= teams; s += 1) {
+    slotToRoster[s] = s;
+    order[s === mySlot ? USER_ID : `m${draftId}${s}`] = s;
+  }
+  const settings = { teams, rounds, pick_timer: 60 };
+  for (const [k, v] of Object.entries(slots)) settings[`slots_${k}`] = v;
+  return {
+    id: null, draftId, teams, mySlot, season, rounds, mock: true,
+    league: null, rosters: [], users: [],
+    draft: {
+      draft_id: draftId, league_id: null, status, season, type, created,
+      settings, metadata: { scoring_type: scoringType, name },
       draft_order: order, slot_to_roster_id: slotToRoster,
     },
     picks: [],
@@ -75,13 +120,19 @@ export const slotOf = (no, teams) => {
  */
 export function emitir(L, no, row, sleeperOf) {
   const slot = slotOf(no, L.teams);
+  const sleeperId = sleeperOf[row.player_id] ?? `sin-mapear-${row.player_id}`;
+  // En Sleeper un pick aparece también en `rosters[].players`: el doble hace
+  // lo mismo para que la plantilla de la cuenta y el draft cuenten la misma
+  // historia.
+  const roster = L.rosters.find((r) => r.roster_id === slot);
+  if (roster) roster.players.push(sleeperId);
   L.picks.push({
     pick_no: no,
     round: Math.floor((no - 1) / L.teams) + 1,
     draft_slot: slot,
     roster_id: slot,
-    picked_by: slot === L.mySlot ? USER_ID : `u${L.id}${slot}`,
-    player_id: sleeperOf[row.player_id] ?? `sin-mapear-${row.player_id}`,
+    picked_by: slot === L.mySlot ? USER_ID : (L.mock ? `m${L.draftId}${slot}` : `u${L.id}${slot}`),
+    player_id: sleeperId,
     // Deliberadamente inútil: si algún día alguien vuelve a emparejar por
     // nombre, estos tests se ponen rojos en vez de pasar por la puerta de atrás.
     metadata: { first_name: "NO", last_name: "USAR", position: "XX", team: "XX" },
@@ -94,7 +145,7 @@ export const libres = (L, board, sleeperOf) =>
 
 /** Intercepta la red del contexto y sirve las ligas dadas. */
 export async function montar(ctx, ligas) {
-  const porLiga = Object.fromEntries(ligas.map((l) => [l.id, l]));
+  const porLiga = Object.fromEntries(ligas.filter((l) => l.id != null).map((l) => [l.id, l]));
   const porDraft = Object.fromEntries(ligas.map((l) => [l.draftId, l]));
   await ctx.route("**/api.sleeper.app/**", async (route) => {
     const url = route.request().url();
@@ -103,10 +154,27 @@ export async function montar(ctx, ligas) {
     });
     const caido = () => route.fulfill({ status: 503, contentType: "application/json", body: "{}" });
     let m;
-    if ((m = /\/user\/([^/?]+)/.exec(url))) {
-      return decodeURIComponent(m[1]) === USERNAME
-        ? json({ user_id: USER_ID, username: USERNAME })
+    // LA CUENTA: las ligas de la temporada y los drafts sueltos (mocks). Van
+    // antes que `/user/{name}` porque comparten prefijo.
+    if ((m = /\/user\/([^/?]+)\/leagues\/nfl\/(\d+)/.exec(url))) {
+      if (m[1] !== USER_ID) return route.fulfill({ status: 404, body: "[]" });
+      return json(ligas.filter((l) => l.id != null && String(l.season) === m[2] && !l.caido)
+        .map((l) => l.league));
+    }
+    if ((m = /\/user\/([^/?]+)\/drafts\/nfl\/(\d+)/.exec(url))) {
+      if (m[1] !== USER_ID) return route.fulfill({ status: 404, body: "[]" });
+      return json(ligas.filter((l) => String(l.season) === m[2]).map((l) => l.draft));
+    }
+    if ((m = /\/user\/([^/?]+)$/.exec(url))) {
+      const who = decodeURIComponent(m[1]);
+      return who === USERNAME || who === USER_ID
+        ? json({ user_id: USER_ID, username: USERNAME, display_name: USERNAME })
         : route.fulfill({ status: 404, body: "null" });
+    }
+    if ((m = /\/league\/([^/?]+)\/users/.exec(url))) {
+      const L = porLiga[m[1]];
+      if (!L) return route.fulfill({ status: 404, body: "[]" });
+      return L.caido ? caido() : json(L.users);
     }
     if ((m = /\/league\/([^/?]+)\/drafts/.exec(url))) {
       const L = porLiga[m[1]];

@@ -1466,6 +1466,73 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .cc-league-act button:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
 .cc-note { max-width: 60ch; margin-top: var(--space-5); }
 
+/* --- LA CUENTA DE SLEEPER: una línea, y la frescura al lado del nombre ------ */
+.cc-account { margin: var(--space-4) 0 var(--space-5); }
+.cc-account-line {
+  display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); align-items: center;
+  font-size: var(--text-dense);
+}
+.cc-account-line b { color: var(--chalk); }
+.cc-account-line small { color: var(--chalk-dim); }
+.cc-link { max-width: 32rem; }
+.cc-link .caption { margin-top: var(--space-2); }
+/* La frescura NUNCA dice LIVE aquí: CURRENT o STALE, y la hora al lado. */
+.cc-sync { font-size: var(--text-micro); color: var(--chalk-dim); letter-spacing: 0.03em; }
+.cc-sync--stale { color: var(--flag-ink, #a33b3b); font-weight: var(--weight-semibold); }
+.cc-sync--unknown { color: var(--chalk-dim); }
+
+/* --- LOS PANELES: una liga, su configuración real y mi plantilla ----------- */
+.cc-mocks, .cc-panels { margin-top: var(--space-5); }
+.cc-mocks h2, .cc-panels h2 { margin-bottom: var(--space-2); }
+.cc-panel {
+  border-top: 1px solid var(--yard-line); padding: var(--space-4) 0;
+}
+.cc-panel-head {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: var(--space-3);
+  align-items: start;
+}
+.cc-panel-head h3 { margin: 0 0 var(--space-1); }
+.cc-panel-head .meta {
+  margin: 0; font-size: var(--text-micro); color: var(--chalk-dim);
+  display: flex; flex-wrap: wrap; gap: 0 var(--space-2);
+}
+.cc-panel-head .meta span + span::before { content: "· "; opacity: 0.5; }
+.cc-panel-state { font-size: var(--text-dense); color: var(--chalk-dim); text-align: right; }
+.cc-panel-state b { color: var(--chalk); font-weight: var(--weight-semibold); display: block; }
+.cc-panel-state small { display: block; font-size: var(--text-micro); }
+/* HECHOS de plantilla, en una tira: cuántos de cada, K y DEF cogidos o no. */
+.cc-facts {
+  list-style: none; margin: var(--space-3) 0 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3);
+  font-size: var(--text-micro); color: var(--chalk-dim);
+}
+.cc-facts b { color: var(--chalk); }
+.cc-fact--yes { color: var(--chalk); }
+.cc-fact--no { color: var(--chalk-dim); font-style: italic; }
+.cc-fact--warn { color: var(--flag-ink, #a33b3b); }
+.cc-roster { margin-top: var(--space-3); }
+.cc-roster .caption { margin-bottom: var(--space-2); }
+.cc-roster-group { list-style: none; margin: 0 0 var(--space-2); padding: 0; }
+.cc-player {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--space-2);
+  align-items: center; padding: 3px 0; border-top: 1px solid var(--yard-line);
+  color: var(--chalk-dim);
+}
+.cc-player--starter { color: var(--chalk); }
+.cc-player-who .nm { font-weight: var(--weight-semibold); }
+.cc-player--starter .cc-player-who .nm { color: var(--chalk); }
+.cc-player-who .meta {
+  display: flex; flex-wrap: wrap; gap: 0 var(--space-2); align-items: center;
+  font-size: var(--text-micro); color: var(--chalk-dim);
+}
+.cc-player-vor { font-variant-numeric: tabular-nums; font-size: var(--text-dense); text-align: right; }
+.cc-player-vor small { display: block; font-size: var(--text-nano, 0.62rem); color: var(--chalk-dim); letter-spacing: 0.06em; }
+
+@media (max-width: 640px) {
+  .cc-panel-head { grid-template-columns: minmax(0, 1fr) auto; }
+  .cc-panel-state { grid-column: 1 / -1; text-align: left; }
+}
+
 /* Móvil: la fila se apila y la acción sigue alcanzable con el pulgar. */
 @media (max-width: 40rem) {
   .cc-league { grid-template-columns: minmax(0, 1fr) auto; }

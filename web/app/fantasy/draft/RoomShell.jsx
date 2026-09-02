@@ -30,6 +30,7 @@ import {
   activeBoardFrom, leagueBoardFrom, rosterContext, rosterFromCounts, setComponentOrder,
 } from "../leagueValue.js";
 import { DEFAULT_RULES, compilePoints, rulesFromSleeper, scoringLabel } from "../scoring.js";
+import { isMockLeagueId, mockLeagueId } from "../sleeperAccount.js";
 import { useSleeperDraft } from "../useSleeperDraft.js";
 
 const SCORING = [
@@ -77,7 +78,7 @@ const STANDARD_PRESET = Object.freeze({
 const ROSTER_FIELDS = ["QB", "RB", "WR", "TE", "FLEX", "SUPER_FLEX", "DEF", "K", "BN"];
 
 const BLANK = {
-  name: "", platform: "manual", leagueId: "", draftId: "", userId: "",
+  name: "", platform: "manual", leagueId: "", draftId: "", sleeperDraftId: "", userId: "",
   teams: 12, scoring: "ppr", draftType: "snake", rounds: 15, mySlot: null,
   rosterCounts: NO_ROSTER,
 };
@@ -144,14 +145,20 @@ export default function RoomShell({ board, context }) {
     const configured = ROSTER_FIELDS.some((f) => counts[f] !== null && counts[f] !== undefined);
     // Cada liga y cada draft tienen su propio id: es lo que hace que el estado
     // de una no pueda contaminar a otra, igual que en el board.
+    // UN MOCK DRAFT no tiene liga en Sleeper. Se le da una liga SINTÉTICA
+    // `draft-<id>` sólo para que su estado tenga clave propia y no se mezcle
+    // con nada (regla 6): el adaptador sabe que no debe pedir `/league/`.
+    const mockId = String(entry.sleeperDraftId ?? "").trim();
+    const isMock = Boolean(mockId) && !entry.leagueId;
     const complete = {
       ...entry,
       // Con id de Sleeper la plataforma es sleeper; sin él, manual. Se deriva
       // del dato y no de un interruptor aparte, que es como acaban discrepando.
-      platform: entry.leagueId ? "sleeper" : "manual",
+      platform: entry.leagueId || mockId ? "sleeper" : "manual",
       userId: entry.userId ?? "",
-      leagueId: entry.leagueId || `manual-${Date.now().toString(36)}`,
-      draftId: entry.draftId || `d-${Date.now().toString(36)}`,
+      leagueId: entry.leagueId || (isMock ? mockLeagueId(mockId) : `manual-${Date.now().toString(36)}`),
+      draftId: mockId || entry.draftId || `d-${Date.now().toString(36)}`,
+      isMock,
       roster: configured
         ? rosterFromCounts(Object.fromEntries(
             ROSTER_FIELDS.map((f) => [f, counts[f] ?? 0])))
@@ -190,8 +197,14 @@ export default function RoomShell({ board, context }) {
      pidiera la pantalla de abajo habría dos respuestas a «cuántos equipos
      tiene esta liga» —la tecleada y la del proveedor— y ninguna forma de saber
      cuál se usó. */
+  // Una liga sintética `draft-<id>` NO se pide como liga: es un mock y se sigue
+  // por su id de draft. Las entradas guardadas antes de que existiera `isMock`
+  // se reconocen por el prefijo, para no romper lo que ya estaba en el catálogo.
+  const sleeperMock = league?.platform === "sleeper"
+    && (league.isMock || isMockLeagueId(String(league.leagueId ?? "")));
   const sync = useSleeperDraft(pool, {
-    leagueId: league?.platform === "sleeper" ? String(league.leagueId ?? "") : "",
+    leagueId: league?.platform === "sleeper" && !sleeperMock ? String(league.leagueId ?? "") : "",
+    draftId: sleeperMock ? String(league.draftId ?? "") : "",
     season: context.season,
     userId: league?.userId ?? "",
     idMap: context.sleeperIds,
@@ -298,6 +311,21 @@ export default function RoomShell({ board, context }) {
                      platform: e.target.value.trim() ? "sleeper" : "manual",
                    })}
                    placeholder="1234567890123456789" />
+          </label>
+
+          {/* MOCK DRAFTS. Un mock de Sleeper no pertenece a ninguna liga, así
+              que no aparece en `/league/{id}/drafts` de ninguna: se sigue por
+              su propio id, que es el número de la URL sleeper.com/draft/nfl/…
+              Es la forma de PROBAR el asistente en vivo sin esperar al draft
+              de verdad, y también sirve para un draft de liga concreto. */}
+          <label className="field-label">
+            Sleeper draft ID <span className="caption">optional — a mock draft, or one specific draft</span>
+            <input type="text" inputMode="numeric" value={entry.sleeperDraftId ?? ""}
+                   onChange={(e) => set({
+                     sleeperDraftId: e.target.value.trim().match(/\d{6,}/)?.[0] ?? e.target.value.trim(),
+                     platform: e.target.value.trim() || entry.leagueId ? "sleeper" : "manual",
+                   })}
+                   placeholder="paste the mock draft URL or id" />
           </label>
 
           <label className="field-label">
