@@ -1851,10 +1851,10 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 /* --- EL RELOJ DEL PICK ----------------------------------------------------
    Sólo en LIVE y derivado de Sleeper. Tabular para que no baile. */
 .room-timer {
-  display: inline-flex; align-items: baseline; gap: 6px; margin-left: var(--space-3);
+  display: inline-flex; align-items: baseline; gap: 6px; margin-left: var(--space-2);
   font-family: var(--face-display); font-variation-settings: "wdth" 74;
-  font-weight: 700; font-size: var(--text-lead); font-variant-numeric: tabular-nums;
-  color: var(--chalk);
+  font-weight: 700; font-size: var(--text-body); font-variant-numeric: tabular-nums;
+  color: var(--chalk); white-space: nowrap;
 }
 .room-timer small { font-size: var(--text-micro); font-weight: 400; color: var(--chalk-dim); letter-spacing: 0.03em; }
 .room-timer--low { color: var(--flag-ink, #a33b3b); }
