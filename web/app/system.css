@@ -1861,3 +1861,4 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-timer--out { color: var(--chalk-dim); }
 .room-cell .hs { display: block; margin: 0 auto 2px; }
 .room-feed li .hs { margin-right: 6px; }
+.room-until-t .room-timer { display: flex; margin-left: 0; margin-top: 2px; }

@@ -584,8 +584,10 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
             <span className="room-until-t">
               {next.away === 1 ? "pick until you" : "picks until you"}
               <small>you&rsquo;re up at {next.round}.{String(next.inRound).padStart(2, "0")}</small>
+              {/* El reloj va DEBAJO, no al lado: a lo ancho empujaba el botón
+                  de Replay a una segunda línea de la banda. */}
+              <PickTimer sync={sync} />
             </span>
-            <PickTimer sync={sync} />
           </p>
         ) : (
           <p className="room-until room-until--unknown">
