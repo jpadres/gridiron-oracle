@@ -229,6 +229,37 @@ es INCONCLUSO»— **sólo RB pasa como ventaja del modelo**; WR, TE y QB son
 INCONCLUSOS frente a ordenar por los puntos del año pasado. La página decía
 que el modelo «apenas añade» en QB; debería decir lo mismo de WR y TE.
 
+### Corrección (2026-09-02): la tabla de arriba no era del board publicado
+
+La serie anterior salía de un `validate()` que proyectaba **sin la curva de
+edad** que el board publicado sí aplica. Era la validación de un board del que
+nadie draftea. Con el instrumento igualado a producción (`ages=` en las tres
+llamadas a `project_season`), la serie real es:
+
+| temporada | QB modelo / base | RB modelo / base | TE modelo / base | WR modelo / base |
+|---|---|---|---|---|
+| 2022 | 0,744 / 0,786 | 0,864 / 0,643 | 0,903 / 0,790 | 0,867 / 0,957 |
+| 2023 | 0,743 / 0,516 | 0,662 / 0,670 | 0,852 / 0,808 | 0,910 / 0,874 |
+| 2024 | 0,856 / 0,801 | 0,796 / 0,831 | 0,600 / 0,659 | 0,728 / 0,779 |
+| 2025 | 0,376 / 0,391 | 0,830 / 0,775 | 0,575 / 0,578 | 0,836 / 0,742 |
+| media | 0,680 / 0,623 | 0,788 / 0,730 | 0,733 / 0,709 | 0,835 / 0,838 |
+| gana en | 2 de 4 | **2 de 4** | 2 de 4 | 2 de 4 |
+
+Global ponderado por k: 0,785 / 0,758 (coincide con lo publicado por
+casualidad aritmética: QB sube lo que RB baja).
+
+Lectura: **ninguna posición pasa la regla**. RB ya no gana 3 de 4: pierde 2023
+(−0,008) y 2024 (−0,035) y gana 2025 (+0,056), que antes era el empate. La
+ventaja de la media viene de ganar ancho y perder estrecho (+0,221 RB 2022,
++0,227 QB 2023). Lo que decía el párrafo anterior de RB —«real y estable en
+tres de cuatro»— queda retirado; la web ya no lo dice.
+
+Y lo que sí sobrevive, publicado: **cuando la liga se repite, ordenar por el
+año pasado se acerca; la ventaja del modelo depende de que haya rotación**. La
+cuota del valor del top-24 real de RB que vino de fuera del top-24 previo fue
+0,357 / 0,330 / 0,169 / 0,225 (2022-2025); el margen más ancho es el año de más
+rotación y la derrota, el de menos. Las dos del medio no ordenan tan limpio.
+
 ## 3. E22 — las dos preguntas antes de la luz verde
 
 Población: mitad alta por puntos previos (los que se draftean), 2010-2025,

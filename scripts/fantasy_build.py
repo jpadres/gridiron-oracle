@@ -476,7 +476,8 @@ def main(argv: list[str] | None = None) -> int:
     #
     # La edad se calcula a 1 de septiembre de la temporada proyectada, no hoy:
     # usar la edad actual para validar 2019 le da a todos siete años de más.
-    ages = ages_for_season(birth_dates(paths.raw), season)
+    bdays = birth_dates(paths.raw)
+    ages = ages_for_season(bdays, season)
     print(f"Proyectando {season} ({_scoring_label(rules)}, liga de {settings.teams})...")
     print(f"  curva de edad activa: {ages.notna().sum()} fechas de nacimiento.")
     # El board publicado usa el modelo de reemplazo VALIDADO en E18: los huecos
@@ -604,7 +605,9 @@ def main(argv: list[str] | None = None) -> int:
     print(view.to_string(index=False, float_format=lambda x: f"{x:8.1f}"))
 
     print("\nValidando la metodología sobre temporadas pasadas...")
-    validation = validate(players, rules, settings, team_games=team_games)
+    validation = validate(
+        players, rules, settings, team_games=team_games, birth_dates_by_player=bdays
+    )
     fmt = lambda x: f"{x:7.3f}"  # noqa: E731
     print(f"\nTemporadas: {validation['seasons']}")
     print("\nPor posición (los proyectados que no jugaron cuentan 0):")
@@ -975,6 +978,7 @@ def _last_season_points(actual: pd.Series, season: int, index: pd.Index) -> np.n
 def validate(
     players: pd.DataFrame, rules, settings: LeagueSettings,
     team_games: pd.DataFrame | None = None,
+    birth_dates_by_player: pd.Series | None = None,
 ) -> dict:
     """Proyección de pretemporada frente al resultado real, temporada a temporada.
 
@@ -1015,14 +1019,24 @@ def validate(
     for season in VALIDATION_SEASONS:
         if season not in available:
             continue
+        # LA MISMA LLAMADA QUE PRODUCCIÓN. Hasta el 2 de septiembre de 2026 el arnés proyectó
+        # SIN curva de edad mientras el board publicado se construía CON ella:
+        # se validaba un modelo que ningún usuario había visto. El «empate
+        # perdido» de RB en 2025 (0,773 contra 0,775) era de ese modelo; el
+        # publicado gana esa temporada (0,830). Sin fechas de nacimiento se
+        # proyecta sin curva y se DICE, en vez de parecer lo mismo.
+        ages = (
+            ages_for_season(birth_dates_by_player, season)
+            if birth_dates_by_player is not None else None
+        )
         try:
-            projected = project_season(players, season, rules)
+            projected = project_season(players, season, rules, ages=ages)
         except ValueError:
             continue
 
         # El MISMO board con el ancla del encogimiento por tamaño de muestra.
         # Preregistro en `docs/PREREGISTRO_ancla.md`: se mide, no se activa.
-        con_ancla = project_season(players, season, rules, anchor="sample")
+        con_ancla = project_season(players, season, rules, ages=ages, anchor="sample")
 
         # El MISMO board con partidos esperados por jugador, para poder dar el
         # antes/después sobre el pool congelado sin recorrer nada dos veces.
@@ -1036,7 +1050,7 @@ def validate(
             juegos = expected_games_for(season_av, posiciones, season, base_pool)
             if not juegos.empty:
                 con_disponibilidad = project_season(
-                    players, season, rules, expected_games=juegos
+                    players, season, rules, ages=ages, expected_games=juegos
                 )
         # EL POOL DE EVALUACIÓN, CONGELADO. Se define UNA vez por temporada y
         # de forma independiente del modelo: los 180 primeros por puntos de la
@@ -1184,6 +1198,10 @@ def validate(
         # comparación principal, que es justo donde nunca se aplicó.
         "value_captured_by_season": caps,
         "by_position": _resumen(por_posicion, "position"),
+        # Sin agregar, por la misma razón que `value_captured_by_season`:
+        # la página afirma cuántas temporadas-posición gana el modelo y eso sólo
+        # se puede comprobar con la tabla por temporada delante.
+        "by_position_season": pd.DataFrame(por_posicion),
         "by_band": _resumen(por_banda, "band"),
         "top_n": (
             hits.groupby(["position", "predictor"], as_index=False).agg(

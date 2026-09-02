@@ -337,33 +337,54 @@ export default function Fantasy() {
 
           {/* La regla del proyecto —«ayuda en todas las temporadas o es
               INCONCLUSO»— se aplicó a cada cambio y nunca a la comparación
-              principal. Aplicada: sólo RB pasa. Se dice aquí porque la media
-              de cuatro esconde si la ventaja es de dos buenas y dos flojas. */}
-          <Callout title="Season by season, only running back is a real edge">
+              principal. Aplicada al board REAL, ninguna posición pasa: todas
+              ganan 2 de 4. La versión anterior decía que RB era la única
+              ventaja porque el arnés proyectaba SIN la curva de edad que el
+              board publicado sí usa: validaba un board del que nadie draftea.
+              Se dice aquí porque la media de cuatro esconde si la ventaja es
+              de dos buenas y dos flojas. */}
+          <Callout title="Season by season, no position passes the every-season rule">
             <p>
               Applying this site&rsquo;s own rule — a change has to help in every season or it
               is inconclusive — to the model against last season&rsquo;s points, on the frozen
-              pool: at <strong>running back</strong> the model wins 2022 (0.864 vs 0.643), 2023
-              (0.718 vs 0.670) and 2024 (0.883 vs 0.831) and ties 2025 (0.773 vs 0.775). Its
-              worst season, 0.718, sits above the baseline&rsquo;s average. That edge is real
-              and stable; it is not growing, and 2025 is the smallest margin in the series.
+              pool and with the board exactly as it is published: <strong>every position wins
+              two seasons of four</strong>. Running back wins 2022 (0.864 vs 0.643) and 2025
+              (0.830 vs 0.775) and loses 2023 (0.662 vs 0.670) and 2024 (0.796 vs 0.831).
+              Quarterback wins 2023 and 2024 and loses 2022 and 2025; tight end wins 2022 and
+              2023; receiver wins 2023 and 2025.
             </p>
             <p>
-              Everywhere else the sign flips year to year: wide receiver and tight end win two
-              of four, quarterback wins three only because the baseline collapsed in 2023
-              (0.516). By the rule, <strong>WR, TE and QB are inconclusive</strong> against
-              ordering by last year&rsquo;s points. 63.2% against 62.3% at quarterback is not
-              a result — and neither, on this evidence, is 83.9% against 83.8% at receiver.
+              The lead in the averages — 0.785 against 0.758 overall, 0.788 against 0.730 at
+              running back — is real, and it comes from winning wide and losing narrow: +0.221
+              at running back in 2022 and +0.227 at quarterback in 2023, against losses of
+              0.008 and 0.035. By the rule that is a lead, not a proven edge, at any position.
+              68.0% against 62.3% at quarterback is two seasons of four, not a result — and
+              83.5% against 83.8% at receiver is a loss.
             </p>
             <p>
-              The likely cause is measurable: <strong>38%</strong> of the weeks a drafted
-              quarterback records no statistics are weeks he was on the active roster — he
-              lost the job, or never had it. Neither this model nor the baseline predicts
-              that, and the feature set contains nothing that could.
+              <strong>When the league repeats itself, ordering by last year&rsquo;s points gets
+              close. The model&rsquo;s advantage depends on rotation.</strong> At running back,
+              the share of the real top-24&rsquo;s value that came from players outside last
+              year&rsquo;s top-24 was 36% in 2022, 33% in 2023, 17% in 2024 and 23% in 2025.
+              The model&rsquo;s margin was widest in the season with the most turnover and it
+              lost the one with the least; the two in between do not line up as neatly, and
+              four seasons is not enough to call that more than a pattern. A board earns its
+              keep by finding the players who were not there last year. When they are all
+              already there, last year&rsquo;s list is a fine board.
             </p>
             <p>
-              At running back the same comparison is <strong>81.0% against 73.0%</strong>. Use
-              the board where it earns its keep.
+              An earlier version of this note called running back the one real edge, winning
+              three seasons and tying 2025. That series came from a harness that projected{" "}
+              <em>without</em> the age curve the published board applies — the validation of a
+              board nobody drafts from. The instrument now projects exactly as production does.
+              What the curve itself costs and earns is a separate measurement, not part of this
+              table.
+            </p>
+            <p>
+              At quarterback the likely cause of the noise is measurable: <strong>38%</strong> of
+              the weeks a drafted quarterback records no statistics are weeks he was on the
+              active roster — he lost the job, or never had it. Neither this model nor the
+              baseline predicts that, and the feature set contains nothing that could.
             </p>
           </Callout>
 
@@ -417,15 +438,16 @@ export default function Fantasy() {
             The second row of each position is the comparison that matters:{" "}
             <strong>ordering players by what they scored last season</strong>. That is the bar
             a projection has to clear to be worth anything. On the frozen pool the model leads
-            at <strong>three of four positions</strong> — quarterback, running back and
-            receiver — and trails at tight end.
+            at <strong>all four positions</strong> — by a wide margin at running back and
+            quarterback, by a hair at tight end.
           </p>
           <p>
-            That lead is real but not comfortable. Season by season it is{" "}
-            <strong>8 of 16</strong> position-seasons: the model wins less often than it
-            leads, and leads because it wins by wider margins than it loses by. Four seasons
-            and roughly two hundred draftable players is not enough to call a small edge, and
-            we do not.
+            Season by season it is <strong>12 of 16</strong> position-seasons: every season at
+            running back, three of four at quarterback and receiver, two of four at tight end.
+            Rank correlation is the friendlier of the two measures — it rewards ordering the
+            whole pool, where the easy calls live — which is why the value-captured series
+            above, not this one, is the verdict. Four seasons and roughly two hundred draftable
+            players is not enough to call a small edge, and we do not.
           </p>
 
           <h3>By board rank</h3>
