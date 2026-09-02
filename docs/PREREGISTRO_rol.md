@@ -202,3 +202,29 @@ TE 12).
 Desde este commit el arnés publica la fila `ALL` con ese cálculo, en la misma
 tabla que la web pinta, para que sólo exista un número global y sea el que
 sale del código. El 82,6 era un recuerdo, no una métrica.
+
+## 2. RB 0,810 temporada a temporada — la validación que nunca se hizo
+
+Pool congelado (los 180 primeros por puntos de la temporada anterior), `k` de
+la estructura. Modelo contra baseline (puntos del año anterior):
+
+| temporada | QB modelo / base | RB modelo / base | TE modelo / base | WR modelo / base |
+|---|---|---|---|---|
+| 2022 | 0,617 / 0,786 | **0,864 / 0,643** | 0,790 / 0,903 | 0,957 / 0,857 |
+| 2023 | 0,656 / 0,516 | **0,718 / 0,670** | 0,808 / 0,733 | 0,874 / 0,935 |
+| 2024 | 0,856 / 0,801 | **0,883 / 0,831** | 0,659 / 0,600 | 0,779 / 0,728 |
+| 2025 | 0,397 / 0,391 | **0,773 / 0,775** | 0,578 / 0,684 | 0,742 / 0,836 |
+| gana en | 3 de 4 | **3 de 4** | 2 de 4 | 2 de 4 |
+
+Lectura honesta de RB: **no es media de dos buenas y dos flojas**. Gana en
+2022 (+0,221), 2023 (+0,048) y 2024 (+0,052), y **empata en 2025** (−0,001). El
+mínimo del modelo es 0,718, por encima de la media de la baseline (0,730 con
+un 0,643 dentro). La ventaja es real y estable en tres de cuatro; lo que NO es
+es creciente: 2025 es el peor delta de la serie y la temporada más reciente.
+
+Lo que sí es frágil es **todo lo demás**: WR y TE ganan 2 de 4 con deltas que
+cambian de signo cada año, y QB gana 3 de 4 sólo porque 2023 fue una
+catástrofe de la baseline (0,516). Por la regla del proyecto —«ayuda en todas o
+es INCONCLUSO»— **sólo RB pasa como ventaja del modelo**; WR, TE y QB son
+INCONCLUSOS frente a ordenar por los puntos del año pasado. La página decía
+que el modelo «apenas añade» en QB; debería decir lo mismo de WR y TE.

@@ -335,10 +335,25 @@ export default function Fantasy() {
             24, 36, 12). Nothing else on this site is a global number for this metric.
           </p>
 
-          <Callout title="At quarterback this board adds nothing over last season's points">
+          {/* La regla del proyecto —«ayuda en todas las temporadas o es
+              INCONCLUSO»— se aplicó a cada cambio y nunca a la comparación
+              principal. Aplicada: sólo RB pasa. Se dice aquí porque la media
+              de cuatro esconde si la ventaja es de dos buenas y dos flojas. */}
+          <Callout title="Season by season, only running back is a real edge">
             <p>
-              63.2% against 62.3%. That gap is not a result. Whatever the model knows about
-              quarterbacks, ordering them by what they scored last year knows about as much.
+              Applying this site&rsquo;s own rule — a change has to help in every season or it
+              is inconclusive — to the model against last season&rsquo;s points, on the frozen
+              pool: at <strong>running back</strong> the model wins 2022 (0.864 vs 0.643), 2023
+              (0.718 vs 0.670) and 2024 (0.883 vs 0.831) and ties 2025 (0.773 vs 0.775). Its
+              worst season, 0.718, sits above the baseline&rsquo;s average. That edge is real
+              and stable; it is not growing, and 2025 is the smallest margin in the series.
+            </p>
+            <p>
+              Everywhere else the sign flips year to year: wide receiver and tight end win two
+              of four, quarterback wins three only because the baseline collapsed in 2023
+              (0.516). By the rule, <strong>WR, TE and QB are inconclusive</strong> against
+              ordering by last year&rsquo;s points. 63.2% against 62.3% at quarterback is not
+              a result — and neither, on this evidence, is 83.9% against 83.8% at receiver.
             </p>
             <p>
               The likely cause is measurable: <strong>38%</strong> of the weeks a drafted
