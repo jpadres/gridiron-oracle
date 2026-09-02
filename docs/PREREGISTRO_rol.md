@@ -228,3 +228,61 @@ catástrofe de la baseline (0,516). Por la regla del proyecto —«ayuda en toda
 es INCONCLUSO»— **sólo RB pasa como ventaja del modelo**; WR, TE y QB son
 INCONCLUSOS frente a ordenar por los puntos del año pasado. La página decía
 que el modelo «apenas añade» en QB; debería decir lo mismo de WR y TE.
+
+## 3. E22 — las dos preguntas antes de la luz verde
+
+Población: mitad alta por puntos previos (los que se draftean), 2010-2025,
+residuo de los puntos realizados sobre una recta en los puntos previos.
+
+### Dispersión: el castigo plano acierta en promedio y falla en cada jugador
+
+| | movers: media | sd | IQR | % negativos | efecto / sd |
+|---|---|---|---|---|---|
+| RB | −18,7 | **73,0** | [−70, +24] | 63% | **0,32** |
+| WR | −20,0 | 74,4 | [−74, +31] | 65% | 0,34 |
+| TE | −15,0 | 50,7 | [−57, +19] | 65% | 0,36 |
+
+La desviación es **tres veces el efecto**. Un tercio de los movers rinde POR
+ENCIMA de lo que su historial decía. Un descuento plano de −20 mueve el nivel
+de un grupo cuya dispersión individual es de ±73: exactamente la firma que se
+rechazó dos veces esta semana (mejora la calibración, no el orden).
+
+### Interacción: se midió, y no está
+
+La primera medición del volumen vacante fue **sólo efecto principal**
+(rho 0,02 sobre toda la población), como sospechabas. La prueba de verdad es
+la interacción, y ahora está hecha de tres formas:
+
+- **OLS con término cruzado** `ppr ~ ppg_prev + moved + vac + moved×vac`:
+  RB moved **−34,6 (±14,4)**, vac +24,4 (±20,1), **moved×vac +10,5 (±33,8)**.
+  El signo es el que la hipótesis pide —llegar a un hueco duele menos— y el
+  error estándar es tres veces el coeficiente. No distinguible de cero. WR
+  +8,9 (±37,3), TE +37,0 (±41,9): igual.
+- **Sólo entre movers**, residuo contra vacante del destino: rho **+0,11** en
+  RB (n=150), +0,09 WR, +0,04 TE.
+- **Terciles de vacante entre movers**, residuo medio: RB **−24 / −20 / −12**,
+  WR −27 / −25 / −8, TE −16 / −14 / −15.
+
+Hay un gradiente en RB y WR en la dirección correcta, pero con 150 movers y
+una sd de 73 no se separa del ruido, y explica una fracción pequeña de la
+dispersión (rho 0,11 → ~1% de la varianza).
+
+### Lo que esto significa para E22
+
+- Lo que se puede afirmar con datos: **mover, en promedio, cuesta ~20 puntos**
+  y el modelo no lo descuenta. Eso es un sesgo de NIVEL en un 20% del pool.
+- Lo que NO se puede afirmar: a quién le cuesta y a quién no. La vacante del
+  destino apunta bien y no alcanza. La cuota propia previa tampoco (RB +0,11).
+- Con efecto/sd = 0,32 y sin interacción medible, la predicción honesta es que
+  E22 **mejora el sesgo de los movers y mueve poco el orden**: los movers se
+  reordenan entre sí igual que antes (castigo uniforme) y bajan en bloque
+  frente a los stayers. El valor capturado sólo sube si ese bloque estaba, de
+  media, demasiado alto respecto a los stayers de al lado — que es lo que dice
+  el −23,5, así que no es cero, pero es un efecto de frontera, no de orden.
+
+Recomendación: no correr E22 como estaba escrito (descuento plano). Si se
+corre, que sea la variante **E22b — encogimiento extra para movers** (más
+peso al ancla, no una resta), con la misma predicción y el mismo umbral, y
+con la expectativa escrita de INCONCLUSO. La señal que ordena dentro de los
+movers no está en estos datos: sería el depth chart de agosto, que es prensa,
+y la prensa no toca el modelo.

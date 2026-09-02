@@ -45,6 +45,52 @@ def _movers_size(pop: pd.DataFrame) -> None:
               f"vs stayers {st.mean():+6.1f} · diferencia {mv.mean() - st.mean():+6.1f} pts")
 
 
+def _dispersion_and_interaction(pop: pd.DataFrame) -> None:
+    """Las dos preguntas antes de E22: dispersión del efecto e interacción con la vacante.
+
+    Un castigo plano acierta en promedio y falla en cada jugador si la desviación
+    del residuo entre movers es del tamaño del efecto o mayor. Y si mover duele,
+    debería doler MENOS a quien llega a un hueco: eso es una interacción
+    mover × vacante, no un efecto principal.
+    """
+    print("\n=== DISPERSIÓN del residuo (ppr_S sobre recta en ppg_prev), mitad alta por ppg previo ===")
+    top = pop[pop["ppg_prev"] >= pop.groupby(["season", "position"])["ppg_prev"].transform(
+        lambda x: x.quantile(0.5))].copy()
+    for p in POS:
+        d = top[top["position"] == p].copy()
+        coef = np.polyfit(d["ppg_prev"], d["ppr"], 1)
+        d["resid"] = d["ppr"] - np.polyval(coef, d["ppg_prev"])
+        mv, st = d[d["moved"]]["resid"], d[~d["moved"]]["resid"]
+        print(f"  {p}: movers media {mv.mean():+6.1f} sd {mv.std():5.1f} IQR [{mv.quantile(.25):+6.1f}, {mv.quantile(.75):+6.1f}] "
+              f"negativos {(mv < 0).mean():.0%} · stayers sd {st.std():5.1f} · efecto/sd = {abs(mv.mean() - st.mean()) / mv.std():.2f}")
+        # ¿Con qué se explica la dispersión entre movers? Correlación del residuo
+        # con la vacante del destino, la cuota propia previa y su interacción.
+        m = d[d["moved"]].copy()
+        m["vac_x_room"] = m["vac_t"] * (1 - m["t_prev"].fillna(0)) if p != "RB" else m["vac_c"] * (1 - m["c_prev"].fillna(0))
+        vac = "vac_c" if p == "RB" else "vac_t"
+        own = "c_prev" if p == "RB" else "t_prev"
+        for name in (vac, own, "vac_x_room"):
+            x = m[[name, "resid"]].dropna()
+            rho = spearmanr(x[name], x["resid"]).statistic if len(x) > 30 else float("nan")
+            print(f"      resid ~ {name:<10} rho {rho:+.2f} (n={len(x)})")
+        # Terciles de vacante del destino, entre movers: media del residuo.
+        m["tercil"] = pd.qcut(m[vac].rank(method="first"), 3, labels=["baja", "media", "alta"])
+        print("      residuo medio por tercil de vacante:", {k: round(v, 1) for k, v in m.groupby("tercil", observed=True)["resid"].mean().items()})
+
+    print("\n=== INTERACCIÓN formal: ppr_S ~ ppg_prev + moved + vac + moved:vac (OLS, población entera) ===")
+    for p in POS:
+        d = top[top["position"] == p].copy()
+        vac = "vac_c" if p == "RB" else "vac_t"
+        d = d.dropna(subset=[vac])
+        X = np.column_stack([np.ones(len(d)), d["ppg_prev"], d["moved"].astype(float), d[vac],
+                             d["moved"].astype(float) * d[vac]])
+        beta, *_ = np.linalg.lstsq(X, d["ppr"].to_numpy(float), rcond=None)
+        resid = d["ppr"].to_numpy(float) - X @ beta
+        se = np.sqrt(np.diag(np.linalg.pinv(X.T @ X)) * resid.var(ddof=X.shape[1]))
+        print(f"  {p}: moved {beta[2]:+6.1f} (±{se[2]:.1f}) · vac {beta[3]:+6.1f} (±{se[3]:.1f}) · "
+              f"moved×vac {beta[4]:+6.1f} (±{se[4]:.1f}) · n={len(d)}")
+
+
 def main() -> int:
     paths = resolve_paths(None).ensure()
     pw = pd.read_parquet(paths.player_weeks)
@@ -139,6 +185,7 @@ def main() -> int:
         print(row)
 
     _movers_size(pop)
+    _dispersion_and_interaction(pop)
 
     # Y sólo entre los que CAMBIARON de equipo, donde la historia propia vale menos.
     print("\n--- sólo los que cambiaron de equipo ---")
