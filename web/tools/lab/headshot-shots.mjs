@@ -85,6 +85,9 @@ for (const width of [390, 768, 1440]) {
   await page.waitForURL("**/fantasy/draft", { timeout: 8000 });
   await page.waitForSelector(".room-list button", { timeout: 10000 });
   check(`${width}: el Draft Room pinta fotos en la lista`, (await page.locator(".room-row .hs").count()) > 10);
+  await page.waitForSelector(".room-timer", { timeout: 8000 }).catch(() => {});
+  check(`${width}: en LIVE hay reloj del pick, derivado de Sleeper`, /\u2248\d+:\d\d/.test(await page.locator(".room-timer").innerText().catch(() => "")));
+  check(`${width}: la parrilla lleva foto en cada pick hecho`, (await page.locator(".room-cell.is-taken .hs").count()) === 4);
   // Una fila CON marca (NEWS/RISK) mantiene el VOR en la misma línea que el
   // número de orden: con tres columnas declaradas, la marca lo empujaba abajo.
   const marked = page.locator(".room-list > li", { has: page.locator(".room-row-news, .room-row-risk") }).first();

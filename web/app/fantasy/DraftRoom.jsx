@@ -42,6 +42,8 @@ import {
   takeEvent, undoEvent, untilMyTurn,
 } from "./draftLog.js";
 import { loadOrMigrateLog, logScopeFor, saveLog } from "./draftStorage.js";
+// El reloj del pick: puro, en draftSync, y probado con node --test.
+import { clockLabel, pickClock } from "./draftSync.js";
 import {
   assignSlots, PRIOR_SHARE_VISIBLE, priorShare, VALIDATED_MAX_TEAMS, valueConfidence,
 } from "./leagueValue.js";
@@ -572,7 +574,10 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
              you». Revisarlo pasa a ser la acción natural. */
           <p className="room-done">Draft complete</p>
         ) : onClock === true ? (
-          <p className="room-clock">On the clock</p>
+          <p className="room-clock">
+            On the clock
+            <PickTimer sync={sync} />
+          </p>
         ) : next ? (
           <p className="room-until">
             <span className="room-until-n">{next.away}</span>
@@ -580,6 +585,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
               {next.away === 1 ? "pick until you" : "picks until you"}
               <small>you&rsquo;re up at {next.round}.{String(next.inRound).padStart(2, "0")}</small>
             </span>
+            <PickTimer sync={sync} />
           </p>
         ) : (
           <p className="room-until room-until--unknown">
@@ -1088,6 +1094,8 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                               title={row ? `${no}: ${row.player_full_name ?? row.player_name}` : `Pick ${no}`}>
                           {row ? (
                             <>
+                              <Headshot sid={row.sid} team={row.team} position={row.position}
+                                        name={row.player_full_name ?? row.player_name} size={22} />
                               <b>{(row.player_full_name ?? row.player_name).split(" ").pop()}</b>
                               <small>{row.position}</small>
                             </>
@@ -1120,6 +1128,10 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                     <li key={pick.playerId} style={teamVars(row?.team)}
                         className={pick.roster === ROSTER.MINE ? "is-mine" : undefined}>
                       <span className="feed-pick">{pickLabel(pick.overall, teams, type)}</span>
+                      {row ? (
+                        <Headshot sid={row.sid} team={row.team} position={row.position}
+                                  name={name} size={24} />
+                      ) : null}
                       <span className="feed-who">{name}</span>
                       {row ? (
                         <span className={`ptag ptag--${row.position.toLowerCase()}`}>
@@ -1178,5 +1190,27 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
         </aside>
       </div>
     </div>
+  );
+}
+
+/**
+ * El reloj del pick en curso, sólo con la conexión en LIVE.
+ *
+ * Sale de `last_picked` y `pick_timer` de Sleeper, derivado en cada render (el
+ * adaptador ya re-renderiza cada segundo). Sin esos dos datos, o sin LIVE, no
+ * se pinta nada: un reloj sobre un sondeo viejo contaría un tiempo que no es.
+ * Es aproximado —la hora de Sleeper y la del navegador pueden discrepar unos
+ * segundos— y la etiqueta lo dice.
+ */
+function PickTimer({ sync }) {
+  if (sync?.view?.level !== "LIVE") return null;
+  const clock = pickClock({ draft: sync.draft });
+  if (!clock) return null;
+  return (
+    <span className={clock.expired ? "room-timer room-timer--out" : clock.remaining <= 10 ? "room-timer room-timer--low" : "room-timer"}
+          title={`Sleeper's pick timer: ${clock.total}s per pick, measured from the last pick it reported. Approximate — clocks can differ by a few seconds.`}>
+      {clock.expired ? "0:00" : `\u2248${clockLabel(clock.remaining)}`}
+      <small>{clock.expired ? "time is up" : "on this pick"}</small>
+    </span>
   );
 }

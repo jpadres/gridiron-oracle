@@ -11,8 +11,10 @@ import {
   LIVE_MS,
   RECENT_MS,
   agoLabel,
+  clockLabel,
   freshness,
   mySlot,
+  pickClock,
   pickSchedule,
   picksUntilMe,
   syncState,
@@ -172,4 +174,29 @@ test("picks hasta mi turno se cuenta sobre los picks reales hechos", () => {
 test("sin calendario no se inventa una cuenta atrás", () => {
   assert.equal(picksUntilMe({ schedule: [], picksMade: 5 }), null);
   assert.equal(picksUntilMe({ schedule: [{ overall: 8 }], picksMade: null }), null);
+});
+
+// --- el reloj del pick ---------------------------------------------------
+
+test("el reloj se deriva de last_picked y pick_timer, y nunca baja de cero", () => {
+  const draft = { last_picked: NOW - 47_000, settings: { pick_timer: 90 } };
+  assert.deepEqual(pickClock({ draft, now: NOW }), { remaining: 43, total: 90, expired: false });
+  assert.deepEqual(pickClock({ draft, now: NOW + 100_000 }), { remaining: 0, total: 90, expired: true });
+});
+
+test("sin last_picked o sin pick_timer no hay reloj: null, no 90", () => {
+  assert.equal(pickClock({ draft: { settings: { pick_timer: 90 } }, now: NOW }), null);
+  assert.equal(pickClock({ draft: { last_picked: NOW }, now: NOW }), null);
+  assert.equal(pickClock({ draft: null, now: NOW }), null);
+});
+
+test("un last_picked en el futuro (reloj adelantado) da el tiempo completo, no negativo", () => {
+  const draft = { last_picked: NOW + 5_000, settings: { pick_timer: 60 } };
+  assert.equal(pickClock({ draft, now: NOW }).remaining, 60);
+});
+
+test("la etiqueta del reloj es m:ss", () => {
+  assert.equal(clockLabel(43), "0:43");
+  assert.equal(clockLabel(125), "2:05");
+  assert.equal(clockLabel(-3), "0:00");
 });

@@ -65,7 +65,9 @@ export function crearLiga({
       // doble hacía pasar los drafts de liga por mocks y el laboratorio no
       // probaba lo que decía probar.
       draft_id: draftId, league_id: id, status: "drafting", season, type,
-      settings: { teams, rounds },
+      // `pick_timer` y `last_picked` son de donde sale el reloj del pick.
+      settings: { teams, rounds, pick_timer: 90 },
+      last_picked: Date.now(),
       draft_order: order, slot_to_roster_id: slotToRoster,
     },
     picks: [],
@@ -126,6 +128,8 @@ export function emitir(L, no, row, sleeperOf) {
   // historia.
   const roster = L.rosters.find((r) => r.roster_id === slot);
   if (roster) roster.players.push(sleeperId);
+  // Sleeper actualiza `last_picked` con cada pick: el reloj arranca de nuevo.
+  L.draft.last_picked = Date.now();
   L.picks.push({
     pick_no: no,
     round: Math.floor((no - 1) / L.teams) + 1,

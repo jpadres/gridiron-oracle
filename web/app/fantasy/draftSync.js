@@ -209,6 +209,34 @@ export function pickSchedule({ slot, teams, rounds, type }) {
   return picks;
 }
 
+/**
+ * Cuánto queda del pick en curso, en segundos, desde lo que publica Sleeper.
+ *
+ * `draft.last_picked` es la hora (ms) del último pick y `settings.pick_timer`
+ * los segundos por pick. El reloj se DERIVA en cada render de esos dos datos y
+ * de la hora actual: no se guarda ni se cuenta hacia atrás por su cuenta, así
+ * que un sondeo nuevo lo corrige solo. `null` si falta cualquiera de los dos:
+ * un reloj inventado es peor que ninguno.
+ *
+ * La hora de Sleeper y la del navegador pueden discrepar unos segundos; por
+ * eso la interfaz lo enseña como aproximado y sólo con la conexión en LIVE.
+ */
+export function pickClock({ draft, now = Date.now() }) {
+  const last = Number(draft?.last_picked);
+  const timer = Number(draft?.settings?.pick_timer);
+  if (!Number.isFinite(last) || last <= 0 || !Number.isFinite(timer) || timer <= 0) return null;
+  const elapsed = Math.floor((now - last) / 1000);
+  if (elapsed < 0) return { remaining: timer, total: timer, expired: false };
+  const remaining = Math.max(0, timer - elapsed);
+  return { remaining, total: timer, expired: remaining === 0 };
+}
+
+/** «0:43». */
+export function clockLabel(seconds) {
+  const s = Math.max(0, Math.floor(Number(seconds) || 0));
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+}
+
 /** Cuántos picks faltan para mi turno. `null` si no se puede establecer. */
 export function picksUntilMe({ schedule, picksMade }) {
   if (!schedule?.length || !Number.isInteger(picksMade)) return null;
