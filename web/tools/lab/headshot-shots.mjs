@@ -63,6 +63,15 @@ for (const width of [390, 768, 1440]) {
   check(`${width}: la URL es la miniatura por sleeper_id`, /sleepercdn\.com\/content\/nfl\/players\/thumb\/\d+\.jpg$/.test(src ?? ""), src ?? "");
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
   check(`${width}: sin desbordamiento horizontal en el board`, !overflow);
+  // LOS OUT AL PIE. Un exento con VOR de puesto 38 no puede estar en el puesto
+  // 38 de la vista: va debajo de la banda «Unavailable», con su número.
+  const bandIndex = await page.evaluate(() => [...document.querySelectorAll(".rank-table tbody tr")].findIndex((tr) => tr.classList.contains("tier-band--out")));
+  const firstOutIndex = await page.evaluate(() => [...document.querySelectorAll(".rank-table tbody tr")].findIndex((tr) => tr.classList.contains("is-out")));
+  const lastPlayableIndex = await page.evaluate(() => { const trs = [...document.querySelectorAll(".rank-table tbody tr")]; let i = -1; trs.forEach((tr, k) => { if (!tr.classList.contains("is-out") && !tr.classList.contains("tier-band") && !tr.classList.contains("tier-band--out")) i = k; }); return i; });
+  check(`${width}: los OUT del board van bajo la banda Unavailable, después del último jugable`,
+    bandIndex > 0 && firstOutIndex === bandIndex + 1 && lastPlayableIndex < bandIndex, `banda ${bandIndex}, primer OUT ${firstOutIndex}, último jugable ${lastPlayableIndex}`);
+  check(`${width}: Jacobs conserva su número dentro del bloque`,
+    /38/.test(await page.locator(".rank-table tr.is-out").first().locator("td.rk").innerText().catch(() => "")));
   await page.screenshot({ path: `${OUT}/fotos-${width}-board.png` });
 
   await page.goto(`${BASE}/fantasy/semanal`, { waitUntil: "domcontentloaded" });
@@ -85,6 +94,23 @@ for (const width of [390, 768, 1440]) {
   await page.waitForURL("**/fantasy/draft", { timeout: 8000 });
   await page.waitForSelector(".room-list button", { timeout: 10000 });
   check(`${width}: el Draft Room pinta fotos en la lista`, (await page.locator(".room-row .hs").count()) > 10);
+  // En la sala, los OUT no aparecen en la ventana de 60 en ALL; con RB
+  // filtrado, Jacobs sale al final tras el separador, y la lista corta no lo
+  // propone.
+  // En ALL los OUT también están, pero detrás de la ventana y del separador:
+  // ninguno delante de un jugable.
+  const orderAll = await page.evaluate(() => [...document.querySelectorAll(".room-list > li")].map((li) => li.classList.contains("is-out") ? "o" : li.classList.contains("room-out-divider") ? "|" : "p").join(""));
+  check(`${width}: en ALL los OUT van al final, tras el separador`, /^p+\|o+$/.test(orderAll), orderAll.slice(-12));
+  await page.locator(".pos-filter .pos-option", { hasText: /^RB$/ }).click();
+  await page.waitForTimeout(300);
+  const divider = await page.locator(".room-out-divider").count();
+  const outRows = await page.locator(".room-list > li.is-out").count();
+  const order = await page.evaluate(() => [...document.querySelectorAll(".room-list > li")].map((li) => li.classList.contains("is-out") ? "o" : li.classList.contains("room-out-divider") ? "|" : "p").join(""));
+  check(`${width}: con RB filtrado, los OUT van tras el separador y ninguno antes`, divider === 1 && outRows >= 1 && /^p+\|o+$/.test(order), order.slice(-12));
+  // `innerText` respeta el `text-transform: uppercase` de la banda.
+  check(`${width}: la banda cuenta los no disponibles`, /unavailable/i.test(await page.locator(".room-pool").innerText()));
+  await page.locator(".pos-filter .pos-option", { hasText: /^ALL$/ }).click();
+  await page.waitForTimeout(200);
   await page.waitForSelector(".room-timer", { timeout: 8000 }).catch(() => {});
   check(`${width}: en LIVE hay reloj del pick, derivado de Sleeper`, /\u2248\d+:\d\d/.test(await page.locator(".room-timer").innerText().catch(() => "")));
   check(`${width}: la parrilla lleva foto en cada pick hecho`, (await page.locator(".room-cell.is-taken .hs").count()) === 4);

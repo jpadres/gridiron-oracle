@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import pandas as pd
 
@@ -31,8 +32,13 @@ from oracle.pipeline import Oracle
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Ranking semanal de fantasy.")
     parser.add_argument("--root", default=None)
-    parser.add_argument("--season", type=int, required=True)
-    parser.add_argument("--week", type=int, required=True)
+    # Sin jornada explícita se resuelve la PRIMERA SIN JUGAR, con la misma
+    # función que usa el export. Hasta el 2 de septiembre de 2026 eran
+    # obligatorias, y el workflow semanal, que corre sin argumentos, se saltaba
+    # este script y publicaba la web SIN ranking semanal: /semanal vacío, sin
+    # matchup en Leagues, y ninguna alarma porque «faltaba» un fichero opcional.
+    parser.add_argument("--season", type=int, default=None)
+    parser.add_argument("--week", type=int, default=None)
     parser.add_argument("--scoring", default="ppr")
     parser.add_argument("--top", type=int, default=30, help="Jugadores por posición a imprimir.")
     args = parser.parse_args(argv)
@@ -43,7 +49,12 @@ def main(argv: list[str] | None = None) -> int:
 
     print("Entrenando el modelo de partidos...")
     oracle = Oracle.train(args.root)
-    predictions = oracle.predict(oracle.week_features(args.season, args.week))
+    from export_web_data import _resolve_week  # la misma regla que el export
+
+    season, week = _resolve_week(oracle, args.season, args.week)
+    args.season, args.week = season, week
+    print(f"Jornada: {season} semana {week}")
+    predictions = oracle.predict(oracle.week_features(season, week))
 
     calibration = _load_calibration(paths.out / "fantasy_weekly_calibration.json")
 

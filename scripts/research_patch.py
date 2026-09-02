@@ -26,7 +26,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from export_web_data import _strip_runtime_fields, attach_today, write_payload  # noqa: E402
+from export_web_data import (  # noqa: E402
+    _attach_status,
+    _strip_runtime_fields,
+    attach_today,
+    write_payload,
+)
 
 from oracle.config import paths as resolve_paths
 
@@ -61,6 +66,10 @@ def main(argv: list[str] | None = None) -> int:
     payload["research"] = attach_today(
         _strip_runtime_fields(json.loads(research_file.read_text(encoding="utf-8")))
     )
+    # Las marcas de estado (suspendido, exento, IR, PUP) también se refrescan
+    # aquí: el fichero curado cambia a diario y sin esto un parche de research
+    # publicaba las fichas nuevas con las marcas de la semana pasada.
+    _attach_status(payload, paths)
     write_payload(paths.web_data, payload)
     research = payload["research"]
     print(

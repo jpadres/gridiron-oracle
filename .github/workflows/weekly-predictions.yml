@@ -63,11 +63,10 @@ jobs:
           args=""
           if [ -n "${{ inputs.season }}" ]; then args="--season ${{ inputs.season }}"; fi
           if [ -n "${{ inputs.week }}" ]; then args="$args --week ${{ inputs.week }}"; fi
-          if [ -n "$args" ]; then
-            python scripts/fantasy_weekly_build.py $args
-          else
-            echo "Sin jornada explícita: la resuelve export_web_data.py."
-          fi
+          # SIEMPRE se construye: sin argumentos, el script resuelve la primera
+          # jornada sin jugar con la misma regla que el export. Saltárselo
+          # publicaba la web sin ranking semanal y nadie lo veía.
+          python scripts/fantasy_weekly_build.py $args
         continue-on-error: true
 
       # ESTE es el paso que se olvida al hacerlo a mano: sin él la web sigue

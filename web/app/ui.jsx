@@ -159,6 +159,15 @@ export function RankTable({
     return <p className="caption">No data yet.</p>;
   }
   let lastTier = null;
+  // LOS OUT VAN AL FINAL, con su número intacto. Un suspendido, un exento o
+  // un IR de arranque seguía en su puesto del orden principal —Jacobs en el
+  // 38— porque la marca no cambia el número (regla 8) y la tabla pintaba el
+  // orden del número. Se reordena la VISTA: los que no van a jugar bajan a un
+  // bloque «Unavailable» al pie, buscables y con su valor, y el orden de
+  // arriba es sólo de quien puede jugar. La marca sigue diciendo por qué.
+  const playable = rows.filter((row) => row.status_severity !== "OUT");
+  const unavailable = rows.filter((row) => row.status_severity === "OUT");
+  const ordered = [...playable, ...unavailable];
   return (
     <div className="table-wrap">
       <table className="rank-table">
@@ -172,9 +181,11 @@ export function RankTable({
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, index) => {
-            const band = tiers && row.tier !== lastTier ? row.tier : null;
+          {ordered.map((row, index) => {
+            const out = row.status_severity === "OUT";
+            const band = tiers && !out && row.tier !== lastTier ? row.tier : null;
             lastTier = row.tier;
+            const firstOut = out && index === playable.length;
             const hasNote = Boolean(notes[row.player_id]);
             const hasNews = Boolean(news[row.player_id]);
             const health = availability[row.player_id];
@@ -186,7 +197,15 @@ export function RankTable({
                     <td colSpan={columns.length + 2}>Tier {band}</td>
                   </tr>
                 ) : null}
-                <tr>
+                {firstOut ? (
+                  <tr className="tier-band tier-band--out">
+                    <td colSpan={columns.length + 2}>
+                      Unavailable · {unavailable.length} — suspended, exempt, IR or PUP per the
+                      status layer. Numbers unchanged; sorted here by rank, not by availability.
+                    </td>
+                  </tr>
+                ) : null}
+                <tr className={out ? "is-out" : undefined}>
                   <td className="rk">{row.rank ?? index + 1}</td>
                   <td className="who hs-who">
                     <Headshot sid={row.sid} team={row.team} position={row.position} name={row.player_full_name ?? row.player_name} size={32} />

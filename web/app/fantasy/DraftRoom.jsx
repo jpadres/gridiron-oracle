@@ -270,8 +270,19 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
   // TODO lo que se pinta deriva del estado EFECTIVO: board disponible,
   // plantilla, feed, cortes de tier y profundidad. Un solo interruptor aguas
   // arriba, y ninguna vista puede mezclar el presente con el pasado.
+  // LOS OUT NO COMPITEN POR UN PUESTO EN EL ORDEN. Un exento, un suspendido o
+  // un IR de arranque seguía en su sitio de la lista —Jacobs en el 38— porque
+  // la marca no toca el número (regla 8) y la lista pintaba el número. Aquí se
+  // separan: `available` es quien puede jugar y alimenta la lista corta, la
+  // profundidad y los tiers; `unavailable` va al pie, buscable, con su valor
+  // intacto y su marca diciendo por qué. Sigue siendo drafteable: un pick de
+  // un OUT se registra igual.
   const available = useMemo(
-    () => board.filter((row) => !effective.byPlayer.has(row.player_id)),
+    () => board.filter((row) => !effective.byPlayer.has(row.player_id) && row.status_severity !== "OUT"),
+    [board, effective]
+  );
+  const unavailable = useMemo(
+    () => board.filter((row) => !effective.byPlayer.has(row.player_id) && row.status_severity === "OUT"),
     [board, effective]
   );
   const availableSpecialists = useMemo(
@@ -405,16 +416,20 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
       // ventana de 60 y por eso la BÚSQUEDA es su vía principal: si sé a quién
       // quiero, tengo que encontrarlo, y esta noche eso es lo que importa.
       .concat(availableRookies.filter((r) => rankedWanted.has(r.position)));
+    // Y al final, SIEMPRE, los que no van a jugar: detrás de la ventana de 60,
+    // no dentro de ella. Si entraran en el recorte se perderían justo cuando
+    // la posición tiene más de sesenta disponibles, que es cuando más se mira.
+    let out = unavailable.filter((r) => rankedWanted.has(r.position));
+    const matches = (row) =>
+      (row.player_full_name ?? row.player_name).toLowerCase().includes(text) ||
+      row.player_name.toLowerCase().includes(text) ||
+      row.team?.toLowerCase() === text;
     if (text.length >= 2) {
-      rows = rows.filter(
-        (row) =>
-          (row.player_full_name ?? row.player_name).toLowerCase().includes(text) ||
-          row.player_name.toLowerCase().includes(text) ||
-          row.team?.toLowerCase() === text
-      );
+      rows = rows.filter(matches);
+      out = out.filter(matches);
     }
-    return rows.slice(0, 60);
-  }, [available, availableSpecialists, availableRookies, picked, all, query]);
+    return rows.slice(0, 60).concat(out);
+  }, [available, availableSpecialists, availableRookies, unavailable, picked, all, query]);
 
   const best = available[0] ?? null;
   const depth = useMemo(() => positionDepth(available), [available]);
@@ -450,7 +465,14 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
     // cuanto lo hace. El tier de cada fila sigue ahí — es un hecho del jugador;
     // lo que se retira es el corte, que es una afirmación sobre el orden.
     let monotonic = true;
+    let outMarked = false;
     for (const row of shown) {
+      // El bloque de los que no van a jugar, separado y nombrado: es la única
+      // razón por la que un jugador con más valor está debajo de otro con menos.
+      if (row.status_severity === "OUT" && !outMarked) {
+        out.push({ kind: "out", key: "out", count: unavailable.length });
+        outMarked = true;
+      }
       // Los especialistas no tienen tier y no generan cortes: un separador
       // «Tier null» sería un tier inventado con nombre técnico.
       if (Number.isFinite(row.tier) && previous !== null && row.tier < previous) {
@@ -464,7 +486,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
       out.push({ kind: "player", row, key: row.player_id });
     }
     return out;
-  }, [shown, query, available, picked, all]);
+  }, [shown, query, available, unavailable, picked, all]);
 
   if (!ready) return <p className="caption">Loading draft room&hellip;</p>;
 
@@ -613,7 +635,8 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
           <span className="room-pool">
             <strong>{available.length}</strong> ranked
             <small>
-              of {available.length + availableSpecialists.length + availableRookies.length} draftable
+              of {available.length + availableSpecialists.length + availableRookies.length + unavailable.length} draftable
+              {unavailable.length ? ` · ${unavailable.length} unavailable` : ""}
             </small>
           </span>
         </p>
@@ -844,7 +867,11 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
           ) : null}
           <ol className="room-list">
               {rows.map((entry) =>
-                entry.kind === "tier" ? (
+                entry.kind === "out" ? (
+                  <li key={entry.key} className="room-out-divider" aria-label="Unavailable players">
+                    Unavailable · {entry.count} — suspended, exempt, IR or PUP. Value unchanged; listed last.
+                  </li>
+                ) : entry.kind === "tier" ? (
                   /* El corte de tier, visible al escanear y sin ser un panel.
                      Es un CONTEO: cuántos quedan de ese tier en esta vista. */
                   <li key={entry.key} className="room-tier" aria-hidden="true">
@@ -853,7 +880,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                   </li>
                 ) : (
                   <li key={entry.key} style={teamVars(entry.row.team)}
-                      className={entry.row === best ? "is-best" : undefined}>
+                      className={entry.row === best ? "is-best" : entry.row.status_severity === "OUT" ? "is-out" : undefined}>
                     {/* Toda la fila es el botón: el objetivo táctil es la fila
                         entera, que es lo que hace que un pick sea un toque. */}
                     <button type="button" className="room-row" disabled={replaying}
