@@ -175,7 +175,7 @@ export function RankTable({
         <thead>
           <tr>
             <th className="rk">#</th>
-            <th>Player</th>
+            <th className="who">Player</th>
             {columns.map((column) => (
               <th key={column.key}>{column.label}</th>
             ))}
@@ -251,7 +251,7 @@ export function RankTable({
                           {Math.round(1000 / (row.wg + 10))}% PRIOR
                         </span>
                       ) : null}
-                      {health ? <AvailabilityTag entry={health} statusVerifiedAt={row.status_verified_at} /> : null}
+                      {health ? <AvailabilityTag entry={health} statusVerifiedAt={row.status_verified_at} statusLabel={row.status_label} /> : null}
                       {risk && row.risk_label && row.risk_label !== "Normal" ? (
                         <RiskTag row={row} />
                       ) : null}
@@ -307,8 +307,8 @@ export function RankTable({
 // La regla —fecha visible siempre, y subordinada a la marca de estado cuando
 // es más vieja— vive en `availability.js`, que es puro y lo comparten esta
 // página de servidor y el explorador semanal, que es de cliente.
-function AvailabilityTag({ entry, statusVerifiedAt }) {
-  const mark = availabilityMark(entry, statusVerifiedAt);
+function AvailabilityTag({ entry, statusVerifiedAt, statusLabel }) {
+  const mark = availabilityMark(entry, statusVerifiedAt, statusLabel);
   if (!mark) return null;
   return <span className={mark.className} title={mark.title}>{mark.text}</span>;
 }

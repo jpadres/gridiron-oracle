@@ -44,11 +44,16 @@ export function shortDate(date) {
  * @param entry ficha médica del dossier (o nada).
  * @param statusVerifiedAt `status_verified_at` de la fila, si la capa de
  *   estado habló de este jugador.
+ * @param statusLabel la etiqueta que ya pinta la capa de estado en esa fila.
  * @returns null, o `{text, className, title, superseded}` listos para pintar.
  */
-export function availabilityMark(entry, statusVerifiedAt) {
+export function availabilityMark(entry, statusVerifiedAt, statusLabel = null) {
   if (!entry || !entry.level) return null;
   const label = AVAILABILITY_LABEL[entry.level] ?? entry.level;
+  // EL DESACUERDO ES INFORMACIÓN; EL ACUERDO REPETIDO ES RUIDO. Una ficha vieja
+  // que dice exactamente lo mismo que la marca de hoy no aporta nada y deja la
+  // fila con la misma palabra dos veces.
+  if (statusLabel && label === statusLabel) return null;
   const date = typeof entry.date === "string" && entry.date ? entry.date : null;
   // Sin fecha no se puede sostener que sea más nuevo que nada: se subordina
   // igual. UNKNOWN > STALE PRESENTADO COMO ACTUAL.

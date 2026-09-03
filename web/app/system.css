@@ -910,15 +910,19 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 
 /* Las mismas dos marcas en la tabla publicada. Comparten tinta con las del
    Draft Room a propósito: la misma cosa se pinta igual en las dos pantallas. */
-.mark--out {
+/* `.mark` es un CÍRCULO de 1rem para los glifos de una letra («?», «!»), y
+   estas dos llevan una palabra. Heredaban su `width`/`height`/`line-height`
+   fijos, así que «EXEMPT LIST» se salía de su propia caja y se montaba encima
+   de lo que tuviera al lado — el descuadre que se veía en el ranking. La caja
+   la tiene que dar el texto. */
+.mark--out, .mark--risk {
+  width: auto; height: auto; line-height: 1.35;
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
-  color: #fff; background: var(--flag-ink, #a33b3b);
-  border-radius: 2px; padding: 0 4px; white-space: nowrap;
+  border-radius: 2px; white-space: nowrap; vertical-align: baseline;
 }
+.mark--out { color: #fff; background: var(--flag-ink, #a33b3b); padding: 0 4px; }
 .mark--risk {
-  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
-  color: var(--flag-ink, #a33b3b); border: 1px solid currentColor;
-  border-radius: 2px; padding: 0 3px; white-space: nowrap;
+  color: var(--flag-ink, #a33b3b); border: 1px solid currentColor; padding: 0 3px;
 }
 
 /* NO VA A JUGAR: suspendido, exento, IR, PUP de temporada. Es la marca más

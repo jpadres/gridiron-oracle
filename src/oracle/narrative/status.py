@@ -97,7 +97,10 @@ LABEL: dict[str, str] = {
     "NFI": "NFI",
     "RETIRED": "RETIRED",
     "OUT_FOR_SEASON": "OUT FOR SEASON",
-    "UNSIGNED": "FREE AGENT",
+    # «NO NFL TEAM» y no «FREE AGENT»: en la pantalla de la liga, `FA` ya
+    # significa «libre EN TU LIGA», que es lo contrario de un problema. Las dos
+    # etiquetas salían juntas en la misma fila diciendo cosas opuestas.
+    "UNSIGNED": "NO NFL TEAM",
     "ACTIVE_PUP": "PUP",
     "HOLDOUT": "HOLDOUT",
     "QUESTIONABLE": "QUESTIONABLE",

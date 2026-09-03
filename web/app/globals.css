@@ -551,7 +551,14 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 /* Filas más juntas y rayado alterno: una lista de sesenta nombres se recorre
    con el dedo, y el rayado es lo que evita saltar de fila al leer los números
    de la derecha. */
-.rank-table { font-size: var(--text-dense); line-height: var(--leading-snug); min-width: 26rem; }
+/* LA TABLA SE DIMENSIONA POR SU CONTENIDO, no por el ancho del contenedor.
+   Con el `width: 100%` de la regla general, la columna del nombre absorbía todo
+   el hueco sobrante: en pantalla ancha quedaban unos 450 px vacíos entre el
+   jugador y sus números y la fila se leía en dos trozos separados, con una caja
+   de nada en medio. En móvil no cambia nada: el contenido ya es más ancho que
+   la pantalla y `.table-wrap` sigue desplazando. */
+.rank-table { font-size: var(--text-dense); line-height: var(--leading-snug);
+              width: auto; min-width: 26rem; max-width: 100%; }
 .rank-table th, .rank-table td { padding: var(--space-2) var(--space-3); vertical-align: middle; }
 /* El rayado va con color explícito en las DOS alternancias, no sólo en las
    pares. Hace falta para que las celdas fijas de abajo puedan heredarlo: con
@@ -652,6 +659,7 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
    color sólo lo refuerza. */
 .avail {
   display: inline-block;
+  line-height: 1.35;
   margin-left: var(--gap-chip);
   padding: 0 var(--space-1);
   border-radius: var(--radius-sm);
@@ -1001,3 +1009,22 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .recon--partial { color: var(--warn-line); }
 .recon--ok { color: var(--muted); font-weight: var(--weight-body); }
 .room-scope-warn--none { color: var(--pos-diff-down); }
+
+/* Lo que hay libre en tu liga: restas entre proyecciones publicadas, nunca un
+   consejo. El número de la diferencia se marca porque es lo único nuevo de la
+   línea; todo lo demás ya está en las tablas de arriba. */
+.wk-free-cols { display: grid; gap: var(--space-4); grid-template-columns: 1fr 1fr; margin-top: var(--space-3); }
+@media (max-width: 720px) { .wk-free-cols { grid-template-columns: 1fr; } }
+.wk-gaps, .wk-free-list { list-style: none; margin: var(--space-2) 0 0; padding: 0; }
+.wk-gaps > li, .wk-free-list > li {
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-small);
+  line-height: 1.5;
+}
+.wk-gap-num { font-variant-numeric: tabular-nums; color: var(--muted); }
+.wk-gap-delta { font-variant-numeric: tabular-nums; font-weight: var(--weight-heavy); color: var(--pos-diff-up); }
+.wk-free h4 { margin: 0 0 var(--space-1); font-size: var(--text-body); }
+/* Mi fila en el resto de temporada: un raíl, no un fondo. Un fondo compite con
+   las marcas de estado, que son lo que hay que ver primero en esa fila. */
+.rank-table tr.is-mine td:first-child { box-shadow: inset 3px 0 0 var(--accent); }

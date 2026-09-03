@@ -62,3 +62,14 @@ test("shortDate sólo acepta la forma ISO", () => {
   assert.equal(shortDate("11 de agosto"), null);
   assert.equal(shortDate(undefined), null);
 });
+
+test("si la ficha vieja dice LO MISMO que la marca de hoy, no se repite", () => {
+  // El desacuerdo es información; el acuerdo repetido es ruido.
+  assert.equal(availabilityMark(JACOBS, "2026-09-03", "QUESTIONABLE"), null);
+});
+
+test("pero si dicen cosas distintas se conservan las dos", () => {
+  const mark = availabilityMark(JACOBS, "2026-09-03", "EXEMPT LIST");
+  assert.equal(mark.text, "8/11 QUESTIONABLE");
+  assert.equal(mark.superseded, true);
+});

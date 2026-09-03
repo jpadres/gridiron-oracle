@@ -22,23 +22,45 @@
  * después, nunca al revés.
  */
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { num } from "../../../data/model.js";
 import { availabilityMark } from "../../availability.js";
 import { Headshot } from "../../headshot.jsx";
 import { TeamMark } from "../../sports.jsx";
 import { browserStorage } from "../draftStorage.js";
+import {
+  GAMES_IN_SEASON, LAST_WEEK, freeAgentUpgrades, freeSpecialists, restOfSeason,
+} from "../leagueAdvice.js";
 import { loadAccount, ownershipLabel, ownershipOf } from "../sleeperAccount.js";
 
 const OFFENSE = ["QB", "RB", "WR", "TE"];
 const CHIPS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
 
-/** Marcas de contexto de una fila: nota del modelo, prensa, disponibilidad. */
-function RowMarks({ id, notes, news, availability, statusVerifiedAt }) {
-  const health = availabilityMark(availability?.[id], statusVerifiedAt);
+/**
+ * Marcas de contexto de una fila: estado, nota del modelo, prensa, dossier.
+ *
+ * El ESTADO va primero y va SIEMPRE, igual que en el board: que alguien no
+ * pueda jugar es lo primero que hay que ver de una fila, antes que la nota y
+ * antes que la prensa. Esta pantalla no lo pintaba —sólo salía la ficha del
+ * dossier, que es de agosto—, así que el ranking semanal enseñaba la
+ * afirmación vieja y se callaba la de hoy. El fallo de las dos superficies con
+ * distinta cobertura, esta vez sobre quién puede jugar.
+ */
+function RowMarks({ row, id, notes, news, availability, statusVerifiedAt }) {
+  const health = availabilityMark(availability?.[id], statusVerifiedAt, row?.status_label);
   return (
     <>
+      {row?.status_label ? (
+        <span className={row.status_severity === "OUT" ? "mark mark--out" : "mark mark--risk"}
+              title={`${row.status_detail} `
+                + (row.status_freshness === "CURRENT"
+                  ? `Verified ${row.status_verified_at}.`
+                  : `LAST VERIFIED ${row.status_verified_at}.`)
+                + " Changes no number on this row."}>
+          {row.status_label}
+        </span>
+      ) : null}
       {notes?.[id] ? (
         <span className="mark mark--why" title="The model explains this ranking below">?</span>
       ) : null}
@@ -67,6 +89,7 @@ function OwnMark({ own, owners }) {
 
 export default function WeeklyExplorer({
   rankings, kickers, defenses, notes = {}, news = {}, availability = {},
+  board = [], byes = {}, week = null,
 }) {
   // El conjunto vacío significa ALL. Multi-selección: cada chip conmuta, y
   // elegirlo todo explícitamente equivale a no filtrar.
@@ -103,6 +126,32 @@ export default function WeeklyExplorer({
     return out;
   }, [league]);
   const ownOf = (sid) => (league ? ownershipLabel({ ownership, sid, myRosterId: league.rosterId }) : null);
+  // La propiedad POR FILA: un jugador se posee por su `sleeper_id` y una
+  // defensa por su código de equipo, que es su id en Sleeper.
+  const ownRow = useCallback(
+    (row) => ownOf(row?.sid ?? (row?.position === "DEF" || row?.opponent_implied != null ? row?.team : null)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [league, ownership]
+  );
+
+  /* LO QUE LA LIGA PERMITE DECIR. Nada de esto es un consejo de fichaje: son
+     restas entre proyecciones ya publicadas, y la interfaz lo dice con esas
+     palabras. La versión que multiplicaba valor por «necesidad» se retiró en
+     agosto por inventarse el segundo factor. */
+  const gaps = useMemo(
+    () => (league ? freeAgentUpgrades({ rows: rankings, own: ownRow }) : []),
+    [league, rankings, ownRow]
+  );
+  const freeSpecs = useMemo(
+    () => (league ? freeSpecialists({ kickers, defenses, own: ownRow }) : { kickers: [], defenses: [] }),
+    [league, kickers, defenses, ownRow]
+  );
+  const [rosOnlyFree, setRosOnlyFree] = useState(false);
+  const ros = useMemo(() => {
+    const rows_ = restOfSeason({ board, byes, week }).filter((r) => r.ros_vor != null);
+    if (!league || !rosOnlyFree) return rows_.slice(0, 100);
+    return rows_.filter((r) => ownRow(r)?.status === "FREE_AGENT").slice(0, 100);
+  }, [board, byes, week, league, rosOnlyFree, ownRow]);
 
   const toggle = (chip) => {
     setPicked((prev) => {
@@ -192,7 +241,7 @@ export default function WeeklyExplorer({
             <thead>
               <tr>
                 <th className="rk">#</th>
-                <th>Player</th>
+                <th className="who">Player</th>
                 <th className="wk-proj">Proj pts</th>
                 <th>Last 6</th>
                 <th>Diff</th>
@@ -210,7 +259,7 @@ export default function WeeklyExplorer({
                     <span className="nm">
                       {row.player_name}
                       <OwnMark own={ownOf(row.sid)} owners={ownersByRoster} />
-                      <RowMarks id={row.player_id} notes={notes} news={news}
+                      <RowMarks row={row} id={row.player_id} notes={notes} news={news}
                                 availability={availability}
                                 statusVerifiedAt={row.status_verified_at} />
                     </span>
@@ -251,7 +300,7 @@ export default function WeeklyExplorer({
             <table className="rank-table wk-table">
               <thead>
                 <tr>
-                  <th>Kicker</th>
+                  <th className="who">Kicker</th>
                   <th className="wk-proj">Proj pts</th>
                   <th>Team implied</th>
                   <th>Game</th>
@@ -265,7 +314,7 @@ export default function WeeklyExplorer({
                       <span className="nm">
                         {k.player_full_name ?? k.player_name}
                         <OwnMark own={ownOf(k.sid)} owners={ownersByRoster} />
-                        <RowMarks id={k.player_id} notes={notes} news={news}
+                        <RowMarks row={k} id={k.player_id} notes={notes} news={news}
                                   availability={availability}
                                   statusVerifiedAt={k.status_verified_at} />
                       </span>
@@ -279,6 +328,150 @@ export default function WeeklyExplorer({
                     <td>{k.is_home === 0 ? "@" : "vs"} {k.opponent}</td>
                   </tr>
                 ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : null}
+
+      {/* --- LO QUE HAY LIBRE EN TU LIGA --------------------------------------
+           Tres listas y ninguna recomendación. La diferencia entre «este libre
+           proyecta 3,5 puntos más que tu más flojo» y «fíchalo» es todo lo que
+           este proyecto no puede afirmar: el banquillo, los descansos que
+           vienen y lo que cuesta soltar a alguien no están en ningún número de
+           aquí. Se enseña la resta y se dice qué no sabe. */}
+      {league ? (
+        <div className="wk-panel wk-free" id="free">
+          <h3>Free in {league.name ?? "this league"} <small>projection gaps, not advice</small></h3>
+          <p className="caption">
+            Read as arithmetic on the numbers already published above: what a free agent
+            projects this week minus what your weakest starter at that position projects.
+            It does not know your bench, the byes ahead, or what dropping someone costs —
+            <strong> the decision is yours and this page does not make it</strong>.
+          </p>
+          {gaps.length > 0 ? (
+            <ul className="wk-gaps">
+              {gaps.map((gap) => (
+                <li key={gap.position}>
+                  <span className={`ptag ptag--${gap.position.toLowerCase()}`}>{gap.position}</span>{" "}
+                  <b className="own own--fa">FA</b> <strong>{gap.free.player_name}</strong>{" "}
+                  <span className="attrib">{gap.free.team}</span>{" "}
+                  <span className="wk-gap-num">{num(gap.free.projected_points, 1)}</span>
+                  {" vs your "}
+                  <strong>{gap.weakest.player_name}</strong>{" "}
+                  <span className="wk-gap-num">{num(gap.weakest.projected_points, 1)}</span>
+                  {" · "}
+                  <span className="wk-gap-delta">+{num(gap.delta, 1)}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="caption">
+              No free agent projects more than your weakest starter at any position this
+              week. That is the normal case and it is worth saying out loud.
+            </p>
+          )}
+          <div className="wk-free-cols">
+            <div>
+              <h4>Kickers nobody has</h4>
+              {freeSpecs.kickers.length > 0 ? (
+                <ul className="wk-free-list">
+                  {freeSpecs.kickers.map((k) => (
+                    <li key={k.player_id}>
+                      <strong>{k.player_full_name ?? k.player_name}</strong>{" "}
+                      <span className="attrib">{k.team} {k.is_home === 0 ? "@" : "vs"} {k.opponent}</span>{" "}
+                      <span className="wk-gap-num">{num(k.projected_points, 1)}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : <p className="caption">Every kicker in the pool is rostered in this league.</p>}
+            </div>
+            <div>
+              <h4>Defenses nobody has</h4>
+              <p className="caption">
+                Sorted by the opponent&rsquo;s implied total, lowest first — the same order as
+                the table below, and for the same reason: there is no validated DST
+                projection, so there is no number to rank them by.
+              </p>
+              {freeSpecs.defenses.length > 0 ? (
+                <ul className="wk-free-list">
+                  {freeSpecs.defenses.map((d) => (
+                    <li key={d.team}>
+                      <TeamMark abbr={d.team} solid /> <strong>{d.team}</strong>{" "}
+                      <span className="attrib">{d.is_home === 0 ? "@" : "vs"} {d.opponent}</span>{" "}
+                      <span className="wk-gap-num">{num(d.opponent_implied, 1)}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : <p className="caption">Every defense is rostered in this league.</p>}
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {/* --- RESTO DE TEMPORADA ------------------------------------------------
+           La proyección de temporada del board repartida entre las jornadas que
+           quedan, descontando el descanso si aún no ha pasado. Es un reparto
+           declarado, no un modelo nuevo. */}
+      {ros.length > 0 ? (
+        <div className="wk-panel" id="ros">
+          <h3>Rest of season <small>week {week} to {LAST_WEEK}</small></h3>
+          <p className="caption">
+            What the board projects for the season, spread over the game weeks each player
+            has left: <strong>× games left ÷ {GAMES_IN_SEASON}</strong>. In week 1 that
+            factor is 1 and the order is the board&rsquo;s, which is correct — nothing has been
+            played. From there the bye does the work: two equal players are not worth the
+            same if one still has his bye ahead.
+          </p>
+          <p className="caption">
+            <strong>Ordered by value over replacement, not by points.</strong> Sorting the
+            same numbers by points put 52 quarterbacks in the top 60 and the first receiver
+            at 13 — a quarterback outscores every receiver and that does not make him the
+            better pick, because his replacement outscores them too. It does not know recent
+            form, a role change since the board was built, or an injury.
+          </p>
+          {league ? (
+            <button type="button" className="wk-detail" aria-pressed={rosOnlyFree}
+                    onClick={() => setRosOnlyFree((v) => !v)}>
+              {rosOnlyFree ? "Show everyone" : `Only free agents in ${league.name ?? "this league"}`}
+            </button>
+          ) : null}
+          <div className="table-wrap">
+            <table className="rank-table wk-table">
+              <thead>
+                <tr>
+                  <th className="rk">#</th><th className="who">Player</th><th className="wk-proj">ROS value</th><th>ROS pts</th><th>Games left</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ros.slice(0, 60).map((row, index) => {
+                  const own = ownRow(row);
+                  return (
+                    <tr key={row.player_id} className={own?.status === "MINE" ? "is-mine" : undefined}>
+                      <td className="rk">{index + 1}</td>
+                      <td className="who hs-who">
+                        <Headshot sid={row.sid} team={row.team} position={row.position}
+                                  name={row.player_full_name ?? row.player_name} size={28} />
+                        <span className="nm">
+                          {row.player_name}
+                          <OwnMark own={own} owners={ownersByRoster} />
+                          <RowMarks row={row} id={row.player_id} notes={notes} news={news}
+                                    availability={availability}
+                                    statusVerifiedAt={row.status_verified_at} />
+                        </span>
+                        <span className="meta">
+                          <span className={`ptag ptag--${row.position.toLowerCase()}`}>
+                            {row.position}{row.ros_position_rank}
+                          </span>
+                          <TeamMark abbr={row.team} />
+                        </span>
+                      </td>
+                      <td className="wk-proj"><strong>{num(row.ros_vor, 1)}</strong></td>
+                      <td>{num(row.ros_points, 1)}</td>
+                      <td>{row.ros_games_left}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -301,7 +494,7 @@ export default function WeeklyExplorer({
             <table className="rank-table wk-table">
               <thead>
                 <tr>
-                  <th>Defense</th>
+                  <th className="who">Defense</th>
                   <th>Opp implied</th>
                   <th>Game</th>
                   <th>PA last 6</th>

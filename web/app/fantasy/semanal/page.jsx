@@ -150,6 +150,9 @@ export default function Semanal() {
         notes={notes}
         news={newsByPlayer}
         availability={availability}
+        board={model.fantasy?.board ?? []}
+        byes={model.fantasy?.byes ?? {}}
+        week={weekly.week}
       />
 
       <h2>Where the model departs from recent form</h2>

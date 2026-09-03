@@ -155,6 +155,57 @@ await page.waitForTimeout(300);
 check("en la liga vacía nadie es MINE y todos son FA",
   (await page.locator(".wk-table .own--mine").count()) === 0 && (await page.locator(".wk-table .own--fa").count()) > 50);
 await page.screenshot({ path: `${OUT}/cuenta-1440-semanal.png` });
+
+/* === 1d. lo que hay libre en MI liga, y el resto de temporada ============= */
+await page.selectOption("#wk-league", "LG12");
+await page.waitForSelector("#free", { timeout: 8000 }).catch(() => {});
+check("el semanal abre el panel de lo que hay libre en esa liga",
+  (await page.locator("#free").count()) === 1);
+{
+  const texto = await page.locator("#free").innerText().catch(() => "");
+  // La frontera del proyecto, escrita donde se lee: esto es una resta, no un
+  // consejo. Si algún día alguien la borra, este laboratorio se pone rojo.
+  check("y dice que es una resta entre proyecciones y NO un consejo",
+    /projection gaps, not advice/i.test(texto) && /the decision is yours/i.test(texto));
+  check("las defensas libres se ordenan por el total implícito del rival, de menos a más",
+    /lowest first/i.test(texto));
+  const libres = await page.locator("#free .wk-free-list > li").count();
+  check("y lista pateadores o defensas que nadie tiene", libres > 0, `${libres} filas`);
+}
+await page.waitForSelector("#ros", { timeout: 8000 }).catch(() => {});
+{
+  const filas = await page.locator("#ros tbody tr").count();
+  check("el resto de temporada sale con sus filas", filas > 20, `${filas}`);
+  // REGLA 6b EN LA TABLA. Ordenada por puntos salían 52 quarterbacks entre los
+  // sesenta primeros. Se cuenta cuántos QB hay en el top 20: si vuelve a
+  // ordenarse por puntos, este guardián se pone rojo.
+  const posiciones = await page.evaluate(() =>
+    [...document.querySelectorAll("#ros tbody tr")].slice(0, 20)
+      .map((tr) => tr.querySelector(".ptag")?.textContent?.replace(/[0-9]/g, "") ?? "?"));
+  const qbs = posiciones.filter((p) => p === "QB").length;
+  check("el resto de temporada NO está ordenado por puntos: pocos QB arriba",
+    qbs <= 4, `${qbs} QB en el top 20 — ${posiciones.slice(0, 8).join(",")}`);
+  check("y el primer puesto no es un quarterback",
+    posiciones[0] !== "QB", posiciones[0]);
+  // El filtro no se comprueba por cuántas filas quedan —en esta liga casi todo
+  // el pool está libre y podrían ser las mismas 60— sino por lo que NO puede
+  // colarse: con el filtro puesto, TODA fila pintada tiene que ser FA. Un
+  // filtro que deja pasar a uno de otro equipo te manda a fichar a alguien que
+  // no puedes fichar.
+  const conFiltro = page.locator("#ros button.wk-detail");
+  await conFiltro.click();
+  await page.waitForTimeout(300);
+  const filasFA = await page.locator("#ros tbody tr").count();
+  const marcasFA = await page.locator("#ros tbody tr .own--fa").count();
+  check("con el filtro puesto, TODAS las filas del resto de temporada son FA",
+    filasFA > 0 && marcasFA === filasFA, `${marcasFA}/${filasFA}`);
+  check("y el botón queda marcado como activo",
+    (await conFiltro.getAttribute("aria-pressed")) === "true");
+  await conFiltro.click();
+}
+// Capturas acotadas a cada panel: una página de 14.000 px no se puede mirar.
+await page.locator("#free").screenshot({ path: `${OUT}/cuenta-1440-libres.png` }).catch(() => {});
+await page.locator("#ros").screenshot({ path: `${OUT}/cuenta-1440-ros.png` }).catch(() => {});
 await page.goto(`${BASE}/fantasy/leagues`, { waitUntil: "domcontentloaded" });
 await page.waitForSelector(".cc-panel", { timeout: 8000 });
 
@@ -210,6 +261,35 @@ check("el mock seguido aparece ahora también en el catálogo (Other leagues) o 
 check("sin errores de página", errores.length === 0, errores.join(" | "));
 
 await ctx.close();
+
+/* === 4. los paneles nuevos en un móvil =================================== */
+/* Se consultan con el teléfono en la mano: si la tabla del resto de temporada
+   desborda la pantalla, la columna del valor —que es la que ordena— es
+   justo la que se queda fuera. */
+console.log("\n=== 390 ===");
+{
+  const movil = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
+  await montar(movil, [L1, L2, MOCK]);
+  const m = await movil.newPage();
+  // La cuenta se enlaza igual que una persona: por la pantalla, no inyectando
+  // el almacenamiento. Un fixture que se salta el camino real prueba otra cosa.
+  await m.goto(`${BASE}/fantasy/leagues`, { waitUntil: "domcontentloaded" });
+  await m.waitForSelector("#cc-user");
+  await m.fill("#cc-user", USERNAME);
+  await m.click(".cc-link button[type=submit]");
+  await m.waitForSelector(".cc-panel", { timeout: 10000 });
+  await m.goto(`${BASE}/fantasy/semanal`, { waitUntil: "domcontentloaded" });
+  await m.waitForSelector("#wk-league", { timeout: 10000 });
+  await m.selectOption("#wk-league", "LG12");
+  await m.waitForSelector("#ros", { timeout: 10000 }).catch(() => {});
+  check("390: los dos paneles nuevos salen en el móvil",
+    (await m.locator("#free").count()) === 1 && (await m.locator("#ros").count()) === 1);
+  check("390: la página no desborda en horizontal",
+    await m.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
+  await m.screenshot({ path: `${OUT}/cuenta-390-semanal.png` });
+  await movil.close();
+}
+
 await browser.close();
 stop();
 console.log(`\n${fallos === 0 ? "TODO VERDE" : `${fallos} FALLOS`}`);
