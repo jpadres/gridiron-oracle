@@ -1,1148 +1,2534 @@
 {
- "date": "2026-09-02",
- "items": [
-  {
-   "beat": "Suspensions",
-   "team": "GB",
-   "players": [
-    "Josh Jacobs",
-    "MarShawn Lloyd"
-   ],
-   "kind": "disciplina",
-   "headline": "Jacobs opens the season on the exempt list; Lloyd is the Week 1 lead back",
-   "summary": "Jacobs stays on the Commissioner's Exempt List until Goodell removes him, with no timeline and a first court date on 17 November. Green Bay's available backfield is MarShawn Lloyd, Chris Brooks and Kaleb Johnson, with Lloyd the clear favourite for Week 1 touches against Minnesota.",
-   "impact": "baja",
-   "confidence": "confirmado",
-   "evidence_type": "HECHO",
-   "fantasy_relevance": 5,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
+  "date": "2026-09-02",
+  "items": [
     {
-     "outlet": "NFL.com",
-     "title": "NFL places Packers RB Josh Jacobs on Commissioner's Exempt List",
-     "url": "https://www.nfl.com/news/nfl-places-packers-rb-josh-jacobs-commissioner-exempt-list"
+      "beat": "Suspensions",
+      "team": "GB",
+      "players": [
+        "Josh Jacobs",
+        "MarShawn Lloyd"
+      ],
+      "kind": "disciplina",
+      "headline": "Jacobs opens the season on the exempt list; Lloyd is the Week 1 lead back",
+      "summary": "Jacobs stays on the Commissioner's Exempt List until Goodell removes him, with no timeline and a first court date on 17 November. Green Bay's available backfield is MarShawn Lloyd, Chris Brooks and Kaleb Johnson, with Lloyd the clear favourite for Week 1 touches against Minnesota.",
+      "impact": "baja",
+      "confidence": "confirmado",
+      "evidence_type": "HECHO",
+      "fantasy_relevance": 5,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "NFL.com",
+          "title": "NFL places Packers RB Josh Jacobs on Commissioner's Exempt List",
+          "url": "https://www.nfl.com/news/nfl-places-packers-rb-josh-jacobs-commissioner-exempt-list"
+        },
+        {
+          "outlet": "Last Word On Sports",
+          "title": "Packers RB's uncertain fantasy outlook with recent Josh Jacobs news",
+          "url": "https://lastwordonsports.com/nfl/2026/08/31/packers-rbs-fantasy-outlook/"
+        }
+      ]
     },
     {
-     "outlet": "Last Word On Sports",
-     "title": "Packers RB's uncertain fantasy outlook with recent Josh Jacobs news",
-     "url": "https://lastwordonsports.com/nfl/2026/08/31/packers-rbs-fantasy-outlook/"
-    }
-   ]
-  },
-  {
-   "beat": "Suspensions",
-   "team": "LIGA",
-   "players": [
-    "Jeshaun Jones",
-    "James Pearce Jr.",
-    "Dorance Armstrong"
-   ],
-   "kind": "disciplina",
-   "headline": "Thirty players serve Week 1 suspensions; Jeshaun Jones the only fantasy-relevant one",
-   "summary": "SI's list of players suspended to start 2026 has 30 names (plus nine free agents). Among skill players, only Vikings WR Jeshaun Jones (3 games, substances of abuse) matters for fantasy; the rest are defenders such as Falcons edge James Pearce Jr. (8 games) and Commanders edge Dorance Armstrong (1).",
-   "impact": "neutro",
-   "confidence": "confirmado",
-   "evidence_type": "HECHO",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Sports Illustrated",
-     "title": "Every player suspended to start the 2026 NFL season",
-     "url": "https://www.si.com/nfl/every-player-suspended-start-season"
+      "beat": "Suspensions",
+      "team": "LIGA",
+      "players": [
+        "Jeshaun Jones",
+        "James Pearce Jr.",
+        "Dorance Armstrong"
+      ],
+      "kind": "disciplina",
+      "headline": "Thirty players serve Week 1 suspensions; Jeshaun Jones the only fantasy-relevant one",
+      "summary": "SI's list of players suspended to start 2026 has 30 names (plus nine free agents). Among skill players, only Vikings WR Jeshaun Jones (3 games, substances of abuse) matters for fantasy; the rest are defenders such as Falcons edge James Pearce Jr. (8 games) and Commanders edge Dorance Armstrong (1).",
+      "impact": "neutro",
+      "confidence": "confirmado",
+      "evidence_type": "HECHO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Sports Illustrated",
+          "title": "Every player suspended to start the 2026 NFL season",
+          "url": "https://www.si.com/nfl/every-player-suspended-start-season"
+        },
+        {
+          "outlet": "ESPN",
+          "title": "Full list of Week 1 NFL suspensions",
+          "url": "https://www.espn.com/blog/statsinfo/post/_/id/94987/full-list-of-week-1-nfl-suspensions"
+        }
+      ]
     },
     {
-     "outlet": "ESPN",
-     "title": "Full list of Week 1 NFL suspensions",
-     "url": "https://www.espn.com/blog/statsinfo/post/_/id/94987/full-list-of-week-1-nfl-suspensions"
-    }
-   ]
-  },
-  {
-   "beat": "Suspensions",
-   "team": "IND",
-   "players": [
-    "Keenan Allen"
-   ],
-   "kind": "disciplina",
-   "headline": "Keenan Allen will play Week 1 after his arrest; a three-game suspension can still come later",
-   "summary": "Colts GM Chris Ballard said Allen will be in the lineup against Baltimore and any discipline is in-house. The league's first-offence alcohol policy is a three-game ban, but the NFL normally waits for the legal case; his court date is 16 September. Draft him knowing a midseason suspension is a live possibility.",
-   "impact": "baja",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 4,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Washington Times",
-     "title": "Colts expect WR Keenan Allen to play in season opener",
-     "url": "https://www.washingtontimes.com/news/2026/sep/1/colts-expecting-wr-keenan-allen-play-season-opener-hopeful-alec/"
+      "beat": "Suspensions",
+      "team": "IND",
+      "players": [
+        "Keenan Allen"
+      ],
+      "kind": "disciplina",
+      "headline": "Keenan Allen will play Week 1 after his arrest; a three-game suspension can still come later",
+      "summary": "Colts GM Chris Ballard said Allen will be in the lineup against Baltimore and any discipline is in-house. The league's first-offence alcohol policy is a three-game ban, but the NFL normally waits for the legal case; his court date is 16 September. Draft him knowing a midseason suspension is a live possibility.",
+      "impact": "baja",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Washington Times",
+          "title": "Colts expect WR Keenan Allen to play in season opener",
+          "url": "https://www.washingtontimes.com/news/2026/sep/1/colts-expecting-wr-keenan-allen-play-season-opener-hopeful-alec/"
+        },
+        {
+          "outlet": "Pro Football Network",
+          "title": "Will Keenan Allen be suspended or cut?",
+          "url": "https://www.profootballnetwork.com/will-keenan-allen-be-suspended-colts-dui-arrest/"
+        }
+      ]
     },
     {
-     "outlet": "Pro Football Network",
-     "title": "Will Keenan Allen be suspended or cut?",
-     "url": "https://www.profootballnetwork.com/will-keenan-allen-be-suspended-colts-dui-arrest/"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "SEA",
-   "players": [
-    "Zach Charbonnet",
-    "Jadarian Price",
-    "George Holani"
-   ],
-   "kind": "lesion",
-   "headline": "Charbonnet on reserve/PUP; rookie Jadarian Price leads Seattle's backfield from Week 1",
-   "summary": "Charbonnet misses at least four games recovering from the knee. The Seahawks plan to let first-round rookie Price lead the run game against New England despite zero preseason snaps, with George Holani expected to get a heavy dose behind him. When Charbonnet returns the split is expected to be close to even.",
-   "impact": "alza",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 5,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Yahoo Sports",
-     "title": "Seahawks plan to let rookie RB Jadarian Price lead their backfield",
-     "url": "https://sports.yahoo.com/articles/seahawks-plan-let-rookie-rb-210519058.html"
+      "beat": "Injuries",
+      "team": "SEA",
+      "players": [
+        "Zach Charbonnet",
+        "Jadarian Price",
+        "George Holani"
+      ],
+      "kind": "lesion",
+      "headline": "Charbonnet on reserve/PUP; rookie Jadarian Price leads Seattle's backfield from Week 1",
+      "summary": "Charbonnet misses at least four games recovering from the knee. The Seahawks plan to let first-round rookie Price lead the run game against New England despite zero preseason snaps, with George Holani expected to get a heavy dose behind him. When Charbonnet returns the split is expected to be close to even.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 5,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Seahawks plan to let rookie RB Jadarian Price lead their backfield",
+          "url": "https://sports.yahoo.com/articles/seahawks-plan-let-rookie-rb-210519058.html"
+        },
+        {
+          "outlet": "NBC Sports",
+          "title": "SEA backfield to have 'heavy dose' of Holani",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-31/sea-backfield-to-have-heavy-dose-of-holani"
+        },
+        {
+          "outlet": "ESPN",
+          "title": "Are the Seahawks ready for rookie Jadarian Price to lead run game?",
+          "url": "https://www.espn.com/nfl/story/_/id/49778349/seahawks-rookie-rb-jadarian-price-ready-lead-run-game"
+        }
+      ]
     },
     {
-     "outlet": "NBC Sports",
-     "title": "SEA backfield to have 'heavy dose' of Holani",
-     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-31/sea-backfield-to-have-heavy-dose-of-holani"
+      "beat": "Injuries",
+      "team": "ARI",
+      "players": [
+        "Jeremiyah Love"
+      ],
+      "kind": "lesion",
+      "headline": "Love's high-ankle sprain leaves Week 1 about 50/50; still the consensus 1.01 rookie",
+      "summary": "No surgery, and head coach Mike LaFleur says he keeps taking steps, but he would not commit to the 13 September opener against the Chargers. Schefter's four-week healing estimate lands right on the opener. Yahoo and PFN still rank him the top rookie for redraft.",
+      "impact": "baja",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 5,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Bleacher Report",
+          "title": "Jeremiyah Love injury update provided by Cardinals HC",
+          "url": "https://bleacherreport.com/articles/25495054-jeremiyah-love-injury-updated-provided-cardinals-hc-latest-rbs-status-week-1"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Could Jeremiyah Love miss Week 1?",
+          "url": "https://sports.yahoo.com/articles/could-jeremiyah-love-miss-week-231444293.html"
+        }
+      ]
     },
     {
-     "outlet": "ESPN",
-     "title": "Are the Seahawks ready for rookie Jadarian Price to lead run game?",
-     "url": "https://www.espn.com/nfl/story/_/id/49778349/seahawks-rookie-rb-jadarian-price-ready-lead-run-game"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "ARI",
-   "players": [
-    "Jeremiyah Love"
-   ],
-   "kind": "lesion",
-   "headline": "Love's high-ankle sprain leaves Week 1 about 50/50; still the consensus 1.01 rookie",
-   "summary": "No surgery, and head coach Mike LaFleur says he keeps taking steps, but he would not commit to the 13 September opener against the Chargers. Schefter's four-week healing estimate lands right on the opener. Yahoo and PFN still rank him the top rookie for redraft.",
-   "impact": "baja",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 5,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Bleacher Report",
-     "title": "Jeremiyah Love injury update provided by Cardinals HC",
-     "url": "https://bleacherreport.com/articles/25495054-jeremiyah-love-injury-updated-provided-cardinals-hc-latest-rbs-status-week-1"
+      "beat": "Injuries",
+      "team": "LV",
+      "players": [
+        "Ashton Jeanty"
+      ],
+      "kind": "lesion",
+      "headline": "Jeanty back on the field with trainers; Raiders counting on him for Week 1",
+      "summary": "First time on the practice field since the 23 August ankle sprain, working to the side on 1 September. Klint Kubiak: still on the mend, another week to assess, but the team is counting on him against Miami. Not yet a full participant.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "OBSERVADO",
+      "fantasy_relevance": 5,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Ashton Jeanty injury update from Raiders practice brings more optimism for Week 1",
+          "url": "https://sports.yahoo.com/articles/ashton-jeanty-injury-raiders-practice-152408912.html"
+        }
+      ]
     },
     {
-     "outlet": "Yahoo Sports",
-     "title": "Could Jeremiyah Love miss Week 1?",
-     "url": "https://sports.yahoo.com/articles/could-jeremiyah-love-miss-week-231444293.html"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "LV",
-   "players": [
-    "Ashton Jeanty"
-   ],
-   "kind": "lesion",
-   "headline": "Jeanty back on the field with trainers; Raiders counting on him for Week 1",
-   "summary": "First time on the practice field since the 23 August ankle sprain, working to the side on 1 September. Klint Kubiak: still on the mend, another week to assess, but the team is counting on him against Miami. Not yet a full participant.",
-   "impact": "alza",
-   "confidence": "informado",
-   "evidence_type": "OBSERVADO",
-   "fantasy_relevance": 5,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Yahoo Sports",
-     "title": "Ashton Jeanty injury update from Raiders practice brings more optimism for Week 1",
-     "url": "https://sports.yahoo.com/articles/ashton-jeanty-injury-raiders-practice-152408912.html"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "CIN",
-   "players": [
-    "Ja'Marr Chase",
-    "Tee Higgins"
-   ],
-   "kind": "lesion",
-   "headline": "Chase (knee) and Higgins (heel) limited all week; Bengals expect both for Week 1",
-   "summary": "Chase hyperextended his left knee going up for a Burrow pass on 25 August and Higgins has a heel issue. Zac Taylor announced both will be limited throughout the week but said he feels good about them for Tampa Bay on 13 September and that both will be good by the end of the week.",
-   "impact": "neutro",
-   "confidence": "confirmado",
-   "evidence_type": "HECHO",
-   "fantasy_relevance": 5,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "NBC Sports",
-     "title": "Ja'Marr Chase, Tee Higgins out of practice Tuesday, but Bengals expect them for Week 1",
-     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-out-of-practice-tuesday-but-bengals-expect-them-for-week-1"
+      "beat": "Injuries",
+      "team": "CIN",
+      "players": [
+        "Ja'Marr Chase",
+        "Tee Higgins"
+      ],
+      "kind": "lesion",
+      "headline": "Chase (knee) and Higgins (heel) limited all week; Bengals expect both for Week 1",
+      "summary": "Chase hyperextended his left knee going up for a Burrow pass on 25 August and Higgins has a heel issue. Zac Taylor announced both will be limited throughout the week but said he feels good about them for Tampa Bay on 13 September and that both will be good by the end of the week.",
+      "impact": "neutro",
+      "confidence": "confirmado",
+      "evidence_type": "HECHO",
+      "fantasy_relevance": 5,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "title": "Ja'Marr Chase, Tee Higgins out of practice Tuesday, but Bengals expect them for Week 1",
+          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-out-of-practice-tuesday-but-bengals-expect-them-for-week-1"
+        },
+        {
+          "outlet": "FOX19",
+          "title": "Ja'Marr Chase will be limited at practice after injury",
+          "url": "https://www.fox19.com/2026/09/01/jamarr-chase-will-be-limited-practice-after-injury/"
+        }
+      ]
     },
     {
-     "outlet": "FOX19",
-     "title": "Ja'Marr Chase will be limited at practice after injury",
-     "url": "https://www.fox19.com/2026/09/01/jamarr-chase-will-be-limited-practice-after-injury/"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "NYG",
-   "players": [
-    "Malik Nabers"
-   ],
-   "kind": "lesion",
-   "headline": "Nabers practising without the non-contact jersey; 'reasonable' to expect him Week 1",
-   "summary": "Back from the torn ACL, he practised on 31 August without the red jersey and John Harbaugh called Week 1 a reasonable assumption. Nabers himself has not committed and has not done full-contact team periods: no target date, stacking days.",
-   "impact": "alza",
-   "confidence": "informado",
-   "evidence_type": "OBSERVADO",
-   "fantasy_relevance": 5,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "CBS Sports",
-     "title": "Malik Nabers injury status: Giants WR shares honest assessment",
-     "url": "https://www.cbssports.com/nfl/news/malik-nabers-injury-status-giants-wr-shares-honest-assessment-of-progress-week-1-availability/"
+      "beat": "Injuries",
+      "team": "NYG",
+      "players": [
+        "Malik Nabers"
+      ],
+      "kind": "lesion",
+      "headline": "Nabers practising without the non-contact jersey; 'reasonable' to expect him Week 1",
+      "summary": "Back from the torn ACL, he practised on 31 August without the red jersey and John Harbaugh called Week 1 a reasonable assumption. Nabers himself has not committed and has not done full-contact team periods: no target date, stacking days.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "OBSERVADO",
+      "fantasy_relevance": 5,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "CBS Sports",
+          "title": "Malik Nabers injury status: Giants WR shares honest assessment",
+          "url": "https://www.cbssports.com/nfl/news/malik-nabers-injury-status-giants-wr-shares-honest-assessment-of-progress-week-1-availability/"
+        },
+        {
+          "outlet": "FantasyPros",
+          "title": "Malik Nabers 'reasonable' for Week 1",
+          "url": "https://www.fantasypros.com/2026/08/fantasy-football-injury-updates-malik-nabers-reasonable-bet-for-week-1/"
+        }
+      ]
     },
     {
-     "outlet": "FantasyPros",
-     "title": "Malik Nabers 'reasonable' for Week 1",
-     "url": "https://www.fantasypros.com/2026/08/fantasy-football-injury-updates-malik-nabers-reasonable-bet-for-week-1/"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "SF",
-   "players": [
-    "George Kittle",
-    "Ricky Pearsall",
-    "Christian Kirk",
-    "De'Zhaun Stribling"
-   ],
-   "kind": "lesion",
-   "headline": "Kittle pushing to play the Melbourne opener; Pearsall out for the year, Kirk on IR",
-   "summary": "Kittle (Achilles) is expected to practise this week and is listed questionable for the 10 September opener against the Rams in Australia. Pearsall is done for the season after PCL surgery and Kirk opened on IR, which is why second-round rookie De'Zhaun Stribling is the depth piece to watch behind Demarcus Robinson and Deebo Samuel.",
-   "impact": "neutro",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 4,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Yahoo Sports",
-     "title": "2026 Fantasy Football: How to handle these key injured players",
-     "url": "https://sports.yahoo.com/fantasy/article/2026-fantasy-football-how-to-handle-these-key-injured-players-going-into-your-draft-150327581.html"
+      "beat": "Injuries",
+      "team": "SF",
+      "players": [
+        "George Kittle",
+        "Ricky Pearsall",
+        "Christian Kirk",
+        "De'Zhaun Stribling"
+      ],
+      "kind": "lesion",
+      "headline": "Kittle pushing to play the Melbourne opener; Pearsall out for the year, Kirk on IR",
+      "summary": "Kittle (Achilles) is expected to practise this week and is listed questionable for the 10 September opener against the Rams in Australia. Pearsall is done for the season after PCL surgery and Kirk opened on IR, which is why second-round rookie De'Zhaun Stribling is the depth piece to watch behind Demarcus Robinson and Deebo Samuel.",
+      "impact": "neutro",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "title": "2026 Fantasy Football: How to handle these key injured players",
+          "url": "https://sports.yahoo.com/fantasy/article/2026-fantasy-football-how-to-handle-these-key-injured-players-going-into-your-draft-150327581.html"
+        },
+        {
+          "outlet": "Pro Football Network",
+          "title": "Updated De'Zhaun Stribling fantasy outlook 2026",
+          "url": "https://www.profootballnetwork.com/fantasy-football/dezhaun-stribling-fantasy-outlook-updated-2026/"
+        }
+      ]
     },
     {
-     "outlet": "Pro Football Network",
-     "title": "Updated De'Zhaun Stribling fantasy outlook 2026",
-     "url": "https://www.profootballnetwork.com/fantasy-football/dezhaun-stribling-fantasy-outlook-updated-2026/"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "IND",
-   "players": [
-    "Tyler Warren",
-    "Alec Pierce"
-   ],
-   "kind": "lesion",
-   "headline": "Warren back at practice and expected for Week 1; Pierce off PUP with Week 1 'the goal'",
-   "summary": "Warren strained an adductor on 19 August and practised on 1 September; Rapoport says no reason for concern. Pierce was activated from active/PUP on 27 August and both he and GM Ballard call Week 1 the goal, not a certainty.",
-   "impact": "alza",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 4,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Yahoo Sports",
-     "title": "Colts receive Tyler Warren update from insider",
-     "url": "https://sports.yahoo.com/articles/colts-receive-tyler-warren-insider-230831765.html"
+      "beat": "Injuries",
+      "team": "IND",
+      "players": [
+        "Tyler Warren",
+        "Alec Pierce"
+      ],
+      "kind": "lesion",
+      "headline": "Warren back at practice and expected for Week 1; Pierce off PUP with Week 1 'the goal'",
+      "summary": "Warren strained an adductor on 19 August and practised on 1 September; Rapoport says no reason for concern. Pierce was activated from active/PUP on 27 August and both he and GM Ballard call Week 1 the goal, not a certainty.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Colts receive Tyler Warren update from insider",
+          "url": "https://sports.yahoo.com/articles/colts-receive-tyler-warren-insider-230831765.html"
+        },
+        {
+          "outlet": "ESPN",
+          "title": "Colts No. 1 WR Pierce off PUP list",
+          "url": "https://www.espn.com/nfl/story/_/id/49742187/source-colts-activating-no-1-wr-alex-pierce-pup-list"
+        }
+      ]
     },
     {
-     "outlet": "ESPN",
-     "title": "Colts No. 1 WR Pierce off PUP list",
-     "url": "https://www.espn.com/nfl/story/_/id/49742187/source-colts-activating-no-1-wr-alex-pierce-pup-list"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "CHI",
-   "players": [
-    "Kyle Monangai",
-    "D'Andre Swift"
-   ],
-   "kind": "lesion",
-   "headline": "Monangai still week-to-week with the hyperextended knee; Swift carries Chicago early",
-   "summary": "The 17 August hyperextension was expected to cost multiple weeks and Ben Johnson still calls him week-to-week. Swift is primed for a big workload against Carolina in Week 1 until Monangai is back.",
-   "impact": "baja",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 4,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "NBC Sports",
-     "title": "Report: Bears RB Kyle Monangai will miss weeks with a hyperextended knee",
-     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bears-rb-kyle-monangai-will-miss-weeks-with-a-hyperextended-knee"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "NYJ",
-   "players": [
-    "Kenyon Sadiq",
-    "Mason Taylor"
-   ],
-   "kind": "lesion",
-   "headline": "Sadiq on track for Week 1 but ramping up; Mason Taylor is the every-down tight end for now",
-   "summary": "The first-round rookie missed most of camp and all of the preseason after a hernia-surgery setback. Aaron Glenn says he remains on track for the Titans, but he will not have an every-down role out of the gate.",
-   "impact": "baja",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "CBS Sports",
-     "title": "Jets' Kenyon Sadiq: optimism for Week 1 status",
-     "url": "https://www.cbssports.com/fantasy/football/news/jets-kenyon-sadiq-optimism-for-week-1-status/"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "WAS",
-   "players": [
-    "Jacory Croskey-Merritt",
-    "Rachaad White",
-    "Kaytron Allen"
-   ],
-   "kind": "lesion",
-   "headline": "Both Washington backs banged up; rookie Kaytron Allen could see more than a third-back role",
-   "summary": "Croskey-Merritt (lower body) is set to lead early downs and White (hamstring) the receiving work, but both missed time and the team can manage them carefully. Sixth-rounder Kaytron Allen is the physical option behind them and the one who benefits if either lingers.",
-   "impact": "neutro",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Athlon",
-     "title": "Commanders clear a path for rookie running backs",
-     "url": "https://athlonsports.com/nfl/washington-commanders/commanders-clear-a-path-for-rookie-running-backs-to-earn-roster-spot-following-injury-settlement"
+      "beat": "Injuries",
+      "team": "CHI",
+      "players": [
+        "Kyle Monangai",
+        "D'Andre Swift"
+      ],
+      "kind": "lesion",
+      "headline": "Monangai still week-to-week with the hyperextended knee; Swift carries Chicago early",
+      "summary": "The 17 August hyperextension was expected to cost multiple weeks and Ben Johnson still calls him week-to-week. Swift is primed for a big workload against Carolina in Week 1 until Monangai is back.",
+      "impact": "baja",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "title": "Report: Bears RB Kyle Monangai will miss weeks with a hyperextended knee",
+          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bears-rb-kyle-monangai-will-miss-weeks-with-a-hyperextended-knee"
+        }
+      ]
     },
     {
-     "outlet": "Yahoo Sports",
-     "title": "Rachaad White practicing confirms best-case scenario",
-     "url": "https://sports.yahoo.com/articles/commanders-news-rachaad-white-practicing-133453309.html"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "GB",
-   "players": [
-    "Luke Musgrave"
-   ],
-   "kind": "lesion",
-   "headline": "Musgrave (neck) opens on reserve/PUP: out at least four games",
-   "summary": "Placed on the PUP list at the roster cutdown; GM Gutekunst expects him to play in 2026 but not before Week 5.",
-   "impact": "baja",
-   "confidence": "confirmado",
-   "evidence_type": "HECHO",
-   "fantasy_relevance": 2,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Yardbarker",
-     "title": "Packers place TE Luke Musgrave on PUP list, pare roster to 53",
-     "url": "https://www.yardbarker.com/nfl/articles/packers_place_te_luke_musgrave_on_pup_list_pare_roster_to_53/s1_14819_44240463"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "DEN",
-   "players": [
-    "J.K. Dobbins",
-    "RJ Harvey",
-    "Jonah Coleman"
-   ],
-   "kind": "lesion",
-   "headline": "Dobbins' camp soft-tissue injury called minor; Denver is a three-man rotation with rookie Coleman",
-   "summary": "Payton said Dobbins is 'gonna be fine' and the team is being smart with him for Week 1 against Kansas City. Dobbins is the early-down favourite, Harvey the passing-down back, and third-round rookie Jonah Coleman has forced his way into a short-yardage and goal-line role rather than a Week 1 lineup lock.",
-   "impact": "neutro",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "NBC Sports",
-     "title": "Payton: Dobbins exited with soft-tissue injury",
-     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-10/payton-dobbins-exited-with-soft-tissue-injury"
+      "beat": "Injuries",
+      "team": "NYJ",
+      "players": [
+        "Kenyon Sadiq",
+        "Mason Taylor"
+      ],
+      "kind": "lesion",
+      "headline": "Sadiq on track for Week 1 but ramping up; Mason Taylor is the every-down tight end for now",
+      "summary": "The first-round rookie missed most of camp and all of the preseason after a hernia-surgery setback. Aaron Glenn says he remains on track for the Titans, but he will not have an every-down role out of the gate.",
+      "impact": "baja",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "CBS Sports",
+          "title": "Jets' Kenyon Sadiq: optimism for Week 1 status",
+          "url": "https://www.cbssports.com/fantasy/football/news/jets-kenyon-sadiq-optimism-for-week-1-status/"
+        }
+      ]
     },
     {
-     "outlet": "Pro Football Network",
-     "title": "Jonah Coleman fantasy outlook 2026",
-     "url": "https://www.profootballnetwork.com/fantasy-football/jonah-coleman-fantasy-outlook-2026/"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "MIA",
-   "players": [
-    "Tyreek Hill"
-   ],
-   "kind": "transaccion",
-   "headline": "Tyreek Hill will not sign before the season; midseason at best",
-   "summary": "Released by Miami in February after the knee dislocation and multiple ligament tears, Hill's agent says he will take his time to pick the right team and no deal is expected before Week 1. Earlier reporting put a return around midseason. He should not be drafted as a Week 1 asset.",
-   "impact": "baja",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Yahoo Sports",
-     "title": "Tyreek Hill's agent sheds light on timeline",
-     "url": "https://sports.yahoo.com/articles/nfl-news-tyreek-hill-agent-201211521.html"
-    }
-   ]
-  },
-  {
-   "beat": "Rookies",
-   "team": "TEN",
-   "players": [
-    "Carnell Tate",
-    "Wan'Dale Robinson",
-    "Elic Ayomanor"
-   ],
-   "kind": "depth_chart",
-   "headline": "Carnell Tate steps in as Tennessee's WR1 from Week 1",
-   "summary": "The fourth overall pick is expected to be Cam Ward's top downfield weapon against the Jets, alongside slot man Wan'Dale Robinson, with Elic Ayomanor the other outside option. Of the seven first-40 rookie receivers, he has the clearest path to being his team's No. 1 target.",
-   "impact": "alza",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 5,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Pro Football Network",
-     "title": "Updated Carnell Tate fantasy outlook 2026",
-     "url": "https://www.profootballnetwork.com/fantasy-football/carnell-tate-fantasy-outlook-updated-2026/"
+      "beat": "Injuries",
+      "team": "WAS",
+      "players": [
+        "Jacory Croskey-Merritt",
+        "Rachaad White",
+        "Kaytron Allen"
+      ],
+      "kind": "lesion",
+      "headline": "Both Washington backs banged up; rookie Kaytron Allen could see more than a third-back role",
+      "summary": "Croskey-Merritt (lower body) is set to lead early downs and White (hamstring) the receiving work, but both missed time and the team can manage them carefully. Sixth-rounder Kaytron Allen is the physical option behind them and the one who benefits if either lingers.",
+      "impact": "neutro",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Athlon",
+          "title": "Commanders clear a path for rookie running backs",
+          "url": "https://athlonsports.com/nfl/washington-commanders/commanders-clear-a-path-for-rookie-running-backs-to-earn-roster-spot-following-injury-settlement"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Rachaad White practicing confirms best-case scenario",
+          "url": "https://sports.yahoo.com/articles/commanders-news-rachaad-white-practicing-133453309.html"
+        }
+      ]
     },
     {
-     "outlet": "Yahoo Sports",
-     "title": "Where each Titans rookie landed on the depth chart",
-     "url": "https://sports.yahoo.com/articles/where-titans-rookie-landed-first-224555769.html"
-    }
-   ]
-  },
-  {
-   "beat": "Rookies",
-   "team": "PHI",
-   "players": [
-    "Makai Lemon",
-    "DeVonta Smith",
-    "Dontayvion Wicks"
-   ],
-   "kind": "depth_chart",
-   "headline": "Makai Lemon opens as Philadelphia's No. 3 receiver, in the slot",
-   "summary": "First-round talent, but a camp hamstring strain, a crowded room and a low-volume passing game cap the rookie: he is ticketed for the slot with Smith wide and Wicks opposite, a rotational role with week-to-week viability rather than a starter's floor.",
-   "impact": "baja",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 4,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Pro Football Network",
-     "title": "Updated Makai Lemon fantasy outlook 2026",
-     "url": "https://www.profootballnetwork.com/fantasy-football/makai-lemon-fantasy-outlook-updated-2026/"
+      "beat": "Injuries",
+      "team": "GB",
+      "players": [
+        "Luke Musgrave"
+      ],
+      "kind": "lesion",
+      "headline": "Musgrave (neck) opens on reserve/PUP: out at least four games",
+      "summary": "Placed on the PUP list at the roster cutdown; GM Gutekunst expects him to play in 2026 but not before Week 5.",
+      "impact": "baja",
+      "confidence": "confirmado",
+      "evidence_type": "HECHO",
+      "fantasy_relevance": 2,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yardbarker",
+          "title": "Packers place TE Luke Musgrave on PUP list, pare roster to 53",
+          "url": "https://www.yardbarker.com/nfl/articles/packers_place_te_luke_musgrave_on_pup_list_pare_roster_to_53/s1_14819_44240463"
+        }
+      ]
     },
     {
-     "outlet": "Sports Illustrated",
-     "title": "Makai Lemon tops 4 rookies with sinking fantasy value",
-     "url": "https://www.si.com/onsi/fantasy/rankings/busts-fallers-value-rookies-nfl-fantasy-football-makai-lemon"
-    }
-   ]
-  },
-  {
-   "beat": "Rookies",
-   "team": "CLE",
-   "players": [
-    "K.C. Concepcion",
-    "Denzel Boston"
-   ],
-   "kind": "depth_chart",
-   "headline": "Browns say both rookie receivers will play a lot; Boston moved into the first-team offense",
-   "summary": "Todd Monken said Concepcion and Boston are going to play a lot as rookies, and Boston, listed as the No. 1 receiver on the early depth chart, was moved into the first-team offense after a standout camp. Concepcion has the first-round capital but the lower Week 1 slot of the two.",
-   "impact": "alza",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 4,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "NBC Sports",
-     "title": "Boston listed as No. 1 WR on early depth chart",
-     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-11/boston-listed-as-no-1-wr-on-early-depth-chart"
+      "beat": "Injuries",
+      "team": "DEN",
+      "players": [
+        "J.K. Dobbins",
+        "RJ Harvey",
+        "Jonah Coleman"
+      ],
+      "kind": "lesion",
+      "headline": "Dobbins' camp soft-tissue injury called minor; Denver is a three-man rotation with rookie Coleman",
+      "summary": "Payton said Dobbins is 'gonna be fine' and the team is being smart with him for Week 1 against Kansas City. Dobbins is the early-down favourite, Harvey the passing-down back, and third-round rookie Jonah Coleman has forced his way into a short-yardage and goal-line role rather than a Week 1 lineup lock.",
+      "impact": "neutro",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "title": "Payton: Dobbins exited with soft-tissue injury",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-10/payton-dobbins-exited-with-soft-tissue-injury"
+        },
+        {
+          "outlet": "Pro Football Network",
+          "title": "Jonah Coleman fantasy outlook 2026",
+          "url": "https://www.profootballnetwork.com/fantasy-football/jonah-coleman-fantasy-outlook-2026/"
+        }
+      ]
     },
     {
-     "outlet": "Pro Football Network",
-     "title": "Updated KC Concepcion fantasy outlook 2026",
-     "url": "https://www.profootballnetwork.com/fantasy-football/kc-concepcion-fantasy-outlook-updated-2026/"
-    }
-   ]
-  },
-  {
-   "beat": "Rookies",
-   "team": "NYJ",
-   "players": [
-    "Omar Cooper Jr.",
-    "Adonai Mitchell",
-    "Garrett Wilson"
-   ],
-   "kind": "depth_chart",
-   "headline": "Omar Cooper Jr. settles in as the Jets' WR3 behind Wilson and Mitchell",
-   "summary": "Fans assumed the 30th pick would be the WR2, but Adonai Mitchell's emergence pushed Cooper into a battle with Isaiah Williams for the third spot, which he won with a string of solid practices. Frank Reich plans to move him between slot and outside.",
-   "impact": "baja",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Yahoo Sports",
-     "title": "Jets' Omar Cooper Jr. gets bad news on starting job",
-     "url": "https://sports.yahoo.com/articles/jets-omar-cooper-jr-gets-145202251.html"
+      "beat": "Injuries",
+      "team": "MIA",
+      "players": [
+        "Tyreek Hill"
+      ],
+      "kind": "transaccion",
+      "headline": "Tyreek Hill will not sign before the season; midseason at best",
+      "summary": "Released by Miami in February after the knee dislocation and multiple ligament tears, Hill's agent says he will take his time to pick the right team and no deal is expected before Week 1. Earlier reporting put a return around midseason. He should not be drafted as a Week 1 asset.",
+      "impact": "baja",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Tyreek Hill's agent sheds light on timeline",
+          "url": "https://sports.yahoo.com/articles/nfl-news-tyreek-hill-agent-201211521.html"
+        }
+      ]
     },
     {
-     "outlet": "Sports Illustrated",
-     "title": "Every Jets rookie who made the 53-man roster and their Week 1 role",
-     "url": "https://www.si.com/nfl/jets/onsi/every-jets-rookie-who-made-53-man-roster-their-role-week-1-01m1chr2e8mb"
-    }
-   ]
-  },
-  {
-   "beat": "Rookies",
-   "team": "MIA",
-   "players": [
-    "Caleb Douglas",
-    "Chris Bell",
-    "Malik Washington",
-    "Jalen Tolbert"
-   ],
-   "kind": "depth_chart",
-   "headline": "Third-rounder Caleb Douglas wins a starting job in Miami; Chris Bell back from the ACL on a snap count",
-   "summary": "Douglas beat out veterans for a starting spot alongside Washington and Tolbert and is already a go-to target for Malik Willis. Bell expects to play Week 1 after the ACL but is likely on a snap count and not a fantasy option out of the gate.",
-   "impact": "alza",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Athlon",
-     "title": "Dolphins rookie Caleb Douglas lands starting spot",
-     "url": "https://athlonsports.com/nfl/miami-dolphins/dolphins-rookie-caleb-douglas-lands-starting-spot-after-turning-heads-at-training-camp"
+      "beat": "Rookies",
+      "team": "TEN",
+      "players": [
+        "Carnell Tate",
+        "Wan'Dale Robinson",
+        "Elic Ayomanor"
+      ],
+      "kind": "depth_chart",
+      "headline": "Carnell Tate steps in as Tennessee's WR1 from Week 1",
+      "summary": "The fourth overall pick is expected to be Cam Ward's top downfield weapon against the Jets, alongside slot man Wan'Dale Robinson, with Elic Ayomanor the other outside option. Of the seven first-40 rookie receivers, he has the clearest path to being his team's No. 1 target.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 5,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Pro Football Network",
+          "title": "Updated Carnell Tate fantasy outlook 2026",
+          "url": "https://www.profootballnetwork.com/fantasy-football/carnell-tate-fantasy-outlook-updated-2026/"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Where each Titans rookie landed on the depth chart",
+          "url": "https://sports.yahoo.com/articles/where-titans-rookie-landed-first-224555769.html"
+        }
+      ]
     },
     {
-     "outlet": "Draft Sharks",
-     "title": "Chris Bell debuts, expects to play Week 1",
-     "url": "https://www.draftsharks.com/fantasy-football-news/82382/chris-bell-debuts-expects-to-play-week-1"
-    }
-   ]
-  },
-  {
-   "beat": "Rookies",
-   "team": "BAL",
-   "players": [
-    "Ja'Kobi Lane",
-    "Rashod Bateman",
-    "Zay Flowers"
-   ],
-   "kind": "depth_chart",
-   "headline": "Ja'Kobi Lane is Baltimore's WR3 in 11 personnel and pushing Bateman for the No. 2 job",
-   "summary": "The third-round pick was a starter in three-receiver sets within the first week of camp and head coach Jesse Minter says the team will use him in the red zone. He is the beat's biggest camp winner.",
-   "impact": "alza",
-   "confidence": "informado",
-   "evidence_type": "OBSERVADO",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "CBS Sports",
-     "title": "Ja'Kobi Lane Ravens role: rookie could emerge as Lamar Jackson's WR2",
-     "url": "https://www.cbssports.com/nfl/news/jakobi-lane-ravens-rookie-lamar-jackson-wr2/"
+      "beat": "Rookies",
+      "team": "PHI",
+      "players": [
+        "Makai Lemon",
+        "DeVonta Smith",
+        "Dontayvion Wicks"
+      ],
+      "kind": "depth_chart",
+      "headline": "Makai Lemon opens as Philadelphia's No. 3 receiver, in the slot",
+      "summary": "First-round talent, but a camp hamstring strain, a crowded room and a low-volume passing game cap the rookie: he is ticketed for the slot with Smith wide and Wicks opposite, a rotational role with week-to-week viability rather than a starter's floor.",
+      "impact": "baja",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Pro Football Network",
+          "title": "Updated Makai Lemon fantasy outlook 2026",
+          "url": "https://www.profootballnetwork.com/fantasy-football/makai-lemon-fantasy-outlook-updated-2026/"
+        },
+        {
+          "outlet": "Sports Illustrated",
+          "title": "Makai Lemon tops 4 rookies with sinking fantasy value",
+          "url": "https://www.si.com/onsi/fantasy/rankings/busts-fallers-value-rookies-nfl-fantasy-football-makai-lemon"
+        }
+      ]
     },
     {
-     "outlet": "Sports Illustrated",
-     "title": "Ravens WR Ja'Kobi Lane is Baltimore's biggest winner of training camp",
-     "url": "https://www.si.com/nfl/ravens/onsi/ravens-wr-ja-kobi-lane-is-baltimore-s-biggest-winner-of-training-camp-week-1-01kz7t2pzqfh"
-    }
-   ]
-  },
-  {
-   "beat": "Rookies",
-   "team": "ATL",
-   "players": [
-    "Zachariah Branch",
-    "Olamide Zaccheaus",
-    "Jahan Dotson"
-   ],
-   "kind": "depth_chart",
-   "headline": "Branch competing for the Falcons' slot; Zaccheaus still taking most first-team snaps",
-   "summary": "Atlanta plans to play the explosive rookie all over the field, with the slot his quickest path, but Zaccheaus holds the first-team reps and Branch needs designed touches to be more than a PPR spot starter. Closing-rounds target, not a starter.",
-   "impact": "neutro",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 2,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Yahoo Sports",
-     "title": "Insider reveals Falcons' plans for rookie WR Zachariah Branch",
-     "url": "https://sports.yahoo.com/articles/insider-reveals-falcons-plans-rookie-173528124.html"
+      "beat": "Rookies",
+      "team": "CLE",
+      "players": [
+        "K.C. Concepcion",
+        "Denzel Boston"
+      ],
+      "kind": "depth_chart",
+      "headline": "Browns say both rookie receivers will play a lot; Boston moved into the first-team offense",
+      "summary": "Todd Monken said Concepcion and Boston are going to play a lot as rookies, and Boston, listed as the No. 1 receiver on the early depth chart, was moved into the first-team offense after a standout camp. Concepcion has the first-round capital but the lower Week 1 slot of the two.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "title": "Boston listed as No. 1 WR on early depth chart",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-11/boston-listed-as-no-1-wr-on-early-depth-chart"
+        },
+        {
+          "outlet": "Pro Football Network",
+          "title": "Updated KC Concepcion fantasy outlook 2026",
+          "url": "https://www.profootballnetwork.com/fantasy-football/kc-concepcion-fantasy-outlook-updated-2026/"
+        }
+      ]
     },
     {
-     "outlet": "FantasyPros",
-     "title": "Zachariah Branch fantasy football outlook (2026)",
-     "url": "https://www.fantasypros.com/nfl/notes/419049/zachariah-branch-2026-outlook.php"
-    }
-   ]
-  },
-  {
-   "beat": "Rookies",
-   "team": "KC",
-   "players": [
-    "Emmett Johnson",
-    "Kenneth Walker III",
-    "Emari Demercado"
-   ],
-   "kind": "depth_chart",
-   "headline": "Kenneth Walker named the Chiefs' starter; fifth-round rookie Emmett Johnson the preseason standout behind him",
-   "summary": "Walker is the lead back with Demercado listed second, but Johnson led the backfield in the preseason (84 yards on 19 carries plus four catches). Walker's ankle swelling was blamed on his shoe and he is expected for Week 1; if he sat, Johnson would be the name.",
-   "impact": "neutro",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Pro Football Network",
-     "title": "Kenneth Walker III injury update and Kansas City's RB depth chart",
-     "url": "https://www.profootballnetwork.com/kenneth-walker-chiefs-foot-injury-depth-week-1-2026/"
+      "beat": "Rookies",
+      "team": "NYJ",
+      "players": [
+        "Omar Cooper Jr.",
+        "Adonai Mitchell",
+        "Garrett Wilson"
+      ],
+      "kind": "depth_chart",
+      "headline": "Omar Cooper Jr. settles in as the Jets' WR3 behind Wilson and Mitchell",
+      "summary": "Fans assumed the 30th pick would be the WR2, but Adonai Mitchell's emergence pushed Cooper into a battle with Isaiah Williams for the third spot, which he won with a string of solid practices. Frank Reich plans to move him between slot and outside.",
+      "impact": "baja",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Jets' Omar Cooper Jr. gets bad news on starting job",
+          "url": "https://sports.yahoo.com/articles/jets-omar-cooper-jr-gets-145202251.html"
+        },
+        {
+          "outlet": "Sports Illustrated",
+          "title": "Every Jets rookie who made the 53-man roster and their Week 1 role",
+          "url": "https://www.si.com/nfl/jets/onsi/every-jets-rookie-who-made-53-man-roster-their-role-week-1-01m1chr2e8mb"
+        }
+      ]
     },
     {
-     "outlet": "Yahoo Sports",
-     "title": "Meet Emmett Johnson: Chiefs rookie poised to shine",
-     "url": "https://sports.yahoo.com/articles/meet-emmett-johnson-chiefs-rookie-182830315.html"
-    }
-   ]
-  },
-  {
-   "beat": "Rookies",
-   "team": "TEN",
-   "players": [
-    "Nicholas Singleton",
-    "Tony Pollard",
-    "Tyjae Spears"
-   ],
-   "kind": "depth_chart",
-   "headline": "Singleton opens behind Pollard and Spears in Tennessee",
-   "summary": "Pollard starts and Spears is the likely backup; the Penn State rookie begins as the third or fourth back with paths to early-down relief or passing-down touches, and more in 2027 with both veterans in contract years. Not a 2026 draft priority.",
-   "impact": "neutro",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 2,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Yahoo Sports",
-     "title": "How Nick Singleton is used by Titans is big question",
-     "url": "https://sports.yahoo.com/articles/nick-singleton-used-titans-big-100101875.html"
-    }
-   ]
-  },
-  {
-   "beat": "Rookies",
-   "team": "NE",
-   "players": [
-    "Eli Raridon",
-    "Hunter Henry"
-   ],
-   "kind": "depth_chart",
-   "headline": "Raridon behind Hunter Henry in two-TE sets; streaming option only if Henry misses time",
-   "summary": "Athletic, reliable hands, high praise out of Patriots camp, but the rookie opens as the No. 2 tight end and is not a Week 1 fantasy option.",
-   "impact": "neutro",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 2,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Yahoo Sports",
-     "title": "Fantasy football 2026: top 25 rookie tight ends",
-     "url": "https://sports.yahoo.com/articles/fantasy-football-2026-top-25-130800343.html"
-    }
-   ]
-  },
-  {
-   "beat": "Rookies",
-   "team": "PHI",
-   "players": [
-    "Eli Stowers",
-    "Dallas Goedert"
-   ],
-   "kind": "depth_chart",
-   "headline": "Stowers is the heir to Goedert, not the starter: two-TE sets in 2026",
-   "summary": "Goedert is on a one-year deal and Stowers will share the field with him, but he has no clear No. 1 role and needs to improve as a run blocker to see more snaps.",
-   "impact": "neutro",
-   "confidence": "informado",
-   "evidence_type": "REPORTADO",
-   "fantasy_relevance": 2,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "FantasyPros",
-     "title": "Must-draft rookie tight ends (2026)",
-     "url": "https://www.fantasypros.com/2026/07/3-must-draft-rookie-tight-ends-2026-fantasy-football/"
-    }
-   ]
-  },
-  {
-   "beat": "Rookies",
-   "team": "LV",
-   "players": [
-    "Fernando Mendoza",
-    "Kirk Cousins",
-    "Ty Simpson",
-    "Carson Beck"
-   ],
-   "kind": "depth_chart",
-   "headline": "No rookie quarterback starts Week 1: Cousins over Mendoza, Simpson behind Stafford, Beck behind in Arizona",
-   "summary": "The Raiders named Kirk Cousins the Week 1 starter over the No. 1 overall pick, making Mendoza the first top pick since Baker Mayfield not to start the opener. Rams first-rounder Ty Simpson is locked in behind Stafford and Carson Beck is a long shot to start for Arizona. For the first time since 2022 Week 1 opens with zero rookie quarterbacks.",
-   "impact": "baja",
-   "confidence": "confirmado",
-   "evidence_type": "HECHO",
-   "fantasy_relevance": 4,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "ESPN",
-     "title": "Raiders name Kirk Cousins starting QB for Week 1 over Fernando Mendoza",
-     "url": "https://www.espn.com/nfl/story/_/id/49804802/raiders-name-kirk-cousins-starting-qb-week-1-fernando-mendoza"
+      "beat": "Rookies",
+      "team": "MIA",
+      "players": [
+        "Caleb Douglas",
+        "Chris Bell",
+        "Malik Washington",
+        "Jalen Tolbert"
+      ],
+      "kind": "depth_chart",
+      "headline": "Third-rounder Caleb Douglas wins a starting job in Miami; Chris Bell back from the ACL on a snap count",
+      "summary": "Douglas beat out veterans for a starting spot alongside Washington and Tolbert and is already a go-to target for Malik Willis. Bell expects to play Week 1 after the ACL but is likely on a snap count and not a fantasy option out of the gate.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Athlon",
+          "title": "Dolphins rookie Caleb Douglas lands starting spot",
+          "url": "https://athlonsports.com/nfl/miami-dolphins/dolphins-rookie-caleb-douglas-lands-starting-spot-after-turning-heads-at-training-camp"
+        },
+        {
+          "outlet": "Draft Sharks",
+          "title": "Chris Bell debuts, expects to play Week 1",
+          "url": "https://www.draftsharks.com/fantasy-football-news/82382/chris-bell-debuts-expects-to-play-week-1"
+        }
+      ]
     },
     {
-     "outlet": "NBC Sports",
-     "title": "Fernando Mendoza is first No. 1 QB since Baker Mayfield who won't start Week 1",
-     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-is-first-no-1-qb-since-baker-mayfield-who-wont-start-week-1"
-    }
-   ]
-  },
-  {
-   "beat": "Analysts",
-   "team": "LIGA",
-   "players": [
-    "Jeremiyah Love",
-    "Carnell Tate",
-    "Jadarian Price",
-    "Makai Lemon",
-    "De'Zhaun Stribling",
-    "Jordyn Tyson",
-    "K.C. Concepcion",
-    "Denzel Boston",
-    "Jonah Coleman",
-    "Omar Cooper Jr.",
-    "Ja'Kobi Lane",
-    "Fernando Mendoza",
-    "Chris Bell",
-    "Caleb Douglas",
-    "Emmett Johnson"
-   ],
-   "kind": "otro",
-   "headline": "Rookie redraft consensus, 1 September: Love, Tate, Price, Lemon, Stribling lead; no QB in the top 10",
-   "summary": "Yahoo's updated redraft rookie top 15: 1 Love (ARI), 2 Tate (TEN), 3 Price (SEA), 4 Lemon (PHI), 5 Stribling (SF), 6 Tyson (NO, now on IR), 7 Concepcion (CLE), 8 Boston (CLE), 9 Coleman (DEN), 10 Cooper Jr. (NYJ), 11 Lane (BAL), 12 Mendoza (LV), 13 Bell (MIA), 14 Douglas (MIA), 15 E. Johnson (KC). PFN's top five is the same order. Read against the roles above: Price and Tate have Week 1 jobs; Love is a coin flip on health; Lemon, Cooper and Coleman open as third options.",
-   "impact": "neutro",
-   "confidence": "informado",
-   "evidence_type": "OPINION",
-   "fantasy_relevance": 5,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Yahoo Sports",
-     "title": "Updated fantasy football rookie rankings 2026: Jeremiyah Love the name to get",
-     "url": "https://sports.yahoo.com/articles/updated-fantasy-football-rookie-rankings-143247434.html"
+      "beat": "Rookies",
+      "team": "BAL",
+      "players": [
+        "Ja'Kobi Lane",
+        "Rashod Bateman",
+        "Zay Flowers"
+      ],
+      "kind": "depth_chart",
+      "headline": "Ja'Kobi Lane is Baltimore's WR3 in 11 personnel and pushing Bateman for the No. 2 job",
+      "summary": "The third-round pick was a starter in three-receiver sets within the first week of camp and head coach Jesse Minter says the team will use him in the red zone. He is the beat's biggest camp winner.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "OBSERVADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "CBS Sports",
+          "title": "Ja'Kobi Lane Ravens role: rookie could emerge as Lamar Jackson's WR2",
+          "url": "https://www.cbssports.com/nfl/news/jakobi-lane-ravens-rookie-lamar-jackson-wr2/"
+        },
+        {
+          "outlet": "Sports Illustrated",
+          "title": "Ravens WR Ja'Kobi Lane is Baltimore's biggest winner of training camp",
+          "url": "https://www.si.com/nfl/ravens/onsi/ravens-wr-ja-kobi-lane-is-baltimore-s-biggest-winner-of-training-camp-week-1-01kz7t2pzqfh"
+        }
+      ]
     },
     {
-     "outlet": "Pro Football Network",
-     "title": "Updated fantasy football rookie rankings 2026",
-     "url": "https://www.profootballnetwork.com/fantasy-football/updated-fantasy-football-rookie-rankings-2026/"
-    }
-   ]
-  },
-  {
-   "beat": "Transactions",
-   "team": "DAL",
-   "players": [
-    "Jaydon Blue",
-    "Malik Davis",
-    "Phil Mafah"
-   ],
-   "kind": "transaccion",
-   "headline": "Cowboys cut Jaydon Blue; Malik Davis is the handcuff, Phil Mafah behind him",
-   "summary": "Blue did not make Dallas's 53 at the 30 August cutdown. The plan is Malik Davis as the handcuff with Mafah next; Blue is on waivers with other recognisable names such as Dameon Pierce, Frank Gore Jr., Will Levis and Mecole Hardman.",
-   "impact": "baja",
-   "confidence": "confirmado",
-   "evidence_type": "HECHO",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Sports Illustrated",
-     "title": "5 NFL roster cuts that fantasy football managers need to know",
-     "url": "https://www.si.com/onsi/fantasy/nfl/roster-cuts-cutdown-day-53-man-handcuffs-sleepers-fantasy-football-2026"
+      "beat": "Rookies",
+      "team": "ATL",
+      "players": [
+        "Zachariah Branch",
+        "Olamide Zaccheaus",
+        "Jahan Dotson"
+      ],
+      "kind": "depth_chart",
+      "headline": "Branch competing for the Falcons' slot; Zaccheaus still taking most first-team snaps",
+      "summary": "Atlanta plans to play the explosive rookie all over the field, with the slot his quickest path, but Zaccheaus holds the first-team reps and Branch needs designed touches to be more than a PPR spot starter. Closing-rounds target, not a starter.",
+      "impact": "neutro",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 2,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Insider reveals Falcons' plans for rookie WR Zachariah Branch",
+          "url": "https://sports.yahoo.com/articles/insider-reveals-falcons-plans-rookie-173528124.html"
+        },
+        {
+          "outlet": "FantasyPros",
+          "title": "Zachariah Branch fantasy football outlook (2026)",
+          "url": "https://www.fantasypros.com/nfl/notes/419049/zachariah-branch-2026-outlook.php"
+        }
+      ]
     },
     {
-     "outlet": "CBS Sports",
-     "title": "NFL roster cuts tracker 2026",
-     "url": "https://www.cbssports.com/nfl/news/nfl-cut-tracker-team-by-team-breakdown/"
-    }
-   ]
-  },
-  {
-   "beat": "Transactions",
-   "team": "DET",
-   "players": [
-    "Greg Dortch",
-    "Tyler Conklin"
-   ],
-   "kind": "transaccion",
-   "headline": "Lions release Greg Dortch and Tyler Conklin at the cutdown",
-   "summary": "Dortch had four weekly WR1 finishes in his Cardinals years and Conklin averaged 553 receiving yards a season from 2021 to 2024; both are free agents after Detroit's cuts.",
-   "impact": "baja",
-   "confidence": "confirmado",
-   "evidence_type": "HECHO",
-   "fantasy_relevance": 2,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "4for4",
-     "title": "Notable cuts as NFL teams finalise their 2026 53-man rosters",
-     "url": "https://www.4for4.com/2026/preseason/notable-cuts-nfl-teams-finalise-their-2026-53-man-rosters"
-    }
-   ]
-  },
-  {
-   "beat": "Analysts",
-   "team": "SF",
-   "players": [
-    "Christian McCaffrey"
-   ],
-   "kind": "otro",
-   "headline": "Speculation, not reporting: McCaffrey's camp 'tightness' read by some as a quiet hold-in",
-   "summary": "Bleacher Report's injured-and-holdout cheat sheet floats that McCaffrey's tightness absence may be contract-related. No beat reporter has confirmed a hold-in and the 49ers have not said so; it is listed here as the opinion it is, so it is not mistaken for a status.",
-   "impact": "neutro",
-   "confidence": "rumor",
-   "evidence_type": "OPINION",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Bleacher Report",
-     "title": "Fantasy football 2026 cheat sheet for injured players and holdout candidates",
-     "url": "https://bleacherreport.com/articles/25474156-fantasy-football-2026-cheat-sheet-injured-players-and-holdout-candidates"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "HOU",
-   "players": [
-    "Jayden Higgins",
-    "Tank Dell"
-   ],
-   "kind": "lesion",
-   "headline": "Higgins out for the season (ACL) and Dell on IR: Houston's targets consolidate around Collins",
-   "summary": "Higgins tore his ACL in August and was expected to start opposite Nico Collins; Dell opened the season on injured reserve. Both confirmed by the team.",
-   "impact": "baja",
-   "confidence": "confirmado",
-   "evidence_type": "HECHO",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "ESPN",
-     "title": "NFL injury status - 2026 season",
-     "url": "https://www.espn.com/nfl/injuries"
+      "beat": "Rookies",
+      "team": "KC",
+      "players": [
+        "Emmett Johnson",
+        "Kenneth Walker III",
+        "Emari Demercado"
+      ],
+      "kind": "depth_chart",
+      "headline": "Kenneth Walker named the Chiefs' starter; fifth-round rookie Emmett Johnson the preseason standout behind him",
+      "summary": "Walker is the lead back with Demercado listed second, but Johnson led the backfield in the preseason (84 yards on 19 carries plus four catches). Walker's ankle swelling was blamed on his shoe and he is expected for Week 1; if he sat, Johnson would be the name.",
+      "impact": "neutro",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Pro Football Network",
+          "title": "Kenneth Walker III injury update and Kansas City's RB depth chart",
+          "url": "https://www.profootballnetwork.com/kenneth-walker-chiefs-foot-injury-depth-week-1-2026/"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Meet Emmett Johnson: Chiefs rookie poised to shine",
+          "url": "https://sports.yahoo.com/articles/meet-emmett-johnson-chiefs-rookie-182830315.html"
+        }
+      ]
     },
     {
-     "outlet": "Sharp Football Analysis",
-     "title": "2026 NFL injury report: injured reserve tracker",
-     "url": "https://www.sharpfootballanalysis.com/analysis/nfl-injury-report-ir-tracker/"
-    }
-   ]
-  },
-  {
-   "beat": "Injuries",
-   "team": "NO",
-   "players": [
-    "Jordyn Tyson",
-    "Brock Rechsteiner"
-   ],
-   "kind": "lesion",
-   "headline": "Jordyn Tyson (hamstring) on IR to start the season; Rechsteiner suspended six games",
-   "summary": "The first-round receiver misses at least the first four games on injured reserve. Undrafted rookie Brock Rechsteiner is suspended for six games under the PED policy. Neither is a Week 1 asset.",
-   "impact": "baja",
-   "confidence": "confirmado",
-   "evidence_type": "HECHO",
-   "fantasy_relevance": 3,
-   "published": "2026-09-02",
-   "published_at": "2026-09-02",
-   "first_seen_at": "2026-09-02T23:40:00+00:00",
-   "confirmed_at": null,
-   "resolution": null,
-   "source_type": null,
-   "schema_version": 2,
-   "sources": [
-    {
-     "outlet": "Yahoo Sports",
-     "title": "NFL training camp injury report 2026",
-     "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html"
+      "beat": "Rookies",
+      "team": "TEN",
+      "players": [
+        "Nicholas Singleton",
+        "Tony Pollard",
+        "Tyjae Spears"
+      ],
+      "kind": "depth_chart",
+      "headline": "Singleton opens behind Pollard and Spears in Tennessee",
+      "summary": "Pollard starts and Spears is the likely backup; the Penn State rookie begins as the third or fourth back with paths to early-down relief or passing-down touches, and more in 2027 with both veterans in contract years. Not a 2026 draft priority.",
+      "impact": "neutro",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 2,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "title": "How Nick Singleton is used by Titans is big question",
+          "url": "https://sports.yahoo.com/articles/nick-singleton-used-titans-big-100101875.html"
+        }
+      ]
     },
     {
-     "outlet": "ESPN",
-     "title": "NFL suspends Saints rookie WR Brock Rechsteiner for 6 games",
-     "url": "https://www.espn.com/nfl/story/_/id/49548218/saints-rookie-wr-brock-rechsteiner-suspended-1st-6-games-season"
+      "beat": "Rookies",
+      "team": "NE",
+      "players": [
+        "Eli Raridon",
+        "Hunter Henry"
+      ],
+      "kind": "depth_chart",
+      "headline": "Raridon behind Hunter Henry in two-TE sets; streaming option only if Henry misses time",
+      "summary": "Athletic, reliable hands, high praise out of Patriots camp, but the rookie opens as the No. 2 tight end and is not a Week 1 fantasy option.",
+      "impact": "neutro",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 2,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Fantasy football 2026: top 25 rookie tight ends",
+          "url": "https://sports.yahoo.com/articles/fantasy-football-2026-top-25-130800343.html"
+        }
+      ]
+    },
+    {
+      "beat": "Rookies",
+      "team": "PHI",
+      "players": [
+        "Eli Stowers",
+        "Dallas Goedert"
+      ],
+      "kind": "depth_chart",
+      "headline": "Stowers is the heir to Goedert, not the starter: two-TE sets in 2026",
+      "summary": "Goedert is on a one-year deal and Stowers will share the field with him, but he has no clear No. 1 role and needs to improve as a run blocker to see more snaps.",
+      "impact": "neutro",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 2,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "FantasyPros",
+          "title": "Must-draft rookie tight ends (2026)",
+          "url": "https://www.fantasypros.com/2026/07/3-must-draft-rookie-tight-ends-2026-fantasy-football/"
+        }
+      ]
+    },
+    {
+      "beat": "Rookies",
+      "team": "LV",
+      "players": [
+        "Fernando Mendoza",
+        "Kirk Cousins",
+        "Ty Simpson",
+        "Carson Beck"
+      ],
+      "kind": "depth_chart",
+      "headline": "No rookie quarterback starts Week 1: Cousins over Mendoza, Simpson behind Stafford, Beck behind in Arizona",
+      "summary": "The Raiders named Kirk Cousins the Week 1 starter over the No. 1 overall pick, making Mendoza the first top pick since Baker Mayfield not to start the opener. Rams first-rounder Ty Simpson is locked in behind Stafford and Carson Beck is a long shot to start for Arizona. For the first time since 2022 Week 1 opens with zero rookie quarterbacks.",
+      "impact": "baja",
+      "confidence": "confirmado",
+      "evidence_type": "HECHO",
+      "fantasy_relevance": 4,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "ESPN",
+          "title": "Raiders name Kirk Cousins starting QB for Week 1 over Fernando Mendoza",
+          "url": "https://www.espn.com/nfl/story/_/id/49804802/raiders-name-kirk-cousins-starting-qb-week-1-fernando-mendoza"
+        },
+        {
+          "outlet": "NBC Sports",
+          "title": "Fernando Mendoza is first No. 1 QB since Baker Mayfield who won't start Week 1",
+          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-is-first-no-1-qb-since-baker-mayfield-who-wont-start-week-1"
+        }
+      ]
+    },
+    {
+      "beat": "Analysts",
+      "team": "LIGA",
+      "players": [
+        "Jeremiyah Love",
+        "Carnell Tate",
+        "Jadarian Price",
+        "Makai Lemon",
+        "De'Zhaun Stribling",
+        "Jordyn Tyson",
+        "K.C. Concepcion",
+        "Denzel Boston",
+        "Jonah Coleman",
+        "Omar Cooper Jr.",
+        "Ja'Kobi Lane",
+        "Fernando Mendoza",
+        "Chris Bell",
+        "Caleb Douglas",
+        "Emmett Johnson"
+      ],
+      "kind": "otro",
+      "headline": "Rookie redraft consensus, 1 September: Love, Tate, Price, Lemon, Stribling lead; no QB in the top 10",
+      "summary": "Yahoo's updated redraft rookie top 15: 1 Love (ARI), 2 Tate (TEN), 3 Price (SEA), 4 Lemon (PHI), 5 Stribling (SF), 6 Tyson (NO, now on IR), 7 Concepcion (CLE), 8 Boston (CLE), 9 Coleman (DEN), 10 Cooper Jr. (NYJ), 11 Lane (BAL), 12 Mendoza (LV), 13 Bell (MIA), 14 Douglas (MIA), 15 E. Johnson (KC). PFN's top five is the same order. Read against the roles above: Price and Tate have Week 1 jobs; Love is a coin flip on health; Lemon, Cooper and Coleman open as third options.",
+      "impact": "neutro",
+      "confidence": "informado",
+      "evidence_type": "OPINION",
+      "fantasy_relevance": 5,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "title": "Updated fantasy football rookie rankings 2026: Jeremiyah Love the name to get",
+          "url": "https://sports.yahoo.com/articles/updated-fantasy-football-rookie-rankings-143247434.html"
+        },
+        {
+          "outlet": "Pro Football Network",
+          "title": "Updated fantasy football rookie rankings 2026",
+          "url": "https://www.profootballnetwork.com/fantasy-football/updated-fantasy-football-rookie-rankings-2026/"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "DAL",
+      "players": [
+        "Jaydon Blue",
+        "Malik Davis",
+        "Phil Mafah"
+      ],
+      "kind": "transaccion",
+      "headline": "Cowboys cut Jaydon Blue; Malik Davis is the handcuff, Phil Mafah behind him",
+      "summary": "Blue did not make Dallas's 53 at the 30 August cutdown. The plan is Malik Davis as the handcuff with Mafah next; Blue is on waivers with other recognisable names such as Dameon Pierce, Frank Gore Jr., Will Levis and Mecole Hardman.",
+      "impact": "baja",
+      "confidence": "confirmado",
+      "evidence_type": "HECHO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Sports Illustrated",
+          "title": "5 NFL roster cuts that fantasy football managers need to know",
+          "url": "https://www.si.com/onsi/fantasy/nfl/roster-cuts-cutdown-day-53-man-handcuffs-sleepers-fantasy-football-2026"
+        },
+        {
+          "outlet": "CBS Sports",
+          "title": "NFL roster cuts tracker 2026",
+          "url": "https://www.cbssports.com/nfl/news/nfl-cut-tracker-team-by-team-breakdown/"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "DET",
+      "players": [
+        "Greg Dortch",
+        "Tyler Conklin"
+      ],
+      "kind": "transaccion",
+      "headline": "Lions release Greg Dortch and Tyler Conklin at the cutdown",
+      "summary": "Dortch had four weekly WR1 finishes in his Cardinals years and Conklin averaged 553 receiving yards a season from 2021 to 2024; both are free agents after Detroit's cuts.",
+      "impact": "baja",
+      "confidence": "confirmado",
+      "evidence_type": "HECHO",
+      "fantasy_relevance": 2,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "4for4",
+          "title": "Notable cuts as NFL teams finalise their 2026 53-man rosters",
+          "url": "https://www.4for4.com/2026/preseason/notable-cuts-nfl-teams-finalise-their-2026-53-man-rosters"
+        }
+      ]
+    },
+    {
+      "beat": "Analysts",
+      "team": "SF",
+      "players": [
+        "Christian McCaffrey"
+      ],
+      "kind": "otro",
+      "headline": "Speculation, not reporting: McCaffrey's camp 'tightness' read by some as a quiet hold-in",
+      "summary": "Bleacher Report's injured-and-holdout cheat sheet floats that McCaffrey's tightness absence may be contract-related. No beat reporter has confirmed a hold-in and the 49ers have not said so; it is listed here as the opinion it is, so it is not mistaken for a status.",
+      "impact": "neutro",
+      "confidence": "rumor",
+      "evidence_type": "OPINION",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Bleacher Report",
+          "title": "Fantasy football 2026 cheat sheet for injured players and holdout candidates",
+          "url": "https://bleacherreport.com/articles/25474156-fantasy-football-2026-cheat-sheet-injured-players-and-holdout-candidates"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "HOU",
+      "players": [
+        "Jayden Higgins",
+        "Tank Dell"
+      ],
+      "kind": "lesion",
+      "headline": "Higgins out for the season (ACL) and Dell on IR: Houston's targets consolidate around Collins",
+      "summary": "Higgins tore his ACL in August and was expected to start opposite Nico Collins; Dell opened the season on injured reserve. Both confirmed by the team.",
+      "impact": "baja",
+      "confidence": "confirmado",
+      "evidence_type": "HECHO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "ESPN",
+          "title": "NFL injury status - 2026 season",
+          "url": "https://www.espn.com/nfl/injuries"
+        },
+        {
+          "outlet": "Sharp Football Analysis",
+          "title": "2026 NFL injury report: injured reserve tracker",
+          "url": "https://www.sharpfootballanalysis.com/analysis/nfl-injury-report-ir-tracker/"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "NO",
+      "players": [
+        "Jordyn Tyson",
+        "Brock Rechsteiner"
+      ],
+      "kind": "lesion",
+      "headline": "Jordyn Tyson (hamstring) on IR to start the season; Rechsteiner suspended six games",
+      "summary": "The first-round receiver misses at least the first four games on injured reserve. Undrafted rookie Brock Rechsteiner is suspended for six games under the PED policy. Neither is a Week 1 asset.",
+      "impact": "baja",
+      "confidence": "confirmado",
+      "evidence_type": "HECHO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-02T23:40:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "title": "NFL training camp injury report 2026",
+          "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html"
+        },
+        {
+          "outlet": "ESPN",
+          "title": "NFL suspends Saints rookie WR Brock Rechsteiner for 6 games",
+          "url": "https://www.espn.com/nfl/story/_/id/49548218/saints-rookie-wr-brock-rechsteiner-suspended-1st-6-games-season"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "NO",
+      "players": [
+        "Alvin Kamara",
+        "Travis Etienne",
+        "Kendre Miller"
+      ],
+      "kind": "lesion",
+      "headline": "Kamara out at least a month with an MCL sprain; Etienne leads New Orleans from Week 1",
+      "summary": "Kamara sprained his MCL in the 18 August joint practice with Dallas and misses the opener against Detroit at minimum. He stayed on the 53 rather than going to IR. Travis Etienne, signed to a four-year deal after 1,107 yards and 13 TDs in Jacksonville, is the lead back, with Kendre Miller and Devin Neal behind.",
+      "impact": "baja",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 5,
+      "published": "2026-08-19",
+      "published_at": "2026-08-19",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/nfl/story/_/id/49658952/source-saints-rb-kamara-least-month-mcl-sprain",
+          "title": "Source: Saints RB Kamara out at least 1 month with MCL sprain"
+        },
+        {
+          "outlet": "CBS Sports",
+          "url": "https://www.cbssports.com/nfl/news/alvin-kamara-injury-saints-mcl-sprain-running-back-options/",
+          "title": "Kamara expected to miss at least a month"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/saints-running-backs-benefit-alvin-200817159.html",
+          "title": "Which Saints running backs benefit"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "DET",
+      "players": [
+        "Isiah Pacheco",
+        "Jahmyr Gibbs"
+      ],
+      "kind": "lesion",
+      "headline": "Pacheco to IR with a back injury; Detroit's RB2 job behind Gibbs is open",
+      "summary": "Signed from Kansas City in free agency, Pacheco was placed on injured reserve on 1 September, out at least four games and without a timetable per Brad Holmes. Gibbs, fresh off a 3-year, $67.5M extension, was already the workhorse.",
+      "impact": "baja",
+      "confidence": "oficial",
+      "evidence_type": "OFICIAL",
+      "fantasy_relevance": 3,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-09-01/isiah-pacheco-lands-on-injured-reserve",
+          "title": "Isiah Pacheco lands on injured reserve"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://ca.sports.yahoo.com/news/lions-add-isiah-pacheco-to-ir-forcing-the-rb-to-miss-at-least-four-games-to-begin-the-season-204040824.html",
+          "title": "Lions add Pacheco to IR"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "ARI",
+      "players": [
+        "Trey Benson",
+        "James Conner",
+        "Jeremiyah Love",
+        "Emari Demercado",
+        "Evan Hull"
+      ],
+      "kind": "lesion",
+      "headline": "Benson reverts to IR after clearing waivers; Arizona's Week 1 backfield is Demercado, Carter, Knight and Hull if Love sits",
+      "summary": "With Conner on IR (foot) and Benson's season in Arizona over, Love's high-ankle sprain leaves the Cardinals thin. Garafolo put Love at 50-50 for the Chargers on 1 September. Evan Hull ran for 107 yards and two scores in the preseason finale against Green Bay.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Sports Illustrated",
+          "url": "https://www.si.com/onsi/fantasy/injuries/james-conner-fantasy-football-injury-update-looms-large-with-jeremiyah-love-injured-and-trey-benson-waived",
+          "title": "Conner update looms large with Love injured and Benson waived"
+        },
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/nfl/story/_/id/46454955/nfl-arizona-cardinals-trey-benson-emari-demercado-michael-carter-bam-knight",
+          "title": "Demercado among Cardinals RBs needed to fill void"
+        },
+        {
+          "outlet": "Bleacher Report",
+          "url": "https://bleacherreport.com/articles/25495054-jeremiyah-love-injury-updated-provided-cardinals-hc-latest-rbs-status-week-1",
+          "title": "Love injury update from LaFleur"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "NYJ",
+      "players": [
+        "Breece Hall",
+        "Braelon Allen"
+      ],
+      "kind": "lesion",
+      "headline": "Hall (groin) expected back for Week 1; Braelon Allen keeps a weekly share",
+      "summary": "Hall strained his groin on 17 August with a two-to-three-week timeline and is expected to face Tennessee. Allen started in his absence, and in Aaron Glenn's ground-based offense with Justin Fields he is expected to cede Hall some carries every week.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-08-18",
+      "published_at": "2026-08-18",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "NFL.com",
+          "url": "https://www.nfl.com/news/breece-hall-groin-expected-to-be-ready-for-jets-week-1-game-vs-titans",
+          "title": "Hall expected to be ready for Week 1"
+        },
+        {
+          "outlet": "New York Jets",
+          "url": "https://www.newyorkjets.com/news/jets-training-camp-practice-report-breece-hall-injury-08-17-2026",
+          "title": "Practice report: Hall leaves early"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "NE",
+      "players": [
+        "TreVeyon Henderson",
+        "Rhamondre Stevenson"
+      ],
+      "kind": "lesion",
+      "headline": "Henderson's ankle called minor; a 50-50 split with Stevenson is the plan for the 9 September opener",
+      "summary": "Henderson slipped on the turf in the 24 August practice. The Boston Globe reports he avoided a serious injury and should be good to go against Seattle. If he is limited, Stevenson becomes the lead back.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-08-27",
+      "published_at": "2026-08-27",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-27/beat-henderson-ankle-should-be-good-for-week-1",
+          "title": "Henderson (ankle) should be good for Week 1"
+        },
+        {
+          "outlet": "Heavy",
+          "url": "https://heavy.com/sports/nfl/new-england-patriots/injury-update-latest-rb-treveyon-henderson/",
+          "title": "Latest on Henderson ahead of Week 1"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "BUF",
+      "players": [
+        "Khalil Shakir"
+      ],
+      "kind": "lesion",
+      "headline": "Shakir (high ankle) out of the boot and tracking for Week 1 against Houston",
+      "summary": "Shakir has practised little since the late-August sprain and played one preseason game. McDermott says he is progressing nicely; he was working with a trainer without a boot on 1 September.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Buffalo Bills",
+          "url": "https://www.buffalobills.com/news/bills-gm-brandon-beane-provides-team-injury-updates-prior-to-week-1-of-2026-season",
+          "title": "Beane provides injury updates prior to Week 1"
+        },
+        {
+          "outlet": "ClutchPoints",
+          "url": "https://clutchpoints.com/nfl/buffalo-bills/bills-news-khalil-shakir-injury-update-before-2026-season",
+          "title": "Shakir gets crucial injury update"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "DET",
+      "players": [
+        "Sam LaPorta",
+        "Jared Goff",
+        "Amon-Ra St. Brown",
+        "Jameson Williams"
+      ],
+      "kind": "lesion",
+      "headline": "LaPorta back at practice after the hip flare-up; Goff, St. Brown and Williams rested and healthy",
+      "summary": "Campbell would not guarantee Week 1 after LaPorta took a hit to the hip on 17 August, but he returned to practice within a week. The rest of the passing game sat out the preseason as planned.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-08-25",
+      "published_at": "2026-08-25",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/nfl/story/_/id/49672143/sam-laporta-status-uncertain-lions-season-opener",
+          "title": "LaPorta's status uncertain for opener"
+        },
+        {
+          "outlet": "Draft Sharks",
+          "url": "https://www.draftsharks.com/fantasy-football-news/82355/sam-laporta-already-back-at-practice",
+          "title": "LaPorta already back at practice"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "CAR",
+      "players": [
+        "Xavier Legette",
+        "Tetairoa McMillan",
+        "Bryce Young"
+      ],
+      "kind": "lesion",
+      "headline": "Legette still in a boot with no timetable; McMillan's hamstring imaging clean",
+      "summary": "Legette was rolled up on in the Jacksonville joint practice and remains day-to-day in a walking boot with Week 1 against Chicago the goal. McMillan was held out of the preseason finale as a precaution and is expected to play.",
+      "impact": "baja",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-08-31",
+      "published_at": "2026-08-31",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "ClutchPoints",
+          "url": "https://clutchpoints.com/nfl/panthers-news-dave-canales-updates-fans-xavier-legette-foot-injury",
+          "title": "Canales updates on Legette"
+        },
+        {
+          "outlet": "Pro Football Network",
+          "url": "https://www.profootballnetwork.com/tetairoa-mcmillan-injury-update-how-long-9-3/",
+          "title": "McMillan injury update and Week 1 availability"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "CHI",
+      "players": [
+        "Luther Burden",
+        "Rome Odunze",
+        "Colston Loveland"
+      ],
+      "kind": "lesion",
+      "headline": "Burden (groin) expected for Week 1 as Chicago's No. 3 target after DJ Moore's exit",
+      "summary": "Burden missed the entire preseason after an 8 August collision. Ben Johnson says he is expected to suit up against Carolina. The pecking order is Loveland, Odunze, Burden.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-08-31",
+      "published_at": "2026-08-31",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Sports Illustrated",
+          "url": "https://www.si.com/nfl/bears/onsi/luther-burden-injury-update-from-ben-johnson-all-but-confirms-bears-wr-s-week-1-status",
+          "title": "Burden update from Ben Johnson"
+        },
+        {
+          "outlet": "Chicago Sun-Times",
+          "url": "https://chicago.suntimes.com/bears/2026/08/10/bears-luther-burden-groin-injury-preseason-miss-nfl-wide-receiver-practice-tyrique-stevenson",
+          "title": "Burden's groin to keep him out for preseason"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "JAX",
+      "players": [
+        "Brian Thomas Jr.",
+        "Travis Hunter",
+        "Trevor Lawrence"
+      ],
+      "kind": "lesion",
+      "headline": "Thomas on the report with a shoulder; Hunter's camp snaps ran 183 defense to 65 offense",
+      "summary": "Thomas has carried a shoulder designation since 31 August, described locally as nothing overly serious. Hunter is expected to start at cornerback and be used at receiver situationally, so his offensive workload is matchup-dependent.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Sports Illustrated",
+          "url": "https://www.si.com/nfl/jaguars/onsi/jacksonville-sorting-out-pre-week-1-injury-news-what-it-means-for-brian-thomas-jr",
+          "title": "Sorting out Jaguars' pre-Week 1 injury news"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/travis-hunters-week-1-role-213550365.html",
+          "title": "Hunter's Week 1 role coming into focus"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "BAL",
+      "players": [
+        "Zay Flowers",
+        "Lamar Jackson",
+        "Derrick Henry"
+      ],
+      "kind": "lesion",
+      "headline": "Flowers held out 31 August as a precaution; Ravens expect him at Indianapolis",
+      "summary": "Flowers missed the Monday practice with an undisclosed lower-body issue the team called precautionary. Baltimore returns its top two targets, Flowers and Andrews; Isaiah Likely left for the Giants.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-08-31",
+      "published_at": "2026-08-31",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "RotoWire",
+          "url": "https://www.rotowire.com/football/headlines/zay-flowers-injury-expected-to-play-week-1-634876",
+          "title": "Flowers expected to play Week 1"
+        },
+        {
+          "outlet": "FTN Fantasy",
+          "url": "https://ftnfantasy.com/nfl/baltimore-ravens-2026-fantasy-football-preview-pay-for-flowers-not-lamar",
+          "title": "Ravens 2026 preview"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "SF",
+      "players": [
+        "Mike Evans",
+        "George Kittle",
+        "Christian McCaffrey"
+      ],
+      "kind": "lesion",
+      "headline": "Evans (groin) plans to play the Melbourne opener; McCaffrey's calf tightness was a planned ramp",
+      "summary": "Evans dealt with a quad in camp and a minor groin issue in late August. McCaffrey is a full participant after camp 'tightness' that the team framed as workload management. Kittle is pushing to play after the Achilles.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-08-31",
+      "published_at": "2026-08-31",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "NBC Sports Bay Area",
+          "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/mike-evans-injury-update-week-1/1958924/",
+          "title": "Evans plans to play Week 1"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/nfl/live/nfl-news-injury-updates-rosters-starters-named-ahead-of-week-1-143714619.html",
+          "title": "Kittle heads to Australia ahead of Week 1"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "LAC",
+      "players": [
+        "Quentin Johnston",
+        "Tre Harris",
+        "Keaton Mitchell",
+        "Omarion Hampton"
+      ],
+      "kind": "lesion",
+      "headline": "Johnston and Harris expected to start Week 1; Mitchell missed a fourth straight practice",
+      "summary": "Johnston twisted an ankle on 18 August and is called minor; Harris (undisclosed) was due back over the weekend. Both are slated to start with McConkey at Arizona. Mitchell, listed 'or' with Kimani Vidal behind Hampton, has an undisclosed injury but GM Joe Hortiz expects him active.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Sports Illustrated",
+          "url": "https://www.si.com/nfl/chargers/onsi/chargers-injury-updates-quentin-johnston-najee-harris-week-1-chiefs",
+          "title": "Chargers injury updates ahead of Week 1"
+        },
+        {
+          "outlet": "PlayerProfiler",
+          "url": "https://www.playerprofiler.com/news/keaton-mitchell-injury-omarion-hampton-fantasy-football/",
+          "title": "Mitchell misses practice again"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "WAS",
+      "players": [
+        "Jayden Daniels",
+        "Laremy Tunsil",
+        "Terry McLaurin"
+      ],
+      "kind": "lesion",
+      "headline": "Tunsil's torn triceps could cost Washington its left tackle for the season",
+      "summary": "Tunsil tore his triceps in a camp pass-rush drill and is expected to need surgery; Andrew Wylie is the likely replacement. Daniels himself is healthy. This is protection, not a skill-player injury, but it touches every Washington projection.",
+      "impact": "baja",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 2,
+      "published": "2026-08-05",
+      "published_at": "2026-08-05",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/commanders-dealt-worst-case-scenario-005126960.html",
+          "title": "Commanders dealt worst-case news before a preseason game"
+        },
+        {
+          "outlet": "ClutchPoints",
+          "url": "https://clutchpoints.com/nfl/washington-commanders/commanders-news-washington-makes-official-laremy-tunsil-jerzhan-newton-injury-moves",
+          "title": "Washington makes Tunsil injury move"
+        }
+      ]
+    },
+    {
+      "beat": "Injuries",
+      "team": "CIN",
+      "players": [
+        "Ja'Marr Chase",
+        "Tee Higgins",
+        "Joe Burrow"
+      ],
+      "kind": "lesion",
+      "headline": "Chase (knee) and Higgins (heel contusion) limited all week; Zac Taylor expects both by the weekend",
+      "summary": "Chase hyperextended his left knee on 25 August reaching for a deep ball; Higgins has a heel contusion. Both are limited in practice but Taylor says they will be good at the end of the week. Burrow is healthy for the 13 September opener against Tampa Bay.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 5,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Heavy",
+          "url": "https://heavy.com/sports/nfl/cincinnati-bengals/bengals-jamarr-chase-tee-higgins-get-injury-updates-ahead-of-week-1/",
+          "title": "Chase, Higgins get injury updates ahead of Week 1"
+        },
+        {
+          "outlet": "NFL.com",
+          "url": "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-tuesday-sept-1",
+          "title": "News roundup, 1 September: Chase limited"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "MIN",
+      "players": [
+        "Kyler Murray",
+        "J.J. McCarthy",
+        "Justin Jefferson",
+        "Jordan Mason",
+        "Aaron Jones"
+      ],
+      "kind": "transaccion",
+      "headline": "Vikings name Kyler Murray the Week 1 starter over McCarthy (ankle); Mason has passed Jones in camp",
+      "summary": "Kevin O'Connell named Murray, signed to a one-year deal in March, the starter for the 13 September opener against Green Bay. McCarthy's sprained ankle from the second preseason game went from 'multi-week' to week-to-week. In the backfield, Mason and Jones are both listed as starters but the beat has Mason leading.",
+      "impact": "alza",
+      "confidence": "oficial",
+      "evidence_type": "OFICIAL",
+      "fantasy_relevance": 4,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "NFL.com",
+          "url": "https://www.nfl.com/news/vikings-name-kyler-murray-starting-week-1-quarterback-for-2026-season",
+          "title": "Vikings name Murray starting Week 1 QB"
+        },
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/nfl/story/_/id/49583297/vikings-name-kyler-murray-starting-qb-sources-say",
+          "title": "Vikings name Murray starting QB over McCarthy"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/vikings-jordan-mason-turning-heads-143102533.html",
+          "title": "Mason turning heads over Jones"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "CLE",
+      "players": [
+        "Deshaun Watson",
+        "Shedeur Sanders",
+        "Dillon Gabriel",
+        "Jerry Jeudy",
+        "Quinshon Judkins",
+        "Dylan Sampson"
+      ],
+      "kind": "transaccion",
+      "headline": "Watson named Cleveland's starter; Gabriel on IR until October; Judkins the clear lead back",
+      "summary": "Todd Monken named Watson the starter in late August with Sanders the No. 2. Gabriel opened on injured reserve with a designation to return and cannot practise until October. Judkins gets the lion's share of touches with Sampson on passing downs; Jeudy starts with the rookies Concepcion and Boston.",
+      "impact": "neutral",
+      "confidence": "oficial",
+      "evidence_type": "OFICIAL",
+      "fantasy_relevance": 3,
+      "published": "2026-08-31",
+      "published_at": "2026-08-31",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Athlon Sports",
+          "url": "https://athlonsports.com/nfl/trending/shedeur-sanders-browns-week-1-prediction-taylen-green-qb2",
+          "title": "Sanders prediction after Monken's decision"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/browns-todd-monken-raves-quinshon-205759817.html",
+          "title": "Monken raves about Judkins"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "MIA",
+      "players": [
+        "Malik Willis",
+        "De'Von Achane",
+        "Jaylen Waddle"
+      ],
+      "kind": "transaccion",
+      "headline": "Willis starts for Miami after Tua's release; Waddle was traded to Denver for a first-round pick",
+      "summary": "Miami released Tagovailoa, hired Jeff Hafley and signed Willis to a three-year, $67.5M deal; he opens against Las Vegas with six career starts. Waddle went to Denver in March for the No. 30 pick plus third- and fourth-rounders. Achane is the centre of a run-heavy Hafley/Slowik offense.",
+      "impact": "neutral",
+      "confidence": "oficial",
+      "evidence_type": "OFICIAL",
+      "fantasy_relevance": 3,
+      "published": "2026-08-30",
+      "published_at": "2026-08-30",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/nfl/story/_/id/48154190/miami-dolphins-sign-malik-willis-free-agency-contract-green-bay-packers-faq-questions",
+          "title": "Dolphins signing Willis: six key questions"
+        },
+        {
+          "outlet": "CBS Sports",
+          "url": "https://www.cbssports.com/nfl/news/jaylen-waddle-trade-broncos-dolphins-analysis/",
+          "title": "Waddle traded to Broncos"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "ATL",
+      "players": [
+        "Tua Tagovailoa",
+        "Michael Penix",
+        "Drake London",
+        "Kyle Pitts",
+        "Bijan Robinson"
+      ],
+      "kind": "transaccion",
+      "headline": "Tua opens as Atlanta's starter with Penix still listed injured after the ACL",
+      "summary": "Penix returned to full-team work in camp but the preseason depth charts list him injured and Tagovailoa as the starter. London is the WR1 and Pitts the TE1; Bijan is projected as a run-lean RB1 under Stefanski.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-08-20",
+      "published_at": "2026-08-20",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "The Falcoholic",
+          "url": "https://www.thefalcoholic.com/atlanta-falcons-depth-chart/95087/falcons-depth-chart-2026-updated",
+          "title": "Falcons depth chart: preseason Week 2"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/falcons-michael-penix-jr-seemingly-202759444.html",
+          "title": "Penix seemingly hands Tua the starting spot"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "ARI",
+      "players": [
+        "Jacoby Brissett",
+        "Marvin Harrison Jr.",
+        "Trey McBride"
+      ],
+      "kind": "transaccion",
+      "headline": "Brissett is Arizona's Week 1 starter after Murray's exit; Harrison, Bourne and McBride the projected starters",
+      "summary": "Mike LaFleur confirmed Brissett starts against the Chargers on a reworked deal with $15M guaranteed. Harrison, Kendrick Bourne in the slot and McBride are the projected first-team targets.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-08-25",
+      "published_at": "2026-08-25",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Sports Illustrated",
+          "url": "https://www.si.com/nfl/cardinals/onsi/projecting-arizona-cardinals-week-1-starting-lineup-right-now-2026",
+          "title": "Projecting the Cardinals' Week 1 lineup"
+        },
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-07-26/report-cardinals-brissett-agree-on-reworked-deal",
+          "title": "Cardinals, Brissett agree on reworked deal"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "NE",
+      "players": [
+        "A.J. Brown",
+        "Drake Maye",
+        "Stefon Diggs",
+        "Hunter Henry"
+      ],
+      "kind": "transaccion",
+      "headline": "A.J. Brown is New England's WR1 by trade; Diggs was released in March and remains unsigned",
+      "summary": "The Patriots traded for Brown, and he and Maye have connected all camp. Diggs was released at the start of the league year when his cap number was set to hit $26.5M, and no signing was found in this sweep. Henry returns at tight end.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-08-14",
+      "published_at": "2026-08-14",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/drake-maye-gets-wr1-monday-233033845.html",
+          "title": "Maye gets new WR1 with Monday trade"
+        },
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/nfl/story/_/id/48102428/source-patriots-release-wr-stefon-diggs-one-season",
+          "title": "Patriots to release Diggs after one season"
+        },
+        {
+          "outlet": "Pro Football Network",
+          "url": "https://www.profootballnetwork.com/stefon-diggs-unsigned-nfl-free-agency-2026/",
+          "title": "Why is Diggs still a free agent?"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "HOU",
+      "players": [
+        "Joe Mixon",
+        "Woody Marks",
+        "David Montgomery",
+        "C.J. Stroud"
+      ],
+      "kind": "transaccion",
+      "headline": "Mixon released in March and unsigned; Houston's backfield is Marks with Montgomery added",
+      "summary": "Mixon missed all of 2025 with a foot condition Caserio called a freak injury and was released in March. Marks established himself as the lead back late in 2025 and Montgomery arrived from Detroit. Stroud sat the preseason as planned.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-06-15",
+      "published_at": "2026-06-15",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Sports Illustrated",
+          "url": "https://www.si.com/nfl/texans/onsi/news/houston-texans-make-official-decision-on-joe-mixon-s-future",
+          "title": "Texans make official decision on Mixon"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/article/woody-marks-could-x-factor-011929608.html",
+          "title": "Marks could be X-factor"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "GB",
+      "players": [
+        "Kaleb Johnson",
+        "MarShawn Lloyd",
+        "Josh Jacobs"
+      ],
+      "kind": "transaccion",
+      "headline": "Packers acquired Kaleb Johnson from Pittsburgh for a 2028 sixth-rounder as Jacobs insurance",
+      "summary": "Johnson announced the trade himself on 30 August. He had 28 carries as a rookie behind Warren and Gainwell. Green Bay's Week 1 backfield behind Lloyd is Chris Brooks and Johnson while Jacobs sits on the exempt list.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-08-30",
+      "published_at": "2026-08-30",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-trade-with-steelers-for-rb-kaleb-johnson",
+          "title": "Packers trade with Steelers for Kaleb Johnson"
+        },
+        {
+          "outlet": "Steelers Depot",
+          "url": "https://steelersdepot.com/2026/08/report-steelers-trading-rb-kaleb-johnson-to-packers/",
+          "title": "Steelers trading Johnson to Packers"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "NYG",
+      "players": [
+        "Isaiah Likely",
+        "Cam Skattebo",
+        "Najee Harris",
+        "Tyrone Tracy",
+        "Devin Singletary"
+      ],
+      "kind": "depth_chart",
+      "headline": "Skattebo unchallenged atop the Giants' backfield; Likely signed for $40M to start at tight end",
+      "summary": "Skattebo takes the bulk of the carries in Matt Nagy's power scheme, with Tracy and Singletary preferred on passing downs and Harris on the same line. Likely signed a three-year, $40M deal in March to reunite with John Harbaugh. Karabell lists the Giants' young trio on his do-not-draft list.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-12/skattebo-tracy-listed-as-nyg-co-starters",
+          "title": "Skattebo, Tracy listed as co-starters"
+        },
+        {
+          "outlet": "Empire Sports Media",
+          "url": "https://empiresportsmedia.com/new-york-giants/ny-giants-rb-cam-skattebo-is-sharing-a-backfield-more-crowded-than-it-looks/",
+          "title": "Skattebo sharing a crowded backfield"
+        },
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-09-02/likely-a-breakout-star-for-giants",
+          "title": "Likely a breakout star for Giants?"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "PIT",
+      "players": [
+        "Jaylen Warren",
+        "Rico Dowdle",
+        "DK Metcalf",
+        "Aaron Rodgers"
+      ],
+      "kind": "depth_chart",
+      "headline": "Warren listed ahead of Dowdle in a planned 1A/1B; Rodgers back for a final season with Metcalf healthy",
+      "summary": "Mike McCarthy wants a thunder-and-lightning split: Warren's quickness, Dowdle's power and goal-line work (4 of 6 carries inside the 5 scored in 2025). Metcalf missed much of camp with an undisclosed issue but returned and is expected for Week 1 against Atlanta.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-08-31",
+      "published_at": "2026-08-31",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Steelers",
+          "url": "https://www.steelers.com/news/steelers-release-initial-2026-depth-chart",
+          "title": "Steelers release initial 2026 depth chart"
+        },
+        {
+          "outlet": "CBS Sports",
+          "url": "https://www.cbssports.com/fantasy/football/news/steelers-jaylen-warren-listed-ahead-of-dowdle/",
+          "title": "Warren listed ahead of Dowdle"
+        },
+        {
+          "outlet": "RotoWire",
+          "url": "https://www.rotowire.com/football/headlines/dk-metcalf-injury-expected-to-be-ready-for-week-1-635597",
+          "title": "Metcalf expected to be ready for Week 1"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "JAX",
+      "players": [
+        "Bhayshul Tuten",
+        "Chris Rodriguez",
+        "LeQuint Allen"
+      ],
+      "kind": "depth_chart",
+      "headline": "Tuten and Chris Rodriguez Jr. co-starters in Jacksonville with Etienne gone; LeQuint Allen on third downs",
+      "summary": "The initial depth chart splits early downs between Tuten and Rodriguez and gives Allen the passing-down role. No single back has a claim to the full Etienne workload yet.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-08-31",
+      "published_at": "2026-08-31",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Sports Illustrated",
+          "url": "https://www.si.com/nfl/jaguars/onsi/jacksonville-full-53-man-roster-after-final-cuts-who-joins-trevor-lawrence-and-travis-hunter",
+          "title": "Full Jaguars 53-man roster after cuts"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "DEN",
+      "players": [
+        "J.K. Dobbins",
+        "RJ Harvey",
+        "Jonah Coleman",
+        "Bo Nix",
+        "Jaylen Waddle"
+      ],
+      "kind": "depth_chart",
+      "headline": "Dobbins atop Denver's depth chart with Harvey and rookie Coleman behind; Nix back from the broken ankle",
+      "summary": "The Broncos are a three-man rotation. Nix broke his ankle in the January playoff win over Buffalo and opens at Kansas City on 14 September with Waddle added opposite Sutton.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "RotoBaller",
+          "url": "https://www.rotoballer.com/is-j-k-dobbins-rj-harvey-and-jonah-coleman-the-broncos-starter-who-to-draft-for-fantasy-football-2026/1914099",
+          "title": "Dobbins, Harvey or Coleman?"
+        },
+        {
+          "outlet": "WTOP",
+          "url": "https://wtop.com/sports/2026/09/bo-nix-returns-from-broken-ankle-and-has-a-better-offense-around-him-for-2026",
+          "title": "Nix returns from broken ankle"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "LV",
+      "players": [
+        "Mike Washington Jr.",
+        "Ashton Jeanty",
+        "Kirk Cousins"
+      ],
+      "kind": "depth_chart",
+      "headline": "Mike Washington Jr. is the next man up behind Jeanty: fourth-round trade-up, 7.9 yards a carry in the preseason",
+      "summary": "With Jeanty still out of practice on 2 September, Washington has taken the first-team reps. He ran the fastest 40 (4.33) of any back at the Combine and his ADP was the biggest riser of the final preseason week on Underdog, which 4for4 calls an overreaction if Jeanty plays.",
+      "impact": "alza",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-02",
+      "published_at": "2026-09-02",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Review-Journal",
+          "url": "https://www.reviewjournal.com/sports/raiders/rookie-handles-running-back-reps-with-ashton-jeanty-out-of-raiders-practice-3868867/",
+          "title": "Washington handles RB reps with Jeanty out"
+        },
+        {
+          "outlet": "4for4",
+          "url": "https://www.4for4.com/2026/preseason/20-adp-risers-fallers-after-preseason-week-3",
+          "title": "20 ADP risers and fallers after preseason Week 3"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "DAL",
+      "players": [
+        "Javonte Williams",
+        "Malik Davis",
+        "Emari Demercado",
+        "Dak Prescott",
+        "Jake Ferguson"
+      ],
+      "kind": "depth_chart",
+      "headline": "Williams the featured back with Malik Davis and waiver pickup Demercado behind; starters rested all preseason",
+      "summary": "After cutting Blue, Mafah and Abanikanda, Dallas heads into the Giants opener with Davis and Demercado as the backups. Schottenheimer held the starters out of the preseason; Ferguson (82 catches, 8 TDs in 2025) is expected to be ready.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Dallas Morning News",
+          "url": "https://www.dallasnews.com/sports/cowboys/article/dallas-cowboys-position-breakdown-running-backs-22335102.php",
+          "title": "Which RB steps up as Williams' backup?"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "TEN",
+      "players": [
+        "Carnell Tate",
+        "Calvin Ridley",
+        "Tony Pollard",
+        "Cam Ward"
+      ],
+      "kind": "depth_chart",
+      "headline": "Tate back on the field after two days of 'stiffness'; Ridley seven months out from the fibula",
+      "summary": "The first-round rookie missed two practices but nothing suggests his Week 1 status against the Jets is in danger. Ridley took his first 7-on-7 reps in camp after the broken fibula and is still in the mix. Pollard's job is described as safe.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 3,
+      "published": "2026-08-28",
+      "published_at": "2026-08-28",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/tennessee-titans-practice-notes-including-191826329.html",
+          "title": "Titans practice notes including Tate"
+        },
+        {
+          "outlet": "Draft Sharks",
+          "url": "https://www.draftsharks.com/article/tennessee-titans-preview",
+          "title": "Titans 2026 fantasy preview"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "SEA",
+      "players": [
+        "Cooper Kupp",
+        "Jaxon Smith-Njigba",
+        "Sam Darnold"
+      ],
+      "kind": "depth_chart",
+      "headline": "Seattle's receiver room for the 9 September title defense: Smith-Njigba, Kupp, Shaheed, Horton",
+      "summary": "The defending champions open against New England at Lumen Field. Smith-Njigba was No. 5 on the NFL Top 100. Kupp made the initial 53 as the No. 2 receiver.",
+      "impact": "neutral",
+      "confidence": "oficial",
+      "evidence_type": "OFICIAL",
+      "fantasy_relevance": 3,
+      "published": "2026-08-30",
+      "published_at": "2026-08-30",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Seattle Seahawks",
+          "url": "https://www.seahawks.com/news/a-position-by-position-look-at-the-seahawks-initial-2026-53-man-roster",
+          "title": "Position-by-position look at the initial 53"
+        }
+      ]
+    },
+    {
+      "beat": "Transactions",
+      "team": "KC",
+      "players": [
+        "Rashee Rice",
+        "Xavier Worthy",
+        "Travis Kelce",
+        "Kenneth Walker"
+      ],
+      "kind": "depth_chart",
+      "headline": "Rice, Worthy and Kelce all expected for the Denver opener; Walker signed for $43M to replace Pacheco",
+      "summary": "Worthy's early-August shoulder sprain resolved. Rice returns from offseason knee surgery and a 30-day jail stint as a starter. Walker signed a three-year, $43.05M deal with $28.7M guaranteed.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "REPORTADO",
+      "fantasy_relevance": 4,
+      "published": "2026-08-31",
+      "published_at": "2026-08-31",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/10-biggest-chiefs-questions-rashee-203000756.html",
+          "title": "Can Rice, Worthy bounce back?"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://ca.sports.yahoo.com/news/chiefs-look-running-back-room-173838504.html",
+          "title": "Chiefs' new-look RB room is complete"
+        }
+      ]
+    },
+    {
+      "beat": "Analysts",
+      "team": "LIGA",
+      "players": [
+        "Jahmyr Gibbs",
+        "Bijan Robinson",
+        "Christian McCaffrey",
+        "Puka Nacua",
+        "Brock Bowers",
+        "Josh Allen"
+      ],
+      "kind": "otro",
+      "headline": "PFF's final PPR board (updated 1 September): Gibbs, Bijan, McCaffrey; Nacua the WR1, Bowers at 27, Allen at 31",
+      "summary": "Nathan Jahnke's top 500 for single-QB PPR has Gibbs first ahead of Robinson and McCaffrey, Nacua as the first receiver, Bowers as the first tight end at No. 27 and Allen the first quarterback at No. 31. Mike Clay's PPR list (31 August) has Allen, Daniels, Jackson, Maye, Hurts as the QB top five.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "OPINION",
+      "fantasy_relevance": 3,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "PFF",
+          "url": "https://www.pff.com/news/fantasy-football-rankings-ppr-top-300-for-drafts",
+          "title": "2026 fantasy football rankings: PPR top 500"
+        },
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/fantasy/football/story/_/id/47513496/2026-fantasy-football-rankings-ppr-mike-clay",
+          "title": "Mike Clay's 2026 PPR rankings"
+        }
+      ]
+    },
+    {
+      "beat": "Analysts",
+      "team": "LIGA",
+      "players": [
+        "Derrick Henry",
+        "Patrick Mahomes",
+        "Malik Nabers",
+        "Cam Skattebo",
+        "Jaxson Dart"
+      ],
+      "kind": "otro",
+      "headline": "Karabell: Henry and Mahomes on the 'Do Draft' list; the Giants' young trio on 'Do Not Draft'",
+      "summary": "ESPN's Eric Karabell lists Henry (projected 317 carries, 1,482 yards, 13 TDs at 32 by FTN) and Mahomes as undervalued, and Nabers, Skattebo and Dart as overvalued at ADP.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "OPINION",
+      "fantasy_relevance": 2,
+      "published": "2026-08-31",
+      "published_at": "2026-08-31",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/fantasy/football/story/_/id/47539664/2026-fantasy-football-rankings-flex-superflex-ppr-eric-karabell",
+          "title": "Karabell's 2026 flex and superflex rankings"
+        }
+      ]
+    },
+    {
+      "beat": "Analysts",
+      "team": "LIGA",
+      "players": [
+        "Brandon Aubrey",
+        "Ka'imi Fairbairn",
+        "Cameron Dicker",
+        "Cam Little",
+        "Jake Bates",
+        "Tyler Loop"
+      ],
+      "kind": "otro",
+      "headline": "Kickers: Aubrey the consensus K1 (116 projected half-PPR points), then Fairbairn, Dicker and Little; Week 1 streamers Bates, Loop, Butker, Boswell, McLaughlin",
+      "summary": "Aubrey has finished top three at the position three straight years. RotoBaller's Week 1 streaming targets are Bates (DET), Loop (BAL), Butker (KC), Boswell (PIT) and McLaughlin (TB). Every source agrees: last round or two.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "OPINION",
+      "fantasy_relevance": 2,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "RotoBaller",
+          "url": "https://www.rotoballer.com/week-1-kicker-streamers-starters-and-rankings-2026-fantasy-tiers-rankings/1917650",
+          "title": "Week 1 kicker streamers, starters and rankings"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/updated-fantasy-football-kicker-rankings-223043094.html",
+          "title": "Aubrey remains the 1 of 1"
+        },
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/fantasy/football/story/_/page/FFPreseasonRank26K/nfl-fantasy-football-draft-rankings-2026-k-kicker",
+          "title": "ESPN 2026 kicker rankings"
+        }
+      ]
+    },
+    {
+      "beat": "Analysts",
+      "team": "LIGA",
+      "players": [
+        "Houston Texans",
+        "Los Angeles Rams",
+        "Denver Broncos",
+        "Seattle Seahawks",
+        "Kansas City Chiefs"
+      ],
+      "kind": "otro",
+      "headline": "Defenses: Houston the projected DST1 (104 half-PPR), Rams and Broncos next; Seattle and Kansas City the Week 1 streams",
+      "summary": "Kansas City has the third-easiest opening schedule (DEN, IND, MIA, LV). Seattle projects as a top unit even against New England. The recurring advice is to stream by opponent turnover rate rather than chase big plays.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "OPINION",
+      "fantasy_relevance": 2,
+      "published": "2026-09-01",
+      "published_at": "2026-09-01",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "RotoBaller",
+          "url": "https://www.rotoballer.com/week-1-defense-def-streamers-starters-and-rankings-2026-fantasy-tiers-rankings/1916094",
+          "title": "Week 1 defense streamers, starters and rankings"
+        },
+        {
+          "outlet": "FantasyPros",
+          "url": "https://www.fantasypros.com/2026/08/fantasy-football-5-defenses-to-draft-2026-dst/",
+          "title": "5 defenses to draft"
+        },
+        {
+          "outlet": "ESPN",
+          "url": "https://www.espn.com/fantasy/football/story/_/page/FFPreseasonRank26DST/nfl-fantasy-football-draft-rankings-2026-dst-defense",
+          "title": "ESPN 2026 D/ST rankings"
+        }
+      ]
+    },
+    {
+      "beat": "Analysts",
+      "team": "LIGA",
+      "players": [
+        "Blake Corum",
+        "Jordan James",
+        "Tank Bigsby",
+        "TreVeyon Henderson",
+        "Rico Dowdle"
+      ],
+      "kind": "otro",
+      "headline": "Handcuffs the industry agrees on: Corum, Jordan James and Bigsby first; Henderson and Dowdle as standalone plays",
+      "summary": "Corum ran 145 times for 746 yards (5.1 a carry) beside Kyren Williams in 2025. Bigsby averaged 5.7 a carry and posted a top-10 PPR week when Barkley sat in Week 18. Dowdle's goal-line role makes him more than a handcuff in Pittsburgh.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "OPINION",
+      "fantasy_relevance": 3,
+      "published": "2026-08-31",
+      "published_at": "2026-08-31",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "PFF",
+          "url": "https://www.pff.com/news/fantasy-football-2026-best-running-back-handcuffs",
+          "title": "Best running back handcuffs 2026"
+        },
+        {
+          "outlet": "Yahoo Sports",
+          "url": "https://sports.yahoo.com/articles/top-6-rb-handcuffs-target-202618605.html",
+          "title": "Top 6 RB handcuffs to target"
+        },
+        {
+          "outlet": "Fantasy Life",
+          "url": "https://www.fantasylife.com/articles/fantasy/the-best-backup-rbs-to-draft-in-fantasy-football-blake-corum-lea",
+          "title": "Corum leads handcuff rankings"
+        }
+      ]
+    },
+    {
+      "beat": "Analysts",
+      "team": "LIGA",
+      "players": [
+        "Colston Loveland",
+        "Brock Bowers",
+        "Trey McBride",
+        "Kyle Pitts",
+        "Dalton Kincaid"
+      ],
+      "kind": "otro",
+      "headline": "Tight end tiers: Bowers and McBride fighting for TE1; Heath Cummings puts Loveland in Tier 1 after his second-half breakout",
+      "summary": "From Week 9 of his rookie year Loveland was the No. 2 scoring tight end behind McBride. Pitts sits ninth and Kincaid, with knee issues in each of the past two seasons, sixteenth in the consensus.",
+      "impact": "neutral",
+      "confidence": "informado",
+      "evidence_type": "OPINION",
+      "fantasy_relevance": 3,
+      "published": "2026-08-30",
+      "published_at": "2026-08-30",
+      "first_seen_at": "2026-09-03T00:15:00+00:00",
+      "confirmed_at": null,
+      "resolution": null,
+      "source_type": null,
+      "schema_version": 2,
+      "sources": [
+        {
+          "outlet": "CBS Sports",
+          "url": "https://www.cbssports.com/fantasy/football/news/heath-cummings-2026-fantasy-football-tight-end-tiers/",
+          "title": "Cummings' TE tiers: why Loveland belongs in Tier 1"
+        },
+        {
+          "outlet": "NBC Sports",
+          "url": "https://www.nbcsports.com/fantasy/football/news/2026-fantasy-football-tight-end-tiers-brock-bowers-and-trey-mcbride-fighting-for-te1-spot",
+          "title": "TE tiers: Bowers and McBride fighting for TE1"
+        }
+      ]
     }
-   ]
-  }
- ],
- "model": "manual sweep (Claude, WebSearch, 40 queries)",
- "beats": [
-  "Suspensions",
-  "Injuries",
-  "Rookies",
-  "Transactions",
-  "Analysts"
- ]
+  ],
+  "model": "manual sweep (Claude, WebSearch, 140 queries in two passes)",
+  "beats": [
+    "Suspensions",
+    "Injuries",
+    "Rookies",
+    "Transactions",
+    "Analysts"
+  ]
 }
