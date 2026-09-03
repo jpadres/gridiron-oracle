@@ -32,7 +32,9 @@ import { browserStorage } from "../draftStorage.js";
 import {
   GAMES_IN_SEASON, LAST_WEEK, freeAgentUpgrades, freeSpecialists, restOfSeason,
 } from "../leagueAdvice.js";
-import { loadAccount, ownershipLabel, ownershipOf } from "../sleeperAccount.js";
+import {
+  loadAccount, loadActiveLeagueId, ownershipLabel, ownershipOf, saveActiveLeagueId,
+} from "../sleeperAccount.js";
 
 const OFFENSE = ["QB", "RB", "WR", "TE"];
 const CHIPS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
@@ -105,15 +107,14 @@ export default function WeeklyExplorer({
     const storage = browserStorage();
     const saved = loadAccount(storage);
     setAccount(saved);
-    let wanted = "";
-    try { wanted = storage?.getItem("gridiron-weekly-league-v1") ?? ""; } catch { /* privado */ }
+    const wanted = loadActiveLeagueId(storage);
     const leagues = saved?.leagues ?? [];
     const first = leagues.find((l) => l.leagueId === wanted) ?? leagues[0];
     setLeagueId(first?.leagueId ?? "");
   }, []);
   const pickLeague = (id) => {
     setLeagueId(id);
-    try { browserStorage()?.setItem("gridiron-weekly-league-v1", id); } catch { /* privado */ }
+    saveActiveLeagueId(browserStorage(), id);
   };
   const league = useMemo(
     () => (account?.leagues ?? []).find((l) => l.leagueId === leagueId) ?? null,

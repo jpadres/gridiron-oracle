@@ -32,6 +32,7 @@ const PAGES = [
   { href: "/fantasy/draft", label: "Draft Assistant" },
   { href: "/fantasy/leagues", label: "Leagues" },
   { href: "/fantasy/semanal", label: "Weekly" },
+  { href: "/fantasy/analisis", label: "Analyzer" },
   { href: "/survivor", label: "Survivor" },
   { href: "/research", label: "Research" },
 ];

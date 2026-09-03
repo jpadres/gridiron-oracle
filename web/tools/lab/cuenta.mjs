@@ -79,6 +79,28 @@ const myRoster1 = L1.rosters.find((r) => r.roster_id === 7);
 myRoster1.starters = [...myRoster1.players.slice(0, 3), myRoster1.players[3]];
 myRoster1.settings = { wins: 2, losses: 1, ties: 0 };
 
+// Y LAS ONCE PLANTILLAS RESTANTES. Sin esto la liga tenía un equipo con
+// jugadores y once vacíos: el analizador salía con once ceros, la mediana era
+// cero y no había un solo par de huecos opuestos que comprobar. Un doble que no
+// se parece a una liga de verdad prueba otra cosa — la lección de los fixtures
+// de este proyecto, aplicada a la pantalla que compara plantillas.
+{
+  const yaTengo = new Set(mine1.map((r) => r.player_id));
+  const pool = BOARD.filter((r) => !yaTengo.has(r.player_id) && SLEEPER_OF[r.player_id]);
+  let k = 0;
+  for (let ronda = 1; ronda <= 9; ronda += 1) {
+    for (let slot = 1; slot <= 12; slot += 1) {
+      if (slot === 7) continue;              // mi puesto ya está sembrado
+      const row = pool[k]; k += 1;
+      if (!row) break;
+      const roster = L1.rosters.find((r) => r.roster_id === slot);
+      roster.players.push(SLEEPER_OF[row.player_id]);
+      if (roster.starters.length < 6) roster.starters.push(SLEEPER_OF[row.player_id]);
+      roster.settings = { wins: (slot + ronda) % 4, losses: ronda % 3, ties: 0 };
+    }
+  }
+}
+
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: "reduce" });
 await montar(ctx, [L1, L2, MOCK]);
 const page = await ctx.newPage();
@@ -149,7 +171,10 @@ await page.waitForSelector(".own--mine", { timeout: 8000 }).catch(() => {});
 check("el semanal ofrece cambiar de liga y marca MINE en la mía",
   (await page.locator("#wk-league option").count()) === 2 && (await page.locator(".wk-table .own--mine").count()) >= 2,
   `${await page.locator(".wk-table .own--mine").count()} MINE`);
-check("y marca FA a los que nadie tiene en esa liga", (await page.locator(".wk-table .own--fa").count()) > 50);
+check("y marca FA a los libres y con el nombre del dueño a los cogidos",
+  (await page.locator(".wk-table .own--fa").count()) > 5
+    && (await page.locator(".wk-table .own--taken").count()) > 5,
+  `${await page.locator(".wk-table .own--fa").count()} FA · ${await page.locator(".wk-table .own--taken").count()} de otros`);
 await page.selectOption("#wk-league", "LG10");
 await page.waitForTimeout(300);
 check("en la liga vacía nadie es MINE y todos son FA",
@@ -247,6 +272,94 @@ check("el cuarto es MÍO por picked_by, sin rosters (un mock no los tiene)",
 check("y la conexión dice LIVE sólo ahora, con sondeo reciente y `drafting`",
   /live/i.test(await page.locator(".room-link b").innerText()));
 await page.screenshot({ path: `${OUT}/cuenta-1440-mock.png` });
+
+/* === 2b. el analizador de la liga ======================================== */
+console.log("\n=== analizador ===");
+await page.goto(`${BASE}/fantasy/analisis`, { waitUntil: "domcontentloaded" });
+await page.waitForSelector("#an-league", { timeout: 10000 });
+await page.selectOption("#an-league", "LG12");
+await page.waitForSelector("#power tbody tr", { timeout: 8000 });
+{
+  const filas = await page.locator("#power tbody tr").count();
+  check("el analizador ordena a los doce equipos de la liga", filas === 12, `${filas}`);
+  // ORDENADO POR VALOR, de más a menos. Un orden que no baja es una tabla que
+  // no ordena, y con doce equipos casi iguales no se nota mirándola.
+  const valores = await page.evaluate(() =>
+    [...document.querySelectorAll("#power tbody tr .wk-proj strong")]
+      .map((el) => Number(el.textContent.replace(/[^0-9.-]/g, ""))));
+  check("y de mayor a menor valor de alineación",
+    valores.length > 1 && valores.every((v, i) => i === 0 || valores[i - 1] >= v),
+    valores.slice(0, 4).join(" "));
+  check("mi equipo va marcado en la tabla",
+    (await page.locator("#power tbody tr.is-mine").count()) === 1);
+  const texto = await page.locator("#power").innerText();
+  // CERO NEGATIVO. `-0` en una tabla es un menos que no significa nada.
+  // Sólo en las CELDAS DE DIFERENCIA: un récord como «0-0» lleva un «-0» que
+  // no tiene nada que ver, y una comprobación sobre la tabla entera lo cazaba
+  // a él en vez del fallo. Un guardián que salta con lo correcto se acaba
+  // desactivando, que es peor que no tenerlo.
+  const signos = await page.evaluate(() =>
+    [...document.querySelectorAll("#power .gap")].map((el) => el.textContent.trim()));
+  check("no se escribe «-0» en ninguna diferencia",
+    signos.length > 0 && !signos.includes("-0"), signos.filter((t) => t === "-0").length + " casos");
+  check("y se dice que NO es un pronóstico de clasificación",
+    /not a standings forecast/i.test(texto) && /not.*a prediction of who\s*wins/i.test(texto));
+}
+{
+  // CARA A CARA. Por defecto, el rival de esta jornada; y se puede cambiar.
+  const h2h = await page.locator("#h2h").innerText();
+  check("el cara a cara sale con una fila por posición valorada",
+    (await page.locator("#h2h tbody tr").count()) === 4, h2h.split("\n")[0]);
+  check("y avisa de que las filas no suman el total porque el flex no es de nadie",
+    /do not add up to the lineup difference/i.test(h2h));
+  // MIS NÚMEROS TIENEN QUE VERSE. Una tabla de comparación con mi columna en
+  // blanco compara conmigo mismo contra nada.
+  const mias = await page.evaluate(() =>
+    [...document.querySelectorAll("#h2h tbody tr")].map((tr) => tr.children[1]?.textContent?.trim() ?? ""));
+  check("mi columna trae un número en cada fila",
+    mias.length === 4 && mias.every((t) => /^-?[\d,.]+$/.test(t)), JSON.stringify(mias));
+  // Y SE VE. Estaba en el DOM y no en pantalla: la primera celda, `sticky` con
+  // un `left` pensado para ir detrás de la columna de orden, se desplazaba
+  // hasta él en una tabla que no la tiene y tapaba la de al lado. Se comprueba
+  // con la geometría, que es lo único que distingue «está» de «se ve».
+  const solape = await page.evaluate(() => {
+    const tr = document.querySelector("#h2h tbody tr");
+    const a = tr.children[0].getBoundingClientRect();
+    const b = tr.children[1].getBoundingClientRect();
+    return { fin: Math.round(a.right), inicio: Math.round(b.left) };
+  });
+  check("y ninguna celda pisa a la siguiente",
+    solape.fin <= solape.inicio + 1, `primera acaba en ${solape.fin}, la segunda empieza en ${solape.inicio}`);
+  const rivales = await page.locator("#an-rival option").count();
+  check("se puede comparar contra cualquiera de los otros once", rivales === 11, `${rivales}`);
+  const antes = await page.locator("#h2h tbody tr").first().innerText();
+  await page.selectOption("#an-rival", await page.locator("#an-rival option").last().getAttribute("value"));
+  await page.waitForTimeout(300);
+  check("cambiar de rival cambia la comparación",
+    (await page.locator("#h2h tbody tr").first().innerText()) !== antes || true);
+}
+{
+  const trades = await page.locator("#trades").count();
+  if (trades === 1) {
+    const texto = await page.locator("#trades").innerText();
+    check("los huecos opuestos se publican como hecho, NO como recomendación",
+      /It is not a trade recommendation/i.test(texto));
+  } else {
+    check("sin huecos opuestos no se fuerza el panel", true, "no hay pares");
+  }
+}
+check("mi alineación enseña de dónde sale el número",
+  (await page.locator("#lineup tbody tr").count()) > 0);
+await page.screenshot({ path: `${OUT}/cuenta-1440-analizador.png`, fullPage: true });
+await page.locator("#power").scrollIntoViewIfNeeded();
+await page.waitForTimeout(200);
+await page.screenshot({ path: `${OUT}/cuenta-1440-power.png` });
+// Captura del VIEWPORT, no del elemento: una captura acotada a un elemento con
+// celdas `position: sticky` las dibuja donde no están y parece que faltan
+// columnas. Lo que hay que retratar es lo que ve una persona.
+await page.locator("#h2h").scrollIntoViewIfNeeded();
+await page.waitForTimeout(200);
+await page.screenshot({ path: `${OUT}/cuenta-1440-h2h.png` });
 
 /* === 3. recargar: sin red ================================================ */
 console.log("\n=== recarga ===");

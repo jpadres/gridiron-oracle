@@ -172,3 +172,42 @@ usado para resolver. Cuando el asistente «se comporta raro» en un draft real,
 lo que se copia de ahí es lo que hace falta para diagnosticarlo. El workflow
 manual `Inspeccionar Sleeper` (`sleeper-inspect.yml`) vuelca desde CI la forma
 real de la cuenta y del draft, para comparar con el doble.
+
+## El analizador de la liga (`/fantasy/analisis`, 3 de septiembre)
+
+Cuatro paneles, y ninguno recomienda nada:
+
+- **Power rankings.** El valor de la MEJOR alineación legal de cada equipo,
+  repartiendo el VOR del board entre las jornadas que quedan. Los huecos los
+  llena `assignSlots`, el mismo que pinta la plantilla y espejo del de Python.
+  No es un pronóstico de clasificación y la página lo dice: no sabe del
+  calendario, de quién alinea bien ni de los waivers. K y DEF quedan fuera —el
+  board no les calcula valor— y lo que el mapa de identidad no conoce se cuenta
+  como `unknown`, nunca como cero.
+- **Cara a cara por posición** contra cualquiera de la liga, con el rival de la
+  jornada por defecto. Las filas son los huecos DEDICADOS, así que no suman la
+  diferencia total: el flex no es de ninguna posición y eso se advierte.
+- **Huecos opuestos.** Pares de equipos donde a uno le sobra por encima de la
+  mediana justo donde al otro le falta. Es un hecho de dos plantillas, no un
+  intercambio recomendado: nadie ha medido aquí lo que vale un jugador en un
+  trade.
+- **Mi alineación**, para poder auditar de dónde sale el número de arriba.
+
+La comparación es contra la **mediana** de la liga, no la media: un solo
+receptor descomunal mueve la media lo suficiente para que media liga aparezca
+«débil», y la mediana no se entera de él.
+
+**La liga activa es UNA** (`gridiron-active-league-v1`): la que eliges en el
+semanal es la que abre el analizador. Antes cada pantalla recordaba la suya, que
+es el mismo fallo del estado de draft por pantalla.
+
+Dos defectos que cazó el laboratorio y no la vista:
+
+1. Los huecos se leen de `snapshot.config.roster`. Con `snapshot.roster` —que no
+   existe— la tabla salía con doce ceros.
+2. `.rank-table .who` es `sticky` con `left: 2.6rem` para ir detrás de la
+   columna de orden. En una tabla SIN esa columna la celda se desplazaba hasta
+   ese `left` y, con fondo y `z-index`, **tapaba la columna siguiente**: mi
+   propia columna del cara a cara salía en blanco. Ahora `:first-child` la fija
+   en cero, y el laboratorio comprueba la geometría —que una celda no pise a la
+   siguiente—, que es lo único que distingue «está en el DOM» de «se ve».

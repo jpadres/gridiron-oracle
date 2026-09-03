@@ -576,6 +576,13 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .rank-table .rk, .rank-table .who { position: sticky; background: inherit; z-index: 1; }
 .rank-table .rk { left: 0; }
 .rank-table .who { left: 2.6rem; }   /* justo detrás del ancho de `.rk` */
+/* …PERO sólo si hay un número delante. Una celda `sticky` cuya posición natural
+   está a la IZQUIERDA de su `left` se desplaza hasta él, así que en una tabla
+   sin columna de orden la primera celda se iba 2,6 rem a la derecha y —al
+   llevar fondo y `z-index`— TAPABA la columna siguiente. En el cara a cara del
+   analizador eso dejaba mi propia columna en blanco: la comparación se leía
+   como si yo no tuviera nada. */
+.rank-table .who:first-child { left: 0; }
 .rank-table thead th.rk { left: 0; z-index: 2; }
 .rank-table .tier-band td { position: static; }
 
@@ -1028,3 +1035,23 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 /* Mi fila en el resto de temporada: un raíl, no un fondo. Un fondo compite con
    las marcas de estado, que son lo que hay que ver primero en esa fila. */
 .rank-table tr.is-mine td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+
+/* El analizador de la liga. La diferencia contra la mediana es el dato nuevo de
+   cada fila, así que lleva signo y color; el resto son cifras normales. Cero no
+   es ni bueno ni malo y se queda en gris. */
+.gap { font-variant-numeric: tabular-nums; color: var(--muted); }
+.gap--up { color: var(--pos-diff-up); font-weight: var(--weight-semibold); }
+.gap--down { color: var(--pos-diff-down); font-weight: var(--weight-semibold); }
+.an-pick { display: inline-flex; align-items: center; gap: var(--space-2); margin: var(--space-2) 0; }
+.an-total { font-size: var(--text-body); margin: var(--space-2) 0; }
+.an-total strong { font-variant-numeric: tabular-nums; }
+.an-trades { list-style: none; margin: var(--space-2) 0 0; padding: 0; }
+.an-trades > li {
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-small);
+  line-height: 1.6;
+}
+.an-more { margin-top: var(--space-3); }
+.an-more summary { cursor: pointer; font-size: var(--text-small); color: var(--muted); }
+.an h4 { margin: var(--space-3) 0 0; font-size: var(--text-body); }

@@ -272,6 +272,36 @@ export function accountFreshness(retrievedAt, now = Date.now()) {
   return age <= ROSTER_STALE_MS ? "CURRENT" : "STALE";
 }
 
+/**
+ * LA LIGA ACTIVA, una para todo el producto.
+ *
+ * Antes cada pantalla se acordaba de la suya: el semanal guardaba
+ * `gridiron-weekly-league-v1` y el analizador habría guardado otra clave. Eso
+ * es exactamente el fallo que ya costó una iteración con el estado del draft —
+ * dos superficies que hablan de lo mismo con su propia copia, las dos con
+ * razón, y ninguna forma de saber cuál mira el que lee. Una clave, y las
+ * pantallas la comparten.
+ *
+ * La clave vieja se sigue leyendo como respaldo para no perder la liga que ya
+ * tuvieras elegida; se escribe siempre en la nueva.
+ */
+export const ACTIVE_LEAGUE_KEY = "gridiron-active-league-v1";
+const LEGACY_LEAGUE_KEY = "gridiron-weekly-league-v1";
+
+export function loadActiveLeagueId(storage) {
+  if (!storage) return "";
+  try {
+    return storage.getItem(ACTIVE_LEAGUE_KEY) ?? storage.getItem(LEGACY_LEAGUE_KEY) ?? "";
+  } catch {
+    return "";
+  }
+}
+
+export function saveActiveLeagueId(storage, leagueId) {
+  if (!storage) return;
+  try { storage.setItem(ACTIVE_LEAGUE_KEY, String(leagueId ?? "")); } catch { /* privado */ }
+}
+
 export function loadAccount(storage) {
   if (!storage) return null;
   try {
