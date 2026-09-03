@@ -53,7 +53,8 @@ import {
 import { providerLabel } from "../providers.js";
 import { compilePoints, rulesFromSleeper } from "../scoring.js";
 import {
-  DRAFT_STATUS_LABEL, accountFreshness, buildIndex, clearAccount, loadAccount, rosterView,
+  DRAFT_STATUS_LABEL, accountFreshness, buildIndex, clearAccount, loadAccount,
+  loadActiveLeagueId, rosterView, saveActiveLeagueId,
 } from "../sleeperAccount.js";
 import { linkSleeperAccount } from "../linkAccount.js";
 import { dedicatedStarters, depthByTeam, matchupView, weeklyIndex } from "../leagueWeek.js";
@@ -78,6 +79,7 @@ export default function LeaguesShell({ board, context }) {
   const [account, setAccount] = useState(null);
   const [username, setUsername] = useState("");
   const [linking, setLinking] = useState(false);
+  const [activeLeagueId, setActiveLeagueId] = useState("");
   const [linkError, setLinkError] = useState("");
   const [tick, setTick] = useState(0);
 
@@ -89,6 +91,9 @@ export default function LeaguesShell({ board, context }) {
       setAccount(saved);
       setUsername(saved.username ?? "");
     }
+    // La liga activa la comparte todo el producto: la que elijas aquí es la que
+    // abren el semanal, el analizador y el Draft Room.
+    setActiveLeagueId(loadActiveLeagueId(storage));
   }, []);
 
   // La etiqueta «synced X ago» envejece sola; sin esto se congela en el
@@ -114,6 +119,11 @@ export default function LeaguesShell({ board, context }) {
    * el catálogo con su configuración real, y la instantánea guarda
    * identificadores y hechos con su hora de descarga.
    */
+  const pickActive = useCallback((id) => {
+    setActiveLeagueId(id);
+    saveActiveLeagueId(storageOrNull(), id);
+  }, []);
+
   const link = useCallback(async (name) => {
     setLinking(true);
     setLinkError("");
@@ -201,6 +211,20 @@ export default function LeaguesShell({ board, context }) {
       return { snap, config, view, players, openStarters, valueLabel, scope, matchup, depth };
     });
   }, [account, board, context, index, weekly]);
+
+  /* UNA LIGA A LA VEZ. Con cinco ligas enlazadas, esta pantalla pintaba cinco
+     paneles completos —plantilla, VOR, matchup, profundidad de doce equipos— y
+     había que bajar por todo para llegar a la que te interesa. Ahora se abre la
+     ACTIVA (la misma que el semanal y el analizador) y las demás quedan a un
+     clic, plegadas. La lista de todas sigue debajo: esconderlas no es lo mismo
+     que quitarlas. */
+  const [soloActiva, setSoloActiva] = useState(true);
+  const activeId = activeLeagueId || panels[0]?.snap?.leagueId || "";
+  const visibles = useMemo(() => {
+    if (!soloActiva || panels.length <= 1) return panels;
+    const elegida = panels.filter((p) => String(p.snap.leagueId) === String(activeId));
+    return elegida.length > 0 ? elegida : panels.slice(0, 1);
+  }, [panels, soloActiva, activeId]);
 
   const covered = useMemo(() => new Set(panels.map((p) => p.scope).filter(Boolean)), [panels]);
   const rest = useMemo(() => snapshots.filter((s) => !covered.has(s.scope)), [snapshots, covered]);
@@ -353,8 +377,33 @@ export default function LeaguesShell({ board, context }) {
           {/* --- LOS PANELES DE LA CUENTA ---------------------------------- */}
           {panels.length > 0 ? (
             <section className="cc-panels" aria-label="Your Sleeper leagues">
-              <h2>Your leagues</h2>
-              {panels.map((panel) => (
+              <div className="cc-active">
+                <h2>{soloActiva && panels.length > 1 ? "Active league" : "Your leagues"}</h2>
+                {panels.length > 1 ? (
+                  <>
+                    <label htmlFor="cc-active">
+                      Showing
+                      <select id="cc-active" value={activeId}
+                              onChange={(e) => pickActive(e.target.value)}>
+                        {panels.map((p) => (
+                          <option key={p.snap.leagueId} value={String(p.snap.leagueId)}>
+                            {p.snap.name ?? p.snap.leagueId}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <button type="button" className="lg-refresh"
+                            onClick={() => setSoloActiva((v) => !v)}>
+                      {soloActiva ? `Show all ${panels.length}` : "Show only the active one"}
+                    </button>
+                    <span className="caption">
+                      This is the league the weekly rankings, the analyzer and the draft
+                      assistant open in.
+                    </span>
+                  </>
+                ) : null}
+              </div>
+              {visibles.map((panel) => (
                 <LeaguePanel key={panel.scope ?? panel.snap.leagueId} panel={panel}
                              live={byScope.get(panel.scope) ?? null} byes={context.byes}
                              week={context.week ?? null} />

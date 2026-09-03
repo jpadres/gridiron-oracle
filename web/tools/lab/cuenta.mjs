@@ -121,8 +121,18 @@ await page.fill("#cc-user", USERNAME);
 await page.click(".cc-link button[type=submit]");
 await page.waitForSelector(".cc-panel", { timeout: 10000 });
 const panels = page.locator(".cc-panel");
-check("las dos ligas de la temporada aparecen como paneles", (await panels.count()) === 2,
+/* UNA LIGA A LA VEZ. Con cinco ligas enlazadas esta pantalla era una lista
+   interminable; ahora abre en la ACTIVA y las demás quedan a un clic. Se
+   comprueba lo que importa: que por defecto haya UNA, que el conmutador las
+   traiga todas, y que la elegida sea la que comparte el resto del producto. */
+check("por defecto se abre SÓLO la liga activa", (await panels.count()) === 1,
   `${await panels.count()}`);
+check("y se dice que es la que abren el semanal, el analizador y el asistente",
+  /the weekly rankings, the analyzer and the draft/i.test(await page.locator(".cc-active").innerText()));
+await page.click(".cc-active .lg-refresh");
+await page.waitForFunction(() => document.querySelectorAll(".cc-panel").length === 2,
+                           null, { timeout: 5000 });
+check("el conmutador enseña las dos", (await panels.count()) === 2, `${await panels.count()}`);
 const head = async (i) => (await panels.nth(i).locator(".cc-panel-head").innerText()).replace(/\s+/g, " ");
 const h1 = await head(0); const h2 = await head(1);
 const texto = h1 + " | " + h2;
@@ -368,7 +378,7 @@ page.on("request", (r) => { if (/api\.sleeper\.app\/v1\/user/.test(r.url())) pet
 await page.goto(`${BASE}/fantasy/leagues`, { waitUntil: "domcontentloaded" });
 await page.waitForSelector(".cc-panel", { timeout: 8000 });
 check("al recargar, los paneles salen del almacenamiento y no se vuelve a leer la cuenta",
-  (await page.locator(".cc-panel").count()) === 2 && peticiones === 0, `${peticiones} peticiones a /user`);
+  (await page.locator(".cc-panel").count()) >= 1 && peticiones === 0, `${peticiones} peticiones a /user`);
 check("el mock seguido aparece ahora también en el catálogo (Other leagues) o en la cola",
   (await page.locator(".cc").innerText()).includes("Tuesday mock"));
 check("sin errores de página", errores.length === 0, errores.join(" | "));

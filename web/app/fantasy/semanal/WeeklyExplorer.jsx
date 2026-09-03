@@ -327,6 +327,20 @@ export default function WeeklyExplorer({
             It does not know your bench, the byes ahead, or what dropping someone costs —
             <strong> the decision is yours and this page does not make it</strong>.
           </p>
+          {/* ACTUAR ES EN SLEEPER, y el enlace lo dice. Sleeper no publica una
+              API de escritura: nadie puede fichar por ti desde fuera de su app,
+              ni este sitio ni ningún otro. Lo que sí se puede es dejarte a un
+              toque de la pantalla donde se hace. */}
+          {league?.leagueId ? (
+            <p className="caption">
+              <a href={`https://sleeper.com/leagues/${league.leagueId}`}
+                 target="_blank" rel="noreferrer">
+                Open {league.name ?? "this league"} in Sleeper
+              </a>{" "}
+              to actually add or drop — Sleeper has no public write API, so no app
+              outside theirs can make the move for you.
+            </p>
+          ) : null}
           {gaps.length > 0 ? (
             <ul className="wk-gaps">
               {gaps.map((gap) => (

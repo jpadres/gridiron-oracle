@@ -242,3 +242,24 @@ página, teclear el usuario y volver. Ahora:
 El laboratorio recorre el camino entero en un contexto limpio: enlazar desde el
 semanal, elegir liga, comprobar que el analizador abre en la misma, cambiarla
 allí, comprobar que el semanal la respeta, y entrar al Draft Room sin antesala.
+
+
+## Una liga a la vez, y por qué no se puede fichar desde aquí (3 de septiembre)
+
+**El centro de mando abre en la liga ACTIVA.** Con cinco ligas enlazadas
+pintaba cinco paneles completos —plantilla, VOR por liga, matchup, profundidad
+de doce equipos cada uno— y llegar a la que interesa era bajar por todo. Ahora
+abre una, con un selector para cambiarla y un conmutador para verlas todas. La
+liga elegida es la MISMA que abren el semanal, el analizador y el Draft Room.
+
+**Y no, no se puede hacer el movimiento desde aquí.** Sleeper no publica una
+API de escritura: su API es de sólo lectura y ninguna aplicación fuera de la
+suya puede fichar, soltar ni proponer un cambio en tu nombre. No es una decisión
+de este proyecto y no hay forma de rodearlo que no sea automatizar su app, que
+sería frágil, contrario a sus términos y una manera excelente de que te cierren
+la cuenta.
+
+Lo que sí se hace: dejarte a un toque de la pantalla donde se hace. El panel de
+agentes libres del semanal enlaza a tu liga en Sleeper y **dice por qué** el
+botón no ficha él. Un producto que pareciera capaz de hacerlo y fallara en
+silencio sería peor que uno que lo explica.
