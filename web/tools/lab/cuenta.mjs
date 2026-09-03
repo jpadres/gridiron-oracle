@@ -358,6 +358,40 @@ await page.waitForSelector("#power tbody tr", { timeout: 8000 });
     check("sin huecos opuestos no se fuerza el panel", true, "no hay pares");
   }
 }
+/* --- la jornada, lado a lado, y el generador ----------------------------- */
+{
+  await page.waitForSelector("#lineups", { timeout: 8000 }).catch(() => {});
+  const hay = await page.locator("#lineups").count();
+  check("el enfrentamiento de la semana sale con los dos equipos", hay === 1);
+  if (hay === 1) {
+    const filas = await page.locator("#lineups .mu-rows > li").count();
+    check("una fila por hueco de la liga", filas === ROSTER12.filter((x) => x !== "BN").length,
+      `${filas} filas`);
+    // GENERAR LA MEJOR ALINEACIÓN. Lo que importa: que no baje nunca la
+    // proyección — si la «mejor» proyecta menos que la puesta, el optimizador
+    // está mal, y es el tipo de fallo que se lee como un consejo.
+    const puntos = async () =>
+      Number((await page.locator("#lineups .mu-side--mine .mu-pts").innerText()).replace(/[^\d.]/g, ""));
+    const antes = await puntos();
+    await page.click("#lineups .mu-side--mine .lg-refresh");
+    await page.waitForTimeout(300);
+    const despues = await puntos();
+    check("la alineación generada NUNCA proyecta menos que la puesta",
+      despues >= antes - 0.05, `${antes} -> ${despues}`);
+    const nota = await page.locator("#lineups .mu-note").innerText().catch(() => "");
+    check("y dice que es la de mayor PROYECCIÓN, no «la mejor»",
+      /highest-projected/i.test(nota) && /inside the noise/i.test(nota));
+    check("y que no envía nada a Sleeper",
+      /Nothing is submitted anywhere/i.test(nota) && /no write API/i.test(nota));
+    await page.click("#lineups .mu-side--mine .lg-refresh");
+    await page.waitForTimeout(200);
+    check("se puede volver a la alineación puesta", (await puntos()) === antes);
+    await page.locator("#lineups").scrollIntoViewIfNeeded();
+    await page.waitForTimeout(200);
+    await page.screenshot({ path: `${OUT}/cuenta-1440-matchup.png` });
+  }
+}
+
 check("mi alineación enseña de dónde sale el número",
   (await page.locator("#lineup tbody tr").count()) > 0);
 await page.screenshot({ path: `${OUT}/cuenta-1440-analizador.png`, fullPage: true });
@@ -402,10 +436,10 @@ console.log("\n=== una cuenta, una liga ===");
   await p.waitForSelector("#wk-league-user", { timeout: 8000 });
   check("sin cuenta, el semanal ofrece enlazarla ahí mismo",
     (await p.locator("#wk-league-user").count()) === 1);
-  check("y dice que es de sólo lectura y sin contraseña",
-    /no password, no login/i.test(await p.locator(".lg-bar").innerText()));
+  check("y dice que es de sólo lectura y sin contraseña donde se pulsa",
+    /no password and no login/i.test(await p.locator(".lg-signin").innerText()));
   await p.fill("#wk-league-user", USERNAME);
-  await p.click(".lg-bar--link button[type=submit]");
+  await p.click(".lg-signin button[type=submit]");
   await p.waitForSelector("#wk-league", { timeout: 10000 });
   check("enlazada desde el semanal, aparecen sus ligas y sus marcas",
     (await p.locator("#wk-league option").count()) === 2

@@ -263,3 +263,44 @@ Lo que sí se hace: dejarte a un toque de la pantalla donde se hace. El panel de
 agentes libres del semanal enlaza a tu liga en Sleeper y **dice por qué** el
 botón no ficha él. Un producto que pareciera capaz de hacerlo y fallara en
 silencio sería peor que uno que lo explica.
+
+
+## «Sign in with Sleeper» y la alineación de la semana (3 de septiembre, tarde)
+
+**La entrada es una sesión, no un campo suelto.** La barra sin cuenta enseña
+ahora una tarjeta «Sign in with Sleeper» con la promesa escrita donde se pulsa:
+*sólo lectura, sin contraseña*. No es OAuth y no se disfraza de OAuth — Sleeper
+no publica uno—, pero con la cuenta enlazada la barra trae el **avatar** de
+Sleeper, el nombre y **Sign out**. El avatar viene de `sleepercdn.com`, que ya
+estaba en `img-src` por las fotos de los jugadores: no añade un tercer dominio,
+y la marca es un SVG dibujado en el propio componente por lo mismo.
+
+**El enfrentamiento de la semana, en paralelo.** En el analizador, los dos
+equipos lado a lado hueco por hueco con la proyección semanal de cada titular,
+el total de cada uno y la diferencia. El emparejamiento es POSICIONAL y es
+exacto porque las dos alineaciones se reparten con los mismos huecos de la liga.
+Contra el rival de la jornada se enseña **su alineación puesta**; contra
+cualquier otro equipo, la que más proyecta de su plantilla — y se dice cuál de
+las dos se está viendo.
+
+**«Generate best lineup» es un optimizador, no un oráculo.** Reparte tu
+plantilla en los huecos que tu liga declara y se queda con la suma mayor. La
+pantalla dice donde se pulsa lo que eso no es: no es «la mejor», es la de mayor
+proyección; una diferencia de un punto o dos está DENTRO del ruido semanal; no
+sabe de un descarte de última hora ni de que necesites varianza porque vas
+último. Y **no envía nada a Sleeper**, porque no se puede.
+
+El start/sit sale de comparar esa alineación con la que Sleeper dice que tienes
+puesta. Sin titulares publicados no se propone nada: proponer un cambio sobre
+una alineación inventada es peor que no proponer.
+
+Una defensa titular OCUPA su hueco y no suma. Son tres cosas distintas —existe,
+está puesta, no tiene proyección— y antes se veían como un hueco vacío con un id
+crudo al lado. No hay modelo de DST validado en este sitio y por eso no hay
+número; contarlo como cero hundiría a todo el que alinea defensa, que es todo el
+mundo.
+
+El laboratorio comprueba lo que no puede fallar: una fila por hueco, que la
+alineación generada **nunca proyecte menos** que la puesta, que se pueda volver
+atrás, y que los dos avisos —«mayor proyección, no la mejor» y «esto no envía
+nada»— estén en pantalla.

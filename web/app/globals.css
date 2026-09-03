@@ -1090,3 +1090,68 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 }
 .cc-active h2 { margin: 0; }
 .cc-active label { display: inline-flex; align-items: center; gap: var(--space-2); }
+
+/* La entrada con Sleeper. No es OAuth y no se disfraza de OAuth: la promesa que
+   se hace donde se pulsa es la de verdad — sólo lectura, sin contraseña. */
+.lg-signin {
+  border: 1px solid var(--line); border-radius: var(--radius-md);
+  padding: var(--space-4); margin: var(--space-3) 0;
+  background: var(--surface);
+}
+.lg-signin-head { display: flex; gap: var(--space-3); align-items: flex-start; }
+.lg-signin-head strong { font-size: var(--text-lead); }
+.lg-signin-head .caption { margin: var(--space-1) 0 0; }
+.lg-signin .lg-bar { border: 0; margin: var(--space-3) 0 0; padding: 0; }
+.lg-mark { color: var(--accent); flex: 0 0 auto; line-height: 0; }
+.lg-primary {
+  background: var(--accent); color: var(--bg); border: 1px solid var(--accent);
+  border-radius: var(--radius-sm); padding: var(--space-2) var(--space-4);
+  font-weight: var(--weight-semibold); cursor: pointer;
+}
+.lg-primary:disabled { opacity: 0.5; cursor: default; }
+.lg-who { display: inline-flex; align-items: center; gap: var(--space-2); }
+.lg-avatar { border-radius: 50%; width: 28px; height: 28px; object-fit: cover; }
+.lg-avatar--txt {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--surface); border: 1px solid var(--line);
+  font-size: var(--text-micro); font-weight: var(--weight-bold); color: var(--muted);
+}
+
+/* El enfrentamiento de la semana: los dos equipos en paralelo, con el hueco en
+   medio. Es la única disposición en la que se comparan de un vistazo — una
+   tabla de seis columnas obliga a cruzar la vista en cada fila. */
+.mu-head {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-3);
+  align-items: center; margin: var(--space-3) 0;
+  padding-bottom: var(--space-3); border-bottom: 1px solid var(--line);
+}
+.mu-side { display: flex; flex-direction: column; gap: var(--space-1); }
+.mu-side--theirs { text-align: right; align-items: flex-end; }
+.mu-name { font-weight: var(--weight-semibold); }
+.mu-pts { font-size: var(--text-title); font-variant-numeric: tabular-nums; line-height: 1; }
+.mu-vs { font-size: var(--text-lead); font-variant-numeric: tabular-nums; }
+.mu-note { border-left: 3px solid var(--warn-line); padding-left: var(--space-3); }
+.mu-rows { list-style: none; margin: 0; padding: 0; }
+.mu-rows > li {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-2);
+  align-items: center; padding: var(--space-2) 0;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-small);
+}
+.mu-cell { display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
+.mu-cell .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mu-cell b { font-variant-numeric: tabular-nums; }
+.mu-cell--theirs { justify-content: flex-end; }
+.mu-slot { flex: 0 0 auto; }
+.mu-startsit { margin-top: var(--space-4); }
+.mu-startsit h4 { margin: 0 0 var(--space-1); font-size: var(--text-body); }
+.mu-start { color: var(--pos-diff-up); letter-spacing: 0.06em; font-size: var(--text-micro); }
+.mu-sit { color: var(--pos-diff-down); letter-spacing: 0.06em; font-size: var(--text-micro); }
+/* En un teléfono los dos equipos NO caben en paralelo: el hueco pasa a mandar
+   la fila y cada lado va a su renglón. */
+@media (max-width: 560px) {
+  .mu-head, .mu-rows > li { grid-template-columns: 1fr; }
+  .mu-side--theirs { text-align: left; align-items: flex-start; }
+  .mu-cell--theirs { justify-content: flex-start; flex-direction: row-reverse; }
+  .mu-vs { order: 3; }
+}

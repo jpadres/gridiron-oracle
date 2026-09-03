@@ -43,6 +43,8 @@ export default function Analisis() {
         week={week}
         season={fantasy.season}
         sleeperIds={fantasy.sleeper_ids ?? null}
+        weekly={model.fantasy_weekly?.rankings ?? []}
+        weeklyKickers={model.fantasy_weekly?.kickers ?? []}
       />
     </>
   );

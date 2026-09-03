@@ -20,6 +20,8 @@ import { Headshot } from "../../headshot.jsx";
 import { TeamMark } from "../../sports.jsx";
 import LeagueBar from "../LeagueBar.jsx";
 import { restOfSeason } from "../leagueAdvice.js";
+import { weeklyIndex } from "../leagueWeek.js";
+import { lineupFrom, sideBySide, startSit } from "../lineup.js";
 import { VALUED, headToHead, powerRankings, tradeOpenings } from "../leagueAnalyzer.js";
 
 /** `{wins, losses, ties}` -> «3-1» o «3-1-1». Sin récord, cadena vacía. */
@@ -47,7 +49,9 @@ function Gap({ value, digits = 0 }) {
   );
 }
 
-export default function AnalyzerShell({ board, byes, week, season, sleeperIds }) {
+export default function AnalyzerShell({
+  board, byes, week, season, sleeperIds, weekly = [], weeklyKickers = [],
+}) {
   // La liga la elige la barra compartida: una sola clave para todo el producto.
   const [league, setLeague] = useState(null);
   const [rivalId, setRivalId] = useState("");
@@ -91,6 +95,53 @@ export default function AnalyzerShell({ board, byes, week, season, sleeperIds })
     return ranks.find((r) => String(r.rosterId) === String(wanted)) ?? null;
   }, [ranks, rivalId, defaultRival]);
   const h2h = useMemo(() => headToHead(mine, rival), [mine, rival]);
+
+  /* LA SEMANA: proyecciones de ESTA jornada, no el valor de resto de temporada.
+     Son dos preguntas distintas y mezclarlas es el error clásico — a quién
+     alineo el domingo no se contesta con lo que vale hasta enero. */
+  const semanal = useMemo(() => weeklyIndex(weekly, weeklyKickers), [weekly, weeklyKickers]);
+  /* El índice con el que se REPARTEN los huecos: la proyección semanal manda,
+     y por debajo el board — que es quien conoce a las defensas, sin proyección
+     porque no hay modelo de DST validado. Sin esta mezcla, tu defensa titular
+     salía como un hueco vacío y con su id crudo en el start/sit: existe, ocupa
+     su sitio y no suma, que son tres cosas distintas de «no está». */
+  const paraAlinear = useMemo(() => {
+    const m = new Map(index);
+    for (const [k, v] of semanal) m.set(k, v);
+    return m;
+  }, [index, semanal]);
+  const huecos = league?.config?.roster ?? null;
+  const misTitulares = league?.starters ?? null;
+  const rivalRosterId = rivalId || defaultRival;
+  const equipoRival = useMemo(
+    () => (league?.teams ?? []).find((t) => String(t.rosterId) === String(rivalRosterId)) ?? null,
+    [league, rivalRosterId]
+  );
+  // El rival de la JORNADA trae sus titulares publicados; contra cualquier otro
+  // equipo se compara con la alineación que más proyecta de su plantilla, y se
+  // dice cuál de las dos se está enseñando.
+  const rivalEsDeLaSemana = String(rivalRosterId) === String(defaultRival) && defaultRival !== "";
+  const alineaciones = useMemo(() => {
+    if (!league || !huecos) return null;
+    const mia = lineupFrom({ ids: misTitulares, index: paraAlinear, rosterPositions: huecos });
+    const miMejor = lineupFrom({ ids: league.players, index: paraAlinear, rosterPositions: huecos });
+    const idsRival = rivalEsDeLaSemana && league.matchup?.opponentStarters?.length
+      ? league.matchup.opponentStarters
+      : equipoRival?.players;
+    const suya = lineupFrom({ ids: idsRival, index: paraAlinear, rosterPositions: huecos });
+    return { mia, miMejor, suya, rivalPuesta: rivalEsDeLaSemana };
+  }, [league, huecos, misTitulares, paraAlinear, equipoRival, rivalEsDeLaSemana]);
+
+  const [usarMejor, setUsarMejor] = useState(false);
+  const miAlineacion = usarMejor ? alineaciones?.miMejor : alineaciones?.mia;
+  const cara = useMemo(
+    () => (alineaciones ? sideBySide(miAlineacion, alineaciones.suya) : null),
+    [alineaciones, miAlineacion]
+  );
+  const cambios = useMemo(
+    () => (alineaciones ? startSit({ currentIds: misTitulares, best: alineaciones.miMejor }) : null),
+    [alineaciones, misTitulares]
+  );
   const openings = useMemo(() => tradeOpenings(ranks), [ranks]);
   const mineOpenings = openings.filter((o) => o.aMine || o.bMine);
 
@@ -220,6 +271,137 @@ export default function AnalyzerShell({ board, byes, week, season, sleeperIds })
               </p>
             </>
           ) : null}
+        </div>
+      ) : null}
+
+      {/* --- LA JORNADA: LOS DOS EQUIPOS, LADO A LADO ---------------------- */}
+      {cara && cara.rows.length > 0 ? (
+        <div className="wk-panel" id="lineups">
+          <h3>
+            This week, side by side{" "}
+            <small>week {week} projections · slot by slot</small>
+          </h3>
+          <div className="mu-head">
+            <div className="mu-side mu-side--mine">
+              <span className="mu-name">You</span>
+              <strong className="mu-pts">{num(cara.minePoints, 1)}</strong>
+              {alineaciones?.mia && alineaciones?.miMejor ? (
+                <button type="button" className="lg-refresh"
+                        onClick={() => setUsarMejor((v) => !v)}>
+                  {usarMejor ? "Show my current lineup" : "Generate best lineup"}
+                </button>
+              ) : null}
+            </div>
+            <div className="mu-vs"><Gap value={cara.delta} digits={1} /></div>
+            <div className="mu-side mu-side--theirs">
+              <span className="mu-name">{rival?.owner ?? "Opponent"}</span>
+              <strong className="mu-pts">{num(cara.theirsPoints, 1)}</strong>
+              <span className="caption">
+                {alineaciones?.rivalPuesta ? "their posted lineup" : "their highest-projected lineup"}
+              </span>
+            </div>
+          </div>
+          {usarMejor ? (
+            <p className="caption mu-note">
+              This is the <strong>highest-projected</strong> legal lineup from your roster —
+              not &ldquo;the best&rdquo;. The weekly projection beats a six-game average by a
+              little, so a gap of a point or two between two options is inside the noise, and
+              it knows nothing about a late scratch or about needing variance because you are
+              chasing. <strong>Nothing is submitted anywhere</strong>: Sleeper has no write
+              API, so you set it there.
+            </p>
+          ) : null}
+          <ol className="mu-rows">
+            {cara.rows.map((row, i) => (
+              <li key={`${row.slot}-${i}`}>
+                <span className="mu-cell mu-cell--mine">
+                  {row.mine ? (
+                    <>
+                      <Headshot sid={row.mine.sid} team={row.mine.team} position={row.mine.position}
+                                name={row.mine.player_full_name ?? row.mine.player_name} size={26} />
+                      <span className="nm">{row.mine.player_name}</span>
+                      <b>{row.minePoints == null ? "—" : num(row.minePoints, 1)}</b>
+                    </>
+                  ) : <span className="attrib">empty</span>}
+                </span>
+                <span className={`mu-slot ptag ptag--${String(row.slot).toLowerCase().replace("super_flex", "sflx")}`}>
+                  {row.slot === "SUPER_FLEX" ? "SFLX" : row.slot}
+                </span>
+                <span className="mu-cell mu-cell--theirs">
+                  {row.theirs ? (
+                    <>
+                      <b>{row.theirsPoints == null ? "—" : num(row.theirsPoints, 1)}</b>
+                      <span className="nm">{row.theirs.player_name}</span>
+                      <Headshot sid={row.theirs.sid} team={row.theirs.team} position={row.theirs.position}
+                                name={row.theirs.player_full_name ?? row.theirs.player_name} size={26} />
+                    </>
+                  ) : <span className="attrib">empty</span>}
+                </span>
+              </li>
+            ))}
+          </ol>
+          {miAlineacion?.unknown > 0 ? (
+            <p className="caption">
+              {miAlineacion.unknown} of your starters have no weekly projection — a defense
+              has none by design (there is no validated DST model on this site). They hold
+              their slot and add nothing: counting them as zero would sink everyone who
+              starts a defense.
+            </p>
+          ) : null}
+
+          {/* --- START / SIT ------------------------------------------------ */}
+          {cambios ? (
+            <div className="mu-startsit">
+              <h4>Start / sit</h4>
+              {cambios.sinCambios ? (
+                <p className="caption">
+                  Your posted lineup already is the highest-projected one. That is the normal
+                  case and it is worth saying instead of inventing a change.
+                </p>
+              ) : (
+                <>
+                  <ul className="an-trades">
+                    {cambios.entran.map((e) => (
+                      <li key={e.player.sid}>
+                        <b className="mu-start">START</b>{" "}
+                        <strong>{e.player.player_name}</strong>{" "}
+                        <span className="attrib">{e.player.team} · {e.slot}</span>{" "}
+                        <span className="wk-gap-num">{num(e.player.projected_points, 1)}</span>
+                      </li>
+                    ))}
+                    {cambios.salen.map((sid) => {
+                      const row = paraAlinear.get(String(sid));
+                      return (
+                        <li key={sid}>
+                          <b className="mu-sit">SIT</b>{" "}
+                          <strong>{row?.player_name ?? `id ${sid}`}</strong>{" "}
+                          {row ? (
+                            <>
+                              <span className="attrib">{row.team}</span>{" "}
+                              <span className="wk-gap-num">{num(row.projected_points, 1)}</span>
+                            </>
+                          ) : <span className="attrib">no weekly projection</span>}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <p className="caption">
+                    The swap is worth{" "}
+                    <strong>
+                      {num((alineaciones.miMejor.points ?? 0) - (alineaciones.mia.points ?? 0), 1)}
+                    </strong>{" "}
+                    projected points. Under about two points it is inside the weekly noise and
+                    this page will not pretend otherwise.
+                  </p>
+                </>
+              )}
+            </div>
+          ) : (
+            <p className="caption">
+              Sleeper has not published your starters for this week yet, so there is nothing to
+              compare your lineup against.
+            </p>
+          )}
         </div>
       ) : null}
 

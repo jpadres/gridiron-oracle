@@ -406,6 +406,10 @@ export async function readSleeperAccount({ username, season, week = null }) {
       userId,
       username: typeof user.username === "string" ? user.username : name,
       displayName: typeof user.display_name === "string" ? user.display_name : null,
+      // El avatar es lo que convierte «pegué mi nombre» en «entré con mi
+      // cuenta». Va por `sleepercdn.com`, que ya está en `img-src` para las
+      // fotos de los jugadores: no añade un tercer dominio.
+      avatar: typeof user.avatar === "string" ? user.avatar : null,
     },
     leagues: detailed,
     drafts,

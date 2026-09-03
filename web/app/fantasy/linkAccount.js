@@ -50,6 +50,7 @@ export function accountFrom({ read, season, week = null, storage = null }) {
   return {
     username: read.user.username,
     displayName: read.user.displayName,
+    avatar: read.user.avatar ?? null,
     userId: read.user.userId,
     season,
     retrievedAt: read.retrievedAt,
