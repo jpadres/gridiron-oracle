@@ -574,6 +574,15 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
    de leerla mal. Se consulta con el teléfono en la mano en mitad de un draft,
    así que esto no es un lujo de escritorio. */
 .rank-table .rk, .rank-table .who { position: sticky; background: inherit; z-index: 1; }
+/* LA CABECERA TAMBIÉN. `background: inherit` toma el fondo de la FILA, y el
+   rayado sólo pinta las de `tbody`: las celdas fijas del `thead` se quedaban
+   TRANSPARENTES, así que al desplazar la tabla a lo ancho —lo normal en un
+   teléfono— los rótulos «Proj pts» y «Last 6» pasaban por DEBAJO de «#» y
+   «Player» y la cabecera se leía como un amasijo. Es lo que se ve en la
+   captura de un móvil en modo oscuro. */
+/* Con la MISMA fuerza que la regla de arriba (dos clases), o `inherit` gana
+   por especificidad y la cabecera se queda transparente igual. */
+.rank-table thead th.rk, .rank-table thead th.who, .rank-table thead th { background: var(--bg); }
 .rank-table .rk { left: 0; }
 .rank-table .who { left: 2.6rem; }   /* justo detrás del ancho de `.rk` */
 /* …PERO sólo si hay un número delante. Una celda `sticky` cuya posición natural

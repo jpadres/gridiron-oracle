@@ -640,7 +640,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
               universo del draft eran los jugadores con VOR, y los novatos y los
               especialistas quedaban fuera de esa cuenta sin dejar rastro. */}
           <span className="room-pool">
-            <strong>{available.length}</strong> ranked
+            <strong>{available.length}</strong> ranked{" "}
             <small>
               of {available.length + availableSpecialists.length + availableRookies.length + unavailable.length} draftable
               {unavailable.length ? ` · ${unavailable.length} unavailable` : ""}

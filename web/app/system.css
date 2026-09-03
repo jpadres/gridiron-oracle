@@ -976,7 +976,12 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-where {
   margin: 0; font-size: var(--text-micro); color: var(--chalk-dim);
   letter-spacing: 0.06em; text-transform: uppercase;
-  display: flex; align-items: baseline; gap: var(--space-2);
+  /* CON ENVOLTURA. Es una línea de cinco datos —ronda, pick, registrados,
+     rankeados de drafteables, no disponibles— y en un flex sin `wrap` se
+     estira hasta salirse de la pantalla; con el texto agrandado del sistema se
+     sale seguro. Que baje de renglón es exactamente lo que tiene que hacer. */
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: var(--space-1) var(--space-2); min-width: 0;
 }
 .room-where b {
   font-family: var(--face-display); font-variation-settings: "wdth" 78;
@@ -1078,6 +1083,27 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   background: none; border: none; text-align: left; cursor: pointer;
   color: inherit; font: inherit;
 }
+/* EN UN TELÉFONO LA FILA SE PARTE EN DOS.
+   `grid-auto-flow: column` con columnas `max-content` mete TODO en una línea:
+   con foto, nombre, NEWS, SUSPENDED y el VOR no cabe en 390 px, la columna del
+   nombre se encoge a cero y el texto acaba pintado ENCIMA de las marcas — es
+   lo que se ve en la captura del dueño («Ashton Jeanty» sobre «NEWS
+   QUESTIONABLE»). En flex con envoltura las marcas bajan a un segundo renglón
+   y el número se queda a la derecha, que es como se lee de todas formas. */
+@media (max-width: 480px) {
+  .room-row {
+    display: flex; flex-wrap: wrap; align-items: center;
+    column-gap: var(--space-2); row-gap: var(--space-1);
+  }
+  .room-row > .room-row-rank { flex: 0 0 2.25rem; }
+  .room-row > .room-row-who { flex: 1 1 8rem; min-width: 0; }
+  .room-row > .room-row-vor { margin-left: auto; }
+  /* Las marcas van juntas al final del primer renglón o al segundo, nunca
+     partidas por dentro. */
+  .room-row > .room-row-news, .room-row > .room-row-out,
+  .room-row > .room-row-risk, .room-row > .room-row-noteam,
+  .room-row > .room-row-prior, .room-row > .room-row-rookie { flex: 0 0 auto; }
+}
 .room-row:hover { background: var(--field-raised); }
 .room-row:focus-visible { outline: 2px solid var(--live); outline-offset: -2px; }
 .room-row-rank {
@@ -1132,14 +1158,16 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 }
 
 .room-roster > li, .room-feed > li {
-  display: flex; align-items: center; gap: var(--space-2);
+  /* Con envoltura: en un teléfono, hueco + foto + nombre + equipo + descanso +
+     deshacer no caben en una línea, y sin `wrap` la × se salía de la fila. */
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2);
   padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
   border-left: 3px solid var(--team, var(--yard-line));
   font-size: var(--text-dense);
 }
 .room-roster > li + li, .room-feed > li + li { border-top: 1px solid var(--yard-line); }
 .room-roster .nm, .feed-who {
-  flex: 1 1 auto; min-width: 0; color: var(--chalk);
+  flex: 1 1 6rem; min-width: 0; color: var(--chalk);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 /* --- REPLAY ----------------------------------------------------------------
@@ -1344,7 +1372,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 /* Deshacer en el feed: presente, recesivo, y con objetivo táctil de verdad.
    Un botón por cada pick pasado convertía el ticker en una tabla. */
 .room-x {
-  flex: 0 0 auto; width: 44px; height: 44px; margin: -10px 0;
+  flex: 0 0 auto; margin-left: auto; width: 44px; height: 44px; margin-block: -10px;
   background: none; border: none; cursor: pointer;
   color: var(--chalk-dim); opacity: 0.45;
   font-size: 1.1rem; line-height: 1;
