@@ -60,7 +60,6 @@ CV_BLOCKS = 5
 # margen) sí tiene estructura de sobra.
 RIDGE_ALPHA_RESIDUAL = 30.0
 RIDGE_ALPHA_FREE = 3.0
-RIDGE_ALPHA_TOTAL = 10.0
 
 
 def _ridge(alpha: float) -> Pipeline:
@@ -94,7 +93,6 @@ class MarketAwareModel:
 
     residual_model: Pipeline = field(default_factory=lambda: _ridge(RIDGE_ALPHA_RESIDUAL))
     free_model: Pipeline = field(default_factory=lambda: _ridge(RIDGE_ALPHA_FREE))
-    total_model: Pipeline = field(default_factory=lambda: _ridge(RIDGE_ALPHA_TOTAL))
     distribution: MarginDistribution = field(default_factory=MarginDistribution)
 
     # Pesos del ensamblado (línea+residuo, libre) y sesgo. Se ajustan fuera de
@@ -136,16 +134,23 @@ class MarketAwareModel:
         self.residual_model.fit(X, residual_target)
         self.free_model.fit(X, margin)
 
-        total_mask = data["total"].notna() & data["total_line"].notna()
-        if total_mask.sum() >= 200:
-            total_line = data.loc[total_mask, "total_line"].to_numpy(dtype=float)
-            self.total_model.fit(
-                X[total_mask.to_numpy()],
-                data.loc[total_mask, "total"].to_numpy(dtype=float) - total_line,
-            )
-            self._total_fitted = True
-        else:
-            self._total_fitted = False
+        # EL MODELO DE TOTALES SE RETIRÓ, Y ESTÁ MEDIDO (3 de septiembre de 2026).
+        #
+        # Ajustaba el residuo del total contra la línea de cierre igual que el
+        # de margen. Sobre el walk-forward completo, 3.829 partidos:
+        #
+        #     MAE del total predicho    10,574
+        #     MAE de la línea a secas   10,510
+        #     diferencia pareada        +0,064 ± 0,019  (t = +3,42)
+        #     peor en 12 de 14 temporadas
+        #     acierto DIRECCIONAL       49,1% con cualquier discrepancia,
+        #                               47,8% con |lean| >= 1, 47,5% con >= 2
+        #                               (el equilibrio a -110 es 52,4%)
+        #
+        # O sea: no sólo no aportaba, restaba — y su señal de over/under estaba
+        # por DEBAJO del 50%. Un componente que empeora a su propia entrada no
+        # se conserva «por si acaso»: el total que se publica ES la línea.
+        # `scripts/totals_vs_line.py` reproduce los números.
 
         # --- cross-fitting temporal: predicciones FUERA DE MUESTRA ---------
         oof_market, oof_free, oof_mask = self._out_of_fold(X, margin, line, residual_target)
@@ -232,12 +237,9 @@ class MarketAwareModel:
         # propagar un NaN.
         pred_margin = np.where(np.isfinite(line), blended, free)
 
-        if getattr(self, "_total_fitted", False):
-            pred_total = np.where(
-                np.isfinite(total_line), total_line + self.total_model.predict(X), np.nan
-            )
-        else:
-            pred_total = total_line.copy()
+        # El total publicado es la LÍNEA. Ver el bloque de `fit`: el residuo que
+        # se le sumaba está medido y era peor que no sumar nada.
+        pred_total = total_line.copy()
 
         totals_for_sigma = np.where(np.isfinite(pred_total), pred_total, 44.0)
         raw_probs = np.array(

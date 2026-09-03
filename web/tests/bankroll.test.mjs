@@ -176,8 +176,11 @@ test("los leans de partido nombran el lado y no comparan familias en crudo", () 
   const spreadA = rows.find((r) => r.family === "SPREAD" && r.gameId === "A");
   assert.equal(spreadA.lean, "BUF -2.5");     // el modelo da MÁS que la línea: lado local
   assert.equal(spreadA.gap, 1.8);
-  const totalA = rows.find((r) => r.family === "TOTAL" && r.gameId === "A");
-  assert.equal(totalA.lean, "OVER 47.5");
+  // NO hay lean de totales desde que el modelo de totales se retiró con su
+  // medición: era peor que la propia línea (MAE 10,574 contra 10,510, diferencia
+  // pareada +0,064 ± 0,019) y su dirección acertaba el 47,8%. El guardián de que
+  // no vuelva está en `betting.test.mjs`.
+  assert.equal(rows.filter((r) => r.family === "TOTAL").length, 0);
   const spreadB = rows.find((r) => r.family === "SPREAD" && r.gameId === "B");
   // Margen −1,5 contra línea −1,0: el modelo ve a DAL perdiendo por MÁS de lo
   // que pide el mercado, así que el lean es el visitante dando el punto.

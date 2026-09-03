@@ -43,21 +43,16 @@ export function gameLeans(predictions) {
         gap: round1(Math.abs(margin - line)),
       });
     }
-    const totalLine = Number(game.total_line);
-    const total = Number(game.pred_total);
-    if (Number.isFinite(totalLine) && Number.isFinite(total) && total !== totalLine) {
-      rows.push({
-        family: "TOTAL",
-        gameId: game.game_id,
-        label: `${game.away_team} @ ${game.home_team}`,
-        team: null,
-        market: `O/U ${totalLine.toFixed(1)}`,
-        model: round1(total),
-        line: totalLine,
-        lean: `${total > totalLine ? "OVER" : "UNDER"} ${totalLine.toFixed(1)}`,
-        gap: round1(Math.abs(total - totalLine)),
-      });
-    }
+    /* NO HAY LEAN DE TOTALES, y no es un olvido.
+       El modelo de totales se retiró el 3 de septiembre de 2026 porque está
+       MEDIDO que restaba: sobre 3.829 partidos fuera de muestra su MAE era
+       10,574 contra 10,510 de la línea a secas (diferencia pareada +0,064 ±
+       0,019, t = +3,42, peor en 12 de 14 temporadas), y su señal de over/under
+       acertaba el 47,8% cuando se separaba más de un punto — por debajo del
+       50% y muy por debajo del 52,4% que hace falta a -110.
+       El total que publica el modelo ES la línea, así que aquí no puede haber
+       discrepancia que enseñar. Si alguien vuelve a añadir un modelo de
+       totales, este bloque vuelve CON su medición al lado. */
   }
   return rows;
 }

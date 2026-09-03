@@ -65,11 +65,36 @@ export default function Validacion() {
             <tr><td>Calibration error (ECE)</td><td>{num(overall.ece, 4)}</td><td>—</td></tr>
             <tr><td>Margin MAE</td><td>{num(overall.margin_mae)}</td>
                 <td>{num(overall.market_margin_mae)}</td></tr>
-            <tr><td>Total MAE</td><td>{num(overall.total_mae)}</td><td>—</td></tr>
+            {/* El total que publica el modelo ES la línea desde el 3 de
+                septiembre de 2026, así que las dos columnas son la misma cifra
+                a propósito — y eso es lo que hay que ver. */}
+            <tr><td>Total MAE</td><td>{num(overall.total_mae)}</td>
+                <td>{num(overall.total_mae)}</td></tr>
             <tr><td>Straight-up accuracy</td><td>{pct(overall.accuracy)}</td><td>—</td></tr>
           </tbody>
         </table>
       </div>
+
+      <Callout title="The totals model was retired, and here is the measurement">
+        <p>
+          Until 3 September 2026 the model fitted a residual on top of the closing total
+          the same way it does for the spread. Over the full walk-forward — 3,829 games —
+          it was <strong>worse than the line on its own</strong>: MAE 10.574 against
+          10.510, a paired difference of <strong>+0.064 ± 0.019</strong> (t = +3.42),
+          worse in 12 of 14 seasons.
+        </p>
+        <p>
+          The direction was no better. When the model disagreed with the total by more
+          than a point it picked the right side <strong>47.8%</strong> of the time; at
+          two points, 47.5%. Break-even at &minus;110 is 52.4%. A component that is worse
+          than its own input is not kept &ldquo;just in case&rdquo;:{" "}
+          <strong>the total this model publishes is the line</strong>, and there is no
+          over/under lean anywhere on the site.
+        </p>
+        <p className="caption">
+          Reproduce it with <code>python scripts/totals_vs_line.py --from 2012</code>.
+        </p>
+      </Callout>
 
       <Callout title="How to read this">
         <p>

@@ -207,8 +207,8 @@ export default function BettingShell({ predictions, weekly, context, markets = [
           ))}
         </ol>
         <p className="caption">
-          Ranked by gap in units of each family&rsquo;s own weekly spread of disagreements
-          — a 2× spread lean and a 2× total lean are comparable; raw points are not.
+          Ranked by gap in units of the family&rsquo;s own weekly spread of disagreements,
+          so leans of different sizes are comparable; raw points are not.
           Out of sample, accuracy does <strong>not</strong> rise with disagreement
           (49.3&nbsp;/&nbsp;50.9&nbsp;/&nbsp;48.8% by bucket): a lean is where the model
           stands, never a promise.
@@ -394,13 +394,16 @@ export default function BettingShell({ predictions, weekly, context, markets = [
         <div className="table-wrap">
           <table className="rank-table bk-games">
             <thead>
-              <tr><th>Game</th><th>Model score</th><th>Spread</th><th>Lean</th><th>Total</th><th>Lean</th><th></th></tr>
+              {/* Sin columna de lean de totales: el modelo de totales se
+                  retiró con su medición (ver `leans.js`), así que el total que
+                  se publica ES la línea y no puede haber discrepancia. Una
+                  columna que siempre dijera «even» sería peor que no estar. */}
+              <tr><th>Game</th><th>Model score</th><th>Spread</th><th>Lean</th><th>Total</th><th></th></tr>
             </thead>
             <tbody>
               {predictions.map((game) => {
                 const rows = board.filter((r) => r.gameId === game.game_id);
                 const spreadLean = rows.find((r) => r.family === "SPREAD") ?? null;
-                const totalLean = rows.find((r) => r.family === "TOTAL") ?? null;
                 const noMarket = !Number.isFinite(Number(game.spread_line));
                 return (
                   <tr key={game.game_id}>
@@ -409,13 +412,12 @@ export default function BettingShell({ predictions, weekly, context, markets = [
                     </td>
                     <td>{num(game.pred_away_points, 1)}&ndash;{num(game.pred_home_points, 1)}</td>
                     {noMarket ? (
-                      <td colSpan={4}><span className="bk-nomarket">market unavailable</span></td>
+                      <td colSpan={3}><span className="bk-nomarket">market unavailable</span></td>
                     ) : (
                       <>
                         <td>{num(game.spread_line, 1)}</td>
                         <td>{spreadLean ? <b className="bk-side">{spreadLean.lean}</b> : "even"}</td>
                         <td>{num(game.total_line, 1)}</td>
-                        <td>{totalLean ? <b className="bk-side">{totalLean.lean}</b> : "even"}</td>
                       </>
                     )}
                     <td>
