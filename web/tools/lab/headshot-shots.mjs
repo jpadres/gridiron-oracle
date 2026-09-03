@@ -72,6 +72,21 @@ for (const width of [390, 768, 1440]) {
     bandIndex > 0 && firstOutIndex === bandIndex + 1 && lastPlayableIndex < bandIndex, `banda ${bandIndex}, primer OUT ${firstOutIndex}, último jugable ${lastPlayableIndex}`);
   check(`${width}: Jacobs conserva su número dentro del bloque`,
     /38/.test(await page.locator(".rank-table tr.is-out").first().locator("td.rk").innerText().catch(() => "")));
+  // DOS AFIRMACIONES DE DISPONIBILIDAD EN LA MISMA FILA. La del dossier es de
+  // agosto y la marca de estado es de hoy: la vieja tiene que llevar su fecha
+  // a la vista y no puede competir con la de hoy. Con el código anterior salía
+  // «QUESTIONABLE» a secas junto a «EXEMPT LIST» y la fecha vivía en el title.
+  const dossierTags = await page.evaluate(() => [...document.querySelectorAll(".rank-table .avail")].map((el) => ({
+    text: el.innerText.trim(),
+    superseded: el.classList.contains("avail--superseded"),
+    conMarca: Boolean(el.closest("td")?.querySelector(".mark--out, .mark--risk")),
+  })));
+  check(`${width}: toda etiqueta del dossier lleva su fecha (o UNDATED) delante`,
+    dossierTags.length > 0 && dossierTags.every((t) => /^(\d{1,2}\/\d{1,2}|UNDATED)\s/i.test(t.text)),
+    `${dossierTags.length} etiquetas, p.ej. ${dossierTags[0]?.text ?? "-"}`);
+  const conAmbas = dossierTags.filter((t) => t.conMarca);
+  check(`${width}: donde conviven con una marca de estado de hoy, van subordinadas`,
+    conAmbas.length > 0 && conAmbas.every((t) => t.superseded), `${conAmbas.length} filas con las dos`);
   await page.screenshot({ path: `${OUT}/fotos-${width}-board.png` });
 
   await page.goto(`${BASE}/fantasy/semanal`, { waitUntil: "domcontentloaded" });

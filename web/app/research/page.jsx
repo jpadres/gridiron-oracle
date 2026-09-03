@@ -1,5 +1,6 @@
 import { model } from "../../data/model.js";
-import { AVAILABILITY_LABEL, Callout, ImpactTag, NoDataYet, Sources, Stat } from "../ui.jsx";
+import { AVAILABILITY_LABEL } from "../availability.js";
+import { Callout, ImpactTag, NoDataYet, Sources, Stat } from "../ui.jsx";
 import { byDay as agruparPorDia, partition } from "./select.js";
 
 export const metadata = {

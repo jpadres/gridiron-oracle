@@ -7,6 +7,7 @@
 import { Fragment } from "react";
 
 import { pct } from "../data/model.js";
+import { availabilityMark } from "./availability.js";
 import { Headshot } from "./headshot.jsx";
 
 export function Callout({ title, children }) {
@@ -250,7 +251,7 @@ export function RankTable({
                           {Math.round(1000 / (row.wg + 10))}% PRIOR
                         </span>
                       ) : null}
-                      {health ? <AvailabilityTag entry={health} /> : null}
+                      {health ? <AvailabilityTag entry={health} statusVerifiedAt={row.status_verified_at} /> : null}
                       {risk && row.risk_label && row.risk_label !== "Normal" ? (
                         <RiskTag row={row} />
                       ) : null}
@@ -303,24 +304,13 @@ export function RankTable({
  * `title` lleva la situación, quién lo dijo y cuándo. La etiqueta mide
  * DISPONIBILIDAD, no gravedad.
  */
-// El dossier guarda los niveles en español porque es un fichero versionado que
-// se importa de un libro externo y NO se puede regenerar aquí. Se traduce al
-// pintarlo, que es donde corresponde: el dato guardado no cambia, y el día que
-// el dossier se reimporte en inglés este mapa deja de encontrar la clave y cae
-// al valor original, que sigue siendo legible.
-// Las claves son datos del dossier (`research/dossier.json`, no regenerable sin
-// clave): se traducen al pintar, no en el fichero.
-export const AVAILABILITY_LABEL = { FUERA: "OUT", DUDA: "QUESTIONABLE", SEGUIR: "MONITOR" };
-
-function AvailabilityTag({ entry }) {
-  return (
-    <span
-      className={`avail avail--${entry.level.toLowerCase()}`}
-      title={`${entry.situation} — ${entry.status} (${entry.source}, ${entry.date})`}
-    >
-      {AVAILABILITY_LABEL[entry.level] ?? entry.level}
-    </span>
-  );
+// La regla —fecha visible siempre, y subordinada a la marca de estado cuando
+// es más vieja— vive en `availability.js`, que es puro y lo comparten esta
+// página de servidor y el explorador semanal, que es de cliente.
+function AvailabilityTag({ entry, statusVerifiedAt }) {
+  const mark = availabilityMark(entry, statusVerifiedAt);
+  if (!mark) return null;
+  return <span className={mark.className} title={mark.title}>{mark.text}</span>;
 }
 
 /**

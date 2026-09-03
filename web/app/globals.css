@@ -666,6 +666,10 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .avail--duda { color: var(--warn-line); }
 /* SEGUIR es «hay algo anotado», no una alarma: se queda en gris. */
 .avail--seguir { color: var(--muted); }
+/* Ficha del dossier más vieja que la marca de estado de la misma fila. No se
+   borra —el desacuerdo es información— pero deja de competir: gris, sin borde
+   de color y a media tinta. Lo que manda en esa fila es la marca de hoy. */
+.avail--superseded { color: var(--muted); opacity: 0.75; font-weight: var(--weight-body); }
 
 /* Fichas del dossier: atribuidas y fechadas, sin enlace. Se distinguen de las
    de research a propósito — la diferencia de fiabilidad es real. */

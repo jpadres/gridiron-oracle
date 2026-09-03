@@ -25,6 +25,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { num } from "../../../data/model.js";
+import { availabilityMark } from "../../availability.js";
 import { Headshot } from "../../headshot.jsx";
 import { TeamMark } from "../../sports.jsx";
 import { browserStorage } from "../draftStorage.js";
@@ -33,14 +34,9 @@ import { loadAccount, ownershipLabel, ownershipOf } from "../sleeperAccount.js";
 const OFFENSE = ["QB", "RB", "WR", "TE"];
 const CHIPS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
 
-// El mismo mapa que `ui.jsx`: los niveles del dossier van en español y la
-// interfaz los traduce SIEMPRE al pintar. No se importa de `ui.jsx` porque ese
-// módulo arrastra `data/model.js` completo y esto es un componente de cliente.
-const AVAILABILITY_LABEL = { FUERA: "OUT", DUDA: "QUESTIONABLE", SEGUIR: "MONITOR" };
-
 /** Marcas de contexto de una fila: nota del modelo, prensa, disponibilidad. */
-function RowMarks({ id, notes, news, availability }) {
-  const health = availability?.[id];
+function RowMarks({ id, notes, news, availability, statusVerifiedAt }) {
+  const health = availabilityMark(availability?.[id], statusVerifiedAt);
   return (
     <>
       {notes?.[id] ? (
@@ -50,10 +46,7 @@ function RowMarks({ id, notes, news, availability }) {
         <span className="mark mark--news" title="Recent reporting on this player">!</span>
       ) : null}
       {health ? (
-        <span className={`avail avail--${health.level.toLowerCase()}`}
-              title={`${health.situation} — ${health.status}`}>
-          {AVAILABILITY_LABEL[health.level] ?? health.level}
-        </span>
+        <span className={health.className} title={health.title}>{health.text}</span>
       ) : null}
     </>
   );
@@ -218,7 +211,8 @@ export default function WeeklyExplorer({
                       {row.player_name}
                       <OwnMark own={ownOf(row.sid)} owners={ownersByRoster} />
                       <RowMarks id={row.player_id} notes={notes} news={news}
-                                availability={availability} />
+                                availability={availability}
+                                statusVerifiedAt={row.status_verified_at} />
                     </span>
                     <span className="meta">
                       <span className={`ptag ptag--${row.position.toLowerCase()}`}>
@@ -272,7 +266,8 @@ export default function WeeklyExplorer({
                         {k.player_full_name ?? k.player_name}
                         <OwnMark own={ownOf(k.sid)} owners={ownersByRoster} />
                         <RowMarks id={k.player_id} notes={notes} news={news}
-                                  availability={availability} />
+                                  availability={availability}
+                                  statusVerifiedAt={k.status_verified_at} />
                       </span>
                       <span className="meta">
                         <span className="ptag ptag--k">K</span>
