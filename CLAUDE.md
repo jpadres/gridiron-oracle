@@ -413,6 +413,24 @@ dependencias + verificación de cabeceras, workflow semanal que regenera y publi
 
 ---
 
+## Laboratorios
+
+Playwright contra un `next start`, con el doble de Sleeper compartido
+(`tools/lab/sleeper-double.mjs`). Se lanzan con `SKIP_BUILD=1` si la web ya
+está construida:
+
+| Laboratorio | Qué prueba |
+|---|---|
+| `smoke.mjs` | Las DOCE páginas en 390/768/1440 sin cuenta: responden, no lanzan, tienen `h1`, no desbordan y están todas en la navegación |
+| `cuenta.mjs` | Enlazar la cuenta, los paneles por liga, el semanal marcado, lo libre, el resto de temporada, el analizador y el recorrido «una cuenta, una liga» |
+| `live-assistant.mjs` | Un draft entero de 180 picks por el adaptador, las carreras por un candidato y los picks leídos que no se aplican |
+| `headshot-shots.mjs` | Fotos por id, el bloque de no disponibles y las marcas de estado |
+| `storage-blocked.mjs` | El navegador que BLOQUEA el almacenamiento: cinco pantallas tienen que seguir en pie |
+| `apuestas.mjs` | Los mercados partido a partido y el signo del handicap |
+
+Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
+se pone rojo, no es un guardián.
+
 ## El skill de UI/UX
 
 `.claude/skills/ui-ux-pro-max/` (MIT, de NextLevelBuilder). Es un buscador local
