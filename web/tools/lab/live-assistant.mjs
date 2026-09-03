@@ -195,6 +195,47 @@ console.log("\n=== aislamiento A/B ===");
   await c3.close();
 }
 
+/* === LEÍDOS ≠ APLICADOS ================================================= */
+/* El fallo del draft real del dueño: la liga entra, Sleeper contesta y el
+   tablero no tacha nada. Aquí se provoca a propósito emitiendo picks con ids
+   que el mapa horneado NO conoce (el doble los marca `sin-mapear-*`) y se
+   exige que la pantalla lo DIGA, en vez de enseñar «N picks read» junto a un
+   tablero intacto, que fue lo que él vio. */
+console.log("\n=== picks leídos que no se aplican ===");
+{
+  reiniciar(MY_SLOT);
+  // Filas que no están en el mapa: el doble les pone un id `sin-mapear-*`.
+  const fuera=BOARD.filter((r)=>!SLEEPER_OF[r.player_id]).slice(0,6);
+  const c5=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:"reduce"});
+  await montar(c5,[PROV]);
+  await c5.addInitScript((l)=>localStorage.setItem("gridiron-room-league-v1",JSON.stringify(l)),LIGA);
+  const p5=await c5.newPage();
+  await p5.clock.install();
+  await p5.goto(`${BASE}/fantasy/draft`,{waitUntil:"domcontentloaded"});
+  await p5.waitForSelector(".room-list button");
+  fuera.forEach((row,i)=>emitir(i+1,row));
+  await p5.clock.runFor(16_000);
+  await p5.waitForSelector(".room-scope-warn",{timeout:8000}).catch(()=>{});
+  const aviso=await p5.locator(".room-scope-warn").innerText().catch(()=>"");
+  check("con TODOS los picks sin emparejar, la banda dice leídos y aplicados",
+        /6 picks read/.test(aviso) && /0 applied/i.test(aviso), aviso.replace(/\s+/g," ").slice(0,120));
+  check("y el aviso va marcado como fallo, no como nota",
+        (await p5.locator(".room-scope-warn--none").count())===1);
+  check("el tablero NO tachó a nadie, que es coherente con lo que dice",
+        (await cuenta(p5))==="0");
+  // Y con la mitad buenos: se dicen los dos números.
+  emitir(7,libres()[0]);
+  await p5.clock.runFor(16_000);
+  await p5.waitForFunction(()=>/1 of 7/.test(document.querySelector(".room-scope-warn")?.textContent??""),
+                           null,{timeout:8000}).catch(()=>{});
+  const parcial=await p5.locator(".room-scope-warn").innerText().catch(()=>"");
+  check("con uno bueno y seis malos, la banda dice 1 de 7 y 6 sin emparejar",
+        /1 of 7 picks applied/.test(parcial) && /6 unmatched/.test(parcial),
+        parcial.replace(/\s+/g," ").slice(0,120));
+  await p5.screenshot({path:`${OUT}/lda-1440-unmapped.png`});
+  await c5.close();
+}
+
 /* === móvil ============================================================== */
 console.log("\n=== 390 y 768 ===");
 for(const [w,h] of [[390,844],[768,1024]]){

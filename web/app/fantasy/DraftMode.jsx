@@ -51,13 +51,14 @@ import {
   ROSTER, SOURCE, fold, providerEvents, takeEvent, undoEvent,
 } from "./draftLog.js";
 import {
-  DRAFT_STATUS, agoLabel, mySlot, pickSchedule, picksUntilMe, syncState,
+  DRAFT_STATUS, agoLabel, mySlot, pickSchedule, picksUntilMe, reconciliation, syncState,
 } from "./draftSync.js";
 import { compilePoints, rulesFromSleeper } from "./scoring.js";
 import { useSleeperDraft } from "./useSleeperDraft.js";
 import {
   activeBoardFrom, leagueBoardFrom, rosterContext, setComponentOrder, valueConfidence,
 } from "./leagueValue.js";
+import { syncPool } from "./sleeperAccount.js";
 
 
 // Cuántos titulares tienes ya de cada posición, para DECIRLO como hecho junto
@@ -111,13 +112,25 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   // calcular; sin ella no se afirma nada sobre la liga.
   const [leagueInfo, setLeagueInfo] = useState(null);
 
-  const sync = useSleeperDraft(board, {
+  // EL MISMO POOL QUE EL DRAFT ROOM. Antes aquí iba `board` a secas, así que el
+  // pick de una defensa o de un pateador no se tachaba nunca en esta pantalla y
+  // sí en la otra — en la ronda donde todo el mundo ficha justo eso.
+  const pool = useMemo(() => syncPool(board, context), [board, context]);
+  const sync = useSleeperDraft(pool, {
     leagueId: ready ? prefs.league : "",
     season: context.season,
     userId: prefs.userId,
     idMap: context.sleeperIds,
   });
   const draft = sync.draft;
+  // LEÍDOS ≠ APLICADOS. La resta que faltaba: la pantalla decía «N picks read»
+  // con el tablero intacto y las dos cosas por separado parecían normales.
+  const recon = useMemo(
+    () => reconciliation({
+      total: sync.total, applied: sync.canonical?.length ?? 0, unmapped: sync.unmapped?.length ?? 0,
+    }),
+    [sync.total, sync.canonical, sync.unmapped]
+  );
 
   // La identidad del contexto. Sin las tres partes no hay clave, y sin clave no
   // se persiste: perder el estado al recargar es malo, escribirlo en una clave
@@ -702,25 +715,27 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
 
             <p className="caption sync-detail">
               {sync.view.detail}
-              {sync.state === "ok" ? (
+              {sync.state === "ok" && recon ? (
                 <>
-                  {" "}· {sync.total} picks read
-                  {sync.unmatched?.length ? (
+                  {" "}· <strong className={`recon recon--${recon.level.toLowerCase()}`}>{recon.label}</strong>
+                  {recon.detail ? ` ${recon.detail}` : null}
+                  {/* Los ids que Sleeper mandó y el mapa no conoce, por nombre
+                      SÓLO para leerlos: no se emparejan por él. Antes esta
+                      lista leía `sync.unmatched`, que el adaptador no emite —
+                      así que el aviso no salió nunca y un tablero que no se
+                      tachaba no tenía explicación en pantalla. */}
+                  {sync.unmapped?.length ? (
                     <>
-                      {" "}·{" "}
-                      <strong>
-                        {sync.unmatched.length} unmatched, still counted as available
-                      </strong>
-                      : {sync.unmatched
+                      {" "}Unmatched:{" "}
+                      {sync.unmapped
                         .slice(0, 5)
                         .map((pick) =>
                           `${pick.metadata?.first_name ?? ""} ${pick.metadata?.last_name ?? ""}`.trim()
+                          || String(pick.player_id)
                         )
                         .filter(Boolean)
                         .join(", ")}
-                      {sync.unmatched.length > 5 ? "…" : ""}. Usually a player with no
-                      Sleeper id in the baked identity map — resolving him by name could
-                      cross off the wrong one, so he stays available and this line says so.
+                      {sync.unmapped.length > 5 ? "…" : ""}.
                     </>
                   ) : null}
                 </>

@@ -12,6 +12,7 @@ import {
   RECENT_MS,
   agoLabel,
   clockLabel,
+  reconciliation,
   freshness,
   mySlot,
   pickClock,
@@ -199,4 +200,37 @@ test("la etiqueta del reloj es m:ss", () => {
   assert.equal(clockLabel(43), "0:43");
   assert.equal(clockLabel(125), "2:05");
   assert.equal(clockLabel(-3), "0:00");
+});
+
+/* ── LEÍDOS ≠ APLICADOS ──────────────────────────────────────────────────
+   El fallo del draft real: Sleeper contestaba, la pantalla decía «N picks
+   read» y el tablero no tachaba nada. Cada test de aquí falla si se vuelve a
+   publicar el número de leídos sin restarle los aplicados. */
+test("sin picks leídos no hay nada que decir", () => {
+  assert.equal(reconciliation({ total: 0, applied: 0, unmapped: 0 }), null);
+  assert.equal(reconciliation({}), null);
+});
+
+test("leídos con CERO aplicados es un fallo, y se nombra", () => {
+  const r = reconciliation({ total: 47, applied: 0, unmapped: 47 });
+  assert.equal(r.level, "NONE");
+  assert.match(r.label, /47 picks read · 0 applied/);
+  assert.match(r.detail, /nothing was crossed off/);
+});
+
+test("aplicados a medias: se dicen los dos números", () => {
+  const r = reconciliation({ total: 20, applied: 18, unmapped: 2 });
+  assert.equal(r.level, "PARTIAL");
+  assert.match(r.label, /18 of 20 picks applied · 2 unmatched/);
+});
+
+test("todo aplicado no arma ruido", () => {
+  const r = reconciliation({ total: 20, applied: 20, unmapped: 0 });
+  assert.equal(r.level, "OK");
+  assert.equal(r.detail, null);
+  assert.match(r.label, /20 picks applied/);
+});
+
+test("un solo pick se dice en singular", () => {
+  assert.match(reconciliation({ total: 1, applied: 1 }).label, /1 pick applied/);
 });

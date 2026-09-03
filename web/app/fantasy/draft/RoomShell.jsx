@@ -30,7 +30,7 @@ import {
   activeBoardFrom, leagueBoardFrom, rosterContext, rosterFromCounts, setComponentOrder,
 } from "../leagueValue.js";
 import { DEFAULT_RULES, compilePoints, rulesFromSleeper, scoringLabel } from "../scoring.js";
-import { isMockLeagueId, mockLeagueId } from "../sleeperAccount.js";
+import { isMockLeagueId, mockLeagueId, syncPool } from "../sleeperAccount.js";
 import { useSleeperDraft } from "../useSleeperDraft.js";
 
 const SCORING = [
@@ -183,14 +183,12 @@ export default function RoomShell({ board, context }) {
      encontró la matriz de configuraciones, no un test unitario. */
   /* EL POOL COMPLETO. El adaptador resuelve por id contra él, así que un
      pateador o una defensa fichados en Sleeper también salen del tablero. */
-  const pool = useMemo(() => {
-    const s = context.specialists;
-    // Los NOVATOS entran aquí. Sin ellos el adaptador no los tiene en su índice
-    // y el pick de un novato sale UNMAPPED — «identidad no resuelta», que es
-    // justo lo que NO pasa: su identidad de Sleeper está verificada; lo que le
-    // falta es valor. Y un UNMAPPED de más descuadra el contador del draft.
-    return [...board, ...(s?.kickers ?? []), ...(s?.defenses ?? []), ...(context.rookies ?? [])];
-  }, [board, context.specialists, context.rookies]);
+  // Los NOVATOS y los especialistas entran aquí. Sin ellos el adaptador no los
+  // tiene en su índice y su pick sale UNMAPPED — «identidad no resuelta», que
+  // es justo lo que NO pasa: su identidad de Sleeper está verificada; lo que le
+  // falta es valor. Y un UNMAPPED de más descuadra el contador del draft.
+  // La lista la construye `syncPool`, compartida con el board de `/fantasy`.
+  const pool = useMemo(() => syncPool(board, context), [board, context]);
 
   /* La sincronización vive AQUÍ y no dentro del asistente porque de ella sale
      también la configuración real de la liga, y con ella el valor. Si la

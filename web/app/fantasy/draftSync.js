@@ -243,3 +243,60 @@ export function picksUntilMe({ schedule, picksMade }) {
   const next = schedule.find((entry) => entry.overall > picksMade);
   return next ? { ...next, away: next.overall - picksMade - 1 } : null;
 }
+
+/**
+ * ¿Cuántos de los picks que Sleeper dice llegaron de verdad al tablero?
+ *
+ * El dueño drafteó con la liga sincronizada y **los movimientos no se
+ * reflejaban**: tuvo que tachar a mano. Lo que la pantalla decía entretanto era
+ * «N picks read» y un tablero intacto — dos hechos que juntos son un fallo y
+ * que nadie estaba restando. El aviso de picks sin emparejar existía, pero leía
+ * `sync.unmatched` cuando el adaptador emite `unmapped`: nunca se pintó.
+ *
+ * Ésta es la resta, y es la diferencia entre «no funciona» y «no funciona
+ * PORQUE»:
+ *
+ *     LEÍDOS ≠ APLICADOS ES UN FALLO QUE HAY QUE DECIR, NO UN NÚMERO MÁS.
+ *
+ * Devuelve `null` cuando no hay nada que contar: sin picks leídos no hay
+ * discrepancia, y un aviso que sale siempre no informa.
+ */
+export function reconciliation({ total = 0, applied = 0, unmapped = 0 } = {}) {
+  const read = Number(total) || 0;
+  const hits = Number(applied) || 0;
+  const missed = Number(unmapped) || 0;
+  if (read <= 0) return null;
+  if (hits === 0) {
+    return {
+      level: "NONE",
+      read,
+      applied: 0,
+      unmapped: missed,
+      label: `${read} picks read · 0 applied`,
+      detail:
+        "Sleeper is answering, but not one of those picks matched a player on this board, "
+        + "so nothing was crossed off. Check that the draft below is the one you are in; "
+        + "the ids Sleeper sent are listed in Sync details.",
+    };
+  }
+  if (missed > 0) {
+    return {
+      level: "PARTIAL",
+      read,
+      applied: hits,
+      unmapped: missed,
+      label: `${hits} of ${read} picks applied · ${missed} unmatched`,
+      detail:
+        "The unmatched ones stay on the board as available. They are listed in Sync details "
+        + "by the id Sleeper sent — never matched by name, which would risk the wrong player.",
+    };
+  }
+  return {
+    level: "OK",
+    read,
+    applied: hits,
+    unmapped: 0,
+    label: `${hits} pick${hits === 1 ? "" : "s"} applied`,
+    detail: null,
+  };
+}

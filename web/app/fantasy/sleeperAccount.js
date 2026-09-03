@@ -183,6 +183,31 @@ export function leagueConfigFrom({ league = null, draft = null, userId = null, r
  * Vive aquí y lo importa el adaptador: UNA implementación para el draft en vivo
  * y para la plantilla, no dos traductores del mismo mapa.
  */
+/**
+ * El POOL sobre el que se resuelve un pick: el board más los especialistas y
+ * los novatos.
+ *
+ * Existe como función compartida porque las dos pantallas que sincronizan
+ * —el board de `/fantasy` y el Draft Room— lo construían por su cuenta y **no
+ * igual**: el Draft Room sumaba pateadores, defensas y novatos, y el board
+ * pasaba sólo el board. En el board, entonces, el pick de una defensa o de un
+ * pateador salía UNMAPPED y NO se tachaba, en la ronda donde todo el mundo
+ * ficha justo eso. Es el fallo de los dos traductores del mismo formato, por
+ * quinta vez en este proyecto, y aquí decidía si tu tablero refleja el draft.
+ *
+ * Un novato sin `sleeper_id` en el mapa horneado sigue saliendo UNMAPPED: eso
+ * es cobertura del mapa, no de esta lista, y se cuenta y se dice.
+ */
+export function syncPool(board, context) {
+  const s = context?.specialists;
+  return [
+    ...(Array.isArray(board) ? board : []),
+    ...(s?.kickers ?? []),
+    ...(s?.defenses ?? []),
+    ...(context?.rookies ?? []),
+  ];
+}
+
 export function buildIndex(pool, idMap) {
   const byPlayerId = new Map();
   for (const row of pool ?? []) byPlayerId.set(String(row.player_id), row);

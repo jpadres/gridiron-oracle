@@ -993,3 +993,11 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
   .pos-filter { width: 100%; }
   .pos-option { flex: 1; padding: 0 var(--space-1); }
 }
+
+/* LEÍDOS ≠ APLICADOS. El nivel se pinta, pero el texto ya lo dice entero: el
+   color refuerza, nunca es el único canal. NONE es un fallo —Sleeper contesta y
+   el tablero no se entera— y por eso va en rojo y no en ámbar. */
+.recon--none { color: var(--pos-diff-down); }
+.recon--partial { color: var(--warn-line); }
+.recon--ok { color: var(--muted); font-weight: var(--weight-body); }
+.room-scope-warn--none { color: var(--pos-diff-down); }

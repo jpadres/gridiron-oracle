@@ -43,7 +43,7 @@ import {
 } from "./draftLog.js";
 import { browserStorage, loadOrMigrateLog, logScopeFor, saveLog } from "./draftStorage.js";
 // El reloj del pick: puro, en draftSync, y probado con node --test.
-import { agoLabel, clockLabel, pickClock } from "./draftSync.js";
+import { agoLabel, clockLabel, pickClock, reconciliation } from "./draftSync.js";
 import {
   assignSlots, PRIOR_SHARE_VISIBLE, priorShare, VALIDATED_MAX_TEAMS, valueConfidence,
 } from "./leagueValue.js";
@@ -349,6 +349,12 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
      de 2026 eso son varios. El tablero sigue derivando de lo resuelto; la
      POSICIÓN del draft, de lo que el proveedor dice que ya se eligió. */
   const providerPicks = sleeperLeague && sync.state === "ok" ? (sync.total ?? 0) : 0;
+  // LEÍDOS ≠ APLICADOS: la resta que faltaba (ver el aviso de la banda).
+  const recon = reconciliation({
+    total: providerPicks,
+    applied: sync.canonical?.length ?? 0,
+    unmapped: sync.unmapped?.length ?? 0,
+  });
   const draftCount = Math.max(state.count, providerPicks);
   const next = untilMyTurn({ count: draftCount, teams, type, mySlot, rounds });
 
@@ -558,13 +564,14 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
             <span className="room-scope-note">
               You pick in Sleeper — Gridiron watches and never drafts for you
             </span>
-            {sync.unmapped?.length ? (
-              /* Un pick que no se pudo resolver POR ID se dice, no se resuelve
-                 por nombre. Callarlo dejaría a un jugador fichado apareciendo
-                 como disponible sin que nada lo indicara. */
-              <span className="room-scope-warn">
-                {sync.unmapped.length} pick{sync.unmapped.length === 1 ? "" : "s"} UNMAPPED
-                — not in the published pool, still on the board
+            {/* LEÍDOS ≠ APLICADOS. El fallo que vio el dueño en su draft real
+                fue exactamente éste: Sleeper contestando, «N picks read» en
+                pantalla y el tablero sin tachar nada. Los dos números por
+                separado parecían normales; lo que faltaba era la resta. Un pick
+                sin resolver POR ID se dice, nunca se resuelve por nombre. */}
+            {recon && recon.level !== "OK" ? (
+              <span className={`room-scope-warn room-scope-warn--${recon.level.toLowerCase()}`}>
+                {recon.label} — {recon.detail}
               </span>
             ) : null}
           </p>
