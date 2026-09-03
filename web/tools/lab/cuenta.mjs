@@ -375,6 +375,61 @@ check("sin errores de página", errores.length === 0, errores.join(" | "));
 
 await ctx.close();
 
+/* === 3b. UNA CUENTA, UNA LIGA: el recorrido completo ====================== */
+/* Lo que se pidió: enlazar desde donde estés y que el resto del producto te
+   siga, sin volver a teclear ni a elegir. Se prueba en un contexto LIMPIO,
+   porque el valor está justo en la primera vez. */
+console.log("\n=== una cuenta, una liga ===");
+{
+  const limpio = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+  await montar(limpio, [L1, L2, MOCK]);
+  const p = await limpio.newPage();
+  const fallosPagina = [];
+  p.on("pageerror", (e) => fallosPagina.push(String(e)));
+
+  // 1. Sin cuenta, el SEMANAL ya ofrece enlazarla: no manda a otra página.
+  await p.goto(`${BASE}/fantasy/semanal`, { waitUntil: "domcontentloaded" });
+  await p.waitForSelector("#wk-league-user", { timeout: 8000 });
+  check("sin cuenta, el semanal ofrece enlazarla ahí mismo",
+    (await p.locator("#wk-league-user").count()) === 1);
+  check("y dice que es de sólo lectura y sin contraseña",
+    /no password, no login/i.test(await p.locator(".lg-bar").innerText()));
+  await p.fill("#wk-league-user", USERNAME);
+  await p.click(".lg-bar--link button[type=submit]");
+  await p.waitForSelector("#wk-league", { timeout: 10000 });
+  check("enlazada desde el semanal, aparecen sus ligas y sus marcas",
+    (await p.locator("#wk-league option").count()) === 2
+      && (await p.locator(".wk-table .own--mine").count()) > 0);
+
+  // 2. La liga que elijo aquí es la que abre el ANALIZADOR, sin tocar nada.
+  await p.selectOption("#wk-league", "LG10");
+  await p.waitForTimeout(300);
+  await p.goto(`${BASE}/fantasy/analisis`, { waitUntil: "domcontentloaded" });
+  await p.waitForSelector("#an-league", { timeout: 10000 });
+  check("el analizador abre en la MISMA liga elegida en el semanal",
+    (await p.locator("#an-league").inputValue()) === "LG10");
+
+  // 3. Y al revés: la que elijo en el analizador manda en el semanal.
+  await p.selectOption("#an-league", "LG12");
+  await p.waitForTimeout(300);
+  await p.goto(`${BASE}/fantasy/semanal`, { waitUntil: "domcontentloaded" });
+  await p.waitForSelector("#wk-league", { timeout: 10000 });
+  check("y el semanal respeta la que se eligió en el analizador",
+    (await p.locator("#wk-league").inputValue()) === "LG12");
+
+  // 4. El Draft Room ARRANCA en esa liga, sin antesala ni formulario.
+  await p.goto(`${BASE}/fantasy/draft`, { waitUntil: "domcontentloaded" });
+  await p.waitForSelector(".room-shell, .room-setup", { timeout: 10000 }).catch(() => {});
+  const antesala = await p.locator(".room-setup").count();
+  const cabecera = await p.locator(".room-head").innerText().catch(() => "");
+  check("el Draft Room arranca en la liga activa, sin volver a preguntarla",
+    antesala === 0 && /sunday twelve/i.test(cabecera), `${antesala} antesalas · ${cabecera.replace(/\s+/g, " ").slice(0, 60)}`);
+
+  check("sin errores de página en todo el recorrido", fallosPagina.length === 0, fallosPagina[0] ?? "");
+  await p.screenshot({ path: `${OUT}/cuenta-1440-barra.png` });
+  await limpio.close();
+}
+
 /* === 4. los paneles nuevos en un móvil =================================== */
 /* Se consultan con el teléfono en la mano: si la tabla del resto de temporada
    desborda la pantalla, la columna del valor —que es la que ordena— es

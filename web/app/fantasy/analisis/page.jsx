@@ -41,6 +41,7 @@ export default function Analisis() {
         board={fantasy.board}
         byes={fantasy.byes ?? {}}
         week={week}
+        season={fantasy.season}
         sleeperIds={fantasy.sleeper_ids ?? null}
       />
     </>

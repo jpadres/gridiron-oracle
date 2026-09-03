@@ -28,13 +28,11 @@ import { num } from "../../../data/model.js";
 import { availabilityMark } from "../../availability.js";
 import { Headshot } from "../../headshot.jsx";
 import { TeamMark } from "../../sports.jsx";
-import { browserStorage } from "../draftStorage.js";
+import LeagueBar from "../LeagueBar.jsx";
 import {
   GAMES_IN_SEASON, LAST_WEEK, freeAgentUpgrades, freeSpecialists, restOfSeason,
 } from "../leagueAdvice.js";
-import {
-  loadAccount, loadActiveLeagueId, ownershipLabel, ownershipOf, saveActiveLeagueId,
-} from "../sleeperAccount.js";
+import { ownershipLabel, ownershipOf } from "../sleeperAccount.js";
 
 const OFFENSE = ["QB", "RB", "WR", "TE"];
 const CHIPS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
@@ -91,7 +89,7 @@ function OwnMark({ own, owners }) {
 
 export default function WeeklyExplorer({
   rankings, kickers, defenses, notes = {}, news = {}, availability = {},
-  board = [], byes = {}, week = null,
+  board = [], byes = {}, week = null, season = null,
 }) {
   // El conjunto vacío significa ALL. Multi-selección: cada chip conmuta, y
   // elegirlo todo explícitamente equivale a no filtrar.
@@ -101,25 +99,10 @@ export default function WeeklyExplorer({
   // LA LIGA ACTIVA del ranking. La cuenta enlazada se lee después de montar
   // (en el servidor no hay localStorage) y la liga elegida se recuerda por
   // navegador. Sin cuenta, el ranking es el de siempre y no marca nada.
-  const [account, setAccount] = useState(null);
-  const [leagueId, setLeagueId] = useState("");
-  useEffect(() => {
-    const storage = browserStorage();
-    const saved = loadAccount(storage);
-    setAccount(saved);
-    const wanted = loadActiveLeagueId(storage);
-    const leagues = saved?.leagues ?? [];
-    const first = leagues.find((l) => l.leagueId === wanted) ?? leagues[0];
-    setLeagueId(first?.leagueId ?? "");
-  }, []);
-  const pickLeague = (id) => {
-    setLeagueId(id);
-    saveActiveLeagueId(browserStorage(), id);
-  };
-  const league = useMemo(
-    () => (account?.leagues ?? []).find((l) => l.leagueId === leagueId) ?? null,
-    [account, leagueId]
-  );
+  // La liga la elige la barra compartida: una clave para todo el producto.
+  const [league, setLeague] = useState(null);
+  const onLeague = useCallback((next) => setLeague(next), []);
+
   const ownership = useMemo(() => (league ? ownershipOf(league) : null), [league]);
   const ownersByRoster = useMemo(() => {
     const out = {};
@@ -187,22 +170,16 @@ export default function WeeklyExplorer({
 
   return (
     <section className="wk">
-      {account?.leagues?.length ? (
-        <div className="wk-league">
-          <label htmlFor="wk-league">
-            League
-            <select id="wk-league" value={leagueId} onChange={(e) => pickLeague(e.target.value)}>
-              {account.leagues.map((l) => (
-                <option key={l.leagueId} value={l.leagueId}>{l.name ?? l.leagueId}</option>
-              ))}
-            </select>
-          </label>
-          <span className="caption">
-            <b className="own own--mine">MINE</b> on your roster · <b className="own own--fa">FA</b>{" "}
-            free agent in this league · otherwise the owner. From Sleeper as last read on Leagues.
-          </span>
-        </div>
+      <LeagueBar season={season} week={week} id="wk-league" onLeague={onLeague} />
+      {/* La leyenda es de ESTA tabla, no de la barra: la barra la comparten
+          tres pantallas y sólo aquí hay filas que marcar. */}
+      {league ? (
+        <p className="caption wk-legend">
+          <b className="own own--mine">MINE</b> on your roster ·{" "}
+          <b className="own own--fa">FA</b> free agent in this league · otherwise the owner.
+        </p>
       ) : null}
+
       <div className="wk-bar">
         <div className="pos-filter" role="group" aria-label="Filter by position">
           {CHIPS.map((chip) => (

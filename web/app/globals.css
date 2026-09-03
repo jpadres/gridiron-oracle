@@ -1055,3 +1055,21 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .an-more { margin-top: var(--space-3); }
 .an-more summary { cursor: pointer; font-size: var(--text-small); color: var(--muted); }
 .an h4 { margin: var(--space-3) 0 0; font-size: var(--text-body); }
+
+/* La barra de liga: una cuenta y una liga activa, en todas las pantallas. */
+.lg-bar {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2) var(--space-3);
+  padding: var(--space-2) 0 var(--space-3);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--space-3);
+}
+.lg-bar label { display: inline-flex; align-items: center; gap: var(--space-2); font-weight: var(--weight-semibold); }
+.lg-bar--link input { min-width: 14rem; }
+/* Un botón que se lee como enlace: es una acción secundaria dentro de una
+   frase, y un botón de verdad ahí rompería la línea de texto. */
+.lg-refresh {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  color: var(--accent); text-decoration: underline; font: inherit;
+}
+.lg-refresh:disabled { color: var(--muted); cursor: default; }
+.lg-stale { color: var(--warn-line); font-weight: var(--weight-semibold); }

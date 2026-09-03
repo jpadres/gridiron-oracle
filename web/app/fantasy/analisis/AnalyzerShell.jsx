@@ -13,17 +13,14 @@
  * una cuenta y un consejo es la que este proyecto lleva meses sin cruzar.
  */
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { num } from "../../../data/model.js";
 import { Headshot } from "../../headshot.jsx";
 import { TeamMark } from "../../sports.jsx";
-import { browserStorage } from "../draftStorage.js";
+import LeagueBar from "../LeagueBar.jsx";
 import { restOfSeason } from "../leagueAdvice.js";
 import { VALUED, headToHead, powerRankings, tradeOpenings } from "../leagueAnalyzer.js";
-import {
-  loadAccount, loadActiveLeagueId, saveActiveLeagueId,
-} from "../sleeperAccount.js";
 
 /** `{wins, losses, ties}` -> «3-1» o «3-1-1». Sin récord, cadena vacía. */
 function recordLabel(record) {
@@ -50,32 +47,14 @@ function Gap({ value, digits = 0 }) {
   );
 }
 
-export default function AnalyzerShell({ board, byes, week, sleeperIds }) {
-  const [account, setAccount] = useState(null);
-  const [leagueId, setLeagueId] = useState("");
-  const [ready, setReady] = useState(false);
+export default function AnalyzerShell({ board, byes, week, season, sleeperIds }) {
+  // La liga la elige la barra compartida: una sola clave para todo el producto.
+  const [league, setLeague] = useState(null);
   const [rivalId, setRivalId] = useState("");
-
-  useEffect(() => {
-    const storage = browserStorage();
-    const saved = loadAccount(storage);
-    setAccount(saved);
-    const wanted = loadActiveLeagueId(storage);
-    const leagues = saved?.leagues ?? [];
-    setLeagueId((leagues.find((l) => l.leagueId === wanted) ?? leagues[0])?.leagueId ?? "");
-    setReady(true);
+  const onLeague = useCallback((next) => {
+    setLeague(next);
+    setRivalId("");                 // el rival elegido era de la liga anterior
   }, []);
-
-  const pickLeague = (id) => {
-    setLeagueId(id);
-    setRivalId("");
-    saveActiveLeagueId(browserStorage(), id);
-  };
-
-  const league = useMemo(
-    () => (account?.leagues ?? []).find((l) => l.leagueId === leagueId) ?? null,
-    [account, leagueId]
-  );
 
   /* El índice de VALOR por `sleeper_id`: el board repartido por lo que queda de
      temporada. Es el mismo cálculo que publica /fantasy/semanal, del mismo
@@ -115,37 +94,9 @@ export default function AnalyzerShell({ board, byes, week, sleeperIds }) {
   const openings = useMemo(() => tradeOpenings(ranks), [ranks]);
   const mineOpenings = openings.filter((o) => o.aMine || o.bMine);
 
-  if (!ready) return <p className="caption">Loading…</p>;
-
-  if (!account?.leagues?.length) {
-    return (
-      <div className="callout">
-        <h3>Link your Sleeper account first</h3>
-        <p>
-          This page reads the leagues you already linked on{" "}
-          <a href="/fantasy/leagues">Leagues</a>. Nothing here works without them, and
-          nothing here is stored anywhere but this browser.
-        </p>
-      </div>
-    );
-  }
-
   return (
     <section className="an">
-      <div className="wk-league">
-        <label htmlFor="an-league">
-          League
-          <select id="an-league" value={leagueId} onChange={(e) => pickLeague(e.target.value)}>
-            {account.leagues.map((l) => (
-              <option key={l.leagueId} value={l.leagueId}>{l.name ?? l.leagueId}</option>
-            ))}
-          </select>
-        </label>
-        <span className="caption">
-          Same league you picked on Weekly — one active league, not one per screen.
-          Rosters as last read on <a href="/fantasy/leagues">Leagues</a>.
-        </span>
-      </div>
+      <LeagueBar season={season} week={week} id="an-league" onLeague={onLeague} />
 
       {ranks.length === 0 ? (
         <p className="caption">

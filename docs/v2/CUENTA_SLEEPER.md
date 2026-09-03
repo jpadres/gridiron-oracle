@@ -211,3 +211,34 @@ Dos defectos que cazó el laboratorio y no la vista:
    propia columna del cara a cara salía en blanco. Ahora `:first-child` la fija
    en cero, y el laboratorio comprueba la geometría —que una celda no pise a la
    siguiente—, que es lo único que distingue «está en el DOM» de «se ve».
+
+
+## Una cuenta, una liga activa, en todas las pantallas (3 de septiembre)
+
+    ELIGES UNA VEZ Y EL RESTO DEL PRODUCTO TE SIGUE.
+
+Antes cada pantalla se las arreglaba sola y enlazar la cuenta sólo se podía
+hacer en Leagues: descubrir el ranking semanal por liga pasaba por irse a otra
+página, teclear el usuario y volver. Ahora:
+
+- `LeagueBar.jsx` es la misma barra en el semanal y en el analizador (y la
+  puede usar cualquier pantalla nueva): selector de liga, quién está enlazado,
+  cuánto hace de la última lectura —con `STALE` pasada la ventana de seis
+  horas—, refrescar y un enlace a Leagues. **Nunca escribe LIVE**: nada de ella
+  se está sincronizando.
+- Sin cuenta, la barra ofrece enlazarla ahí mismo, y dice donde se teclea que es
+  de sólo lectura y sin contraseña: lo único que sale del navegador es el nombre
+  de usuario, que ya está en la URL de tu perfil.
+- `linkAccount.js` es la lectura y la traducción, compartidas. Vivían dentro de
+  `LeaguesShell.jsx`; copiarlas habría sido la quinta vez que dos traductores
+  del mismo formato divergen en este proyecto, y aquí decidiría qué ligas ves.
+  `accountFrom` es la mitad pura y tiene seis tests.
+- La liga activa es UNA clave (`gridiron-active-league-v1`, con respaldo de la
+  vieja del semanal).
+- **El Draft Room arranca en la liga activa** cuando no tiene ya una suya. Sólo
+  entonces: cambiarle la liga a un draft en curso porque en otra pestaña miraste
+  otra sería peor que preguntar — el registro de picks va por contexto.
+
+El laboratorio recorre el camino entero en un contexto limpio: enlazar desde el
+semanal, elegir liga, comprobar que el analizador abre en la misma, cambiarla
+allí, comprobar que el semanal la respeta, y entrar al Draft Room sin antesala.

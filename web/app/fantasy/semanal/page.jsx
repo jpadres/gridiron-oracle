@@ -153,6 +153,7 @@ export default function Semanal() {
         board={model.fantasy?.board ?? []}
         byes={model.fantasy?.byes ?? {}}
         week={weekly.week}
+        season={weekly.season}
       />
 
       <h2>Where the model departs from recent form</h2>

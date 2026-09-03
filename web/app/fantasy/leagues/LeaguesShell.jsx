@@ -53,10 +53,9 @@ import {
 import { providerLabel } from "../providers.js";
 import { compilePoints, rulesFromSleeper } from "../scoring.js";
 import {
-  DRAFT_STATUS_LABEL, accountFreshness, buildIndex, clearAccount, leagueConfigFrom,
-  leagueSnapshotFrom, loadAccount, mockDrafts, rosterView, saveAccount,
+  DRAFT_STATUS_LABEL, accountFreshness, buildIndex, clearAccount, loadAccount, rosterView,
 } from "../sleeperAccount.js";
-import { readSleeperAccount } from "../useSleeperDraft.js";
+import { linkSleeperAccount } from "../linkAccount.js";
 import { dedicatedStarters, depthByTeam, matchupView, weeklyIndex } from "../leagueWeek.js";
 
 const FANTASY = ["QB", "RB", "WR", "TE"];
@@ -116,46 +115,16 @@ export default function LeaguesShell({ board, context }) {
    * identificadores y hechos con su hora de descarga.
    */
   const link = useCallback(async (name) => {
-    const wanted = String(name ?? "").trim();
-    if (!wanted) return;
     setLinking(true);
     setLinkError("");
     try {
-      const read = await readSleeperAccount({
-        username: wanted, season: context.season, week: context.week ?? null,
-      });
+      // La lectura y la traducción viven en `linkAccount.js`, compartidas con
+      // la barra de liga: enlazar desde el semanal o el analizador tiene que
+      // producir EXACTAMENTE la misma cuenta que enlazar desde aquí.
       const storage = storageOrNull();
-      const leagues = read.leagues.map(({ league, draft, rosters, users, matchups }) => {
-        const snap = leagueSnapshotFrom({
-          league, draft, rosters, users, userId: read.user.userId, season: context.season,
-          matchups, week: context.week ?? null,
-        });
-        if (snap.config?.leagueId && snap.config?.draftId) saveLeagueToCatalog(snap.config, storage);
-        return snap;
+      const next = await linkSleeperAccount({
+        username: name, season: context.season, week: context.week ?? null, storage,
       });
-      // Un mock es un draft SIN liga. Y por si un proveedor publicara el draft
-      // de una liga sin su `league_id`, lo que ya es el draft de una liga de la
-      // cuenta no puede ser además un mock: dos entradas para el mismo draft
-      // serían dos contextos con un nombre.
-      const leagueDraftIds = new Set(leagues.map((l) => l.draftId).filter(Boolean));
-      const mocks = mockDrafts(read.drafts, context.season)
-        .filter((draft) => !leagueDraftIds.has(String(draft.draft_id)))
-        .map((draft) => ({
-        draftId: String(draft.draft_id),
-        status: draft.status ?? null,
-        created: Number(draft.created) || null,
-        config: leagueConfigFrom({ draft, userId: read.user.userId, season: context.season }),
-      }));
-      const next = {
-        username: read.user.username,
-        displayName: read.user.displayName,
-        userId: read.user.userId,
-        season: context.season,
-        retrievedAt: read.retrievedAt,
-        leagues,
-        mocks,
-      };
-      saveAccount(next, storage);
       setAccount(next);
       setUsername(next.username);
       setEntries(knownLeagues(storage));
@@ -164,7 +133,7 @@ export default function LeaguesShell({ board, context }) {
     } finally {
       setLinking(false);
     }
-  }, [context.season]);
+  }, [context.season, context.week]);
 
   const unlink = useCallback(() => {
     clearAccount(storageOrNull());

@@ -30,7 +30,9 @@ import {
   activeBoardFrom, leagueBoardFrom, rosterContext, rosterFromCounts, setComponentOrder,
 } from "../leagueValue.js";
 import { DEFAULT_RULES, compilePoints, rulesFromSleeper, scoringLabel } from "../scoring.js";
-import { isMockLeagueId, mockLeagueId, syncPool } from "../sleeperAccount.js";
+import {
+  isMockLeagueId, loadAccount, loadActiveLeagueId, mockLeagueId, syncPool,
+} from "../sleeperAccount.js";
 import { useSleeperDraft } from "../useSleeperDraft.js";
 
 const SCORING = [
@@ -122,10 +124,26 @@ export default function RoomShell({ board, context }) {
       // configuradas antes de que hubiera catálogo también son ligas.
       saveLeagueToCatalog(saved, browserStorage());
     } else {
-      // Si ya conectaste Sleeper en el Draft Board, el formulario llega
-      // relleno. Vivían en dos claves distintas y NADA las puenteaba, así que
-      // había que teclear la liga dos veces — o, peor, no encontrar dónde.
-      const prefs = loadPrefs(browserStorage());
+      // LA LIGA ACTIVA, si la cuenta está enlazada. «El asistente arranca en la
+      // liga en la que estás»: si elegiste una en el semanal o en el
+      // analizador, entrar aquí no vuelve a preguntarla.
+      //
+      // Sólo cuando el Draft Room NO tiene ya una liga suya. Cambiar la liga de
+      // un draft en curso porque en otra pestaña miraste otra sería peor que
+      // preguntar: el registro de picks va por contexto y el de al lado no es
+      // el tuyo.
+      const storage = browserStorage();
+      const account = loadAccount(storage);
+      const activeId = loadActiveLeagueId(storage);
+      const active = (account?.leagues ?? []).find((l) => l.leagueId === activeId)
+        ?? account?.leagues?.[0] ?? null;
+      if (active?.config?.leagueId && active.config?.draftId) {
+        setLeague(active.config);
+        saveLeagueToCatalog(active.config, storage);
+        setReady(true);
+        return;
+      }
+      const prefs = loadPrefs(storage);
       if (prefs?.league) {
         setDraft((d) => ({
           ...d, leagueId: String(prefs.league), userId: String(prefs.userId ?? ""),
