@@ -229,22 +229,32 @@ jobs:
           echo "Auditando $(wc -l < /tmp/requirements-auditadas.txt) dependencias:"
           pip-audit --strict -r /tmp/requirements-auditadas.txt
 
-      # El endpoint de auditoría de npm devuelve 503 con cierta frecuencia y
-      # tarda siete minutos en rendirse. Se reintenta tres veces con espera
-      # creciente, y si al final no se puede consultar, esto sigue en ROJO:
-      # «no he podido auditar» NO es «no hay vulnerabilidades», y un control
-      # que se pone verde cuando no ha comprobado nada es peor que no tenerlo
-      # (la lección del barrido diario que salía verde sin barrer). Lo único
-      # que cambia respecto a antes es que el motivo se lee en el log en vez
-      # de tener que abrirlo para descubrir que fue la red.
+      # El endpoint de auditoría de npm devuelve 503 con cierta frecuencia. Se
+      # reintenta tres veces, y si al final no se puede consultar esto sigue en
+      # ROJO: «no he podido auditar» NO es «no hay vulnerabilidades», y un
+      # control que se pone verde cuando no ha comprobado nada es peor que no
+      # tenerlo (la lección del barrido diario que salía verde sin barrer). Lo
+      # único que cambia es que el motivo se lee en el log.
+      #
+      # Los reintentos son MÍOS, no de npm: por defecto npm reintenta solo y
+      # tarda SIETE MINUTOS en rendirse, así que tres intentos serían veintiuno
+      # de runner sin sacar ninguna información. Con `--fetch-retries=1` npm se
+      # rinde rápido y la espera la pone el bucle; `timeout` es el tope duro por
+      # si un intento se cuelga sin devolver nada.
       - name: npm audit
         working-directory: web
         run: |
           for intento in 1 2 3; do
-            salida=$(npm audit --audit-level=moderate 2>&1) && { echo "$salida"; exit 0; }
+            # `|| codigo=$?` y no `codigo=$?` a secas: los pasos corren con
+            # `bash -e`, y una asignación que falla aborta el paso antes de
+            # poder leer su código — que es justo lo que hay que distinguir.
+            codigo=0
+            salida=$(timeout 300 npm audit --audit-level=moderate \
+                       --fetch-retries=1 --fetch-retry-maxtimeout=10000 2>&1) || codigo=$?
             echo "$salida"
-            if grep -qE "audit endpoint returned an error|Service Unavailable|ETIMEDOUT|ECONNRESET|ENOTFOUND" <<< "$salida"; then
-              echo "::warning::npm no ha podido auditar (intento $intento/3). Reintentando."
+            [ "$codigo" -eq 0 ] && exit 0
+            if [ "$codigo" -eq 124 ] || grep -qE "audit endpoint returned an error|Service Unavailable|ETIMEDOUT|ECONNRESET|ENOTFOUND|EAI_AGAIN" <<< "$salida"; then
+              echo "::warning::npm no ha podido auditar (intento $intento/3, código $codigo). Reintentando."
               sleep $((intento * 20))
               continue
             fi
