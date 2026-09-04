@@ -695,11 +695,24 @@ export default function BettingShell({ predictions, weekly, context, markets = [
                         </td>
                         <td>{row.bets}{row.open ? <small> · {row.open} open</small> : null}</td>
                         <td>{money(row.staked)}</td>
-                        <td>{row.wins}-{row.losses}{row.pushes ? `-${row.pushes}` : ""}</td>
-                        <td className={row.profit >= 0 ? "wk-up" : "wk-down"}>{signed(row.profit)}</td>
-                        <td className={row.profit >= 0 ? "wk-up" : "wk-down"}>
-                          {row.staked > 0 ? `${row.roi > 0 ? "+" : ""}${num(row.roi * 100, 1)}%` : "—"}
+                        <td>
+                          {row.wins + row.losses + row.pushes + row.voids === 0
+                            ? "—"
+                            : `${row.wins}-${row.losses}${row.pushes ? `-${row.pushes}` : ""}`}
                         </td>
+                        {/* Una jornada con todo abierto no tiene P/L ni ROI: son
+                            cero porque no ha pasado nada, y «+$0.00 · 0.0%» se
+                            lee como un resultado. Es UNKNOWN, y se escribe. */}
+                        {row.wins + row.losses + row.pushes + row.voids === 0 ? (
+                          <><td>—</td><td>—</td></>
+                        ) : (
+                          <>
+                            <td className={row.profit >= 0 ? "wk-up" : "wk-down"}>{signed(row.profit)}</td>
+                            <td className={row.profit >= 0 ? "wk-up" : "wk-down"}>
+                              {row.staked > 0 ? signedPct(row.roi * 100) : "—"}
+                            </td>
+                          </>
+                        )}
                         <td>{row.bankAfter === null ? "—" : money(row.bankAfter)}</td>
                       </tr>
                     ))}

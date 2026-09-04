@@ -84,6 +84,33 @@ for (const width of [390, 768, 1440]) {
       [...document.querySelectorAll("nav a")].map((a) => new URL(a.href).pathname));
     const huerfanas = PAGINAS.filter((p) => !enlaces.includes(p));
     check("todas las páginas están en la navegación", huerfanas.length === 0, huerfanas.join(", "));
+
+/* EL MENÚ DEL TELÉFONO ES OTRO ELEMENTO, Y POR ESO SE COMPRUEBA APARTE.
+   En 390 px la fila de secciones no cabe y se pinta un desplegable: los dos
+   salen del MISMO array, pero «salen del mismo array» es una promesa del
+   código y esto es la comprobación. Si alguien añade una pantalla al menú de
+   escritorio y no al del teléfono, la mitad de los usuarios no la ve. */
+{
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await ctx.newPage();
+  await page.goto(`${BASE}/`, { waitUntil: "domcontentloaded" });
+  const summary = page.locator(".top-menu > summary");
+  check("390: el menú es un desplegable de una línea", (await summary.count()) === 1);
+  const alto = (await page.locator("nav.top").boundingBox())?.height ?? 999;
+  // El cromo por encima del título: si vuelve a crecer, la lista de candidatos
+  // del asistente se sale del primer viewport en mitad de un draft.
+  check("390: y el menú no se come el primer viewport", alto < 80, `${Math.round(alto)} px`);
+  await summary.click();
+  const enMovil = await page.locator(".top-menu-links a").evaluateAll(
+    (as) => as.map((a) => a.getAttribute("href")));
+  const faltan = PAGINAS.filter((p) => !enMovil.includes(p));
+  check("390: el desplegable lleva TODAS las páginas", faltan.length === 0, faltan.join(", "));
+  // Y que se pueda tocar: 44 px es el mínimo de un control que se pulsa.
+  const chico = await page.locator(".top-menu-links a").evaluateAll(
+    (as) => as.filter((a) => a.getBoundingClientRect().height < 44).length);
+  check("390: cada enlace del menú se puede tocar", chico === 0, `${chico} por debajo de 44 px`);
+  await ctx.close();
+}
   }
   await page.screenshot({ path: `${OUT}/smoke-${width}.png` });
   await ctx.close();

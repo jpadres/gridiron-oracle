@@ -265,6 +265,14 @@ await page.waitForSelector(".rank-table tbody tr", { timeout: 10000 });
   check("el conteo de la cabecera cuadra con las filas del pool",
     new RegExp(`\\b${filasMias}\\b`).test(conteo), `${conteo.slice(0, 80)} vs ${filasMias}`);
 
+  const ajenos = page.locator('[aria-label="Ownership"] button', { hasText: "Taken" });
+  await ajenos.click();
+  await page.waitForTimeout(300);
+  const filasAjenas = await page.locator(".rank-table tbody tr").count();
+  const marcasAjenas = await page.locator(".rank-table tbody tr .own--taken").count();
+  check("con «taken» puesto, TODAS las filas son de otro equipo",
+    filasAjenas > 0 && marcasAjenas === filasAjenas, `${marcasAjenas}/${filasAjenas}`);
+
   await page.locator('[aria-label="Ownership"] button', { hasText: "Everyone" }).click();
   await page.waitForTimeout(200);
   // La búsqueda filtra por nombre, y sin resultados lo dice sin insinuar un fallo.

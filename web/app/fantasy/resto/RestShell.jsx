@@ -46,7 +46,7 @@ const OWNERSHIP = [
   { key: "ALL", label: "Everyone" },
   { key: "MINE", label: "Mine" },
   { key: "FREE_AGENT", label: "Free agents" },
-  { key: "TAKEN", label: "Rostered elsewhere" },
+  { key: "TAKEN", label: "Taken" },
 ];
 /** Cuántas filas se pintan. Es un límite de RENDER, y se dice cuál es. */
 const SHOWN = 120;

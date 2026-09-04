@@ -82,13 +82,35 @@ export default function RootLayout({ children }) {
             teclado exige pasar por los ocho enlaces del menú en cada carga. */}
         <a className="skip" href="#contenido">Skip to content</a>
         <div className="shell">
+          {/* DOS PRESENTACIONES DEL MISMO MENÚ, una lista sola.
+              En escritorio caben las doce secciones en dos líneas y se enseñan.
+              En el teléfono no: en una tira que se desplaza las cinco últimas
+              quedaban a tres arrastres y en la práctica no existían —de ahí
+              «no encuentro el resto de temporada»—, y desplegadas costaban 187
+              px de cromo ANTES del título en todas las páginas, lo que sacaba
+              del primer viewport la lista de candidatos del asistente, que es
+              la pantalla que se mira contra reloj. Un desplegable cuesta una
+              línea y deja todo a un toque.
+
+              Se pintan las dos y CSS enseña una: los enlaces salen del MISMO
+              array, así que no pueden divergir. Es la lección de los dos
+              traductores aplicada a la navegación. Sin JavaScript: `<details>`
+              es HTML, y estas ocho páginas son estáticas. */}
           <nav className="top" aria-label="Sections">
             <span className="brand">Gridiron Oracle</span>
-            {PAGES.map((page) => (
-              <a key={page.href} href={page.href}>
-                {page.label}
-              </a>
-            ))}
+            <span className="top-links">
+              {PAGES.map((page) => (
+                <a key={page.href} href={page.href}>{page.label}</a>
+              ))}
+            </span>
+            <details className="top-menu">
+              <summary aria-label="Sections menu">Sections</summary>
+              <span className="top-menu-links">
+                {PAGES.map((page) => (
+                  <a key={page.href} href={page.href}>{page.label}</a>
+                ))}
+              </span>
+            </details>
           </nav>
           <main id="contenido" tabIndex={-1}>{children}</main>
           <footer>

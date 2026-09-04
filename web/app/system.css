@@ -488,6 +488,31 @@ nav.top {
   padding-inline: max(var(--space-5), calc(50vw - 31rem + var(--space-5)));
   gap: var(--space-4);
 }
+.top-links { display: contents; }
+/* El desplegable sólo existe en el teléfono: en escritorio caben las doce. */
+.top-menu { display: none; position: relative; }
+.top-menu > summary {
+  list-style: none; cursor: pointer;
+  font-family: var(--face-display); font-variation-settings: "wdth" 82;
+  font-size: var(--text-dense); font-weight: var(--weight-semibold);
+  text-transform: uppercase; letter-spacing: 0.05em; color: var(--chalk-dim);
+  /* 44 px de alto de toque, que es el mínimo para un control que se pulsa. */
+  padding: var(--space-2) var(--space-3); min-height: 44px;
+  display: flex; align-items: center; gap: var(--space-2);
+  border: 1px solid var(--yard-line);
+}
+.top-menu > summary::-webkit-details-marker { display: none; }
+.top-menu > summary::after { content: "▾"; font-size: 0.8em; }
+.top-menu[open] > summary::after { content: "▴"; }
+.top-menu-links {
+  display: flex; flex-direction: column;
+  position: absolute; right: 0; z-index: 30; min-width: 12rem;
+  background: var(--field-sunken); border: 1px solid var(--yard-line);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.18);
+}
+.top-menu-links a { padding: var(--space-2) var(--space-3); min-height: 44px; display: flex; align-items: center; }
+.top-menu-links a + a { border-top: 1px solid var(--yard-line); }
+
 nav.top .brand {
   font-family: var(--face-display);
   font-variation-settings: "wdth" 70;
@@ -619,20 +644,17 @@ h2 { font-variation-settings: "wdth" 82; letter-spacing: -0.005em; }
       contenido. Pasa a una tira que se desplaza en horizontal: una fila, 44px,
       y los ocho destinos siguen alcanzables. */
 @media (max-width: 47.99rem) {
-  /* El menú ENVUELVE en vez de desplazarse. Era una tira de una línea con
-     desplazamiento horizontal y sin señal de que siguiera: con doce secciones,
-     las cinco últimas quedaban a tres arrastres de distancia y en la práctica
-     no existían — que es exactamente la queja que trajo aquí la pantalla de
-     resto de temporada. Cuesta dos líneas de alto; enseña todo el sitio. */
+  /* En el teléfono manda el desplegable: una línea de cromo y las doce
+     secciones a un toque. Ver el comentario de `layout.jsx`. */
   nav.top {
-    flex-wrap: wrap;
-    row-gap: var(--space-1); column-gap: var(--space-3);
+    flex-wrap: nowrap;
     padding-block: var(--space-2);
     margin-bottom: var(--space-4);
     align-items: center;
+    justify-content: space-between;
   }
-  nav.top .brand { flex: 1 0 100%; }
-  nav.top a { white-space: nowrap; padding-block: var(--space-1); }
+  nav.top .top-links { display: none; }
+  nav.top .top-menu { display: block; }
 }
 
 /* 2. El war room estaba DENTRO de una tarjeta con borde, y la decisión dentro
@@ -1812,7 +1834,14 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .bk-plan-note--brake { border-left: 3px solid var(--flag-ink, #a33b3b); padding-left: var(--space-3); }
 
 /* --- EL LIBRO: curva, tabla por jornada y filas ---------------------------- */
-.bk-curve { display: block; width: 100%; height: auto; margin: var(--space-3) 0; }
+.bk-curve-fig { margin: var(--space-3) 0; }
+.bk-curve-row { display: flex; align-items: center; gap: var(--space-3); }
+/* Altura FIJA y ancho elástico: el lienzo se estira, la altura no depende del
+   ancho de la pantalla. Con el texto dentro del SVG había que escalar en
+   proporción y en 390 px la curva quedaba de cuarenta píxeles. */
+.bk-curve { display: block; flex: 1 1 auto; min-width: 0; width: 100%; height: 7.5rem; }
+.bk-curve-end { font-variant-numeric: tabular-nums; white-space: nowrap; font-size: var(--num-lead); }
+.bk-curve-fig figcaption { margin-top: var(--space-1); max-width: 66ch; }
 .bk-ledger td, .bk-ledger th { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .bk-ledger td small { color: var(--chalk-dim); }
 .bk-hist-what { display: flex; flex-direction: column; min-width: 0; }
@@ -1835,6 +1864,11 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 
 @media (max-width: 40rem) {
   .bk-stats { gap: var(--space-3); }
+  /* El título y su aclaración compiten por el ancho: «The book» se partía en
+     dos líneas de una palabra para dejarle sitio a un texto de apoyo. La
+     aclaración se va abajo, que es su sitio. */
+  .bk-h { flex-wrap: wrap; }
+  .bk-h small { flex-basis: 100%; }
   .bk-stats dd { font-size: var(--text-h3); }
   .bk-lean-nums { flex-basis: 100%; }
 }
