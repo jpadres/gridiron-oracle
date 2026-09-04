@@ -1,0 +1,1929 @@
+{
+ "date": "2026-09-04",
+ "items": [
+  {
+   "beat": "Transactions",
+   "team": "SEA",
+   "players": [],
+   "kind": "otro",
+   "headline": "The season opens Wednesday 9 September: Seahawks-Patriots, a Super Bowl rematch",
+   "summary": "Seattle hosts New England at Lumen Field on Wednesday 9 September at 8:20 p.m. ET, the first Wednesday opener since 2012 — the league moved it a day earlier to clear room for the international game on Thursday. Seattle beat New England 29-13 in February for the franchise's second title. Seattle opened as a 3.5-point home favourite with a total of 44.5.",
+   "impact": "neutro",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 3,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "title": "2026 NFL Kickoff: Seahawks vs. Patriots Week 1 preview",
+     "url": "https://www.nbcsports.com/watch/nfl/snf/2026-nfl-kickoff-seattle-seahawks-vs-new-england-patriots-week-1-preview"
+    },
+    {
+     "outlet": "Patriots.com",
+     "title": "Game Preview: Patriots at Seahawks | Week 1",
+     "url": "https://www.patriots.com/news/game-preview-patriots-at-seahawks-week-1"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Seahawks vs Patriots 2026: How to Watch the NFL Season Opener",
+     "url": "https://sports.yahoo.com/articles/seahawks-vs-patriots-2026-watch-235557516.html"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "2026 NFL schedule release: Betting odds for every Week 1 game",
+     "url": "https://www.espn.com/espn/betting/story/_/id/48432180/2026-nfl-schedule-release-season-week-1-games-betting-odds-spreads-lines-highlights"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "History Says Seahawks Will Handle Business vs. Patriots",
+     "url": "https://www.si.com/nfl/seahawks/onsi/history-says-seahawks-will-handle-business-vs-patriots-in-nfl-season-opener"
+    },
+    {
+     "outlet": "Yardbarker",
+     "title": "Seahawks vs Patriots 2026: Previewing NFL Season Opener",
+     "url": "https://www.yardbarker.com/nfl/articles/seahawks_vs_patriots_2026_previewing_nfl_season_opener_and_stars_to_watch/s1_17702_44239882"
+    }
+   ]
+  },
+  {
+   "beat": "Transactions",
+   "team": "SF",
+   "players": [],
+   "kind": "otro",
+   "headline": "Thursday in Melbourne: the longest trip in NFL history, and the one thing the game model can see",
+   "summary": "San Francisco and the Rams open the international slate at the Melbourne Cricket Ground on Thursday 10 September, 8:35 p.m. ET — 10:35 a.m. Friday local. It is the first regular-season NFL game in Australia; Melbourne is 17 hours ahead of California. San Francisco is the designated home team, and the game streams only on Netflix. The market has the Rams by 2.5 with a total of 48.5 — the visiting team favoured in the home team's own game.",
+   "impact": "neutro",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 3,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Netflix Tudum",
+     "title": "How to Watch the NFL Melbourne Game",
+     "url": "https://www.netflix.com/tudum/features/nfl-melbourne-game-2026-how-to-watch"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "49ers vs. Rams in Australia: How to Watch the NFL's First Melbourne Game",
+     "url": "https://sports.yahoo.com/articles/49ers-vs-rams-australia-watch-154307327.html"
+    },
+    {
+     "outlet": "CBS San Francisco",
+     "title": "Netflix reportedly airing Week 1 matchup between 49ers and Rams in Australia",
+     "url": "https://www.cbsnews.com/sanfrancisco/news/49ers-rams-netflix-week-1-2026-report-melbourne-australia/"
+    },
+    {
+     "outlet": "49ers Webzone",
+     "title": "Netflix to stream 49ers vs. Rams Week 1 international showdown",
+     "url": "https://www.49erswebzone.com/articles/200665-netflix-stream-international-showdown-australia/"
+    },
+    {
+     "outlet": "49ers Webzone",
+     "title": "49ers vs. Rams in Week 1: How to watch, stream, and listen, plus odds",
+     "url": "https://www.49erswebzone.com/articles/202977-49ers-rams-watch-stream-listen/"
+    },
+    {
+     "outlet": "Total Pro Sports",
+     "title": "NFL Announces Major Update For Rams-49ers 2026 Season Opener In Australia",
+     "url": "https://www.totalprosports.com/nfl/update-rams-49ers-2026-season-opener-announcement-australia/"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "How to Watch Rams vs. 49ers in Week 1",
+     "url": "https://sports.yahoo.com/articles/watch-rams-vs-49ers-week-181545293.html"
+    }
+   ]
+  },
+  {
+   "beat": "Analysts",
+   "team": "LAC",
+   "players": [],
+   "kind": "otro",
+   "headline": "One double-digit favourite in the whole slate, and nine games inside a field goal",
+   "summary": "The Chargers are -11.5 over Arizona, the only double-digit price on the board. Nine Week 1 games have a spread of a field goal or less. The highest total is Tampa Bay-Cincinnati at 50.5; Detroit-New Orleans and Rams-49ers sit at 48.5, Bills-Texans at 45.5, Bears-Panthers and Seahawks-Patriots at 44.5. For this project that flatness is the story: a market this tight is exactly where a model has least room to disagree.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 3,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "2026 NFL schedule release: Betting odds for every Week 1 game",
+     "url": "https://www.espn.com/espn/betting/story/_/id/48432180/2026-nfl-schedule-release-season-week-1-games-betting-odds-spreads-lines-highlights"
+    },
+    {
+     "outlet": "FOX Sports",
+     "title": "2026 NFL Odds Week 1: Lines, Spreads For All 16 Games",
+     "url": "https://www.foxsports.com/stories/nfl/2026-nfl-odds-week-1-lines-spreads-all-16-games"
+    },
+    {
+     "outlet": "VegasInsider",
+     "title": "NFL Week 1 Odds: Lines, Spreads, Betting Trends for Every Game",
+     "url": "https://www.vegasinsider.com/nfl/nfl-week-1-odds-2026/"
+    },
+    {
+     "outlet": "CBS Sports",
+     "title": "Week 1 NFL odds, lines, best bets, predictions",
+     "url": "https://www.cbssports.com/betting/news/week-1-nfl-2026-odds-picks-predictions-lines-spreads-bets/"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "kind": "lesion",
+   "headline": "Mahomes on track for Monday night, eight months after the ACL and LCL",
+   "summary": "Mahomes tore the ACL and LCL in his knee in Week 15 of last season and told reporters this week he is on track to start. He worked with the first team through camp without rest days. Kansas City opens at Denver on Monday 14 September in the Monday Night Football premiere, against a quarterback coming back from his own surgery.",
+   "impact": "alza",
+   "confidence": "informado",
+   "evidence_type": "REPORTADO",
+   "fantasy_relevance": 5,
+   "published": "2026-09-02",
+   "published_at": "2026-09-02",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Bleacher Report",
+     "title": "Patrick Mahomes Gives Week 1 Injury Status Update Amid Knee Rehab",
+     "url": "https://bleacherreport.com/articles/25485853-patrick-mahomes-gives-week-1-injury-status-update-amid-knee-rehab-chiefs-prepare-broncos"
+    },
+    {
+     "outlet": "KCTV5",
+     "title": "Chiefs QB Patrick Mahomes appears on track to start Week 1 against the Broncos",
+     "url": "https://www.kctv5.com/2026/09/03/chiefs-qb-patrick-mahomes-appears-track-start-week-1-against-denver-broncos/"
+    },
+    {
+     "outlet": "Local 10",
+     "title": "Chiefs QB Patrick Mahomes appears on track to start Week 1",
+     "url": "https://www.local10.com/sports/2026/09/02/chiefs-qb-patrick-mahomes-appears-on-track-to-start-week-1-against-the-denver-broncos/"
+    },
+    {
+     "outlet": "ClickOnDetroit",
+     "title": "Chiefs QB Patrick Mahomes appears on track to start Week 1",
+     "url": "https://www.clickondetroit.com/sports/2026/09/02/chiefs-qb-patrick-mahomes-appears-on-track-to-start-week-1-against-the-denver-broncos/"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Sean Payton expects Chiefs QB Patrick Mahomes (knee) to be 'at his best'",
+     "url": "https://sports.yahoo.com/articles/sean-payton-expects-chiefs-qb-130110138.html"
+    },
+    {
+     "outlet": "NFL.com",
+     "title": "Broncos, Chiefs to face off in 'Monday Night Football' season premiere",
+     "url": "https://www.nfl.com/news/2026-nfl-schedule-release-chiefs-broncos-to-face-off-in-monday-night-football-season-premiere"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Chiefs back on biggest stages despite Mahomes injury, uncertainty",
+     "url": "https://www.espn.com/nfl/story/_/id/48771503/nfl-schedule-2026-chiefs-prime-games-patrick-mahomes-injury"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "DEN",
+   "players": [
+    "Bo Nix"
+   ],
+   "kind": "lesion",
+   "headline": "Nix says the ankle is a non-issue: 'I could be full go right now'",
+   "summary": "Nix broke his right ankle in the divisional round and had two operations. He returned in preseason for 14 snaps, 6-of-9 for 76 yards and a touchdown, and has said nothing is holding him back. Denver opens at home against Kansas City on Monday night.",
+   "impact": "alza",
+   "confidence": "confirmado",
+   "evidence_type": "OBSERVADO",
+   "fantasy_relevance": 4,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "Broncos' Bo Nix has no concern over ankle: 'I could be full go right now'",
+     "url": "https://www.nfl.com/news/broncos-bo-nix-has-no-concern-over-ankle-i-could-be-full-go-right-now"
+    },
+    {
+     "outlet": "CBS Sports",
+     "title": "Bo Nix injury update: Broncos QB says ankle won't limit him",
+     "url": "https://www.cbssports.com/nfl/news/bo-nix-injury-update-broncos-qb/"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Broncos' Bo Nix throws for TD in return from ankle injury",
+     "url": "https://www.espn.com/nfl/story/_/id/49687942/broncos-qb-bo-nix-throws-td-preseason-return-ankle-surgery"
+    },
+    {
+     "outlet": "Denver7",
+     "title": "Broncos QB Bo Nix returns from broken ankle",
+     "url": "https://www.denver7.com/sports/broncos/broncos-quarterback-bo-nix-returns-from-broken-ankle-and-has-a-better-offense-around-him-for-2026"
+    },
+    {
+     "outlet": "Yardbarker",
+     "title": "Broncos QB Bo Nix looks strong in return from ankle injury",
+     "url": "https://www.yardbarker.com/nfl/articles/broncos_qb_bo_nix_looks_strong_in_return_from_ankle_injury/s1_13132_44204095"
+    },
+    {
+     "outlet": "DenverBroncos.com",
+     "title": "QB Bo Nix suffers season-ending ankle injury (January 2026)",
+     "url": "https://www.denverbroncos.com/news/qb-bo-nix-suffers-season-ending-ankle-injury-qb-jarrett-stidham-to-start-afc-championship-game"
+    }
+   ]
+  },
+  {
+   "beat": "Suspensions",
+   "team": "GB",
+   "players": [
+    "Josh Jacobs"
+   ],
+   "kind": "disciplina",
+   "headline": "Jacobs still on the Commissioner's Exempt List, with no timeline and a November hearing",
+   "summary": "The NFL placed Jacobs on the exempt list on 31 August over misdemeanour battery and criminal damage charges from a May arrest. He may not practise or attend games. LaFleur said he expects Jacobs to remain a member of the team but would not address availability for the 13 September opener against Minnesota. Next hearing: 17 November. The board still shows him as ACT on his team's roster, which is exactly why this mark has to come from the press and not from the data.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 5,
+   "published": "2026-08-31",
+   "published_at": "2026-08-31",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "NFL places Packers RB Josh Jacobs on Commissioner's Exempt List",
+     "url": "https://www.nfl.com/news/nfl-places-packers-rb-josh-jacobs-commissioner-exempt-list"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Packers RB Josh Jacobs placed on commissioner exempt list",
+     "url": "https://www.espn.com/nfl/story/_/id/49774523/packers-rb-josh-jacobs-placed-commission-exempt-list"
+    },
+    {
+     "outlet": "Spectrum News 1",
+     "title": "Packers' Josh Jacobs placed on commissioner's exempt list",
+     "url": "https://spectrumnews1.com/wi/milwaukee/news/2026/08/31/packers-josh-jacobs-commissioner-s-exempt-list-misdemeanor"
+    },
+    {
+     "outlet": "Zone Coverage",
+     "title": "What Josh Jacobs Being Placed On the Exempt List Means",
+     "url": "https://zonecoverage.com/2026/packers/what-josh-jacobs-being-placed-on-nfl-commissioners-exempt-list-means/"
+    },
+    {
+     "outlet": "NFL.com",
+     "title": "Packers RB Josh Jacobs has been placed on the Commissioner's Exempt List | The Insiders",
+     "url": "https://www.nfl.com/videos/packers-rb-josh-jacobs-has-been-placed-on-the-commissioner-s-exempt-list-the-insiders"
+    }
+   ]
+  },
+  {
+   "beat": "Rookies",
+   "team": "GB",
+   "players": [
+    "MarShawn Lloyd"
+   ],
+   "kind": "depth_chart",
+   "headline": "Lloyd is the Green Bay lead back for Week 1, and the most-added name of the week",
+   "summary": "With Jacobs on the exempt list and no timeline, Lloyd is the presumptive starter against Minnesota, with Chris Brooks and Kaleb Johnson behind him. Multiple waiver columns list him as a must-add who could hold the role for most of the season.",
+   "impact": "alza",
+   "confidence": "informado",
+   "evidence_type": "OPINION",
+   "fantasy_relevance": 5,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "RotoBaller",
+     "title": "Week 1 Waiver Wire Pickups - MarShawn Lloyd, Mike Washington Jr., Tyler Allgeier",
+     "url": "https://www.rotoballer.com/week-1-waiver-wire-pickups-marshawn-lloyd-mike-washington-jr-tyler-allgeier-fantasy-football-outlooks/1921909"
+    },
+    {
+     "outlet": "RotoBaller",
+     "title": "Running Back Waiver Wire Pickups - Fantasy Football Week 1 (2026)",
+     "url": "https://www.rotoballer.com/running-back-waiver-wire-pickups-fantasy-football-week-1-2026/1912372"
+    },
+    {
+     "outlet": "RotoBaller",
+     "title": "Week 1 Fantasy Football Waiver Wire Pickups, Stashes: All Positions",
+     "url": "https://www.rotoballer.com/week-1-fantasy-football-waiver-wire-pickups-stashes-all-positions-2026/1917988"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Quinshon Judkins And 3 More Week 1 Waiver Wire Running Back Pickups",
+     "url": "https://www.si.com/onsi/fantasy/waiver-wire/week-1-fantasy-football-running-back-waiver-wire-pickups-quinshon-judkins"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "GB",
+   "players": [
+    "Micah Parsons"
+   ],
+   "kind": "lesion",
+   "headline": "Parsons opens on reserve/PUP: out at least four games",
+   "summary": "Green Bay confirmed Parsons on the reserve/PUP list with its cutdown to 53, so he is ineligible for the first four games while he recovers from a torn ACL and meniscus damage. He has spoken about aiming for the Week 6 meeting with Dallas.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 2,
+   "published": "2026-08-30",
+   "published_at": "2026-08-30",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "Packers' Micah Parsons to open season on PUP list, miss at least first four games",
+     "url": "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-sunday-aug-30"
+    },
+    {
+     "outlet": "FOX Sports",
+     "title": "Packers Place Micah Parsons on Reserve/PUP List",
+     "url": "https://www.foxsports.com/stories/nfl/packers-place-micah-parsons-reserve-pup-first-four-games"
+    },
+    {
+     "outlet": "NBC Sports",
+     "title": "Packers cut roster to 53, confirm placement of Micah Parsons on reserve/PUP",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-cut-roster-to-53-confirm-placement-of-micah-parsons-on-reserve-pup"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Packers place Micah Parsons on IR to start regular season",
+     "url": "https://sports.yahoo.com/nfl/article/packers-place-micah-parsons-on-injured-reserve-to-start-regular-season-while-pass-rusher-recovers-from-acl-tear-201813885.html"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "SEA",
+   "players": [
+    "Zach Charbonnet"
+   ],
+   "kind": "lesion",
+   "headline": "Charbonnet starts on reserve/PUP — four games minimum after January's ACL",
+   "summary": "Seattle moved Charbonnet to reserve/PUP with its final roster moves on 30 August. He tore the ACL in his left knee in the divisional round on 17 January, so the designation is procedural rather than a new setback: he cannot play before Week 5.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 4,
+   "published": "2026-08-30",
+   "published_at": "2026-08-30",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Pro Football Rumors",
+     "title": "Zach Charbonnet Shifts To Reserve/PUP List; Seahawks Reduce Roster To 53",
+     "url": "https://www.profootballrumors.com/2026/08/zach-charbonnet-shifts-to-reserve-pup-list-seahawks-reduce-roster-to-53"
+    },
+    {
+     "outlet": "RotoWire",
+     "title": "Zach Charbonnet Injury: Opening season on reserve/PUP list",
+     "url": "https://www.rotowire.com/football/headlines/zach-charbonnet-injury-opening-season-on-reservepup-list-635463"
+    },
+    {
+     "outlet": "Field Gulls",
+     "title": "Seahawks injury news: Zach Charbonnet to start season on PUP list",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-injury-report/173657/seahawks-injury-news-zach-charbonnet-start-season-pup"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Seattle Seahawks Announce Zach Charbonnet Injury News",
+     "url": "https://sports.yahoo.com/articles/seattle-seahawks-announce-zach-charbonnet-024404608.html"
+    },
+    {
+     "outlet": "Heavy",
+     "title": "Seattle Seahawks Announce Zach Charbonnet Injury News",
+     "url": "https://heavy.com/sports/nfl/seattle-seahawks/zach-charbonnet-injury-update-reserve-pup/"
+    }
+   ]
+  },
+  {
+   "beat": "Transactions",
+   "team": "MIN",
+   "players": [
+    "Kyler Murray",
+    "J.J. McCarthy"
+   ],
+   "kind": "depth_chart",
+   "headline": "Minnesota names Kyler Murray the Week 1 starter; McCarthy benched",
+   "summary": "The Vikings named Murray their starter for 2026, ending McCarthy's hold on the job after ten starts last season (57.6% completions, 1,632 yards, 11 touchdowns, 12 interceptions). Murray signed a one-year deal in March after Arizona released him and opens against Green Bay on 13 September.",
+   "impact": "alza",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 4,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "Vikings name Kyler Murray starting Week 1 quarterback for 2026 season",
+     "url": "https://www.nfl.com/news/vikings-name-kyler-murray-starting-week-1-quarterback-for-2026-season"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Vikings name Kyler Murray starting QB over J.J. McCarthy",
+     "url": "https://www.espn.com/nfl/story/_/id/49583297/vikings-name-kyler-murray-starting-qb-sources-say"
+    },
+    {
+     "outlet": "FOX Sports",
+     "title": "Vikings Name Kyler Murray Starting Quarterback Over J.J. McCarthy",
+     "url": "https://www.foxsports.com/stories/nfl/vikings-quarterback-battle-kyler-murray-jj-mccarthy"
+    },
+    {
+     "outlet": "Star Tribune",
+     "title": "Kyler Murray beats J.J. McCarthy for Vikings starting QB job",
+     "url": "https://www.startribune.com/minnesota-vikings-kyler-murray-jj-mccarthy-quarterback-competition-kevin-oconnell-nfl-training-camp/601875045"
+    },
+    {
+     "outlet": "Eleven Warriors",
+     "title": "Vikings Bench J.J. McCarthy for Kyler Murray",
+     "url": "https://www.elevenwarriors.com/college-football/2026/08/163286/minnesota-vikings-bench-former-michigan-quarterback-jj-mccarthy-for-kyler-murray"
+    },
+    {
+     "outlet": "Vikings.com",
+     "title": "Kyler Murray Makes 2026 Vikings Debut; McCarthy Plays Most of 1st Half",
+     "url": "https://www.vikings.com/news/jj-mccarthy-kyler-murray-preseason-debut-giants-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Analysts",
+   "team": "ATL",
+   "players": [
+    "Michael Penix Jr.",
+    "Tua Tagovailoa"
+   ],
+   "kind": "depth_chart",
+   "headline": "Atlanta still has no Week 1 quarterback, and the two readings do not agree",
+   "summary": "Five days out, the Falcons have not named a starter, and the reporting splits rather than converges — both readings are kept here because they lead to different lineups. Tagovailoa has taken the majority of first-team reps since spring and started the preseason opener. Against that: Rapoport reported the lead had shrunk and 'the door is open' for Penix, and Wolfe reports the plan is for Penix to start eventually, with Tagovailoa possibly a placeholder. Atlanta also declined to name a quarterback among its captains. Nothing official has been announced.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "REPORTADO",
+   "fantasy_relevance": 4,
+   "published": "2026-09-02",
+   "published_at": "2026-09-02",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Pro Football Rumors",
+     "title": "Falcons Undecided On Starting QB",
+     "url": "https://www.profootballrumors.com/2026/09/falcons-undecided-on-starting-qb"
+    },
+    {
+     "outlet": "NBC Sports",
+     "title": "Report: Falcons plan to start Michael Penix Jr. 'eventually'",
+     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-09-02/wolfe-falcons-plan-to-start-penix-eventually"
+    },
+    {
+     "outlet": "Bleacher Report",
+     "title": "Falcons Announce Captains for 2026 amid Tua, Penix QB1 Battle",
+     "url": "https://bleacherreport.com/articles/25495873-falcons-announce-captains-2026-nfl-season-amid-tua-michael-penix-jr-qb1-battle"
+    },
+    {
+     "outlet": "The Falcoholic",
+     "title": "Tua Tagovailoa named starting QB for preseason Week 1",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-preseason/95069/tua-tagovailoa-named-starting-qb-for-preseason-week-1-against-broncos-michael-penix-jr"
+    },
+    {
+     "outlet": "FOX Sports",
+     "title": "Tua Tagovailoa Will Start Falcons Preseason Opener, But Week 1 QB Still Unclear",
+     "url": "https://www.foxsports.com/stories/nfl/tua-tagovailoa-will-start-falcons-preseason-opener-week-1-qb-still-unclear"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Tua Tagovailoa will start for Falcons Friday while Penix continues to recover",
+     "url": "https://sports.yahoo.com/nfl/article/nfl-preseason-week-3-tua-tagovailoa-will-start-for-falcons-friday-while-michael-penix-jr-continues-to-recover-132839886.html"
+    },
+    {
+     "outlet": "ClutchPoints",
+     "title": "Penix, Tagovailoa plans revealed before Atlanta's starting QB announcement",
+     "url": "https://clutchpoints.com/nfl/atlanta-falcons/falcons-news-michael-penix-jr-tua-tagovailoa-plans-revealed-before-atlantas-starting-qb-announcement"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "CIN",
+   "players": [
+    "Ja'Marr Chase",
+    "Tee Higgins"
+   ],
+   "kind": "lesion",
+   "headline": "Chase and Higgins missed Tuesday but Cincinnati expects both against Tampa Bay",
+   "summary": "Chase hyperextended his left knee on 25 August reaching for a deep ball; Higgins has a heel contusion. Neither practised Tuesday. Zac Taylor said both would be limited through the week and expects them 'good at the end of week' for the 13 September opener. Limited, not out — the distinction is the whole read here.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "REPORTADO",
+   "fantasy_relevance": 5,
+   "published": "2026-09-01",
+   "published_at": "2026-09-01",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "title": "Ja'Marr Chase, Tee Higgins out of practice Tuesday, but Bengals expect them for Week 1",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-out-of-practice-tuesday-but-bengals-expect-them-for-week-1"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Ja'Marr Chase will be limited at Bengals practice this week",
+     "url": "https://sports.yahoo.com/nfl/article/jamarr-chase-will-be-limited-at-bengals-practice-this-week-after-last-weeks-knee-injury-scare-193633659.html"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Bengals' Ja'Marr Chase, Tee Higgins Get Injury Updates Ahead of Week 1",
+     "url": "https://sports.yahoo.com/articles/bengals-ja-marr-chase-tee-224739367.html"
+    },
+    {
+     "outlet": "Steelers Depot",
+     "title": "Bengals' Top Receivers Continue To Miss Practice Ahead Of Season Opener",
+     "url": "https://steelersdepot.com/2026/09/bengals-top-receivers-continue-to-miss-practice-ahead-of-season-opener/"
+    },
+    {
+     "outlet": "Yardbarker",
+     "title": "Bengals WRs Ja'Marr Chase (knee), Tee Higgins (heel) limited this week",
+     "url": "https://www.yardbarker.com/nfl/articles/bengals_wrs_jamarr_chase_knee_tee_higgins_heel_limited_this_week/s1_17049_44247903"
+    },
+    {
+     "outlet": "Cincy Jungle",
+     "title": "Bengals injury update on Ja'Marr Chase and Tee Higgins",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-injuries/197901/jamarr-chase-injury-tee-higgins-news"
+    },
+    {
+     "outlet": "WXSM-AM",
+     "title": "Bengals WRs Ja'Marr Chase (knee), Tee Higgins (heel) limited this week",
+     "url": "https://www.640wxsm.com/2026/09/01/bengals-wrs-jamarr-chase-knee-tee-higgins-heel-limited-this-week/"
+    },
+    {
+     "outlet": "The Sports Capitol",
+     "title": "Bengals WRs Chase (knee), Higgins (heel) limited this week",
+     "url": "https://www.sportscapitoldc.com/2026/09/01/bengals-wrs-jamarr-chase-knee-tee-higgins-heel-limited-this-week/"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "NYG",
+   "players": [
+    "Malik Nabers"
+   ],
+   "kind": "lesion",
+   "headline": "Nabers has shed the red jersey but still has no medical clearance",
+   "summary": "Nabers has dropped the non-contact jersey and taken part in team periods eight months after ACL surgery. Harbaugh called it 'reasonable to assume' he plays against Dallas on 13 September, but the club has stopped short of a promise and Nabers himself would not commit. Clearance is the gate that has not been passed, so this stays a risk and not a return.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "REPORTADO",
+   "fantasy_relevance": 5,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Malik Nabers must clear next hurdle in ACL recovery before Giants Week 1 return",
+     "url": "https://sports.yahoo.com/articles/malik-nabers-must-clear-next-010719866.html"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Malik Nabers' latest Giants update leaves intriguing question hanging",
+     "url": "https://sports.yahoo.com/articles/malik-nabers-latest-giants-leaves-140014189.html"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Giants WR Malik Nabers Offers Update on His Progress Toward Week 1",
+     "url": "https://www.si.com/nfl/giants/onsi/malik-nabers-giants-acl-recovery-season-opener-status-01m1etyfc655"
+    },
+    {
+     "outlet": "Bleacher Report",
+     "title": "Malik Nabers' Injury Status Updated by Giants Ahead of 2026 Season",
+     "url": "https://bleacherreport.com/articles/25481686-malik-nabers-injury-status-updated-giants-john-harbaugh-ahead-2026-nfl-season"
+    },
+    {
+     "outlet": "Pro Football Network",
+     "title": "Malik Nabers Injury Update: Will He Play in Week 1?",
+     "url": "https://www.profootballnetwork.com/malik-nabers-injury-update-giants-wr-week-1/"
+    },
+    {
+     "outlet": "Giants.com",
+     "title": "Week 1 Tracker: Latest news, notes & roster moves",
+     "url": "https://www.giants.com/news/latest-news-notes-roster-moves-john-harbaugh-malik-nabers-jaxson-dart-odell-beckham-jr-dallas-cowboys-season-opener"
+    },
+    {
+     "outlet": "Big Blue View",
+     "title": "NY Giants vs. Cowboys: Week 1 news, injuries, analysis",
+     "url": "https://www.bigblueview.com/new-york-giants-game-information/169969/ny-giants-vs-cowboys-nfl-week-1-news-injuries-analysis-and-more"
+    },
+    {
+     "outlet": "Fantasy Nerds",
+     "title": "Malik Nabers Progresses in ACL Recovery, Week 1 Status Uncertain",
+     "url": "https://fantasynerds.com/news/story/2026/08/24/malik-nabers-progresses-in-acl-recovery-week-1-status-uncertain-but-optimistic-1604709"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "LV",
+   "players": [
+    "Ashton Jeanty"
+   ],
+   "kind": "lesion",
+   "headline": "Everything points to Jeanty playing except the one thing that counts: practice",
+   "summary": "Jeanty sprained his ankle on 23 August landing awkwardly on a dive — believed low rather than high. He was seen working to the side with trainers on 1 September, his first appearance since, but has not practised. Kubiak said Wednesday he is optimistic for the 13 September opener against Miami and Friday that Jeanty was 'on the mend'. Coach optimism and a practice rep are not the same class of evidence.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "OBSERVADO",
+   "fantasy_relevance": 5,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Everything Points to Ashton Jeanty Playing in Week 1, Except Practice",
+     "url": "https://sports.yahoo.com/articles/everything-points-ashton-jeanty-playing-130000026.html"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Ashton Jeanty injury update from Raiders practice brings more optimism",
+     "url": "https://sports.yahoo.com/articles/ashton-jeanty-injury-raiders-practice-152408912.html"
+    },
+    {
+     "outlet": "Bleacher Report",
+     "title": "Ashton Jeanty's Injury Status Revealed by Raiders HC Ahead of Week 1",
+     "url": "https://bleacherreport.com/articles/25495665-ashton-jeantys-injury-status-revealed-raiders-hc-ahead-week-1-vs-dolphins"
+    },
+    {
+     "outlet": "The Big Lead",
+     "title": "Ashton Jeanty injury update from Raiders practice brings more optimism",
+     "url": "https://www.thebiglead.com/ashton-jeanty-injury-update-raiders-practice-optimism-week-1/"
+    },
+    {
+     "outlet": "The Big Lead",
+     "title": "Raiders' Ashton Jeanty injury update keeps hope for Week 1 alive",
+     "url": "https://www.thebiglead.com/raiders-ashton-jeanty-injury-update-week-1/"
+    },
+    {
+     "outlet": "Complex",
+     "title": "Ashton Jeanty Injury Update: When Will Raiders RB Return?",
+     "url": "https://www.complex.com/bets/a/matt-burke/ashton-jeanty-injury-update"
+    },
+    {
+     "outlet": "Fantasy Football Calculator",
+     "title": "Ashton Jeanty Fantasy News (2026)",
+     "url": "https://fantasyfootballcalculator.com/players/ashton-jeanty/news"
+    }
+   ]
+  },
+  {
+   "beat": "Rookies",
+   "team": "LV",
+   "players": [
+    "Mike Washington Jr."
+   ],
+   "kind": "depth_chart",
+   "headline": "Washington has a real role in Las Vegas even when Jeanty is healthy",
+   "summary": "Kubiak said both backs will prepare to 'play a lot of football' once Jeanty is available, which moves Washington from handcuff to committee member. That is a different bet from a pure injury stash and it is worth separating: one pays only if Jeanty sits.",
+   "impact": "alza",
+   "confidence": "informado",
+   "evidence_type": "OPINION",
+   "fantasy_relevance": 4,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "RotoBaller",
+     "title": "Week 1 Waiver Wire Pickups - MarShawn Lloyd, Mike Washington Jr., Tyler Allgeier",
+     "url": "https://www.rotoballer.com/week-1-waiver-wire-pickups-marshawn-lloyd-mike-washington-jr-tyler-allgeier-fantasy-football-outlooks/1921909"
+    },
+    {
+     "outlet": "RotoBaller",
+     "title": "Updated Fantasy Football Waiver Wire Rankings: Before Week 1 (2026)",
+     "url": "https://www.rotoballer.com/updated-fantasy-football-waiver-wire-rankings-before-week-1-2026/1919602"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "BAL",
+   "players": [
+    "Zay Flowers"
+   ],
+   "kind": "lesion",
+   "headline": "Flowers back at practice Thursday, and pointing at the opener",
+   "summary": "Flowers returned to practice on 3 September after a lower-body issue and looks ready for Baltimore's opener at Indianapolis.",
+   "impact": "alza",
+   "confidence": "informado",
+   "evidence_type": "OBSERVADO",
+   "fantasy_relevance": 4,
+   "published": "2026-09-03",
+   "published_at": "2026-09-03",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "title": "Zay Flowers returns to practice on Thursday",
+     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-09-03/zay-flowers-returns-to-practice-on-thursday"
+    },
+    {
+     "outlet": "NFL.com",
+     "title": "Official NFL Injury Report — Week 1 of the 2026 season",
+     "url": "https://www.nfl.com/injuries/league/2026/reg1"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "IND",
+   "players": [
+    "Alec Pierce"
+   ],
+   "kind": "lesion",
+   "headline": "Pierce a full participant Thursday: Indianapolis expects him for Week 1",
+   "summary": "Pierce practised fully on Thursday and looks available for the opener against Baltimore.",
+   "impact": "alza",
+   "confidence": "informado",
+   "evidence_type": "OBSERVADO",
+   "fantasy_relevance": 3,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "NFL news roundup: Ja'Marr Chase (knee) limited; Colts hope Alec Pierce can play Week 1",
+     "url": "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-tuesday-sept-1"
+    },
+    {
+     "outlet": "NFL.com",
+     "title": "Official Latest NFL Injury Report — Week 1",
+     "url": "https://www.nfl.com/injuries/"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "CHI",
+   "players": [
+    "Rome Odunze",
+    "D'Andre Swift"
+   ],
+   "kind": "lesion",
+   "headline": "Odunze and Swift both left Thursday's final camp practice — early word is neither is serious",
+   "summary": "Odunze left in the first half with an apparent right leg problem; Swift went out late with an apparent left leg issue, reported afterwards as cramping. Preliminary indications on Odunze are positive and the staff expects both back before the 13 September opener at Carolina. Recorded as observed and unresolved: 'left practice' is a fact, 'nothing serious' is still a read.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "OBSERVADO",
+   "fantasy_relevance": 4,
+   "published": "2026-09-03",
+   "published_at": "2026-09-03",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Chicago Sun-Times",
+     "title": "Bears practice report: RB D'Andre Swift, WR Rome Odunze leave with injuries",
+     "url": "https://chicago.suntimes.com/bears/2026/09/03/bears-practice-report-rb-dandre-swift-wr-rome-odunze-leave-with-injuries"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "RB D'Andre Swift's sudden exit from Bears practice due to 'a cramp'",
+     "url": "https://sports.yahoo.com/articles/rb-dandre-swift-sudden-exit-110452685.html"
+    },
+    {
+     "outlet": "Athlon Sports",
+     "title": "Bears Get Concerning Rome Odunze, D'Andre Swift News at Practice",
+     "url": "https://athlonsports.com/nfl/chicago-bears/rome-odunze-dandre-swift-injuries"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Rome Odunze, D'Andre Swift Leave Chicago Bears Practice Early",
+     "url": "https://www.si.com/nfl/bears/onsi/rome-odunze-d-andre-swift-chicago-bears-practice-injuries"
+    },
+    {
+     "outlet": "Bleacher Nation",
+     "title": "Bears Bits: Rome Odunze, D'Andre Swift Left Practice Early",
+     "url": "https://www.bleachernation.com/bears/2026/09/03/bears-odunze-swift-injury/"
+    },
+    {
+     "outlet": "Sportsnaut",
+     "title": "D'Andre Swift, Rome Odunze Leave Bears Practice. There's an Update.",
+     "url": "https://sportsnaut.com/nfl/dandre-swift-rome-odunze-leave-bears-practice-theres-an-update"
+    },
+    {
+     "outlet": "WMBD Radio",
+     "title": "Reports: Bears RB D'Andre Swift, WR Rome Odunze injured at practice",
+     "url": "https://wmbdradio.com/2026/09/03/reports-bears-rb-dandre-swift-wr-rome-odunze-injured-at-practice/"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "kind": "lesion",
+   "headline": "Nacua is back in full practice weeks and the Rams never treated the psoas as serious",
+   "summary": "Nacua left the joint practice with Dallas on 11 August with psoas soreness and missed just under three weeks. He returned on Sunday and has stayed healthy since; McVay said he expected him back 'ready to go'. He is not expected to miss regular-season time.",
+   "impact": "alza",
+   "confidence": "informado",
+   "evidence_type": "OBSERVADO",
+   "fantasy_relevance": 5,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TheRams.com",
+     "title": "Sean McVay: Puka Nacua dealing with soreness in psoas, expected back next week",
+     "url": "https://www.therams.com/news/rams-puka-nacua-injury-update-cowboys-joint-practice-psoas"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Puka Nacua Injury Update: Star Returns to Practice",
+     "url": "https://www.si.com/onsi/fantasy/news/puka-nacua-injury-update-fantasy-football-star-returns-to-practice-but-status-is-shaky"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Puka Nacua Injury Update: Will He Play in Week 1?",
+     "url": "https://sports.yahoo.com/articles/puka-nacua-injury-latest-rams-173309181.html"
+    },
+    {
+     "outlet": "Turf Show Times",
+     "title": "Puka Nacua back with Rams at Sunday's practice",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-news/147585/rams-nacua-garrett-donald-49ers-mcvay"
+    },
+    {
+     "outlet": "Pro Football Network",
+     "title": "Puka Nacua Injury Update: Will He Play in Week 1?",
+     "url": "https://www.profootballnetwork.com/puka-nacua-injury-update-rams-week-1/"
+    }
+   ]
+  },
+  {
+   "beat": "Suspensions",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "kind": "disciplina",
+   "headline": "Separately, Nacua and Alaric Jackson remain under league review",
+   "summary": "A legal matter involving Nacua and Alaric Jackson is still under the league's review, which is a discipline risk and not an injury one. It is filed apart from the psoas on purpose: the two would take him off the field for different reasons and resolve on different clocks.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "REPORTADO",
+   "fantasy_relevance": 3,
+   "published": "2026-09-01",
+   "published_at": "2026-09-01",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Deseret News",
+     "title": "Will Puka Nacua face any suspension time this season amid his legal situation?",
+     "url": "https://www.deseret.com/sports/2026/09/01/puka-nacua-week-one-status-los-angeles-rams/"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "SF",
+   "players": [
+    "George Kittle"
+   ],
+   "kind": "lesion",
+   "headline": "Kittle activated off PUP after January's Achilles",
+   "summary": "San Francisco activated Kittle from the PUP list on 23 August. He ruptured the Achilles on 11 January in the wild-card win over Philadelphia; the activation means the club believes he can play inside the first four weeks. It is not a Week 1 declaration, and no source here makes one.",
+   "impact": "alza",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 4,
+   "published": "2026-08-23",
+   "published_at": "2026-08-23",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "49ers activate Kittle from PUP list; McCaffrey returns to practice",
+     "url": "https://www.espn.com/nfl/story/_/id/49702970/49ers-activate-star-te-george-kittle-pup-list"
+    },
+    {
+     "outlet": "NBC Sports",
+     "title": "49ers activate George Kittle from PUP list",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-george-kittle-from-pup-list"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "49ers activate George Kittle from PUP list. Will he play Week 1?",
+     "url": "https://sports.yahoo.com/articles/49ers-activate-george-kittle-pup-183722079.html"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "49ers' George Kittle injury update provides massive Week 1 optimism",
+     "url": "https://sports.yahoo.com/articles/49ers-george-kittle-injury-provides-172234194.html"
+    },
+    {
+     "outlet": "Yardbarker",
+     "title": "49ers Activate George Kittle From PUP List: What it Means",
+     "url": "https://www.yardbarker.com/nfl/articles/49ers_activate_george_kittle_from_pup_list_what_it_means/s1_17615_44210953"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "HOU",
+   "players": [
+    "Jayden Higgins"
+   ],
+   "kind": "lesion",
+   "headline": "Higgins tore his ACL and is out for the season — Houston is a receiver short for Week 1",
+   "summary": "Higgins tore the ACL in a joint practice with Las Vegas, falling awkwardly on a red-zone route, and will miss 2026. As a rookie he drew 68 targets for 41 catches, 525 yards and six touchdowns. Houston opens against Buffalo.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 4,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "NFL Network: Texans WR Jayden Higgins (torn ACL) out for 2026 season",
+     "url": "https://www.nfl.com/news/texans-wr-jayden-higgins-torn-acl-out-2026-season"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Sources: Texans' Jayden Higgins has torn ACL, out for season",
+     "url": "https://www.espn.com/nfl/story/_/id/49660770/sources-texans-jayden-higgins-torn-acl-season"
+    },
+    {
+     "outlet": "CBS Sports",
+     "title": "Jayden Higgins injury: Texans WR out for 2026 season with torn ACL",
+     "url": "https://www.cbssports.com/nfl/news/jayden-higgins-injury-texans-torn-acl/"
+    },
+    {
+     "outlet": "NBC Sports",
+     "title": "Texans WR Jayden Higgins tore his ACL",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-wr-jayden-higgins-tore-his-acl"
+    },
+    {
+     "outlet": "FOX Sports",
+     "title": "Texans Receiver Jayden Higgins Suffers Season-Ending Torn ACL",
+     "url": "https://www.foxsports.com/stories/nfl/houston-texans-jayden-higgins-torn-acl-injury"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Texans WR Jayden Higgins Reportedly Tore ACL, Ending Season",
+     "url": "https://www.si.com/nfl/texans/onsi/texans-wr-jayden-higgins-reportedly-tore-acl-ending-season"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Texans lose WR to season-ending injury before Week 1's tilt with Bills",
+     "url": "https://sports.yahoo.com/articles/texans-lose-wr-season-ending-183236007.html"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Texans WR Jayden Higgins tears ACL in training camp, will miss 2026 season",
+     "url": "https://sports.yahoo.com/nfl/article/texans-wr-jayden-higgins-tears-acl-in-training-camp-will-miss-2026-nfl-season-025228261.html"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "NYJ",
+   "players": [
+    "Breece Hall",
+    "Braelon Allen"
+   ],
+   "kind": "lesion",
+   "headline": "Hall expected back for Week 1 after a groin strain, with Allen already holding the reps",
+   "summary": "Hall strained a groin and was given two to three weeks; he is expected back for the 13 September opener against Tennessee. Allen took the starting reps while he was out and ran seven times for 48 yards and a score in preseason. The open question is not availability, it is share: a groin on a running back tends to recur and it hits acceleration first.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "REPORTADO",
+   "fantasy_relevance": 4,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "FOX Sports",
+     "title": "Jets RB Breece Hall sidelined 2-to-3 weeks with a groin strain, expected back for Week 1",
+     "url": "https://www.foxsports.com/articles/nfl/jets-running-back-breece-hall-sidelined-2to3-weeks-with-a-groin-strain-expected-back-for-week-1"
+    },
+    {
+     "outlet": "RotoWire",
+     "title": "Breece Hall Injury: Expected back for Week 1",
+     "url": "https://www.rotowire.com/football/headlines/breece-hall-injury-expected-back-for-week-1-636191"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Breece Hall Injury Update: Will He Play in Week 1?",
+     "url": "https://sports.yahoo.com/articles/breece-hall-injury-latest-jets-155217581.html"
+    },
+    {
+     "outlet": "Athlon Sports",
+     "title": "Breece Hall Injury Could Open Door for Jets' Braelon Allen",
+     "url": "https://athlonsports.com/nfl/new-york-jets/breece-hall-injury-braelon-allen-jets"
+    },
+    {
+     "outlet": "NewYorkJets.com",
+     "title": "Jets' Braelon Allen Ready to Step Up with Breece Hall Sidelined",
+     "url": "https://www.newyorkjets.com/news/jets-rb-braelon-allen-breece-hall-working-towards-regular-season"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFL Training Camp Injury Report: latest news and updates for 2026 fantasy football",
+     "url": "https://sports.yahoo.com/fantasy/article/nfl-training-camp-injury-report-tracking-the-latest-news-updates-for-2026-fantasy-football-163938278.html"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "TB",
+   "players": [
+    "Emeka Egbuka",
+    "Jalen McMillan"
+   ],
+   "kind": "lesion",
+   "headline": "Egbuka's toe is a stable sprain, but he still has not practised fully",
+   "summary": "Egbuka had his foot rolled up in the joint practice with the Jets on 12 August and has not been a full participant since; he missed Tuesday. A specialist confirmed a sprain and called it stable, and Bowles said he is hopeful for the 13 September opener against Cincinnati. Beat coverage is blunter: Egbuka and McMillan (knee bruise) have lingering issues and are not locks.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "REPORTADO",
+   "fantasy_relevance": 4,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Sorting Out Buccaneers' Pre-Week 1 Injury News: What it Means for Egbuka",
+     "url": "https://www.si.com/nfl/buccaneers/onsi/sorting-out-buccaneers-pre-week-1-injury-news-what-it-means-for-emeka-egbuka"
+    },
+    {
+     "outlet": "Pewter Report",
+     "title": "Emeka Egbuka's Toe Injury: Experts Discuss Bucs WR's Week 1 Readiness",
+     "url": "https://www.pewterreport.com/emeka-egbuka-bucs-toe-injury-experts-discuss/"
+    },
+    {
+     "outlet": "RotoWire",
+     "title": "Emeka Egbuka Injury: Remains sidelined by toe issue",
+     "url": "https://www.rotowire.com/football/headlines/emeka-egbuka-injury-remains-sidelined-by-toe-issue-634768"
+    },
+    {
+     "outlet": "JoeBucsFan",
+     "title": "'Lingering Issues' For Emeka Egbuka, Jalen McMillan",
+     "url": "https://www.joebucsfan.com/2026/09/lingering-issues-for-emeka-egbuka-jalen-mcmillan/"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Emeka Egbuka Injury Update: Will He Play in Week 1?",
+     "url": "https://sports.yahoo.com/articles/emeka-egbuka-injury-latest-buccaneers-151528709.html"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "What Happened to Emeka Egbuka? Latest on the Buccaneers WR's Injury",
+     "url": "https://sports.yahoo.com/articles/happened-emeka-egbuka-latest-buccaneers-210018682.html"
+    },
+    {
+     "outlet": "Pro Football Network",
+     "title": "What Happened to Emeka Egbuka? Whether He'll Play Week 1",
+     "url": "https://www.profootballnetwork.com/what-happened-to-emeka-egbuka-injury-week-1-2026/"
+    },
+    {
+     "outlet": "Fantasy Football Calculator",
+     "title": "Emeka Egbuka Fantasy News (2026)",
+     "url": "https://fantasyfootballcalculator.com/players/emeka-egbuka/news"
+    }
+   ]
+  },
+  {
+   "beat": "Transactions",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson",
+    "Shedeur Sanders",
+    "Dillon Gabriel"
+   ],
+   "kind": "depth_chart",
+   "headline": "Cleveland: Watson named the starter, Gabriel to IR with a back injury",
+   "summary": "Monken named Watson the Week 1 starter over Sanders on 24 August. Gabriel hurt his back against New England and went on injured reserve, so he misses at least the first four games. The 53-man roster carries Watson, Sanders and rookie Taylen Green.",
+   "impact": "neutro",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 3,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Browns keep 3 QBs on roster, put Dillon Gabriel (back) on IR",
+     "url": "https://www.espn.com/nfl/story/_/id/49776263/browns-keep-3-qbs-roster-put-dillon-gabriel-back-ir"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Browns Place QB Dillon Gabriel on Injured Reserve After Naming Watson Starter",
+     "url": "https://sports.yahoo.com/articles/browns-place-qb-dillon-gabriel-192059545.html"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Dillon Gabriel's Injury Delays This Browns Quarterback Decision",
+     "url": "https://www.si.com/nfl/browns/onsi/dillon-gabriel-s-injury-delays-this-browns-quarterback-decision-01m1cp91tnhs"
+    },
+    {
+     "outlet": "Athlon Sports",
+     "title": "Browns Make Dillon Gabriel Move After Shedeur Sanders News",
+     "url": "https://athlonsports.com/nfl/trending/browns-make-dillon-gabriel-move-after-shedeur-sanders-news"
+    },
+    {
+     "outlet": "Bolavip US",
+     "title": "Browns make final decision on Gabriel and Sanders: QB depth chart",
+     "url": "https://bolavip.com/en/nfl/browns-make-final-decision-on-dillon-gabriel-and-shedeur-sanders-qb-depth-chart-after-roster-deadline"
+    },
+    {
+     "outlet": "Heavy",
+     "title": "Browns' Shedeur Sanders Gets Warning Ahead of Week 1",
+     "url": "https://heavy.com/sports/nfl/cleveland-browns/shedeur-sanders-gets-warning-trade-gabriel/"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "WAS",
+   "players": [
+    "Laremy Tunsil"
+   ],
+   "kind": "lesion",
+   "headline": "Tunsil to injured reserve after triceps surgery — likely the whole season",
+   "summary": "Washington placed Tunsil on IR while he recovers from surgery on a torn right triceps. The reporting expects him out far beyond the four-game minimum, plausibly the full regular season. It is a line-of-scrimmage item, not a skill-position one, but it is the kind that quietly moves a whole offence's efficiency.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 2,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "The Fantasy Footballers",
+     "title": "Laremy Tunsil placed on injured reserve",
+     "url": "https://www.thefantasyfootballers.com/news/635637/-placed-on-injured-reserve/"
+    },
+    {
+     "outlet": "Hogs Haven",
+     "title": "Quick thoughts on the initial 53-man roster",
+     "url": "https://www.hogshaven.com/post/9mcEPJAJsHth"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Commanders receive positive injury news on two starters",
+     "url": "https://sports.yahoo.com/articles/commanders-receive-positive-injury-news-085111288.html"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "WAS",
+   "players": [
+    "Marcus Mariota"
+   ],
+   "kind": "lesion",
+   "headline": "Mariota sprained an MCL and missed the rest of the preseason",
+   "summary": "Washington's backup quarterback sprained his MCL in the first quarter of the preseason opener against Miami and sat out the rest of the preseason.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 2,
+   "published": "2026-08-16",
+   "published_at": "2026-08-16",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "The Washington Post",
+     "title": "Knee injury to sideline Marcus Mariota for rest of Commanders' preseason",
+     "url": "https://www.washingtonpost.com/sports/2026/08/16/knee-injury-sideline-marcus-mariota-rest-commanders-preseason/"
+    }
+   ]
+  },
+  {
+   "beat": "Transactions",
+   "team": "DAL",
+   "players": [
+    "Broderick Jones"
+   ],
+   "kind": "transaccion",
+   "headline": "Dallas trades for Broderick Jones five days before the opener",
+   "summary": "The Cowboys sent 2027 third- and sixth-round picks to Pittsburgh, which attached a 2027 fourth alongside Jones. The 14th pick of the 2023 draft is coming off a neck injury that cost him the last six games of 2025 and has started at both tackle spots; his 2026 base salary is $1.5m before free agency. Pittsburgh drafted Max Iheanachor 21st overall to take the right side.",
+   "impact": "neutro",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 2,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CBS Sports",
+     "title": "Steelers trade Broderick Jones to Cowboys: Pick compensation, trade grades",
+     "url": "https://www.cbssports.com/nfl/news/cowboys-steelers-trade-broderick-jones/"
+    },
+    {
+     "outlet": "DallasCowboys.com",
+     "title": "Cowboys finalize trade for Steelers OT Broderick Jones",
+     "url": "https://www.dallascowboys.com/news/cowboys-agree-to-terms-on-trade-for-ot-broderick-jones"
+    },
+    {
+     "outlet": "NBC Sports",
+     "title": "Steelers trade Broderick Jones to Cowboys",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-trade-broderick-jones-to-cowboys"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Steelers-Cowboys Trade Grades: Pittsburgh Deals OT Broderick Jones to Dallas",
+     "url": "https://www.si.com/nfl/steelers-cowboys-trade-grades-pittsburgh-deals-broderick-jones-dallas"
+    },
+    {
+     "outlet": "DK Pittsburgh Sports",
+     "title": "Steelers trade Broderick Jones to Cowboys",
+     "url": "https://www.dkpittsburghsports.com/team/steelers/feed/topic/steelers-trade-broderick-jones-cowboys-news-nfl-cah"
+    }
+   ]
+  },
+  {
+   "beat": "Suspensions",
+   "team": "ATL",
+   "players": [
+    "James Pearce Jr."
+   ],
+   "kind": "disciplina",
+   "headline": "Pearce Jr. suspended eight games under the personal conduct policy",
+   "summary": "The league suspended the Falcons defensive end for the first eight games after ruling he violated the personal conduct policy; he was arrested this offseason and charged with three felonies including aggravated battery and resisting an officer with violence.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 2,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Every Player Suspended to Start the 2026 NFL Season",
+     "url": "https://www.si.com/nfl/every-player-suspended-start-season"
+    },
+    {
+     "outlet": "Pro Football Network",
+     "title": "How Do NFL Suspensions Work? The League's Personal Conduct Policy",
+     "url": "https://www.profootballnetwork.com/how-do-nfl-suspensions-work/"
+    }
+   ]
+  },
+  {
+   "beat": "Suspensions",
+   "team": "MIN",
+   "players": [
+    "Jeshaun Jones"
+   ],
+   "kind": "disciplina",
+   "headline": "Jeshaun Jones suspended three games for the substances-of-abuse policy",
+   "summary": "The Vikings receiver misses the first three games. He is a depth piece, but the mark matters for the same reason the exempt list does: a suspended player still shows as rostered, so no amount of roster data would catch it.",
+   "impact": "baja",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 2,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Every Player Suspended to Start the 2026 NFL Season",
+     "url": "https://www.si.com/nfl/every-player-suspended-start-season"
+    }
+   ]
+  },
+  {
+   "beat": "Transactions",
+   "team": "LV",
+   "players": [],
+   "kind": "transaccion",
+   "headline": "Cutdown day and waivers: 1,100+ players moved, 14 teams claimed 29, Will Levis went unclaimed",
+   "summary": "All 32 clubs cut to 53 by 30 August; more than 1,100 players were released, waived or shelved with an injury designation. The claim window closed at 1 p.m. ET on 31 August — fourteen teams claimed 29 players, Miami taking seven. Will Levis cleared waivers unclaimed after Tennessee released him. Practice squads opened at noon the same day: 16 spots, up to six of them veterans with no accrued-season limit. The 2026 waiver order follows the draft order, so Las Vegas had first call.",
+   "impact": "neutro",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 3,
+   "published": "2026-08-31",
+   "published_at": "2026-08-31",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CBS Sports",
+     "title": "NFL waiver wire tracker 2026: Will Levis goes unclaimed, Dolphins claim seven",
+     "url": "https://www.cbssports.com/nfl/news/nfl-waiver-wire-tracker-every-teams-claims-after-53-man-roster-cuts/"
+    },
+    {
+     "outlet": "CBS Sports",
+     "title": "NFL waiver wire order for 2026: Where all 32 teams rank after roster cuts",
+     "url": "https://www.cbssports.com/nfl/news/nfl-waiver-order-2026/"
+    },
+    {
+     "outlet": "CBS Sports",
+     "title": "2026 NFL roster cuts tracker: Every move made on cutdown day",
+     "url": "https://www.cbssports.com/nfl/news/2026-nfl-roster-cuts-tracker-live-updates-latest-moves-trade-rumors-as-all-32-teams-finalize-53-man-rosters/live/"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "2026 NFL roster cuts: Biggest moves, more for all 32 teams",
+     "url": "https://www.espn.com/nfl/story/_/id/49681232/2026-nfl-cuts-all-32-teams-cutdown-moves-updates-tracker"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "NFL Roster Cuts 2026 Live Updates",
+     "url": "https://www.si.com/nfl/nfl-roster-cuts-2026-live-updates-tracking-players-released"
+    },
+    {
+     "outlet": "DAZN",
+     "title": "NFL roster cutdown 2026: 53-man deadline and waivers",
+     "url": "https://www.dazn.com/en-US/news/american-football/nfl-roster-cutdown-2026-deadline-waivers-practice-squad/1sx527m2y7r0r1d7z0qqdk35na"
+    },
+    {
+     "outlet": "Hogs Haven",
+     "title": "How it works: NFL practice squad rules, eligibility, salary, waiver wire",
+     "url": "https://www.hogshaven.com/washington-commanders-roster/435033/how-it-works-nfl-practice-squad-rules-eligibility-salary-waiver-wire"
+    },
+    {
+     "outlet": "Pride Of Detroit",
+     "title": "2026 Detroit Lions practice squad, waiver wire tracker",
+     "url": "https://www.prideofdetroit.com/detroit-lions-roster/24481030/2026-detroit-lions-practice-squad-waiver-wire-tracker"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Patriots practice squad and waiver wire tracker",
+     "url": "https://sports.yahoo.com/articles/patriots-practice-squad-waiver-wire-160000332.html"
+    }
+   ]
+  },
+  {
+   "beat": "Transactions",
+   "team": "NO",
+   "players": [
+    "Tyler Shough",
+    "Spencer Rattler"
+   ],
+   "kind": "depth_chart",
+   "headline": "New Orleans goes with Shough; Rattler is the backup — and the search results for this are a trap",
+   "summary": "New Orleans is committed to Shough as the 2026 starter after he took over from Rattler in the second half of last season; Rattler and Zach Wilson are the other two quarterbacks on the 53-man roster. Worth writing down because searching this today still surfaces a 2025 headline naming Rattler the Week 1 starter and another calling Shough a rookie. Both are real articles and both are last year's — the only thing wrong with them is the time, which is the failure mode that does not look like one.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "REPORTADO",
+   "fantasy_relevance": 3,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "title": "2026 New Orleans Saints Fantasy Preview: Tyler Shough and Chris Olave lead the offense",
+     "url": "https://www.nbcsports.com/fantasy/football/news/2026-new-orleans-saints-fantasy-preview-tyler-shough-and-chris-olave-lead-the-offense"
+    },
+    {
+     "outlet": "CBS Sports",
+     "title": "Saints' Tyler Shough: Considered 2026 starter by Saints",
+     "url": "https://www.cbssports.com/fantasy/football/news/saints-tyler-shough-considered-2026-starter-by-saints"
+    },
+    {
+     "outlet": "NewOrleansSaints.com",
+     "title": "Morning Break: A closer look at the Saints' initial 53-man roster",
+     "url": "https://www.neworleanssaints.com/news/morning-break-a-closer-look-at-the-saints-initial-53-man-roster-new-orleans-news-headlines-8-31-2026"
+    },
+    {
+     "outlet": "Deseret News",
+     "title": "Zach Wilson made it through cuts. Who will be the Saints' backup QB?",
+     "url": "https://www.deseret.com/sports/2026/08/31/zach-wilson-spencer-rattler-saints-backup-quarterback-tyler-shough/"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Saints vs. Lions preview Week 1",
+     "url": "https://sports.yahoo.com/videos/saints-vs-lions-preview-week-185451512.html"
+    }
+   ]
+  },
+  {
+   "beat": "Analysts",
+   "team": "BAL",
+   "players": [
+    "Derrick Henry"
+   ],
+   "kind": "otro",
+   "headline": "Baltimore opens at Indianapolis with a new head coach and three new interior linemen",
+   "summary": "Jesse Minter, the Chargers' defensive coordinator, replaced John Harbaugh — who is now the Giants' head coach. The Ravens also debut a new centre and two new guards. Henry, in his 11th season, is still the clear workhorse ahead of Justice Hill after 1,595 yards, 16 touchdowns and 5.2 a carry last year. A rebuilt interior in front of a 32-year-old back is the kind of change the model does not see at all.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "REPORTADO",
+   "fantasy_relevance": 4,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "2026 Colts schedule: Early preview of Week 1 matchup vs. Ravens",
+     "url": "https://sports.yahoo.com/articles/2026-colts-schedule-early-preview-150232337.html"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Ravens vs. Colts preview Week 1",
+     "url": "https://sports.yahoo.com/videos/ravens-vs-colts-preview-week-191242784.html"
+    },
+    {
+     "outlet": "Dimers",
+     "title": "Ravens vs. Colts Week 1 predictions and best bets",
+     "url": "https://www.dimers.com/betting/action/early-ravens-vs-colts-week-1-predictions-bet365-derrick-henry-first-td-scorer-prop-and-best-bets"
+    }
+   ]
+  },
+  {
+   "beat": "Analysts",
+   "team": "IND",
+   "players": [
+    "Jonathan Taylor"
+   ],
+   "kind": "otro",
+   "headline": "Taylor comes off his first fully healthy season: 1,585 rushing yards, 20 total touchdowns",
+   "summary": "After missing at least three games in each of 2022-24, Taylor played all 17 games in 2025 above 70% of snaps in all but one, with 1,585 rushing yards, 20 touchdowns and career highs of 46 catches and 378 receiving yards. He opens at home against Baltimore.",
+   "impact": "alza",
+   "confidence": "informado",
+   "evidence_type": "REPORTADO",
+   "fantasy_relevance": 4,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "title": "2026 Colts schedule: Early preview of Week 1 matchup vs. Ravens",
+     "url": "https://sports.yahoo.com/articles/2026-colts-schedule-early-preview-150232337.html"
+    },
+    {
+     "outlet": "FOX Sports",
+     "title": "Jonathan Taylor — NFL News, Rumors, & Updates",
+     "url": "https://www.foxsports.com/nfl/jonathan-taylor-player"
+    }
+   ]
+  },
+  {
+   "beat": "Analysts",
+   "team": "LV",
+   "players": [
+    "Brock Bowers"
+   ],
+   "kind": "otro",
+   "headline": "The tight end board is a two-man argument, and the consensus does not settle it",
+   "summary": "Bowers and McBride sit alone at the top and the sites disagree on the order: some have McBride first, others expect Bowers to lead the position in targets. Behind them the usual list is Tyler Warren, Harold Fannin Jr., Colston Loveland and Tucker Kraft. Recorded as an unresolved disagreement rather than flattened into an average — in a one-slot position the order between the top two is the entire decision.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "OPINION",
+   "fantasy_relevance": 4,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "title": "2026 Fantasy Football Tight End Tiers: Bowers and McBride fighting for TE1",
+     "url": "https://www.nbcsports.com/fantasy/football/news/2026-fantasy-football-tight-end-tiers-brock-bowers-and-trey-mcbride-fighting-for-te1-spot"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "title": "Full Fantasy Football Tight End Rankings 2026",
+     "url": "https://www.si.com/onsi/fantasy/rankings/full-fantasy-football-tight-end-rankings-2026-trey-mcbride-and-brock-bowers-battlefor-the-top-spot"
+    },
+    {
+     "outlet": "CBS Sports",
+     "title": "Jamey Eisenberg's Fantasy Football Tight End Tiers",
+     "url": "https://www.cbssports.com/fantasy/football/news/tight-end-tiers-fantasy-football-rankings-2026/"
+    },
+    {
+     "outlet": "Footballguys",
+     "title": "2026 Fantasy Football TE Rankings: Tiers and Strategy",
+     "url": "https://www.footballguys.com/article/2026-tight-end-fantasy-football-rankings-tiers-august"
+    },
+    {
+     "outlet": "NFL.com",
+     "title": "2026 NFL fantasy football: Top seven TE values",
+     "url": "https://www.nfl.com/news/2026-nfl-fantasy-football-top-seven-te-values"
+    },
+    {
+     "outlet": "PhillyVoice",
+     "title": "2026 fantasy football TE rankings",
+     "url": "https://www.phillyvoice.com/2026-fantasy-football-tight-end-rankings-cheat-sheet-top-150-draft-stats-analysis-sleepers-breakout-brock-bowers-trey-mcbride/"
+    },
+    {
+     "outlet": "FanSided",
+     "title": "Fantasy football rankings 2026: Tight end tiers and draft strategy",
+     "url": "https://fansided.com/nfl/fantasy-football-rankings-2026-tight-end-tiers-and-draft-strategy"
+    },
+    {
+     "outlet": "Seahawks.com",
+     "title": "Fantasy Football Rankings and Analysis for 2026: Tight Ends, Defenses and Kickers",
+     "url": "https://www.seahawks.com/news/fantasy-football-rankings-and-analysis-for-2026-tight-ends-defenses-and-kickers"
+    }
+   ]
+  },
+  {
+   "beat": "Analysts",
+   "team": "LAC",
+   "players": [],
+   "kind": "otro",
+   "headline": "The Week 1 streaming defence everyone lands on is the Chargers against Arizona",
+   "summary": "Los Angeles hosts Arizona as an 11.5-point favourite and follows with Las Vegas, which is why it heads most streaming lists after a top-ten finish in both sacks and takeaways. Filed as opinion, not fact: it is a matchup read, and the board does not move on it.",
+   "impact": "alza",
+   "confidence": "informado",
+   "evidence_type": "OPINION",
+   "fantasy_relevance": 3,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "RotoBaller",
+     "title": "Week 1 Defense (DEF) Streamers, Starters, and Rankings",
+     "url": "https://www.rotoballer.com/week-1-defense-def-streamers-starters-and-rankings-2026-fantasy-tiers-rankings/1916094"
+    },
+    {
+     "outlet": "RotoBaller",
+     "title": "Fantasy Football Defense (D/ST) Rankings: Streamers for Weeks 1-4",
+     "url": "https://www.rotoballer.com/fantasy-football-defense-d-st-rankings-streamers-for-weeks-1-2-3-4-2026/1917111"
+    },
+    {
+     "outlet": "Draft Sharks",
+     "title": "Streaming Defense Week 1: Target These Matchups",
+     "url": "https://www.draftsharks.com/article/streaming-defense"
+    }
+   ]
+  },
+  {
+   "beat": "Analysts",
+   "team": "SEA",
+   "players": [
+    "Jason Myers"
+   ],
+   "kind": "otro",
+   "headline": "Kickers: Myers opens as the consensus K1, with the regression note attached",
+   "summary": "Myers was the top-scoring kicker last season and opens the year as the consensus number one, with the caveat that the position regresses hard year over year. Chase McLaughlin is the popular stream against a Cincinnati defence expected to allow field-goal range.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "OPINION",
+   "fantasy_relevance": 2,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "FantasyPros",
+     "title": "Fantasy Football Kicker Rankings & Start/Sit Advice (Week 1)",
+     "url": "https://www.fantasypros.com/2026/09/fantasy-football-kicker-rankings-start-sit-advice-week-1-2026/"
+    },
+    {
+     "outlet": "RotoBaller",
+     "title": "Week 1 Kicker Streamers, Starters, and Rankings",
+     "url": "https://www.rotoballer.com/week-1-kicker-streamers-starters-and-rankings-2026-fantasy-tiers-rankings/1917650"
+    }
+   ]
+  },
+  {
+   "beat": "Analysts",
+   "team": "SEA",
+   "players": [],
+   "kind": "otro",
+   "headline": "A Wednesday opener and a Thursday game abroad break the usual lineup habits",
+   "summary": "With games on Wednesday and Thursday before the Sunday slate, the start/sit columns are all making the same operational point: lock the early-game players out of flex spots before kickoff, because a Wednesday starter cannot be swapped back once the week begins. It is not a projection, it is a calendar consequence — and it only exists this season.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "OPINION",
+   "fantasy_relevance": 3,
+   "published": "2026-09-04",
+   "published_at": "2026-09-04",
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "RotoBaller",
+     "title": "Fantasy Football Start 'Em, Sit 'Em for Week 1 (2026)",
+     "url": "https://www.rotoballer.com/fantasy-football-start-em-sit-em-for-week-1-2026/1920545"
+    },
+    {
+     "outlet": "RotoBaller",
+     "title": "Start/Sit Chart - Week 1 Fantasy Football Matchups for All Games",
+     "url": "https://www.rotoballer.com/start-sit-chart-week-1-fantasy-football-matchups-for-all-games-2026/1917839"
+    },
+    {
+     "outlet": "RotoBaller",
+     "title": "Week 1 Fantasy Football Quarterback (QB) Updated Rankings",
+     "url": "https://www.rotoballer.com/week-1-fantasy-football-quarterback-qb-updated-rankings-2026/1920438"
+    },
+    {
+     "outlet": "Forbes",
+     "title": "NFL 2026 Week 1: Your Best Stud, Dud With Stats For Fantasy Football",
+     "url": "https://www.forbes.com/sites/gladyslouisetyler/2026/09/04/nfl-2026-week-1-your-best-stud-dud-with-stats-for-fantasy-football/"
+    },
+    {
+     "outlet": "PrizePicks",
+     "title": "Start 'Em, Sit 'Em, Early NFL Week 1",
+     "url": "https://www.prizepicks.com/playbook-article/start-em-sit-em-early-nfl-week-1-trevor-lawrence-drake-maye-headline-qbs"
+    },
+    {
+     "outlet": "Stat Pick",
+     "title": "2026 Week 1 Fantasy Football Start/Sit Verdicts",
+     "url": "https://www.statpick.ai/start-sit/week/2026-week-1"
+    }
+   ]
+  },
+  {
+   "beat": "Analysts",
+   "team": "IND",
+   "players": [],
+   "kind": "otro",
+   "headline": "Where the published consensus rankings come from this week",
+   "summary": "Filed so the provenance of any 'consensus' number on this site is checkable rather than assumed: RotoWire averages four analysts, ESPN publishes eight named rankers, Yahoo six, and FantasyPros aggregates across sites. Every one of these is opinion, and none of them feeds a calculation here.",
+   "impact": "neutro",
+   "confidence": "informado",
+   "evidence_type": "OPINION",
+   "fantasy_relevance": 2,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "RotoWire",
+     "title": "2026 Fantasy Football RB Rankings (NFL Preseason Week 1)",
+     "url": "https://www.rotowire.com/football/article/2026-fantasy-football-rb-rankings-nfl-preseason-week-1-127660"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Fantasy football rankings for Week 1: Running back",
+     "url": "https://www.espn.com/fantasy/football/story/_/page/FFWeeklyPlayerRank26-49804068/nfl-fantasy-football-rankings-2026-rb-running-back"
+    },
+    {
+     "outlet": "ESPN",
+     "title": "Fantasy football draft rankings 2026: Running back",
+     "url": "https://www.espn.com/fantasy/football/story/_/page/FFPreseasonRank26RB/nfl-fantasy-football-draft-rankings-2026-rb-running-back"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "Fantasy Football Full PPR Rankings: Top running backs",
+     "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-full-ppr-rankings-top-running-backs-180811824.html"
+    },
+    {
+     "outlet": "FantasyPros",
+     "title": "2026 Running Back Fantasy Football Rankings",
+     "url": "https://www.fantasypros.com/nfl/fantasy-football-rankings/rb.php"
+    },
+    {
+     "outlet": "RotoBaller",
+     "title": "Week 1 Fantasy Football Running Back (RB) Updated Rankings",
+     "url": "https://www.rotoballer.com/week-1-fantasy-football-running-back-rb-updated-rankings-2026/1920835"
+    },
+    {
+     "outlet": "Footballguys",
+     "title": "Fantasy Football 2026 Week 1 Rankings",
+     "url": "https://www.footballguys.com/rankings/duration/weekly"
+    }
+   ]
+  },
+  {
+   "beat": "Injuries",
+   "team": "DAL",
+   "players": [],
+   "kind": "otro",
+   "headline": "Where the official Week 1 injury reports live, and why they outrank everything above",
+   "summary": "The first official participation reports of the season publish this week. Filed deliberately: everything in this sweep that says 'expected', 'optimistic' or 'hopeful' is reporting, and an official DNP or a game-status designation supersedes all of it. When the two disagree, the official line wins and the disagreement stays visible rather than being overwritten.",
+   "impact": "neutro",
+   "confidence": "confirmado",
+   "evidence_type": "HECHO",
+   "fantasy_relevance": 3,
+   "published": null,
+   "published_at": null,
+   "first_seen_at": "2026-09-04T18:00:00+00:00",
+   "confirmed_at": null,
+   "resolution": null,
+   "source_type": "WEB_SEARCH",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "title": "Official NFL Injury Report for Players — Week 1 of the 2026 Season",
+     "url": "https://www.nfl.com/injuries/league/2026/reg1"
+    },
+    {
+     "outlet": "NFL.com",
+     "title": "Official Latest NFL Injury Report",
+     "url": "https://www.nfl.com/injuries/"
+    },
+    {
+     "outlet": "CBS Sports",
+     "title": "NFL Injury Report and Status 2026-27",
+     "url": "https://www.cbssports.com/nfl/injuries/"
+    },
+    {
+     "outlet": "Sharp Football Analysis",
+     "title": "2026 NFL Injury Report: Injured Reserve Tracker",
+     "url": "https://www.sharpfootballanalysis.com/analysis/nfl-injury-report-ir-tracker/"
+    },
+    {
+     "outlet": "Footballguys",
+     "title": "Weekly Injury Report By Team",
+     "url": "https://www.footballguys.com/injuries/weekly-report"
+    },
+    {
+     "outlet": "FantasyPros",
+     "title": "13 Fantasy Football Injuries to Monitor (2026)",
+     "url": "https://www.fantasypros.com/2026/08/13-fantasy-football-injuries-to-monitor-2026/"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "title": "NFL news, live updates: roster cuts, waiver claims prior to Week 1",
+     "url": "https://sports.yahoo.com/nfl/live/nfl-news-injury-updates-roster-cuts-waiver-claims-prior-to-week-1-143714619.html"
+    }
+   ]
+  }
+ ],
+ "model": "manual sweep (Claude, WebSearch, 24 queries)",
+ "beats": [
+  "Injuries",
+  "Suspensions",
+  "Transactions",
+  "Rookies",
+  "Analysts"
+ ],
+ "sources_unique": 194,
+ "outlets_unique": 74,
+ "schema_version": 2
+}

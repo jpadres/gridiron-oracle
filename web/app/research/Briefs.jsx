@@ -34,6 +34,11 @@ const KIND = {
   esquema: "Scheme", otro: "Other",
 };
 const CONFIDENCE = {
+  // `oficial` no está en el enum del barrido automático, pero SÍ lo escribieron
+  // cinco fichas manuales de agosto. Sin esta fila caían al `?? rumor` de abajo
+  // y un anuncio oficial se leía «Rumor» — el archivo no se reescribe nunca
+  // (regla del esquema), así que lo que se arregla es el TRADUCTOR.
+  oficial: { label: "Official", hint: "Announced by the team or the league itself." },
   confirmado: { label: "Confirmed", hint: "Official team or league announcement." },
   informado: { label: "Reported", hint: "A named insider is reporting it." },
   rumor: { label: "Rumor", hint: "Speculation, or unnamed sources." },
@@ -109,8 +114,10 @@ export default function Briefs({ items = [] }) {
     return items.filter((item) => {
       if (team !== "ALL" && item.team !== team) return false;
       // «Mueve una alineación» es la relevancia 4-5 que ya declara el barrido,
-      // no un umbral nuevo inventado aquí.
-      if (onlyLineup && Number(item.relevance) < 4) return false;
+      // no un umbral nuevo inventado aquí. El campo es `fantasy_relevance`:
+      // escrito `relevance` daba `Number(undefined)` = NaN, y NaN < 4 es FALSO,
+      // así que el filtro no descartaba NADA y el botón parecía funcionar.
+      if (onlyLineup && !(Number(item.fantasy_relevance) >= 4)) return false;
       if (q && !norm(item.headline).includes(q) && !norm(item.summary).includes(q)
           && !norm((item.players ?? []).join(" ")).includes(q)) return false;
       return true;

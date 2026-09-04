@@ -1,965 +1,960 @@
 {
-  "_comentario": [
-    "Estados de disponibilidad que NO están en los datos de nflverse: un jugador",
-    "puede figurar ACT en su plantilla y estar apartado sin fecha de vuelta.",
-    "Cada entrada lleva su fuente y sus dos fechas — `effective_at` es cuándo",
-    "empezó el estado y `verified_at` cuándo se comprobó por última vez. La",
-    "segunda es la que caduca: pasada la ventana, la interfaz deja de decir que",
-    "es actual y escribe «último verificado».",
-    "NADA de esto entra en ninguna cuenta: ni proyección, ni VOR, ni tier.",
-    "Los `player_id` son de nflverse y están resueltos a mano contra el board.",
-    "Un id que no exista no emparejará con nadie, y el build lo dice."
-  ],
-  "season": 2026,
-  "updated_at": "2026-09-03",
-  "entries": [
+ "_comentario": [
+  "Estados de disponibilidad que NO están en los datos de nflverse: un jugador",
+  "puede figurar ACT en su plantilla y estar apartado sin fecha de vuelta.",
+  "Cada entrada lleva su fuente y sus dos fechas — `effective_at` es cuándo",
+  "empezó el estado y `verified_at` cuándo se comprobó por última vez. La",
+  "segunda es la que caduca: pasada la ventana, la interfaz deja de decir que",
+  "es actual y escribe «último verificado».",
+  "NADA de esto entra en ninguna cuenta: ni proyección, ni VOR, ni tier.",
+  "Los `player_id` son de nflverse y están resueltos a mano contra el board.",
+  "Un id que no exista no emparejará con nadie, y el build lo dice."
+ ],
+ "season": 2026,
+ "updated_at": "2026-09-04",
+ "entries": [
+  {
+   "player_id": "00-0035700",
+   "player": "Josh Jacobs",
+   "team": "GB",
+   "status": "EXEMPT",
+   "detail": "Still on the Commissioner's Exempt List as of 2 September, with no timeline: he stays on it until Goodell removes him, his first court date is 17 November, and the league says it is still reviewing the case. MarShawn Lloyd is the favourite to lead Green Bay's backfield in Week 1, with Chris Brooks and Kaleb Johnson behind him.",
+   "games_out": null,
+   "effective_at": "2026-08-30",
+   "verified_at": "2026-09-04",
+   "sources": [
     {
-      "player_id": "00-0035700",
-      "player": "Josh Jacobs",
-      "team": "GB",
-      "status": "EXEMPT",
-      "detail": "Still on the Commissioner's Exempt List as of 2 September, with no timeline: he stays on it until Goodell removes him, his first court date is 17 November, and the league says it is still reviewing the case. MarShawn Lloyd is the favourite to lead Green Bay's backfield in Week 1, with Chris Brooks and Kaleb Johnson behind him.",
-      "games_out": null,
-      "effective_at": "2026-08-30",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "ESPN",
-          "url": "https://www.espn.com/nfl/story/_/id/49774523/packers-rb-josh-jacobs-placed-commission-exempt-list"
-        },
-        {
-          "outlet": "NFL.com",
-          "url": "https://www.nfl.com/news/nfl-places-packers-rb-josh-jacobs-commissioner-exempt-list"
-        },
-        {
-          "outlet": "Pro Football Network",
-          "url": "https://www.profootballnetwork.com/will-josh-jacobs-be-suspended-packers-week-1/"
-        }
-      ]
+     "outlet": "ESPN",
+     "url": "https://www.espn.com/nfl/story/_/id/49774523/packers-rb-josh-jacobs-placed-commission-exempt-list"
     },
     {
-      "player_id": "00-0039710",
-      "player": "Jeshaun Jones",
-      "team": "MIN",
-      "status": "SUSPENDED",
-      "detail": "Suspended for the first three games of 2026. Eligible to return in Week 4.",
-      "games_out": 3,
-      "effective_at": "2026-08-30",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Sports Illustrated",
-          "url": "https://www.si.com/nfl/every-player-suspended-start-season"
-        }
-      ]
+     "outlet": "NFL.com",
+     "url": "https://www.nfl.com/news/nfl-places-packers-rb-josh-jacobs-commissioner-exempt-list"
     },
     {
-      "player_id": "00-0033553",
-      "player": "James Conner",
-      "team": "ARI",
-      "status": "IR",
-      "detail": "Foot. Opens the season on injured reserve with a designation to return: out at least the first four games.",
-      "games_out": 4,
-      "effective_at": "2026-08-30",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Draft Sharks",
-          "url": "https://www.draftsharks.com/fantasy-football-news/82412/james-conner-to-open-2026-on-ir-missing-cardinals-first-4-gam"
-        },
-        {
-          "outlet": "ClutchPoints",
-          "url": "https://clutchpoints.com/nfl/arizona-cardinals/cardinals-news-james-conner-miss-at-least-4-games-latest-injury-move"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0039165",
-      "player": "Zach Charbonnet",
-      "team": "SEA",
-      "status": "RESERVE_PUP",
-      "detail": "Knee. Moved from active/PUP to reserve/PUP in the cut to 53: out a minimum of four games.",
-      "games_out": 4,
-      "effective_at": "2026-08-30",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Pro Football Rumors",
-          "url": "https://www.profootballrumors.com/2026/08/zach-charbonnet-shifts-to-reserve-pup-list-seahawks-reduce-roster-to"
-        },
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-30/seahawks-release-final-roster-cuts"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0041029",
-      "player": "Jordyn Tyson",
-      "team": "NO",
-      "status": "IR",
-      "detail": "The No. 8 pick starts on IR with the hamstring: at least four games out.",
-      "games_out": 4,
-      "effective_at": "2026-08-30",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Draft Sharks",
-          "url": "https://www.draftsharks.com/fantasy-football-news/82408/saints-put-jordyn-tyson-on-ir-rookie-wr-out-at-least-four-gam"
-        },
-        {
-          "outlet": "Yahoo Sports",
-          "url": "https://sports.yahoo.com/articles/orleans-saints-place-first-round-231251600.html"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0038977",
-      "player": "Tank Dell",
-      "team": "HOU",
-      "status": "IR",
-      "detail": "Knee. Opens the season on injured reserve with a designation to return: out at least four games.",
-      "games_out": 4,
-      "effective_at": "2026-08-30",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-30/tank-dell-lands-on-injured-reserve-return"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0034775",
-      "player": "Christian Kirk",
-      "team": "SF",
-      "status": "IR",
-      "detail": "Calf. San Francisco placed him on injured reserve with a designation to return in the cut to 53.",
-      "games_out": 4,
-      "effective_at": "2026-08-30",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NBC Sports Bay Area",
-          "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/christian-kirk-injured-reserve/1958616/"
-        },
-        {
-          "outlet": "Yahoo Sports",
-          "url": "https://sports.yahoo.com/articles/49ers-place-former-4th-round-212007671.html"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0040130",
-      "player": "Jayden Higgins",
-      "team": "HOU",
-      "status": "OUT_FOR_SEASON",
-      "detail": "Torn ACL in a joint practice on 18 August. Out for the whole 2026 season.",
-      "games_out": 17,
-      "effective_at": "2026-08-18",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "ESPN",
-          "url": "https://www.espn.com/nfl/story/_/id/49660770/sources-texans-jayden-higgins-torn-acl-season"
-        },
-        {
-          "outlet": "NFL.com",
-          "url": "https://www.nfl.com/news/texans-wr-jayden-higgins-torn-acl-out-2026-season"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0039916",
-      "player": "Ricky Pearsall",
-      "team": "SF",
-      "status": "OUT_FOR_SEASON",
-      "detail": "Knee surgery (PCL): ruled out for all of 2026.",
-      "games_out": 17,
-      "effective_at": "2026-08-15",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NFL.com",
-          "url": "https://www.nfl.com/news/niners-wr-ricky-pearsall-knee-surgery-will-miss-2026-season"
-        },
-        {
-          "outlet": "CBS Sports",
-          "url": "https://www.cbssports.com/nfl/news/ricky-pearsall-injury-49ers-receiver-season-ending-surgery/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0033040",
-      "player": "Tyreek Hill",
-      "team": "MIA",
-      "status": "UNSIGNED",
-      "detail": "Released by Miami in February after the knee dislocation and multiple torn ligaments. His agent said in late August that he will not sign before the season starts; earlier reporting put a return around midseason. No team attached.",
-      "games_out": null,
-      "effective_at": "2026-02-01",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Yahoo Sports",
-          "url": "https://sports.yahoo.com/articles/nfl-news-tyreek-hill-agent-201211521.html"
-        },
-        {
-          "outlet": "Bleacher Report",
-          "url": "https://bleacherreport.com/articles/25481080-tyreek-hills-nfl-future-updated-drew-rosenhaus-after-keenan-allen-stefon-diggs-contracts"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0034791",
-      "player": "Nick Chubb",
-      "team": "HOU",
-      "status": "RETIRED",
-      "detail": "Retired after eight seasons, announced 21 August.",
-      "games_out": 17,
-      "effective_at": "2026-08-21",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-chubb-retires-from-the-nfl"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0039363",
-      "player": "Isaac Guerendo",
-      "team": "SF",
-      "status": "RESERVE_PUP",
-      "detail": "San Francisco placed him on reserve/PUP in the cut to 53: out a minimum of four games.",
-      "games_out": 4,
-      "effective_at": "2026-08-30",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Yahoo Sports",
-          "url": "https://sports.yahoo.com/articles/49ers-place-former-4th-round-212007671.html"
-        },
-        {
-          "outlet": "NBC Sports Bay Area",
-          "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/christian-kirk-injured-reserve/1958616/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0040644",
-      "player": "Trevor Etienne",
-      "team": "CAR",
-      "status": "IR",
-      "detail": "Ankle, hurt in Friday's preseason finale against Houston. Placed on IR with a designation to return: eligible in Week 5. Not the same player as Travis Etienne, who is New Orleans' starter.",
-      "games_out": 4,
-      "effective_at": "2026-08-30",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "CBS Sports",
-          "url": "https://www.cbssports.com/fantasy/football/news/panthers-trevor-etienne-placed-on-ir-designated-to-return/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0040236",
-      "player": "Kyle Monangai",
-      "team": "CHI",
-      "status": "QUESTIONABLE",
-      "detail": "Hyperextended right knee (17 August). Still listed as out multiple weeks and week-to-week by his head coach as of 2 September; Week 1 against Carolina is in doubt and D'Andre Swift carries the load until he is back.",
-      "games_out": null,
-      "effective_at": "2026-08-17",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "ESPN",
-          "url": "https://www.espn.com/nfl/story/_/id/49643703/bears-rb-kyle-monangai-knee-expected-miss-multiple-weeks-source-says"
-        },
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bears-rb-kyle-monangai-will-miss-weeks-with-a-hyperextended-knee"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0041027",
-      "player": "Jeremiyah Love",
-      "team": "ARI",
-      "status": "QUESTIONABLE",
-      "detail": "High-ankle sprain from the 13 August preseason opener, no surgery. Mike Garafolo put Week 1 at roughly 50-50 on 1 September; Mike LaFleur says he is 'taking another step' daily but he has not returned to full team work or tested cutting. Arizona's Week 1 backfield without him is Emari Demercado, Michael Carter, Bam Knight and camp standout Evan Hull.",
-      "games_out": null,
-      "effective_at": "2026-08-13",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Bleacher Report",
-          "url": "https://bleacherreport.com/articles/25495054-jeremiyah-love-injury-updated-provided-cardinals-hc-latest-rbs-status-week-1"
-        },
-        {
-          "outlet": "Arizona Cardinals",
-          "url": "https://www.azcardinals.com/news/jeremiyah-love-to-sit-for-now-with-ankle-injury"
-        },
-        {
-          "outlet": "Sports Illustrated",
-          "url": "https://www.si.com/nfl/cardinals/onsi/arizona-cardinals-jeremiyah-love-gets-pivotal-week-1-injury-update"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0040122",
-      "player": "Ashton Jeanty",
-      "team": "LV",
-      "status": "QUESTIONABLE",
-      "detail": "Sprained right ankle from the 23 August practice, now reported as a low sprain rather than a high one. Still out of team practice on Wednesday 2 September, working to the side with trainers; Klint Kubiak is optimistic for Week 1 against Miami. Rookie Mike Washington Jr. (7.9 yards a carry in the preseason) is the next man up.",
-      "games_out": null,
-      "effective_at": "2026-08-23",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Yahoo Sports",
-          "url": "https://sports.yahoo.com/articles/las-vegas-raiders-rb-ashton-160902861.html"
-        },
-        {
-          "outlet": "CBS Sports",
-          "url": "https://www.cbssports.com/fantasy/football/news/raiders-ashton-jeanty-optimism-for-week-1/"
-        },
-        {
-          "outlet": "Heavy",
-          "url": "https://heavy.com/sports/nfl/las-vegas-raiders/raiders-ashton-jeanty-week-1-availability/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0039075",
-      "player": "Puka Nacua",
-      "team": "LAR",
-      "status": "QUESTIONABLE",
-      "detail": "Psoas soreness since the 11 August joint practice with Dallas. Returned to practice on 30 August and is expected to play Week 1 against San Francisco.",
-      "games_out": null,
-      "effective_at": "2026-08-11",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Los Angeles Rams",
-          "url": "https://www.therams.com/news/injury-updates"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0033873",
-      "player": "Patrick Mahomes",
-      "team": "KC",
-      "status": "QUESTIONABLE",
-      "detail": "About nine months out from the torn ACL and LCL. Full participant in practice this week and on track to start the 14 September opener against Denver.",
-      "games_out": null,
-      "effective_at": "2026-01-11",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "ESPN",
-          "url": "https://www.espn.com/nfl/story/_/id/49447878/kansas-city-chiefs-training-camp-2026-intel-updates"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0040129",
-      "player": "Emeka Egbuka",
-      "team": "TB",
-      "status": "QUESTIONABLE",
-      "detail": "Toe sprain from the 12 August joint practice with the Jets. Missed Tuesday 1 September's practice and is day-to-day; Todd Bowles remains 'hopeful' for the 13 September opener against Cincinnati but he has not returned to full practice.",
-      "games_out": null,
-      "effective_at": "2026-08-12",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "FantasyPros",
-          "url": "https://www.fantasypros.com/nfl/news/605324/emeka-egbuka-toe-remains-up-air-week-1.php"
-        },
-        {
-          "outlet": "Pro Football Network",
-          "url": "https://www.profootballnetwork.com/emeka-egbuka-injury-update-will-he-play-week-1/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0033288",
-      "player": "George Kittle",
-      "team": "SF",
-      "status": "QUESTIONABLE",
-      "detail": "Torn Achilles on 11 January. Activated from active/PUP on 23 August, in full pads for individual work but not team drills as of the last report, no setbacks. A real chance to play the 10 September opener against the Rams in Australia; the decision comes down to how practice goes this week.",
-      "games_out": null,
-      "effective_at": "2026-08-23",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-george-kittle-from-pup-list"
-        },
-        {
-          "outlet": "49ers.com",
-          "url": "https://www.49ers.com/news/day-16-of-2026-training-camp-george-kittle-s-remarkable-return"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0036555",
-      "player": "Chuba Hubbard",
-      "team": "CAR",
-      "status": "QUESTIONABLE",
-      "detail": "Hamstring, week-to-week since mid-August. Hit 20 mph in rehab and Dave Canales expects him for Week 1 against Chicago, but he has not focused on cutting yet, so the plan is a committee with Jonathon Brooks (second on the depth chart after two ACL tears) to open the year.",
-      "games_out": null,
-      "effective_at": "2026-08-13",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-expect-chuba-hubbard-back-for-week-1"
-        },
-        {
-          "outlet": "Yahoo Sports",
-          "url": "https://sports.yahoo.com/articles/panthers-reveal-rb-plan-jonathan-163419638.html"
-        },
-        {
-          "outlet": "FOX Sports",
-          "url": "https://www.foxsports.com/stories/nfl/carolina-panthers-running-back-chuba-hubbard-injury"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0036900",
-      "player": "Ja'Marr Chase",
-      "team": "CIN",
-      "status": "QUESTIONABLE",
-      "detail": "Hyperextended his left knee in practice on 25 August. Limited in practice all this week by the team's own announcement; head coach Zac Taylor said on 1 September he expects both Chase and Tee Higgins to be good by the end of the week for Week 1 against Tampa Bay. Team statement, not yet a full practice.",
-      "games_out": null,
-      "effective_at": "2026-08-25",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-out-of-practice-tuesday-but-bengals-expect-them-for-week-1"
-        },
-        {
-          "outlet": "Yahoo Sports",
-          "url": "https://sports.yahoo.com/nfl/article/jamarr-chase-will-be-limited-at-bengals-practice-this-week-after-last-weeks-knee-injury-scare-193633659.html"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0036410",
-      "player": "Tee Higgins",
-      "team": "CIN",
-      "status": "QUESTIONABLE",
-      "detail": "Heel. Limited in practice this week alongside Chase; Zac Taylor said on 1 September he has no concern about Week 1. Same source as Chase, same caveat: limited, not full.",
-      "games_out": null,
-      "effective_at": "2026-08-25",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-out-of-practice-tuesday-but-bengals-expect-them-for-week-1"
-        },
-        {
-          "outlet": "[your]NEWS",
-          "url": "https://yournews.com/2026/09/01/7184174/bengals-wrs-jamarr-chase-knee-tee-higgins-heel-limited-this/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0030279",
-      "player": "Keenan Allen",
-      "team": "IND",
-      "status": "QUESTIONABLE",
-      "detail": "Now with Indianapolis. Arrested on 30 August on drunk-driving charges (two preliminary misdemeanours). GM Chris Ballard said on 1 September he will play Week 1 against Baltimore and any team discipline stays in-house. League policy for a first alcohol-related offence is a three-game suspension, but the NFL usually waits for the legal case (court date 16 September), so a suspension later in the season is a real possibility. Note: the board still lists his 2025 team.",
-      "games_out": null,
-      "effective_at": "2026-08-30",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Washington Times",
-          "url": "https://www.washingtontimes.com/news/2026/sep/1/colts-expecting-wr-keenan-allen-play-season-opener-hopeful-alec/"
-        },
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-gm-chris-ballard-on-keenan-allen-give-him-some-grace"
-        },
-        {
-          "outlet": "Pro Football Network",
-          "url": "https://www.profootballnetwork.com/will-keenan-allen-be-suspended-colts-dui-arrest/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0040128",
-      "player": "Tyler Warren",
-      "team": "IND",
-      "status": "QUESTIONABLE",
-      "detail": "Adductor (groin) strain from the 19 August joint practice. Back at practice on 1 September and reported to be ready for Week 1 against Baltimore; Rapoport says no reason for concern. Listed here only because he has not yet had a full normal week.",
-      "games_out": null,
-      "effective_at": "2026-08-19",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Yahoo Sports",
-          "url": "https://sports.yahoo.com/articles/colts-receive-tyler-warren-insider-230831765.html"
-        },
-        {
-          "outlet": "Pro Football Network",
-          "url": "https://www.profootballnetwork.com/tyler-warren-injury-update-will-he-play-in-week-1/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0037664",
-      "player": "Alec Pierce",
-      "team": "IND",
-      "status": "QUESTIONABLE",
-      "detail": "Activated from the active/PUP list on 27 August after the offseason injury; GM Ballard says the hope is that he plays Week 1 and Pierce says Week 1 is the goal. Not confirmed.",
-      "games_out": null,
-      "effective_at": "2026-08-27",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "ESPN",
-          "url": "https://www.espn.com/nfl/story/_/id/49742187/source-colts-activating-no-1-wr-alex-pierce-pup-list"
-        },
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-28/pierce-being-ready-for-week-1-is-the-goal"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0041032",
-      "player": "Kenyon Sadiq",
-      "team": "NYJ",
-      "status": "QUESTIONABLE",
-      "detail": "Setback from offseason hernia surgery cost him most of camp and all of the preseason. Aaron Glenn said on 31 August he remains on track for Week 1 against Tennessee, but he will ramp up over ten days and is not expected to have an every-down role out of the gate; Mason Taylor is the every-down tight end for now.",
-      "games_out": null,
-      "effective_at": "2026-08-04",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "CBS Sports",
-          "url": "https://www.cbssports.com/fantasy/football/news/jets-kenyon-sadiq-optimism-for-week-1-status/"
-        },
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-18/glenn-kenyon-sadiq-hernia-will-be-ready-week-1"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0037256",
-      "player": "Rachaad White",
-      "team": "WAS",
-      "status": "QUESTIONABLE",
-      "detail": "Hamstring: missed practice days in late August, back practising on 1 September per the beat. Washington's plan is Croskey-Merritt on early downs and White as the receiving back; if either lingers, sixth-round rookie Kaytron Allen gets more than expected.",
-      "games_out": null,
-      "effective_at": "2026-08-26",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Yahoo Sports",
-          "url": "https://sports.yahoo.com/articles/commanders-news-rachaad-white-practicing-133453309.html"
-        },
-        {
-          "outlet": "Athlon",
-          "url": "https://athlonsports.com/nfl/washington-commanders/commanders-clear-a-path-for-rookie-running-backs-to-earn-roster-spot-following-injury-settlement"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0040242",
-      "player": "Jacory Croskey-Merritt",
-      "team": "WAS",
-      "status": "QUESTIONABLE",
-      "detail": "Lower-body injury in camp; expected to lead the early-down work in Week 1 but the team has said it can manage him carefully rather than force a full game, with Rachaad White and rookie Kaytron Allen behind him.",
-      "games_out": null,
-      "effective_at": "2026-08-26",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Football Nation USA",
-          "url": "https://www.footballnationusa.com/post/jacory-croskey-merritt-injury-update-fantasy-football-outlook-2026"
-        },
-        {
-          "outlet": "ESPN",
-          "url": "https://www.espn.com/nfl/player/_/id/4685246/kaytron-allen"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0039337",
-      "player": "Malik Nabers",
-      "team": "NYG",
-      "status": "QUESTIONABLE",
-      "detail": "Returning from the torn ACL (surgery late October 2025). Practised on 31 August without the non-contact jersey and John Harbaugh calls Week 1 against Dallas a reasonable expectation, but Nabers himself would not commit and says he will not force it if the knee is not ready. Trending in, not confirmed.",
-      "games_out": null,
-      "effective_at": "2026-08-31",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "CBS Sports",
-          "url": "https://www.cbssports.com/nfl/news/malik-nabers-injury-status-giants-wr-shares-honest-assessment-of-progress-week-1-availability/"
-        },
-        {
-          "outlet": "FantasyPros",
-          "url": "https://www.fantasypros.com/2026/08/fantasy-football-injury-updates-malik-nabers-reasonable-bet-for-week-1/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0037197",
-      "player": "Isiah Pacheco",
-      "team": "DET",
-      "status": "IR",
-      "detail": "Back. Detroit placed him on injured reserve on 1 September: out a minimum of four games, and GM Brad Holmes said on Wednesday there is no clear timetable. He was Gibbs' primary backup; the Lions' RB2 job is open.",
-      "games_out": 4,
-      "effective_at": "2026-09-01",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-09-01/isiah-pacheco-lands-on-injured-reserve"
-        },
-        {
-          "outlet": "Yahoo Sports",
-          "url": "https://ca.sports.yahoo.com/news/lions-add-isiah-pacheco-to-ir-forcing-the-rb-to-miss-at-least-four-games-to-begin-the-season-204040824.html"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0039921",
-      "player": "Trey Benson",
-      "team": "ARI",
-      "status": "IR",
-      "detail": "Knee (meniscus surgery after Week 4 of 2025). Waived with an injury designation on 24 August, unclaimed by all 31 teams and reverted to Arizona's injured reserve: his 2026 season with the Cardinals is over unless an injury settlement frees him to sign elsewhere.",
-      "games_out": null,
-      "effective_at": "2026-08-25",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-24/cardinals-waive-trey-benson-knee"
-        },
-        {
-          "outlet": "Sports Illustrated",
-          "url": "https://www.si.com/nfl/cardinals/onsi/trey-benson-returns-arizona-cardinals-his-2026-season-over"
-        },
-        {
-          "outlet": "Heavy",
-          "url": "https://heavy.com/sports/nfl/arizona-cardinals/trey-benson-clears-waivers-injured-reserve/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0033897",
-      "player": "Joe Mixon",
-      "team": "HOU",
-      "status": "UNSIGNED",
-      "detail": "Released by Houston in March 2026 after missing all of 2025 with a foot condition GM Nick Caserio called a 'freak' injury that never improved. Still unsigned as of the latest reporting; the board still lists him under HOU because that is his last nflverse team.",
-      "games_out": null,
-      "effective_at": "2026-03-15",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Sports Illustrated",
-          "url": "https://www.si.com/nfl/texans/onsi/news/houston-texans-make-official-decision-on-joe-mixon-s-future"
-        },
-        {
-          "outlet": "CBS Sports",
-          "url": "https://www.cbssports.com/nfl/news/joe-mixon-injury-texans-rb-freak-medical-condition/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0031588",
-      "player": "Stefon Diggs",
-      "team": "NE",
-      "status": "UNSIGNED",
-      "detail": "Released by New England at the start of the 2026 league year (cap charge was rising to $26.5M). Unsigned through late July per Pro Football Network; no signing found in this sweep. The board's NE tag is his last nflverse team, not a current roster.",
-      "games_out": null,
-      "effective_at": "2026-03-11",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "ESPN",
-          "url": "https://www.espn.com/nfl/story/_/id/48102428/source-patriots-release-wr-stefon-diggs-one-season"
-        },
-        {
-          "outlet": "Pro Football Network",
-          "url": "https://www.profootballnetwork.com/stefon-diggs-unsigned-nfl-free-agency-2026/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0033906",
-      "player": "Alvin Kamara",
-      "team": "NO",
-      "status": "QUESTIONABLE",
-      "detail": "MCL sprain from the 18 August joint practice with Dallas: out at least a month per ESPN, so he misses Week 1 against Detroit (only the second opener of his career) and likely more. He made the 53-man roster rather than IR, which keeps a Week 3-4 return possible. Travis Etienne leads the backfield meanwhile, with Kendre Miller and Devin Neal behind.",
-      "games_out": null,
-      "effective_at": "2026-08-19",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "ESPN",
-          "url": "https://www.espn.com/nfl/story/_/id/49658952/source-saints-rb-kamara-least-month-mcl-sprain"
-        },
-        {
-          "outlet": "CBS Sports",
-          "url": "https://www.cbssports.com/nfl/news/alvin-kamara-injury-saints-mcl-sprain-running-back-options/"
-        },
-        {
-          "outlet": "Sports Illustrated",
-          "url": "https://www.si.com/nfl/saints/onsi/saints-notebook-roster-moves-injury-updates-along-with-some-lagniappe-01m1d0jae34b"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0038120",
-      "player": "Breece Hall",
-      "team": "NYJ",
-      "status": "QUESTIONABLE",
-      "detail": "Groin strain from the 17 August practice, two-to-three-week timeline, expected back for Week 1 against Tennessee. Braelon Allen ran as the starter in his absence and is expected to keep a weekly share in Aaron Glenn's run-heavy offense.",
-      "games_out": null,
-      "effective_at": "2026-08-18",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NFL.com",
-          "url": "https://www.nfl.com/news/breece-hall-groin-expected-to-be-ready-for-jets-week-1-game-vs-titans"
-        },
-        {
-          "outlet": "Washington Times",
-          "url": "https://www.washingtontimes.com/news/2026/aug/18/jets-running-back-breece-hall-sidelined-2-3-weeks-groin-strain/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0040734",
-      "player": "TreVeyon Henderson",
-      "team": "NE",
-      "status": "QUESTIONABLE",
-      "detail": "Low ankle injury after slipping on the turf in the 24 August practice. The Boston Globe reports he avoided anything serious and should be good to go for the 9 September opener against Seattle; a 50-50 split with Rhamondre Stevenson is the plan if he plays.",
-      "games_out": null,
-      "effective_at": "2026-08-25",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NBC Sports",
-          "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-27/beat-henderson-ankle-should-be-good-for-week-1"
-        },
-        {
-          "outlet": "NESN",
-          "url": "https://nesn.com/new-england-patriots/news/patriots-latest-practice-absence-raises-week-1-question/3b37a3b985c2537212537290"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0037261",
-      "player": "Khalil Shakir",
-      "team": "BUF",
-      "status": "QUESTIONABLE",
-      "detail": "High ankle sprain from a late-August camp practice. Sean McDermott said he is 'progressing nicely' and tracking for Week 1 against Houston; seen working with a trainer and out of the walking boot on 1 September. Only one preseason appearance.",
-      "games_out": null,
-      "effective_at": "2026-08-26",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Buffalo Bills",
-          "url": "https://www.buffalobills.com/news/bills-gm-brandon-beane-provides-team-injury-updates-prior-to-week-1-of-2026-season"
-        },
-        {
-          "outlet": "ClutchPoints",
-          "url": "https://clutchpoints.com/nfl/buffalo-bills/bills-news-khalil-shakir-injury-update-before-2026-season"
-        },
-        {
-          "outlet": "Sports Illustrated",
-          "url": "https://www.si.com/nfl/the-latest-khalil-shakir-injury-update-bills"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0039065",
-      "player": "Sam LaPorta",
-      "team": "DET",
-      "status": "QUESTIONABLE",
-      "detail": "Hip, aggravated by a hit in the 17 August scrimmage; Dan Campbell would not guarantee Week 1 at the time. Back at practice within a week and trending to a full workload against New Orleans barring a setback. Coming off the 2025 back injury too.",
-      "games_out": null,
-      "effective_at": "2026-08-18",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "ESPN",
-          "url": "https://www.espn.com/nfl/story/_/id/49672143/sam-laporta-status-uncertain-lions-season-opener"
-        },
-        {
-          "outlet": "Draft Sharks",
-          "url": "https://www.draftsharks.com/fantasy-football-news/82355/sam-laporta-already-back-at-practice"
-        },
-        {
-          "outlet": "FantasyPros",
-          "url": "https://www.fantasypros.com/nfl/news/603512/sam-laporta-suffers-hip-injury-uncertain-week-1.php"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0039342",
-      "player": "Xavier Legette",
-      "team": "CAR",
-      "status": "QUESTIONABLE",
-      "detail": "Right ankle, rolled up on in the joint practice with Jacksonville. Still in a walking boot with no timetable; Dave Canales calls it day-to-day and the goal is Week 1 against Chicago, but nothing firmer than that.",
-      "games_out": null,
-      "effective_at": "2026-08-21",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "ClutchPoints",
-          "url": "https://clutchpoints.com/nfl/panthers-news-dave-canales-updates-fans-xavier-legette-foot-injury"
-        },
-        {
-          "outlet": "Yahoo Sports",
-          "url": "https://sports.yahoo.com/articles/latest-injury-panthers-wr-xavier-171724254.html"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0040124",
-      "player": "Tetairoa McMillan",
-      "team": "CAR",
-      "status": "QUESTIONABLE",
-      "detail": "Hamstring soreness in camp; imaging came back clean, held out of the preseason finale as a precaution and back at practice. Expected to play Week 1 against Chicago barring a setback, though Canales stopped short of a guarantee.",
-      "games_out": null,
-      "effective_at": "2026-08-20",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Pro Football Network",
-          "url": "https://www.profootballnetwork.com/tetairoa-mcmillan-injury-update-how-long-9-3/"
-        },
-        {
-          "outlet": "PrizePicks",
-          "url": "https://www.prizepicks.com/playbook-article/tetairoa-mcmillan-injury-status-will-the-panthers-wr-play-in-week-1"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0040735",
-      "player": "Luther Burden",
-      "team": "CHI",
-      "status": "QUESTIONABLE",
-      "detail": "Groin, from an 8 August collision in practice; missed the whole preseason. Ben Johnson says he is expected to suit up for Week 1 against Carolina. Now the No. 3 target behind Loveland and Odunze after DJ Moore's departure.",
-      "games_out": null,
-      "effective_at": "2026-08-09",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Chicago Sun-Times",
-          "url": "https://chicago.suntimes.com/bears/2026/08/10/bears-luther-burden-groin-injury-preseason-miss-nfl-wide-receiver-practice-tyrique-stevenson"
-        },
-        {
-          "outlet": "Sports Illustrated",
-          "url": "https://www.si.com/nfl/bears/onsi/luther-burden-injury-update-from-ben-johnson-all-but-confirms-bears-wr-s-week-1-status"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0039893",
-      "player": "Brian Thomas Jr.",
-      "team": "JAX",
-      "status": "QUESTIONABLE",
-      "detail": "Shoulder, on the injury report since 31 August. Jacksonville's beat describes the camp injuries as nothing overly serious; no indication he misses Week 1, but he has not been cleared either.",
-      "games_out": null,
-      "effective_at": "2026-08-31",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "Sports Illustrated",
-          "url": "https://www.si.com/nfl/jaguars/onsi/jacksonville-sorting-out-pre-week-1-injury-news-what-it-means-for-brian-thomas-jr"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0039064",
-      "player": "Zay Flowers",
-      "team": "BAL",
-      "status": "QUESTIONABLE",
-      "detail": "Held out of the 31 August practice with a lower-body issue, described by the team as precautionary. The Ravens expect him for Week 1 at Indianapolis.",
-      "games_out": null,
-      "effective_at": "2026-08-31",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "RotoWire",
-          "url": "https://www.rotowire.com/football/headlines/zay-flowers-injury-expected-to-play-week-1-634876"
-        },
-        {
-          "outlet": "Pro Football Network",
-          "url": "https://www.profootballnetwork.com/what-happened-zay-flowers-latest-ravens-injury-week-1-2026-august-2026/"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0031408",
-      "player": "Mike Evans",
-      "team": "SF",
-      "status": "QUESTIONABLE",
-      "detail": "Quad in camp, then a groin issue in late August called minor. He plans to play the Week 1 opener against the Rams. First season in San Francisco after 12 in Tampa.",
-      "games_out": null,
-      "effective_at": "2026-08-27",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "NBC Sports Bay Area",
-          "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/mike-evans-injury-update-week-1/1958924/"
-        },
-        {
-          "outlet": "Niners Nation",
-          "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/161729/49ers-wide-receiver-mike-evans-plans-to-play-week-1-despite-a-recent-injury"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0039384",
-      "player": "Tyrone Tracy",
-      "team": "NYG",
-      "status": "QUESTIONABLE",
-      "detail": "Neck, after a hard hit in the preseason finale against the Jets; cleared concussion protocol and the injury is not believed serious. On the 53-man roster, listed co-No. 2 with Najee Harris and Devin Singletary behind Cam Skattebo.",
-      "games_out": null,
-      "effective_at": "2026-08-29",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "RotoWire",
-          "url": "https://www.rotowire.com/football/headlines/tyrone-tracy-injury-makes-initial-53-man-roster-635467"
-        },
-        {
-          "outlet": "Big Blue View",
-          "url": "https://www.bigblueview.com/new-york-giants-injuries/169222/tyrone-tracy-injury-rb-leaves-game-against-jets"
-        }
-      ]
-    },
-    {
-      "player_id": "00-0039917",
-      "player": "Michael Penix",
-      "team": "ATL",
-      "status": "QUESTIONABLE",
-      "detail": "Still listed 'injured' on Atlanta's depth chart after the November 2025 ACL surgery; Tua Tagovailoa is the Week 1 starter. Penix returned to full-team work in camp but has not been named the starter.",
-      "games_out": null,
-      "effective_at": "2026-08-20",
-      "verified_at": "2026-09-03",
-      "sources": [
-        {
-          "outlet": "The Falcoholic",
-          "url": "https://www.thefalcoholic.com/atlanta-falcons-depth-chart/95087/falcons-depth-chart-2026-updated"
-        },
-        {
-          "outlet": "Atlanta Falcons",
-          "url": "https://www.atlantafalcons.com/news/falcons-camp-report-recapping-michael-penix-jr-return-full-team-work"
-        }
-      ]
+     "outlet": "Pro Football Network",
+     "url": "https://www.profootballnetwork.com/will-josh-jacobs-be-suspended-packers-week-1/"
     }
-  ]
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0039710",
+   "player": "Jeshaun Jones",
+   "team": "MIN",
+   "status": "SUSPENDED",
+   "detail": "Suspended for the first three games of 2026. Eligible to return in Week 4.",
+   "games_out": 3,
+   "effective_at": "2026-08-30",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "Sports Illustrated",
+     "url": "https://www.si.com/nfl/every-player-suspended-start-season"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0033553",
+   "player": "James Conner",
+   "team": "ARI",
+   "status": "IR",
+   "detail": "Foot. Opens the season on injured reserve with a designation to return: out at least the first four games.",
+   "games_out": 4,
+   "effective_at": "2026-08-30",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Draft Sharks",
+     "url": "https://www.draftsharks.com/fantasy-football-news/82412/james-conner-to-open-2026-on-ir-missing-cardinals-first-4-gam"
+    },
+    {
+     "outlet": "ClutchPoints",
+     "url": "https://clutchpoints.com/nfl/arizona-cardinals/cardinals-news-james-conner-miss-at-least-4-games-latest-injury-move"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0039165",
+   "player": "Zach Charbonnet",
+   "team": "SEA",
+   "status": "RESERVE_PUP",
+   "detail": "Knee. Moved from active/PUP to reserve/PUP in the cut to 53: out a minimum of four games.",
+   "games_out": 4,
+   "effective_at": "2026-08-30",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "Pro Football Rumors",
+     "url": "https://www.profootballrumors.com/2026/08/zach-charbonnet-shifts-to-reserve-pup-list-seahawks-reduce-roster-to"
+    },
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-30/seahawks-release-final-roster-cuts"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0041029",
+   "player": "Jordyn Tyson",
+   "team": "NO",
+   "status": "IR",
+   "detail": "The No. 8 pick starts on IR with the hamstring: at least four games out.",
+   "games_out": 4,
+   "effective_at": "2026-08-30",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Draft Sharks",
+     "url": "https://www.draftsharks.com/fantasy-football-news/82408/saints-put-jordyn-tyson-on-ir-rookie-wr-out-at-least-four-gam"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/articles/orleans-saints-place-first-round-231251600.html"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0038977",
+   "player": "Tank Dell",
+   "team": "HOU",
+   "status": "IR",
+   "detail": "Knee. Opens the season on injured reserve with a designation to return: out at least four games.",
+   "games_out": 4,
+   "effective_at": "2026-08-30",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-30/tank-dell-lands-on-injured-reserve-return"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0034775",
+   "player": "Christian Kirk",
+   "team": "SF",
+   "status": "IR",
+   "detail": "Calf. San Francisco placed him on injured reserve with a designation to return in the cut to 53.",
+   "games_out": 4,
+   "effective_at": "2026-08-30",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "NBC Sports Bay Area",
+     "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/christian-kirk-injured-reserve/1958616/"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/articles/49ers-place-former-4th-round-212007671.html"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0040130",
+   "player": "Jayden Higgins",
+   "team": "HOU",
+   "status": "OUT_FOR_SEASON",
+   "detail": "Torn ACL in a joint practice on 18 August. Out for the whole 2026 season.",
+   "games_out": 17,
+   "effective_at": "2026-08-18",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "url": "https://www.espn.com/nfl/story/_/id/49660770/sources-texans-jayden-higgins-torn-acl-season"
+    },
+    {
+     "outlet": "NFL.com",
+     "url": "https://www.nfl.com/news/texans-wr-jayden-higgins-torn-acl-out-2026-season"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0039916",
+   "player": "Ricky Pearsall",
+   "team": "SF",
+   "status": "OUT_FOR_SEASON",
+   "detail": "Knee surgery (PCL): ruled out for all of 2026.",
+   "games_out": 17,
+   "effective_at": "2026-08-15",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "url": "https://www.nfl.com/news/niners-wr-ricky-pearsall-knee-surgery-will-miss-2026-season"
+    },
+    {
+     "outlet": "CBS Sports",
+     "url": "https://www.cbssports.com/nfl/news/ricky-pearsall-injury-49ers-receiver-season-ending-surgery/"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0033040",
+   "player": "Tyreek Hill",
+   "team": "MIA",
+   "status": "UNSIGNED",
+   "detail": "Released by Miami in February after the knee dislocation and multiple torn ligaments. His agent said in late August that he will not sign before the season starts; earlier reporting put a return around midseason. No team attached.",
+   "games_out": null,
+   "effective_at": "2026-02-01",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/articles/nfl-news-tyreek-hill-agent-201211521.html"
+    },
+    {
+     "outlet": "Bleacher Report",
+     "url": "https://bleacherreport.com/articles/25481080-tyreek-hills-nfl-future-updated-drew-rosenhaus-after-keenan-allen-stefon-diggs-contracts"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0034791",
+   "player": "Nick Chubb",
+   "team": "HOU",
+   "status": "RETIRED",
+   "detail": "Retired after eight seasons, announced 21 August.",
+   "games_out": 17,
+   "effective_at": "2026-08-21",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-chubb-retires-from-the-nfl"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0039363",
+   "player": "Isaac Guerendo",
+   "team": "SF",
+   "status": "RESERVE_PUP",
+   "detail": "San Francisco placed him on reserve/PUP in the cut to 53: out a minimum of four games.",
+   "games_out": 4,
+   "effective_at": "2026-08-30",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/articles/49ers-place-former-4th-round-212007671.html"
+    },
+    {
+     "outlet": "NBC Sports Bay Area",
+     "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/christian-kirk-injured-reserve/1958616/"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0040644",
+   "player": "Trevor Etienne",
+   "team": "CAR",
+   "status": "IR",
+   "detail": "Ankle, hurt in Friday's preseason finale against Houston. Placed on IR with a designation to return: eligible in Week 5. Not the same player as Travis Etienne, who is New Orleans' starter.",
+   "games_out": 4,
+   "effective_at": "2026-08-30",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "CBS Sports",
+     "url": "https://www.cbssports.com/fantasy/football/news/panthers-trevor-etienne-placed-on-ir-designated-to-return/"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0040236",
+   "player": "Kyle Monangai",
+   "team": "CHI",
+   "status": "QUESTIONABLE",
+   "detail": "Hyperextended right knee (17 August). Still listed as out multiple weeks and week-to-week by his head coach as of 2 September; Week 1 against Carolina is in doubt and D'Andre Swift carries the load until he is back.",
+   "games_out": null,
+   "effective_at": "2026-08-17",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "url": "https://www.espn.com/nfl/story/_/id/49643703/bears-rb-kyle-monangai-knee-expected-miss-multiple-weeks-source-says"
+    },
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bears-rb-kyle-monangai-will-miss-weeks-with-a-hyperextended-knee"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0041027",
+   "player": "Jeremiyah Love",
+   "team": "ARI",
+   "status": "QUESTIONABLE",
+   "detail": "High-ankle sprain from the 13 August preseason opener, no surgery. Mike Garafolo put Week 1 at roughly 50-50 on 1 September; Mike LaFleur says he is 'taking another step' daily but he has not returned to full team work or tested cutting. Arizona's Week 1 backfield without him is Emari Demercado, Michael Carter, Bam Knight and camp standout Evan Hull.",
+   "games_out": null,
+   "effective_at": "2026-08-13",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Bleacher Report",
+     "url": "https://bleacherreport.com/articles/25495054-jeremiyah-love-injury-updated-provided-cardinals-hc-latest-rbs-status-week-1"
+    },
+    {
+     "outlet": "Arizona Cardinals",
+     "url": "https://www.azcardinals.com/news/jeremiyah-love-to-sit-for-now-with-ankle-injury"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "url": "https://www.si.com/nfl/cardinals/onsi/arizona-cardinals-jeremiyah-love-gets-pivotal-week-1-injury-update"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0040122",
+   "player": "Ashton Jeanty",
+   "team": "LV",
+   "status": "QUESTIONABLE",
+   "detail": "Still has not practised since the 23 August ankle sprain (believed low rather than high). Seen working to the side with trainers on 1 September; Kubiak is optimistic for the Week 1 opener at Miami and says he is 'on the mend'. Coach optimism is not a practice rep.",
+   "games_out": null,
+   "effective_at": "2026-08-23",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/articles/las-vegas-raiders-rb-ashton-160902861.html"
+    },
+    {
+     "outlet": "CBS Sports",
+     "url": "https://www.cbssports.com/fantasy/football/news/raiders-ashton-jeanty-optimism-for-week-1/"
+    },
+    {
+     "outlet": "Heavy",
+     "url": "https://heavy.com/sports/nfl/las-vegas-raiders/raiders-ashton-jeanty-week-1-availability/"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0039075",
+   "player": "Puka Nacua",
+   "team": "LAR",
+   "status": "QUESTIONABLE",
+   "detail": "Back in full practice after the 11 August psoas soreness and not expected to miss regular-season time. Separately, a legal matter involving Nacua and Alaric Jackson is still under league review — a different clock and a different reason to be off the field.",
+   "games_out": null,
+   "effective_at": "2026-08-11",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "Los Angeles Rams",
+     "url": "https://www.therams.com/news/injury-updates"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0033873",
+   "player": "Patrick Mahomes",
+   "team": "KC",
+   "status": "QUESTIONABLE",
+   "detail": "Says he is on track to start at Denver on 14 September, eight months after tearing the ACL and LCL. Worked with the first team all camp without rest days. No official clearance has been published, so this stays a report and not a fact.",
+   "games_out": null,
+   "effective_at": "2026-01-11",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "url": "https://www.espn.com/nfl/story/_/id/49447878/kansas-city-chiefs-training-camp-2026-intel-updates"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0040129",
+   "player": "Emeka Egbuka",
+   "team": "TB",
+   "status": "QUESTIONABLE",
+   "detail": "A specialist confirmed the toe sprain is stable, but he has not been a full participant since 12 August and missed Tuesday. Bowles is 'hopeful' for Week 1; beat coverage says he is not a lock.",
+   "games_out": null,
+   "effective_at": "2026-08-12",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "FantasyPros",
+     "url": "https://www.fantasypros.com/nfl/news/605324/emeka-egbuka-toe-remains-up-air-week-1.php"
+    },
+    {
+     "outlet": "Pro Football Network",
+     "url": "https://www.profootballnetwork.com/emeka-egbuka-injury-update-will-he-play-week-1/"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0033288",
+   "player": "George Kittle",
+   "team": "SF",
+   "status": "QUESTIONABLE",
+   "detail": "Activated off PUP on 23 August after the 11 January Achilles rupture. The activation means the club believes he can play inside the first four weeks; it is not a Week 1 declaration and nobody has made one.",
+   "games_out": null,
+   "effective_at": "2026-08-23",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-george-kittle-from-pup-list"
+    },
+    {
+     "outlet": "49ers.com",
+     "url": "https://www.49ers.com/news/day-16-of-2026-training-camp-george-kittle-s-remarkable-return"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0036555",
+   "player": "Chuba Hubbard",
+   "team": "CAR",
+   "status": "QUESTIONABLE",
+   "detail": "Hamstring, week-to-week since mid-August. Hit 20 mph in rehab and Dave Canales expects him for Week 1 against Chicago, but he has not focused on cutting yet, so the plan is a committee with Jonathon Brooks (second on the depth chart after two ACL tears) to open the year.",
+   "games_out": null,
+   "effective_at": "2026-08-13",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-expect-chuba-hubbard-back-for-week-1"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/articles/panthers-reveal-rb-plan-jonathan-163419638.html"
+    },
+    {
+     "outlet": "FOX Sports",
+     "url": "https://www.foxsports.com/stories/nfl/carolina-panthers-running-back-chuba-hubbard-injury"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0036900",
+   "player": "Ja'Marr Chase",
+   "team": "CIN",
+   "status": "QUESTIONABLE",
+   "detail": "Hyperextended his left knee on 25 August and did not practise Tuesday. Zac Taylor says he will be limited all week and expects him ready for Tampa Bay on 13 September.",
+   "games_out": null,
+   "effective_at": "2026-08-25",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-out-of-practice-tuesday-but-bengals-expect-them-for-week-1"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/nfl/article/jamarr-chase-will-be-limited-at-bengals-practice-this-week-after-last-weeks-knee-injury-scare-193633659.html"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0036410",
+   "player": "Tee Higgins",
+   "team": "CIN",
+   "status": "QUESTIONABLE",
+   "detail": "Heel contusion; did not practise Tuesday and is limited through the week. Cincinnati expects him for the 13 September opener.",
+   "games_out": null,
+   "effective_at": "2026-08-25",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-out-of-practice-tuesday-but-bengals-expect-them-for-week-1"
+    },
+    {
+     "outlet": "[your]NEWS",
+     "url": "https://yournews.com/2026/09/01/7184174/bengals-wrs-jamarr-chase-knee-tee-higgins-heel-limited-this/"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0030279",
+   "player": "Keenan Allen",
+   "team": "IND",
+   "status": "QUESTIONABLE",
+   "detail": "Now with Indianapolis. Arrested on 30 August on drunk-driving charges (two preliminary misdemeanours). GM Chris Ballard said on 1 September he will play Week 1 against Baltimore and any team discipline stays in-house. League policy for a first alcohol-related offence is a three-game suspension, but the NFL usually waits for the legal case (court date 16 September), so a suspension later in the season is a real possibility. Note: the board still lists his 2025 team.",
+   "games_out": null,
+   "effective_at": "2026-08-30",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Washington Times",
+     "url": "https://www.washingtontimes.com/news/2026/sep/1/colts-expecting-wr-keenan-allen-play-season-opener-hopeful-alec/"
+    },
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-gm-chris-ballard-on-keenan-allen-give-him-some-grace"
+    },
+    {
+     "outlet": "Pro Football Network",
+     "url": "https://www.profootballnetwork.com/will-keenan-allen-be-suspended-colts-dui-arrest/"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0040128",
+   "player": "Tyler Warren",
+   "team": "IND",
+   "status": "QUESTIONABLE",
+   "detail": "Adductor (groin) strain from the 19 August joint practice. Back at practice on 1 September and reported to be ready for Week 1 against Baltimore; Rapoport says no reason for concern. Listed here only because he has not yet had a full normal week.",
+   "games_out": null,
+   "effective_at": "2026-08-19",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/articles/colts-receive-tyler-warren-insider-230831765.html"
+    },
+    {
+     "outlet": "Pro Football Network",
+     "url": "https://www.profootballnetwork.com/tyler-warren-injury-update-will-he-play-in-week-1/"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0041032",
+   "player": "Kenyon Sadiq",
+   "team": "NYJ",
+   "status": "QUESTIONABLE",
+   "detail": "Setback from offseason hernia surgery cost him most of camp and all of the preseason. Aaron Glenn said on 31 August he remains on track for Week 1 against Tennessee, but he will ramp up over ten days and is not expected to have an every-down role out of the gate; Mason Taylor is the every-down tight end for now.",
+   "games_out": null,
+   "effective_at": "2026-08-04",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "CBS Sports",
+     "url": "https://www.cbssports.com/fantasy/football/news/jets-kenyon-sadiq-optimism-for-week-1-status/"
+    },
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-18/glenn-kenyon-sadiq-hernia-will-be-ready-week-1"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0037256",
+   "player": "Rachaad White",
+   "team": "WAS",
+   "status": "QUESTIONABLE",
+   "detail": "Hamstring: missed practice days in late August, back practising on 1 September per the beat. Washington's plan is Croskey-Merritt on early downs and White as the receiving back; if either lingers, sixth-round rookie Kaytron Allen gets more than expected.",
+   "games_out": null,
+   "effective_at": "2026-08-26",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/articles/commanders-news-rachaad-white-practicing-133453309.html"
+    },
+    {
+     "outlet": "Athlon",
+     "url": "https://athlonsports.com/nfl/washington-commanders/commanders-clear-a-path-for-rookie-running-backs-to-earn-roster-spot-following-injury-settlement"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0040242",
+   "player": "Jacory Croskey-Merritt",
+   "team": "WAS",
+   "status": "QUESTIONABLE",
+   "detail": "Lower-body injury in camp; expected to lead the early-down work in Week 1 but the team has said it can manage him carefully rather than force a full game, with Rachaad White and rookie Kaytron Allen behind him.",
+   "games_out": null,
+   "effective_at": "2026-08-26",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Football Nation USA",
+     "url": "https://www.footballnationusa.com/post/jacory-croskey-merritt-injury-update-fantasy-football-outlook-2026"
+    },
+    {
+     "outlet": "ESPN",
+     "url": "https://www.espn.com/nfl/player/_/id/4685246/kaytron-allen"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0039337",
+   "player": "Malik Nabers",
+   "team": "NYG",
+   "status": "QUESTIONABLE",
+   "detail": "Out of the red non-contact jersey and taking team reps eight months after ACL surgery, but WITHOUT medical clearance. Harbaugh calls it 'reasonable to assume' he plays against Dallas; the club has not promised it and Nabers would not commit.",
+   "games_out": null,
+   "effective_at": "2026-08-31",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "CBS Sports",
+     "url": "https://www.cbssports.com/nfl/news/malik-nabers-injury-status-giants-wr-shares-honest-assessment-of-progress-week-1-availability/"
+    },
+    {
+     "outlet": "FantasyPros",
+     "url": "https://www.fantasypros.com/2026/08/fantasy-football-injury-updates-malik-nabers-reasonable-bet-for-week-1/"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0037197",
+   "player": "Isiah Pacheco",
+   "team": "DET",
+   "status": "IR",
+   "detail": "Back. Detroit placed him on injured reserve on 1 September: out a minimum of four games, and GM Brad Holmes said on Wednesday there is no clear timetable. He was Gibbs' primary backup; the Lions' RB2 job is open.",
+   "games_out": 4,
+   "effective_at": "2026-09-01",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-09-01/isiah-pacheco-lands-on-injured-reserve"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "url": "https://ca.sports.yahoo.com/news/lions-add-isiah-pacheco-to-ir-forcing-the-rb-to-miss-at-least-four-games-to-begin-the-season-204040824.html"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0039921",
+   "player": "Trey Benson",
+   "team": "ARI",
+   "status": "IR",
+   "detail": "Knee (meniscus surgery after Week 4 of 2025). Waived with an injury designation on 24 August, unclaimed by all 31 teams and reverted to Arizona's injured reserve: his 2026 season with the Cardinals is over unless an injury settlement frees him to sign elsewhere.",
+   "games_out": null,
+   "effective_at": "2026-08-25",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-24/cardinals-waive-trey-benson-knee"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "url": "https://www.si.com/nfl/cardinals/onsi/trey-benson-returns-arizona-cardinals-his-2026-season-over"
+    },
+    {
+     "outlet": "Heavy",
+     "url": "https://heavy.com/sports/nfl/arizona-cardinals/trey-benson-clears-waivers-injured-reserve/"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0033897",
+   "player": "Joe Mixon",
+   "team": "HOU",
+   "status": "UNSIGNED",
+   "detail": "Released by Houston in March 2026 after missing all of 2025 with a foot condition GM Nick Caserio called a 'freak' injury that never improved. Still unsigned as of the latest reporting; the board still lists him under HOU because that is his last nflverse team.",
+   "games_out": null,
+   "effective_at": "2026-03-15",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Sports Illustrated",
+     "url": "https://www.si.com/nfl/texans/onsi/news/houston-texans-make-official-decision-on-joe-mixon-s-future"
+    },
+    {
+     "outlet": "CBS Sports",
+     "url": "https://www.cbssports.com/nfl/news/joe-mixon-injury-texans-rb-freak-medical-condition/"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0031588",
+   "player": "Stefon Diggs",
+   "team": "NE",
+   "status": "UNSIGNED",
+   "detail": "Released by New England at the start of the 2026 league year (cap charge was rising to $26.5M). Unsigned through late July per Pro Football Network; no signing found in this sweep. The board's NE tag is his last nflverse team, not a current roster.",
+   "games_out": null,
+   "effective_at": "2026-03-11",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "url": "https://www.espn.com/nfl/story/_/id/48102428/source-patriots-release-wr-stefon-diggs-one-season"
+    },
+    {
+     "outlet": "Pro Football Network",
+     "url": "https://www.profootballnetwork.com/stefon-diggs-unsigned-nfl-free-agency-2026/"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0033906",
+   "player": "Alvin Kamara",
+   "team": "NO",
+   "status": "QUESTIONABLE",
+   "detail": "MCL sprain from the 18 August joint practice with Dallas: out at least a month per ESPN, so he misses Week 1 against Detroit (only the second opener of his career) and likely more. He made the 53-man roster rather than IR, which keeps a Week 3-4 return possible. Travis Etienne leads the backfield meanwhile, with Kendre Miller and Devin Neal behind.",
+   "games_out": null,
+   "effective_at": "2026-08-19",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "url": "https://www.espn.com/nfl/story/_/id/49658952/source-saints-rb-kamara-least-month-mcl-sprain"
+    },
+    {
+     "outlet": "CBS Sports",
+     "url": "https://www.cbssports.com/nfl/news/alvin-kamara-injury-saints-mcl-sprain-running-back-options/"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "url": "https://www.si.com/nfl/saints/onsi/saints-notebook-roster-moves-injury-updates-along-with-some-lagniappe-01m1d0jae34b"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0038120",
+   "player": "Breece Hall",
+   "team": "NYJ",
+   "status": "QUESTIONABLE",
+   "detail": "Groin strain, given 2-3 weeks and expected back for the 13 September opener against Tennessee. Braelon Allen took the starting reps while he was out, so the open question is share rather than availability.",
+   "games_out": null,
+   "effective_at": "2026-08-18",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "NFL.com",
+     "url": "https://www.nfl.com/news/breece-hall-groin-expected-to-be-ready-for-jets-week-1-game-vs-titans"
+    },
+    {
+     "outlet": "Washington Times",
+     "url": "https://www.washingtontimes.com/news/2026/aug/18/jets-running-back-breece-hall-sidelined-2-3-weeks-groin-strain/"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0040734",
+   "player": "TreVeyon Henderson",
+   "team": "NE",
+   "status": "QUESTIONABLE",
+   "detail": "Low ankle injury after slipping on the turf in the 24 August practice. The Boston Globe reports he avoided anything serious and should be good to go for the 9 September opener against Seattle; a 50-50 split with Rhamondre Stevenson is the plan if he plays.",
+   "games_out": null,
+   "effective_at": "2026-08-25",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "NBC Sports",
+     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-27/beat-henderson-ankle-should-be-good-for-week-1"
+    },
+    {
+     "outlet": "NESN",
+     "url": "https://nesn.com/new-england-patriots/news/patriots-latest-practice-absence-raises-week-1-question/3b37a3b985c2537212537290"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0037261",
+   "player": "Khalil Shakir",
+   "team": "BUF",
+   "status": "QUESTIONABLE",
+   "detail": "High ankle sprain from a late-August camp practice. Sean McDermott said he is 'progressing nicely' and tracking for Week 1 against Houston; seen working with a trainer and out of the walking boot on 1 September. Only one preseason appearance.",
+   "games_out": null,
+   "effective_at": "2026-08-26",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Buffalo Bills",
+     "url": "https://www.buffalobills.com/news/bills-gm-brandon-beane-provides-team-injury-updates-prior-to-week-1-of-2026-season"
+    },
+    {
+     "outlet": "ClutchPoints",
+     "url": "https://clutchpoints.com/nfl/buffalo-bills/bills-news-khalil-shakir-injury-update-before-2026-season"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "url": "https://www.si.com/nfl/the-latest-khalil-shakir-injury-update-bills"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0039065",
+   "player": "Sam LaPorta",
+   "team": "DET",
+   "status": "QUESTIONABLE",
+   "detail": "Hip, aggravated by a hit in the 17 August scrimmage; Dan Campbell would not guarantee Week 1 at the time. Back at practice within a week and trending to a full workload against New Orleans barring a setback. Coming off the 2025 back injury too.",
+   "games_out": null,
+   "effective_at": "2026-08-18",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "url": "https://www.espn.com/nfl/story/_/id/49672143/sam-laporta-status-uncertain-lions-season-opener"
+    },
+    {
+     "outlet": "Draft Sharks",
+     "url": "https://www.draftsharks.com/fantasy-football-news/82355/sam-laporta-already-back-at-practice"
+    },
+    {
+     "outlet": "FantasyPros",
+     "url": "https://www.fantasypros.com/nfl/news/603512/sam-laporta-suffers-hip-injury-uncertain-week-1.php"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0039342",
+   "player": "Xavier Legette",
+   "team": "CAR",
+   "status": "QUESTIONABLE",
+   "detail": "Right ankle, rolled up on in the joint practice with Jacksonville. Still in a walking boot with no timetable; Dave Canales calls it day-to-day and the goal is Week 1 against Chicago, but nothing firmer than that.",
+   "games_out": null,
+   "effective_at": "2026-08-21",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "ClutchPoints",
+     "url": "https://clutchpoints.com/nfl/panthers-news-dave-canales-updates-fans-xavier-legette-foot-injury"
+    },
+    {
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/articles/latest-injury-panthers-wr-xavier-171724254.html"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0040124",
+   "player": "Tetairoa McMillan",
+   "team": "CAR",
+   "status": "QUESTIONABLE",
+   "detail": "Hamstring soreness in camp; imaging came back clean, held out of the preseason finale as a precaution and back at practice. Expected to play Week 1 against Chicago barring a setback, though Canales stopped short of a guarantee.",
+   "games_out": null,
+   "effective_at": "2026-08-20",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Pro Football Network",
+     "url": "https://www.profootballnetwork.com/tetairoa-mcmillan-injury-update-how-long-9-3/"
+    },
+    {
+     "outlet": "PrizePicks",
+     "url": "https://www.prizepicks.com/playbook-article/tetairoa-mcmillan-injury-status-will-the-panthers-wr-play-in-week-1"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0040735",
+   "player": "Luther Burden",
+   "team": "CHI",
+   "status": "QUESTIONABLE",
+   "detail": "Groin, from an 8 August collision in practice; missed the whole preseason. Ben Johnson says he is expected to suit up for Week 1 against Carolina. Now the No. 3 target behind Loveland and Odunze after DJ Moore's departure.",
+   "games_out": null,
+   "effective_at": "2026-08-09",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Chicago Sun-Times",
+     "url": "https://chicago.suntimes.com/bears/2026/08/10/bears-luther-burden-groin-injury-preseason-miss-nfl-wide-receiver-practice-tyrique-stevenson"
+    },
+    {
+     "outlet": "Sports Illustrated",
+     "url": "https://www.si.com/nfl/bears/onsi/luther-burden-injury-update-from-ben-johnson-all-but-confirms-bears-wr-s-week-1-status"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0039893",
+   "player": "Brian Thomas Jr.",
+   "team": "JAX",
+   "status": "QUESTIONABLE",
+   "detail": "Shoulder, on the injury report since 31 August. Jacksonville's beat describes the camp injuries as nothing overly serious; no indication he misses Week 1, but he has not been cleared either.",
+   "games_out": null,
+   "effective_at": "2026-08-31",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "Sports Illustrated",
+     "url": "https://www.si.com/nfl/jaguars/onsi/jacksonville-sorting-out-pre-week-1-injury-news-what-it-means-for-brian-thomas-jr"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0039064",
+   "player": "Zay Flowers",
+   "team": "BAL",
+   "status": "QUESTIONABLE",
+   "detail": "Returned to practice on 3 September after a lower-body issue and looks pointed at the opener at Indianapolis. Back at practice is not the same as cleared full.",
+   "games_out": null,
+   "effective_at": "2026-08-31",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "RotoWire",
+     "url": "https://www.rotowire.com/football/headlines/zay-flowers-injury-expected-to-play-week-1-634876"
+    },
+    {
+     "outlet": "Pro Football Network",
+     "url": "https://www.profootballnetwork.com/what-happened-zay-flowers-latest-ravens-injury-week-1-2026-august-2026/"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0031408",
+   "player": "Mike Evans",
+   "team": "SF",
+   "status": "QUESTIONABLE",
+   "detail": "Quad in camp, then a groin issue in late August called minor. He plans to play the Week 1 opener against the Rams. First season in San Francisco after 12 in Tampa.",
+   "games_out": null,
+   "effective_at": "2026-08-27",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "NBC Sports Bay Area",
+     "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/mike-evans-injury-update-week-1/1958924/"
+    },
+    {
+     "outlet": "Niners Nation",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/161729/49ers-wide-receiver-mike-evans-plans-to-play-week-1-despite-a-recent-injury"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0039384",
+   "player": "Tyrone Tracy",
+   "team": "NYG",
+   "status": "QUESTIONABLE",
+   "detail": "Neck, after a hard hit in the preseason finale against the Jets; cleared concussion protocol and the injury is not believed serious. On the 53-man roster, listed co-No. 2 with Najee Harris and Devin Singletary behind Cam Skattebo.",
+   "games_out": null,
+   "effective_at": "2026-08-29",
+   "verified_at": "2026-09-03",
+   "sources": [
+    {
+     "outlet": "RotoWire",
+     "url": "https://www.rotowire.com/football/headlines/tyrone-tracy-injury-makes-initial-53-man-roster-635467"
+    },
+    {
+     "outlet": "Big Blue View",
+     "url": "https://www.bigblueview.com/new-york-giants-injuries/169222/tyrone-tracy-injury-rb-leaves-game-against-jets"
+    }
+   ]
+  },
+  {
+   "player_id": "00-0039917",
+   "player": "Michael Penix",
+   "team": "ATL",
+   "status": "QUESTIONABLE",
+   "detail": "Atlanta still has not named a Week 1 starter. Tagovailoa has taken the first-team majority since spring; Rapoport reported the lead had shrunk and Wolfe reports the plan is for Penix to start eventually. The disagreement is the state of play, not a gap.",
+   "games_out": null,
+   "effective_at": "2026-08-20",
+   "verified_at": "2026-09-04",
+   "sources": [
+    {
+     "outlet": "The Falcoholic",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-depth-chart/95087/falcons-depth-chart-2026-updated"
+    },
+    {
+     "outlet": "Atlanta Falcons",
+     "url": "https://www.atlantafalcons.com/news/falcons-camp-report-recapping-michael-penix-jr-return-full-team-work"
+    }
+   ],
+   "source": null
+  }
+ ]
 }
