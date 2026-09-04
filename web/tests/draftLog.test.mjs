@@ -9,8 +9,8 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import {
-  ROSTER, SOURCE, fold, isMyTurn, pickLabel, replayState, slotForOverall, takeEvent,
-  undoEvent, untilMyTurn,
+  ROSTER, SOURCE, fold, isMyTurn, pickLabel, providerEvents, replayState, slotForOverall,
+  takeEvent, undoEvent, untilMyTurn,
 } from "../app/fantasy/draftLog.js";
 
 const T0 = 1_800_000_000_000;
@@ -254,4 +254,86 @@ test("REPLAY · determinismo: mismo punto, mismo estado, venga como venga el reg
   const one = replayState(fold(base), 1);
   const two = replayState(fold(shuffled), 1);
   assert.deepEqual(one.picks.map((p) => p.playerId), two.picks.map((p) => p.playerId));
+});
+
+
+/* ── el NÚMERO DE PICK del proveedor manda ───────────────────────────────────
+ *
+ * El fallo que esto caza se vio en un draft REAL. Sleeper dice «pick 59» y
+ * Gridiron numeraba por posición ENTRE LOS RESUELTOS: un solo pick que no se
+ * pueda emparejar —un novato de 2026 que no está en el board publicado, un
+ * pateador— y todo lo siguiente se corre una casilla. En una parrilla de snake
+ * una casilla es la columna de OTRO equipo, así que los jugadores aparecían en
+ * el sitio equivocado y la etiqueta `5.09` describía otro pick.
+ *
+ * No hacía falta adivinar nada: el número venía en `pick_no` y se tiraba.
+ */
+
+const prov = (playerId, pickNo, extra = {}) =>
+  ({ playerId, pickNo, providerId: `s${playerId}`, roster: ROSTER.OPPONENT, ...extra });
+
+test("un pick del proveedor conserva SU número, no el de su posición en la lista", () => {
+  // Sleeper manda los picks 1, 2 y 4: el 3 no se pudo emparejar y NO llega.
+  const { picks } = fold(providerEvents([prov("a", 1), prov("b", 2), prov("d", 4)]));
+  assert.deepEqual(picks.map((p) => [p.playerId, p.overall]), [["a", 1], ["b", 2], ["d", 4]]);
+});
+
+test("y por eso el hueco del pick sin emparejar se QUEDA vacío en la parrilla", () => {
+  const { picks } = fold(providerEvents([prov("a", 1), prov("b", 2), prov("d", 4)]));
+  assert.equal(picks.find((p) => p.overall === 3), undefined,
+    "la casilla 3 es de un pick que existió y no se pudo emparejar: vacía es la verdad");
+});
+
+test("con doce equipos, un solo pick perdido cambiaba de COLUMNA a los siguientes", () => {
+  // La demostración del daño, en números que no son la vuelta del snake: el 6
+  // no se pudo emparejar, así que llegan el 5 y el 7. Con la numeración por
+  // posición, el jugador del 7 heredaba el 6 — la columna del equipo 6, que es
+  // el pick de OTRO.
+  const { picks } = fold(providerEvents([prov("x", 5), prov("y", 7)]));
+  const y = picks.find((p) => p.playerId === "y");
+  assert.equal(y.overall, 7);
+  assert.equal(slotForOverall(7, 12, "snake").slot, 7);
+  assert.equal(slotForOverall(6, 12, "snake").slot, 6, "el 6 es de otro equipo");
+  assert.notEqual(slotForOverall(y.overall, 12, "snake").slot, 6);
+});
+
+test("las etiquetas de pick salen bien después de un hueco", () => {
+  const { picks } = fold(providerEvents([prov("a", 1), prov("c", 13)]));
+  assert.equal(pickLabel(picks.at(-1).overall, 12, "snake"), "2.01");
+});
+
+test("un draft MANUAL sigue numerando 1, 2, 3: no se le inventa un hueco", () => {
+  const { picks } = fold([take("a"), take("b", { at: T0 + 1 }), take("c", { at: T0 + 2 })]);
+  assert.deepEqual(picks.map((p) => p.overall), [1, 2, 3]);
+});
+
+test("un pick manual junto a los del proveedor NO roba un número ya ocupado", () => {
+  // El 3 es del proveedor; el manual llega después y tiene que ir al 4.
+  const eventos = [
+    ...providerEvents([prov("a", 1), prov("b", 3)]),
+    take("manual", { at: T0 + 9_000 }),
+  ];
+  const { picks } = fold(eventos);
+  const porId = Object.fromEntries(picks.map((p) => [p.playerId, p.overall]));
+  assert.equal(porId.a, 1);
+  assert.equal(porId.b, 3);
+  assert.equal(porId.manual, 4, "no puede caer en el 2, que es de un pick que existió");
+  assert.equal(new Set(picks.map((p) => p.overall)).size, picks.length, "sin números repetidos");
+});
+
+test("deshacer un pick del proveedor no renumera a los demás", () => {
+  // Ésta es la razón por la que `fold` renumeraba, y sigue cubierta: con
+  // números del proveedor no hace falta renumerar nada, que es lo correcto —
+  // el pick 3 sigue siendo el 3 aunque el 2 se caiga.
+  const eventos = [...providerEvents([prov("a", 1), prov("b", 2), prov("c", 3)]),
+                   undoEvent({ playerId: "b", at: T0 + 9_000 })];
+  const { picks, count } = fold(eventos);
+  assert.equal(count, 2);
+  assert.deepEqual(picks.map((p) => [p.playerId, p.overall]), [["a", 1], ["c", 3]]);
+});
+
+test("el replay recorre picks, no números: con huecos sigue avanzando de uno en uno", () => {
+  const state = fold(providerEvents([prov("a", 1), prov("d", 4), prov("f", 6)]));
+  assert.equal(replayState(state, 2).count, 2);
+  assert.deepEqual(replayState(state, 2).picks.map((p) => p.overall), [1, 4]);
 });

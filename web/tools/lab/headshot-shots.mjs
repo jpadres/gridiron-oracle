@@ -57,8 +57,20 @@ for (const width of [390, 768, 1440]) {
   // espera a la tabla, o retrata el esqueleto y parece que el board no carga.
   await page.waitForSelector("table", { timeout: 10000 });
   await page.waitForFunction(() => !document.querySelector(".skeleton"), null, { timeout: 10000 }).catch(() => {});
-  const imgs = await page.locator("img.hs, span.hs").count();
-  check(`${width}: el board pinta una foto o iniciales por fila`, imgs > 100, `${imgs}`);
+  /* UNA FOTO POR FILA PINTADA, y «pintada» es la palabra que importa.
+     Antes se exigía `> 100` porque el board renderizaba los 564 jugadores. Se
+     pinta por tramos de 100 desde 2026-09, así que la cifra exacta 100 hacía
+     fallar la comprobación sin que nada estuviera roto — y peor, la habría
+     dejado pasar un board de 101 filas con cincuenta sin foto. Lo que se quiere
+     saber es que ninguna fila se queda sin retrato, así que se cuenta contra
+     las filas que hay.
+
+     Se cuenta sobre las celdas de jugador (`.hs-who`), no sobre todas las `tr` de
+     la página: /fantasy lleva varias tablas y sólo la del board lleva retrato. */
+  const filas = await page.locator("td.hs-who").count();
+  const imgs = await page.locator("td.hs-who img.hs, td.hs-who span.hs").count();
+  check(`${width}: el board pinta una foto o iniciales por fila`,
+        filas > 0 && imgs === filas, `${imgs} retratos / ${filas} filas de jugador`);
   const src = await page.locator("img.hs").first().getAttribute("src");
   check(`${width}: la URL es la miniatura por sleeper_id`, /sleepercdn\.com\/content\/nfl\/players\/thumb\/\d+\.jpg$/.test(src ?? ""), src ?? "");
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);

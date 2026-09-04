@@ -380,7 +380,13 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
     applied: sync.canonical?.length ?? 0,
     unmapped: sync.unmapped?.length ?? 0,
   });
-  const draftCount = Math.max(state.count, providerPicks);
+  /* DÓNDE VA EL DRAFT: el mayor de los tres, y el tercero es el que faltaba.
+     `state.count` cuenta picks RESUELTOS y se queda corto uno por cada pick que
+     no se pudo emparejar. Ahora que `overall` lleva el número real del
+     proveedor, el último número visto es la señal más fuerte que hay, y no
+     depende de que el sondeo haya devuelto `total`. */
+  const lastOverall = state.picks.length > 0 ? state.picks[state.picks.length - 1].overall : 0;
+  const draftCount = Math.max(state.count, providerPicks, lastOverall);
   const next = untilMyTurn({ count: draftCount, teams, type, mySlot, rounds });
 
   /**
@@ -521,8 +527,13 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
 
   if (!ready) return <p className="caption">Loading draft room&hellip;</p>;
 
-  // En replay manda el cursor; en vivo, la posición autoritativa del proveedor.
-  const overall = (replaying ? effective.count : draftCount) + 1;
+  /* En replay manda el cursor; en vivo, la posición autoritativa del proveedor.
+     En replay se usa el NÚMERO del último pick reproducido y no cuántos van:
+     con huecos —picks que existieron y no se pudieron emparejar— «llevo 30
+     picks» y «voy por el pick 30» dejan de ser lo mismo. */
+  const overall = (replaying
+    ? (effective.picks.length > 0 ? effective.picks[effective.picks.length - 1].overall : 0)
+    : draftCount) + 1;
   const here = slotForOverall(overall, teams, type);
   // Completo sólo si la liga declaró tamaño y rondas: sin ellos no se afirma.
   const complete = Boolean(teams && rounds && draftCount >= teams * rounds);
@@ -1220,7 +1231,13 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                       const pick = effective.picks.find((x) => x.overall === no) ?? null;
                       const row = pick ? pool.find((x) => x.player_id === pick.playerId) : null;
                       const isMine = mySlot && slot === mySlot;
-                      const isNow = no === effective.count + 1 && !complete;
+                      /* EL PICK ACTUAL, marcado por su NÚMERO y no por el
+                         recuento. `effective.count + 1` contaba picks resueltos:
+                         con un solo pick sin emparejar el marcador se quedaba
+                         una casilla atrás, y a partir de ahí señalaba el turno
+                         de otro equipo. Es el mismo fallo que ya se corrigió en
+                         «picks until me», que aquí no se había aplicado. */
+                      const isNow = no === overall && !complete;
                       return (
                         <span key={c} style={teamVars(row?.team)}
                               className={[

@@ -1139,11 +1139,18 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   .room-row > .room-row-rank { flex: 0 0 2.25rem; }
   .room-row > .room-row-who { flex: 1 1 8rem; min-width: 0; }
   .room-row > .room-row-vor { margin-left: auto; }
-  /* Las marcas van juntas al final del primer renglón o al segundo, nunca
-     partidas por dentro. */
+  /* LAS MARCAS AL SEGUNDO RENGLÓN, Y EL `order` ES TODO EL ARREGLO.
+     En el DOM el número va el ÚLTIMO, detrás de las marcas. Al envolver, una
+     fila con NEWS o RISK empujaba la marca al segundo renglón y el número se
+     iba detrás por estar después: el VOR acababa 37 px por debajo de su propio
+     puesto, o sea la misma fila leída como dos. Mandando las marcas al final
+     del orden visual, el número se queda donde se lee —a la derecha del
+     puesto— sin tocar el DOM, que es donde el lector de pantalla lo quiere.
+     El VOR NO lleva `order` propio: con las marcas en 2 y todo lo demás en 0
+     ya está resuelto, y una línea que no hace nada acaba copiándose. */
   .room-row > .room-row-news, .room-row > .room-row-out,
   .room-row > .room-row-risk, .room-row > .room-row-noteam,
-  .room-row > .room-row-prior, .room-row > .room-row-rookie { flex: 0 0 auto; }
+  .room-row > .room-row-prior, .room-row > .room-row-rookie { flex: 0 0 auto; order: 2; }
 }
 .room-row:hover { background: var(--field-raised); }
 .room-row:focus-visible { outline: 2px solid var(--live); outline-offset: -2px; }

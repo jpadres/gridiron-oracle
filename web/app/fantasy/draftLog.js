@@ -76,7 +76,9 @@ export function takeEvent({ playerId, roster = ROSTER.UNKNOWN, rosterSource = "D
                             overall = null, source = SOURCE.MANUAL, providerId = null,
                             at = Date.now() }) {
   return {
-    kind: "TAKE", playerId, roster, rosterSource, overall, source, providerId,
+    // Un pick tecleado NO tiene número de proveedor, y `null` es la respuesta
+    // correcta: se lo asigna `fold` por orden, saltando los ya ocupados.
+    kind: "TAKE", playerId, roster, rosterSource, overall, source, providerId, pickNo: null,
     at, seq: nextSeq(),
   };
 }
@@ -96,9 +98,13 @@ function order(a, b) {
  * El estado canónico a partir del registro.
  *
  * Devuelve los picks vivos en orden, el índice por jugador y el conjunto de los
- * míos. `overall` se asigna aquí y no al crear el evento: si se deshace un pick
- * de en medio, los siguientes tienen que renumerarse solos o el recuento se
- * rompe — que es justo el «pick count roto» que hay que evitar.
+ * míos. `overall` se asigna aquí y no al crear el evento: en un draft manual, si
+ * se deshace un pick de en medio, los siguientes tienen que renumerarse solos o
+ * el recuento se rompe — que es justo el «pick count roto» que hay que evitar.
+ *
+ * Cuando el pick trae el número del PROVEEDOR, ese número manda y no se
+ * renumera nada: el pick 3 sigue siendo el 3 aunque el 2 se caiga. Ver la nota
+ * de la numeración más abajo.
  */
 export function fold(events) {
   const sorted = [...events].sort(order);
@@ -124,10 +130,33 @@ export function fold(events) {
     live.set(event.playerId, event);
   }
 
-  const picks = [...live.values()].sort(order).map((event, index) => ({
-    ...event,
-    overall: index + 1,
-  }));
+  /* LA NUMERACIÓN.
+   *
+   * Con número del proveedor se usa ÉSE: es el sitio real del pick en el draft,
+   * y respetarlo deja el hueco de lo que no se pudo emparejar vacío en la
+   * parrilla — que es la verdad, no un fallo de pintado. Numerar por posición
+   * entre los resueltos corría a todos los siguientes una casilla y ponía a los
+   * jugadores en la columna de otro equipo.
+   *
+   * Sin número —el modo manual, que funciona en cualquier plataforma— se
+   * numera correlativo como siempre, saltando lo que ya esté ocupado: un pick
+   * tecleado no puede caer en el número de uno que existió y no se emparejó.
+   * Por eso los correlativos se reparten en una SEGUNDA pasada, cuando ya se
+   * sabe qué números se ha quedado el proveedor. */
+  const vivos = [...live.values()].sort(order);
+  const ocupados = new Set(
+    vivos.map((event) => Number(event.pickNo)).filter((n) => Number.isFinite(n) && n > 0)
+  );
+  let cursor = 0;
+  const picks = vivos.map((event) => {
+    const suyo = Number(event.pickNo);
+    if (Number.isFinite(suyo) && suyo > 0) {
+      cursor = Math.max(cursor, suyo);
+      return { ...event, overall: suyo };
+    }
+    do { cursor += 1; } while (ocupados.has(cursor));
+    return { ...event, overall: cursor };
+  });
   const byPlayer = new Map(picks.map((pick) => [pick.playerId, pick]));
   const mine = new Set(
     picks.filter((pick) => pick.roster === ROSTER.MINE).map((pick) => pick.playerId)
@@ -196,6 +225,16 @@ export function providerEvents(picks, { source = SOURCE.SLEEPER } = {}) {
     overall: null,
     source,
     providerId: pick.providerId ?? null,
+    // EL NÚMERO DE PICK DEL PROVEEDOR, y no sólo como clave de orden.
+    //
+    // Antes viajaba únicamente en `at`, que es la clave de ordenación, y `fold`
+    // lo tiraba para renumerar por posición entre los RESUELTOS. Un solo pick
+    // que no se pueda emparejar —un novato de 2026 que no está en el board
+    // publicado, un pateador— y todo lo siguiente se corre una casilla. En una
+    // parrilla de snake una casilla es la columna de OTRO equipo. Se vio en un
+    // draft real: nadie lo había adivinado porque el número venía en la
+    // respuesta desde el principio.
+    pickNo: Number.isFinite(pick.pickNo) ? pick.pickNo : null,
     at: Number.isFinite(pick.pickNo) ? pick.pickNo : index + 1,
     seq: index + 1,
   }));

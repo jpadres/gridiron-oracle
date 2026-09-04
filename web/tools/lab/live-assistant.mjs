@@ -291,6 +291,65 @@ console.log("\n=== picks leídos que no se aplican ===");
 }
 
 /* === móvil ============================================================== */
+/* === un pick sin emparejar NO desplaza a los siguientes ==================
+ *
+ * El fallo se vio en un draft REAL. Sleeper numera los picks y Gridiron los
+ * renumeraba por su posición ENTRE LOS RESUELTOS, así que un solo pick que no
+ * se pudiera emparejar —un novato de 2026 que no está en el board publicado, un
+ * pateador— corría una casilla a todos los siguientes. En una parrilla de snake
+ * una casilla es la columna de OTRO equipo: los jugadores salían en el sitio de
+ * otro y la etiqueta `5.09` describía un pick distinto.
+ *
+ * Se comprueba sobre la PARRILLA, que es donde se ve, y no sobre el registro:
+ * el registro ya lo cubren los tests, y lo que falló aquí es lo que se pinta. */
+console.log("\n=== un pick sin emparejar no corre a los demás ===");
+{
+  reiniciar(1);
+  const c5=await browser.newContext({viewport:{width:1440,height:1400},reducedMotion:"reduce"});
+  await montarDoble(c5);
+  await c5.addInitScript((l)=>localStorage.setItem("gridiron-room-league-v1",JSON.stringify(l)),
+    {...LIGA,mySlot:1});
+  const p5=await c5.newPage();
+  await p5.clock.install();
+  await p5.goto(`${BASE}/fantasy/draft`,{waitUntil:"domcontentloaded"});
+  await p5.waitForSelector(".room-grid-row");
+
+  // Ocho picks, y el CUARTO es un jugador que este board no conoce. El doble ya
+  // lo trata como Sleeper: id `sin-mapear-...`, que no casa con nadie.
+  const elegidos=[];
+  for(let no=1;no<=8;no+=1){
+    if(no===4){ emitir(no,{player_id:"fantasma-2026"}); elegidos.push(null); continue; }
+    const row=libres()[0]; elegidos.push(row); emitir(no,row);
+  }
+  await p5.clock.runFor(16_000);
+  await p5.waitForFunction(()=>document.querySelector(".room-count strong")?.textContent==="7",
+                           null,{timeout:8000});
+
+  const titulo=async(no)=>p5.locator(`.room-cell[title^="${no}: "], .room-cell[title="Pick ${no}"]`)
+                            .first().getAttribute("title");
+  const apellido=(row)=>(row.player_full_name??row.player_name).split(" ").pop();
+
+  check("se aplican 7 de 8 y el draft va por el pick 9, no por el 8",
+        (await p5.locator(".room-count strong").innerText())==="7" &&
+        /\bpick 9\b/i.test((await p5.locator(".room-where").innerText()).replace(/\s+/g," ")),
+        (await p5.locator(".room-where").innerText()).replace(/\s+/g," ").slice(0,40));
+  check("la casilla del pick sin emparejar se queda VACÍA, que es la verdad",
+        (await titulo(4))==="Pick 4");
+  const despues=[5,6,7,8];
+  const mal=[];
+  for(const no of despues){
+    const t=await titulo(no);
+    if(!t.includes(apellido(elegidos[no-1]))) mal.push(`${no}: ${t}`);
+  }
+  check("y CADA pick posterior sigue en SU casilla, no una antes",
+        mal.length===0, mal.join(" | ") || `${despues.length} comprobados`);
+  // El marcador del pick actual: con 7 resueltos y 8 emitidos, el turno es el 9.
+  const ahora=await p5.locator(".room-cell.is-now").first().getAttribute("title");
+  check("el marcador de «pick actual» señala el 9 y no el 8",ahora==="Pick 9",ahora);
+  await p5.screenshot({path:`${OUT}/lda-1440-unmapped-gap.png`});
+  await c5.close();
+}
+
 console.log("\n=== 390 y 768 ===");
 for(const [w,h] of [[390,844],[768,1024]]){
   reiniciar(1);
