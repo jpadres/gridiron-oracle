@@ -96,6 +96,12 @@ await page.screenshot({path:`${OUT}/lda-1440-waiting.png`});
 /* === el draft entero, pick a pick, por el proveedor ====================== */
 console.log("\n=== 180 picks por el adaptador ===");
 let errores=0, misTurnosVerificados=0; const t0=Date.now();
+/* Lo que la lista corta dice EN CADA UNO de mis turnos. Se recoge aquí y se
+   juzga al final: el ajuste a la plantilla es un estado que CAMBIA a lo largo
+   del draft —se adapta mientras queden huecos, vuelve al board cuando no— y
+   mirarlo en un solo turno no distingue «se adapta» de «siempre dice lo
+   mismo». La comprobación es que el cambio ocurre y en el orden correcto. */
+const turnos=[];
 for(let no=1; no<=180; no+=1){
   if(mine(no)){
     // MI TURNO: el asistente tiene que detectarlo SIN que yo pulse nada.
@@ -104,6 +110,18 @@ for(let no=1; no<=180; no+=1){
     const listaCorta=await page.locator(".room-cands > li").count();
     if(!enReloj||listaCorta===0) errores+=1;
     else misTurnosVerificados+=1;
+    if(listaCorta>0){
+      turnos.push({
+        no,
+        titulo:(await page.locator(".room-shortlist .room-h").innerText().catch(()=>"")).split("\n")[0].trim(),
+        // La ETIQUETA de la cifra grande es lo que delata el cableado: si el
+        // Draft Room dejara de pasarle la plantilla a `candidates`, seguiría
+        // pintando una lista perfectamente creíble y todas dirían «VOR».
+        etiquetas:await page.locator(".room-cand-vor small").allInnerTexts(),
+        posiciones:await page.locator(".room-cands .ptag").allInnerTexts(),
+        porque:await page.locator(".room-cands > li").first().locator(".room-why li").allInnerTexts(),
+      });
+    }
   }
   emitir(no, libres()[0]);
   await page.clock.runFor(16_000);             // dispara el siguiente sondeo
@@ -122,6 +140,42 @@ check("los 180 picks entraron por el proveedor sin intervención manual",
       (await cuenta(page))==="180" && errores===0, `${errores} errores`);
 check("mis 15 turnos se detectaron solos y con lista corta",misTurnosVerificados===15,
       `${misTurnosVerificados}/15`);
+
+/* === la lista corta se adapta a MI plantilla ============================= */
+/* La queja que originó esto: con el ala cerrada o el quarterback ya cogidos,
+   la lista seguía ofreciendo otro. El orden es ahora lo que cada uno AÑADE a
+   la alineación, así que la comprobación no es «sale tal jugador» —eso
+   dependería del board del día— sino la propiedad: mientras haya hueco, cada
+   fila declara lo que añade; cuando no lo hay, se vuelve al board Y SE DICE. */
+const conAjuste=turnos.filter(t=>t.titulo==="Best for your roster");
+const sinAjuste=turnos.filter(t=>t.titulo==="Top available");
+check("desde el primer turno la lista se ordena por lo que añade a mi plantilla",
+      turnos[0]?.titulo==="Best for your roster", turnos[0]?.titulo);
+check("y CADA fila dice lo que añade, no el VOR a secas",
+      conAjuste.length>0 && conAjuste.every(t=>t.etiquetas.length>0
+        && t.etiquetas.every(e=>e.trim()==="to your lineup")),
+      `${conAjuste.length} turnos ajustados`);
+/* Los tres de abajo llevan `conAjuste.length>0` DENTRO de la condición y no
+   como comprobación aparte. Sin eso pasan en vacío: al inyectar el fallo del
+   cableado —quitarle la plantilla a `candidates`— los quince turnos salen «Top
+   available», y «todos los turnos sin ajuste dicen VOR» se cumple, y «el
+   cambio ocurre una vez» también con cero cambios. Un guardián que aprueba el
+   fallo que existe para cazar ya costó una iteración en este proyecto. */
+check("con los siete titulares llenos vuelve al orden del board Y LO DICE",
+      conAjuste.length>0 && sinAjuste.length>0 &&
+      sinAjuste.every(t=>t.etiquetas.every(e=>e.trim()==="VOR")),
+      `${conAjuste.length} ajustados -> ${sinAjuste.length} sin hueco titular`);
+check("el cambio ocurre UNA vez y no va y viene",
+      conAjuste.length>0 && sinAjuste.length>0 &&
+      turnos.findIndex(t=>t.titulo==="Top available")===conAjuste.length,
+      turnos.map(t=>t.titulo==="Top available"?"·":"#").join(""));
+/* La propiedad concreta que se pidió: mientras quede hueco, el que encabeza la
+   lista SIEMPRE llena uno. Ésa es la diferencia con lo de antes, que ofrecía un
+   segundo ala cerrada con el hueco de ala cerrada ya ocupado. */
+check("mientras hay hueco, el candidato #1 SIEMPRE llena uno abierto",
+      conAjuste.length>0 &&
+      conAjuste.every(t=>t.porque.some(l=>/Fills an open \w+ slot/.test(l))),
+      `${conAjuste.length} turnos · ${conAjuste[0]?.porque.join(" | ")}`);
 check("el draft se declara completo y ofrece revisarlo",
       /draft complete/i.test(await page.locator(".room-state").innerText()) &&
       (await page.locator(".room-replay-enter").count())===1);

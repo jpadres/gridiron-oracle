@@ -15,6 +15,22 @@
  *   - comparte tier con estos otros                    (conteo sobre el pool)
  *   - encaja en un hueco titular que tienes abierto    (assignSlots)
  *   - cuántos quedan de su tier                        (conteo)
+ *   - cuánto AÑADE a tu alineación de hoy              (rosterFit.js, misma resta)
+ *
+ * ## El ajuste a la plantilla NO es el multiplicador retirado
+ *
+ * Desde septiembre de 2026 la lista se ordena por lo que cada jugador añade a
+ * TU alineación, cuando la liga declara sus huecos. Eso NO es el `VOR × 0,35`
+ * que se retiró en agosto: aquello era un peso a ojo sobre una plantilla
+ * estándar que nadie había dicho. Esto es la MISMA definición del VOR con el
+ * segundo término bien puesto —lo que pondrías tú si no lo tuvieras, en vez de
+ * lo que pondría la liga media— y con la plantilla vacía da exactamente el VOR
+ * publicado, que es cómo se comprueba que no hay nada inventado dentro.
+ *
+ * El board NO cambia. Sigue ordenado por VOR puro, que es la única definición
+ * de BEST AVAILABLE que hay en el producto. Lo que se adapta es esta lista de
+ * cuatro, que existe para el turno de alguien concreto, y lleva los dos números
+ * a la vista para que la diferencia se pueda leer.
  *
  * ## K y DST
  *
@@ -25,6 +41,17 @@
  */
 
 import { MIN_WEIGHTED_GAMES, SLOT_ELIGIBILITY, priorShare } from "./leagueValue.js";
+import { fitIsActive, rosterFit } from "./rosterFit.js";
+
+/**
+ * Cuántos candidatos se miran antes de ordenar por ajuste a la plantilla.
+ *
+ * Reordenar sólo los cuatro que se enseñan no serviría: si los cuatro primeros
+ * del board son quarterbacks y alas cerradas y ya tienes los dos, el corredor
+ * que sí te añade algo está en el puesto 15 y nunca entraría en la lista. Se
+ * evalúan cincuenta y se enseñan cuatro.
+ */
+const VENTANA = 50;
 
 /** Posiciones cuyo ORDEN está validado. K y DST quedan fuera a propósito. */
 export const RANKED_POSITIONS = ["QB", "RB", "WR", "TE"];
@@ -45,7 +72,10 @@ export function openSlotPositions(slots) {
  * `limit` es corto a propósito. Bajo el reloj, una lista de veinte no es una
  * lista corta: es el board otra vez.
  */
-export function candidates(available, { slots = null, limit = 4 } = {}) {
+export function candidates(
+  available,
+  { slots = null, limit = 4, roster = null, rosterPositions = null, replacement = null } = {}
+) {
   // Un jugador sin equipo NO se recomienda. Su VOR salió de lo que produjo en
   // un equipo en el que ya no está, así que ofrecerlo como «lo mejor
   // disponible» es afirmar algo que los datos contradicen. Sigue en el board,
@@ -87,16 +117,62 @@ export function candidates(available, { slots = null, limit = 4 } = {}) {
   if (pool.length === 0) return [];
   const openPositions = slots ? openSlotPositions(slots) : null;
 
-  return pool.slice(0, limit).map((row, index) => {
+  // El ORDEN. Por defecto es el del board (valor de liga); con la estructura de
+  // la plantilla declarada, por lo que cada uno añade a la alineación de hoy.
+  // Sin estructura no se reordena nada: suponer una plantilla es justo lo que
+  // se retiró, y un orden personalizado sobre una suposición no falla, miente.
+  const ventana = pool.slice(0, VENTANA);
+  const fit = rosterFit({ candidates: ventana, roster, rosterPositions, replacement });
+  const porId = fit ? new Map(fit.map((f) => [f.player_id, f])) : null;
+  // TERCER ESTADO: la estructura está declarada pero ya no queda hueco titular
+  // que nadie pueda mejorar. El orden vuelve a ser el del board por el propio
+  // desempate, y la lista tiene que DECIRLO en vez de seguir rotulada como
+  // personalizada — con un +0 en las cuatro filas, que es la contradicción.
+  const fitActive = fit ? fitIsActive(fit) : false;
+  const ordenados = porId
+    ? [...ventana].sort((a, b) => {
+        const ma = porId.get(a.player_id)?.marginal ?? -Infinity;
+        const mb = porId.get(b.player_id)?.marginal ?? -Infinity;
+        // Empate a marginal —dos jugadores que no entran en tu alineación, o
+        // dos que la mejoran igual— se rompe por el valor del board. Sin este
+        // desempate, con todos los huecos llenos el orden quedaría al azar del
+        // `sort`, que es peor que el board y encima no se nota.
+        return mb - ma || (Number(b.vor) || 0) - (Number(a.vor) || 0);
+      })
+    : pool;
+
+  return ordenados.slice(0, limit).map((row, index) => {
+    const ajuste = porId?.get(row.player_id) ?? null;
     // Cuántos quedan de SU tier en el pool disponible entero, no en lo pintado.
     // Contarlo sobre la ventana visible fue un bug real de este proyecto.
     const sameTier = Number.isFinite(row.tier)
       ? pool.filter((other) => other.position === row.position && other.tier === row.tier).length
       : null;
     const reasons = [];
-    if (index === 0) reasons.push({ kind: "TOP", text: "Highest league value available" });
+    if (index === 0) {
+      reasons.push({
+        kind: "TOP",
+        text: fitActive
+          ? "Adds the most to your starting lineup"
+          : "Highest league value available",
+      });
+    }
     if (openPositions && openPositions.has(row.position)) {
       reasons.push({ kind: "SLOT", text: `Fills an open ${row.position} slot` });
+    }
+    // Cuánto se come tu plantilla del valor publicado, dicho como resta y no
+    // como consejo. Sólo se enseña cuando hay algo que decir: repetir «100% of
+    // his board value» en las cuatro filas del primer pick sería el aviso que
+    // sale siempre y por eso no informa.
+    if (fitActive && ajuste && Number.isFinite(ajuste.marginal) && Number.isFinite(ajuste.vor)
+        && ajuste.vor > 0 && ajuste.marginal < ajuste.vor - 0.5) {
+      reasons.push({
+        kind: "FIT",
+        text: ajuste.marginal <= 0.5
+          ? `You already start a ${row.position} — he adds nothing to this lineup`
+          : `Your ${row.position} slot is taken: ${Math.round(ajuste.marginal)} of his `
+            + `${Math.round(ajuste.vor)} VOR reaches your lineup`,
+      });
     }
     if (sameTier !== null) {
       reasons.push({
@@ -106,6 +182,9 @@ export function candidates(available, { slots = null, limit = 4 } = {}) {
           : `${sameTier} ${row.position}s left in tier ${row.tier}`,
       });
     }
-    return { row, reasons, sameTier };
+    // `fit` lleva el dato; `fitActive` dice si ordenar por él significa algo.
+    // Separados a propósito: el número sigue siendo cierto cuando ya no queda
+    // hueco, lo que deja de ser cierto es la etiqueta de la lista.
+    return { row, reasons, sameTier, fit: ajuste, fitActive };
   });
 }

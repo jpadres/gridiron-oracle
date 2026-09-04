@@ -48,6 +48,7 @@ import {
   assignSlots, PRIOR_SHARE_VISIBLE, priorShare, VALIDATED_MAX_TEAMS, valueConfidence,
 } from "./leagueValue.js";
 import { candidates as buildCandidates } from "./candidates.js";
+import { replacementPoints } from "./rosterFit.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
 // El board de VOR sólo ordena estas cuatro. K y DST son FICHABLES —existen en
@@ -336,10 +337,34 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
    * pueda quedarse viejo. Ése es el requisito de «sin candidato rancio», y se
    * cumple por construcción y no por un efecto que haya que acordarse de poner.
    */
+  /* El nivel de reemplazo, LEÍDO del pool por la identidad `proj − vor`. Sale
+     del board que se esté usando —el de tu liga si se pudo compilar—, así que
+     una superflex trae su propio reemplazo sin que nadie aquí sepa qué es una
+     superflex. No se recalcula nada. */
+  const replacement = useMemo(() => replacementPoints(pool), [pool]);
+
   const shortlist = useMemo(
-    () => buildCandidates(available, { slots: construction?.slots ?? null, limit: 4 }),
-    [available, construction]
+    () => buildCandidates(available, {
+      slots: construction?.slots ?? null,
+      limit: 4,
+      // Los tres juntos o ninguno: `rosterFit` devuelve null sin estructura y
+      // la lista se queda en el orden del board, que es el comportamiento
+      // correcto cuando no se sabe qué huecos tiene la liga.
+      roster,
+      rosterPositions: construction ? league.roster : null,
+      replacement,
+    }),
+    [available, construction, roster, league, replacement]
   );
+  /* TRES estados, no dos, y la pantalla los distingue por su nombre:
+       · sin estructura declarada        -> orden del board, y se dice por qué
+       · con huecos que alguien mejora   -> orden por lo que añade a tu alineación
+       · con TODOS los titulares puestos -> orden del board otra vez, y se dice
+     Reordenar en silencio sería indistinguible de un board roto; y rotular la
+     lista «lo que más añade» con un +0 en cada fila serían dos frases que se
+     contradicen en la misma pantalla. */
+  const fitted = shortlist.length > 0 && shortlist[0].fitActive === true;
+  const startersFull = shortlist.length > 0 && shortlist[0].fit !== null && !fitted;
 
   const onClock = isMyTurn({ overall: state.count + 1, teams, type, mySlot });
   /* DÓNDE VA EL DRAFT lo dice el PROVEEDOR, no cuántos picks pudimos resolver.
@@ -716,10 +741,26 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
       {onClock && !replaying && !complete && shortlist.length > 0 ? (
         <section className="room-shortlist" aria-label="Top available">
           <h2 className="room-h">
-            Top available
+            {fitted ? "Best for your roster" : "Top available"}
             <small>
-              by {leagueCompiled ? "your league\u2019s" : "the published"} value — not a
-              personalised recommendation
+              {fitted ? (
+                <>
+                  what each one adds to <strong>your</strong> starting lineup, from{" "}
+                  {leagueCompiled ? "your league\u2019s" : "the published"} value — the board
+                  below stays in pure VOR order
+                </>
+              ) : startersFull ? (
+                <>
+                  every starting slot is filled, so nobody adds to your lineup any more —
+                  this is back to {leagueCompiled ? "your league\u2019s" : "the published"}{" "}
+                  value, which is the right order for a bench pick
+                </>
+              ) : (
+                <>
+                  by {leagueCompiled ? "your league\u2019s" : "the published"} value — roster
+                  structure is not configured, so nothing is adapted to your team
+                </>
+              )}
             </small>
           </h2>
           {/* La profundidad CALIFICA la lista, no la esconde. El board del
@@ -770,7 +811,19 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                       ) : null}
                     </span>
                   </span>
-                  <span className="room-cand-vor">{num(entry.row.vor, 1)}<small>VOR</small></span>
+                  {/* Los DOS números, siempre juntos. Enseñar sólo el ajustado
+                      escondería que el board dice otra cosa, y enseñar sólo el
+                      del board dejaría el reorden sin explicación visible. */}
+                  <span className="room-cand-vor">
+                    {entry.fitActive && entry.fit && Number.isFinite(entry.fit.marginal) ? (
+                      <>
+                        {num(entry.fit.marginal, 1)}<small>to your lineup</small>
+                        <em>{num(entry.row.vor, 1)} VOR</em>
+                      </>
+                    ) : (
+                      <>{num(entry.row.vor, 1)}<small>VOR</small></>
+                    )}
+                  </span>
                 </button>
                 {/* El «why» son HECHOS compuestos, no prosa: el primero por
                     valor, el hueco elegible abierto y el conteo de su tier.
@@ -1254,8 +1307,32 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                   Values come from the published board{boardContext ? ` (${boardContext})` : ""}.
                 </>
               )}{" "}
-              Best available by VOR, <strong>not</strong> a recommendation tuned to your
-              roster. Your roster context sits beside it, never folded into it.
+              The board below is <strong>best available by VOR</strong> and stays that way —
+              one definition, unchanged.{" "}
+              {startersFull ? (
+                <>
+                  Your starters are all filled, so no candidate adds anything to this
+                  week&rsquo;s lineup and the four above are in board order too. What a bench
+                  pick is worth depends on injuries that have not happened yet, and nothing
+                  here measures that.
+                </>
+              ) : fitted ? (
+                <>
+                  The four candidates above are ordered by what each one adds to{" "}
+                  <strong>your</strong> lineup instead: the same subtraction VOR already is,
+                  with the second term changed from &ldquo;what the average league would
+                  start&rdquo; to &ldquo;what <em>you</em> would start&rdquo;, using the slots
+                  your league declares. With an empty roster it returns the published VOR
+                  exactly &mdash; that identity is how you can tell nothing was invented. It
+                  is arithmetic on published numbers, not a validated predictor of draft
+                  outcomes.
+                </>
+              ) : (
+                <>
+                  Your roster structure is not configured, so the four candidates are in board
+                  order too. Nothing is adapted to a roster nobody declared.
+                </>
+              )}
             </p>
             {leagueCompiled ? (
               <p>

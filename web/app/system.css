@@ -2043,6 +2043,15 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   font-size: var(--text-h3); font-variant-numeric: tabular-nums;
 }
 .room-cand-vor small { display: block; font-size: var(--text-nano, 0.62rem); color: var(--chalk-dim); }
+/* El VOR del board, debajo del ajustado. Va en `em` y no en otro `small`
+   para que se distinga de la etiqueta de la cifra grande: son dos cosas
+   —qué mide el número de arriba, y cuál es el número del board— y con la
+   misma pinta se leerían como una sola. */
+.room-cand-vor em {
+  display: block; font-style: normal; font-size: var(--text-nano, 0.62rem);
+  color: var(--chalk-dim); opacity: 0.75; white-space: nowrap;
+}
+
 .room-why { list-style: none; margin: 0; padding: 0 var(--space-3) var(--space-2) 3.5rem; }
 .room-why li { font-size: var(--text-micro); color: var(--chalk-dim); }
 

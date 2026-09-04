@@ -158,6 +158,45 @@ De ahí que las dos cosas vivan en ficheros distintos y no se mezclen:
 valor. Si un día vuelven a caber en la misma función, es que alguien ha vuelto a
 creer que personalizar la puntuación termina el trabajo.
 
+### 6d. El valor del board no es tu valor, y la resta lo dice
+
+    VOR = PUNTOS − LO QUE PONDRÍAS SI NO LO TUVIERAS.
+    CAMBIAR EL SEGUNDO TÉRMINO DE «LA LIGA MEDIA» A «TÚ» NO ES UNA REGLA NUEVA.
+
+El VOR publicado compara con el primer no-titular de la LIGA. Es lo correcto
+para un board y es lo que se validó. Lo que no sabe es que tú ya tienes ala
+cerrada: la lista corta seguía ofreciendo un segundo TE con el hueco de TE
+ocupado, porque para la liga media ese jugador seguía valiendo lo mismo.
+
+`rosterFit.js` hace la MISMA resta con el segundo término bien puesto: lo que
+añade a tu alineación, repartida por `assignSlots` sobre los huecos que tu liga
+declara. **No hay una sola constante nueva en ese fichero**, y la comprobación de
+que no se ha inventado nada es una identidad:
+
+    CON LA PLANTILLA VACÍA, EL MARGINAL ES EXACTAMENTE EL VOR PUBLICADO.
+
+Al primer pick todos tus huecos están a nivel de reemplazo, así que quien ocupe
+el suyo sustituye a ese reemplazo y la resta da el número del board. El orden del
+primer pick es el del board y sólo se separa a medida que TÚ llenas huecos. Eso
+también contesta a 6b: ordenar por puntos de alineación a secas habría puesto los
+quarterbacks arriba, y aquí no, porque un hueco de QB vacío ya vale 233 puntos.
+
+El nivel de reemplazo **se lee, no se recalcula**: `proj − vor` es constante
+dentro de cada posición y ES el que usó el compilador, así que una superflex trae
+el suyo sin que el fichero sepa qué es una superflex.
+
+Y hay un TERCER estado que no es «se adapta» ni «no hay estructura»: **todos tus
+titulares puestos**. Ahí el marginal de todo el mundo es cero, el orden vuelve a
+ser el del board por el desempate, y la pantalla lo dice — mantener el rótulo «lo
+que más añade a tu alineación» con un +0 en cada fila serían dos frases que se
+contradicen, que es un fallo ya cometido aquí («DUDA» y «Seguro» en la misma
+fila). Sin estructura declarada no se calcula nada: suponer una plantilla es
+exactamente lo que se retiró.
+
+**El board no cambia.** Sigue en VOR puro, que es la única definición de BEST
+AVAILABLE del producto. Lo que se adapta es la lista de cuatro del Draft Room,
+que existe para el turno de alguien concreto, y lleva los dos números a la vista.
+
 Los huecos compartidos se reparten **asignándolos**, no por pesos fijos: cada
 flex va a la posición cuyo mejor jugador libre vale más. Es lo que hace que la
 demanda cuadre con los huecos que la liga define de verdad — el reparto por pesos
@@ -341,7 +380,7 @@ python scripts/research_build.py               # barrido diario de prensa: ~5 mi
 python scripts/research_patch.py               # mete el research en el payload sin reentrenar
 python scripts/export_web_data.py --with-narrative   # resumen y explicaciones
 
-pytest -q          # 126 tests, sobre datos sintéticos (no requieren `oracle refresh`)
+pytest -q          # 383 tests, sobre datos sintéticos (no requieren `oracle refresh`)
 ruff check src tests scripts
 cd web && npx next build
 ```
@@ -389,7 +428,9 @@ comentario está para que no los reintroduzcas.
 | El barrido diario salía VERDE sin barrer nada | `daily-research.yml` | Sin `ANTHROPIC_API_KEY` el script avisaba y salía con 0 — correcto en local, mentira en CI, donde barrer es su ÚNICA tarea. Encima commiteaba «research: barrido del \<fecha\>». Ahora `--require-key` lo pone rojo y el mensaje dice lo que pasó de verdad |
 | El research diario publicaba CERO enlaces a jugador | `research_build.py` | El índice de enlazado salía de `out/fantasy_weekly.json`, y `out/` está en `.gitignore`: **en CI no existe nunca**. Publicaba las 45 fichas sueltas encima de las buenas, vaciando las marcas del ranking. Ahora cae al payload versionado, y si no puede enlazar **no reescribe** |
 | El parche diario borraba «Today's Intelligence» | `research_patch.py` | Escribía `payload["research"]` entero sin la clave `today`, que sólo añadía la regeneración semanal. Cada barrido dejaba la sección vacía hasta el miércoles. Ahora las dos rutas llaman a la MISMA `attach_today` — el fallo de los dos traductores de Sleeper, otra vez |
-| «Best available for you» multiplicaba el VOR por una necesidad inventada | `DraftMode.jsx` | VOR × 0,35 cuando «la posición estaba llena» según una plantilla estándar que nadie declaró: una recomendación personalizada sin experimento, vestida de board validado. Retirado en 2026-08: el VOR se enseña puro y lo que tienes se dice al lado, como conteo. BEST AVAILABLE tiene UNA definición en todo el producto |
+| «Best available for you» multiplicaba el VOR por una necesidad inventada | `DraftMode.jsx` | VOR × 0,35 cuando «la posición estaba llena» según una plantilla estándar que nadie declaró: una recomendación personalizada sin experimento, vestida de board validado. Retirado en 2026-08: el VOR se enseña puro y lo que tienes se dice al lado, como conteo. BEST AVAILABLE tiene UNA definición en todo el producto. **Lo de `rosterFit.js` (2026-09) NO es esto vuelto a poner**: no hay multiplicador, los huecos son los que la liga DECLARA, y con la plantilla vacía devuelve el VOR publicado exacto — ver regla 6d |
+| La lista corta ofrecía un segundo ala cerrada con el hueco ya ocupado | `candidates.js` | Ordenaba por el VOR de la LIGA MEDIA, que no sabe lo que tú tienes. Con los WR y el FLEX llenos seguía proponiendo el cuarto receptor —que añadía CERO— mientras el hueco de TE seguía abierto. Y no bastaba reordenar los cuatro que se pintan: si los cuatro primeros ya no te caben, el que sí te sirve está en el puesto 15. Se evalúan cincuenta y se enseñan cuatro |
+| Tres guardianes del ajuste que pasaban EN VACÍO | `tools/lab/live-assistant.mjs` | Al inyectar el fallo del cableado los quince turnos salían «Top available», y «todos los turnos sin ajuste dicen VOR», «el cambio ocurre una vez» y «ninguna fila ofrece lo que no cabe» se cumplían los tres con cero turnos ajustados. La condición `conAjuste.length > 0` va DENTRO de cada aserción, no como comprobación aparte. Es el «suma >= pintadas» otra vez |
 | El `status` del draft se cacheaba y no se releía | `useSleeperDraft.js` | `LIVE` exige que Sleeper diga `drafting`, y el objeto del draft se leía UNA vez. Un draft que terminaba mientras mirabas seguía diciendo `LIVE` para siempre: el sondeo de picks seguía saliendo bien y la copia en memoria seguía diciendo `drafting`. La regla de frescura burlada por una caché, no por un fallo de la regla |
 | El asistente enseñaba «12 equipos» y dibujaba 10 | `RoomShell.jsx` | La parrilla, el puesto y el board ya usaban los ajustes del PROVEEDOR y la cabecera seguía leyendo los tecleados: los dos números en pantalla a la vez, y el equivocado en el sitio que se lee primero. Una liga EFECTIVA, y todo lee de ella |
 | Un doble de Sleeper por laboratorio | `tools/lab/sleeper-double.mjs` | Al resolver por id y derivar la identidad de `draft_order`, un doble al que le falte un campo no falla: prueba otra cosa y sale VERDE. Tres copias eran tres coberturas distintas del mismo formato — el fallo de los dos traductores, por cuarta vez. Uno solo, compartido |
@@ -472,7 +513,7 @@ está construida:
 | `smoke.mjs` | Las DOCE páginas en 390/768/1440 sin cuenta: responden, no lanzan, tienen `h1`, no desbordan y ninguna se queda sin enlace. Comprueba la ALCANZABILIDAD, no la presencia en el menú: `/fantasy/leagues` salió del menú a propósito y la enlaza la barra de liga. Y que los dos menús —el de escritorio y el desplegable del teléfono— lleven exactamente lo mismo |
 | `movil.mjs` | GEOMETRÍA en 390/360, claro y oscuro, y con el texto agrandado: que nada se salga de su celda por la derecha, que nada se monte encima de nada y que las columnas fijas sean opacas. Cada ruta declara además la pieza densa que la define: una comprobación de geometría sobre una pantalla que se quedó vacía sale verde sin mirar nada |
 | `cuenta.mjs` | Enlazar la cuenta, los paneles por liga, el semanal marcado, lo libre, el resto de temporada, el analizador y el recorrido «una cuenta, una liga» |
-| `live-assistant.mjs` | Un draft entero de 180 picks por el adaptador, las carreras por un candidato y los picks leídos que no se aplican |
+| `live-assistant.mjs` | Un draft entero de 180 picks por el adaptador, las carreras por un candidato, los picks leídos que no se aplican, y que la lista corta se ADAPTE a la plantilla: ocho turnos ordenados por lo que añaden y siete de vuelta al board cuando ya no queda titular que llenar |
 | `headshot-shots.mjs` | Fotos por id, el bloque de no disponibles y las marcas de estado |
 | `storage-blocked.mjs` | El navegador que BLOQUEA el almacenamiento: cinco pantallas tienen que seguir en pie |
 | `apuestas.mjs` | Los mercados partido a partido, el signo del handicap y el plan de la semana: que la apuesta sugerida sea la MISMA fracción de la banca esté arriba o abajo |
