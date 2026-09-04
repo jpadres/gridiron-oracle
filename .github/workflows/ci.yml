@@ -229,9 +229,30 @@ jobs:
           echo "Auditando $(wc -l < /tmp/requirements-auditadas.txt) dependencias:"
           pip-audit --strict -r /tmp/requirements-auditadas.txt
 
+      # El endpoint de auditoría de npm devuelve 503 con cierta frecuencia y
+      # tarda siete minutos en rendirse. Se reintenta tres veces con espera
+      # creciente, y si al final no se puede consultar, esto sigue en ROJO:
+      # «no he podido auditar» NO es «no hay vulnerabilidades», y un control
+      # que se pone verde cuando no ha comprobado nada es peor que no tenerlo
+      # (la lección del barrido diario que salía verde sin barrer). Lo único
+      # que cambia respecto a antes es que el motivo se lee en el log en vez
+      # de tener que abrirlo para descubrir que fue la red.
       - name: npm audit
         working-directory: web
-        run: npm audit --audit-level=moderate
+        run: |
+          for intento in 1 2 3; do
+            salida=$(npm audit --audit-level=moderate 2>&1) && { echo "$salida"; exit 0; }
+            echo "$salida"
+            if grep -qE "audit endpoint returned an error|Service Unavailable|ETIMEDOUT|ECONNRESET|ENOTFOUND" <<< "$salida"; then
+              echo "::warning::npm no ha podido auditar (intento $intento/3). Reintentando."
+              sleep $((intento * 20))
+              continue
+            fi
+            echo "::error::npm audit ha encontrado vulnerabilidades."
+            exit 1
+          done
+          echo "::error::El endpoint de auditoría de npm no responde tras 3 intentos. NO se ha auditado nada: esto no es una auditoría limpia."
+          exit 1
 
   secrets:
     name: Escaneo de credenciales
