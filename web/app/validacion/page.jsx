@@ -1,6 +1,6 @@
 import { model, num, pct } from "../../data/model.js";
 import { CalibrationPlot } from "../charts.jsx";
-import { Callout, NoDataYet, Table } from "../ui.jsx";
+import { Callout, NoDataYet, Note, Table } from "../ui.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — Validation",
@@ -96,13 +96,13 @@ export default function Validacion() {
         </p>
       </Callout>
 
-      <Callout title="How to read this">
+      <Note title="How to read this">
         <p>
           The two columns sit side by side on purpose. Reporting the model&rsquo;s Brier
           without the market&rsquo;s next to it says nothing: the question is not &ldquo;is it
           good?&rdquo; but &ldquo;is it better than what already exists for free?&rdquo;
         </p>
-      </Callout>
+      </Note>
 
       <h2>Against the spread</h2>
       <p>

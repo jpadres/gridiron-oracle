@@ -1,5 +1,5 @@
 import { model, num, pct } from "../../data/model.js";
-import { Callout, NoDataYet, Stat, Table } from "../ui.jsx";
+import { Callout, NoDataYet, Note, Stat, Table } from "../ui.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — Survivor",
@@ -87,7 +87,7 @@ export default function Survivor() {
         costs you to spend today the team that would have saved week eleven.
       </p>
 
-      <Callout title="Here the model does add something, for a specific reason">
+      <Note title="Here the model does add something, for a specific reason">
         <p>
           Against the closing line the model ties, which is why the betting page comes up
           empty. In a survivor pool <strong>you are not competing against an efficient
@@ -97,7 +97,7 @@ export default function Survivor() {
           {num(model.validation?.overall?.ece ?? 0, 4)} — plus looking at every week at once,
           which is where a person runs out of room.
         </p>
-      </Callout>
+      </Note>
 
       <div className="grid">
         <Stat

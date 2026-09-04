@@ -193,6 +193,20 @@ code { background: var(--surface); padding: var(--space-0) var(--space-1); borde
 .lede { font-size: var(--text-lead); color: var(--muted); }
 .caption { font-size: var(--text-dense); color: var(--muted); }
 
+/* DOS PESOS DE PROSA, Y LA DIFERENCIA IMPORTA.
+   Había veintitrés bloques amarillos en el sitio: la tesis honesta del modelo,
+   «cómo se lee esta tabla», el estado vacío de una sección y tres apuntes de
+   historia, todos con el mismo grito. Veintitrés cosas resaltadas son cero
+   cosas resaltadas — y son veintitrés bloques de prosa entre quien entra y sus
+   datos, que es de donde viene la sensación de página abarrotada.
+
+   `.callout` (ámbar) queda para lo que CONTRADICE lo que el lector asumiría:
+   que el modelo no bate al mercado, que un lean no es una ventaja, que el
+   modelo de totales se retiró por peor. Es la voz de la regla 3.
+
+   `.note` (neutra) es para lo que sólo ACOMPAÑA: cómo se lee una tabla, de
+   dónde sale un número, qué pasó una vez. Mismo texto, mismo sitio, sin la
+   alarma. No se borra nada: se deja de gritar lo que no es una alarma. */
 .callout {
   border-left: 3px solid var(--warn-line);
   background: var(--warn-bg);
@@ -201,6 +215,17 @@ code { background: var(--surface); padding: var(--space-0) var(--space-1); borde
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 .callout h3 { margin-top: 0; }
+
+.note {
+  border-left: 3px solid var(--muted);
+  background: var(--surface);
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-5) 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+.note h3 { margin-top: 0; font-size: var(--text-lead); }
+.note > :last-child { margin-bottom: 0; }
+.callout > :last-child { margin-bottom: 0; }
 
 /* Las tablas anchas hacen scroll dentro de su contenedor: el cuerpo de la
    página nunca se desplaza en horizontal, ni siquiera en un móvil estrecho. */
@@ -215,10 +240,25 @@ tbody tr:hover { background: var(--surface); }
 
 .grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
         margin: var(--space-5) 0; }
-.stat { border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); }
-.stat .value { font-size: var(--num-hero); font-weight: var(--weight-numeric); letter-spacing: -0.02em; }
-.stat .label { font-size: var(--text-dense); color: var(--muted); text-transform: uppercase;
-               letter-spacing: 0.04em; }
+/* UNA tarjeta de cifra, no cinco. `.stat` y `.card` eran la misma caja con
+   distinto relleno, distinto tamaño de valor y distinto tamaño de etiqueta —
+   diferencias por accidente, no por decisión, y se notaban al ponerlas en
+   páginas contiguas. Ahora comparten anatomía y `.card` sólo añade lo que sí
+   la distingue: que se puede pulsar. */
+.stat, .card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+.stat .value, .card-value {
+  display: block; font-size: var(--num-lead); font-weight: var(--weight-numeric);
+  letter-spacing: -0.01em; margin: var(--space-0) 0;
+}
+.stat .label, .card-label {
+  display: block; font-size: var(--text-micro); color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.stat .caption, .card-detail { display: block; font-size: var(--text-micro); color: var(--muted); }
 
 footer { border-top: 1px solid var(--line); margin-top: var(--space-7); padding-top: var(--space-5);
          font-size: var(--text-dense); color: var(--muted); }
@@ -697,7 +737,7 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 
 /* Fichas del dossier: atribuidas y fechadas, sin enlace. Se distinguen de las
    de research a propósito — la diferencia de fiabilidad es real. */
-.dossier { border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--space-3) var(--space-3);
+.dossier { border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--space-3);
            margin: var(--space-3) 0; }
 .dossier h4 { margin: 0 0 var(--space-1); font-size: var(--text-body); }
 .dossier p { margin: var(--space-1) 0; }
@@ -733,7 +773,7 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 
 /* --- modo draft ----------------------------------------------------------- */
 
-.draft { border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--space-4) var(--space-4);
+.draft { border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--space-3);
          margin: var(--space-4) 0 var(--space-6); }
 .draft-head { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5);
               align-items: baseline; justify-content: space-between;
@@ -867,19 +907,11 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
          margin: var(--space-5) 0; }
 .card {
   display: block;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  padding: var(--space-3) var(--space-3);
   text-decoration: none;
   color: inherit;
   transition: border-color 120ms ease-out;
 }
 .card:hover, .card:focus { border-color: var(--accent); }
-.card-label { display: block; font-size: var(--text-micro); text-transform: uppercase;
-              letter-spacing: 0.05em; color: var(--muted); }
-.card-value { display: block; font-size: var(--num-lead); font-weight: var(--weight-numeric);
-              letter-spacing: -0.01em; margin: var(--space-0) 0; }
-.card-detail { display: block; font-size: var(--text-micro); color: var(--muted); }
 /* Caducado: el borde avisa y el detalle lo dice con palabras. Nunca sólo color. */
 .card--stale { border-color: var(--warn-line); background: var(--warn-bg); }
 .card--stale .card-detail { color: var(--warn-line); font-weight: var(--weight-semibold); }

@@ -1,6 +1,6 @@
 import { availabilityByPlayer, briefsByPlayer, model, num } from "../../data/model.js";
 import { PositionChip, VorCurve } from "../charts.jsx";
-import { Callout, NoDataYet, Table } from "../ui.jsx";
+import { Callout, NoDataYet, Note, Table } from "../ui.jsx";
 import BoardShell from "./BoardShell.jsx";
 
 export const metadata = {
@@ -395,7 +395,7 @@ export default function Fantasy() {
           </p>
           <Table columns={VALIDATION_COLUMNS} rows={fantasy.validation ?? []} />
 
-          <Callout title="Three measurement bugs, and what each one hid">
+          <Note title="Three measurement bugs, and what each one hid">
             <p>
               An earlier version of this table reported Spearman around{" "}
               <strong>0.61 to 0.69</strong>. Three separate faults in the harness produced
@@ -432,7 +432,7 @@ export default function Fantasy() {
               it partly measures <em>losing the job</em> rather than durability. At running
               back the same figure is 7%.
             </p>
-          </Callout>
+          </Note>
 
           <p>
             The second row of each position is the comparison that matters:{" "}

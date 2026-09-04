@@ -1,6 +1,6 @@
 import { model } from "../../data/model.js";
 import { AVAILABILITY_LABEL } from "../availability.js";
-import { Callout, ImpactTag, NoDataYet, Sources, Stat } from "../ui.jsx";
+import { Callout, ImpactTag, NoDataYet, Note as Aside, Sources, Stat } from "../ui.jsx";
 import { byDay as agruparPorDia, partition } from "./select.js";
 
 export const metadata = {
@@ -80,13 +80,13 @@ const longDate = (iso) =>
 function TodaysIntelligence({ items }) {
   if (!items || items.length === 0) {
     return (
-      <Callout title="Nothing today changes a decision">
+      <Aside title="Nothing today changes a decision">
         <p>
           This is not a broken feed. The filter asks whether an item could move a lineup
           this week, and most days nothing does. Lowering the bar until something shows up
           would turn this into the news feed it exists not to be.
         </p>
-      </Callout>
+      </Aside>
     );
   }
   return (
@@ -303,7 +303,7 @@ export default function Research() {
         />
       </div>
 
-      <Callout title="How to read the confidence tag">
+      <Aside title="How to read the confidence tag">
         <p>
           <strong>Confirmed</strong> is an official announcement. <strong>Reported</strong> is
           a named insider. <strong>Rumor</strong> is everything else, including
@@ -311,7 +311,7 @@ export default function Research() {
           August than at any other point in the year: camp produces far more conversation than
           information.
         </p>
-      </Callout>
+      </Aside>
 
       {/* Esta sección ya filtraba por relevancia 4-5. En vez de añadir una
           «Today's Intelligence» al lado —que habría enseñado casi lo mismo con

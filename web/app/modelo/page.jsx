@@ -1,4 +1,4 @@
-import { Callout } from "../ui.jsx";
+import { Callout, Note } from "../ui.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — The Model",
@@ -79,7 +79,7 @@ export default function Modelo() {
         calibration and ensemble weights are all refit at every step.
       </p>
 
-      <Callout title="The mistake already made here, and how it is fixed">
+      <Note title="The mistake already made here, and how it is fixed">
         <p>
           During development the ensemble weights were fit on component predictions{" "}
           <em>in sample</em>: the classic stacking leak. It cost 0.6 points of MAE and made the
@@ -91,7 +91,7 @@ export default function Modelo() {
           generated in disjoint time blocks on an expanding window. Never in sample, and never
           with the future.
         </p>
-      </Callout>
+      </Note>
 
       <h2>Risk management</h2>
       <p>

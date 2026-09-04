@@ -360,7 +360,7 @@ h1, h2, .player-row .nm, .num-mega {
    leer «61.4%» y compararlo con «38.6%» en dos celdas distintas. */
 .matchup .odds { grid-column: 1 / -1; display: flex; align-items: center; gap: var(--space-2); }
 .matchup .odds .track {
-  flex: 1; height: 4px; border-radius: 2px; overflow: hidden;
+  flex: 1; height: 4px; border-radius: var(--radius-sm); overflow: hidden;
   background: var(--home-team, var(--yard-line));
   display: flex;
 }
@@ -916,7 +916,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-row-news {
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .08em;
   color: var(--flag-ink, #a33b3b); border: 1px solid currentColor;
-  border-radius: 2px; padding: 0 3px; align-self: center;
+  border-radius: var(--radius-sm); padding: 0 3px; align-self: center;
 }
 .room-why-news { color: var(--chalk); }
 .room-why-news b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
@@ -924,7 +924,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-row-noteam {
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
   color: #fff; background: var(--flag-ink, #a33b3b);
-  border-radius: 2px; padding: 0 4px; align-self: center; white-space: nowrap;
+  border-radius: var(--radius-sm); padding: 0 4px; align-self: center; white-space: nowrap;
 }
 .room-why-noteam b { color: var(--flag-ink, #a33b3b); }
 /* Las mismas dos marcas en la tabla publicada. Comparten tinta con las del
@@ -944,7 +944,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .mark--out, .mark--risk, .mark--prior {
   width: auto; height: auto; line-height: 1.35;
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
-  border-radius: 2px; white-space: nowrap; vertical-align: baseline;
+  border-radius: var(--radius-sm); white-space: nowrap; vertical-align: baseline;
 }
 .mark--out { color: #fff; background: var(--flag-ink, #a33b3b); padding: 0 4px; }
 .mark--risk {
@@ -956,14 +956,14 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-row-out {
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
   color: #fff; background: var(--flag-ink, #a33b3b);
-  border-radius: 2px; padding: 0 4px; align-self: center; white-space: nowrap;
+  border-radius: var(--radius-sm); padding: 0 4px; align-self: center; white-space: nowrap;
 }
 /* DUDA: puede jugar y puede no jugar. Contorno, no relleno: la diferencia entre
    «no va a jugar» y «a lo mejor no juega» tiene que verse a un metro. */
 .room-row-risk {
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
   color: var(--flag-ink, #a33b3b); border: 1px solid currentColor;
-  border-radius: 2px; padding: 0 3px; align-self: center; white-space: nowrap;
+  border-radius: var(--radius-sm); padding: 0 3px; align-self: center; white-space: nowrap;
 }
 .room-why-out b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
 .room-why-risk b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
@@ -972,13 +972,13 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-row-prior, .mark--prior {
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .04em;
   color: var(--chalk-dim); border: 1px dashed currentColor;
-  border-radius: 2px; padding: 0 3px; align-self: center; white-space: nowrap;
+  border-radius: var(--radius-sm); padding: 0 3px; align-self: center; white-space: nowrap;
 }
 /* ROOKIE: informativo, no alarma. Tinta secundaria, sin rojo. */
 .room-row-rookie {
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .08em;
   color: var(--chalk-dim); border: 1px solid currentColor;
-  border-radius: 2px; padding: 0 3px; align-self: center;
+  border-radius: var(--radius-sm); padding: 0 3px; align-self: center;
 }
 .room-rookie-note {
   margin: calc(var(--space-1) * -1) 0 var(--space-2);
@@ -2083,12 +2083,12 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .state-details { margin: var(--space-3) 0; max-width: 72ch; }
 .state-details pre {
   white-space: pre-wrap; word-break: break-word; font-size: var(--text-micro);
-  background: var(--field-raised); padding: var(--space-2); border-radius: 4px;
+  background: var(--field-raised); padding: var(--space-2); border-radius: var(--radius-sm);
 }
 
 /* --- PROPIEDAD EN LA LIGA ACTIVA: mío, agente libre, de otro --------------- */
 .own {
-  display: inline-block; margin-left: 6px; padding: 0 4px; border-radius: 2px;
+  display: inline-block; margin-left: 6px; padding: 0 4px; border-radius: var(--radius-sm);
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
   vertical-align: middle; white-space: nowrap;
 }

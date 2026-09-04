@@ -19,6 +19,30 @@ export function Callout({ title, children }) {
   );
 }
 
+/**
+ * Lo mismo, sin la alarma.
+ *
+ *     ÁMBAR = «esto contradice lo que estás asumiendo».
+ *     NEUTRO = «esto acompaña a lo que estás leyendo».
+ *
+ * Había veintitrés `Callout` en el sitio y el ámbar había dejado de significar
+ * nada: la tesis honesta del modelo pesaba lo mismo que «cómo se lee esta
+ * tabla». Cuando todo está resaltado, nada lo está — y son veintitrés bloques
+ * de prosa entre quien entra y sus datos.
+ *
+ * El texto no cambia ni se esconde: cambia el peso. Lo que corrige una lectura
+ * (el modelo no bate al mercado, un lean no es una ventaja, esta página no
+ * dice quién gana la liga) sigue en ámbar. Lo que sólo explica, aquí.
+ */
+export function Note({ title, children }) {
+  return (
+    <div className="note">
+      {title ? <h3>{title}</h3> : null}
+      {children}
+    </div>
+  );
+}
+
 export function Stat({ label, value, hint }) {
   return (
     <div className="stat">

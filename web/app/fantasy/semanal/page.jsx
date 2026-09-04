@@ -1,8 +1,6 @@
 import { availabilityByPlayer, model } from "../../../data/model.js";
 import { DeltaBars } from "../../charts.jsx";
-import {
-  Callout, ImpactTag, MachineWritten, NoDataYet, Sources,
-} from "../../ui.jsx";
+import { Callout, ImpactTag, MachineWritten, NoDataYet, Note, Sources } from "../../ui.jsx";
 import WeeklyExplorer from "./WeeklyExplorer.jsx";
 
 export const metadata = {
@@ -130,7 +128,7 @@ export default function Semanal() {
         the trailing team throws more.
       </p>
 
-      <Callout title="How to read the combined list">
+      <Note title="How to read the combined list">
         <p>
           A combined list sorts by projected points and is for the flex decision, where a
           back really does compete with a receiver. To decide a fixed slot, filter to that
@@ -138,7 +136,7 @@ export default function Semanal() {
           does not make him the better start</strong>, because they are not competing for
           the same slot.
         </p>
-      </Callout>
+      </Note>
 
       {/* Filtros multi-posición: RB+WR responde la pregunta del flex, K y DST
           entran con su autoridad real — proyección sin rank y hechos sin
