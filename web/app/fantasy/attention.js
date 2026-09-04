@@ -57,14 +57,22 @@ export function leagueSnapshot(entry, { storage, board = [], byes = null } = {})
   const type = config?.draftType ?? null;
   const mySlot = config?.mySlot ?? null;
   const total = teams && rounds ? teams * rounds : null;
-  const complete = total !== null ? state.count >= total : null;
+  /* POR DÓNDE VA EL DRAFT, que no es cuántos picks llevamos resueltos.
+     Aquí no hay respuesta del proveedor —esta instantánea se arma sólo desde el
+     almacenamiento, para todas las ligas a la vez—, pero sí está el NÚMERO del
+     último pick, que es la señal que hacía falta: con un pick sin emparejar,
+     `state.count` se queda corto y esta pantalla decía «te toca» con dos turnos
+     de retraso, o daba un draft por terminado sin estarlo. */
+  const lastOverall = state.picks.length > 0 ? state.picks[state.picks.length - 1].overall : 0;
+  const madeThrough = Math.max(state.count, lastOverall);
+  const complete = total !== null ? madeThrough >= total : null;
   const active = state.count > 0 && complete !== true;
 
   const onClock = active
-    ? isMyTurn({ overall: state.count + 1, teams, type, mySlot })
+    ? isMyTurn({ overall: madeThrough + 1, teams, type, mySlot })
     : null;
   const next = active && onClock !== true
-    ? untilMyTurn({ count: state.count, teams, type, mySlot, rounds })
+    ? untilMyTurn({ count: madeThrough, teams, type, mySlot, rounds })
     : null;
 
   const mine = board.filter((row) => state.mine.has(row.player_id));

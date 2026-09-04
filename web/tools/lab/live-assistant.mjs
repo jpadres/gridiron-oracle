@@ -346,6 +346,18 @@ console.log("\n=== un pick sin emparejar no corre a los demás ===");
   // El marcador del pick actual: con 7 resueltos y 8 emitidos, el turno es el 9.
   const ahora=await p5.locator(".room-cell.is-now").first().getAttribute("title");
   check("el marcador de «pick actual» señala el 9 y no el 8",ahora==="Pick 9",ahora);
+
+  /* Y el REPLAY, que es donde el cursor y el número se separan. El cursor
+     cuenta picks resueltos —«llevo 7»— y el draft los numera —«voy por el 8»—.
+     Mientras `overall` era la posición en la lista los dos coincidían y daba
+     igual cuál se usara: con huecos, usar el cursor como número de pick sitúa
+     el replay en la ronda equivocada. */
+  await p5.locator(".room-replay-enter").click();
+  await p5.waitForSelector(".room-state--replay");
+  const cursor=await p5.locator(".room-state--replay .room-until-n").innerText();
+  const donde=await p5.locator(".room-state--replay .room-until small").innerText();
+  check("el replay cuenta 7 picks pero sitúa el último en el 8",
+        cursor.trim()==="7" && /round 1, pick 8/.test(donde), `${cursor.trim()} · ${donde}`);
   await p5.screenshot({path:`${OUT}/lda-1440-unmapped-gap.png`});
   await c5.close();
 }

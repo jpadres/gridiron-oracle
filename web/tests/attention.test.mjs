@@ -7,7 +7,7 @@ import { test } from "node:test";
 import {
   attentionItems, labelFor, leagueSnapshot, sortAttention, sortLeagues,
 } from "../app/fantasy/attention.js";
-import { ROSTER, takeEvent } from "../app/fantasy/draftLog.js";
+import { ROSTER, providerEvents, takeEvent } from "../app/fantasy/draftLog.js";
 import { PROVIDER_CAPABILITIES, can } from "../app/fantasy/providers.js";
 
 function storageWith(logs) {
@@ -172,4 +172,57 @@ test("sortLeagues: reloj, cercanía, activo, quietas, completadas — y estable"
     mk("Far", { active: true, next: { away: 9 } }),
   ];
   assert.deepEqual(sortLeagues(list).map((s) => s.name), ["Clock", "Near", "Far", "Quiet", "Done"]);
+});
+
+
+/* ── un pick sin emparejar no atrasa el turno ────────────────────────────────
+ *
+ * Esta instantánea se arma SÓLO desde el almacenamiento —sirve a todas las
+ * ligas a la vez y no tiene la respuesta del proveedor delante—, así que no
+ * podía usar `sync.total` para saber por dónde va el draft. Sí tiene el NÚMERO
+ * del último pick, y ésa es la señal: contando picks resueltos, un draft con un
+ * hueco decía «te toca» dos turnos tarde y podía darse por terminado sin serlo.
+ */
+
+/** El registro de un draft del proveedor, saltándose los picks de `faltan`. */
+const logProveedor = (hasta, faltan = []) => JSON.stringify(
+  providerEvents(
+    Array.from({ length: hasta }, (_, i) => i + 1)
+      .filter((no) => !faltan.includes(no))
+      .map((no) => ({
+        playerId: `p${no - 1}`, pickNo: no, providerId: `s${no}`,
+        roster: no % 4 === 1 ? ROSTER.MINE : ROSTER.OPPONENT,
+      }))
+  )
+);
+
+test("con un pick sin emparejar el turno se sitúa por el NÚMERO, no por el recuento", () => {
+  /* Los números importan y se eligen a mano. Con 4 equipos en snake y el puesto
+     1, mis picks son el 1, 8, 9, 16, 17… Van 15 picks con el 3 sin emparejar:
+     14 resueltos. El siguiente es el 16, que es MÍO; contando resueltos creería
+     ir por el 15 y el 16º sería el pick 15, que es del puesto 2.
+
+     La primera versión de este test usaba 8 picks, y pasaba con el fallo puesto:
+     el 8 y el 9 son los dos míos porque ahí está la vuelta del snake, así que no
+     distinguía nada. Un guardián que no puede separar las dos respuestas no es
+     un guardián — el mismo cuidado que el `conAjuste.length > 0`. */
+  const storage = storageWith({ "gridiron-draft-v2:manual:2026:L1:D1:log": logProveedor(15, [3]) });
+  const snap = leagueSnapshot(entry("gridiron-draft-v2:manual:2026:L1:D1", CFG()), { storage, board: BOARD });
+  assert.equal(snap.onClock, true, "contando resueltos creería que va por el 15, que es del puesto 2");
+});
+
+test("y un draft con huecos NO se da por terminado antes de tiempo", () => {
+  // 4 x 6 = 24 picks. Llegan hasta el 24 con dos sin emparejar: 22 resueltos.
+  const storage = storageWith({ "gridiron-draft-v2:manual:2026:L1:D1:log": logProveedor(24, [5, 11]) });
+  const snap = leagueSnapshot(entry("gridiron-draft-v2:manual:2026:L1:D1", CFG()), { storage, board: BOARD });
+  assert.equal(snap.complete, true, "el pick 24 existe y es el último: el draft SÍ terminó");
+});
+
+test("a mitad de draft, «cuántos faltan para mí» cuenta desde el número real", () => {
+  // Van 5 picks con el 3 perdido (4 resueltos). Mi siguiente turno es el 8.
+  const storage = storageWith({ "gridiron-draft-v2:manual:2026:L1:D1:log": logProveedor(5, [3]) });
+  const snap = leagueSnapshot(entry("gridiron-draft-v2:manual:2026:L1:D1", CFG()), { storage, board: BOARD });
+  assert.equal(snap.onClock, false);
+  assert.equal(snap.next.overall, 8, "el 6 y el 7 son de otros; el 8 vuelve a ser mío");
+  assert.equal(snap.next.away, 2);
 });

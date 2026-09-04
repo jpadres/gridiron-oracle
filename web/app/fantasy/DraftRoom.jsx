@@ -366,7 +366,6 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
   const fitted = shortlist.length > 0 && shortlist[0].fitActive === true;
   const startersFull = shortlist.length > 0 && shortlist[0].fit !== null && !fitted;
 
-  const onClock = isMyTurn({ overall: state.count + 1, teams, type, mySlot });
   /* DÓNDE VA EL DRAFT lo dice el PROVEEDOR, no cuántos picks pudimos resolver.
      Un novato de 2026 no está en el board publicado, así que su pick entra
      UNMAPPED y no produce evento canónico. Contando sólo lo resuelto, «picks
@@ -387,6 +386,20 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
      depende de que el sondeo haya devuelto `total`. */
   const lastOverall = state.picks.length > 0 ? state.picks[state.picks.length - 1].overall : 0;
   const draftCount = Math.max(state.count, providerPicks, lastOverall);
+
+  /* EL PICK QUE SE ESTÁ ELIGIENDO AHORA. Una sola definición, y todo lo que
+     dependa de «de quién es este turno» cuelga de ella.
+
+     Estaba calculado dos veces con dos fuentes distintas: `onClock` con
+     `state.count + 1` (picks RESUELTOS) y `next` con `draftCount` (la posición
+     real). Mientras no faltara ningún pick las dos daban lo mismo; con un solo
+     pick sin emparejar la pantalla podía decir «te toca» y a la vez «quedan 3
+     picks para ti». Y lo caro no era la contradicción en pantalla: `record`
+     usaba la primera para DERIVAR de quién es un pick tecleado, así que un
+     hueco podía meter tu pick en la plantilla de otro — que es exactamente lo
+     que la regla del roster prohíbe hacer en silencio. */
+  const onClockOverall = draftCount + 1;
+  const onClock = isMyTurn({ overall: onClockOverall, teams, type, mySlot });
   const next = untilMyTurn({ count: draftCount, teams, type, mySlot, rounds });
 
   /**
@@ -399,7 +412,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
    */
   const record = useCallback((row, declared) => {
     if (replayCursorRef.current !== null) return;   // el pasado no se edita
-    const derived = isMyTurn({ overall: state.count + 1, teams, type, mySlot });
+    const derived = isMyTurn({ overall: onClockOverall, teams, type, mySlot });
     const roster = declared ?? (derived === null
       ? ROSTER.UNKNOWN
       : derived ? ROSTER.MINE : ROSTER.OPPONENT);
@@ -416,7 +429,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
     setFlash({ row, roster });
     clearTimeout(flashTimer.current);
     flashTimer.current = setTimeout(() => setFlash(null), 6000);
-  }, [state.count, teams, type, mySlot]);
+  }, [onClockOverall, teams, type, mySlot]);
 
   const undo = useCallback((playerId) => {
     if (replayCursorRef.current !== null) return;   // el pasado no se edita
@@ -527,19 +540,23 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
 
   if (!ready) return <p className="caption">Loading draft room&hellip;</p>;
 
-  /* En replay manda el cursor; en vivo, la posición autoritativa del proveedor.
-     En replay se usa el NÚMERO del último pick reproducido y no cuántos van:
-     con huecos —picks que existieron y no se pudieron emparejar— «llevo 30
-     picks» y «voy por el pick 30» dejan de ser lo mismo. */
-  const overall = (replaying
-    ? (effective.picks.length > 0 ? effective.picks[effective.picks.length - 1].overall : 0)
-    : draftCount) + 1;
+  /* EL CURSOR DEL REPLAY CUENTA PICKS; EL DRAFT LOS NUMERA. NO SON LO MISMO.
+     `replayCursor` es un índice sobre los picks resueltos —«llevo 30»— y el
+     número del pick es lo que dice el proveedor —«voy por el 33»—. Mientras
+     `overall` era la posición en la lista los dos coincidían y daba igual cuál
+     se usara; desde que manda el número del proveedor, usar el cursor como si
+     fuera un número de pick sitúa el replay en la ronda equivocada. De aquí
+     sale UNA variable y las dos lecturas cuelgan de ella. */
+  const lastReplayed = replaying && replayCursor > 0
+    ? effective.picks[effective.picks.length - 1] ?? null
+    : null;
+  const overall = (replaying ? (lastReplayed?.overall ?? 0) : draftCount) + 1;
   const here = slotForOverall(overall, teams, type);
   // Completo sólo si la liga declaró tamaño y rondas: sin ellos no se afirma.
   const complete = Boolean(teams && rounds && draftCount >= teams * rounds);
   // Dónde está el cursor, en lenguaje de draft: el pick N y su casilla.
-  const cursorHere = replaying && replayCursor > 0
-    ? slotForOverall(replayCursor, teams, type)
+  const cursorHere = lastReplayed
+    ? slotForOverall(lastReplayed.overall, teams, type)
     : null;
 
   return (
