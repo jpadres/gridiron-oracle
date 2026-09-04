@@ -25,10 +25,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { num } from "../../../data/model.js";
-import { availabilityMark } from "../../availability.js";
 import { Headshot } from "../../headshot.jsx";
 import { TeamMark } from "../../sports.jsx";
 import LeagueBar from "../LeagueBar.jsx";
+import { OwnMark, RowMarks } from "../rowMarks.jsx";
 import {
   GAMES_IN_SEASON, LAST_WEEK, freeAgentUpgrades, freeSpecialists, restOfSeason,
 } from "../leagueAdvice.js";
@@ -36,56 +36,6 @@ import { ownershipLabel, ownershipOf } from "../sleeperAccount.js";
 
 const OFFENSE = ["QB", "RB", "WR", "TE"];
 const CHIPS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
-
-/**
- * Marcas de contexto de una fila: estado, nota del modelo, prensa, dossier.
- *
- * El ESTADO va primero y va SIEMPRE, igual que en el board: que alguien no
- * pueda jugar es lo primero que hay que ver de una fila, antes que la nota y
- * antes que la prensa. Esta pantalla no lo pintaba —sólo salía la ficha del
- * dossier, que es de agosto—, así que el ranking semanal enseñaba la
- * afirmación vieja y se callaba la de hoy. El fallo de las dos superficies con
- * distinta cobertura, esta vez sobre quién puede jugar.
- */
-function RowMarks({ row, id, notes, news, availability, statusVerifiedAt }) {
-  const health = availabilityMark(availability?.[id], statusVerifiedAt, row?.status_label);
-  return (
-    <>
-      {row?.status_label ? (
-        <span className={row.status_severity === "OUT" ? "mark mark--out" : "mark mark--risk"}
-              title={`${row.status_detail} `
-                + (row.status_freshness === "CURRENT"
-                  ? `Verified ${row.status_verified_at}.`
-                  : `LAST VERIFIED ${row.status_verified_at}.`)
-                + " Changes no number on this row."}>
-          {row.status_label}
-        </span>
-      ) : null}
-      {notes?.[id] ? (
-        <span className="mark mark--why" title="The model explains this ranking below">?</span>
-      ) : null}
-      {news?.[id] ? (
-        <span className="mark mark--news" title="Recent reporting on this player">!</span>
-      ) : null}
-      {health ? (
-        <span className={health.className} title={health.title}>{health.text}</span>
-      ) : null}
-    </>
-  );
-}
-
-/**
- * La marca de propiedad de una fila EN LA LIGA ACTIVA: mío, agente libre o
- * de otro (con su dueño). Sale de la instantánea de la cuenta enlazada, por
- * `sleeper_id`; sin cuenta o sin id no se pinta nada, que es la verdad.
- */
-function OwnMark({ own, owners }) {
-  if (!own) return null;
-  if (own.status === "MINE") return <span className="own own--mine" title="On your roster in this league">MINE</span>;
-  if (own.status === "FREE_AGENT") return <span className="own own--fa" title="Not on any roster in this league">FA</span>;
-  const who = owners?.[String(own.rosterId)] ?? `roster ${own.rosterId}`;
-  return <span className="own own--taken" title={`On ${who}'s roster`}>{who}</span>;
-}
 
 export default function WeeklyExplorer({
   rankings, kickers, defenses, notes = {}, news = {}, availability = {},
@@ -130,12 +80,12 @@ export default function WeeklyExplorer({
     () => (league ? freeSpecialists({ kickers, defenses, own: ownRow }) : { kickers: [], defenses: [] }),
     [league, kickers, defenses, ownRow]
   );
-  const [rosOnlyFree, setRosOnlyFree] = useState(false);
-  const ros = useMemo(() => {
-    const rows_ = restOfSeason({ board, byes, week }).filter((r) => r.ros_vor != null);
-    if (!league || !rosOnlyFree) return rows_.slice(0, 100);
-    return rows_.filter((r) => ownRow(r)?.status === "FREE_AGENT").slice(0, 100);
-  }, [board, byes, week, league, rosOnlyFree, ownRow]);
+  // Aquí sólo se calcula para el resumen y el enlace: la tabla entera, los
+  // filtros y la propiedad viven en /fantasy/resto.
+  const ros = useMemo(
+    () => restOfSeason({ board, byes, week }).filter((r) => r.ros_vor != null),
+    [board, byes, week]
+  );
 
   const toggle = (chip) => {
     setPicked((prev) => {
@@ -405,68 +355,32 @@ export default function WeeklyExplorer({
            La proyección de temporada del board repartida entre las jornadas que
            quedan, descontando el descanso si aún no ha pasado. Es un reparto
            declarado, no un modelo nuevo. */}
+      {/* --- RESTO DE TEMPORADA: vive en su propia pantalla ------------------
+           Estaba aquí, detrás de seis tablas y recortado a sesenta filas, y no
+           se encontraba. Ahora es una página con el pool entero, filtros de
+           posición y de propiedad y búsqueda. Se enlaza, no se duplica: dos
+           superficies pintando la misma tabla es como divergen. */}
       {ros.length > 0 ? (
         <div className="wk-panel" id="ros">
           <h3>Rest of season <small>week {week} to {LAST_WEEK}</small></h3>
           <p className="caption">
-            What the board projects for the season, spread over the game weeks each player
-            has left: <strong>× games left ÷ {GAMES_IN_SEASON}</strong>. In week 1 that
-            factor is 1 and the order is the board&rsquo;s, which is correct — nothing has been
-            played. From there the bye does the work: two equal players are not worth the
-            same if one still has his bye ahead.
+            The board&rsquo;s season projection spread over the game weeks each player has
+            left (<strong>× games left ÷ {GAMES_IN_SEASON}</strong>), ordered by value over
+            replacement rather than by points. Top of the pool right now:{" "}
+            {ros.slice(0, 3).map((row, i) => (
+              <span key={row.player_id}>
+                {i > 0 ? ", " : ""}<strong>{row.player_name}</strong>{" "}
+                <span className={`ptag ptag--${row.position.toLowerCase()}`}>
+                  {row.position}{row.ros_position_rank}
+                </span>
+              </span>
+            ))}.
           </p>
           <p className="caption">
-            <strong>Ordered by value over replacement, not by points.</strong> Sorting the
-            same numbers by points put 52 quarterbacks in the top 60 and the first receiver
-            at 13 — a quarterback outscores every receiver and that does not make him the
-            better pick, because his replacement outscores them too. It does not know recent
-            form, a role change since the board was built, or an injury.
+            <a className="wk-detail" href="/fantasy/resto">
+              Open Rest of Season &mdash; all {ros.length} players, with who owns them
+            </a>
           </p>
-          {league ? (
-            <button type="button" className="wk-detail" aria-pressed={rosOnlyFree}
-                    onClick={() => setRosOnlyFree((v) => !v)}>
-              {rosOnlyFree ? "Show everyone" : `Only free agents in ${league.name ?? "this league"}`}
-            </button>
-          ) : null}
-          <div className="table-wrap">
-            <table className="rank-table wk-table">
-              <thead>
-                <tr>
-                  <th className="rk">#</th><th className="who">Player</th><th className="wk-proj">ROS value</th><th>ROS pts</th><th>Games left</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ros.slice(0, 60).map((row, index) => {
-                  const own = ownRow(row);
-                  return (
-                    <tr key={row.player_id} className={own?.status === "MINE" ? "is-mine" : undefined}>
-                      <td className="rk">{index + 1}</td>
-                      <td className="who hs-who">
-                        <Headshot sid={row.sid} team={row.team} position={row.position}
-                                  name={row.player_full_name ?? row.player_name} size={28} />
-                        <span className="nm">
-                          {row.player_name}
-                          <OwnMark own={own} owners={ownersByRoster} />
-                          <RowMarks row={row} id={row.player_id} notes={notes} news={news}
-                                    availability={availability}
-                                    statusVerifiedAt={row.status_verified_at} />
-                        </span>
-                        <span className="meta">
-                          <span className={`ptag ptag--${row.position.toLowerCase()}`}>
-                            {row.position}{row.ros_position_rank}
-                          </span>
-                          <TeamMark abbr={row.team} />
-                        </span>
-                      </td>
-                      <td className="wk-proj"><strong>{num(row.ros_vor, 1)}</strong></td>
-                      <td>{num(row.ros_points, 1)}</td>
-                      <td>{row.ros_games_left}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
         </div>
       ) : null}
 

@@ -209,38 +209,77 @@ check("el semanal abre el panel de lo que hay libre en esa liga",
 }
 await page.waitForSelector("#ros", { timeout: 8000 }).catch(() => {});
 {
-  const filas = await page.locator("#ros tbody tr").count();
-  check("el resto de temporada sale con sus filas", filas > 20, `${filas}`);
+  // En el semanal el resto de temporada es un RESUMEN con su enlace: la tabla
+  // entera se mudó a su propia pantalla porque aquí no se encontraba. Lo que se
+  // exige es que el enlace exista y lleve donde dice.
+  const texto = await page.locator("#ros").innerText().catch(() => "");
+  check("el semanal resume el resto de temporada y enlaza a su pantalla",
+    /rest of season/i.test(texto) && (await page.locator('#ros a[href="/fantasy/resto"]').count()) === 1);
+}
+await page.locator("#ros").screenshot({ path: `${OUT}/cuenta-1440-ros.png` }).catch(() => {});
+
+/* --- la pantalla de resto de temporada, con la liga enlazada -------------- */
+console.log("\n=== el resto de temporada ===");
+await page.goto(`${BASE}/fantasy/resto`, { waitUntil: "domcontentloaded" });
+await page.waitForSelector(".rank-table tbody tr", { timeout: 10000 });
+{
+  const filas = await page.locator(".rank-table tbody tr").count();
+  check("sale con sus filas", filas > 20, `${filas}`);
+  check("y la liga enlazada marca la propiedad de las filas",
+    (await page.locator(".rank-table tbody .own").count()) > 0);
   // REGLA 6b EN LA TABLA. Ordenada por puntos salían 52 quarterbacks entre los
   // sesenta primeros. Se cuenta cuántos QB hay en el top 20: si vuelve a
   // ordenarse por puntos, este guardián se pone rojo.
   const posiciones = await page.evaluate(() =>
-    [...document.querySelectorAll("#ros tbody tr")].slice(0, 20)
+    [...document.querySelectorAll(".rank-table tbody tr")].slice(0, 20)
       .map((tr) => tr.querySelector(".ptag")?.textContent?.replace(/[0-9]/g, "") ?? "?"));
   const qbs = posiciones.filter((p) => p === "QB").length;
-  check("el resto de temporada NO está ordenado por puntos: pocos QB arriba",
+  check("NO está ordenado por puntos: pocos QB arriba",
     qbs <= 4, `${qbs} QB en el top 20 — ${posiciones.slice(0, 8).join(",")}`);
-  check("y el primer puesto no es un quarterback",
-    posiciones[0] !== "QB", posiciones[0]);
+  check("y el primer puesto no es un quarterback", posiciones[0] !== "QB", posiciones[0]);
+
   // El filtro no se comprueba por cuántas filas quedan —en esta liga casi todo
-  // el pool está libre y podrían ser las mismas 60— sino por lo que NO puede
-  // colarse: con el filtro puesto, TODA fila pintada tiene que ser FA. Un
-  // filtro que deja pasar a uno de otro equipo te manda a fichar a alguien que
-  // no puedes fichar.
-  const conFiltro = page.locator("#ros button.wk-detail");
-  await conFiltro.click();
+  // el pool está libre y podrían ser las mismas— sino por lo que NO puede
+  // colarse: con el filtro puesto, TODA fila pintada tiene que serlo. Un filtro
+  // que deja pasar a uno de otro equipo te manda a fichar a quien no puedes.
+  const libres = page.locator('[aria-label="Ownership"] button', { hasText: "Free agents" });
+  await libres.click();
   await page.waitForTimeout(300);
-  const filasFA = await page.locator("#ros tbody tr").count();
-  const marcasFA = await page.locator("#ros tbody tr .own--fa").count();
-  check("con el filtro puesto, TODAS las filas del resto de temporada son FA",
+  const filasFA = await page.locator(".rank-table tbody tr").count();
+  const marcasFA = await page.locator(".rank-table tbody tr .own--fa").count();
+  check("con «free agents» puesto, TODAS las filas son FA",
     filasFA > 0 && marcasFA === filasFA, `${marcasFA}/${filasFA}`);
-  check("y el botón queda marcado como activo",
-    (await conFiltro.getAttribute("aria-pressed")) === "true");
-  await conFiltro.click();
+  check("y el chip queda marcado como activo",
+    (await libres.getAttribute("aria-pressed")) === "true");
+
+  const mios = page.locator('[aria-label="Ownership"] button', { hasText: "Mine" });
+  await mios.click();
+  await page.waitForTimeout(300);
+  const filasMias = await page.locator(".rank-table tbody tr").count();
+  const marcasMias = await page.locator(".rank-table tbody tr .own--mine").count();
+  check("con «mine» puesto, TODAS las filas son mías",
+    filasMias > 0 && marcasMias === filasMias, `${marcasMias}/${filasMias}`);
+  // Y el conteo del encabezado se cuenta sobre el POOL, no sobre lo pintado:
+  // es el artefacto del «2 left in tier», que ya reapareció una vez en un test.
+  const conteo = await page.locator(".ros-count").innerText();
+  check("el conteo de la cabecera cuadra con las filas del pool",
+    new RegExp(`\\b${filasMias}\\b`).test(conteo), `${conteo.slice(0, 80)} vs ${filasMias}`);
+
+  await page.locator('[aria-label="Ownership"] button', { hasText: "Everyone" }).click();
+  await page.waitForTimeout(200);
+  // La búsqueda filtra por nombre, y sin resultados lo dice sin insinuar un fallo.
+  await page.fill(".ros-search input", "zzzznadie");
+  await page.waitForTimeout(300);
+  check("una búsqueda sin resultados lo dice y no deja una tabla muda",
+    /no player matches/i.test(await page.locator(".ros-count").innerText()));
+  await page.fill(".ros-search input", "");
 }
+await page.screenshot({ path: `${OUT}/cuenta-1440-resto.png` }).catch(() => {});
+await page.goto(`${BASE}/fantasy/semanal`, { waitUntil: "domcontentloaded" });
+await page.waitForSelector("#free", { timeout: 10000 }).catch(() => {});
+
 // Capturas acotadas a cada panel: una página de 14.000 px no se puede mirar.
 await page.locator("#free").screenshot({ path: `${OUT}/cuenta-1440-libres.png` }).catch(() => {});
-await page.locator("#ros").screenshot({ path: `${OUT}/cuenta-1440-ros.png` }).catch(() => {});
 await page.goto(`${BASE}/fantasy/leagues`, { waitUntil: "domcontentloaded" });
 await page.waitForSelector(".cc-panel", { timeout: 8000 });
 

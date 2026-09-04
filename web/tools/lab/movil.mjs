@@ -168,6 +168,32 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
     });
   }, fuente);
   await montar(ctx, [L1, MOCK]);
+  // Y una banca del mes con libro: el plan, la curva y la tabla por jornada no
+  // existen sin ella, así que /betting sin sembrar sólo probaría la pantalla de
+  // «crea tu banca» — que es justo la que no tiene geometría densa. La caída del
+  // 25% saca además el aviso de freno, que es el texto más largo de la tarjeta.
+  await ctx.addInitScript(() => {
+    const bets = [
+      { id: "b1", status: "LOST", market: "SPREAD", label: "BUF −2.5 vs MIA", selection: "BUF",
+        line: -2.5, odds: -110, stake: 2500, gameId: "g1", team: "BUF", season: 2026, week: 1,
+        snapshot: { model: 4.1, market: 2.5 }, createdAt: 1, placedAt: 2, settledAt: 3 },
+      { id: "b2", status: "WON", market: "PROP_REC_YDS", label: "J.Chase O78.5 receiving yards",
+        selection: "OVER", line: 78.5, odds: -115, stake: 300, gameId: "g2", team: "CIN",
+        season: 2026, week: 1, snapshot: { model: 86.2, market: 78.5 }, createdAt: 4, placedAt: 5, settledAt: 6 },
+      { id: "b3", status: "PUSH", market: "SPREAD", label: "KC −3 vs LAC", selection: "KC",
+        line: -3, odds: -110, stake: 200, gameId: "g3", team: "KC", season: 2026, week: 2,
+        snapshot: { model: 3.0, market: 3.0 }, createdAt: 7, placedAt: 8, settledAt: 9 },
+      { id: "b4", status: "PLACED", market: "SPREAD", label: "SF −6.5 vs SEA", selection: "SF",
+        line: -6.5, odds: -110, stake: 150, gameId: "g4", team: "SF", season: 2026, week: 2,
+        snapshot: { model: 8.0, market: 6.5 }, createdAt: 10, placedAt: 11, settledAt: null },
+    ];
+    try {
+      localStorage.setItem("gridiron-bank-months-v1", JSON.stringify(["2026-09"]));
+      localStorage.setItem("gridiron-bank-v1:2026-09", JSON.stringify({
+        month: "2026-09", starting: 10000, unitIsPercent: true, unitValue: 1, limits: {}, bets,
+      }));
+    } catch { /* almacenamiento bloqueado: la pantalla lo cuenta por su cuenta */ }
+  });
   const page = await ctx.newPage();
 
   // Con la cuenta enlazada: es cuando aparecen las marcas de propiedad, que son
@@ -178,13 +204,28 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
   await page.click(".cc-link button[type=submit]");
   await page.waitForSelector(".cc-panel", { timeout: 10000 });
 
-  for (const url of ["/fantasy", "/fantasy/semanal", "/fantasy/analisis", "/fantasy/draft", "/fantasy/leagues"]) {
+  for (const url of ["/fantasy", "/fantasy/semanal", "/fantasy/resto", "/fantasy/analisis",
+                     "/fantasy/draft", "/fantasy/leagues", "/betting"]) {
     await page.goto(`${BASE}${url}`, { waitUntil: "domcontentloaded" });
-    await page.waitForSelector("table, .room-row, .pick, .cc-panel", { timeout: 10000 }).catch(() => {});
+    await page.waitForSelector("table, .room-row, .pick, .cc-panel, .bk-plan-grid", { timeout: 10000 }).catch(() => {});
     await page.waitForFunction(() => !document.querySelector(".skeleton"), null, { timeout: 8000 }).catch(() => {});
     await page.waitForTimeout(400);
-    const { fuera, encima } = await solapes(page);
     const etiqueta = `${w}·${tema}·${fuente}`;
+    /* PRIMERO: que lo que se quiere medir esté en pantalla. Una comprobación de
+       geometría sobre una página que se quedó en su estado vacío sale VERDE sin
+       haber mirado nada — el fallo del laboratorio que aprobaba el fallo que
+       existía para cazar. Cada ruta declara la pieza densa que la define. */
+    const EXIGIDO = {
+      "/betting": ".bk-plan-grid",
+      "/fantasy/resto": ".ros-filters .pos-option[aria-pressed]",
+      "/fantasy/semanal": ".wk-table",
+      "/fantasy": "table",
+    }[url];
+    if (EXIGIDO) {
+      check(`${etiqueta}: ${url} — trae lo que se quiere medir (${EXIGIDO})`,
+        await page.locator(EXIGIDO).count() > 0);
+    }
+    const { fuera, encima } = await solapes(page);
     check(`${etiqueta}: ${url} — nada se sale de su celda`, fuera.length === 0,
       `${fuera.length}: ${fuera.slice(0, 3).join(" | ")}`);
     check(`${etiqueta}: ${url} — nada se monta encima de nada`, encima.length === 0,

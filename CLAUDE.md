@@ -164,6 +164,31 @@ demanda cuadre con los huecos que la liga define de verdad — el reparto por pe
 consumía 95 de 96. Y el reemplazo es **el primero que no es titular**, no el
 último que sí lo es.
 
+### 6c. El tamaño de la apuesta sigue a la banca, y sólo a la banca
+
+    TODO ES UN PORCENTAJE DE LA BANCA ACTUAL.
+    POR ESO BAJA SOLO CUANDO VAS ABAJO — Y POR ESO NO SUBE PARA RECUPERAR.
+
+`plan.js` calcula tamaños, nunca selecciones. La unidad del libro se mide sobre
+la INICIAL del mes —o el historial deja de ser comparable consigo mismo— y la del
+plan sobre la banca de HOY, que es la que decide la siguiente. Las dos se enseñan
+juntas para que el movimiento se vea.
+
+Lo que no va a existir aquí es subir la fracción después de perder. No es una
+preferencia: con la misma ventaja, apostar una fracción mayor sube la
+probabilidad de ruina, y en este proyecto **no hay ventaja demostrada** que
+justificara siquiera la fracción de partida. Un plan de recuperación encima de
+una ventaja no demostrada son dos errores, no uno.
+
+El freno por caída (`DRAWDOWN_BRAKE`, la mitad por debajo de −20%) es una
+convención declarada y editable, y la interfaz lo dice con esas palabras: no sale
+de ningún experimento de este repositorio. Recorta hacia abajo; nunca amplía.
+
+Y todo lo que se registra lleva su CUÁNDO congelado (`season`, `week`): sin eso el
+libro no se puede leer por jornada, y repartirlo después por la fecha del fichero
+sería inventarle una jornada — la regla 5 aplicada al dinero. Guardián en
+`tools/lab/apuestas.mjs`, probado inyectando la persecución.
+
 ### 7. Sleeper es un adaptador, no el producto
 
     EL DRAFT ROOM CONSUME EVENTOS DE PICK CANÓNICOS.
@@ -272,7 +297,7 @@ reescribe la nota, lo que se publicó hoy sólo existe si se guardó hoy.
 **El flujo de datos de la web:** los scripts de Python generan
 `web/data/model.json`, que se comprime a `web/data/model.b64.js` (gzip+base64,
 ~24 KB). `web/data/model.js` lo descomprime en el servidor **en build time**. Por
-eso las 8 páginas son estáticas y el sitio no hace ni una petición de red.
+eso las 13 páginas son estáticas y el sitio no hace ni una petición de red.
 
 Si regeneras los datos, **hay que recomprimir**. El paso está en
 `.github/workflows/weekly-predictions.yml`; cópialo de ahí si lo haces a mano.
@@ -388,6 +413,12 @@ comentario está para que no los reintroduzcas.
 | El board sincronizaba sin pateadores ni defensas | `DraftMode.jsx` | El Draft Room resolvía los picks contra board + especialistas + novatos y el board de `/fantasy` sólo contra el board: en esa pantalla el pick de una defensa NO se tachaba nunca, en la ronda donde todo el mundo ficha justo eso. El fallo de los dos traductores por QUINTA vez. Un `syncPool` compartido |
 | «QUESTIONABLE» de agosto junto a «EXEMPT LIST» de hoy | `availability.js` | Dos capas hablan de disponibilidad —el dossier curado y la marca de estado— y se pintaban como IGUALES, con la fecha del dossier sólo en el `title`. En 24 filas la vieja era además más suave: Pacheco, Conner y Benson salían «QUESTIONABLE» de agosto estando en IR. Ahora toda etiqueta del dossier lleva su fecha delante (o `UNDATED`) y, si la marca de hoy es más nueva, se subordina en gris. **No se borra: el desacuerdo es información**, lo que no puede es afirmarse como actual |
 | La web publicada SIN ranking semanal | `weekly-predictions.yml` | El workflow sólo corría `fantasy_weekly_build.py` con jornada explícita, y el cron no la pasa: `out/` está vacío en CI, el export escribía `fantasy_weekly: null` como «sección opcional» y /semanal salía vacío, sin matchup en Leagues y sin alarma. Un fichero opcional que falta SIEMPRE en CI no es opcional. Ahora el script resuelve la jornada solo y el workflow lo corre siempre |
+| Una apuesta sin jornada guardada como «jornada 0» | `bankroll.js`, `plan.js` | `Number.isFinite(Number(x))` NO sirve para «hay dato»: `Number(null)` y `Number("")` valen **cero**, que es finito. El libro entero de antes del campo se habría agrupado en una jornada 0 que nunca existió — un valor inventado colado como dato real, el `counts[pos] \|\| DEFAULT` otra vez. Lo cazaron los tests, que se escribieron antes de cablear la pantalla |
+| El guardián aprobaba la persecución a medias | `tools/lab/apuestas.mjs` | Comprobaba que la apuesta sugerida BAJARA al ir abajo. Se inyectó el fallo —un multiplicador de recuperación del 15%— y siguió VERDE: 97,75 sigue siendo menos que 100, porque perseguir un 15% no cancela una caída del 15%. La propiedad exacta no es «baja», es que el tamaño sea **la misma fracción de la banca** en los tres casos. Un guardián que sólo caza la versión completa del fallo no es un guardián |
+| Doce secciones en una tira que se desplaza | `system.css` | El menú del móvil era una línea con desplazamiento horizontal y sin señal de que siguiera: las cinco últimas quedaban a tres arrastres y en la práctica no existían. Es la causa exacta de «no encuentro el resto de temporada». Envuelve en tres líneas: cuesta 120 px de alto y enseña el sitio entero |
+| El resto de temporada, detrás de seis tablas | `WeeklyExplorer.jsx` | Estaba bien calculado, recortado a 60 filas y sin más filtro que «sólo libres», dentro del semanal. Para el que lo busca, eso es lo mismo que no estar. Ahora es `/fantasy/resto` con el pool entero y filtros de propiedad; el semanal lo RESUME y enlaza, no lo duplica |
+| El plan repartía el ancho a ojo | `system.css` | Cuatro cifras en una fila de flex se partían 3+1 en escritorio con medio panel vacío al lado, y en móvil se estiraban con huecos verticales de 100 px (`align-content: stretch` en un flex que envuelve). Rejilla de cuatro columnas iguales en su propia fila: el reparto deja de depender de lo largo que sea el texto de una |
+| «$0 · 1u · braked» en la misma celda | `BettingShell.jsx` | El tamaño sugerido era cero porque el tope de la semana estaba gastado, y debajo ponía «1u», que es lo contrario. Cuando no queda tope, lo que se lee es por qué: «week budget spent» |
 
 ---
 
@@ -424,13 +455,13 @@ está construida:
 
 | Laboratorio | Qué prueba |
 |---|---|
-| `smoke.mjs` | Las DOCE páginas en 390/768/1440 sin cuenta: responden, no lanzan, tienen `h1`, no desbordan y están todas en la navegación |
-| `movil.mjs` | GEOMETRÍA en 390/360, claro y oscuro, y con el texto agrandado: que nada se salga de su celda por la derecha, que nada se monte encima de nada y que las columnas fijas sean opacas |
+| `smoke.mjs` | Las TRECE páginas en 390/768/1440 sin cuenta: responden, no lanzan, tienen `h1`, no desbordan y están todas en la navegación |
+| `movil.mjs` | GEOMETRÍA en 390/360, claro y oscuro, y con el texto agrandado: que nada se salga de su celda por la derecha, que nada se monte encima de nada y que las columnas fijas sean opacas. Cada ruta declara además la pieza densa que la define: una comprobación de geometría sobre una pantalla que se quedó vacía sale verde sin mirar nada |
 | `cuenta.mjs` | Enlazar la cuenta, los paneles por liga, el semanal marcado, lo libre, el resto de temporada, el analizador y el recorrido «una cuenta, una liga» |
 | `live-assistant.mjs` | Un draft entero de 180 picks por el adaptador, las carreras por un candidato y los picks leídos que no se aplican |
 | `headshot-shots.mjs` | Fotos por id, el bloque de no disponibles y las marcas de estado |
 | `storage-blocked.mjs` | El navegador que BLOQUEA el almacenamiento: cinco pantallas tienen que seguir en pie |
-| `apuestas.mjs` | Los mercados partido a partido y el signo del handicap |
+| `apuestas.mjs` | Los mercados partido a partido, el signo del handicap y el plan de la semana: que la apuesta sugerida sea la MISMA fracción de la banca esté arriba o abajo |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
 se pone rojo, no es un guardián.

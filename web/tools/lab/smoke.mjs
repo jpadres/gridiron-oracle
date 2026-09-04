@@ -1,5 +1,5 @@
 /**
- * QA de humo: las DIEZ páginas del sitio, en tres anchos, sin cuenta enlazada.
+ * QA de humo: TODAS las páginas del sitio, en tres anchos, sin cuenta enlazada.
  *
  * Los otros laboratorios entran hondo en una pantalla cada uno. Éste es lo
  * contrario y hacía falta: recorre todo lo publicado y comprueba lo que nunca
@@ -28,7 +28,7 @@ const OUT = process.env.SHOTS
 const PAGINAS = [
   "/", "/modelo", "/validacion", "/predicciones", "/betting",
   "/fantasy", "/fantasy/draft", "/fantasy/leagues", "/fantasy/semanal",
-  "/fantasy/analisis", "/survivor", "/research",
+  "/fantasy/resto", "/fantasy/analisis", "/survivor", "/research",
 ];
 
 if (!process.env.SKIP_BUILD) {

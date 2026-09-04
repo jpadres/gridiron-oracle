@@ -18,7 +18,10 @@ export const metadata = {
     "NFL forecasting model and fantasy rankings built on public data, with walk-forward validation and results reported without spin.",
 };
 
-// Las ocho páginas del sitio. Todas estáticas, con los datos horneados.
+// Las páginas del sitio. Todas estáticas, con los datos horneados. El
+// laboratorio de humo comprueba que esta lista y las rutas publicadas son la
+// misma cosa: una pantalla que no está aquí no la encuentra nadie, que es lo
+// que le pasó al resto de temporada mientras vivía dentro del semanal.
 const PAGES = [
   { href: "/", label: "Overview" },
   { href: "/modelo", label: "Model" },
@@ -32,6 +35,7 @@ const PAGES = [
   { href: "/fantasy/draft", label: "Draft Assistant" },
   { href: "/fantasy/leagues", label: "Leagues" },
   { href: "/fantasy/semanal", label: "Weekly" },
+  { href: "/fantasy/resto", label: "Rest of Season" },
   { href: "/fantasy/analisis", label: "Analyzer" },
   { href: "/survivor", label: "Survivor" },
   { href: "/research", label: "Research" },

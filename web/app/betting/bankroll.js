@@ -95,6 +95,18 @@ export function createMonth(month, starting, storage) {
   return saveMonth(record, storage) ? record : null;
 }
 
+/**
+ * Un entero, o `null`. NO vale `Number.isFinite(Number(x))`: `Number(null)` y
+ * `Number("")` valen CERO, que es finito, así que una apuesta sin jornada se
+ * habría guardado como «jornada 0» — un valor inventado colado como dato real,
+ * el mismo fallo que el `counts[pos] || DEFAULT` de las ligas de Sleeper.
+ */
+function intOrNull(value) {
+  if (value === null || value === undefined || value === "") return null;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
 let seq = 0;
 function betId() {
   seq += 1;
@@ -115,6 +127,13 @@ export function addBet(record, bet) {
     gameId: bet.gameId ?? null,
     playerId: bet.playerId ?? null,
     team: bet.team ?? null,
+    // Temporada y jornada se CONGELAN al registrar. Sin esto el libro no se
+    // puede leer por semana, y repartir después las apuestas por su fecha
+    // sería inventarles una jornada — el fallo de la regla 5 aplicado al
+    // dinero. Un libro anterior a este campo se queda en `null` y se agrupa
+    // aparte como UNKNOWN, que es lo que es.
+    season: intOrNull(bet.season),
+    week: intOrNull(bet.week),
     snapshot: bet.snapshot && typeof bet.snapshot === "object" ? bet.snapshot : {},
     createdAt: bet.at ?? Date.now(),
     placedAt: null,
@@ -129,8 +148,10 @@ export function updateBet(record, id, patch) {
     bets: record.bets.map((bet) => {
       if (bet.id !== id) return bet;
       if (bet.status !== BET_STATUS.CONSIDERING) return bet;  // lo colocado no se edita
-      const { status, snapshot, placedAt, settledAt, ...safe } = patch;
-      void status; void snapshot; void placedAt; void settledAt;
+      // Lo congelado no se parchea: estado, snapshot, horas, y el CUÁNDO
+      // (temporada y jornada), que es lo que hace legible el libro por semana.
+      const { status, snapshot, placedAt, settledAt, season, week, ...safe } = patch;
+      void status; void snapshot; void placedAt; void settledAt; void season; void week;
       return { ...bet, ...safe };
     }),
   };

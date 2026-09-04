@@ -619,17 +619,20 @@ h2 { font-variation-settings: "wdth" 82; letter-spacing: -0.005em; }
       contenido. Pasa a una tira que se desplaza en horizontal: una fila, 44px,
       y los ocho destinos siguen alcanzables. */
 @media (max-width: 47.99rem) {
+  /* El menú ENVUELVE en vez de desplazarse. Era una tira de una línea con
+     desplazamiento horizontal y sin señal de que siguiera: con doce secciones,
+     las cinco últimas quedaban a tres arrastres de distancia y en la práctica
+     no existían — que es exactamente la queja que trajo aquí la pantalla de
+     resto de temporada. Cuesta dos líneas de alto; enseña todo el sitio. */
   nav.top {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
+    flex-wrap: wrap;
+    row-gap: var(--space-1); column-gap: var(--space-3);
     padding-block: var(--space-2);
     margin-bottom: var(--space-4);
     align-items: center;
   }
-  nav.top::-webkit-scrollbar { display: none; }
-  nav.top .brand { margin-right: var(--space-3); flex-shrink: 0; }
-  nav.top a { white-space: nowrap; flex-shrink: 0; padding-block: var(--space-2); }
+  nav.top .brand { flex: 1 0 100%; }
+  nav.top a { white-space: nowrap; padding-block: var(--space-1); }
 }
 
 /* 2. El war room estaba DENTRO de una tarjeta con borde, y la decisión dentro
@@ -1746,6 +1749,90 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .bk-hist--push b, .bk-hist--void b { color: var(--chalk-dim); }
 .bk-newmonth { margin-top: var(--space-4); }
 
+/* --- EL PLAN DE LA SEMANA -------------------------------------------------
+   La tarjeta se lee en cuatro cifras y una nota. El estado (UP/DOWN/EVEN) va
+   escrito, no sólo coloreado: el color repite, nunca informa solo — la misma
+   regla que el estado de conexión del Draft Room. */
+.bk-plan { margin-top: var(--space-5); }
+/* Rejilla y no una fila de flex: la fila repartía el ancho sobrante a ojo y las
+   cuatro cifras se partían 3+1 en escritorio con medio panel vacío al lado. Con
+   la cabecera y la regla arriba y las CUATRO cifras en su propia fila de cuatro
+   columnas iguales, el reparto no depende de lo largo que sea el texto de una. */
+.bk-plan-grid {
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: start; gap: var(--space-3) var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--yard-line); border-left-width: 3px;
+  background: var(--surface-1, transparent);
+}
+.bk-plan--up { border-left-color: var(--turf-ink, #1c7a43); }
+.bk-plan--down { border-left-color: var(--flag-ink, #a33b3b); }
+.bk-plan--even { border-left-color: var(--yard-line); }
+.bk-plan-state { display: flex; flex-direction: column; gap: var(--space-0); }
+.bk-plan-tag {
+  align-self: start; font-size: var(--text-micro); font-weight: var(--weight-bold);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 0.1rem 0.45rem; border: 1px solid currentColor;
+}
+.bk-plan--up .bk-plan-tag { color: var(--turf-ink, #1c7a43); }
+.bk-plan--down .bk-plan-tag { color: var(--flag-ink, #a33b3b); }
+.bk-plan--even .bk-plan-tag { color: var(--chalk-dim); }
+.bk-plan-state b { font-size: var(--num-lead); font-variant-numeric: tabular-nums; }
+.bk-plan-state small { color: var(--chalk-dim); font-size: var(--text-micro); }
+.bk-plan-nums {
+  grid-column: 1 / -1; margin: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-content: start; gap: var(--space-3) var(--space-4);
+}
+.bk-plan-nums > div { min-width: 0; }
+.bk-plan-nums dt {
+  font-size: var(--text-micro); text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--chalk-dim);
+}
+.bk-plan-nums dd {
+  margin: 0; font-size: var(--num-lead); font-weight: var(--weight-numeric);
+  font-variant-numeric: tabular-nums;
+}
+.bk-plan-nums dd small {
+  display: block; font-size: var(--text-micro); font-weight: normal;
+  color: var(--chalk-dim); font-variant-numeric: normal;
+}
+.bk-plan-nums .is-over dd { color: var(--flag-ink, #a33b3b); }
+.bk-plan-rule {
+  justify-self: end; display: flex; flex-direction: column; gap: var(--space-0);
+  font-size: var(--text-micro); text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--chalk-dim);
+}
+.bk-plan-rule input { width: 5rem; }
+.bk-plan-note {
+  margin: var(--space-2) 0 0; font-size: var(--text-dense);
+  line-height: var(--leading-snug); color: var(--chalk-dim); max-width: 62ch;
+}
+.bk-plan-note b, .bk-plan-note strong { color: var(--chalk); }
+.bk-plan-note--brake { border-left: 3px solid var(--flag-ink, #a33b3b); padding-left: var(--space-3); }
+
+/* --- EL LIBRO: curva, tabla por jornada y filas ---------------------------- */
+.bk-curve { display: block; width: 100%; height: auto; margin: var(--space-3) 0; }
+.bk-ledger td, .bk-ledger th { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bk-ledger td small { color: var(--chalk-dim); }
+.bk-hist-what { display: flex; flex-direction: column; min-width: 0; }
+.bk-hist-what small { color: var(--chalk-dim); font-size: var(--text-micro); }
+.bk-hist-pl { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.bk-career { margin-top: var(--space-3); max-width: 66ch; }
+
+@media (max-width: 30rem) {
+  /* En 390 px la tarjeta se lee en columna: una fila de cuatro cifras con
+     etiquetas de dos palabras no cabe, y el «Left to stake» —que es lo que se
+     mira— era justo el que se salía. */
+  .bk-plan-grid { padding: var(--space-3); gap: var(--space-3); }
+  /* Pegada a la izquierda como todo lo demás: en una columna, un control
+     alineado a la derecha se lee como si perteneciera a otra cosa. */
+  .bk-plan-rule { justify-self: start; }
+  .bk-plan-nums { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+  .bk-plan-nums dd { font-size: var(--text-lead); }
+  .bk-history > li { grid-template-columns: 4rem 1fr auto; gap: var(--space-2); }
+}
+
 @media (max-width: 40rem) {
   .bk-stats { gap: var(--space-3); }
   .bk-stats dd { font-size: var(--text-h3); }
@@ -1753,9 +1840,32 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 }
 
 /* Los chips de categoría de props llevan etiquetas largas («Receiving yards»):
-   envuelven con hueco en vez de amontonarse truncados en una sola fila. */
-.bk .pos-filter { flex-wrap: wrap; gap: 0.25rem; }
-.bk .pos-option { min-width: auto; padding-inline: 0.7rem; }
+   envuelven con hueco en vez de amontonarse truncados en una sola fila. Lo
+   mismo en el resto de temporada, donde en 390 px el quinto chip se salía por
+   la derecha y había que descubrir que la fila se desplazaba. */
+.bk .pos-filter, .ros-filters .pos-filter { flex-wrap: wrap; gap: 0.25rem; }
+.bk .pos-option, .ros-filters .pos-option { min-width: auto; padding-inline: 0.7rem; }
+/* `.pos-filter` es una tira que se DESPLAZA a lo ancho, pensada para las siete
+   posiciones del Draft Room. Metida en una fila con el buscador se quedaba sin
+   sitio y el quinto chip se cortaba por la derecha con la máscara encima: nada
+   fallaba y «TE» no se veía. Por debajo de tablet cada grupo se lleva su fila
+   entera y envuelve dentro. */
+@media (max-width: 48rem) {
+  .ros-filters .pos-filter { flex: 1 1 100%; mask-image: none; }
+}
+
+/* --- RESTO DE TEMPORADA: filtros en una fila, búsqueda al final ------------
+   Los tres controles envuelven en vez de comprimirse: en 390 px una fila de
+   chips de posición, otra de propiedad y un buscador no caben a lo ancho, y
+   comprimir el buscador hasta que no quepa una palabra es peor que bajarlo. */
+.ros-filters {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3);
+  margin: var(--space-4) 0 var(--space-2);
+}
+.ros-search { flex: 1 1 12rem; min-width: 9rem; display: block; }
+.ros-search input { width: 100%; }
+.ros-count { margin-bottom: var(--space-2); }
+.ros-count .own { margin-inline: 0.15rem; }
 
 /* --- LIVE DRAFT ASSISTANT: conexión, lista corta y parrilla ---------------- */
 /* El estado de conexión NUNCA depende sólo del color: cada nivel lleva su

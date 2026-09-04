@@ -5,9 +5,12 @@
  *
  * ## El orden del primer viewport es la tesis de la pantalla
  *
- * 1. MI DINERO: banca del mes, disponible, expuesto, P/L. 2. QUÉ MIRAR HOY:
- * los leans más grandes del modelo. La metodología existe y está — detrás,
- * como divulgación. Un usuario que abre Betting no viene a leer validación:
+ * 1. MI DINERO: banca del mes, disponible, expuesto, P/L. 2. CUÁNTO PONER
+ * esta jornada, con la banca de HOY. 3. QUÉ MIRAR HOY: los leans más grandes
+ * del modelo. La metodología existe y está — detrás, como divulgación.
+ *
+ * El tamaño va ANTES que la selección a propósito: elegir primero la apuesta y
+ * decidir después cuánto meter es el orden en el que se persiguen pérdidas. Un usuario que abre Betting no viene a leer validación:
  * viene a decidir, y la validación decide QUÉ se le puede enseñar, no en qué
  * orden lo lee.
  *
@@ -31,6 +34,10 @@ import {
   updateBet,
 } from "./bankroll.js";
 import { gameLeans, propLean, rankedLeans } from "./leans.js";
+import {
+  DEFAULT_WEEK_PCT, bankPath, betProfit, careerSummary, weekLedger, weekPlan,
+} from "./plan.js";
+import BankCurve from "./BankCurve.jsx";
 import { browserStorage } from "../fantasy/draftStorage.js";
 
 const PROP_CATEGORIES = [
@@ -47,6 +54,9 @@ const PROP_CATEGORIES = [
 
 const money = (v) => `$${num(v, Math.abs(v) % 1 < 0.005 ? 0 : 2)}`;
 const signed = (v) => `${v >= 0 ? "+" : "−"}$${num(Math.abs(v), 2)}`;
+/* El mismo signo que el dinero. Un «-22.4%» de teclado al lado de un «−$2.239»
+   tipográfico se lee como dos cosas distintas cuando es la misma. */
+const signedPct = (v, d = 1) => `${v >= 0 ? "+" : "−"}${num(Math.abs(v), d)}%`;
 
 function currentMonthId() {
   const now = new Date();
@@ -65,6 +75,7 @@ export default function BettingShell({ predictions, weekly, context, markets = [
   const [months, setMonths] = useState(null);
   const [active, setActive] = useState(null);
   const [record, setRecord] = useState(null);
+  const [career, setCareer] = useState(null);
   const [propLines, setPropLines] = useState({});
   const [category, setCategory] = useState("proj_pass_yds");
   const [newMonth, setNewMonth] = useState({ month: currentMonthId(), starting: "" });
@@ -78,6 +89,10 @@ export default function BettingShell({ predictions, weekly, context, markets = [
     const last = known[known.length - 1] ?? null;
     setActive(last);
     setRecord(last ? loadMonth(last, storage) : null);
+    // La ficha de siempre se lee UNA vez al montar y se recalcula al guardar:
+    // «que todo quede grabado» incluye poder leer los meses cerrados sin
+    // volver a abrirlos uno a uno.
+    setCareer(careerSummary(known.map((m) => loadMonth(m, storage))));
     try {
       const raw = storage?.getItem(linesKey);
       setPropLines(raw ? JSON.parse(raw) : {});
@@ -88,6 +103,7 @@ export default function BettingShell({ predictions, weekly, context, markets = [
   const persist = (next) => {
     setRecord(next);
     saveMonth(next, storage);
+    setCareer(careerSummary(loadMonths(storage).map((m) => loadMonth(m, storage))));
   };
   const switchMonth = (month) => {
     setActive(month);
@@ -110,10 +126,18 @@ export default function BettingShell({ predictions, weekly, context, markets = [
     : [];
   const slipTotal = slip.reduce((sum, b) => sum + (Number(b.stake) || 0), 0);
   const grouped = record ? exposure(record) : null;
+  const weekPct = Number(record?.limits?.weekPct) > 0
+    ? Number(record.limits.weekPct) : DEFAULT_WEEK_PCT;
+  const plan = record ? weekPlan({ record, week: context.week, weekPct }) : null;
+  const ledger = record ? weekLedger(record) : [];
+  const path = record ? bankPath(record) : [];
 
   const toSlip = (bet) => {
     if (!record) return;
-    persist(addBet(record, bet));
+    // La temporada y la jornada se sellan AQUÍ, en el único embudo que existe,
+    // y no en cada botón: tres sitios poniendo el mismo campo es exactamente
+    // como divergen dos traductores del mismo formato en este proyecto.
+    persist(addBet(record, { season: context.season, week: context.week, ...bet }));
   };
   const gameBet = (row) => toSlip({
     market: row.family, label: row.lean, selection: row.lean, line: row.line,
@@ -181,13 +205,114 @@ export default function BettingShell({ predictions, weekly, context, markets = [
           <div><dt>Available</dt><dd>{money(s.available)}</dd></div>
           <div><dt>Open</dt><dd>{money(s.openExposure)}<small>{s.openCount} bets</small></dd></div>
           <div className={s.settledPL >= 0 ? "is-up" : "is-down"}>
-            <dt>Settled P/L</dt><dd>{signed(s.settledPL)}<small>{num(s.roi * 100, 1)}% ROI</small></dd>
+            <dt>Settled P/L</dt><dd>{signed(s.settledPL)}<small>{signedPct(s.roi * 100)} ROI</small></dd>
           </div>
           <div><dt>Record</dt><dd>{s.wins}-{s.losses}{s.pushes ? `-${s.pushes}` : ""}<small>{money(s.unitDollars)}/u</small></dd></div>
         </dl>
       </header>
 
-      {/* ============ 2. QUÉ MIRAR HOY ==================================== */}
+      {/* ============ 2. CUÁNTO PONER ESTA SEMANA ========================= */}
+      {/* Va antes que los leans a propósito: el tamaño se decide con la banca
+          de hoy, y decidirlo DESPUÉS de haber visto una selección que gusta es
+          justo el orden en que se persiguen las pérdidas. */}
+      <section aria-label="This week's plan" className="bk-plan">
+        <h2 className="bk-h">
+          Your week{plan.week ? ` ${plan.week}` : ""} plan{" "}
+          <small>sizes only — never which bet</small>
+        </h2>
+        <div className={`bk-plan-grid bk-plan--${plan.state.toLowerCase()}`}>
+          <div className="bk-plan-state">
+            <span className="bk-plan-tag">
+              {plan.state === "UP" ? "UP" : plan.state === "DOWN" ? "DOWN" : "EVEN"}
+            </span>
+            <b>{signed(plan.swing)}</b>
+            <small>{signedPct(plan.swingPct)} on the month · bank {money(plan.bank)}</small>
+          </div>
+          <dl className="bk-plan-nums">
+            <div>
+              <dt>1 unit now</dt>
+              <dd>{money(plan.unitNow)}
+                <small>
+                  {plan.unitDelta === 0
+                    ? `${num(plan.unitPct, 2)}% of bank`
+                    : `was ${money(plan.unitAtStart)} · ${signed(plan.unitDelta)}`}
+                </small>
+              </dd>
+            </div>
+            <div>
+              <dt>Suggested per bet</dt>
+              <dd>{money(plan.perBet)}
+                <small>
+                  {plan.remaining <= 0
+                    ? "week budget spent"
+                    : `1u${plan.braking ? " · braked to half" : ""}`}
+                </small>
+              </dd>
+            </div>
+            <div>
+              <dt>Week budget</dt>
+              <dd>{money(plan.budget)}<small>{num(plan.weekPct, 1)}% of bank</small></dd>
+            </div>
+            <div className={plan.over ? "is-over" : undefined}>
+              <dt>Left to stake</dt>
+              <dd>{money(plan.remaining)}
+                <small>
+                  {plan.over
+                    ? `over by ${money(plan.committed + plan.inSlip - plan.budget)}`
+                    : `${money(plan.committed)} placed · ${money(plan.inSlip)} in slip`}
+                </small>
+              </dd>
+            </div>
+          </dl>
+          <label className="bk-plan-rule">
+            Weekly cap (% of bank)
+            <input type="number" min="0.5" max="100" step="0.5" value={weekPct}
+                   onChange={(e) => persist({
+                     ...record,
+                     limits: { ...(record.limits ?? {}), weekPct: Number(e.target.value) || 0 },
+                   })} />
+          </label>
+        </div>
+
+        {/* La mitad de abajo de la pregunta, contestada donde se lee. */}
+        {plan.state === "DOWN" ? (
+          <p className={`bk-plan-note${plan.braking ? " bk-plan-note--brake" : ""}`}>
+            {plan.braking ? (
+              <>
+                <b>Down {num(Math.abs(plan.swingPct), 1)}% — the brake is on.</b> Sizes are
+                halved below −{plan.drawdownAt}%. That threshold is a bookkeeping convention
+                you can change, not something this project measured.
+              </>
+            ) : (
+              <>
+                <b>Down {num(Math.abs(plan.swingPct), 1)}%.</b> Your unit already fell from{" "}
+                {money(plan.unitAtStart)} to {money(plan.unitNow)} on its own — that is what
+                staking a percentage of the current bank does.
+              </>
+            )}{" "}
+            It does not go the other way: <strong>nothing here will raise your stake to win
+            it back</strong>. Betting a bigger fraction after losses raises the chance of
+            reaching zero at any given edge — and the edge here is not proven to begin with
+            (the model matches the closing line; the against-the-spread record is not
+            significant).
+          </p>
+        ) : plan.state === "UP" ? (
+          <p className="bk-plan-note">
+            <b>Up {num(plan.swingPct, 1)}%.</b> Your unit rose from {money(plan.unitAtStart)}{" "}
+            to {money(plan.unitNow)} by the same arithmetic that shrinks it when you are down.
+            A good month is not evidence of an edge: {s.wins + s.losses} settled bets is far
+            too small a sample to tell skill from variance.
+          </p>
+        ) : (
+          <p className="bk-plan-note">
+            Sizes are a fixed percentage of the bank you have <em>today</em>, so they follow it
+            in both directions with no rule to remember. What to bet is a separate question,
+            and this box never answers it.
+          </p>
+        )}
+      </section>
+
+      {/* ============ 3. QUÉ MIRAR HOY ==================================== */}
       <section aria-label="Top model leans">
         <h2 className="bk-h">Top model leans <small>week {context.week} · not edge — E4 measured that</small></h2>
         <ol className="bk-leans">
@@ -535,20 +660,89 @@ export default function BettingShell({ predictions, weekly, context, markets = [
 
       {/* ============ HISTORIAL =========================================== */}
       <section aria-label="History">
-        <h2 className="bk-h">History <small>{settled.length} settled this month</small></h2>
+        <h2 className="bk-h">
+          The book <small>{settled.length} settled this month · everything is kept</small>
+        </h2>
         {settled.length === 0 ? (
-          <p className="caption">Settled bets land here, immutably.</p>
+          <p className="caption">
+            Settled bets land here, immutably — with their week, their price and what they
+            paid. Nothing is ever rewritten: a bet keeps the model number it was recorded
+            with, even after the model moves.
+          </p>
         ) : (
-          <ul className="bk-history">
-            {settled.map((bet) => (
-              <li key={bet.id} className={`bk-hist--${bet.status.toLowerCase()}`}>
-                <b>{bet.status}</b>
-                <span>{bet.label}</span>
-                <span>{money(bet.stake)} at {bet.odds}</span>
-              </li>
-            ))}
-          </ul>
+          <>
+            <BankCurve path={path} starting={record.starting} />
+            {/* La tabla POR JORNADA es la lectura que decide, y además es la
+                versión en números de la curva de arriba: ninguna gráfica de
+                este sitio es la única forma de leer un dato. */}
+            {ledger.length > 0 ? (
+              <div className="table-wrap">
+                <table className="rank-table bk-ledger">
+                  <thead>
+                    <tr>
+                      <th>Week</th><th>Bets</th><th>Staked</th><th>Record</th>
+                      <th>P/L</th><th>ROI on stake</th><th>Bank after</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ledger.map((row) => (
+                      <tr key={String(row.week)}>
+                        <td className="who">
+                          <span className="nm">{row.week === null ? "UNKNOWN" : `Week ${row.week}`}</span>
+                          {row.week === null ? (
+                            <span className="meta">recorded before weeks were stamped</span>
+                          ) : null}
+                        </td>
+                        <td>{row.bets}{row.open ? <small> · {row.open} open</small> : null}</td>
+                        <td>{money(row.staked)}</td>
+                        <td>{row.wins}-{row.losses}{row.pushes ? `-${row.pushes}` : ""}</td>
+                        <td className={row.profit >= 0 ? "wk-up" : "wk-down"}>{signed(row.profit)}</td>
+                        <td className={row.profit >= 0 ? "wk-up" : "wk-down"}>
+                          {row.staked > 0 ? `${row.roi > 0 ? "+" : ""}${num(row.roi * 100, 1)}%` : "—"}
+                        </td>
+                        <td>{row.bankAfter === null ? "—" : money(row.bankAfter)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : null}
+            <ul className="bk-history">
+              {settled.map((bet) => {
+                const pl = betProfit(bet);
+                return (
+                  <li key={bet.id} className={`bk-hist--${bet.status.toLowerCase()}`}>
+                    <b>{bet.status}</b>
+                    <span className="bk-hist-what">
+                      {bet.label}
+                      <small>
+                        {bet.week === null ? "week unknown" : `week ${bet.week}`}
+                        {" · "}{money(bet.stake)} at {bet.odds}
+                        {Number.isFinite(Number(bet.snapshot?.model))
+                          ? ` · model ${num(bet.snapshot.model, 1)} vs ${num(bet.snapshot?.market, 1)}`
+                          : ""}
+                      </small>
+                    </span>
+                    <span className={`bk-hist-pl ${pl >= 0 ? "wk-up" : "wk-down"}`}>
+                      {bet.status === "PUSH" || bet.status === "VOID" ? "$0" : signed(pl)}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
         )}
+        {career && career.months > 1 ? (
+          <p className="caption bk-career">
+            <strong>All months:</strong> {career.bets} bets · {money(career.staked)} staked ·{" "}
+            <b className={career.profit >= 0 ? "wk-up" : "wk-down"}>{signed(career.profit)}</b>{" "}
+            ({career.roi > 0 ? "+" : ""}{num(career.roi * 100, 1)}% on stake) ·{" "}
+            {career.wins}-{career.losses}{career.pushes ? `-${career.pushes}` : ""}
+            {career.open ? ` · ${career.open} still open` : ""}. Months are added by what was{" "}
+            <em>staked</em>, not by bankroll: each month declares its own, so bankrolls are not
+            comparable across them and are never summed.
+          </p>
+        ) : null}
         <div className="bk-newmonth">
           <label>New month
             <input type="month" value={newMonth.month}

@@ -80,6 +80,82 @@ for (const width of [390, 1440]) {
   await page.screenshot({ path: `${OUT}/apuestas-${width}.png`, fullPage: width === 1440 });
   await ctx.close();
 }
+
+/* === EL PLAN DE LA SEMANA: el tamaño sigue a la banca ====================
+   La propiedad que pidió esta pantalla es direccional, y una prueba unitaria
+   la demuestra en el módulo pero no en la PANTALLA — que es donde se lee y
+   donde se decide. Aquí se siembran tres libros con la misma banca inicial y
+   se comparan los tres «suggested per bet» que salen pintados.
+
+       ABAJO  <  IGUAL  <  ARRIBA,  y ABAJO nunca por encima de IGUAL.
+
+   Si alguien cambia el plan para «recuperar lo perdido», el primer `<` se da
+   la vuelta y esto se pone rojo. */
+console.log("\n=== el plan de la semana ===");
+const LIBRO = (bets) => ({
+  month: "2026-09", starting: 10000, unitIsPercent: true, unitValue: 1, limits: {}, bets,
+});
+/* El libro histórico va en OTRA jornada que la que se planifica, y eso no es un
+   truco del fixture: el plan responde «cuánto me queda por poner ESTA semana»,
+   así que lo apostado en la semana que se planifica descuenta del tope y taparía
+   la comparación con un cero. Lo que se compara aquí es el TAMAÑO, no el resto. */
+const APUESTA = (id, status, stake, odds) => ({
+  id, status, market: "SPREAD", label: `${id} bet`, selection: "X", line: -3, odds, stake,
+  gameId: id, team: "BUF", season: 2026, week: 18, snapshot: { model: 4, market: 3 },
+  createdAt: 1, placedAt: 2, settledAt: status === "PLACED" ? null : 3,
+});
+const ESCENARIOS = {
+  // Sin liquidar nada: la banca es la inicial.
+  igual: LIBRO([]),
+  // −1.500: banca 8.500, un 15% abajo. A propósito SIN cruzar el umbral del
+  // freno (−20%): así lo que encoge la apuesta es la aritmética del porcentaje
+  // sobre la banca actual, no la regla del freno — que es lo que se afirma.
+  abajo: LIBRO([APUESTA("d1", "LOST", 1500, -110)]),
+  // +2.000 a +200: banca 12.000.
+  arriba: LIBRO([APUESTA("u1", "WON", 1000, 200)]),
+};
+const perBet = async (nombre) => {
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
+  await ctx.addInitScript((libro) => {
+    try {
+      localStorage.setItem("gridiron-bank-months-v1", JSON.stringify(["2026-09"]));
+      localStorage.setItem("gridiron-bank-v1:2026-09", JSON.stringify(libro));
+    } catch { /* bloqueado */ }
+  }, ESCENARIOS[nombre]);
+  const page = await ctx.newPage();
+  await page.goto(`${BASE}/betting`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector(".bk-plan-grid", { timeout: 10000 });
+  const txt = await page.locator(".bk-plan-nums > div", { hasText: "Suggested per bet" }).innerText();
+  const unidad = await page.locator(".bk-plan-nums > div", { hasText: "1 unit now" }).innerText();
+  const estado = await page.locator(".bk-plan-tag").innerText();
+  await ctx.close();
+  const dolar = (t) => Number((t.match(/\$([\d,]+(?:\.\d+)?)/) ?? [])[1]?.replace(/,/g, "") ?? NaN);
+  return { perBet: dolar(txt), unit: dolar(unidad), estado: estado.trim() };
+};
+const abajo = await perBet("abajo");
+const igual = await perBet("igual");
+const arriba = await perBet("arriba");
+check("la pantalla dice UP / DOWN / EVEN según la banca, con la palabra escrita",
+  abajo.estado === "DOWN" && igual.estado === "EVEN" && arriba.estado === "UP",
+  `${abajo.estado}/${igual.estado}/${arriba.estado}`);
+/* La primera versión de esto comprobaba `abajo < igual`, y se probó inyectando
+   el fallo que existe para cazar: un multiplicador de recuperación de 1,15 daba
+   97,75 en vez de 85 y la comprobación SEGUÍA VERDE, porque perseguir un 15% no
+   llega a cancelar una caída del 15%. Un guardián que sólo caza la persecución
+   COMPLETA no es un guardián. La propiedad exacta es que el tamaño es la MISMA
+   fracción de la banca en los tres casos: cualquier factor que dependa de ir
+   arriba o abajo la rompe, por pequeño que sea. */
+const FRACCION = 0.01;                      // la unidad del mes: 1%
+check("PERDER ENCOGE la apuesta sugerida: nada aquí persigue pérdidas",
+  abajo.perBet === Math.round(8500 * FRACCION * 100) / 100,
+  `abajo ${abajo.perBet}, esperado ${8500 * FRACCION}`);
+check("y ganar la agranda por la MISMA aritmética, ni más ni menos",
+  arriba.perBet === Math.round(12000 * FRACCION * 100) / 100 && igual.perBet === 100,
+  `arriba ${arriba.perBet} · igual ${igual.perBet}`);
+check("la unidad se mueve con la banca y no con la inicial",
+  abajo.unit === 85 && igual.unit === 100 && arriba.unit === 120,
+  `${abajo.unit}/${igual.unit}/${arriba.unit}`);
+
 await browser.close();
 stop();
 console.log(`\n${fallos === 0 ? "TODO VERDE" : `${fallos} FALLOS`}`);
