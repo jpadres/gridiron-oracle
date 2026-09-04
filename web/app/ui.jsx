@@ -36,7 +36,9 @@ export function Callout({ title, children }) {
  */
 export function Note({ title, children }) {
   return (
-    <div className="note">
+    // `.aside` y no `.note`: esa clase YA era la ficha de noticia de Research
+    // desde hace meses, y llamarla igual pintaba las dos cosas idénticas.
+    <div className="aside">
       {title ? <h3>{title}</h3> : null}
       {children}
     </div>

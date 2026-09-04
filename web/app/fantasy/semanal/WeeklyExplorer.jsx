@@ -100,8 +100,17 @@ export default function WeeklyExplorer({
 
   const all = picked.size === 0;
   const offenseSelected = all ? OFFENSE : OFFENSE.filter((p) => picked.has(p));
-  const showK = all || picked.has("K");
-  const showDst = all || picked.has("DST");
+  /* K Y DST SON PESTAÑAS, NO APÉNDICES. Con «ALL» se apilaban debajo del
+     ranking, así que la pantalla medía 10.899 px: ranking de ochenta filas,
+     kickers, libres, resto de temporada y defensas, uno detrás de otro. Y no
+     son la misma pregunta — el ranking decide una alineación, el pateador y la
+     defensa son streaming, y su autoridad es distinta (el pateador lleva
+     proyección sin puesto; la defensa, hechos sin proyección).
+
+     El chip que los abre YA existe y está arriba del todo, así que no se
+     esconde nada: se deja de enseñar todo a la vez. */
+  const showK = picked.has("K");
+  const showDst = picked.has("DST");
   const singleOffense = !all && offenseSelected.length === 1 && picked.size === 1;
 
   const rows = useMemo(() => {
@@ -212,6 +221,20 @@ export default function WeeklyExplorer({
             </tbody>
           </table>
         </div>
+      ) : null}
+
+      {/* Dónde están los que ya no se apilan. Sin esto, quitarlos de «ALL» sería
+          esconderlos — y esconder algo que existe es lo que costó una iteración
+          con el resto de temporada. */}
+      {all ? (
+        <p className="caption wk-tabs-hint">
+          Kickers and defenses are not in this list: their authority is different — a
+          kicker has a projection without a rank, a defense has facts without a
+          projection. They have their own tabs above:{" "}
+          <button type="button" className="wk-detail" onClick={() => toggle("K")}>Kickers</button>
+          {" "}
+          <button type="button" className="wk-detail" onClick={() => toggle("DST")}>Defense / DST</button>
+        </p>
       ) : null}
 
       {/* --- PATEADORES: proyección validada, orden a propósito ausente ------ */}

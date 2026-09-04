@@ -305,7 +305,7 @@ reescribe la nota, lo que se publicó hoy sólo existe si se guardó hoy.
 **El flujo de datos de la web:** los scripts de Python generan
 `web/data/model.json`, que se comprime a `web/data/model.b64.js` (gzip+base64,
 ~24 KB). `web/data/model.js` lo descomprime en el servidor **en build time**. Por
-eso las 13 páginas son estáticas y el sitio no hace ni una petición de red.
+eso las 12 páginas son estáticas y el sitio no hace ni una petición de red.
 
 Si regeneras los datos, **hay que recomprimir**. El paso está en
 `.github/workflows/weekly-predictions.yml`; cópialo de ahí si lo haces a mano.
@@ -428,6 +428,9 @@ comentario está para que no los reintroduzcas.
 | El arreglo del móvil, escrito dentro del `@media` de escritorio | `system.css` | «EXEMPT LIST» se salía de su círculo de 1 rem, se arregló, se anotó aquí… y seguía roto. El bloque que soltaba `width`/`height` estaba DENTRO de `@media (min-width: 48rem)` —ochenta líneas se habían añadido debajo de unas reglas de escritorio sin ver que la llave seguía abierta—, así que el arreglo sólo existía donde el fallo no ocurría. En el teléfono «QUESTIONABLE», «RESERVE/PUP», «NO NFL TEAM» y «69% PRIOR» se escribían encima del nombre y del equipo. **Un arreglo que no se comprueba en el escenario del fallo no es un arreglo, y aquí encima dejó la sensación de que estaba hecho.** El guardián nuevo mide que ninguna marca desborde su propia caja, en los cuatro escenarios de móvil |
 | El menú del teléfono, 187 px de cromo | `layout.jsx` | Primero era una tira que se desplazaba y las cinco últimas secciones no existían; envolverla en cuatro líneas costaba 187 px ANTES del título en todas las páginas y sacó la lista de candidatos del asistente del primer viewport —la pantalla que se mira contra reloj—, que un laboratorio ya vigilaba. Un `<details>` cuesta 61 px y deja las doce a un toque. Se pintan los dos menús desde el MISMO array y el guardián comprueba que el del teléfono las lleve todas: «salen del mismo array» es una promesa del código, no una comprobación |
 | Una curva de banca con el eje pegado a los datos | `BankCurve.jsx` | Escalada al rango observado, una racha del 0,5% dibujaba la misma cordillera que un desplome del 40%: el eje truncado de manual, y en dinero se lee como pánico o euforia según el lado. El dominio se ancla en la banca INICIAL y abre un ±5% mínimo. Y el texto se sacó FUERA del SVG: dentro obligaba a escalar en proporción y en 390 px la curva quedaba de 40 px con una etiqueta de 7 |
+| Veintitrés bloques ámbar | `ui.jsx`, seis páginas | `.callout` marcaba por igual la tesis honesta del modelo, «cómo se lee esta tabla», el estado vacío de una sección y tres apuntes de historia. Cuando todo está resaltado, nada lo está — y son veintitrés bloques de prosa entre quien entra y sus datos. Ahora el ámbar es sólo para lo que CONTRADICE lo que el lector asumiría y `.note`/`.aside` para lo que acompaña. No se borró una palabra: cambió el peso |
+| Dos cosas distintas llamadas `.note` | `globals.css` | La clase del apunte neutro que se acababa de crear YA era la ficha de noticia de Research desde hacía meses. Se pisaban: el apunte y las fichas se pintaban idénticos y parecía un descuido de diseño. Antes de nombrar una clase, `grep`: en una hoja de 1.200 líneas el nombre obvio suele estar cogido |
+| Pintar 564 filas para mirar diez | `BoardShell.jsx` | El board medía 35.202 px —treinta y cinco pantallas— y el navegador montaba quinientas filas con foto y marcas para llegar a las diez que se miran. Se pintan cien y se dice «100 de 564»; el POOL no se toca, que los tiers y los conteos se cuenten sobre lo pintado es el fallo del «2 left in tier», dos veces ya |
 | El plan repartía el ancho a ojo | `system.css` | Cuatro cifras en una fila de flex se partían 3+1 en escritorio con medio panel vacío al lado, y en móvil se estiraban con huecos verticales de 100 px (`align-content: stretch` en un flex que envuelve). Rejilla de cuatro columnas iguales en su propia fila: el reparto deja de depender de lo largo que sea el texto de una |
 | «$0 · 1u · braked» en la misma celda | `BettingShell.jsx` | El tamaño sugerido era cero porque el tope de la semana estaba gastado, y debajo ponía «1u», que es lo contrario. Cuando no queda tope, lo que se lee es por qué: «week budget spent» |
 
@@ -466,7 +469,7 @@ está construida:
 
 | Laboratorio | Qué prueba |
 |---|---|
-| `smoke.mjs` | Las TRECE páginas en 390/768/1440 sin cuenta: responden, no lanzan, tienen `h1`, no desbordan y están todas en la navegación |
+| `smoke.mjs` | Las DOCE páginas en 390/768/1440 sin cuenta: responden, no lanzan, tienen `h1`, no desbordan y ninguna se queda sin enlace. Comprueba la ALCANZABILIDAD, no la presencia en el menú: `/fantasy/leagues` salió del menú a propósito y la enlaza la barra de liga. Y que los dos menús —el de escritorio y el desplegable del teléfono— lleven exactamente lo mismo |
 | `movil.mjs` | GEOMETRÍA en 390/360, claro y oscuro, y con el texto agrandado: que nada se salga de su celda por la derecha, que nada se monte encima de nada y que las columnas fijas sean opacas. Cada ruta declara además la pieza densa que la define: una comprobación de geometría sobre una pantalla que se quedó vacía sale verde sin mirar nada |
 | `cuenta.mjs` | Enlazar la cuenta, los paneles por liga, el semanal marcado, lo libre, el resto de temporada, el analizador y el recorrido «una cuenta, una liga» |
 | `live-assistant.mjs` | Un draft entero de 180 picks por el adaptador, las carreras por un candidato y los picks leídos que no se aplican |

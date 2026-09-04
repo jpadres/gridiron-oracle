@@ -416,7 +416,7 @@ llamativa sobre el jugador equivocado.
 
 La superficie de ataque de este proyecto es deliberadamente diminuta, y eso vale
 más que cualquier lista de mitigaciones: **0 endpoints de API, 0 subidas de
-archivos, 0 cookies, 0 sesiones, 0 base de datos.** El sitio son trece páginas
+archivos, 0 cookies, 0 sesiones, 0 base de datos.** El sitio son doce páginas
 estáticas con los datos horneados en el build. No hay login que forzar, ni
 consultas que inyectar, ni registros ajenos que leer, porque no hay usuarios ni
 registros.

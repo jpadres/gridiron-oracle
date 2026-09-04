@@ -26,7 +26,7 @@ const OUT = process.env.SHOTS
   ?? "/tmp/claude-0/-home-user-gridiron-oracle/2ba586eb-a73c-5614-b014-9ed94d875f6d/scratchpad/shots";
 
 const PAGINAS = [
-  "/", "/modelo", "/validacion", "/predicciones", "/betting",
+  "/", "/modelo", "/predicciones", "/betting",
   "/fantasy", "/fantasy/draft", "/fantasy/leagues", "/fantasy/semanal",
   "/fantasy/resto", "/fantasy/analisis", "/survivor", "/research",
 ];
@@ -78,12 +78,31 @@ for (const width of [390, 768, 1440]) {
       ].filter(Boolean).join(" · "));
   }
   if (width === 1440) {
-    // La navegación tiene que llevar a TODO lo publicado: una página sin enlace
-    // es una página que nadie encuentra.
-    const enlaces = await page.evaluate(() =>
-      [...document.querySelectorAll("nav a")].map((a) => new URL(a.href).pathname));
-    const huerfanas = PAGINAS.filter((p) => !enlaces.includes(p));
-    check("todas las páginas están en la navegación", huerfanas.length === 0, huerfanas.join(", "));
+    /* NINGUNA PÁGINA HUÉRFANA. Una página publicada que no se enlaza desde
+       ninguna parte no la encuentra nadie — lo que le pasó al resto de
+       temporada dentro del semanal.
+
+       El menú ya no es la única puerta: `/fantasy/leagues` salió de él porque
+       la barra de liga la enlaza desde las tres pantallas que la necesitan.
+       Así que lo que se exige es que TODA página esté enlazada desde ALGÚN
+       sitio, no que esté en el menú. Se recorren las páginas recogiendo los
+       enlaces internos de cada una y se comprueba la unión. */
+    const alcanzables = new Set();
+    for (const url of PAGINAS) {
+      await page.goto(`${BASE}${url}`, { waitUntil: "domcontentloaded" });
+      await page.waitForTimeout(300);
+      for (const href of await page.evaluate(() =>
+        [...document.querySelectorAll("a[href]")]
+          .filter((a) => a.href.startsWith(location.origin))
+          .map((a) => new URL(a.href).pathname))) alcanzables.add(href);
+    }
+    const huerfanas = PAGINAS.filter((p) => p !== "/" && !alcanzables.has(p));
+    check("ninguna página publicada se queda sin enlace", huerfanas.length === 0,
+      huerfanas.join(", "));
+    await page.goto(`${BASE}/`, { waitUntil: "domcontentloaded" });
+    const enMenu = await page.evaluate(() =>
+      [...document.querySelectorAll("nav.top .top-links a")].map((a) => new URL(a.href).pathname));
+    check("el menú lleva a once secciones", enMenu.length === 11, `${enMenu.length}`);
 
 /* EL MENÚ DEL TELÉFONO ES OTRO ELEMENTO, Y POR ESO SE COMPRUEBA APARTE.
    En 390 px la fila de secciones no cabe y se pinta un desplegable: los dos
@@ -103,8 +122,17 @@ for (const width of [390, 768, 1440]) {
   await summary.click();
   const enMovil = await page.locator(".top-menu-links a").evaluateAll(
     (as) => as.map((a) => a.getAttribute("href")));
-  const faltan = PAGINAS.filter((p) => !enMovil.includes(p));
-  check("390: el desplegable lleva TODAS las páginas", faltan.length === 0, faltan.join(", "));
+  /* Los dos menús llevan LO MISMO. Antes se comparaba el del teléfono contra la
+     lista de páginas publicadas, y eso dejó de valer cuando `/fantasy/leagues`
+     salió del menú a propósito (la barra de liga la enlaza). Lo que hay que
+     vigilar es la promesa del código: que los dos se pintan del MISMO array.
+     Si alguien añade una sección al de escritorio y no al del teléfono, la
+     mitad de los usuarios no la ve. */
+  const enEscritorio = await page.evaluate(() =>
+    [...document.querySelectorAll("nav.top .top-links a")].map((a) => a.getAttribute("href")));
+  check("390: el desplegable lleva lo mismo que el menú de escritorio",
+    enMovil.length === enEscritorio.length && enMovil.every((h, i) => h === enEscritorio[i]),
+    `móvil ${enMovil.length} vs escritorio ${enEscritorio.length}`);
   // Y que se pueda tocar: 44 px es el mínimo de un control que se pulsa.
   const chico = await page.locator(".top-menu-links a").evaluateAll(
     (as) => as.filter((a) => a.getBoundingClientRect().height < 44).length);

@@ -1,5 +1,5 @@
 import { model, num, pct } from "../../data/model.js";
-import { Callout, NoDataYet, Table } from "../ui.jsx";
+import { Callout, NoDataYet, Note, Table } from "../ui.jsx";
 import { MatchupCard, StatHero, TeamMark } from "../sports.jsx";
 
 export const metadata = {
@@ -7,34 +7,6 @@ export const metadata = {
   description: "This week's predictions and the bets that clear the value threshold.",
 };
 
-const BET_COLUMNS = [
-  { key: "matchup", label: "Game" },
-  { key: "market", label: "Market" },
-  { key: "selection", label: "Pick" },
-  { key: "model_prob", label: "P(model)", format: (v) => pct(v) },
-  // Fuera «P(mercado)». En un spread a −110 por los dos lados, quitar el vig da
-  // exactamente 50,0% siempre: la columna ocupaba sitio para repetir el mismo
-  // número en todas las filas, y de paso invitaba a leer el edge como si el
-  // mercado hubiese opinado algo. Lo que va en su lugar es lo que de verdad
-  // distingue una apuesta de otra: cuánto se separa el modelo de la línea.
-  { key: "disagreement", label: "Disagreement", format: (v) => `${num(v, 1)} pts` },
-  { key: "edge", label: "Edge", format: (v) => pct(v) },
-  { key: "ev", label: "EV", format: (v) => pct(v) },
-  { key: "stake", label: "Stake", format: (v) => num(v) },
-  {
-    key: "evidence_win_rate",
-    label: "This class, historically",
-    format: (v, row) =>
-      v === null || v === undefined ? (
-        <span className="ev-none">no evidence</span>
-      ) : (
-        <span className={row.evidence_beats_breakeven ? "ev-ok" : "ev-bad"}
-              title={`Bets disagreeing by ${row.evidence_label} won ${(v * 100).toFixed(1)}% across ${row.evidence_bets} out-of-sample cases. Breakeven at −110 is 52.4%.`}>
-          {pct(v)} of {row.evidence_bets}
-        </span>
-      ),
-  },
-];
 
 const RATING_COLUMNS = [
   { key: "team", label: "Team", format: (v) => <TeamMark abbr={v} solid /> },
@@ -57,7 +29,6 @@ export default function Predicciones() {
     );
   }
 
-  const bets = model.bets ?? [];
 
   // El partido con más desacuerdo entre el modelo y la línea. Es el que se
   // destaca arriba — y el copy dice explícitamente que destacarlo NO es una
@@ -114,76 +85,29 @@ export default function Predicciones() {
         ))}
       </div>
 
+      {/* LAS APUESTAS DE VALOR VIVEN EN BETTING, Y SÓLO ALLÍ.
+          Esta página tenía su propia sección con la misma tabla y tres bloques
+          de aviso, mientras Betting evalúa TODOS los mercados con más columnas
+          —probabilidad del modelo, la casa sin vig, EV, stake y la ficha
+          histórica de esa clase de apuesta—. Dos superficies con la misma
+          respuesta y distinta cobertura es como divergen, y ya costó una
+          iteración con los traductores de Sleeper. Aquí queda el enlace y la
+          frase que hay que leer antes de pulsarlo. */}
       <h2>Value bets</h2>
-      <Callout title="Read this table alongside the overview, not instead of it">
+      <p>
+        They live on <a href="/betting">Betting</a>, evaluated against every market with the
+        house price de-vigged, the expected value and the stake at your bankroll.
+      </p>
+      <Note title="Read that table alongside this page, not instead of it">
         <p>
-          The overview says the model <strong>does not beat the closing line</strong>, and
-          this table lists bets. That is not a contradiction: these are the games where the
-          model departs most from the market, and that disagreement has a standard deviation of
-          0.86 points, so a two-point gap happens about a hundred times in fourteen seasons.
-          Within that group the historical record is positive{" "}
-          <strong>and does not reach statistical significance</strong> (p≈0.18). It is a
-          hypothesis, not a proven strategy.
+          This site says the model <strong>does not beat the closing line</strong>, and that
+          page lists bets. It is not a contradiction: those are the games where the model
+          departs most from the market, and out of sample{" "}
+          <strong>accuracy does not rise with disagreement</strong> — 49.3%, 50.9% and 48.8%
+          by bucket, none of them reaching the 52.4% breakeven at −110. A lean is where the
+          model stands, never a promise, and the full measurement is on that page.
         </p>
-        <p className="caption">
-          If you see a stake of pennies next to a 4% edge, nothing is broken: after the 50%
-          shrink that bet sits right on the -110 breakeven (52.4%), and Kelly calls for almost
-          nothing. That is the risk machinery working.
-        </p>
-      </Callout>
-      {bets.length === 0 ? (
-        <Callout title="No bet clears the threshold">
-          <p>
-            This is the normal result most weeks, and it is not a failure. The model matches
-            the market: if it found value in ten games a week, the thing to check would be the
-            model.
-          </p>
-          <p className="caption">
-            Lowering the threshold does not create edge. It only hides its absence.
-          </p>
-        </Callout>
-      ) : (
-        <>
-          <Table columns={BET_COLUMNS} rows={bets} />
-          <p className="caption">
-            Stakes on a 1,000 bankroll, quarter Kelly, a 50% shrink of the estimated edge and
-            a hard 2% cap per bet. Bets under a stake of 1 are not published: a &ldquo;bet
-            $0.01&rdquo; row is &ldquo;do not bet&rdquo; dressed up as a recommendation.
-          </p>
-
-          <Callout title="What the record says about bets like this one">
-            <p>
-              The last column is not an opinion or an invented confidence scale. It is the{" "}
-              <strong>real, out-of-sample</strong> win rate of bets where the model disagreed
-              with the line by that same amount, across fourteen seasons. The threshold was
-              fixed before measuring, in <code>docs/PREREGISTRO_confianza.md</code>.
-            </p>
-            <p>The full result, which is uncomfortable and therefore published in full:</p>
-            <ul>
-              <li>Disagreement of <strong>0 to 1 points</strong>: won <strong>49.3%</strong> (2,189 cases).</li>
-              <li><strong>1 to 2 points</strong>: <strong>50.9%</strong> (1,173 cases).</li>
-              <li><strong>2 to 3.5 points</strong>: <strong>48.8%</strong> (346 cases).</li>
-            </ul>
-            <p>
-              Breakeven at −110 odds is <strong>52.4%</strong>.{" "}
-              <strong>No bucket clears it</strong>, not on the mean and not — which is what the
-              pre-registration required — on the lower bound of its interval.
-            </p>
-            <p>
-              And the most informative fact of all: <strong>accuracy does not rise with
-              disagreement</strong>. The model departing further from the line does not predict
-              being right more often. That directly refutes building &ldquo;confidence&rdquo;
-              out of edge, which was the obvious path and is why it was tested.
-            </p>
-            <p className="caption">
-              That is why there are no &ldquo;Best Bets&rdquo; or confidence stars here.
-              Building them would mean claiming a profitability these data do not support, and
-              would be exactly the kind of invented number the rest of this site exists not to
-              publish.
-            </p>
-          </Callout>
-        </>
-      )}
+      </Note>
 
       <h2>Current ratings</h2>
       <p className="caption">

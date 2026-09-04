@@ -216,15 +216,15 @@ code { background: var(--surface); padding: var(--space-0) var(--space-1); borde
 }
 .callout h3 { margin-top: 0; }
 
-.note {
+.aside {
   border-left: 3px solid var(--muted);
   background: var(--surface);
   padding: var(--space-3) var(--space-4);
   margin: var(--space-5) 0;
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
-.note h3 { margin-top: 0; font-size: var(--text-lead); }
-.note > :last-child { margin-bottom: 0; }
+.aside h3 { margin-top: 0; font-size: var(--text-lead); }
+.aside > :last-child { margin-bottom: 0; }
 .callout > :last-child { margin-bottom: 0; }
 
 /* Las tablas anchas hacen scroll dentro de su contenedor: el cuerpo de la

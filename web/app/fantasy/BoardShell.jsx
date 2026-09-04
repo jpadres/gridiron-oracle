@@ -55,6 +55,10 @@ const BOARD_COLUMNS = [
   },
 ];
 
+/** Filas por tramo. Cien porque una liga de 12 equipos drafta 180 y el board
+ *  se mira por arriba: el tramo cubre las tres primeras rondas de un tirón. */
+const TRAMO = 100;
+
 const VIEWS = [
   { id: "draft", label: "Draft" },
   { id: "consensus", label: "Consensus" },
@@ -145,6 +149,16 @@ export default function BoardShell({
   validationPanel,
 }) {
   const [{ view, position }, setState] = useState({ view: "draft", position: "ALL" });
+  /* CUÁNTAS FILAS SE PINTAN. El board tiene 564 jugadores y los pintaba todos:
+     35.202 px de página, treinta y cinco pantallas de escritorio, y el
+     navegador montando quinientas filas con foto y marcas para llegar a las
+     diez que se miran.
+
+     El tramo es de RENDER y se dice cuál es. El pool NO se toca: los tiers, los
+     conteos y el «best available» siguen calculándose sobre `filtered` entero,
+     que es la lección del «2 left in tier» contado sobre lo pintado — dos veces
+     ya, una en el producto y otra en un laboratorio. */
+  const [shown, setShown] = useState(TRAMO);
 
   // La URL se lee DESPUÉS de montar, no durante el render. El servidor pinta
   // siempre el defecto, así que el HTML estático y la primera pasada del
@@ -157,6 +171,10 @@ export default function BoardShell({
   }, []);
 
   const go = useCallback((next) => {
+    // Al cambiar de filtro se vuelve al primer tramo: quedarse en «400 filas»
+    // saltando de ALL a TE enseñaría los veintisiete tight ends que hay con un
+    // botón de «ver más» que ya no puede hacer nada.
+    setShown(TRAMO);
     setState((current) => {
       const merged = { ...current, ...next };
       const params = new URLSearchParams();
@@ -286,7 +304,7 @@ export default function BoardShell({
             <p className="caption">No players at this position.</p>
           ) : (
             <RankTable
-              rows={numbered(filtered)}
+              rows={numbered(filtered).slice(0, shown)}
               columns={BOARD_COLUMNS}
               availability={availability}
               briefs={briefs}
@@ -294,6 +312,21 @@ export default function BoardShell({
               tiers={position === "ALL"}
             />
           )}
+          {/* El resto del pool, a un toque. Se dice cuántos se enseñan y
+              cuántos hay: «ver más» sin decir de cuánto es una lista sin fondo. */}
+          {filtered.length > shown ? (
+            <p className="board-more">
+              <button type="button" className="wk-detail"
+                      onClick={() => setShown((n) => n + TRAMO)}>
+                Show {Math.min(TRAMO, filtered.length - shown)} more
+              </button>
+              <span className="caption">
+                {shown} of {filtered.length} shown. Tiers, counts and best available are
+                computed over all {filtered.length} — never over what is painted.
+              </span>
+            </p>
+          ) : null}
+
           {/* La curva va DEBAJO de la tabla: es contexto de por qué el orden es
               el que es, no la decisión. Encima costaba 243 px antes del primer
               jugador. */}

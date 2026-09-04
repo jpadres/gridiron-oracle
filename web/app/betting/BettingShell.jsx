@@ -839,6 +839,19 @@ export default function BettingShell({ predictions, weekly, context, markets = [
           stat level is not separately validated. Stakes are your choice: no Kelly, no
           &ldquo;optimal size&rdquo; — that machinery stays off until edge is proven.
         </p>
+        <p>
+          <strong>The full E4 result, which is uncomfortable and therefore published in
+          full.</strong> Out-of-sample win rate of bets where the model disagreed with the
+          line by that amount, over fourteen seasons, with the threshold fixed before
+          measuring (<code>docs/PREREGISTRO_confianza.md</code>): disagreement of{" "}
+          <strong>0&ndash;1 points won 49.3%</strong> (2,189 cases),{" "}
+          <strong>1&ndash;2 points 50.9%</strong> (1,173), <strong>2&ndash;3.5 points
+          48.8%</strong> (346). Breakeven at &minus;110 is <strong>52.4%</strong>:{" "}
+          <strong>no bucket clears it</strong>, not on the mean and not on the lower bound of
+          its interval. And the most informative part — accuracy does <strong>not</strong>{" "}
+          rise with disagreement, which directly refutes building a &ldquo;confidence&rdquo;
+          out of edge. That is why there are no Best Bets or confidence stars anywhere here.
+        </p>
       </details>
     </div>
   );

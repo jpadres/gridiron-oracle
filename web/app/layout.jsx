@@ -18,14 +18,25 @@ export const metadata = {
     "NFL forecasting model and fantasy rankings built on public data, with walk-forward validation and results reported without spin.",
 };
 
-// Las páginas del sitio. Todas estáticas, con los datos horneados. El
-// laboratorio de humo comprueba que esta lista y las rutas publicadas son la
-// misma cosa: una pantalla que no está aquí no la encuentra nadie, que es lo
-// que le pasó al resto de temporada mientras vivía dentro del semanal.
+// Las páginas del MENÚ. Todas estáticas, con los datos horneados.
+//
+// Trece secciones eran demasiadas para un menú y dos sobraban por motivos
+// distintos:
+//
+//   - `/validacion` se fusionó dentro de `/modelo`: explicar una decisión y
+//     publicar el número que la juzga son la misma lectura, y separadas
+//     obligaban a saltar de una a otra para contrastar cada afirmación.
+//   - `/fantasy/leagues` SIGUE EXISTIENDO y no ha perdido nada — simplemente ya
+//     no hace falta buscarla en el menú: la barra de liga la enlaza («All
+//     leagues») desde el semanal, el resto de temporada y el analizador, que
+//     son las tres pantallas desde las que se quiere cambiar de liga.
+//
+// Una pantalla que no está en el menú NI enlazada desde ninguna parte no la
+// encuentra nadie: es lo que le pasó al resto de temporada dentro del semanal.
+// El laboratorio de humo comprueba las dos cosas.
 const PAGES = [
   { href: "/", label: "Overview" },
   { href: "/modelo", label: "Model" },
-  { href: "/validacion", label: "Validation" },
   { href: "/predicciones", label: "Predictions" },
   { href: "/betting", label: "Betting" },
   // «Draft» y «Room» no decían qué hacía cada una: las dos son del draft y una
@@ -33,7 +44,6 @@ const PAGES = [
   // valor por liga, el asistente es la pantalla que se mira DURANTE el draft.
   { href: "/fantasy", label: "Board" },
   { href: "/fantasy/draft", label: "Draft Assistant" },
-  { href: "/fantasy/leagues", label: "Leagues" },
   { href: "/fantasy/semanal", label: "Weekly" },
   { href: "/fantasy/resto", label: "Rest of Season" },
   { href: "/fantasy/analisis", label: "Analyzer" },

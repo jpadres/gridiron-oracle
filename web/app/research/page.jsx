@@ -1,56 +1,14 @@
 import { model } from "../../data/model.js";
 import { AVAILABILITY_LABEL } from "../availability.js";
 import { Callout, ImpactTag, NoDataYet, Note as Aside, Sources, Stat } from "../ui.jsx";
-import { byDay as agruparPorDia, partition } from "./select.js";
+import { partition } from "./select.js";
+import Briefs from "./Briefs.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — Research",
   description:
     "Daily sweep of beat writers, insiders and camp reports across all 32 teams, each with its source. None of it touches the model.",
 };
-
-// Las claves son las que trae el payload y NO se traducen: son datos del
-// esquema de research. Sólo se traduce lo que se pinta.
-const KIND = {
-  lesion: "Injury",
-  transaccion: "Transaction",
-  depth_chart: "Depth chart",
-  campamento: "Camp",
-  contrato: "Contract",
-  disciplina: "Discipline",
-  esquema: "Scheme",
-  otro: "Other",
-};
-
-const CONFIDENCE = {
-  confirmado: { label: "Confirmed", hint: "Official team or league announcement." },
-  informado: { label: "Reported", hint: "A named insider is reporting it." },
-  rumor: { label: "Rumor", hint: "Speculation, or unnamed sources." },
-};
-
-/**
- * Procedencia: de dónde sale lo que afirma la ficha.
- *
- * Mide quién lo dice y cómo lo sabe, que es otro eje distinto de la certeza. Un
- * REPORTADO reciente puede ser más fiable que un HECHO de hace tres semanas.
- *
- * El caso importante es el que NO está en este diccionario: las fichas
- * anteriores a este esquema tienen `evidence_type: null`. No se traducen ni se
- * adivinan —el esquema viejo no distinguía entre reportado, observado y
- * opinión— y por eso salen marcadas como anteriores en vez de con una etiqueta
- * inventada. Un hueco visible es mejor que un dato falso.
- */
-const EVIDENCE = {
-  HECHO: { label: "Fact", hint: "Official announcement from the team, the league or an injury report." },
-  REPORTADO: { label: "Reported", hint: "A named writer is reporting it as their own information." },
-  OBSERVADO: { label: "Observed", hint: "A reporter describing what they saw: reps, who practiced." },
-  OPINION: { label: "Opinion", hint: "A named analyst expects something. That is their read, not a fact." },
-  MODELO: { label: "Model", hint: "This is us, from our own numbers." },
-};
-
-// Las fichas anteriores al esquema de fechas no traen día. La etiqueta se pinta,
-// así que va en inglés; la clave del agrupamiento es la misma cadena.
-const NO_DATE = "no date";
 
 /**
  * Fecha a partir de un YYYY-MM-DD, sin depender del huso del servidor.
@@ -66,9 +24,6 @@ function formatDate(iso, options) {
     ...options,
   });
 }
-
-const longDate = (iso) =>
-  formatDate(iso, { weekday: "long", month: "long", day: "numeric" });
 
 /**
  * Today's Intelligence: lo que puede cambiar una decisión hoy.
@@ -106,40 +61,6 @@ function TodaysIntelligence({ items }) {
         </li>
       ))}
     </ol>
-  );
-}
-
-function Note({ item, showDate = false }) {
-  const confidence = CONFIDENCE[item.confidence] ?? CONFIDENCE.rumor;
-  return (
-    <article className={`note note--${item.impact}`}>
-      <h3>{item.headline}</h3>
-      <p className="note-meta">
-        {/* En el digest las fichas vienen de días distintos, y una noticia de
-            campamento sin fecha al lado no se puede juzgar. En el archivo por
-            día la fecha ya es el encabezado de la sección. */}
-        {showDate && item.date ? (
-          <span className="tag">{formatDate(item.date, { month: "short", day: "numeric" })}</span>
-        ) : null}
-        <span className="chip">{item.team}</span>
-        <span className="tag">{KIND[item.kind] ?? KIND.otro}</span>
-        <ImpactTag impact={item.impact} />
-        <span className={`tag tag--${item.confidence}`} title={confidence.hint}>
-          {confidence.label}
-        </span>
-        {/* La procedencia sólo se pinta si se conoce. En las fichas anteriores
-            al esquema nuevo no se enseña nada: inventar una etiqueta para no
-            dejar el hueco sería falsificar la evidencia hacia atrás. */}
-        {EVIDENCE[item.evidence_type] ? (
-          <span className="prov" title={EVIDENCE[item.evidence_type].hint}>
-            {EVIDENCE[item.evidence_type].label}
-          </span>
-        ) : null}
-        {item.players?.length ? <span className="note-players">{item.players.join(", ")}</span> : null}
-      </p>
-      <p>{item.summary}</p>
-      <Sources sources={item.sources} />
-    </article>
   );
 }
 
@@ -260,9 +181,12 @@ export default function Research() {
   // El reparto vive en `select.js` y no aquí: es lógica con un fallo real
   // detrás —30 de las 40 fichas importantes no se pintaban en ninguna caja— y
   // eso pide un test, que un componente no puede tener.
+  // El archivo es TODO lo que no está ya en los diez accionables de arriba:
+  // antes iba en dos listas apiladas por día, ahora en una sola acotable. El
+  // reparto sigue saliendo del mismo `partition`, así que no cambia qué se
+  // publica — cambia cómo se recorre.
   const { destacadas, resto: rest } = partition(items, today);
-  const destacadasPorDia = agruparPorDia(destacadas, NO_DATE);
-  const byDay = agruparPorDia(rest, NO_DATE);
+  const archivo = [...destacadas, ...rest];
 
   const linked = items.filter((item) => item.player_ids?.length).length;
   const lastSweep = items[0]?.date;
@@ -327,49 +251,31 @@ export default function Research() {
         <TodaysIntelligence items={today} />
       </section>
 
-      {destacadasPorDia.size > 0 ? (
-        <>
-          {/* Lo que no cabe en los diez accionables SIGUE PUBLICÁNDOSE. Antes
-              se calculaba esta lista y no se pintaba en ninguna parte: con 40
-              fichas de relevancia alta, treinta desaparecían y la página se
-              veía llena igual. Van por día y por delante del contexto. */}
-          <h2>The rest of what matters</h2>
-          <p className="caption">
-            Relevance 4 and 5 that did not make the ten above — same bar, less immediate.
-            Nothing the sweep flags as lineup-moving is dropped.
-          </p>
-          {[...destacadasPorDia.entries()].map(([day, dayItems]) => (
-            <section key={`alta-${day}`} id={`alta-${day}`}>
-              <h3 className="day">{day === NO_DATE ? day : longDate(day)}</h3>
-              {dayItems.map((item, index) => (
-                <Note key={`alta-${day}-${index}`} item={item} />
-              ))}
-            </section>
-          ))}
-        </>
-      ) : null}
+      {/* TODO EL ARCHIVO, EN UNA LISTA ACOTABLE.
+          Eran dos secciones apiladas —«el resto de lo que importa» y «todo lo
+          demás, por día»— con el mismo tipo de ficha, la misma forma y ninguna
+          manera de decir «enséñame lo de mi equipo». Sesenta fichas seguidas no
+          son un archivo, son un muro: 24.061 px de página.
 
-      {byDay.size > 0 ? (
-        <>
-          <h2>Everything else, by day</h2>
+          No se quita ni una ficha ni se reordena nada (la relevancia la trae el
+          barrido con su fuente, regla 8): se filtra por equipo, por relevancia y
+          por texto, y el conteo dice siempre cuántas hay de cuántas. */}
+      {archivo.length > 0 ? (
+        <section id="archivo">
+          <h2>The whole sweep</h2>
           <p className="caption">
-            Context and moves at relevance 3 or below: they do not change a lineup, but they
-            explain why the next one will.
+            Everything the sweep published in this window, newest first. Relevance 4 and 5
+            move a lineup; 3 and below explain why the next one will. Nothing is dropped —
+            filter it down to what you need.
           </p>
-          {[...byDay.entries()].map(([day, dayItems]) => (
-            <section key={day} id={day}>
-              <h3 className="day">{day === NO_DATE ? day : longDate(day)}</h3>
-              {dayItems.map((item, index) => (
-                <Note key={`${day}-${index}`} item={item} />
-              ))}
-            </section>
-          ))}
-        </>
+          <Briefs items={archivo} />
+        </section>
       ) : null}
 
       {medical.length > 0 ? (
         <section id="medico">
-          <h2>Injury report</h2>
+          <details className="ref-block">
+            <summary>{`Injury report · ${medical.length} situations`}</summary>
           <p className="caption">
             {medical.length} situations across the 32 teams, each with who said it and when.
             The tag measures <strong>availability, not severity</strong>: what decides a lineup
@@ -392,12 +298,14 @@ export default function Research() {
               <code>research/dossier.json</code>.
             </p>
           ) : null}
+          </details>
         </section>
       ) : null}
 
       {camp.length > 0 ? (
         <section id="campamento">
-          <h2>Training camp</h2>
+          <details className="ref-block">
+            <summary>{`Training camp · ${camp.length} reports`}</summary>
           <p className="caption">
             Camp reports are among the <strong>least predictive</strong> data in this sport,
             which is why the substance level goes in front instead of buried: <em>high</em> is a
@@ -411,12 +319,14 @@ export default function Research() {
             published here because showing them beside the others makes them look equal, and
             they are not.
           </p>
+          </details>
         </section>
       ) : null}
 
       {dossier?.reporters?.length ? (
         <section id="reporteros">
-          <h2>Who to follow</h2>
+          <details className="ref-block">
+            <summary>{`Who to follow · the beat, team by team`}</summary>
           <p className="caption">
             {dossier.reporters.length} daily-coverage writers, by team. The local beat is
             usually ahead of the national one on what happens inside a practice: they are there
@@ -424,6 +334,7 @@ export default function Research() {
             &ldquo;NFL news&rdquo;, it searches for what these people publish.
           </p>
           <Beat reporters={dossier.reporters} />
+          </details>
         </section>
       ) : null}
 
