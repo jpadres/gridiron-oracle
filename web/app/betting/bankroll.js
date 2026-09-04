@@ -280,3 +280,53 @@ export function limitWarnings(record, candidate = null) {
   }
   return warnings;
 }
+
+/**
+ * TODO EL LIBRO, EN UN TEXTO. Y de vuelta.
+ *
+ *     LO QUE VIVE EN UN SOLO NAVEGADOR NO ESTÁ GUARDADO, ESTÁ ALOJADO.
+ *
+ * El registro es local por diseño —sin cuentas, sin servidor, sin base de
+ * datos— y eso tiene una consecuencia que la pantalla no puede callar: vaciar
+ * los datos del sitio, cambiar de teléfono o abrir en otro navegador y el libro
+ * no está. Exportar es la única copia de seguridad posible sin traicionar la
+ * regla 4, y no cuesta un destino de red: es texto que se copia.
+ */
+export function exportBook(storage) {
+  const months = loadMonths(storage);
+  return JSON.stringify({
+    kind: "gridiron-bankroll", version: 1, exportedAt: new Date().toISOString(),
+    months: months.map((m) => loadMonth(m, storage)).filter(Boolean),
+  }, null, 1);
+}
+
+/**
+ * Restaura meses desde un texto exportado.
+ *
+ * **No pisa nada.** Un mes que ya existe se salta y se cuenta aparte: la
+ * historia es inmutable en `createMonth` por la misma razón, y una importación
+ * que machacara septiembre porque el fichero es más viejo sería la peor forma
+ * de perder el libro — la que parece que funcionó.
+ */
+export function importBook(text, storage) {
+  let data;
+  try { data = JSON.parse(text); } catch { return { error: "That is not the exported text." }; }
+  if (!data || data.kind !== "gridiron-bankroll" || !Array.isArray(data.months)) {
+    return { error: "That text is not a Gridiron bankroll export." };
+  }
+  const added = [];
+  const skipped = [];
+  for (const record of data.months) {
+    if (!monthKey(record?.month)) continue;
+    if (loadMonth(record.month, storage)) { skipped.push(record.month); continue; }
+    if (saveMonth({
+      month: record.month,
+      starting: Number(record.starting) || 0,
+      unitIsPercent: record.unitIsPercent !== false,
+      unitValue: Number(record.unitValue) || 1,
+      limits: record.limits && typeof record.limits === "object" ? record.limits : {},
+      bets: Array.isArray(record.bets) ? record.bets : [],
+    }, storage)) added.push(record.month);
+  }
+  return { added, skipped };
+}

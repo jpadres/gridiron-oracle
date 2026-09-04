@@ -29,9 +29,9 @@ import { useEffect, useMemo, useState } from "react";
 import { num } from "../../data/model.js";
 import { TeamMark } from "../sports.jsx";
 import {
-  BET_STATUS, addBet, createMonth, decimalFromAmerican, exposure, limitWarnings,
-  loadMonth, loadMonths, placeBets, removeBet, saveMonth, settleBet, summary,
-  updateBet,
+  BET_STATUS, addBet, createMonth, decimalFromAmerican, exportBook, exposure,
+  importBook, limitWarnings, loadMonth, loadMonths, placeBets, removeBet, saveMonth,
+  settleBet, summary, updateBet,
 } from "./bankroll.js";
 import { gameLeans, propLean, rankedLeans } from "./leans.js";
 import {
@@ -79,6 +79,9 @@ export default function BettingShell({ predictions, weekly, context, markets = [
   const [propLines, setPropLines] = useState({});
   const [category, setCategory] = useState("proj_pass_yds");
   const [newMonth, setNewMonth] = useState({ month: currentMonthId(), starting: "" });
+  // La copia de seguridad: el libro vive SÓLO en este navegador, y eso hay que
+  // decirlo donde se pueda hacer algo al respecto.
+  const [backup, setBackup] = useState({ open: false, text: "", note: "" });
 
   const storage = browserStorage();
   const linesKey = `gridiron-prop-lines-v1:${context.season}-w${context.week}`;
@@ -756,6 +759,53 @@ export default function BettingShell({ predictions, weekly, context, markets = [
             comparable across them and are never summed.
           </p>
         ) : null}
+        {/* --- LA COPIA: lo que vive en un solo navegador no está guardado --- */}
+        <div className="bk-backup">
+          <p className="caption">
+            This book lives <strong>only in this browser</strong> — there is no account and
+            no server, which is why nothing here needs one. Clearing site data, switching
+            phones or opening Gridiron somewhere else and it is not there. Keep a copy.
+          </p>
+          <div className="bk-backup-row">
+            <button type="button" onClick={async () => {
+              const text = exportBook(storage);
+              try {
+                await navigator.clipboard.writeText(text);
+                setBackup({ open: true, text, note: `Copied — ${months.length} month${months.length === 1 ? "" : "s"}. Paste it somewhere safe.` });
+              } catch {
+                // Sin permiso de portapapeles no se falla en silencio: se
+                // enseña el texto para copiarlo a mano.
+                setBackup({ open: true, text, note: "Select the text below and copy it." });
+              }
+            }}>Copy the book</button>
+            <button type="button" onClick={() => setBackup((b) => ({ ...b, open: !b.open, note: "" }))}>
+              {backup.open ? "Close" : "Restore from a copy"}
+            </button>
+          </div>
+          {backup.open ? (
+            <>
+              <textarea className="bk-backup-text" rows={4} value={backup.text}
+                        aria-label="Bankroll book as text"
+                        onChange={(e) => setBackup((b) => ({ ...b, text: e.target.value }))} />
+              <div className="bk-backup-row">
+                <button type="button" onClick={() => {
+                  const r = importBook(backup.text, storage);
+                  if (r.error) { setBackup((b) => ({ ...b, note: r.error })); return; }
+                  const known = loadMonths(storage);
+                  setMonths(known);
+                  setCareer(careerSummary(known.map((m) => loadMonth(m, storage))));
+                  setBackup((b) => ({ ...b, note:
+                    `Restored ${r.added.length}: ${r.added.join(", ") || "none"}.`
+                    + (r.skipped.length ? ` Left alone (already here): ${r.skipped.join(", ")}.` : "") }));
+                }}>Restore</button>
+                <span className="caption">
+                  {backup.note || "A month you already have is never overwritten — the book you are looking at wins."}
+                </span>
+              </div>
+            </>
+          ) : null}
+        </div>
+
         <div className="bk-newmonth">
           <label>New month
             <input type="month" value={newMonth.month}

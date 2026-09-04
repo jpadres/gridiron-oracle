@@ -903,18 +903,14 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   flex-wrap: wrap;
 }
 .room-state--clock { background: var(--live-field); border-bottom-color: var(--live); }
-@media (min-width: 48rem) {
-  /* El número primero: en la versión anterior flotaba entre dos textos y
-     parecía accidental en vez de compuesto. */
-  /* Se permite envolver para que la banda de alcance caiga en su propia línea;
-     lo de arriba NO se encoge. Sin esto, añadir el alcance robaba ancho a la
-     cuenta atrás y «2 picks until you» salía partido en tres líneas — el número
-     más importante de la pantalla, estrujado por una nota. */
-  .room-state { flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); }
-  .room-until, .room-clock, .room-done, .room-link { flex: 0 0 auto; }
-  .room-until { order: -1; }
-  .room-clock { order: -1; }
-  .room-where { margin-left: auto; }
+/* FUERA DEL @media: estas marcas se ven en TODAS las anchuras. Estaban
+   DENTRO del bloque `min-width: 48rem` de abajo —se añadieron debajo sin
+   ver que seguía abierto—, así que el ancho automático de «EXEMPT LIST»,
+   «QUESTIONABLE», «RESERVE/PUP» y «69% PRIOR» sólo existía en escritorio.
+   En el teléfono heredaban el círculo de 1 rem de `.mark` y se escribían
+   ENCIMA del nombre y del equipo — que es justo donde se reportó el fallo
+   y donde se "arregló" sin efecto. El guardián de `movil.mjs` mide ahora
+   que ninguna marca desborde su caja, en los cuatro escenarios de móvil. */
   /* Marca de noticia: se VE y no pesa. Cualquier cosa que la hiciera parecer una
    nota numérica invitaría a leerla como una penalización que nadie ha medido. */
 .room-row-news {
@@ -924,7 +920,6 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 }
 .room-why-news { color: var(--chalk); }
 .room-why-news b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
-
 /* SIN EQUIPO: esto SÍ es una alarma. El número de al lado no vale. */
 .room-row-noteam {
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
@@ -932,7 +927,6 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   border-radius: 2px; padding: 0 4px; align-self: center; white-space: nowrap;
 }
 .room-why-noteam b { color: var(--flag-ink, #a33b3b); }
-
 /* Las mismas dos marcas en la tabla publicada. Comparten tinta con las del
    Draft Room a propósito: la misma cosa se pinta igual en las dos pantallas. */
 /* `.mark` es un CÍRCULO de 1rem para los glifos de una letra («?», «!»), y
@@ -940,7 +934,14 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
    fijos, así que «EXEMPT LIST» se salía de su propia caja y se montaba encima
    de lo que tuviera al lado — el descuadre que se veía en el ranking. La caja
    la tiene que dar el texto. */
-.mark--out, .mark--risk {
+/* TERCERA VEZ: `.mark` es un CÍRCULO de 1 rem para glifos de UNA letra (?, !).
+   Toda etiqueta con palabras dentro tiene que soltar `width`, `height` y
+   `line-height`, o el texto se pinta fuera de su caja y encima de lo de al
+   lado. Pasó con «EXEMPT LIST» y volvió a pasar con «69% PRIOR», que salía en
+   una caja de 16 px escrito sobre el nombre y sobre el equipo. La lista se
+   amplía a mano; el guardián de `movil.mjs` comprueba que ninguna marca
+   desborde su propia caja, así que la cuarta se caza sola. */
+.mark--out, .mark--risk, .mark--prior {
   width: auto; height: auto; line-height: 1.35;
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
   border-radius: 2px; white-space: nowrap; vertical-align: baseline;
@@ -949,7 +950,6 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .mark--risk {
   color: var(--flag-ink, #a33b3b); border: 1px solid currentColor; padding: 0 3px;
 }
-
 /* NO VA A JUGAR: suspendido, exento, IR, PUP de temporada. Es la marca más
    fuerte de la fila —más que SIN EQUIPO— porque el jugador SÍ está en su
    plantilla y todo lo demás en pantalla dice que está disponible. */
@@ -967,7 +967,6 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 }
 .room-why-out b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
 .room-why-risk b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
-
 /* % PRIOR: de dónde sale el número. Ni alarma ni riesgo — procedencia. Por eso
    comparte la tinta discreta del ROOKIE y no el rojo de SIN EQUIPO. */
 .room-row-prior, .mark--prior {
@@ -975,7 +974,6 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   color: var(--chalk-dim); border: 1px dashed currentColor;
   border-radius: 2px; padding: 0 3px; align-self: center; white-space: nowrap;
 }
-
 /* ROOKIE: informativo, no alarma. Tinta secundaria, sin rojo. */
 .room-row-rookie {
   font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .08em;
@@ -993,8 +991,26 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-why-rookie b { color: var(--chalk-dim); letter-spacing: .06em; }
 .room-pool { font-size: var(--text-micro); color: var(--chalk-dim); }
 .room-pool small { color: var(--chalk-dim); font-weight: 400; }
-
 .room-scope { order: 10; flex-basis: 100%; margin-left: 0; }
+
+@media (min-width: 48rem) {
+  /* El número primero: en la versión anterior flotaba entre dos textos y
+     parecía accidental en vez de compuesto. */
+  /* Se permite envolver para que la banda de alcance caiga en su propia línea;
+     lo de arriba NO se encoge. Sin esto, añadir el alcance robaba ancho a la
+     cuenta atrás y «2 picks until you» salía partido en tres líneas — el número
+     más importante de la pantalla, estrujado por una nota. */
+  .room-state { flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); }
+  .room-until, .room-clock, .room-done, .room-link { flex: 0 0 auto; }
+  .room-until { order: -1; }
+  .room-clock { order: -1; }
+  .room-where { margin-left: auto; }
+
+
+
+
+
+
 }
 
 /* DÓNDE estamos. Sin la ronda, «2 picks» no sitúa a nadie en el draft. */
@@ -1848,6 +1864,13 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .bk-hist-what small { color: var(--chalk-dim); font-size: var(--text-micro); }
 .bk-hist-pl { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
 .bk-career { margin-top: var(--space-3); max-width: 66ch; }
+.bk-backup { margin-top: var(--space-5); border-top: 1px solid var(--yard-line); padding-top: var(--space-3); }
+.bk-backup .caption { max-width: 66ch; }
+.bk-backup-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-top: var(--space-2); }
+.bk-backup-text {
+  width: 100%; max-width: 44rem; margin-top: var(--space-2);
+  font-family: var(--face-mono, monospace); font-size: var(--text-micro);
+}
 
 @media (max-width: 30rem) {
   /* En 390 px la tarjeta se lee en columna: una fila de cuatro cifras con

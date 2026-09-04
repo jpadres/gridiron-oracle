@@ -8,11 +8,23 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { BET_STATUS, addBet, placeBets, settleBet } from "../app/betting/bankroll.js";
+import {
+  BET_STATUS, addBet, exportBook, importBook, loadMonth, placeBets, saveMonth, settleBet,
+} from "../app/betting/bankroll.js";
 import {
   DRAWDOWN_BRAKE, DRAWDOWN_BRAKE_PCT, bankPath, betProfit, careerSummary,
   weekLedger, weekPlan,
 } from "../app/betting/plan.js";
+
+/** Un `localStorage` de mentira, igual que el de `bankroll.test.mjs`. */
+function memoria() {
+  const data = new Map();
+  return {
+    getItem: (k) => (data.has(k) ? data.get(k) : null),
+    setItem: (k, v) => data.set(k, String(v)),
+    removeItem: (k) => data.delete(k),
+  };
+}
 
 const mes = (starting = 10000) =>
   ({ month: "2026-09", starting, unitIsPercent: true, unitValue: 1, limits: {}, bets: [] });
@@ -156,4 +168,42 @@ test("la ficha de siempre suma meses con bancas distintas por lo APOSTADO", () =
   assert.equal(total.wins, 1);
   assert.equal(total.losses, 1);
   assert.ok(Math.abs(total.roi - 50 / 150) < 1e-9);
+});
+
+/* ── la copia de seguridad ───────────────────────────────────────────────── */
+
+test("el libro se exporta entero y vuelve a entrar", () => {
+  const storage = memoria();
+  const sep = apostar(mes(10000), { stake: 100, week: 1, result: "WON", odds: 100 });
+  saveMonth(sep, storage);
+  const texto = exportBook(storage);
+
+  const vacio = memoria();
+  const r = importBook(texto, vacio);
+  assert.deepEqual(r.added, ["2026-09"]);
+  const vuelto = loadMonth("2026-09", vacio);
+  assert.equal(vuelto.starting, 10000);
+  assert.equal(vuelto.bets.length, 1);
+  assert.equal(vuelto.bets[0].status, "WON");
+  assert.equal(vuelto.bets[0].week, 1);
+});
+
+test("importar NO pisa un mes que ya existe: la historia es inmutable", () => {
+  const storage = memoria();
+  saveMonth(apostar(mes(10000), { stake: 100, week: 1, result: "WON" }), storage);
+  const texto = exportBook(storage);
+  // Ahora el mes local tiene DOS apuestas; el fichero, una sola y más vieja.
+  saveMonth(apostar(loadMonth("2026-09", storage), { stake: 50, week: 2, result: "LOST" }), storage);
+  const r = importBook(texto, storage);
+  assert.deepEqual(r.added, []);
+  assert.deepEqual(r.skipped, ["2026-09"]);
+  assert.equal(loadMonth("2026-09", storage).bets.length, 2, "no puede haber perdido la segunda");
+});
+
+test("un texto que no es el export se rechaza con su motivo, sin tocar nada", () => {
+  const storage = memoria();
+  saveMonth(mes(10000), storage);
+  assert.ok(importBook("no soy json", storage).error);
+  assert.ok(importBook(JSON.stringify({ kind: "otra cosa" }), storage).error);
+  assert.equal(loadMonth("2026-09", storage).starting, 10000);
 });

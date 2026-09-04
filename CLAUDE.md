@@ -189,6 +189,14 @@ libro no se puede leer por jornada, y repartirlo después por la fecha del fiche
 sería inventarle una jornada — la regla 5 aplicada al dinero. Guardián en
 `tools/lab/apuestas.mjs`, probado inyectando la persecución.
 
+**Y una copia se puede sacar.** El libro vive sólo en un navegador, que es la
+consecuencia de no tener cuentas ni servidor (regla 4) y no un descuido — pero
+callarlo sí lo sería: vaciar los datos del sitio y no está. `exportBook` /
+`importBook` lo pasan a texto y de vuelta, sin red. Importar **no pisa** un mes
+que ya existe, por lo mismo que `createMonth` se niega a hacerlo: una
+importación que machacara septiembre porque el fichero es más viejo es la peor
+forma de perder el libro, la que parece que funcionó.
+
 ### 7. Sleeper es un adaptador, no el producto
 
     EL DRAFT ROOM CONSUME EVENTOS DE PICK CANÓNICOS.
@@ -417,6 +425,7 @@ comentario está para que no los reintroduzcas.
 | El guardián aprobaba la persecución a medias | `tools/lab/apuestas.mjs` | Comprobaba que la apuesta sugerida BAJARA al ir abajo. Se inyectó el fallo —un multiplicador de recuperación del 15%— y siguió VERDE: 97,75 sigue siendo menos que 100, porque perseguir un 15% no cancela una caída del 15%. La propiedad exacta no es «baja», es que el tamaño sea **la misma fracción de la banca** en los tres casos. Un guardián que sólo caza la versión completa del fallo no es un guardián |
 | Doce secciones en una tira que se desplaza | `system.css` | El menú del móvil era una línea con desplazamiento horizontal y sin señal de que siguiera: las cinco últimas quedaban a tres arrastres y en la práctica no existían. Es la causa exacta de «no encuentro el resto de temporada». Envuelve en tres líneas: cuesta 120 px de alto y enseña el sitio entero |
 | El resto de temporada, detrás de seis tablas | `WeeklyExplorer.jsx` | Estaba bien calculado, recortado a 60 filas y sin más filtro que «sólo libres», dentro del semanal. Para el que lo busca, eso es lo mismo que no estar. Ahora es `/fantasy/resto` con el pool entero y filtros de propiedad; el semanal lo RESUME y enlaza, no lo duplica |
+| El arreglo del móvil, escrito dentro del `@media` de escritorio | `system.css` | «EXEMPT LIST» se salía de su círculo de 1 rem, se arregló, se anotó aquí… y seguía roto. El bloque que soltaba `width`/`height` estaba DENTRO de `@media (min-width: 48rem)` —ochenta líneas se habían añadido debajo de unas reglas de escritorio sin ver que la llave seguía abierta—, así que el arreglo sólo existía donde el fallo no ocurría. En el teléfono «QUESTIONABLE», «RESERVE/PUP», «NO NFL TEAM» y «69% PRIOR» se escribían encima del nombre y del equipo. **Un arreglo que no se comprueba en el escenario del fallo no es un arreglo, y aquí encima dejó la sensación de que estaba hecho.** El guardián nuevo mide que ninguna marca desborde su propia caja, en los cuatro escenarios de móvil |
 | El menú del teléfono, 187 px de cromo | `layout.jsx` | Primero era una tira que se desplazaba y las cinco últimas secciones no existían; envolverla en cuatro líneas costaba 187 px ANTES del título en todas las páginas y sacó la lista de candidatos del asistente del primer viewport —la pantalla que se mira contra reloj—, que un laboratorio ya vigilaba. Un `<details>` cuesta 61 px y deja las doce a un toque. Se pintan los dos menús desde el MISMO array y el guardián comprueba que el del teléfono las lleve todas: «salen del mismo array» es una promesa del código, no una comprobación |
 | Una curva de banca con el eje pegado a los datos | `BankCurve.jsx` | Escalada al rango observado, una racha del 0,5% dibujaba la misma cordillera que un desplome del 40%: el eje truncado de manual, y en dinero se lee como pánico o euforia según el lado. El dominio se ancla en la banca INICIAL y abre un ±5% mínimo. Y el texto se sacó FUERA del SVG: dentro obligaba a escalar en proporción y en 390 px la curva quedaba de 40 px con una etiqueta de 7 |
 | El plan repartía el ancho a ojo | `system.css` | Cuatro cifras en una fila de flex se partían 3+1 en escritorio con medio panel vacío al lado, y en móvil se estiraban con huecos verticales de 100 px (`align-content: stretch` en un flex que envuelve). Rejilla de cuatro columnas iguales en su propia fila: el reparto deja de depender de lo largo que sea el texto de una |

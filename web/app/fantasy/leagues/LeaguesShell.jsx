@@ -261,7 +261,9 @@ export default function LeaguesShell({ board, context }) {
                     onClick={() => link(account.username)}>
               {linking ? "Reading…" : "Refresh"}
             </button>
-            <button type="button" className="link" onClick={unlink}>unlink</button>
+            {/* «Sign out», como en la barra compartida. Eran dos palabras para
+                la misma acción en dos pantallas del mismo producto. */}
+            <button type="button" className="link" onClick={unlink}>Sign out</button>
           </div>
         ) : (
           <form

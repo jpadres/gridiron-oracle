@@ -266,6 +266,25 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
       return [...new Set(malos)].slice(0, 5);
     }) : [];
     check(`${etiqueta}: ${url} — sin desbordamiento horizontal`, !overflow, culpables.join(" | "));
+    /* NINGUNA MARCA DESBORDA SU PROPIA CAJA. `.mark` es un círculo de 1 rem
+       pensado para glifos de UNA letra; una etiqueta con palabras dentro que
+       no suelte `width`/`height` se pinta FUERA y encima de lo de al lado. Ha
+       pasado dos veces («EXEMPT LIST», «69% PRIOR») y el detector de solapes no
+       lo veía porque el texto desbordado no es un elemento propio. Esto sí: se
+       compara el contenido con la caja. */
+    const desbordadas = await page.evaluate(() => {
+      const malas = [];
+      for (const m of document.querySelectorAll(".mark")) {
+        if (m.scrollWidth > m.clientWidth + 1 || m.scrollHeight > m.clientHeight + 1) {
+          malas.push(`${m.className} «${(m.textContent ?? "").trim().slice(0, 14)}» `
+            + `${m.scrollWidth}x${m.scrollHeight} en ${m.clientWidth}x${m.clientHeight}`);
+        }
+      }
+      return [...new Set(malas)].slice(0, 4);
+    });
+    check(`${etiqueta}: ${url} — ninguna marca se sale de su caja`, desbordadas.length === 0,
+      desbordadas.join(" | "));
+
     /* LAS CELDAS FIJAS TIENEN QUE SER OPACAS. Con `background: inherit` sobre
        una fila transparente, al desplazar la tabla a lo ancho los números de la
        derecha se leen POR DEBAJO del nombre: es exactamente lo que se ve en la
