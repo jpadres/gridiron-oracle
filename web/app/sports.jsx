@@ -151,7 +151,10 @@ export function MatchupCard({ game, children, detailed = false }) {
               <li key={driver.f}>
                 <span>{DRIVER_LABEL[driver.f] ?? driver.f}</span>
                 <b className={driver.pts >= 0 ? "why-home" : "why-away"}>
-                  {driver.pts > 0 ? "+" : ""}{driver.pts.toFixed(2)}
+                  {/* Menos tipográfico, como «LV −3.5» dos líneas más arriba:
+                      el guion del teclado al lado del signo bueno se lee como
+                      dos cosas distintas cuando es la misma. */}
+                  {driver.pts > 0 ? "+" : "−"}{Math.abs(driver.pts).toFixed(2)}
                 </b>
               </li>
             ))}

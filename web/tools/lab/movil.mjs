@@ -186,11 +186,20 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
       { id: "b4", status: "PLACED", market: "SPREAD", label: "SF −6.5 vs SEA", selection: "SF",
         line: -6.5, odds: -110, stake: 150, gameId: "g4", team: "SF", season: 2026, week: 2,
         snapshot: { model: 8.0, market: 6.5 }, createdAt: 10, placedAt: 11, settledAt: null },
+      // Y una en el SLIP: es la fila más densa de la pantalla —etiqueta larga,
+      // dos campos, la cuenta en unidades y el aviso de límite— y sin ella el
+      // laboratorio medía la geometría de todo menos de donde se teclea.
+      { id: "b5", status: "CONSIDERING", market: "PROP_PASS_YDS",
+        label: "J.Allen O267.5 passing yards", selection: "OVER", line: 267.5, odds: -115,
+        stake: 400, gameId: "g5", playerId: "p1", team: "BUF", season: 2026, week: 2,
+        snapshot: { model: 281.4, market: 267.5 }, createdAt: 12, placedAt: null, settledAt: null },
     ];
     try {
       localStorage.setItem("gridiron-bank-months-v1", JSON.stringify(["2026-09"]));
       localStorage.setItem("gridiron-bank-v1:2026-09", JSON.stringify({
-        month: "2026-09", starting: 10000, unitIsPercent: true, unitValue: 1, limits: {}, bets,
+        month: "2026-09", starting: 10000, unitIsPercent: true, unitValue: 1,
+        // Un límite declarado para que el aviso de la fila del slip se pinte.
+        limits: { maxStakePct: 2 }, bets,
       }));
     } catch { /* almacenamiento bloqueado: la pantalla lo cuenta por su cuenta */ }
   });
@@ -216,14 +225,15 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
        haber mirado nada — el fallo del laboratorio que aprobaba el fallo que
        existía para cazar. Cada ruta declara la pieza densa que la define. */
     const EXIGIDO = {
-      "/betting": ".bk-plan-grid",
-      "/fantasy/resto": ".ros-filters .pos-option[aria-pressed]",
-      "/fantasy/semanal": ".wk-table",
-      "/fantasy": "table",
-    }[url];
-    if (EXIGIDO) {
-      check(`${etiqueta}: ${url} — trae lo que se quiere medir (${EXIGIDO})`,
-        await page.locator(EXIGIDO).count() > 0);
+      // El plan, el slip (donde se teclea) y el libro (donde se lee).
+      "/betting": [".bk-plan-grid", ".bk-slip > li", ".bk-ledger tbody tr"],
+      "/fantasy/resto": [".ros-filters .pos-option[aria-pressed]", ".rank-table tbody tr"],
+      "/fantasy/semanal": [".wk-table"],
+      "/fantasy": ["table"],
+    }[url] ?? [];
+    for (const sel of EXIGIDO) {
+      check(`${etiqueta}: ${url} — trae lo que se quiere medir (${sel})`,
+        await page.locator(sel).count() > 0);
     }
     const { fuera, encima } = await solapes(page);
     check(`${etiqueta}: ${url} — nada se sale de su celda`, fuera.length === 0,

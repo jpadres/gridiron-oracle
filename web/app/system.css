@@ -1888,6 +1888,24 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   .ros-filters .pos-filter { flex: 1 1 100%; mask-image: none; }
 }
 
+/* --- LA FLECHA DE TODO DESPLEGABLE ----------------------------------------
+   `display: flex` en un `<summary>` BORRA el triángulo que el navegador pinta
+   solo, así que «Why this number» y «What these numbers are» se leían como
+   etiquetas muertas: texto en gris, sin nada que invitara a tocarlo. La flecha
+   se repone a mano en los tres sitios donde se quitó, y gira al abrir. */
+.matchup-why summary, .room-method summary, .an-more summary {
+  list-style: none;
+}
+.matchup-why summary::-webkit-details-marker,
+.room-method summary::-webkit-details-marker,
+.an-more summary::-webkit-details-marker { display: none; }
+.matchup-why summary::after,
+.room-method summary::after,
+.an-more summary::after { content: " ▾"; font-size: 0.85em; margin-left: 0.35em; }
+.matchup-why[open] summary::after,
+.room-method[open] summary::after,
+.an-more[open] summary::after { content: " ▴"; }
+
 /* --- RESTO DE TEMPORADA: filtros en una fila, búsqueda al final ------------
    Los tres controles envuelven en vez de comprimirse: en 390 px una fila de
    chips de posición, otra de propiedad y un buscador no caben a lo ancho, y
