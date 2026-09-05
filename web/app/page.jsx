@@ -46,9 +46,22 @@ function dataState(payload) {
 
   const last = payload.research?.items?.[0]?.date;
   if (last) {
-    // La antigüedad se calcula en build time y se congelaría si el sitio deja
-    // de reconstruirse — diría «hace 2 días» para siempre. Por eso lo que se
-    // enseña es la **fecha**, que no puede caducar.
+    /* La antigüedad se calcula en BUILD TIME y se congelaría si el sitio deja
+       de reconstruirse — diría «hace 2 días» para siempre. Por eso lo que se
+       enseña es la **fecha**, que no puede caducar.
+
+       La marca sí se congela, y el reparto de errores no es simétrico — que es
+       lo que la hace aceptable en una página sin JavaScript:
+
+         · congelada en STALE  -> sigue siendo cierta; sólo se queda corta.
+         · congelada en fresca -> NO afirma frescura. El detalle es «last sweep
+           9/4» a secas, sin adjetivo, así que un lector que lo vea en
+           noviembre tiene delante la fecha para juzgarlo.
+
+       O sea: la marca puede quedarse CORTA, nunca puede afirmar de más. Si
+       algún día el texto de la rama no-stale añadiera un «current» o un
+       «fresh», esa asimetría se rompe y entonces sí haría falta calcularlo en
+       el navegador. */
     const days = Math.round((Date.now() - Date.parse(`${last}T12:00:00Z`)) / 86400000);
     const [, month, day] = last.split("-");
     const stamp = `${Number(month)}/${Number(day)}`;
