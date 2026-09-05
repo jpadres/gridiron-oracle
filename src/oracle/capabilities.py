@@ -768,36 +768,38 @@ REGISTRY: tuple[Capability, ...] = (
     ),
     Capability(
         id="BEST_PICK_FOR_ME",
-        # SIGUE BLOCKED, Y ESO ES LA RESPUESTA HONESTA.
+        # MEDIDO EN E23, y el umbral estaba fijado antes de mirar.
         #
-        # La funcionalidad existe desde 2026-09 y funciona; lo que no existe es
-        # el experimento. El registro exige a cualquier estado por encima de
-        # BLOCKED un `experiment_id`, una métrica y un tamaño de muestra, y aquí
-        # no hay ninguno de los tres para la pregunta que da nombre a la
-        # capacidad: ¿elegir esto gana más que elegir el board? Subirla a
-        # NOT_READY porque la pantalla funciona sería exactamente el error que
-        # este registro existe para impedir.
-        status=Status.BLOCKED,
+        # Estuvo BLOCKED mientras no hubo experimento — no por prudencia
+        # decorativa: el registro exige métrica y muestra, y no las había. Ahora
+        # las hay, así que sube. Pero léase la evidencia entera antes de fiarse:
+        # el efecto está CONCENTRADO en 2019-2022 y en 2025 es NEGATIVO.
+        status=Status.VALIDATED,
         evidence=(
-            "IMPLEMENTADO en 2026-09 y NO validado, que son dos cosas distintas "
-            "y aquí se escriben separadas. Lo implementado es aritmética sobre "
-            "números ya publicados: el mismo VOR con el segundo término cambiado "
-            "de «lo que alinearía la liga media» a «lo que alinearías TÚ», "
-            "repartido por `assign_slots` sobre los huecos que la liga DECLARA. "
-            "Con la plantilla vacía devuelve el VOR publicado exacto — esa "
-            "identidad es la comprobación de que no hay ninguna constante nueva "
-            "dentro, y hay tests que la exigen. Lo que NO está medido es si "
-            "seguir esa recomendación gana más ligas que seguir el board"
+            "E23: se draftean 7 temporadas × 12 puestos con el board compilado "
+            "walk-forward, y se puntúa con lo REALIZADO —que el motor no ve—. "
+            "Seguir la recomendación gana +48,3 puntos por equipo-temporada "
+            "sobre seguir el board (t = 2,32), midiendo SÓLO donde el board "
+            "completó su alineación: el +91,4 de portada incluía un 47% que "
+            "venía de que un drafter por VOR puro a veces se deja el ala cerrada "
+            "sin llenar, y un hueco vacío son cero puntos"
         ),
-        experiment_id=None,
-        metric=None,
-        sample_size=None,
+        experiment_id="E23",
+        metric="puntos realizados de la alineación titular, diferencia pareada",
+        sample_size=63,
         limitations=(
-            "FUNCIONALMENTE IMPLEMENTADO ≠ CALIDAD DE DECISIÓN VALIDADA. No hay "
-            "experimento que compare seguir esta recomendación contra seguir "
-            "BEST AVAILABLE, ni contra un drafter humano. La coherencia sí está "
-            "cubierta (`tools/lab/draft-sim.mjs` recorre tres ligas enteras), "
-            "pero coherente no es bueno.",
+            "EL EFECTO SE HA IDO APAGANDO Y EN 2025 ES NEGATIVO: +53, +100, +89, "
+            "+128, +12, +6, −37 por temporada. La regla se fijó antes y se "
+            "respeta, pero esto NO se puede contar como «gana 48 puntos al año»: "
+            "ganó mucho hace cinco años, nada hace dos y perdió el año pasado. "
+            "Hipótesis razonable y NO comprobada: cuanto mejor ordena el board, "
+            "menos queda por ganar reordenando por plantilla.",
+            "EL BASELINE NO ES UN HUMANO. Es un autodraft por VOR puro, y ningún "
+            "humano se deja el ala cerrada sin llenar. Contra un drafter "
+            "competente la ventaja sería menor, probablemente mucho menor.",
+            "Los once rivales draftean igual en los dos brazos, sin carreras por "
+            "posición ni reaches, y la alineación se fija una vez por temporada "
+            "en vez de jornada a jornada. Una liga real no se comporta así.",
             "El multiplicador de necesidad que existió (VOR × 0,35 con plantilla "
             "estándar supuesta) se RETIRÓ en 2026-08 y NO ha vuelto: aquí no hay "
             "multiplicador, ni puntuación compuesta, ni nota. Cada motivo que se "
@@ -812,8 +814,8 @@ REGISTRY: tuple[Capability, ...] = (
             "Sin estructura de plantilla declarada no se emite recomendación "
             "ninguna: la pantalla cae a BEST AVAILABLE y dice por qué.",
         ),
-        last_validated=None,
-        model_version=None,
+        last_validated="2026-09-05",
+        model_version=MODEL_VERSION,
     ),
     Capability(
         id="SLEEPER_LIVE_BROWSER",

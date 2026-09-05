@@ -228,11 +228,26 @@ se olvidan: se avisa cuando te quedan tantos picks como huecos titulares
 abiertos, que es cuando dejar de llenarlos te deja sin alineación legal. No es
 una ronda cableada.
 
-**`BEST_PICK_FOR_ME` sigue BLOCKED en el registro, y es la respuesta honesta.**
-Está IMPLEMENTADO y su coherencia está cubierta (`tools/lab/draft-sim.mjs`
-recorre tres ligas enteras), pero nadie ha medido si seguirlo gana más que seguir
-el board. Subirlo de estado porque la pantalla funciona es exactamente el error
-que ese registro existe para impedir.
+**`BEST_PICK_FOR_ME` está MEDIDO desde el 5 de septiembre de 2026 (E23), y el
+umbral se fijó antes de mirar** (`docs/PREREGISTRO_draft_quality.md`). Se
+draftean 7 temporadas × 12 puestos con el board compilado walk-forward y se
+puntúa con lo REALIZADO, que el motor no ve — medirlo con el valor proyectado
+habría sido comprobar que un optimizador optimiza.
+
+    d = +48,3 puntos por equipo-temporada, t = 2,32, 6 de 7 temporadas positivas
+
+**El número de portada era +91,4 y no vale.** El control obligatorio ante un
+resultado grande —¿de dónde sale la ventaja?— destapó que un drafter por VOR puro
+a veces termina SIN ala cerrada, y un hueco vacío son cero puntos: 0,27 huecos
+por equipo. Restringiendo a los pares donde el board sí completó su alineación,
+el efecto cae a +48,3. **El 47% de la ventaja era el baseline dejándose un hueco,
+no el motor eligiendo mejor.**
+
+Y lo que hay que leer antes de fiarse: **+53, +100, +89, +128, +12, +6, −37**. El
+efecto está concentrado en 2019-2022, ha desaparecido en las dos últimas
+temporadas y en 2025 es NEGATIVO. Esto no es «gana 48 puntos al año»: es «ganó
+mucho hace cinco años, nada hace dos y perdió el año pasado». El baseline tampoco
+es un humano — ningún humano se deja el ala cerrada sin llenar.
 
 Los huecos compartidos se reparten **asignándolos**, no por pesos fijos: cada
 flex va a la posición cuyo mejor jugador libre vale más. Es lo que hace que la
@@ -406,6 +421,8 @@ python scripts/survivor_build.py               # plan de survivor: ~1 min
 python scripts/fantasy_risk_validate.py        # ¿la volatilidad predice el error?: ~4 min
 python scripts/fantasy_availability_validate.py  # ¿la ausencia pasada predice la futura?
 python scripts/fantasy_bust_validate.py        # ¿está calibrada la P(bust)?: ~3 min
+python scripts/draft_quality_export.py         # boards históricos + realizado: ~2 min
+cd web && node tools/lab/draft-quality.mjs     # E23: ¿la recomendación draftea mejor?
 python scripts/sleeper_sync.py --league <id>   # lee tu liga: puntuación y tamaño reales
 python scripts/sleeper_draft_sync.py --league <id>  # picks ya hechos -> research/draft_state.json
 python scripts/dossier_import.py libro.xlsx    # importa el dossier curado
@@ -578,6 +595,7 @@ está construida:
 | `conectar.mjs` | Conectar una liga de Sleeper de verdad, y `/fantasy` CON esa liga: que no lance —ni al cargar ni al sincronizar, que es cuando corren los efectos con red— y que el orden se adapte igual que en el Draft Room |
 | `headshot-shots.mjs` | Fotos por id, el bloque de no disponibles y las marcas de estado |
 | `storage-blocked.mjs` | El navegador que BLOQUEA el almacenamiento: cinco pantallas tienen que seguir en pie |
+| `draft-quality.mjs` | **La medición de E23**: 7 temporadas × 12 puestos drafteadas dos veces —siguiendo la recomendación y siguiendo el board— y puntuadas con lo REALIZADO. Necesita `out/draft_quality_boards.json` (`python scripts/draft_quality_export.py`), que sale de `data/processed` y por eso NO puede correr en CI. Incluye el control que separa la ventaja real de los huecos que el baseline se deja sin llenar |
 | `draft-sim.mjs` | Un draft ENTERO sin navegador en tres ligas —normal de 12, superflex y la de 32 con tres flexibles— siguiendo la recomendación: sin repetidos, sin repartos imposibles, ninguna posición saturada encabezando, el segundo QB encabezando SÓLO en superflex, el aviso de pateador/defensa antes del final y la alineación titular completada |
 | `apuestas.mjs` | Los mercados partido a partido, el signo del handicap y el plan de la semana: que la apuesta sugerida sea la MISMA fracción de la banca esté arriba o abajo |
 
