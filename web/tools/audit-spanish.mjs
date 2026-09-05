@@ -185,6 +185,9 @@ const COPY = new Set([
 // genera en inglés (`narrative/research.py`), así que esto se vacía solo según
 // vayan entrando fichas nuevas; reescribir las viejas sería inventar una cita.
 const DATOS = new Set([
+  // Fechas ISO de cuándo se descargó cada sección (`2026-08-29`). Son DATOS y
+  // no copy: la interfaz las pinta dentro de una frase que sí está en inglés.
+  ".data_dates.fantasy", ".data_dates.markets", ".data_dates.model",
   ".bets[].game_id", ".bets[].matchup", ".bets[].selection",
   ".markets[].game_id", ".markets[].matchup", ".markets[].selection",
   ".dossier.ambiguous[][]", ".dossier.generated", ".dossier.sources_books[]",
