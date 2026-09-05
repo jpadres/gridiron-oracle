@@ -236,13 +236,42 @@ jobs:
       # se quiere perder — es lo que impide que algo deje de auditarse en
       # silencio. Con `pip freeze --exclude-editable` la lista sale ya sin el
       # proyecto, y se conserva entero.
+      # Y PyPI corta la conexión de vez en cuando: el 5 de septiembre un
+      # `ConnectionResetError` en pleno handshake TLS tumbó el job **antes de
+      # mirar una sola dependencia**. Mismo tratamiento que `npm audit`, que ya
+      # lo tenía resuelto dos pasos más abajo — no tenerlo aquí era la misma
+      # cobertura incompleta de siempre, en un control de seguridad.
+      #
+      # Un fallo de red se distingue por el TRACEBACK de Python, no por la
+      # palabra suelta: la salida de un hallazgo real es una tabla de paquetes,
+      # así que exigir las dos cosas hace imposible confundir «no he podido
+      # preguntar» con «no hay nada». Y si tras tres intentos sigue sin poder
+      # consultarse, esto se queda en ROJO.
       - name: pip-audit
         run: |
           pip install pip-audit
           pip install -e ".[dev]"
           pip freeze --exclude-editable > /tmp/requirements-auditadas.txt
           echo "Auditando $(wc -l < /tmp/requirements-auditadas.txt) dependencias:"
-          pip-audit --strict -r /tmp/requirements-auditadas.txt
+          for intento in 1 2 3; do
+            # `|| codigo=$?` y no `codigo=$?` a secas: los pasos corren con
+            # `bash -e` y una asignación que falla aborta el paso antes de poder
+            # leer su código, que es justo lo que hay que distinguir.
+            codigo=0
+            salida=$(timeout 300 pip-audit --strict -r /tmp/requirements-auditadas.txt 2>&1) || codigo=$?
+            echo "$salida"
+            [ "$codigo" -eq 0 ] && exit 0
+            if [ "$codigo" -eq 124 ] || { grep -q "Traceback (most recent call last)" <<< "$salida" \
+                 && grep -qE "ConnectionError|ConnectionResetError|Connection aborted|ReadTimeout|Read timed out|RemoteDisconnected|Temporary failure in name resolution|Max retries exceeded|ServiceUnavailable|50[0-9] Server Error" <<< "$salida"; }; then
+              echo "::warning::pip-audit no ha podido consultar PyPI (intento $intento/3, código $codigo). Reintentando."
+              sleep $((intento * 20))
+              continue
+            fi
+            echo "::error::pip-audit ha encontrado vulnerabilidades."
+            exit 1
+          done
+          echo "::error::PyPI no responde tras 3 intentos. NO se ha auditado nada: esto no es una auditoría limpia."
+          exit 1
 
       # El endpoint de auditoría de npm devuelve 503 con cierta frecuencia. Se
       # reintenta tres veces, y si al final no se puede consultar esto sigue en
