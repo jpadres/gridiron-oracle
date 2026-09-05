@@ -1215,6 +1215,21 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
   color: var(--accent); text-decoration: underline; font: inherit;
 }
 .lg-refresh:disabled { color: var(--muted); cursor: default; }
+
+/* Y CUANDO NO ESTÁ DENTRO DE UNA FRASE, DEJA DE VALER LA EXCEPCIÓN.
+   ─────────────────────────────────────────────────────────────────────────────
+   `.lg-refresh` existe para la acción secundaria metida en un texto —«synced
+   hace 3 min · Refresh · Sign out»—, donde un botón de 44 px partiría la línea
+   en tres renglones y por eso la norma la exime del mínimo táctil.
+
+   Pero la misma clase viste dos controles que NO están en ninguna frase: el
+   «Generate best lineup» del cara a cara y los «Refresh»/«Sign out» de la
+   cabecera de Leagues, que son una fila de acciones. Medidos a 390: 342×26,
+   63×21 y 65×21. Ahí la excepción no aplica y el mínimo vuelve a ser 44. */
+.mu-side .lg-refresh,
+.cc-account-line .cc-item-go,
+.cc-account-line .link { min-height: 44px; }
+.an-more > summary { min-height: 44px; display: flex; align-items: center; }
 .lg-stale { color: var(--warn-line); font-weight: var(--weight-semibold); }
 
 /* La liga activa en el centro de mando: una liga a la vez, y el resto a un clic. */

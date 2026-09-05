@@ -155,6 +155,27 @@ const INVENTARIO = `(() => {
     return {
       i, sel: desc(e), nombre: nombre(e).slice(0, 60),
       esControl: e.matches(CONTROL),
+      /* LA EXCEPCION DE «DENTRO DE UNA FRASE».
+         El minimo tactil de 44 px no se le exige a un control que va EN LINEA
+         dentro de un texto —la propia norma lo exime— y este producto lo usa a
+         proposito: «synced hace 3 min · Refresh · All leagues · Sign out» es una
+         frase, y un boton de 44 px ahi la parte en tres renglones. La prueba es
+         la de la norma y no una lista de clases: el padre tiene texto DE VERDAD
+         fuera del control. */
+      enFrase: (() => {
+        /* Y UNA ETIQUETA NO ES UNA FRASE. La primera version de esta excepcion
+           solo miraba «el padre tiene texto», y el padre de casi todos los
+           campos es su propio LABEL —«League name» es un nodo de texto—, asi
+           que la exencion desactivaba EN SILENCIO la comprobacion de 44 px en
+           todos los campos del sitio. Lo destapo la inyeccion: quite el estilo
+           base de los campos, quedaron a 21 px y el guardian siguio VERDE.
+
+           El texto de un label NOMBRA al control; no lo mete en una frase. */
+        const padre = e.parentElement;
+        if (!padre || /^(LABEL|FIELDSET|LEGEND)$/.test(padre.tagName)) return false;
+        return [...padre.childNodes].some(
+          (n) => n.nodeType === 3 && n.textContent.trim().length > 1);
+      })(),
       enNav: !!e.closest("nav, .menu, [role=navigation]"),
       x: r.x, y: r.y, w: r.width, h: r.height,
       href: e.getAttribute("href") || null,
@@ -223,7 +244,7 @@ for (const vista of VISTAS) {
       if (!f.nombre) sinNombre.push(`${vista.nombre} ${ruta} → ${f.sel}`);
       // El toque sólo se exige en el móvil y sólo a lo que se comporta como
       // control. Un enlace dentro de un párrafo no es un objetivo táctil.
-      if (vista.movil && f.esControl && f.h < 44 - 0.5) {
+      if (vista.movil && f.esControl && !f.enFrase && f.h < 44 - 0.5) {
         pequenos.push(`${ruta} → ${f.sel} «${f.nombre}» ${Math.round(f.w)}×${Math.round(f.h)}`);
       }
       if (f.x + f.w > anchoVista + 1) {
@@ -414,7 +435,7 @@ else {
       const { filas, anchoDoc, anchoVista } = await page.evaluate(INVENTARIO);
       for (const f of filas) {
         if (!f.nombre) malos.sinNombre.push(`${vista.nombre} ${ruta} → ${f.sel}`);
-        if (vista.movil && f.esControl && f.h < 44 - 0.5) {
+        if (vista.movil && f.esControl && !f.enFrase && f.h < 44 - 0.5) {
           malos.pequenos.push(`${ruta} → ${f.sel} «${f.nombre}» ${Math.round(f.w)}×${Math.round(f.h)}`);
         }
         if (f.x + f.w > anchoVista + 1) {
@@ -466,7 +487,17 @@ else {
 
       /* EL DRAFT ROOM: la pantalla más densa del producto, y la única a la que
          no se llega por URL — hay que entrar desde el mock. */
+      /* SE VUELVE A ENLAZAR. El barrido de arriba pulsa TODOS los botones de
+         /fantasy/leagues, y uno de ellos es «Sign out»: al llegar aquí la cuenta
+         ya no estaba y el mock no podía aparecer. La primera lectura de eso fue
+         «el Draft Room no se ha podido auditar», que sonaba a fallo del producto
+         y era del laboratorio pisándose a sí mismo. */
       await page.goto(`${BASE}/fantasy/leagues`, { waitUntil: "networkidle" });
+      if ((await page.locator("#cc-user").count()) > 0) {
+        await page.fill("#cc-user", USERNAME);
+        await page.click(".cc-link button[type=submit]");
+        await page.waitForSelector(".cc-panel", { timeout: 15000 }).catch(() => {});
+      }
       const mock = page.locator(".cc-mocks .cc-league").first();
       if (await mock.count()) {
         await mock.locator("button").first().click();
