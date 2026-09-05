@@ -32,6 +32,15 @@ varias fuentes»:
 **El linaje desconocido NO cuenta como independiente.** Convertir «no sé de
 dónde viene» en «viene de otro sitio» infla el número que más engaña.
 
+«Según X» sólo hace raíz a X si X **no aparece en el catálogo repitiendo a
+otro**. Un podcast que cita a un medio que a su vez cita al informante tiene el
+mismo origen que el informante; contarlo aparte fabricaba un segundo origen a
+partir de un solo informe.
+
+Tampoco aportan origen: un nodo incoherente (dice originar Y citar), un
+originador sin fuente identificable, y una afirmación con id ambiguo. Los ids se
+comparan normalizados, porque `ESPN`, `espn` y `espn ` son el mismo medio.
+
 La raíz es **quién** origina, no **qué** artículo: un reportero que publica lo
 mismo en su medio y en un podcast son dos artículos y un originador. Y un ciclo
 —dos medios que se citan mutuamente— no demuestra ninguna raíz: devuelve

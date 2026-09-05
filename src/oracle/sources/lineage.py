@@ -72,56 +72,88 @@ class Corroboration:
         return self.independent_origins >= 2
 
 
-def resolve_origin(claim_id: str, index: dict[str, Attributed]) -> str | None:
-    """La raíz de la cadena de citas, o `None` si no se puede establecer.
+def _norm(valor: str | None) -> str:
+    """Un id de fuente canónico. `ESPN`, `espn` y `espn ` son la MISMA fuente.
 
-    Se camina hacia atrás por `origin_claim_id` hasta llegar a quien origina. La
-    raíz es QUIÉN origina y no QUÉ artículo: un reportero que publica lo mismo
-    en su medio y en un podcast produce dos artículos y UN originador, y con la
-    clave por artículo salían dos «fuentes independientes».
+    Sin esto, dos formas de escribir el mismo medio producen dos «orígenes
+    independientes» — el número inflado, otra vez, por un espacio."""
+    return (valor or "").strip().casefold()
 
-    Tres finales, y los tres importan:
 
-      · alguien ORIGINA          -> `source:<quien>`;
-      · la cadena cita a una fuente sin identificar el artículo («según X»)
-                                 -> `source:X`, raíz más débil pero suficiente
-                                    para no contar dos ecos de X como dos;
-      · CICLO o cadena rota      -> `None`, desconocido.
-
-    El ciclo es real —dos medios que se citan mutuamente— y la primera versión
-    de esto devolvía a cada uno el otro como raíz: DOS orígenes distintos para
-    una sola noticia sin origen demostrable. Un ciclo no demuestra nada.
-    """
-    seen: set[str] = set()
-    actual = claim_id
-    while True:
-        if actual in seen:
-            return None
-        seen.add(actual)
-        nodo = index.get(actual)
-        if nodo is None:
-            return None
-        if nodo.originates:
-            return f"source:{nodo.source_id}"
-        if nodo.origin_claim_id:
-            if nodo.origin_claim_id not in index:
-                # El artículo citado no está en el índice. Si se sabe a qué
-                # fuente se atribuye, esa fuente sirve de raíz; si no, no.
-                return f"source:{nodo.origin_source_id}" if nodo.origin_source_id else None
-            actual = nodo.origin_claim_id
-            continue
-        if nodo.origin_source_id:
-            return f"source:{nodo.origin_source_id}"
+def _raiz(claim_id: str, index: dict[str, Attributed], seen: frozenset[str]) -> str | None:
+    if claim_id in seen:
+        return None                       # ciclo: nada demostrado
+    seen = seen | {claim_id}
+    nodo = index.get(claim_id)
+    if nodo is None:
         return None
+
+    # NODO INCOHERENTE: dice originar Y a la vez citar a otro. Es un dato roto,
+    # y de las dos lecturas posibles la que suma un origen es justo la que
+    # infla. Un dato incoherente no aporta corroboración.
+    if nodo.originates and nodo.origin_claim_id:
+        return None
+
+    if nodo.originates:
+        # La raíz es QUIÉN origina, no qué artículo: el mismo reportero en dos
+        # medios son dos artículos y un originador. Sin fuente identificable no
+        # hay raíz — `source:` vacío contaba como origen conocido.
+        sid = _norm(nodo.source_id)
+        return f"source:{sid}" if sid else None
+
+    if nodo.origin_claim_id:
+        if nodo.origin_claim_id in index:
+            return _raiz(nodo.origin_claim_id, index, seen)
+        return _por_fuente(nodo, index, seen)
+
+    if nodo.origin_source_id:
+        return _por_fuente(nodo, index, seen)
+    return None
+
+
+def _por_fuente(nodo: Attributed, index: dict[str, Attributed], seen: frozenset[str]) -> str | None:
+    """«Según X», sin identificar el artículo.
+
+    X sólo es raíz si X no aparece en el índice REPITIENDO a otro. Un podcast
+    que dice «según ESPN», con el artículo de ESPN citando al insider, tiene el
+    mismo origen que el insider: contarlo como `source:espn` fabricaba un
+    segundo origen a partir de un solo informe. Si X está en el índice, se sigue
+    SU cadena; si su cadena tampoco resuelve, es desconocido.
+    """
+    sid = _norm(nodo.origin_source_id)
+    if not sid:
+        return None
+    suyos = [n for n in index.values() if _norm(n.source_id) == sid and n.claim_id not in seen]
+    if not suyos:
+        return f"source:{sid}"            # X no está en el índice: es la raíz utilizable
+    for n in suyos:
+        raiz = _raiz(n.claim_id, index, seen)
+        if raiz is not None:
+            return raiz
+    return None                            # X está, pero su propio origen no se resuelve
+
+
+def resolve_origin(claim_id: str, index: dict[str, Attributed]) -> str | None:
+    """La raíz de la cadena de citas, o `None` si no se puede establecer."""
+    return _raiz(claim_id, index, frozenset())
 
 
 def corroboration(claims: list[Attributed]) -> Corroboration:
     """Cuenta ORÍGENES distintos, nunca artículos."""
-    index = {c.claim_id: c for c in claims}
+    # IDS REPETIDOS: el índice es un dict y se queda con el ÚLTIMO, así que un
+    # eco cuyo id coincida con el de un originador se resolvía COMO ese
+    # originador y el eco desaparecía sin ruido. Un id ambiguo no puede producir
+    # una respuesta segura: sus afirmaciones cuentan como desconocidas.
+    vistos: dict[str, int] = {}
+    for c in claims:
+        vistos[c.claim_id] = vistos.get(c.claim_id, 0) + 1
+    ambiguos = {k for k, n in vistos.items() if n > 1}
+
+    index = {c.claim_id: c for c in claims if c.claim_id not in ambiguos}
     origins: set[str] = set()
     desconocidos = 0
     for c in claims:
-        raiz = resolve_origin(c.claim_id, index)
+        raiz = None if c.claim_id in ambiguos else resolve_origin(c.claim_id, index)
         if raiz is None:
             desconocidos += 1
         else:
