@@ -77,9 +77,16 @@ function BuildStamp() {
     day: "numeric", month: "short", year: "numeric",
     hour: "2-digit", minute: "2-digit", timeZone: "UTC", hour12: false,
   });
+  // «SITE built», no «built» a secas: esto fecha la COMPILACIÓN, no los datos.
+  // Un commit de documentación recompila el sitio sin tocar un número, así que
+  // un lector que tome esta hora por la del dato se lleva una frescura falsa —
+  // y es como la página de apuestas acabó diciendo que las cuotas eran «as of
+  // this build». Cada sección fecha lo suyo con `dataDate()`.
   return (
     <p className="build">
-      Build <code>{sha ? sha.slice(0, 7) : "local"}</code> · built {built} UTC
+      Site build <code>{sha ? sha.slice(0, 7) : "local"}</code> · compiled {built} UTC
+      <br />
+      <small>Compilation time, not data freshness — each section states its own date.</small>
     </p>
   );
 }

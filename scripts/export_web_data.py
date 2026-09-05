@@ -190,6 +190,26 @@ def main(argv: list[str] | None = None) -> int:
     # --- jornada publicada --------------------------------------------------
     season, week = _resolve_week(oracle, args.season, args.week)
     payload["week"] = {"season": season, "week": week}
+
+    # CUÁNDO se sacaron estos datos, por sección y con fecha SIN hora.
+    #
+    # No es el `generated_at` de raíz que se quitó arriba: aquel era un instante
+    # y no lo leía nadie, así que sólo servía para que cada regeneración
+    # produjese un fichero distinto. Éste es una FECHA —cambia como mucho una vez
+    # al día, y la regeneración es semanal— y sobre todo lo lee la interfaz.
+    #
+    # Hacía falta porque no había ninguna: `markets` y `predictions` no llevan
+    # fecha, así que la página de apuestas rellenaba el hueco con «as of this
+    # build». El build es cuándo se compiló el SITIO, y basta un commit de
+    # documentación para refrescarlo sin tocar un dato: eso convierte la hora de
+    # compilación en actualidad, que es exactamente cómo la regla 5 dice que se
+    # fabrica una afirmación falsamente actual. Y en el dato que caduca antes.
+    #
+    # Por sección y no una sola en la raíz porque sus edades NO son la misma:
+    # `research_patch.py` refresca la prensa sin reentrenar el modelo, así que
+    # una fecha única aplanaría el desacuerdo que hay que conservar.
+    hoy = pd.Timestamp.now("UTC").date().isoformat()
+    payload["data_dates"] = {"model": hoy, "markets": hoy, "fantasy": hoy}
     print(f"Publicando {season} semana {week}.")
 
     week_predictions = oracle.predict(oracle.week_features(season, week))

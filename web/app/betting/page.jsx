@@ -1,4 +1,4 @@
-import { model } from "../../data/model.js";
+import { model, dataDate } from "../../data/model.js";
 import { NoDataYet } from "../ui.jsx";
 import BettingShell from "./BettingShell.jsx";
 
@@ -30,6 +30,11 @@ export default function BettingPage() {
       context={{
         season: model.week?.season ?? null,
         week: model.week?.week ?? null,
+        // CUÁNDO se sacaron estas líneas. `null` si el payload no lo dice, y
+        // entonces la pantalla escribe «unknown»: nunca el sello de build, que
+        // es cuándo se compiló el sitio y se refresca con un commit de
+        // documentación sin tocar una cuota.
+        linesDate: dataDate("markets"),
       }}
     />
   );

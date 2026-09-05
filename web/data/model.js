@@ -22,6 +22,7 @@ const EMPTY = {
   placeholder: true,
   generated_at: null,
   week: null,
+  data_dates: null,
   predictions: [],
   bets: [],
   ratings: [],
@@ -85,6 +86,22 @@ function attachSleeperIds(payload) {
 export const model = attachSleeperIds(decode());
 
 export const hasData = !model.placeholder && model.predictions.length > 0;
+
+/**
+ * Cuándo se sacó una sección de los datos, o `null` si el payload no lo dice.
+ *
+ * Devuelve `null` A PROPÓSITO cuando falta, y quien lo pinte tiene que escribir
+ * «unknown» en vez de caer al sello de build del pie. El build es cuándo se
+ * compiló el SITIO: un commit de documentación lo refresca sin tocar un dato, y
+ * prestárselo a una cuota —que caduca en minutos— es fabricar actualidad.
+ *
+ * Un payload anterior a este campo devuelve `null` y la interfaz dirá que no lo
+ * sabe, que es la verdad hasta la siguiente regeneración semanal.
+ */
+export function dataDate(section) {
+  const value = model?.data_dates?.[section];
+  return typeof value === "string" && value ? value : null;
+}
 
 /**
  * Formatea un número **en inglés de EE. UU.**, o devuelve un guion si no lo hay.

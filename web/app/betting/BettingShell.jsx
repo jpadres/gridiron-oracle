@@ -18,7 +18,7 @@
  *
  * - MODEL LEAN ≠ EDGE. E4 lo midió: el desacuerdo no predice acierto. El lean
  *   se enseña porque es un hecho del modelo; la etiqueta nunca sube de ahí.
- * - Las líneas de partido son las del payload (nflverse, al construir). Las de
+ * - Las líneas de partido son las del payload (nflverse, con SU fecha). Las de
  *   props NO EXISTEN aquí: las tecleas de tu casa de apuestas, y sin línea no
  *   hay lean — MARKET UNAVAILABLE es la respuesta, no un número inventado.
  * - «Record as placed» REGISTRA en Gridiron. Aquí no se transmite dinero.
@@ -560,8 +560,16 @@ export default function BettingShell({ predictions, weekly, context, markets = [
           </table>
         </div>
         <p className="caption">
-          Lines are nflverse&rsquo;s as of this build — verify at your book before
-          recording. Team and game props carry no market here yet:{" "}
+          {/* «as of this build» decía que las cuotas eran de cuando se compiló
+              el sitio. No lo son: basta un commit de documentación para
+              recompilar sin tocar un dato, así que esa frase le prestaba a la
+              línea una frescura que no tenía — y una cuota caduca en minutos.
+              Si el payload no fecha las líneas se dice UNKNOWN; nunca se cae al
+              sello de build. */}
+          Lines are nflverse&rsquo;s, retrieved{" "}
+          <strong>{context?.linesDate ? context.linesDate : "on an unknown date"}</strong>{" "}
+          — not when this page was built. Verify at your book before recording.
+          Team and game props carry no market here yet:{" "}
           <strong>market unavailable</strong> is the honest state, not a missing feature.
         </p>
       </section>
