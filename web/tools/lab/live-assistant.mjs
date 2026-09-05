@@ -117,9 +117,9 @@ for(let no=1; no<=180; no+=1){
         // La ETIQUETA de la cifra grande es lo que delata el cableado: si el
         // Draft Room dejara de pasarle la plantilla a `candidates`, seguiría
         // pintando una lista perfectamente creíble y todas dirían «VOR».
-        etiquetas:await page.locator(".room-cand-vor small").allInnerTexts(),
-        posiciones:await page.locator(".room-cands .ptag").allInnerTexts(),
-        porque:await page.locator(".room-cands > li").first().locator(".room-why li").allInnerTexts(),
+        conPanel:(await page.locator(".room-pick").count())>0,
+        motivos:await page.locator(".room-pick .room-why--pick li").count(),
+        porque:await page.locator(".room-pick .room-why--pick li").allInnerTexts(),
       });
     }
   }
@@ -147,34 +147,37 @@ check("mis 15 turnos se detectaron solos y con lista corta",misTurnosVerificados
    la alineación, así que la comprobación no es «sale tal jugador» —eso
    dependería del board del día— sino la propiedad: mientras haya hueco, cada
    fila declara lo que añade; cuando no lo hay, se vuelve al board Y SE DICE. */
-const conAjuste=turnos.filter(t=>t.titulo==="Best for your roster");
-const sinAjuste=turnos.filter(t=>t.titulo==="Top available");
-check("desde el primer turno la lista se ordena por lo que añade a mi plantilla",
-      turnos[0]?.titulo==="Best for your roster", turnos[0]?.titulo);
-check("y CADA fila dice lo que añade, no el VOR a secas",
-      conAjuste.length>0 && conAjuste.every(t=>t.etiquetas.length>0
-        && t.etiquetas.every(e=>e.trim()==="to your lineup")),
-      `${conAjuste.length} turnos ajustados`);
+/* Las DOS listas conviven: «Best available» es siempre el board y no cambia de
+   nombre nunca; la adaptación vive en su propia sección, que aparece cuando se
+   puede sostener y desaparece cuando no. Antes una sola lista se renombraba, y
+   entonces no quedaba dónde ver el orden puro. */
+const conAjuste=turnos.filter(t=>t.conPanel);
+const sinAjuste=turnos.filter(t=>!t.conPanel);
+check("«Best available» es SIEMPRE el board y no se renombra",
+      turnos.every(t=>/^best available$/i.test(t.titulo)),
+      [...new Set(turnos.map(t=>t.titulo))].join(" | "));
+check("y en los turnos con hueco aparece «Best pick for you» con sus motivos",
+      conAjuste.length>0 && conAjuste.every(t=>t.motivos>=2),
+      `${conAjuste.length} turnos con panel`);
 /* Los tres de abajo llevan `conAjuste.length>0` DENTRO de la condición y no
    como comprobación aparte. Sin eso pasan en vacío: al inyectar el fallo del
    cableado —quitarle la plantilla a `candidates`— los quince turnos salen «Top
    available», y «todos los turnos sin ajuste dicen VOR» se cumple, y «el
    cambio ocurre una vez» también con cero cambios. Un guardián que aprueba el
    fallo que existe para cazar ya costó una iteración en este proyecto. */
-check("con los siete titulares llenos vuelve al orden del board Y LO DICE",
-      conAjuste.length>0 && sinAjuste.length>0 &&
-      sinAjuste.every(t=>t.etiquetas.every(e=>e.trim()==="VOR")),
-      `${conAjuste.length} ajustados -> ${sinAjuste.length} sin hueco titular`);
+check("con los titulares llenos el panel desaparece y queda el board",
+      conAjuste.length>0 && sinAjuste.length>0,
+      `${conAjuste.length} con panel -> ${sinAjuste.length} sin panel`);
 check("el cambio ocurre UNA vez y no va y viene",
       conAjuste.length>0 && sinAjuste.length>0 &&
-      turnos.findIndex(t=>t.titulo==="Top available")===conAjuste.length,
-      turnos.map(t=>t.titulo==="Top available"?"·":"#").join(""));
+      turnos.findIndex(t=>!t.conPanel)===conAjuste.length,
+      turnos.map(t=>t.conPanel?"#":"·").join(""));
 /* La propiedad concreta que se pidió: mientras quede hueco, el que encabeza la
    lista SIEMPRE llena uno. Ésa es la diferencia con lo de antes, que ofrecía un
    segundo ala cerrada con el hueco de ala cerrada ya ocupado. */
-check("mientras hay hueco, el candidato #1 SIEMPRE llena uno abierto",
+check("mientras hay hueco, el recomendado SIEMPRE llena uno abierto",
       conAjuste.length>0 &&
-      conAjuste.every(t=>t.porque.some(l=>/Fills an open \w+ slot/.test(l))),
+      conAjuste.every(t=>t.porque.some(l=>/starter open|Fits your open/i.test(l))),
       `${conAjuste.length} turnos · ${conAjuste[0]?.porque.join(" | ")}`);
 check("el draft se declara completo y ofrece revisarlo",
       /draft complete/i.test(await page.locator(".room-state").innerText()) &&
@@ -403,11 +406,23 @@ console.log("\n=== draft seguido sin cuenta: mis picks entran en MI plantilla ==
 
   // Y la consecuencia, que es la queja: con el TE ya cogido, la lista corta no
   // puede seguir encabezada por otro TE mientras queden huecos abiertos.
-  const cabecera=(await p6.locator(".room-shortlist .room-h").innerText().catch(()=>"")).split("\n")[0].trim();
-  const posiciones=await p6.locator(".room-cands .ptag").allInnerTexts();
-  check("y con el ala cerrada cogido, la lista deja de ofrecer otro",
-        cabecera==="Best for your roster" && !posiciones.some(t=>t.startsWith("TE")),
-        `${cabecera} · ${posiciones.join(" ")}`);
+  /* EL FALLO REPORTADO, en pantalla y entero:
+       · el TE aparece en MI plantilla y su hueco queda lleno;
+       · BEST PICK FOR YOU deja de encabezar con un ala cerrada;
+       · y el segundo TE NO desaparece: sigue en BEST AVAILABLE, que es una
+         lista distinta y con su número intacto. */
+  const paraMi=await p6.locator(".room-pick .room-pick-who .ptag").innerText().catch(()=>"");
+  check("«Best pick for you» ya no encabeza con un ala cerrada",
+        paraMi.length>0 && !paraMi.startsWith("TE"), paraMi || "sin panel");
+  const porque=await p6.locator(".room-pick .room-why--pick li").allInnerTexts();
+  check("y da entre dos y cuatro motivos, todos hechos",
+        porque.length>=2 && porque.length<=4, porque.join(" · "));
+  const board=await p6.locator(".room-cands .ptag").allInnerTexts();
+  check("BEST AVAILABLE sigue siendo el board y puede llevar un TE",
+        board.length>0, board.join(" "));
+  const slots=await p6.locator(".room-roster--slots li").allInnerTexts();
+  check("y el hueco de TE aparece LLENO en mi plantilla",
+        slots.some(t=>/TE/.test(t) && !/Open/i.test(t)), slots.join(" | ").slice(0,120));
   await p6.screenshot({path:`${OUT}/lda-1440-sin-cuenta.png`});
   await c6.close();
 }
@@ -423,9 +438,15 @@ for(const [w,h] of [[390,844],[768,1024]]){
   await p4.clock.install();
   await p4.goto(`${BASE}/fantasy/draft`,{waitUntil:"domcontentloaded"});
   await p4.waitForSelector(".room-cands > li");
-  const caja=await p4.locator(".room-cands > li").first().boundingBox();
-  check(`${w}px: el primer candidato entra en el primer viewport`,caja!==null&&caja.y+caja.height<h,
-        `y=${Math.round(caja?.y??-1)}`);
+  /* Lo que tiene que entrar en el primer viewport es la RECOMENDACIÓN, que es
+     lo que se mira contra reloj — no la primera fila del board, que ahora va
+     debajo por diseño. Antes eran la misma cosa porque sólo había una lista. */
+  const caja=await p4.locator(".room-pick .room-pick-hero").first().boundingBox();
+  check(`${w}px: «Best pick for you» entra entero en el primer viewport`,
+        caja!==null&&caja.y+caja.height<h, `y=${Math.round(caja?.y??-1)} h=${h}`);
+  const alt=await p4.locator(".room-alts li").first().boundingBox();
+  check(`${w}px: y la primera alternativa también`,
+        alt!==null&&alt.y+alt.height<h, `y=${Math.round(alt?.y??-1)}`);
   check(`${w}px: sin desbordamiento`,
         await p4.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth));
   await p4.screenshot({path:`${OUT}/lda-${w}-onclock.png`});

@@ -194,8 +194,45 @@ fila). Sin estructura declarada no se calcula nada: suponer una plantilla es
 exactamente lo que se retiró.
 
 **El board no cambia.** Sigue en VOR puro, que es la única definición de BEST
-AVAILABLE del producto. Lo que se adapta es la lista de cuatro del Draft Room,
-que existe para el turno de alguien concreto, y lleva los dos números a la vista.
+AVAILABLE del producto — y desde septiembre de 2026 es una lista SEPARADA que se
+enseña al lado, no la misma renombrada. Si el número uno disponible es un
+quarterback y tú ya tienes el tuyo, quieres VERLO ahí sin que nadie te lo llame
+tu mejor pick.
+
+### 6e. Qué puede decir «Best pick for you», y qué no
+
+`bestForMe()` ordena por lo que cada uno AÑADE a tu alineación y enseña de dos a
+cuatro MOTIVOS, cada uno un hecho comprobable contra la plantilla y el pool:
+hueco titular abierto, encaja en tu flex, cuántos quedan de su tier, qué
+titulares ya tienes puestos. **No hay puntuación compuesta, ni pesos, ni nota del
+1 al 100.** Si algún día aparece un `needScore: 73`, es que alguien volvió a
+disfrazar una convención de medición.
+
+Estados de una posición, derivados de los huecos y no de un umbral:
+`OPEN_STARTER` (hueco dedicado libre), `FLEX_ELIGIBLE` (sólo por un flexible),
+`STARTER_FILLED` (saturada: su hueco está lleno y no cabe en ninguno) y
+`BENCH_DEPTH`. La regla de saturación, entera: **quien ya no mejora tu alineación
+no puede encabezar mientras exista alguien que sí.** No se le esconde, no se le
+baja el VOR y no se te impide cogerlo. En una superflex el segundo quarterback SÍ
+mejora, así que ahí encabeza — con la MISMA regla, sin una excepción escrita para
+cada tipo de liga.
+
+Y **cuántos de esa posición pueden llegar a alinearse es un hecho de la liga**:
+con un hueco de TE y un FLEX que lo admite, como mucho dos alas cerradas entran
+en tu alineación. Un tercero sólo vale de seguro, así que en el banquillo va
+detrás de quien todavía puede jugar — detrás, no fuera: draftear un seguro es una
+decisión tuya.
+
+El pateador y la defensa no se adelantan por tener el hueco vacío, pero tampoco
+se olvidan: se avisa cuando te quedan tantos picks como huecos titulares
+abiertos, que es cuando dejar de llenarlos te deja sin alineación legal. No es
+una ronda cableada.
+
+**`BEST_PICK_FOR_ME` sigue BLOCKED en el registro, y es la respuesta honesta.**
+Está IMPLEMENTADO y su coherencia está cubierta (`tools/lab/draft-sim.mjs`
+recorre tres ligas enteras), pero nadie ha medido si seguirlo gana más que seguir
+el board. Subirlo de estado porque la pantalla funciona es exactamente el error
+que ese registro existe para impedir.
 
 Los huecos compartidos se reparten **asignándolos**, no por pesos fijos: cada
 flex va a la posición cuyo mejor jugador libre vale más. Es lo que hace que la
@@ -460,6 +497,8 @@ comentario está para que no los reintroduzcas.
 | Una etiqueta con una palabra dentro de un círculo de 1 rem | `system.css` | `.mark--out`/`.mark--risk` heredaban `width`/`height`/`line-height` de `.mark`, que existe para glifos de UNA letra. «EXEMPT LIST» se salía de su caja y se montaba encima de lo de al lado |
 | `/fantasy` caída en render durante CUATRO DÍAS | `DraftMode.jsx` | Un refactor se llevó el `const SLEEPER` y dejó cuatro `fetch` usándolo. `next build` lo compila sin rechistar, **no hay linter de JS en CI**, y TODOS los laboratorios entraban a `/fantasy` sin liga conectada — que es donde ese efecto no llega a ejecutarse. Con liga, `ReferenceError` y pantalla en blanco. La constante se exporta ahora desde `useSleeperDraft.js`: una sola. Y el guardián nuevo escucha `console` además de `pageerror`, porque **Next atrapa el fallo de un componente de cliente en su frontera de error y NO llega como `pageerror`**: escuchando sólo eso, el guardián se quedaba verde con la página caída |
 | Siguiendo un draft por id, NINGÚN pick era mío | `useSleeperDraft.js`, `draftLog.js` | Sin cuenta enlazada no hay `userId` ni `rosterId` que cruzar, así que el adaptador marcaba todos los picks UNKNOWN —correcto por su parte— y tu plantilla se quedaba vacía. Efecto: coges a McBride y te sigue ofreciendo a Kittle, porque no hay ningún TE «tuyo» que mirar. El pick SÍ trae `draft_slot` y tú SÍ has declarado tu puesto: cruzarlos es la misma derivación del modo manual, no una suposición. Sin puesto declarado, o sin casilla, sigue UNKNOWN — «no sé de quién es» nunca se convierte en «es de otro» |
+| Sondear cada quince segundos con la pestaña detrás | `useSleeperDraft.js` | Dos cosas a la vez: quince segundos es una fracción visible del reloj de un pick, y sobre todo **el navegador ESTRANGULA los temporizadores de una pestaña en segundo plano a uno por minuto**. Es literalmente «se pasaba el minuto del pick y no se reflejaba»: no fallaba el sondeo, es que no corría. Ahora la cadencia sigue al estado del draft (4 s drafteando, 15 s antes, 60 s acabado) con `setTimeout` encadenado, y volver a la pestaña dispara una lectura INMEDIATA |
+| Un cupo de titulares aplicado al BANQUILLO | `candidates.js` | «Como mucho dos alas cerradas pueden alinearse» es cierto y se usó para FILTRAR la lista de banquillo. A partir de la ronda 11 todas las posiciones estaban en su cupo, la lista salía VACÍA y el simulador caía al board a secas — así acabó con cinco alas cerradas. Un banquillo existe precisamente para tener gente por encima del cupo: se PREFIERE a quien aún puede jugar, no se excluye a quien no |
 | El ajuste a la plantilla, sólo en UNA de las dos pantallas | `DraftMode.jsx`, `candidates.js` | El Draft Room y el board de `/fantasy` enseñan la misma decisión con distinta caja. La adaptación se cableó sólo en el primero y el dueño estaba usando el segundo. **Sexta vez** que dos traductores del mismo formato divergen. El orden vive ahora en `orderByFit` y las dos lo llaman |
 | «2 left in tier» contado sobre lo pintado, otra vez | `DraftMode.jsx` | El mismo artefacto que ya se corrigió en el Draft Room, intacto aquí: contaba dentro de las OCHO sugerencias renderizadas en vez del pool disponible. Cuando una lección se anota, hay que buscar dónde más aplica el mismo día |
 | Un pick sin emparejar corría a TODOS los siguientes de casilla | `draftLog.js` | `providerEvents` ponía `overall: null` y `fold` numeraba por posición ENTRE LOS RESUELTOS, tirando el `pick_no` que Sleeper mandaba desde el principio. Un novato de 2026 que no está en el board publicado, o un pateador, y el jugador del pick 7 se pintaba en el 6 — que en un snake es la columna de OTRO equipo. Se vio en un draft REAL, con la parrilla, no con un test. Ahora el número del proveedor manda, el hueco de lo que no se emparejó se queda VACÍO (que es la verdad) y el correlativo del modo manual salta los números ya ocupados |
@@ -529,6 +568,7 @@ está construida:
 | `conectar.mjs` | Conectar una liga de Sleeper de verdad, y `/fantasy` CON esa liga: que no lance —ni al cargar ni al sincronizar, que es cuando corren los efectos con red— y que el orden se adapte igual que en el Draft Room |
 | `headshot-shots.mjs` | Fotos por id, el bloque de no disponibles y las marcas de estado |
 | `storage-blocked.mjs` | El navegador que BLOQUEA el almacenamiento: cinco pantallas tienen que seguir en pie |
+| `draft-sim.mjs` | Un draft ENTERO sin navegador en tres ligas —normal de 12, superflex y la de 32 con tres flexibles— siguiendo la recomendación: sin repetidos, sin repartos imposibles, ninguna posición saturada encabezando, el segundo QB encabezando SÓLO en superflex, el aviso de pateador/defensa antes del final y la alineación titular completada |
 | `apuestas.mjs` | Los mercados partido a partido, el signo del handicap y el plan de la semana: que la apuesta sugerida sea la MISMA fracción de la banca esté arriba o abajo |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no

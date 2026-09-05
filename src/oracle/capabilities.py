@@ -768,25 +768,49 @@ REGISTRY: tuple[Capability, ...] = (
     ),
     Capability(
         id="BEST_PICK_FOR_ME",
+        # SIGUE BLOCKED, Y ESO ES LA RESPUESTA HONESTA.
+        #
+        # La funcionalidad existe desde 2026-09 y funciona; lo que no existe es
+        # el experimento. El registro exige a cualquier estado por encima de
+        # BLOCKED un `experiment_id`, una métrica y un tamaño de muestra, y aquí
+        # no hay ninguno de los tres para la pregunta que da nombre a la
+        # capacidad: ¿elegir esto gana más que elegir el board? Subirla a
+        # NOT_READY porque la pantalla funciona sería exactamente el error que
+        # este registro existe para impedir.
         status=Status.BLOCKED,
         evidence=(
-            "ordenar por «lo que le conviene a mi plantilla» exige dos piezas "
-            "que no existen: una regla de construcción de plantilla MEDIDA y la "
-            "disponibilidad futura calibrada (¿aguanta X hasta mi próximo pick?)"
+            "IMPLEMENTADO en 2026-09 y NO validado, que son dos cosas distintas "
+            "y aquí se escriben separadas. Lo implementado es aritmética sobre "
+            "números ya publicados: el mismo VOR con el segundo término cambiado "
+            "de «lo que alinearía la liga media» a «lo que alinearías TÚ», "
+            "repartido por `assign_slots` sobre los huecos que la liga DECLARA. "
+            "Con la plantilla vacía devuelve el VOR publicado exacto — esa "
+            "identidad es la comprobación de que no hay ninguna constante nueva "
+            "dentro, y hay tests que la exigen. Lo que NO está medido es si "
+            "seguir esa recomendación gana más ligas que seguir el board"
         ),
         experiment_id=None,
         metric=None,
         sample_size=None,
         limitations=(
+            "FUNCIONALMENTE IMPLEMENTADO ≠ CALIDAD DE DECISIÓN VALIDADA. No hay "
+            "experimento que compare seguir esta recomendación contra seguir "
+            "BEST AVAILABLE, ni contra un drafter humano. La coherencia sí está "
+            "cubierta (`tools/lab/draft-sim.mjs` recorre tres ligas enteras), "
+            "pero coherente no es bueno.",
             "El multiplicador de necesidad que existió (VOR × 0,35 con plantilla "
-            "estándar supuesta) se RETIRÓ en 2026-08: era una convención "
-            "disfrazada de valor, sobre una estructura que nadie declaró.",
-            "La disponibilidad futura exige ADP con marca de tiempo por formato "
-            "y un estudio de calibración; la fuente está identificada (FFC) y "
-            "el estudio no está hecho: sin él, cualquier «probablemente vuelve» "
-            "es un número inventado.",
-            "Hasta que haya evidencia, la pantalla enseña BEST AVAILABLE por VOR "
-            "con el contexto de plantilla al lado, sin fundir las dos cosas.",
+            "estándar supuesta) se RETIRÓ en 2026-08 y NO ha vuelto: aquí no hay "
+            "multiplicador, ni puntuación compuesta, ni nota. Cada motivo que se "
+            "enseña es un hecho comprobable contra la plantilla y el pool.",
+            "La disponibilidad futura sigue sin calibrar: esto NO dice «aguanta "
+            "hasta tu próximo pick». La fuente está identificada (FFC) y el "
+            "estudio no está hecho; sin él, cualquier «probablemente vuelve» "
+            "sería un número inventado.",
+            "BEST AVAILABLE sigue siendo una lista SEPARADA y sin tocar: el VOR "
+            "de un jugador no cambia porque tú ya tengas un quarterback. Las dos "
+            "se enseñan juntas a propósito.",
+            "Sin estructura de plantilla declarada no se emite recomendación "
+            "ninguna: la pantalla cae a BEST AVAILABLE y dice por qué.",
         ),
         last_validated=None,
         model_version=None,

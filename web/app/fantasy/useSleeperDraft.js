@@ -76,10 +76,21 @@ import { buildIndex, mockLeagueId, mockScoringSettings, rosterFromDraftSettings 
    cuatro días en verde. Se exporta para que no vuelva a haber dos. */
 export const SLEEPER = "https://api.sleeper.app/v1";
 
-// Cada quince segundos. Sleeper no publica un límite duro para lecturas
-// anónimas; quince es cómodo para todos y suficiente para un draft, donde un
-// pick tarda de treinta segundos a dos minutos.
+/* CADENCIA DEL SONDEO, y no es una sola.
+ *
+ * Quince segundos fijos era cómodo para el servidor y lento para quien está
+ * drafteando: un pick tarda entre treinta segundos y dos minutos, así que
+ * quince de retraso es una fracción visible del reloj — «se tarda mucho en
+ * actualizar», dicho por el dueño en un draft real.
+ *
+ * Ahora la cadencia sigue al ESTADO del draft, que es el dato que dice si esto
+ * urge: cuatro segundos mientras se está drafteando, quince cuando no ha
+ * empezado, y un minuto cuando ya terminó y no va a cambiar nada. El coste es
+ * de un usuario mirando su propio draft, no de un servicio.
+ */
 export const POLL_MS = 15000;
+export const POLL_LIVE_MS = 4000;
+export const POLL_IDLE_MS = 60000;
 
 async function getJSON(url) {
   // Sólo a Sleeper: otro host es un error de programación, no una petición.
@@ -125,6 +136,9 @@ export function useSleeperDraft(pool, { leagueId, draftId: wantedDraftId, season
     let cancelled = false;
     // LO ESTABLE, resuelto una vez y reutilizado en cada sondeo.
     let stable = null;
+    // La cadencia actual del bucle. Es un objeto y no una variable suelta para
+    // que `schedule()` lea SIEMPRE la última, no la que hubiera al montarse.
+    const cadencia = { current: POLL_MS };
 
     /** Liga, rosters, draft e identidad. Una vez por liga (o por mock). */
     async function resolveStable() {
@@ -329,6 +343,12 @@ export function useSleeperDraft(pool, { leagueId, draftId: wantedDraftId, season
           canonical,
           unmapped,
         });
+        // La cadencia sigue al estado REAL que acaba de contestar Sleeper, no a
+        // lo que creíamos al montar: un draft que arranca mientras miras pasa
+        // solo a la cadencia rápida, y uno que termina deja de castigar la red.
+        cadencia.current = draft?.status === DRAFT_STATUS.DRAFTING
+          ? POLL_LIVE_MS
+          : draft?.status === DRAFT_STATUS.COMPLETE ? POLL_IDLE_MS : POLL_MS;
       } catch (error) {
         // El error NO borra `lastSyncAt` ni los picks ya reconciliados: «falló
         // hace un momento, pero lo último bueno es de hace 40 segundos» son dos
@@ -344,11 +364,47 @@ export function useSleeperDraft(pool, { leagueId, draftId: wantedDraftId, season
       }
     }
 
-    poll();
-    const timer = setInterval(poll, POLL_MS);
+    /* EL BUCLE, con `setTimeout` encadenado y no `setInterval`.
+     *
+     * Dos motivos, y el segundo es el que se veía en pantalla:
+     *
+     * 1. La cadencia cambia con el estado del draft, y un `setInterval` fijo no
+     *    puede cambiarla sin recrear el efecto entero (y con él la resolución
+     *    de identidad, que cuesta varias peticiones).
+     *
+     * 2. **EL CONGELADO.** El navegador ESTRANGULA los temporizadores de una
+     *    pestaña en segundo plano a uno por minuto. Es exactamente el síntoma
+     *    que describió el dueño: «se pasaba el minuto del pick y no se
+     *    reflejaba». No era un fallo del sondeo — era que el sondeo no corría.
+     *    Volver a la pestaña ahora dispara una lectura INMEDIATA en vez de
+     *    esperar al siguiente hueco.
+     */
+    let timer = null;
+    const schedule = () => { timer = setTimeout(run, cadencia.current); };
+    async function run() {
+      await poll();
+      if (!cancelled) schedule();
+    }
+    const ahora = () => {
+      if (cancelled) return;
+      if (typeof document !== "undefined" && document.visibilityState !== "visible") return;
+      clearTimeout(timer);
+      run();
+    };
+    run();
+    if (typeof document !== "undefined") {
+      document.addEventListener("visibilitychange", ahora);
+      window.addEventListener("focus", ahora);
+      window.addEventListener("online", ahora);
+    }
     return () => {
       cancelled = true;
-      clearInterval(timer);
+      clearTimeout(timer);
+      if (typeof document !== "undefined") {
+        document.removeEventListener("visibilitychange", ahora);
+        window.removeEventListener("focus", ahora);
+        window.removeEventListener("online", ahora);
+      }
     };
   }, [leagueId, wantedDraftId, season, userId]);
 

@@ -215,3 +215,77 @@ export function orderByFit(rows, { roster, rosterPositions, replacement, window 
   });
   return { rows: ordered, byId, active: fitIsActive(fit) };
 }
+
+/* ════════════════════════════════════════════════════════════════════════════
+ * EL ESTADO DE TU PLANTILLA, EN HECHOS
+ *
+ *     BEST AVAILABLE ≠ BEST PICK FOR ME, Y NINGUNO CORROMPE AL OTRO.
+ *
+ * Un jugador no vale menos porque tú ya tengas quarterback. Su valor BASE es el
+ * mismo; lo que cambia es lo que te añade A TI. Por eso aquí no se toca ni un
+ * número del board: se deriva en qué estado está cada posición respecto a los
+ * huecos que TU liga declara, y eso se enseña al lado.
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+/** Los cuatro estados de una posición. Salen de los huecos, no de un umbral. */
+export const POSITION_STATE = {
+  OPEN_STARTER: "OPEN_STARTER",     // tiene un hueco DEDICADO abierto
+  FLEX_ELIGIBLE: "FLEX_ELIGIBLE",   // sólo cabe por un flexible abierto
+  STARTER_FILLED: "STARTER_FILLED", // su hueco está lleno y no cabe en ninguno
+  BENCH_DEPTH: "BENCH_DEPTH",       // no queda hueco titular que pueda ocupar
+};
+
+/**
+ * Qué huecos tienes llenos, cuáles abiertos y en qué estado queda cada posición.
+ *
+ * `assignSlots` es el MISMO repartidor del board, el semanal y el analizador —
+ * no hay un segundo modelo de plantilla. Un hueco es dedicado cuando admite una
+ * sola posición; flexible cuando admite varias. Esa distinción es de la liga,
+ * no una opinión: un FLEX que no admite TE no lo admite, y un SUPER_FLEX sí
+ * admite QB, y por eso el segundo quarterback de una superflex sigue valiendo.
+ *
+ * Devuelve `null` sin estructura declarada. Suponer una plantilla es lo que se
+ * retiró en agosto y no vuelve por la puerta de atrás.
+ */
+export function starterState({ roster, rosterPositions }) {
+  const lista = (rosterPositions ?? [])
+    .map((raw) => String(raw).toUpperCase().trim())
+    .filter((slot) => !BENCH.has(slot));
+  if (lista.length === 0) return null;
+
+  const { slots } = assignSlots(roster ?? [], lista);
+  const open = [];
+  const filled = [];
+  for (const entry of slots) {
+    const eligible = SLOT_ELIGIBILITY[entry.slot] ?? [];
+    (entry.player ? filled : open).push({ ...entry, eligible, dedicated: eligible.length === 1 });
+  }
+
+  // Las posiciones que la liga puede alinear, para no inventar estados de una
+  // posición que esta liga no usa.
+  const posiciones = new Set(lista.flatMap((slot) => SLOT_ELIGIBILITY[slot] ?? []));
+  const byPosition = {};
+  for (const pos of posiciones) {
+    const dedicadoAbierto = open.some((s) => s.dedicated && s.eligible.includes(pos));
+    const flexAbierto = open.some((s) => !s.dedicated && s.eligible.includes(pos));
+    const tuvoDedicado = lista.some(
+      (slot) => (SLOT_ELIGIBILITY[slot] ?? []).length === 1 && SLOT_ELIGIBILITY[slot][0] === pos
+    );
+    byPosition[pos] = dedicadoAbierto ? POSITION_STATE.OPEN_STARTER
+      : flexAbierto ? POSITION_STATE.FLEX_ELIGIBLE
+      : tuvoDedicado ? POSITION_STATE.STARTER_FILLED
+      : POSITION_STATE.BENCH_DEPTH;
+  }
+
+  return {
+    slots, open, filled, byPosition,
+    openCount: open.length,
+    startersComplete: open.length === 0,
+    // Huecos abiertos que SÓLO pueden llenar posiciones sin valor publicado
+    // (pateador, defensa). Se cuentan aparte porque no se pueden ordenar por
+    // valor y aun así hay que llenarlos antes de que se acabe el draft.
+    openSpecialist: open.filter(
+      (s) => s.eligible.length > 0 && s.eligible.every((p) => p === "K" || p === "DST" || p === "DEF")
+    ),
+  };
+}

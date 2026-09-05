@@ -2188,3 +2188,46 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
    —qué mide la cifra grande y cuál es el número del board— y con el mismo
    peso se leerían como una sola. */
 .onclock-signal .label--board { opacity: 0.7; white-space: nowrap; }
+
+/* ── BEST PICK FOR YOU ──────────────────────────────────────────────────────
+   La respuesta a «¿a quién cojo?» va ARRIBA y con peso tipográfico, porque es
+   lo que se mira contra reloj. El board queda debajo, entero y sin tocar. */
+.room-pick {
+  margin-top: var(--space-3); padding: var(--space-3);
+  border: 1px solid var(--team, var(--rule)); border-radius: var(--radius);
+  background: var(--field-raised);
+}
+.room-pick-hero {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center; gap: var(--space-3); width: 100%;
+  padding: var(--space-2) 0; background: none; border: none; cursor: pointer;
+  color: inherit; font: inherit; text-align: left;
+}
+.room-pick-who { min-width: 0; }
+.room-pick-who b { display: block; font-size: var(--text-h3); line-height: 1.15; }
+.room-pick-who .meta { display: flex; flex-wrap: wrap; gap: var(--space-1); align-items: center; }
+.room-why--pick li { font-size: var(--text-micro); }
+.room-why--pick li::before { content: "· "; color: var(--chalk-dim); }
+.room-alts { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: grid; gap: 2px; }
+.room-alts button {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center; gap: var(--space-2); width: 100%; min-height: 44px;
+  padding: var(--space-2); background: var(--field); border: none; cursor: pointer;
+  color: inherit; font: inherit; text-align: left;
+}
+.room-alts .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.room-alts .alt-why { font-size: var(--text-nano, 0.62rem); color: var(--chalk-dim); }
+.room-alts .alt-n { font-variant-numeric: tabular-nums; }
+.room-must {
+  margin: var(--space-2) 0 0; padding: var(--space-2);
+  border-left: 3px solid var(--warn, var(--accent)); font-size: var(--text-micro);
+}
+.room-note--bench { margin-top: var(--space-3); }
+/* En el teléfono la fila del alternativo se parte: el motivo baja de renglón
+   antes que estrangular el nombre, que es el fallo de `.room-row` de agosto. */
+@media (max-width: 480px) {
+  .room-alts button { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .room-alts .alt-why { grid-column: 2 / -1; }
+  .room-pick-hero { grid-template-columns: auto minmax(0, 1fr); }
+  .room-pick-hero .room-cand-vor { grid-column: 2; text-align: left; }
+}

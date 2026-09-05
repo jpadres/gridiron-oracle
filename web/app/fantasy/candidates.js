@@ -3,7 +3,12 @@
  *
  * ## La frontera, que es todo el fichero
  *
- * Esto NO es `BEST_PICK_FOR_ME`, que sigue BLOCKED. Lo que hace es ORDENAR por
+ * `candidates()` es la lista del BOARD y nada más. `bestForMe()`, al final del
+ * fichero, es la que mira tu plantilla — y `BEST_PICK_FOR_ME` sigue BLOCKED en
+ * el registro a propósito: está IMPLEMENTADO y no está VALIDADO, que son dos
+ * cosas distintas y ahí se escriben separadas.
+ *
+ * Lo que hace `candidates()` es ORDENAR por
  * el valor por liga ya validado (E18) y quedarse con los primeros elegibles.
  * No pondera por lo que te falta, no inventa una necesidad y no predice si
  * alguien llegará a tu próximo turno. Cada una de esas tres cosas exigiría un
@@ -41,7 +46,9 @@
  */
 
 import { MIN_WEIGHTED_GAMES, SLOT_ELIGIBILITY, priorShare } from "./leagueValue.js";
-import { orderByFit } from "./rosterFit.js";
+import {
+  FIT_EPSILON, POSITION_STATE, orderByFit, starterState,
+} from "./rosterFit.js";
 
 /** Posiciones cuyo ORDEN está validado. K y DST quedan fuera a propósito. */
 export const RANKED_POSITIONS = ["QB", "RB", "WR", "TE"];
@@ -62,6 +69,17 @@ export function openSlotPositions(slots) {
  * `limit` es corto a propósito. Bajo el reloj, una lista de veinte no es una
  * lista corta: es el board otra vez.
  */
+/** El pool recomendable, con las exclusiones de arriba. Una sola definición. */
+export function draftablePool(available) {
+  return (available ?? []).filter(
+    (row) => RANKED_POSITIONS.includes(row.position)
+      && row.rostered !== false
+      && row.status_severity !== "OUT"
+      && (row.rookie || !Number.isFinite(Number(row.weighted_games ?? row.wg))
+          || Number(row.weighted_games ?? row.wg) >= MIN_WEIGHTED_GAMES)
+  );
+}
+
 export function candidates(
   available,
   { slots = null, limit = 4, roster = null, rosterPositions = null, replacement = null } = {}
@@ -97,13 +115,7 @@ export function candidates(
   //
   // Un NOVATO no entra en esta regla: su número sale de la previa por capital
   // de draft, que está validada aparte y no es la media de la posición.
-  const pool = available.filter(
-    (row) => RANKED_POSITIONS.includes(row.position)
-      && row.rostered !== false
-      && row.status_severity !== "OUT"
-      && (row.rookie || !Number.isFinite(Number(row.weighted_games ?? row.wg))
-          || Number(row.weighted_games ?? row.wg) >= MIN_WEIGHTED_GAMES)
-  );
+  const pool = draftablePool(available);
   if (pool.length === 0) return [];
   const openPositions = slots ? openSlotPositions(slots) : null;
 
@@ -164,4 +176,176 @@ export function candidates(
     // hueco, lo que deja de ser cierto es la etiqueta de la lista.
     return { row, reasons, sameTier, fit: ajuste, fitActive };
   });
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+ * DOS LISTAS, Y NINGUNA CORROMPE A LA OTRA
+ *
+ *     BEST AVAILABLE  = el board. Valor de tu liga, sin mirarte a ti.
+ *     BEST PICK FOR ME = quién MEJORA TU ALINEACIÓN de hoy, y por qué.
+ *
+ * Se enseñan las dos porque las dos son ciertas y responden a preguntas
+ * distintas. Si el número uno del board es un quarterback y tú ya tienes a
+ * Josh Allen en una liga de un QB, quieres VERLO ahí arriba sin que el
+ * asistente te diga que es tu mejor pick.
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+/** La regla explícita de cuándo un candidato puede encabezar «para ti». */
+const MEJORA = (ajuste) => Number(ajuste?.marginal) > FIT_EPSILON;
+
+/**
+ * La recomendación con contexto de plantilla, y sus motivos.
+ *
+ * El orden entre los que MEJORAN tu alineación es el marginal —la misma resta
+ * del VOR con tu alineación como segundo término (regla 6d)— y el desempate, el
+ * valor del board. No hay puntuación compuesta, ni pesos, ni una nota del 1 al
+ * 100: cada motivo que se enseña es un hecho que se puede comprobar mirando la
+ * plantilla y el pool.
+ *
+ * LA REGLA DE SATURACIÓN, escrita entera: un candidato cuya posición ya no
+ * mejora tu alineación (marginal ≈ 0) **no puede ser el principal mientras
+ * exista otro que sí la mejore**. No se le esconde, no se le baja el VOR y no
+ * se te impide cogerlo — sale en BEST AVAILABLE con su número intacto. En una
+ * superflex el segundo quarterback SÍ mejora la alineación, así que ahí puede
+ * encabezar sin ninguna excepción escrita para él: la regla es la misma y el
+ * resultado cambia porque la liga es otra.
+ *
+ * `null` cuando no se puede sostener: sin estructura declarada, sin valor, o
+ * sin nada que mejore. Entonces la pantalla enseña BEST AVAILABLE y lo dice.
+ */
+export function bestForMe(available, {
+  roster = null, rosterPositions = null, replacement = null,
+  picksLeftForMe = null, limit = 4,
+} = {}) {
+  const state = starterState({ roster, rosterPositions });
+  if (!state) return null;
+
+  const pool = draftablePool(available);
+  if (pool.length === 0) return null;
+
+  const { rows, byId } = orderByFit(pool, { roster, rosterPositions, replacement });
+  if (!byId) return null;
+
+  /* CUÁNTOS DE ESTA POSICIÓN PUEDEN LLEGAR A ALINEARSE.
+     Es un HECHO de la liga —cuántos huecos la admiten— y no un tope a ojo. Con
+     un hueco de TE y un FLEX que lo acepta, como mucho DOS alas cerradas
+     pueden entrar en tu alineación: un tercero no puede jugar nunca, ni
+     lesionándose los otros dos. Recomendarlo sería recomendar un jugador que
+     esta liga no te deja poner. Se le excluye de la recomendación; sigue en el
+     board, con su valor intacto y fichable. */
+  const cupo = {};
+  const yaTengo = {};
+  for (const slot of state.slots) {
+    for (const pos of SLOT_ELIGIBILITY[slot.slot] ?? []) cupo[pos] = (cupo[pos] ?? 0) + 1;
+  }
+  for (const row of roster ?? []) yaTengo[row.position] = (yaTengo[row.position] ?? 0) + 1;
+  const puedeJugar = (row) => (yaTengo[row.position] ?? 0) < (cupo[row.position] ?? 0);
+
+  const mejoran = rows.filter((row) => MEJORA(byId.get(row.player_id)) && puedeJugar(row));
+  if (mejoran.length === 0) {
+    return {
+      state,
+      primary: null,
+      alternates: [],
+      // `startersComplete` dice la VERDAD del estado, no «no encontré a nadie».
+      // Antes devolvía siempre `true` aquí, así que con los huecos de defensa y
+      // pateador abiertos la pantalla afirmaba que la alineación estaba hecha.
+      startersComplete: state.startersComplete,
+      // Y el aviso del pateador y la defensa VIVE en las dos salidas. Estaba
+      // sólo en la de abajo, así que desaparecía justo cuando empieza a
+      // importar: al final del draft, que es cuando ya nadie mejora nada.
+      mustFillSpecialist: urgeEspecialista(state, picksLeftForMe),
+      // Lo que queda es banquillo: se dice, y se dice por qué no hay principal.
+      benchOnly: true,
+      /* LA LISTA DE BANQUILLO: orden del board, con UNA preferencia declarada.
+         Delante van los que todavía podrían llegar a alinearse en esta liga y
+         detrás los que ya no. Es un hecho, no un gusto: con un hueco de TE y un
+         FLEX que lo admite, como mucho DOS alas cerradas pueden entrar en tu
+         alineación, así que un tercero sólo vale como seguro. No se le esconde
+         —sigue en la lista, detrás— porque draftear un seguro es una decisión
+         legítima que te toca a ti.
+
+         La primera versión FILTRABA a los que no podían alinearse, y a partir
+         de la ronda 11 todas las posiciones estaban en su cupo: la lista se
+         quedaba VACÍA y el simulador caía al board a secas, que es como acabó
+         con cinco alas cerradas. Un banquillo existe precisamente para tener
+         gente por encima del cupo de titulares. */
+      bench: [...rows]
+        .sort((a, b) => (Number(puedeJugar(b)) - Number(puedeJugar(a)))
+          || (Number(b.vor) || 0) - (Number(a.vor) || 0))
+        .slice(0, limit)
+        .map((row) => ({ row, fit: byId.get(row.player_id) ?? null, canStart: puedeJugar(row) })),
+    };
+  }
+
+  const conMotivos = mejoran.slice(0, limit + 1).map((row) => ({
+    row,
+    fit: byId.get(row.player_id),
+    reasons: reasonsFor(row, { state, fit: byId.get(row.player_id), pool }),
+  }));
+  return {
+    state,
+    primary: conMotivos[0] ?? null,
+    alternates: conMotivos.slice(1, limit + 1),
+    startersComplete: false,
+    mustFillSpecialist: urgeEspecialista(state, picksLeftForMe),
+    benchOnly: false,
+    bench: [],
+  };
+}
+
+/**
+ * ¿Urge ya llenar los huecos que sólo pateador o defensa pueden llenar?
+ *
+ * No es una ronda fija: es que te queden tantos picks como huecos titulares
+ * abiertos, que es cuando dejar de llenarlos te deja sin alineación legal.
+ *
+ * `picksLeftForMe == null` explícito y NO `Number.isFinite(Number(x))`:
+ * `Number(null)` es CERO, que es finito, así que «no sé cuántos picks te
+ * quedan» se convertía en «te queda cero» y la urgencia salía SIEMPRE. Es la
+ * misma trampa que ya costó una iteración en el libro de apuestas.
+ */
+function urgeEspecialista(state, picksLeftForMe) {
+  if (picksLeftForMe === null || picksLeftForMe === undefined) return false;
+  const quedan = Number(picksLeftForMe);
+  if (!Number.isFinite(quedan)) return false;
+  return state.openSpecialist.length > 0 && quedan <= state.open.length;
+}
+
+/** Los motivos. Cada uno es un HECHO comprobable, no una valoración. */
+function reasonsFor(row, { state, fit, pool }) {
+  const out = [];
+  const estado = state.byPosition[row.position];
+  if (estado === POSITION_STATE.OPEN_STARTER) {
+    out.push({ kind: "OPEN_STARTER", text: `${row.position} starter open` });
+  } else if (estado === POSITION_STATE.FLEX_ELIGIBLE) {
+    const hueco = state.open.find((s) => !s.dedicated && s.eligible.includes(row.position));
+    out.push({ kind: "FLEX", text: `Fits your open ${hueco?.slot ?? "FLEX"}` });
+  }
+  // Cuántos quedan de su tier EN EL POOL, no en lo que se pinta. Contarlo sobre
+  // la lista visible es un fallo ya cometido dos veces en este proyecto.
+  if (Number.isFinite(row.tier)) {
+    const quedan = pool.filter((o) => o.position === row.position && o.tier === row.tier).length;
+    out.push({
+      kind: "TIER",
+      text: quedan === 1
+        ? `Last ${row.position} in tier ${row.tier}`
+        : `Tier ${row.tier} · ${quedan - 1} more after him`,
+    });
+  }
+  // Qué posiciones han dejado de mejorar tu alineación. Es el hecho que explica
+  // por qué el número uno del board no encabeza esta lista.
+  const llenas = Object.entries(state.byPosition)
+    .filter(([, v]) => v === POSITION_STATE.STARTER_FILLED)
+    .map(([k]) => k);
+  if (llenas.length > 0) {
+    out.push({ kind: "FILLED", text: `${llenas.join(" + ")} starter${llenas.length > 1 ? "s" : ""} already filled` });
+  }
+  if (Number.isFinite(fit?.marginal) && Number.isFinite(fit?.vor) && fit.marginal < fit.vor - 0.5) {
+    out.push({
+      kind: "PARTIAL",
+      text: `${Math.round(fit.marginal)} of his ${Math.round(fit.vor)} VOR reaches your lineup`,
+    });
+  }
+  return out.slice(0, 4);
 }

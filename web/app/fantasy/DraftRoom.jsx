@@ -47,8 +47,8 @@ import { agoLabel, clockLabel, pickClock, reconciliation } from "./draftSync.js"
 import {
   assignSlots, PRIOR_SHARE_VISIBLE, priorShare, VALIDATED_MAX_TEAMS, valueConfidence,
 } from "./leagueValue.js";
-import { candidates as buildCandidates } from "./candidates.js";
-import { replacementPoints } from "./rosterFit.js";
+import { bestForMe, candidates as buildCandidates } from "./candidates.js";
+import { POSITION_STATE, replacementPoints } from "./rosterFit.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
 // El board de VOR sólo ordena estas cuatro. K y DST son FICHABLES —existen en
@@ -345,17 +345,13 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
   const replacement = useMemo(() => replacementPoints(pool), [pool]);
 
   const shortlist = useMemo(
-    () => buildCandidates(available, {
-      slots: construction?.slots ?? null,
-      limit: 4,
-      // Los tres juntos o ninguno: `rosterFit` devuelve null sin estructura y
-      // la lista se queda en el orden del board, que es el comportamiento
-      // correcto cuando no se sabe qué huecos tiene la liga.
-      roster,
-      rosterPositions: construction ? league.roster : null,
-      replacement,
-    }),
-    [available, construction, roster, league, replacement]
+    /* ESTA LISTA ES EL BOARD, Y NO SE TOCA. Antes se reordenaba por ajuste a
+       la plantilla y entonces no quedaba dónde ver el orden puro: si el número
+       uno disponible es un quarterback y tú ya tienes el tuyo, quieres VERLO
+       aquí sin que nadie te lo llame «tu mejor pick». La adaptación vive
+       arriba, en su propia sección, con su nombre y sus motivos. */
+    () => buildCandidates(available, { slots: construction?.slots ?? null, limit: 4 }),
+    [available, construction]
   );
   /* TRES estados, no dos, y la pantalla los distingue por su nombre:
        · sin estructura declarada        -> orden del board, y se dice por qué
@@ -364,8 +360,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
      Reordenar en silencio sería indistinguible de un board roto; y rotular la
      lista «lo que más añade» con un +0 en cada fila serían dos frases que se
      contradicen en la misma pantalla. */
-  const fitted = shortlist.length > 0 && shortlist[0].fitActive === true;
-  const startersFull = shortlist.length > 0 && shortlist[0].fit !== null && !fitted;
+
 
   /* DÓNDE VA EL DRAFT lo dice el PROVEEDOR, no cuántos picks pudimos resolver.
      Un novato de 2026 no está en el board publicado, así que su pick entra
@@ -402,6 +397,25 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
   const onClockOverall = draftCount + 1;
   const onClock = isMyTurn({ overall: onClockOverall, teams, type, mySlot });
   const next = untilMyTurn({ count: draftCount, teams, type, mySlot, rounds });
+
+  /* BEST PICK FOR YOU: la lista con contexto de plantilla, separada de la del
+     board. Se recalcula desde el estado plegado, así que un pick mío entra por
+     Sleeper y esta lista cambia sola — sin refrescar y sin un segundo modelo de
+     plantilla. `picksLeftForMe` es lo que permite decir si ya urge llenar los
+     huecos que sólo pateador o defensa pueden llenar, sin cablear una ronda. */
+  const forMe = useMemo(
+    () => bestForMe(available, {
+      roster,
+      rosterPositions: construction ? league.roster : null,
+      replacement,
+      picksLeftForMe: Number.isFinite(rounds) && Number.isFinite(teams) && next
+        ? Math.max(0, rounds - Math.floor((next.overall - 1) / teams))
+        : null,
+      limit: 4,
+    }),
+    [available, roster, construction, league, replacement, rounds, teams, next]
+  );
+
 
   /**
    * Registrar un pick. **Una sola interacción.**
@@ -767,29 +781,103 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
              es: los primeros por valor de TU liga (E18), con hechos al lado.
              `BEST_PICK_FOR_ME` sigue BLOCKED y esta pantalla no lo desbloquea
              por necesitar algo que enseñar. -------------------------------- */}
+      {/* --- BEST PICK FOR YOU ---------------------------------------------
+             La respuesta a «¿a quién cojo?», separada del board y con sus
+             motivos. No corrompe ningún número: el VOR de cada uno sigue
+             siendo el suyo y se enseña al lado del que le llega a TU
+             alineación. Si no se puede sostener —sin estructura declarada, o
+             sin nadie que mejore— esta sección NO se pinta y abajo queda BEST
+             AVAILABLE, que es lo que sí se puede afirmar. */}
+      {onClock && !replaying && !complete && forMe?.primary ? (
+        <section className="room-pick" aria-label="Best pick for you"
+                 style={teamVars(forMe.primary.row.team)}>
+          <h2 className="room-h">
+            Best pick for you
+            <small>
+              what improves <strong>your</strong> starting lineup — the board below is
+              untouched
+            </small>
+          </h2>
+          <button type="button" className="room-pick-hero"
+                  onClick={() => record(forMe.primary.row)}>
+            <Headshot sid={forMe.primary.row.sid} team={forMe.primary.row.team}
+                      position={forMe.primary.row.position}
+                      name={forMe.primary.row.player_full_name ?? forMe.primary.row.player_name}
+                      size={56} className="hs--hero" />
+            <span className="room-pick-who">
+              <b>{forMe.primary.row.player_full_name ?? forMe.primary.row.player_name}</b>
+              <span className="meta">
+                <TeamMark abbr={forMe.primary.row.team} />
+                <span className={`ptag ptag--${forMe.primary.row.position.toLowerCase()}`}>
+                  {forMe.primary.row.position}{forMe.primary.row.position_rank}
+                </span>
+                {context.byes?.[forMe.primary.row.team] ? (
+                  <span>Bye {context.byes[forMe.primary.row.team]}</span>
+                ) : null}
+              </span>
+            </span>
+            <span className="room-cand-vor">
+              {num(forMe.primary.fit.marginal, 1)}<small>to your lineup</small>
+              <em>{num(forMe.primary.row.vor, 1)} VOR</em>
+            </span>
+          </button>
+          {/* Los motivos: dos a cuatro HECHOS, cada uno comprobable mirando la
+              plantilla y el pool. Nada de «LOCK», «MUST DRAFT» ni un 95% de
+              confianza que nadie ha medido. */}
+          <ul className="room-why room-why--pick">
+            {forMe.primary.reasons.map((r) => <li key={r.kind}>{r.text}</li>)}
+          </ul>
+          {forMe.alternates.length > 0 ? (
+            <>
+              <p className="eyebrow">Other good options</p>
+              <ol className="room-alts">
+                {forMe.alternates.map((entry) => (
+                  <li key={entry.row.player_id} style={teamVars(entry.row.team)}>
+                    <button type="button" onClick={() => record(entry.row)}>
+                      <span className={`ptag ptag--${entry.row.position.toLowerCase()}`}>
+                        {entry.row.position}
+                      </span>
+                      <span className="nm">
+                        {entry.row.player_full_name ?? entry.row.player_name}
+                      </span>
+                      <span className="alt-why">{entry.reasons[0]?.text ?? ""}</span>
+                      <span className="alt-n">{num(entry.fit.marginal, 0)}</span>
+                    </button>
+                  </li>
+                ))}
+              </ol>
+            </>
+          ) : null}
+          {/* Un hueco obligatorio que sólo pateador o defensa pueden llenar, y
+              tantos picks por delante como huecos: se dice ahora, no en una
+              ronda fija. Se AVISA; no se ordena a nadie por un valor que no
+              existe (el pateador no tiene orden validado, la defensa no tiene
+              modelo). */}
+          {forMe.mustFillSpecialist ? (
+            <p className="room-must">
+              {forMe.state.openSpecialist.map((s) => s.slot).join(" + ")} still open, and you
+              have {forMe.state.open.length} starting slots left with about as many picks —
+              fill them before the draft ends.
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {onClock && !replaying && !complete && forMe && !forMe.primary
+        && forMe.startersComplete ? (
+        <p className="room-note room-note--bench">
+          Your starting lineup is set and nothing available improves it. From here the board
+          below is bench value — which is the right order for a bench pick.
+        </p>
+      ) : null}
+
       {onClock && !replaying && !complete && shortlist.length > 0 ? (
         <section className="room-shortlist" aria-label="Top available">
           <h2 className="room-h">
-            {fitted ? "Best for your roster" : "Top available"}
+            Best available
             <small>
-              {fitted ? (
-                <>
-                  what each one adds to <strong>your</strong> starting lineup, from{" "}
-                  {leagueCompiled ? "your league\u2019s" : "the published"} value — the board
-                  below stays in pure VOR order
-                </>
-              ) : startersFull ? (
-                <>
-                  every starting slot is filled, so nobody adds to your lineup any more —
-                  this is back to {leagueCompiled ? "your league\u2019s" : "the published"}{" "}
-                  value, which is the right order for a bench pick
-                </>
-              ) : (
-                <>
-                  by {leagueCompiled ? "your league\u2019s" : "the published"} value — roster
-                  structure is not configured, so nothing is adapted to your team
-                </>
-              )}
+              by {leagueCompiled ? "your league\u2019s" : "the published"} value, and nothing
+              else — this order never looks at your roster
             </small>
           </h2>
           {/* La profundidad CALIFICA la lista, no la esconde. El board del
@@ -844,14 +932,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                       escondería que el board dice otra cosa, y enseñar sólo el
                       del board dejaría el reorden sin explicación visible. */}
                   <span className="room-cand-vor">
-                    {entry.fitActive && entry.fit && Number.isFinite(entry.fit.marginal) ? (
-                      <>
-                        {num(entry.fit.marginal, 1)}<small>to your lineup</small>
-                        <em>{num(entry.row.vor, 1)} VOR</em>
-                      </>
-                    ) : (
-                      <>{num(entry.row.vor, 1)}<small>VOR</small></>
-                    )}
+{num(entry.row.vor, 1)}<small>VOR</small>
                   </span>
                 </button>
                 {/* El «why» son HECHOS compuestos, no prosa: el primero por
@@ -1344,28 +1425,29 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
               )}{" "}
               The board below is <strong>best available by VOR</strong> and stays that way —
               one definition, unchanged.{" "}
-              {startersFull ? (
+              {forMe?.primary ? (
+                <>
+                  <strong>Best pick for you</strong> above is the same subtraction VOR already
+                  is, with the second term changed from &ldquo;what the average league would
+                  start&rdquo; to &ldquo;what <em>you</em> would start&rdquo;, over the slots
+                  your league declares. With an empty roster it returns the published VOR
+                  exactly &mdash; that identity is how you can tell nothing was invented.
+                  There is no need score, no grade and no weighting: every reason shown is a
+                  fact you can check against your roster and the pool. It is arithmetic on
+                  published numbers, <strong>not</strong> a validated predictor of draft
+                  outcomes.
+                </>
+              ) : forMe?.startersComplete ? (
                 <>
                   Your starters are all filled, so no candidate adds anything to this
                   week&rsquo;s lineup and the four above are in board order too. What a bench
                   pick is worth depends on injuries that have not happened yet, and nothing
                   here measures that.
                 </>
-              ) : fitted ? (
-                <>
-                  The four candidates above are ordered by what each one adds to{" "}
-                  <strong>your</strong> lineup instead: the same subtraction VOR already is,
-                  with the second term changed from &ldquo;what the average league would
-                  start&rdquo; to &ldquo;what <em>you</em> would start&rdquo;, using the slots
-                  your league declares. With an empty roster it returns the published VOR
-                  exactly &mdash; that identity is how you can tell nothing was invented. It
-                  is arithmetic on published numbers, not a validated predictor of draft
-                  outcomes.
-                </>
               ) : (
                 <>
-                  Your roster structure is not configured, so the four candidates are in board
-                  order too. Nothing is adapted to a roster nobody declared.
+                  There is no roster-aware recommendation right now: this league has not
+                  declared its roster slots, so nothing is adapted to a roster nobody stated.
                 </>
               )}
             </p>
