@@ -116,3 +116,42 @@ def test_lo_que_no_sirve_en_temporada_no_se_marca_como_produccion_semanal():
     part = next(e for e in d["providers"] if e["source_id"] == "nflverse.participation")
     assert part["state"] == "PRODUCTION_CANDIDATE_HISTORICAL_ONLY"
     assert "NO actualiza en temporada" in part["freshness_expectation"]
+
+
+# --- Lo derivado del archivo (scripts/source_registry_build.py) --------------
+
+CLASIFICACIONES = {"VETTED", "DISCOVERED", "REDUNDANT", "REJECTED"}
+
+
+def test_toda_organizacion_derivada_lleva_clasificacion_con_su_base():
+    d = catalogo()
+    for e in d["organizations"] + d["rejected"]:
+        assert e.get("classification") in CLASIFICACIONES, e["source_id"]
+        assert e.get("classification_basis"), f"{e['source_id']}: clasificación sin base escrita"
+        # «ingestible» es una afirmación sobre un feed verificado: sin feed, null.
+        assert "ingestible" in e and (e["ingestible"] is None or isinstance(e["ingestible"], bool))
+
+
+def test_un_eco_no_cuenta_como_origen():
+    d = catalogo()
+    for e in d["organizations"]:
+        if e["classification"] == "REDUNDANT":
+            assert e["counts_as_origin"] is False, e["source_id"]
+    for e in d["rejected"]:
+        assert e["classification"] == "REJECTED" and e["state"] == "REJECTED"
+
+
+def test_una_edicion_regional_no_es_otra_organizacion():
+    d = catalogo()
+    domains = [e["domain"] for e in d["organizations"] + d["rejected"]]
+    assert len(domains) == len(set(domains))
+    for a in domains:
+        for b in domains:
+            assert a == b or not a.endswith("." + b), f"{a} es un subdominio de {b}: se cuenta dos veces"
+
+
+def test_los_recuentos_no_se_inflan_con_lo_rechazado_ni_con_lo_redundante():
+    d = catalogo()
+    origenes = [e for e in d["organizations"] if e["counts_as_origin"]]
+    assert len(origenes) < len(d["organizations"]) + len(d["rejected"])
+    assert all(e["citations"] >= 1 for e in d["organizations"])

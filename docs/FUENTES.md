@@ -98,3 +98,37 @@ Nada de este paquete entra en un cálculo por defecto. La regla 8 del proyecto
 sigue en pie: la prensa marca, no calcula. Un campo derivado de fuentes sólo
 puede alimentar un modelo si está **declarado explícitamente** y validado; todo
 lo demás es de PANTALLA.
+
+## 7. Lo derivado del archivo, y lo que NO se afirma
+
+Desde el 5 de septiembre de 2026 las secciones `organizations`, `authors` y
+`rejected` del catálogo **se derivan** de `research/<fecha>.json` con
+`scripts/source_registry_build.py`: cada entrada lleva cuántas veces se citó,
+desde cuándo, en qué beats y sobre qué tipos de afirmación. No se escribe a
+mano ninguna cifra de cobertura. Lo curado a mano es la CLASIFICACIÓN, y su
+base va escrita dentro de cada entrada:
+
+| Clase | Qué es | Cuenta como origen |
+|---|---|---|
+| `VETTED` | medio nombrado en el prompt del barrido, sitio oficial, prensa local o SB Nation | sí |
+| `DISCOVERED` | citado por el barrido y sin revisión manual todavía | sí, con esa etiqueta |
+| `REDUNDANT` | agregador que reescribe informes ajenos | **no**: es un eco (§2) |
+| `REJECTED` | no es prensa deportiva | no, y va en `rejected` |
+
+Lo que salió del archivo de once barridos (237 fichas, 542 enlaces): 101
+organizaciones distintas —27 VETTED, 67 DISCOVERED, 7 REDUNDANT—, una
+rechazada y **tres autores**. Ese último número es el hallazgo: el barrido cita
+enlaces, no firmas, así que el linaje por autor (§2) no se puede establecer
+casi nunca. Y `narrative/claims.py`, que convierte las fichas en afirmaciones
+con esquema, cuenta 0 de 237 con `player_id` y 27 sin fecha de publicación.
+
+Lo que NO se afirma, a propósito:
+
+- `ingestible` es `null` en todas. No hay ningún feed leído y verificado;
+  decir «ingestible» sin haber leído un RSS es la fecha de descarga disfrazada
+  de frescura, aplicada al catálogo. Cuando se verifique uno, irá en `feeds`.
+- Una edición regional no es otra organización: `ca.sports.yahoo.com` se
+  pliega a Yahoo Sports. El test lo exige y se probó inyectando el duplicado.
+- 101 organizaciones no son 101 fuentes independientes: son 94 posibles
+  orígenes y 7 ecos. Quien pinte «confirmado por N fuentes» sigue teniendo que
+  pasar por `sources/lineage.py`.

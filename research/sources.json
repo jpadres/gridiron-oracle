@@ -106,8 +106,2439 @@
       "cadence_source": "https://raw.githubusercontent.com/nflverse/nflreadr/main/vignettes/articles/nflverse_data_schedule.Rmd"
     }
   ],
-  "organizations": [],
-  "authors": [],
+  "organizations": [
+    {
+      "source_id": "org.sports.yahoo.com",
+      "name": "Yahoo Sports",
+      "kind": "ORGANIZATION",
+      "domain": "sports.yahoo.com",
+      "classification": "VETTED",
+      "classification_basis": "nombrado en el prompt del barrido",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 99,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-17",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 42,
+        "Transactions": 14,
+        "NFC Sur": 8,
+        "Analysts": 8,
+        "Rookies": 6,
+        "AFC Sur": 4,
+        "NFC Norte": 3,
+        "NFC Oeste": 3,
+        "NFC Este": 3,
+        "AFC Este": 3,
+        "insiders": 1,
+        "fantasy": 1,
+        "Liga": 1,
+        "League": 1,
+        "Market": 1
+      },
+      "claim_types": {
+        "INJURY": 56,
+        "DEPTH_CHART": 18,
+        "OTHER": 11,
+        "TRANSACTION": 7,
+        "CAMP": 2,
+        "ROSTER": 2,
+        "ROLE": 2,
+        "DISCIPLINE": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.espn.com",
+      "name": "ESPN",
+      "kind": "ORGANIZATION",
+      "domain": "espn.com",
+      "classification": "VETTED",
+      "classification_basis": "nombrado en el prompt del barrido",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 47,
+      "citations_with_author": 1,
+      "first_cited": "2026-08-17",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 11,
+        "Transactions": 7,
+        "Analysts": 7,
+        "AFC Este": 5,
+        "NFC Norte": 3,
+        "AFC Sur": 2,
+        "NFC Sur": 2,
+        "Liga": 2,
+        "Market": 2,
+        "Suspensions": 2,
+        "NFC Oeste": 1,
+        "AFC Norte": 1,
+        "NFC Este": 1,
+        "Rookies": 1
+      },
+      "claim_types": {
+        "INJURY": 14,
+        "OTHER": 8,
+        "CAMP": 7,
+        "DEPTH_CHART": 5,
+        "ROSTER": 5,
+        "TRANSACTION": 4,
+        "ROLE": 2,
+        "DISCIPLINE": 2
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.nfl.com",
+      "name": "NFL.com",
+      "kind": "ORGANIZATION",
+      "domain": "nfl.com",
+      "classification": "VETTED",
+      "classification_basis": "nombrado en el prompt del barrido; notas oficiales de la liga",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 46,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-17",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 12,
+        "NFC Oeste": 5,
+        "AFC Oeste": 5,
+        "NFC Sur": 4,
+        "NFC Norte": 4,
+        "AFC Sur": 3,
+        "AFC Norte": 3,
+        "Suspensions": 3,
+        "AFC Este": 2,
+        "Transactions": 2,
+        "NFC Este": 1,
+        "Liga": 1,
+        "Analysts": 1
+      },
+      "claim_types": {
+        "INJURY": 17,
+        "DEPTH_CHART": 8,
+        "CAMP": 7,
+        "ROSTER": 6,
+        "DISCIPLINE": 4,
+        "OTHER": 3,
+        "TRANSACTION": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.nbcsports.com",
+      "name": "NBC Sports",
+      "kind": "ORGANIZATION",
+      "domain": "nbcsports.com",
+      "classification": "VETTED",
+      "classification_basis": "Pro Football Talk, nombrado en el prompt del barrido",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 43,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-17",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 11,
+        "Transactions": 7,
+        "NFC Oeste": 5,
+        "NFC Norte": 3,
+        "AFC Oeste": 3,
+        "Analysts": 3,
+        "NFC Sur": 2,
+        "AFC Sur": 2,
+        "NFC Este": 2,
+        "Liga": 2,
+        "Rookies": 2,
+        "AFC Este": 1
+      },
+      "claim_types": {
+        "INJURY": 19,
+        "DEPTH_CHART": 8,
+        "ROSTER": 8,
+        "TRANSACTION": 3,
+        "OTHER": 3,
+        "CAMP": 2
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.si.com",
+      "name": "Sports Illustrated",
+      "kind": "ORGANIZATION",
+      "domain": "si.com",
+      "classification": "VETTED",
+      "classification_basis": "cabecera nacional con cobertura de beat",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 40,
+      "citations_with_author": 1,
+      "first_cited": "2026-08-17",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 10,
+        "Transactions": 8,
+        "Rookies": 4,
+        "NFC Oeste": 3,
+        "Suspensions": 3,
+        "NFC Este": 2,
+        "NFC Sur": 2,
+        "AFC Sur": 2,
+        "AFC Este": 1,
+        "AFC Norte": 1,
+        "AFC Oeste": 1,
+        "NFC Norte": 1,
+        "Market": 1,
+        "Analysts": 1
+      },
+      "claim_types": {
+        "INJURY": 13,
+        "DEPTH_CHART": 9,
+        "TRANSACTION": 5,
+        "CAMP": 4,
+        "DISCIPLINE": 4,
+        "ROSTER": 2,
+        "OTHER": 2,
+        "ROLE": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.cbssports.com",
+      "name": "CBS Sports",
+      "kind": "ORGANIZATION",
+      "domain": "cbssports.com",
+      "classification": "VETTED",
+      "classification_basis": "nombrado en el prompt del barrido",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 34,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-17",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 9,
+        "Transactions": 8,
+        "NFC Oeste": 3,
+        "NFC Sur": 3,
+        "Analysts": 3,
+        "AFC Este": 2,
+        "NFC Este": 1,
+        "AFC Sur": 1,
+        "AFC Oeste": 1,
+        "Depth chart": 1,
+        "Market": 1,
+        "Rookies": 1
+      },
+      "claim_types": {
+        "INJURY": 16,
+        "TRANSACTION": 7,
+        "DEPTH_CHART": 4,
+        "OTHER": 4,
+        "ROLE": 2,
+        "CAMP": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.fantasypros.com",
+      "name": "FantasyPros",
+      "kind": "ORGANIZATION",
+      "domain": "fantasypros.com",
+      "classification": "VETTED",
+      "classification_basis": "consenso de expertos: agregación DECLARADA, no reescritura",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 18,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-17",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Backfields": 5,
+        "Analysts": 3,
+        "NFC Este": 2,
+        "Injuries": 2,
+        "Rookies": 2,
+        "NFC Sur": 1,
+        "NFC Oeste": 1,
+        "Market": 1,
+        "Roster": 1
+      },
+      "claim_types": {
+        "ROLE": 6,
+        "OTHER": 4,
+        "DEPTH_CHART": 3,
+        "INJURY": 2,
+        "CAMP": 1,
+        "ROSTER": 1,
+        "TRANSACTION": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.rotoballer.com",
+      "name": "RotoBaller",
+      "kind": "ORGANIZATION",
+      "domain": "rotoballer.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 16,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Analysts": 9,
+        "Rookies": 5,
+        "AFC Oeste": 1,
+        "Transactions": 1
+      },
+      "claim_types": {
+        "OTHER": 9,
+        "DEPTH_CHART": 6,
+        "ROSTER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.profootballnetwork.com",
+      "name": "Pro Football Network",
+      "kind": "ORGANIZATION",
+      "domain": "profootballnetwork.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 15,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-01",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 6,
+        "Rookies": 4,
+        "Suspensions": 2,
+        "Market": 1,
+        "Analysts": 1,
+        "Transactions": 1
+      },
+      "claim_types": {
+        "INJURY": 6,
+        "DEPTH_CHART": 4,
+        "DISCIPLINE": 2,
+        "ROLE": 1,
+        "OTHER": 1,
+        "TRANSACTION": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.rotowire.com",
+      "name": "RotoWire",
+      "kind": "ORGANIZATION",
+      "domain": "rotowire.com",
+      "classification": "VETTED",
+      "classification_basis": "notas de plantilla con fuente citada",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 12,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-17",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 4,
+        "NFC Norte": 2,
+        "NFC Sur": 2,
+        "AFC Este": 1,
+        "Market": 1,
+        "Transactions": 1,
+        "Analysts": 1
+      },
+      "claim_types": {
+        "INJURY": 6,
+        "DEPTH_CHART": 3,
+        "CAMP": 1,
+        "ROLE": 1,
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.bleacherreport.com",
+      "name": "Bleacher Report",
+      "kind": "ORGANIZATION",
+      "domain": "bleacherreport.com",
+      "classification": "REDUNDANT",
+      "classification_basis": "mayoritariamente reescritura; origen sólo con firma de insider",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 9,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-17",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 5,
+        "Analysts": 2,
+        "NFC Norte": 1,
+        "insiders": 1
+      },
+      "claim_types": {
+        "INJURY": 7,
+        "OTHER": 1,
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.athlonsports.com",
+      "name": "Athlon Sports",
+      "kind": "ORGANIZATION",
+      "domain": "athlonsports.com",
+      "classification": "REDUNDANT",
+      "classification_basis": "agregador: reescribe informes ajenos",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 7,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 3,
+        "Transactions": 2,
+        "NFC Oeste": 1,
+        "Rookies": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 3,
+        "INJURY": 3,
+        "TRANSACTION": 1
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.foxsports.com",
+      "name": "FOX Sports",
+      "kind": "ORGANIZATION",
+      "domain": "foxsports.com",
+      "classification": "VETTED",
+      "classification_basis": "cabecera nacional",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 7,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Analysts": 3,
+        "Injuries": 3,
+        "Transactions": 1
+      },
+      "claim_types": {
+        "INJURY": 3,
+        "OTHER": 2,
+        "DEPTH_CHART": 2
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.pff.com",
+      "name": "PFF",
+      "kind": "ORGANIZATION",
+      "domain": "pff.com",
+      "classification": "VETTED",
+      "classification_basis": "datos de charting propios (origen, no eco)",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 7,
+      "citations_with_author": 1,
+      "first_cited": "2026-08-29",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "NFC Oeste": 2,
+        "Analysts": 2,
+        "AFC Oeste": 1,
+        "NFC Este": 1,
+        "Market": 1
+      },
+      "claim_types": {
+        "INJURY": 4,
+        "OTHER": 2,
+        "ROLE": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.clutchpoints.com",
+      "name": "ClutchPoints",
+      "kind": "ORGANIZATION",
+      "domain": "clutchpoints.com",
+      "classification": "REDUNDANT",
+      "classification_basis": "agregador: reescribe informes ajenos",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 6,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 3,
+        "NFC Sur": 1,
+        "NFC Oeste": 1,
+        "Analysts": 1
+      },
+      "claim_types": {
+        "INJURY": 4,
+        "DEPTH_CHART": 2
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.draftsharks.com",
+      "name": "Draft Sharks",
+      "kind": "ORGANIZATION",
+      "domain": "draftsharks.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 6,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "NFC Sur": 1,
+        "NFC Oeste": 1,
+        "Rookies": 1,
+        "Injuries": 1,
+        "Transactions": 1,
+        "Analysts": 1
+      },
+      "claim_types": {
+        "INJURY": 3,
+        "DEPTH_CHART": 2,
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.heavy.com",
+      "name": "Heavy",
+      "kind": "ORGANIZATION",
+      "domain": "heavy.com",
+      "classification": "REDUNDANT",
+      "classification_basis": "agregador: reescribe informes ajenos",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 6,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-01",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 5,
+        "Transactions": 1
+      },
+      "claim_types": {
+        "INJURY": 4,
+        "ROLE": 1,
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.footballguys.com",
+      "name": "Footballguys",
+      "kind": "ORGANIZATION",
+      "domain": "footballguys.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 5,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-29",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "AFC Este": 2,
+        "Analysts": 2,
+        "Injuries": 1
+      },
+      "claim_types": {
+        "OTHER": 3,
+        "DEPTH_CHART": 2
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.profootballrumors.com",
+      "name": "Pro Football Rumors",
+      "kind": "ORGANIZATION",
+      "domain": "profootballrumors.com",
+      "classification": "REDUNDANT",
+      "classification_basis": "agregador declarado: resume y enlaza informes ajenos",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 5,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "NFC Oeste": 1,
+        "NFC Este": 1,
+        "Roster": 1,
+        "Injuries": 1,
+        "Analysts": 1
+      },
+      "claim_types": {
+        "INJURY": 3,
+        "TRANSACTION": 1,
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.yardbarker.com",
+      "name": "Yardbarker",
+      "kind": "ORGANIZATION",
+      "domain": "yardbarker.com",
+      "classification": "REDUNDANT",
+      "classification_basis": "agregador: reescribe informes ajenos",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 5,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 4,
+        "Transactions": 1
+      },
+      "claim_types": {
+        "INJURY": 4,
+        "OTHER": 1
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.sharpfootballanalysis.com",
+      "name": "Sharp Football Analysis",
+      "kind": "ORGANIZATION",
+      "domain": "sharpfootballanalysis.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 4,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-19",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 2,
+        "AFC Sur": 1,
+        "NFC Este": 1
+      },
+      "claim_types": {
+        "INJURY": 3,
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.thefalcoholic.com",
+      "name": "The Falcoholic",
+      "kind": "ORGANIZATION",
+      "domain": "thefalcoholic.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 4,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-17",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "NFC Sur": 2,
+        "Transactions": 1,
+        "Analysts": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 2,
+        "INJURY": 1,
+        "TRANSACTION": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.49erswebzone.com",
+      "name": "49ers Webzone",
+      "kind": "ORGANIZATION",
+      "domain": "49erswebzone.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 3,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 2,
+        "NFC Oeste": 1
+      },
+      "claim_types": {
+        "OTHER": 2,
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.4for4.com",
+      "name": "4for4",
+      "kind": "ORGANIZATION",
+      "domain": "4for4.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 3,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "Transactions": 2,
+        "AFC Oeste": 1
+      },
+      "claim_types": {
+        "ROSTER": 1,
+        "TRANSACTION": 1,
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.chicago.suntimes.com",
+      "name": "Chicago Sun-Times",
+      "kind": "ORGANIZATION",
+      "domain": "chicago.suntimes.com",
+      "classification": "VETTED",
+      "classification_basis": "prensa local o blog de SB Nation, familias que el prompt admite",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 3,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 2,
+        "NFC Norte": 1
+      },
+      "claim_types": {
+        "INJURY": 2,
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.nbcsportsbayarea.com",
+      "name": "NBC Sports Bay Area",
+      "kind": "ORGANIZATION",
+      "domain": "nbcsportsbayarea.com",
+      "classification": "VETTED",
+      "classification_basis": "prensa local o blog de SB Nation, familias que el prompt admite",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 3,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "NFC Oeste": 2,
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 3
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.bleachernation.com",
+      "name": "Bleacher Nation",
+      "kind": "ORGANIZATION",
+      "domain": "bleachernation.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "NFC Norte": 1,
+        "Injuries": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1,
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.deseret.com",
+      "name": "Deseret News",
+      "kind": "ORGANIZATION",
+      "domain": "deseret.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Suspensions": 1,
+        "Transactions": 1
+      },
+      "claim_types": {
+        "DISCIPLINE": 1,
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.fantasyfootballcalculator.com",
+      "name": "Fantasy Football Calculator",
+      "kind": "ORGANIZATION",
+      "domain": "fantasyfootballcalculator.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 2
+      },
+      "claim_types": {
+        "INJURY": 2
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.fantasylife.com",
+      "name": "Fantasy Life",
+      "kind": "ORGANIZATION",
+      "domain": "fantasylife.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "AFC Oeste": 1,
+        "Analysts": 1
+      },
+      "claim_types": {
+        "CAMP": 1,
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.fantasynerds.com",
+      "name": "Fantasy Nerds",
+      "kind": "ORGANIZATION",
+      "domain": "fantasynerds.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "NFC Sur": 1,
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 2
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.fantasypoints.com",
+      "name": "Fantasy Points",
+      "kind": "ORGANIZATION",
+      "domain": "fantasypoints.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-29",
+      "last_cited": "2026-08-31",
+      "beats": {
+        "Liga": 1,
+        "AFC Sur": 1
+      },
+      "claim_types": {
+        "ROSTER": 1,
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.giants.com",
+      "name": "New York Giants",
+      "kind": "ORGANIZATION",
+      "domain": "giants.com",
+      "classification": "VETTED",
+      "classification_basis": "sitio oficial del equipo",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "NFC Este": 1,
+        "Injuries": 1
+      },
+      "claim_types": {
+        "ROSTER": 1,
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.hogshaven.com",
+      "name": "Hogs Haven",
+      "kind": "ORGANIZATION",
+      "domain": "hogshaven.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1,
+        "Transactions": 1
+      },
+      "claim_types": {
+        "INJURY": 1,
+        "TRANSACTION": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.newyorkjets.com",
+      "name": "New York Jets",
+      "kind": "ORGANIZATION",
+      "domain": "newyorkjets.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 2
+      },
+      "claim_types": {
+        "INJURY": 2
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.seahawks.com",
+      "name": "Seattle Seahawks",
+      "kind": "ORGANIZATION",
+      "domain": "seahawks.com",
+      "classification": "VETTED",
+      "classification_basis": "sitio oficial del equipo",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1,
+        "Analysts": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1,
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.steelersdepot.com",
+      "name": "Steelers Depot",
+      "kind": "ORGANIZATION",
+      "domain": "steelersdepot.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1,
+        "Injuries": 1
+      },
+      "claim_types": {
+        "TRANSACTION": 1,
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.thebiglead.com",
+      "name": "The Big Lead",
+      "kind": "ORGANIZATION",
+      "domain": "thebiglead.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 2
+      },
+      "claim_types": {
+        "INJURY": 2
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.theringer.com",
+      "name": "The Ringer",
+      "kind": "ORGANIZATION",
+      "domain": "theringer.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 2,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-19",
+      "last_cited": "2026-08-19",
+      "beats": {
+        "NFC Norte": 1,
+        "NFC Oeste": 1
+      },
+      "claim_types": {
+        "INJURY": 2
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.640wxsm.com",
+      "name": "WXSM-AM",
+      "kind": "ORGANIZATION",
+      "domain": "640wxsm.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.azcardinals.com",
+      "name": "Arizona Cardinals",
+      "kind": "ORGANIZATION",
+      "domain": "azcardinals.com",
+      "classification": "VETTED",
+      "classification_basis": "sitio oficial del equipo",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-08-31",
+      "beats": {
+        "NFC Oeste": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.bigblueview.com",
+      "name": "Big Blue View",
+      "kind": "ORGANIZATION",
+      "domain": "bigblueview.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.bolavip.com",
+      "name": "Bolavip US",
+      "kind": "ORGANIZATION",
+      "domain": "bolavip.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.buffalobills.com",
+      "name": "Buffalo Bills",
+      "kind": "ORGANIZATION",
+      "domain": "buffalobills.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.cbsnews.com",
+      "name": "CBS San Francisco",
+      "kind": "ORGANIZATION",
+      "domain": "cbsnews.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.chargers.com",
+      "name": "Los Angeles Chargers",
+      "kind": "ORGANIZATION",
+      "domain": "chargers.com",
+      "classification": "VETTED",
+      "classification_basis": "sitio oficial del equipo",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-08-31",
+      "beats": {
+        "AFC Oeste": 1
+      },
+      "claim_types": {
+        "ROSTER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.cincyjungle.com",
+      "name": "Cincy Jungle",
+      "kind": "ORGANIZATION",
+      "domain": "cincyjungle.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.clickondetroit.com",
+      "name": "ClickOnDetroit",
+      "kind": "ORGANIZATION",
+      "domain": "clickondetroit.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.complex.com",
+      "name": "Complex",
+      "kind": "ORGANIZATION",
+      "domain": "complex.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.dallascowboys.com",
+      "name": "DallasCowboys.com",
+      "kind": "ORGANIZATION",
+      "domain": "dallascowboys.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "TRANSACTION": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.dallasnews.com",
+      "name": "Dallas Morning News",
+      "kind": "ORGANIZATION",
+      "domain": "dallasnews.com",
+      "classification": "VETTED",
+      "classification_basis": "prensa local o blog de SB Nation, familias que el prompt admite",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.dazn.com",
+      "name": "DAZN",
+      "kind": "ORGANIZATION",
+      "domain": "dazn.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "TRANSACTION": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.denver7.com",
+      "name": "Denver7",
+      "kind": "ORGANIZATION",
+      "domain": "denver7.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.denverbroncos.com",
+      "name": "DenverBroncos.com",
+      "kind": "ORGANIZATION",
+      "domain": "denverbroncos.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.detroitnews.com",
+      "name": "The Detroit News",
+      "kind": "ORGANIZATION",
+      "domain": "detroitnews.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-17",
+      "last_cited": "2026-08-17",
+      "beats": {
+        "NFC Norte": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.dimers.com",
+      "name": "Dimers",
+      "kind": "ORGANIZATION",
+      "domain": "dimers.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Analysts": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.dknetwork.draftkings.com",
+      "name": "DK Network",
+      "kind": "ORGANIZATION",
+      "domain": "dknetwork.draftkings.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-08-31",
+      "beats": {
+        "AFC Este": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.dkpittsburghsports.com",
+      "name": "DK Pittsburgh Sports",
+      "kind": "ORGANIZATION",
+      "domain": "dkpittsburghsports.com",
+      "classification": "VETTED",
+      "classification_basis": "prensa local o blog de SB Nation, familias que el prompt admite",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "TRANSACTION": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.elevenwarriors.com",
+      "name": "Eleven Warriors",
+      "kind": "ORGANIZATION",
+      "domain": "elevenwarriors.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.empiresportsmedia.com",
+      "name": "Empire Sports Media",
+      "kind": "ORGANIZATION",
+      "domain": "empiresportsmedia.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.fansided.com",
+      "name": "FanSided",
+      "kind": "ORGANIZATION",
+      "domain": "fansided.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Analysts": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.fieldgulls.com",
+      "name": "Field Gulls",
+      "kind": "ORGANIZATION",
+      "domain": "fieldgulls.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.forbes.com",
+      "name": "Forbes",
+      "kind": "ORGANIZATION",
+      "domain": "forbes.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Analysts": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.fox19.com",
+      "name": "FOX19",
+      "kind": "ORGANIZATION",
+      "domain": "fox19.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.ftnfantasy.com",
+      "name": "FTN Fantasy",
+      "kind": "ORGANIZATION",
+      "domain": "ftnfantasy.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.gridironexperts.com",
+      "name": "Gridiron Experts",
+      "kind": "ORGANIZATION",
+      "domain": "gridironexperts.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-01",
+      "last_cited": "2026-09-01",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "TRANSACTION": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.jaguars.com",
+      "name": "Jaguars.com",
+      "kind": "ORGANIZATION",
+      "domain": "jaguars.com",
+      "classification": "VETTED",
+      "classification_basis": "sitio oficial del equipo",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-08-31",
+      "beats": {
+        "AFC Sur": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.joebucsfan.com",
+      "name": "JoeBucsFan",
+      "kind": "ORGANIZATION",
+      "domain": "joebucsfan.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.kctv5.com",
+      "name": "KCTV5",
+      "kind": "ORGANIZATION",
+      "domain": "kctv5.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.lastwordonsports.com",
+      "name": "Last Word On Sports",
+      "kind": "ORGANIZATION",
+      "domain": "lastwordonsports.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "Suspensions": 1
+      },
+      "claim_types": {
+        "DISCIPLINE": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.local10.com",
+      "name": "Local 10",
+      "kind": "ORGANIZATION",
+      "domain": "local10.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.neworleanssaints.com",
+      "name": "NewOrleansSaints.com",
+      "kind": "ORGANIZATION",
+      "domain": "neworleanssaints.com",
+      "classification": "VETTED",
+      "classification_basis": "sitio oficial del equipo",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.ninersnation.com",
+      "name": "Niners Nation",
+      "kind": "ORGANIZATION",
+      "domain": "ninersnation.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-08-31",
+      "beats": {
+        "NFC Oeste": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.northeasttimes.com",
+      "name": "Northeast Times",
+      "kind": "ORGANIZATION",
+      "domain": "northeasttimes.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-08-31",
+      "beats": {
+        "NFC Este": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.packers.com",
+      "name": "Packers.com",
+      "kind": "ORGANIZATION",
+      "domain": "packers.com",
+      "classification": "VETTED",
+      "classification_basis": "sitio oficial del equipo",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-08-31",
+      "beats": {
+        "NFC Norte": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.patriots.com",
+      "name": "Patriots.com",
+      "kind": "ORGANIZATION",
+      "domain": "patriots.com",
+      "classification": "VETTED",
+      "classification_basis": "sitio oficial del equipo",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.pewterreport.com",
+      "name": "Pewter Report",
+      "kind": "ORGANIZATION",
+      "domain": "pewterreport.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.phillyvoice.com",
+      "name": "PhillyVoice",
+      "kind": "ORGANIZATION",
+      "domain": "phillyvoice.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Analysts": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.playerprofiler.com",
+      "name": "PlayerProfiler",
+      "kind": "ORGANIZATION",
+      "domain": "playerprofiler.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.prideofdetroit.com",
+      "name": "Pride Of Detroit",
+      "kind": "ORGANIZATION",
+      "domain": "prideofdetroit.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "TRANSACTION": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.prizepicks.com",
+      "name": "PrizePicks",
+      "kind": "ORGANIZATION",
+      "domain": "prizepicks.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Analysts": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.reviewjournal.com",
+      "name": "Review-Journal",
+      "kind": "ORGANIZATION",
+      "domain": "reviewjournal.com",
+      "classification": "VETTED",
+      "classification_basis": "prensa local o blog de SB Nation, familias que el prompt admite",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.spectrumnews1.com",
+      "name": "Spectrum News 1",
+      "kind": "ORGANIZATION",
+      "domain": "spectrumnews1.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Suspensions": 1
+      },
+      "claim_types": {
+        "DISCIPLINE": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.sportscapitoldc.com",
+      "name": "The Sports Capitol",
+      "kind": "ORGANIZATION",
+      "domain": "sportscapitoldc.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.sportsnaut.com",
+      "name": "Sportsnaut",
+      "kind": "ORGANIZATION",
+      "domain": "sportsnaut.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.startribune.com",
+      "name": "Star Tribune",
+      "kind": "ORGANIZATION",
+      "domain": "startribune.com",
+      "classification": "VETTED",
+      "classification_basis": "prensa local o blog de SB Nation, familias que el prompt admite",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.statpick.ai",
+      "name": "Stat Pick",
+      "kind": "ORGANIZATION",
+      "domain": "statpick.ai",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Analysts": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.steelers.com",
+      "name": "Steelers",
+      "kind": "ORGANIZATION",
+      "domain": "steelers.com",
+      "classification": "VETTED",
+      "classification_basis": "sitio oficial del equipo",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.thefantasyfootballers.com",
+      "name": "The Fantasy Footballers",
+      "kind": "ORGANIZATION",
+      "domain": "thefantasyfootballers.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.therams.com",
+      "name": "TheRams.com",
+      "kind": "ORGANIZATION",
+      "domain": "therams.com",
+      "classification": "VETTED",
+      "classification_basis": "sitio oficial del equipo",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.totalprosports.com",
+      "name": "Total Pro Sports",
+      "kind": "ORGANIZATION",
+      "domain": "totalprosports.com",
+      "classification": "REDUNDANT",
+      "classification_basis": "agregador: reescribe informes ajenos",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.turfshowtimes.com",
+      "name": "Turf Show Times",
+      "kind": "ORGANIZATION",
+      "domain": "turfshowtimes.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.vegasinsider.com",
+      "name": "VegasInsider",
+      "kind": "ORGANIZATION",
+      "domain": "vegasinsider.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Analysts": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.vikings.com",
+      "name": "Vikings.com",
+      "kind": "ORGANIZATION",
+      "domain": "vikings.com",
+      "classification": "VETTED",
+      "classification_basis": "sitio oficial del equipo",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.walterfootball.com",
+      "name": "WalterFootball",
+      "kind": "ORGANIZATION",
+      "domain": "walterfootball.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-01",
+      "last_cited": "2026-09-01",
+      "beats": {
+        "Market": 1
+      },
+      "claim_types": {
+        "ROLE": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.washingtonpost.com",
+      "name": "The Washington Post",
+      "kind": "ORGANIZATION",
+      "domain": "washingtonpost.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.washingtontimes.com",
+      "name": "Washington Times",
+      "kind": "ORGANIZATION",
+      "domain": "washingtontimes.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "Suspensions": 1
+      },
+      "claim_types": {
+        "DISCIPLINE": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.wbay.com",
+      "name": "WBAY",
+      "kind": "ORGANIZATION",
+      "domain": "wbay.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-08-31",
+      "beats": {
+        "NFC Norte": 1
+      },
+      "claim_types": {
+        "ROSTER": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.wmbdradio.com",
+      "name": "WMBD Radio",
+      "kind": "ORGANIZATION",
+      "domain": "wmbdradio.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.wtop.com",
+      "name": "WTOP",
+      "kind": "ORGANIZATION",
+      "domain": "wtop.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-02",
+      "last_cited": "2026-09-02",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": true
+    },
+    {
+      "source_id": "org.zonecoverage.com",
+      "name": "Zone Coverage",
+      "kind": "ORGANIZATION",
+      "domain": "zonecoverage.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Suspensions": 1
+      },
+      "claim_types": {
+        "DISCIPLINE": 1
+      },
+      "counts_as_origin": true
+    }
+  ],
+  "authors": [
+    {
+      "source_id": "author.michael-fabiano@si.com",
+      "name": "Michael Fabiano",
+      "kind": "AUTHOR",
+      "organization": "si.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "firma citada por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "citations": 1,
+      "first_cited": "2026-09-01",
+      "last_cited": "2026-09-01",
+      "beats": {
+        "Market": 1
+      }
+    },
+    {
+      "source_id": "author.mike-clay@espn.com",
+      "name": "Mike Clay",
+      "kind": "AUTHOR",
+      "organization": "espn.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "firma citada por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "citations": 1,
+      "first_cited": "2026-09-01",
+      "last_cited": "2026-09-01",
+      "beats": {
+        "Market": 1
+      }
+    },
+    {
+      "source_id": "author.nathan-jahnke@pff.com",
+      "name": "Nathan Jahnke",
+      "kind": "AUTHOR",
+      "organization": "pff.com",
+      "classification": "DISCOVERED",
+      "classification_basis": "firma citada por el barrido; sin revisión manual",
+      "state": "MANUAL_REFERENCE",
+      "citations": 1,
+      "first_cited": "2026-09-01",
+      "last_cited": "2026-09-01",
+      "beats": {
+        "Market": 1
+      }
+    }
+  ],
   "feeds": [],
-  "rejected": []
+  "rejected": [
+    {
+      "source_id": "org.netflix.com",
+      "name": "Netflix Tudum",
+      "kind": "ORGANIZATION",
+      "domain": "netflix.com",
+      "classification": "REJECTED",
+      "classification_basis": "streaming: no es prensa",
+      "state": "REJECTED",
+      "ingestible": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": false
+    }
+  ],
+  "derived": {
+    "at": "2026-09-05",
+    "from": [
+      "2026-08-17.json",
+      "2026-08-19.json",
+      "2026-08-29.json",
+      "2026-08-31.json",
+      "2026-09-01.json",
+      "2026-09-02.json",
+      "2026-09-04.json"
+    ],
+    "rule": "organizations/authors/rejected se DERIVAN del archivo con este script; providers y feeds se curan a mano"
+  }
 }
