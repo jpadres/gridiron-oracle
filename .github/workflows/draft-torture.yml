@@ -1,0 +1,54 @@
+name: Tortura de draft
+
+# 546 drafts completos: de 8 a 32 equipos, nueve formatos, snake y lineal, siete
+# estrategias de rival. Demasiado para cada push —de ahí que no esté en `ci.yml`—
+# pero DEMASIADO VALIOSO para no correrlo nunca: encontró que el asistente podía
+# terminar un draft con CERO running backs mientras la suite entera y los nueve
+# laboratorios estaban verdes.
+#
+# De madrugada y a mano. No necesita navegador ni `data/processed`: trabaja
+# contra el board del payload versionado, así que aquí SÍ puede correr — al
+# revés que `draft-quality.mjs`, que necesita los 490 MB que no se versionan.
+on:
+  schedule:
+    # 04:00 UTC todos los días. La temporada de drafts es corta y un fallo del
+    # motor de recomendación cuesta un draft entero: diario, no semanal.
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+  # Y en los push que tocan el motor de decisión o el board. Es donde se rompe.
+  push:
+    paths:
+      - "web/app/fantasy/candidates.js"
+      - "web/app/fantasy/rosterFit.js"
+      - "web/app/fantasy/leagueValue.js"
+      - "web/data/model.b64.js"
+      - "web/tools/lab/draft-engine.mjs"
+      - "web/tools/lab/draft-torture.mjs"
+
+permissions:
+  contents: read
+
+jobs:
+  torture:
+    name: 546 drafts completos
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      # Sin Chromium: esto no abre navegador.
+      - name: Instalar
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+        run: npm ci
+
+      - name: Tortura
+        run: node tools/lab/draft-torture.mjs

@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import datetime as dt
 import gzip
 import json
 import math
@@ -208,8 +209,7 @@ def main(argv: list[str] | None = None) -> int:
     # Por sección y no una sola en la raíz porque sus edades NO son la misma:
     # `research_patch.py` refresca la prensa sin reentrenar el modelo, así que
     # una fecha única aplanaría el desacuerdo que hay que conservar.
-    hoy = pd.Timestamp.now("UTC").date().isoformat()
-    payload["data_dates"] = {"model": hoy, "markets": hoy, "fantasy": hoy}
+    payload["data_dates"] = _fechas_de_origen(paths)
     print(f"Publicando {season} semana {week}.")
 
     week_predictions = oracle.predict(oracle.week_features(season, week))
@@ -818,6 +818,46 @@ def _trim_records(section: object, key: str, columns: tuple[str, ...]) -> object
         {c: row[c] for c in columns if c in row} for row in section[key]
     ]
     return section
+
+
+def _fecha_de(ruta: Path) -> str | None:
+    """Cuándo se DESCARGÓ ese fichero, en fecha y sin hora. `None` si no está.
+
+    La fecha sale del fichero de origen y **no del reloj del proceso**. La
+    primera versión de esto escribía `Timestamp.now()` — o sea, «estos datos son
+    de hoy porque hoy los he exportado», que es la falsa actualidad que este
+    mismo campo existe para impedir. En este repositorio `games.csv` llevaba
+    SIETE DÍAS sin refrescarse cuando el exportador habría dicho «hoy».
+
+    Y sigue cumpliendo lo que hacía falta: dos exportaciones sobre los mismos
+    ficheros dan el mismo valor, así que el payload no cambia por regenerarlo.
+    """
+    try:
+        if not ruta.exists():
+            return None
+        return dt.datetime.fromtimestamp(ruta.stat().st_mtime, dt.timezone.utc).date().isoformat()
+    except OSError:
+        return None
+
+
+def _fechas_de_origen(paths) -> dict:
+    """La fecha de cada sección, tomada del fichero que de verdad la alimenta.
+
+    Las tres NO tienen por qué coincidir, y cuando no coinciden eso es
+    información: el mercado sale del calendario de nflverse, el modelo de los
+    features compilados y el board del histórico de jugadores. Aplanarlas en una
+    sola borraría el desacuerdo que la regla 5 manda conservar.
+
+    `None` cuando el fichero no está: la interfaz escribe UNKNOWN, que es la
+    verdad, en vez de heredar la fecha de otra sección.
+    """
+    return {
+        # `spread_line` y `total_line` viajan en el calendario de nflverse.
+        "markets": _fecha_de(paths.raw / "games.csv"),
+        "model": _fecha_de(paths.processed / "features.parquet")
+                 or _fecha_de(paths.raw / "games.csv"),
+        "fantasy": _fecha_de(paths.processed / "player_weeks.parquet"),
+    }
 
 
 def _finite(value):
