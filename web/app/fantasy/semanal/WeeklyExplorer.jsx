@@ -39,6 +39,7 @@ const CHIPS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
 
 export default function WeeklyExplorer({
   rankings, kickers, defenses, notes = {}, news = {}, availability = {},
+  kickerRankStatus = null, kickerProjStatus = null,
   board = [], byes = {}, week = null, season = null,
 }) {
   // El conjunto vacío significa ALL. Multi-selección: cada chip conmuta, y
@@ -241,11 +242,21 @@ export default function WeeklyExplorer({
       {showK && kickers?.length > 0 ? (
         <div className="wk-panel" id="k">
           <h3>Kickers <small>projection without a rank</small></h3>
+          {/* Las dos frases van atadas al REGISTRO. Si algún día un experimento
+              mueve `KICKER_ORDINAL_RANKING` fuera de REJECTED, esta pantalla
+              deja de afirmar que el orden no vale — en vez de seguir diciéndolo
+              porque la frase estaba escrita a mano. Y si el registro no declara
+              el estado, no se afirma ninguna de las dos cosas. */}
           <p className="caption">
-            The projection is validated (it beats both baselines on error). The ORDER is
-            not: within the top 12, measured separation is 0.26 points per game with a
-            confidence interval that crosses zero — so no K1&hellip;K12 column exists here,
-            on purpose. A kicker ranking is mostly a ranking of offenses.
+            {kickerProjStatus === "VALIDATED"
+              ? "The projection is validated (it beats both baselines on error). "
+              : "The projection's authority is not declared in the capability registry. "}
+            {kickerRankStatus === "REJECTED"
+              ? <>The ORDER is not: within the top 12, measured separation is 0.26 points per
+                game with a confidence interval that crosses zero — so no K1&hellip;K12 column
+                exists here, on purpose. A kicker ranking is mostly a ranking of offenses.</>
+              : <>No K1&hellip;K12 column is shown: this screen only claims what the capability
+                registry backs, and an ordinal kicker ranking is not currently backed.</>}
           </p>
           <div className="table-wrap">
             <table className="rank-table wk-table">

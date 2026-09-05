@@ -98,6 +98,28 @@ export const hasData = !model.placeholder && model.predictions.length > 0;
  * Un payload anterior a este campo devuelve `null` y la interfaz dirá que no lo
  * sabe, que es la verdad hasta la siguiente regeneración semanal.
  */
+export function capabilityOf(id) {
+  const lista = model?.capabilities?.capabilities;
+  if (!Array.isArray(lista)) return null;
+  return lista.find((c) => c?.id === id) ?? null;
+}
+
+/**
+ * El estado de una capacidad, o `null` si el registro no la conoce.
+ *
+ * El registro se exportaba al payload y la web NO lo leía: cada frontera de
+ * autoridad era prosa escrita a mano, capaz de desviarse del registro sin que
+ * fallara nada — la misma deriva que tuvieron las cifras de portada. Que una
+ * pantalla lea de aquí es lo que convierte el registro en portante.
+ *
+ * `null` a propósito cuando falta: quien lo use tiene que decidir qué hacer sin
+ * dato, y no dar por bueno un estado que nadie ha declarado.
+ */
+export function capabilityStatus(id) {
+  const cap = capabilityOf(id);
+  return typeof cap?.status === "string" && cap.status ? cap.status : null;
+}
+
 export function dataDate(section) {
   const value = model?.data_dates?.[section];
   return typeof value === "string" && value ? value : null;

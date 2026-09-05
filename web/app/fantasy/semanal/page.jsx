@@ -1,4 +1,4 @@
-import { availabilityByPlayer, model } from "../../../data/model.js";
+import { availabilityByPlayer, model, capabilityStatus } from "../../../data/model.js";
 import { DeltaBars } from "../../charts.jsx";
 import { Callout, ImpactTag, MachineWritten, NoDataYet, Note, Sources } from "../../ui.jsx";
 import WeeklyExplorer from "./WeeklyExplorer.jsx";
@@ -140,11 +140,19 @@ export default function Semanal() {
 
       {/* Filtros multi-posición: RB+WR responde la pregunta del flex, K y DST
           entran con su autoridad real — proyección sin rank y hechos sin
-          proyección. El estado vive en el cliente; los datos van horneados. */}
+          proyección. El estado vive en el cliente; los datos van horneados.
+
+          Y LA AUTORIDAD SALE DEL REGISTRO, no de la prosa: se exportaba al
+          payload y la web no lo leía nunca, así que la frase que explica por qué
+          el pateador no lleva rank estaba escrita a mano y podía desviarse sin
+          que fallara nada. `null` si el registro no lo declara — y entonces la
+          pantalla no afirma ninguna de las dos cosas. */}
       <WeeklyExplorer
         rankings={weekly.rankings ?? []}
         kickers={weekly.kickers ?? []}
         defenses={weekly.defenses ?? []}
+        kickerRankStatus={capabilityStatus("KICKER_ORDINAL_RANKING")}
+        kickerProjStatus={capabilityStatus("KICKER_PROJECTION")}
         notes={notes}
         news={newsByPlayer}
         availability={availability}
