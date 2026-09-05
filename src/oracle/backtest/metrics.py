@@ -39,6 +39,8 @@ class Metrics:
     total_mae: float | None
     market_brier: float | None
     market_margin_mae: float | None
+    free_brier: float | None = None
+    free_margin_mae: float | None = None
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -98,6 +100,21 @@ def evaluate(frame: pd.DataFrame) -> Metrics:
     if len(totals) > 50:
         total_mae = float(np.mean(np.abs(totals["total"] - totals["pred_total"])))
 
+    # La variante autónoma —la que se publica cuando no hay línea, es decir las
+    # jornadas futuras del survivor— medida sobre LOS MISMOS partidos. Se cita
+    # en la web y hasta septiembre de 2026 se citaba de memoria, con dos cifras
+    # que no estaban en ningún dato de este repositorio.
+    free_brier = None
+    free_mae = None
+    if "home_win_prob_free" in data.columns and "pred_margin_free" in data.columns:
+        libre = data[data["home_win_prob_free"].notna() & data["pred_margin_free"].notna()]
+        if len(libre) > 50:
+            free_brier = brier_score(
+                libre["home_win_prob_free"].to_numpy(dtype=float),
+                (libre["margin"] > 0).astype(float).to_numpy(),
+            )
+            free_mae = float(np.mean(np.abs(libre["margin"] - libre["pred_margin_free"])))
+
     errors = (data["margin"] - data["pred_margin"]).to_numpy(dtype=float)
     return Metrics(
         games=int(len(data)),
@@ -110,6 +127,8 @@ def evaluate(frame: pd.DataFrame) -> Metrics:
         total_mae=total_mae,
         market_brier=market_brier,
         market_margin_mae=market_mae,
+        free_brier=free_brier,
+        free_margin_mae=free_mae,
     )
 
 

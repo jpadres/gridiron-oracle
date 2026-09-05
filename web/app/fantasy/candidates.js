@@ -47,7 +47,7 @@
 
 import { MIN_WEIGHTED_GAMES, SLOT_ELIGIBILITY, priorShare } from "./leagueValue.js";
 import {
-  FIT_EPSILON, POSITION_STATE, orderByFit, starterState,
+  FIT_EPSILON, FIT_WINDOW, POSITION_STATE, orderByFit, starterState,
 } from "./rosterFit.js";
 import { hasNumber, numberOrNull } from "../numbers.js";
 
@@ -229,7 +229,7 @@ export function bestForMe(available, {
   const pool = draftablePool(available);
   if (pool.length === 0) return null;
 
-  const { rows, byId } = orderByFit(pool, { roster, rosterPositions, replacement });
+  let { rows, byId } = orderByFit(pool, { roster, rosterPositions, replacement });
   if (!byId) return null;
 
   /* CUÁNTOS DE ESTA POSICIÓN PUEDEN LLEGAR A ALINEARSE.
@@ -247,7 +247,23 @@ export function bestForMe(available, {
   for (const row of roster ?? []) yaTengo[row.position] = (yaTengo[row.position] ?? 0) + 1;
   const puedeJugar = (row) => (yaTengo[row.position] ?? 0) < (cupo[row.position] ?? 0);
 
-  const mejoran = rows.filter((row) => MEJORA(byId.get(row.player_id)) && puedeJugar(row));
+  /* EL CUPO ORDENA EL BANQUILLO; NO DECIDE QUIÉN MEJORA TU ALINEACIÓN.
+     ─────────────────────────────────────────────────────────────────────────
+     `puedeJugar` cuenta la plantilla ENTERA, banquillo incluido, así que
+     filtrar `mejoran` con él excluía a un cuarto corredor por tener ya tres
+     — cuando ese cuarto puede ser MUCHO mejor que el peor de los tres y entrar
+     en la alineación sentándolo. Medido: con tres RB de ~135 puntos, un RB de
+     228 (marginal real +93) se caía de la lista y encabezaba un WR de +79.
+
+     El razonamiento del comentario anterior confundía dos cosas: «como mucho
+     tres corredores pueden alinearse» es cierto, y «ESTE tercero no puede
+     alinearse nunca» no lo es. Quien de verdad no cabe ya sale con marginal
+     cero y `MEJORA` lo excluye solo — el cupo no añadía nada correcto y sí
+     quitaba algo cierto. Es el mismo fallo que ya costó una iteración al
+     aplicar este cupo como FILTRO del banquillo (ronda 11, lista vacía, cinco
+     alas cerradas): se PREFIERE a quien puede alinearse, no se EXCLUYE a quien
+     la mejora. */
+  let mejoran = rows.filter((row) => MEJORA(byId.get(row.player_id)));
 
   /* UN HUECO TITULAR VACÍO SON CERO PUNTOS, NO EL NIVEL DE REEMPLAZO.
      ─────────────────────────────────────────────────────────────────────────
@@ -273,6 +289,34 @@ export function bestForMe(available, {
      constante. Sólo cambia a quién se ofrece cuando nadie supera el reemplazo:
      si queda un hueco titular abierto y alguien del pool puede ocuparlo, ESE es
      el pick, ordenado por los puntos que aporta frente al cero que habría. */
+  /* LA VENTANA ACOTA CUÁNTO SE ORDENA, NO SI EXISTE ALGUIEN QUE MEJORE.
+     ─────────────────────────────────────────────────────────────────────────
+     `orderByFit` sólo calcula el ajuste de los 50 primeros, que es lo correcto
+     para ORDENAR. Pero preguntarle a esa ventana «¿mejora alguien?» es otra
+     pregunta, y con presión de pool el primero que mejora está en el puesto 53:
+     la ventana decía «nadie», se disparaba la rama del hueco vacío y la
+     pantalla escribía «no one left beats replacement level» sobre un jugador
+     que la mejoraba en 2,8 puntos. Mismo hecho, etiqueta distinta según cayera
+     en el puesto 49 o en el 53.
+
+     Es EL MISMO error que este bloque ya corregía una línea más abajo —buscar
+     en el pool entero en vez de en la ventana— aplicado al SEARCH y no a la
+     GUARDA. Sólo se recalcula cuando la ventana sale vacía, que es raro: en el
+     caso normal no cuesta nada. */
+  if (mejoran.length === 0 && pool.length > FIT_WINDOW) {
+    const ancho = orderByFit(pool, {
+      roster, rosterPositions, replacement, window: pool.length,
+    });
+    if (ancho.byId) {
+      const mejoranAncho = ancho.rows.filter((row) => MEJORA(ancho.byId.get(row.player_id)));
+      if (mejoranAncho.length > 0) {
+        rows = ancho.rows;
+        byId = ancho.byId;
+        mejoran = mejoranAncho;
+      }
+    }
+  }
+
   if (mejoran.length === 0) {
     const posDeHuecosAbiertos = new Set();
     for (const hueco of state.open ?? []) {
@@ -307,16 +351,34 @@ export function bestForMe(available, {
     }
 
     if (llenanHueco.length > 0) {
-      const conMotivo = llenanHueco.slice(0, limit + 1).map((row) => ({
-        row,
-        fit: byId.get(row.player_id) ?? null,
-        reasons: [
-          { key: "EMPTY_SLOT", text: `Fills an open ${row.position} slot that would otherwise score 0` },
-          muestraCorta
-            ? { key: "SHORT_SAMPLE", text: "Below the sample threshold — offered only because the slot would stay empty" }
-            : { key: "BELOW_REPLACEMENT", text: "No one left beats replacement level at your open slots" },
-        ],
-      }));
+      /* El motivo nombra EL HUECO QUE SE LLENARÍA, no la posición del jugador.
+         Escribía «fills an open WR slot» sobre un receptor que sólo entraba por
+         el FLEX, o sea nombrando un hueco que no existía en esa plantilla. Se
+         busca el hueco abierto real que lo admite y se prefiere el DEDICADO,
+         que es el que de verdad sólo él puede llenar. */
+      const huecoDe = (pos) => {
+        const abiertos = (state.open ?? []).filter((h) =>
+          (h.eligible ?? SLOT_ELIGIBILITY[h.slot] ?? []).includes(pos));
+        return (abiertos.find((h) => h.dedicated) ?? abiertos[0])?.slot ?? null;
+      };
+      const conMotivo = llenanHueco.slice(0, limit + 1).map((row) => {
+        const slot = huecoDe(row.position);
+        return {
+          row,
+          fit: byId.get(row.player_id) ?? null,
+          reasons: [
+            {
+              kind: "EMPTY_SLOT",
+              text: slot
+                ? `Fills your open ${slot}, which would otherwise score 0`
+                : "Fills an open starting slot that would otherwise score 0",
+            },
+            muestraCorta
+              ? { kind: "SHORT_SAMPLE", text: "Below the sample threshold — offered only because the slot would stay empty" }
+              : { kind: "BELOW_REPLACEMENT", text: "No one left beats replacement level at your open slots" },
+          ],
+        };
+      });
       return {
         state,
         primary: conMotivo[0] ?? null,

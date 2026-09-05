@@ -134,9 +134,14 @@ def _predict_weeks(oracle: Oracle, season: int, weeks: list[int]) -> pd.DataFram
     """Pronósticos de todas las jornadas del horizonte, en una tabla.
 
     Para las jornadas futuras no hay línea de mercado publicada, así que el
-    modelo cae a su variante autónoma. Es peor que la anclada al mercado (Brier
-    0.2187 frente a 0.2117 en el backtest) y hay que decirlo: la jornada 15
-    calculada hoy es un prior de fuerza de equipos, no un pronóstico.
+    modelo cae a su variante autónoma. Es peor que la anclada al mercado y hay
+    que decirlo: la jornada 15 calculada hoy es un prior de fuerza de equipos,
+    no un pronóstico.
+
+    Cuánto peor sale del payload (`validation.overall.free_brier` frente a
+    `brier`) y la página de survivor lo lee de ahí. Aquí ponía «0.2187 frente a
+    0.2117» escrito a mano: el primero era del proyecto original y el segundo no
+    era ningún dato de este repositorio.
     """
     frames = []
     for week in weeks:

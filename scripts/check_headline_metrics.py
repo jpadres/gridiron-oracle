@@ -70,6 +70,22 @@ COMPROBACIONES = [
         r"\| MAE del margen \| ([\d.]+) \| ([\d.]+) \|",
         [("margin_mae", 2), ("market_margin_mae", 2)],
     ),
+    # La variante autónoma entra aquí el mismo día que se mide (2026-09-05).
+    # Estuvo años citada de memoria —10.24 / 0.2187, del proyecto original— con
+    # una marca de SIN REPRODUCIR en el README que la página de survivor no
+    # llevaba. Ahora sale del payload y se comprueba como las otras cuatro.
+    (
+        "README.md",
+        "cifras de la variante autónoma",
+        r"Brier \*\*([\d.]+)\*\* frente a \*\*([\d.]+)\*\*, MAE \*\*([\d.]+)\*\*\s+frente a \*\*([\d.]+)\*\*",
+        [("free_brier", 4), ("brier", 4), ("free_margin_mae", 2), ("margin_mae", 2)],
+    ),
+    (
+        "docs/ESTADO.md",
+        "fila de la variante autónoma",
+        r"\| `pred_margin_free` \(MAE ([\d.]+), Brier ([\d.]+)\)",
+        [("free_margin_mae", 2), ("free_brier", 4)],
+    ),
 ]
 
 

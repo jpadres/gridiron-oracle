@@ -223,3 +223,100 @@ test("sin saber cuántos picks quedan, NO se afirma que urja", () => {
   });
   assert.equal(r.mustFillSpecialist, false);
 });
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * LA RAMA DEL HUECO VACÍO, DESPUÉS DE LA REVISIÓN ADVERSARIA
+ *
+ * Los cuatro defectos de abajo salieron de una revisión del arreglo que llenó
+ * el hueco titular que se quedaba vacío para siempre. Ninguno lo veía la
+ * tortura de 546 drafts: sus bots no construyen estas plantillas. Se prueban
+ * con casos escritos a mano, que es lo que hace falta cuando el fallo depende
+ * de dónde cae un jugador en una lista.
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+test("un cuarto RB que MEJORA tu alineación encabeza, aunque el cupo esté lleno", () => {
+  /* El cupo de RB en NORMAL es tres (RB, RB, FLEX) y yo tengo tres. Filtrar
+     por cupo lo excluía: «un cuarto no puede jugar». Puede — sentando al peor.
+     Los tres míos son de 135; el libre, de 228. */
+  const b = pool();
+  const mios = [b.QB1, b.WR1, b.WR2, b.TE1, p("RB", 135), p("RB", 135), p("RB", 134)];
+  const bestia = p("RB", 228);
+  const r = bestForMe([bestia, p("WR", 211)], {
+    roster: mios, rosterPositions: NORMAL, replacement: REP,
+  });
+  assert.equal(r.primary.row.player_id, bestia.player_id,
+    "el que más añade encabeza: desplaza al peor titular al banquillo");
+  assert.ok(r.primary.fit.marginal > 50, `marginal real ${r.primary.fit.marginal}`);
+});
+
+test("la GUARDA del hueco vacío mira el pool entero, no la ventana de 50", () => {
+  /* El primero que mejora cae en el puesto 51. Con la guarda leyendo sólo la
+     ventana, la pantalla escribía «no one left beats replacement level» sobre
+     alguien que sí lo bate. Mismo hecho, etiqueta distinta según el puesto. */
+  const b = pool();
+  const mios = [b.QB1, b.RB1, b.RB2, b.WR1, b.WR2, b.TE1, p("TE", 200)];
+  // Cincuenta alas cerradas que no caben en ningún hueco: no mejoran nada.
+  const relleno = Array.from({ length: 50 }, () => p("TE", 150));
+  const util = p("RB", 245);   // mejor que RB2 (240): SÍ mejora
+  const r = bestForMe([...relleno, util], {
+    roster: mios, rosterPositions: SIN_FLEX, replacement: REP,
+  });
+  assert.equal(r.fillingEmptySlot ?? false, false,
+    "hay quien mejora: la rama del hueco vacío no debe dispararse");
+  assert.equal(r.primary.row.player_id, util.player_id);
+  assert.ok(r.primary.fit.marginal > 0);
+});
+
+test("cuando la rama SÍ se dispara, sus motivos tienen la misma forma que el resto", () => {
+  const r = ramaDeHuecoVacio();
+  assert.equal(r.fillingEmptySlot, true);
+  for (const motivo of r.primary.reasons) {
+    assert.ok(motivo.kind, `un motivo sin 'kind': ${JSON.stringify(motivo)}`);
+    assert.equal(motivo.key, undefined, "'key' es la forma de OTRO fichero");
+  }
+});
+
+test("el motivo nombra un hueco que EXISTE y está abierto", () => {
+  /* EL CASO TIENE QUE SEPARAR EL HUECO DE LA POSICIÓN.
+     La primera versión de esta prueba usaba un hueco de RB abierto y un RB
+     libre: el texto equivocado —«fills an open RB slot»— nombra «RB», que es
+     también el hueco, así que al inyectar el fallo la prueba seguía VERDE. Aquí
+     el único hueco que admite al recomendado es el FLEX, y su posición es WR:
+     las dos respuestas caen en sitios distintos. Es el mismo cuidado que hizo
+     falta en el test del turno, donde 8 y 9 eran los dos míos. */
+  const r = ramaDeFlex();
+  const texto = r.primary.reasons.find((m) => m.kind === "EMPTY_SLOT").text;
+  assert.equal(r.primary.row.position, "WR");
+  const abiertos = r.state.open.map((h) => h.slot);
+  assert.ok(!abiertos.includes("WR"), "el caso exige que NO haya hueco de WR abierto");
+  const nombrado = abiertos.find((slot) => texto.includes(slot));
+  assert.ok(nombrado, `«${texto}» no nombra ninguno de los huecos abiertos ${abiertos}`);
+  // Y el hueco nombrado tiene que admitir de verdad a quien se recomienda.
+  const hueco = r.state.open.find((h) => h.slot === nombrado);
+  assert.ok(hueco.eligible.includes(r.primary.row.position),
+    `el hueco ${nombrado} no admite a un ${r.primary.row.position}`);
+});
+
+/** Titulares dedicados llenos, sólo el FLEX abierto, y sólo receptores libres. */
+function ramaDeFlex() {
+  const b = pool();
+  const mios = [b.QB1, b.RB1, b.RB2, b.WR1, b.WR2, b.TE1];
+  const r = bestForMe(Array.from({ length: 6 }, () => p("WR", REP.WR)), {
+    roster: mios, rosterPositions: NORMAL, replacement: REP,
+  });
+  assert.ok(r && r.primary, "el caso base tiene que producir una recomendación");
+  assert.equal(r.fillingEmptySlot, true, "sin esto la prueba no mira la rama que quiere mirar");
+  return r;
+}
+
+/** Plantilla con un hueco de RB abierto y ningún RB por encima del reemplazo. */
+function ramaDeHuecoVacio() {
+  const b = pool();
+  const mios = [b.QB1, b.WR1, b.WR2, b.TE1, p("RB", 250)];
+  const soloReemplazo = Array.from({ length: 8 }, () => p("RB", REP.RB));
+  const r = bestForMe(soloReemplazo, {
+    roster: mios, rosterPositions: SIN_FLEX, replacement: REP,
+  });
+  assert.ok(r && r.primary, "el caso base tiene que producir una recomendación");
+  return r;
+}

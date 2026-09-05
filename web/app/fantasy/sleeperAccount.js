@@ -37,6 +37,7 @@
  * pantalla se está sincronizando de verdad.
  */
 
+import { numberOrNull } from "../numbers.js";
 import { mySlot } from "./draftSync.js";
 import { DEFAULT_RULES, rulesFromSleeper, scoringLabel } from "./scoring.js";
 
@@ -343,9 +344,7 @@ export function leagueSnapshotFrom({ league, draft, rosters, users, userId, seas
   for (const u of Array.isArray(users) ? users : []) {
     if (u?.user_id) owners[String(u.user_id)] = u.metadata?.team_name || u.display_name || String(u.user_id);
   }
-  const record = mine?.settings && Number.isFinite(Number(mine.settings.wins))
-    ? { wins: Number(mine.settings.wins), losses: Number(mine.settings.losses ?? 0), ties: Number(mine.settings.ties ?? 0) }
-    : null;
+  const record = registro(mine?.settings);
   // TODAS las plantillas, por identificador: es lo que permite decir en el
   // ranking semanal quién es mío, quién es agente libre y quién es de quién,
   // y medir la profundidad de cada equipo. Sólo ids: unos 200 por liga.
@@ -355,9 +354,7 @@ export function leagueSnapshotFrom({ league, draft, rosters, users, userId, seas
     owner: r?.owner_id != null ? (owners[String(r.owner_id)] ?? String(r.owner_id)) : null,
     players: Array.isArray(r?.players) ? r.players.map(String) : [],
     starters: Array.isArray(r?.starters) ? r.starters.map(String) : [],
-    record: r?.settings && Number.isFinite(Number(r.settings.wins))
-      ? { wins: Number(r.settings.wins), losses: Number(r.settings.losses ?? 0), ties: Number(r.settings.ties ?? 0) }
-      : null,
+    record: registro(r?.settings),
   })) : null;
   return {
     leagueId: config?.leagueId ?? null,
@@ -393,10 +390,10 @@ export function matchupFrom({ matchups, rosterId, week }) {
     week: week ?? null,
     matchupId: String(mine.matchup_id),
     myStarters: Array.isArray(mine.starters) ? mine.starters.map(String) : [],
-    myPoints: Number.isFinite(Number(mine.points)) ? Number(mine.points) : null,
+    myPoints: numberOrNull(mine.points),
     opponentRosterId: rival?.roster_id ?? null,
     opponentStarters: Array.isArray(rival?.starters) ? rival.starters.map(String) : [],
-    opponentPoints: rival && Number.isFinite(Number(rival.points)) ? Number(rival.points) : null,
+    opponentPoints: rival ? numberOrNull(rival.points) : null,
   };
 }
 
@@ -422,3 +419,23 @@ export function ownershipLabel({ ownership, sid, myRosterId }) {
 }
 
 export const DEFAULT_RULES_FOR_TESTS = DEFAULT_RULES;
+
+
+/**
+ * El récord de un equipo, o `null` si la liga no lo publica.
+ *
+ * `Number.isFinite(Number(x))` NO sirve para «¿hay dato?»: `Number(null)` y
+ * `Number("")` valen CERO, que es finito, así que una liga sin victorias
+ * reportadas —o antes de la jornada 1— salía como 0-0-0 con la misma
+ * autoridad que un récord medido. Es la QUINTA vez que esta conversión cuela
+ * un hueco por dato en este repositorio; el helper existe justo para eso.
+ */
+function registro(settings) {
+  const wins = numberOrNull(settings?.wins);
+  if (wins === null) return null;
+  return {
+    wins,
+    losses: numberOrNull(settings?.losses) ?? 0,
+    ties: numberOrNull(settings?.ties) ?? 0,
+  };
+}

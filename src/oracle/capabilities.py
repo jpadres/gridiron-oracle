@@ -189,13 +189,19 @@ REGISTRY: tuple[Capability, ...] = (
         status=Status.VALIDATED,
         evidence=(
             "calibración por cubos walk-forward 2012-2025: 0,36→0,35, 0,56→0,57, "
-            "0,74→0,77; Brier 0,2128 frente a 0,2470 de la constante"
+            "0,74→0,77; Brier 0,2127 frente a 0,2470 de la constante"
         ),
         experiment_id="E20",
-        metric="Brier 0.2128; cubos dentro de ±0.03 salvo extremos con n<25",
+        metric="Brier 0.2127; cubos dentro de ±0.03 salvo extremos con n<25",
         sample_size=3829,
         limitations=(
-            "NO bate al mercado (Brier moneyline sin vig: 0,2113): es una "
+            # 0,2119 es lo que MIDE este repositorio (`validation.overall."
+            # market_brier`): la probabilidad implícita en el spread de cierre,
+            # por una normal neutral. El 0,2113 que ponía antes era el moneyline
+            # sin vig del proyecto ORIGINAL, y nunca se reprodujo aquí — la
+            # misma deriva que las cifras de portada, dentro del registro que
+            # existe para que la interfaz no afirme de más.
+            "NO bate al mercado (Brier del spread de cierre: 0,2119): es una "
             "probabilidad calibrada, no una ventaja.",
             "Sale de la distribución discreta de márgenes (números clave 3 y 7) "
             "más calibración logística — no de una heurística margen→sigmoide.",

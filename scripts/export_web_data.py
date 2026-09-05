@@ -120,6 +120,26 @@ DST_COLUMNS = (
 )
 
 
+def build_validation(features: pd.DataFrame, first_season: int) -> dict:
+    """Walk-forward y sus métricas, en la forma que viaja en el payload.
+
+    Vive aquí y no dentro de `main` porque `scripts/validation_patch.py`
+    recalcula lo mismo sin regenerar el payload entero. Dos traductores del
+    mismo bloque es el fallo que este repositorio ya ha cometido seis veces
+    —los dos lectores de ligas de Sleeper, las dos rutas de `attach_today`—,
+    así que hay UNO y los dos lo llaman.
+    """
+    predictions, metrics = walk_forward(features, first_season)
+    return {
+        "overall": evaluate(predictions).to_dict(),
+        "ats": summarize_ats(predictions).to_dict(),
+        "seasons": season_table(metrics).to_dict(orient="records"),
+        "calibration": calibration_table(predictions).astype({"bin": str}).to_dict(
+            orient="records"
+        ),
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Genera web/data/model.b64.js")
     parser.add_argument("--root", default=None)
@@ -156,17 +176,7 @@ def main(argv: list[str] | None = None) -> int:
         payload["validation"] = json.loads(backtest_cache.read_text(encoding="utf-8"))
     else:
         print(f"Walk-forward desde {args.first_season} (esto tarda unos minutos)...")
-        predictions, metrics = walk_forward(oracle.features, args.first_season)
-        overall = evaluate(predictions)
-        ats = summarize_ats(predictions)
-        validation = {
-            "overall": overall.to_dict(),
-            "ats": ats.to_dict(),
-            "seasons": season_table(metrics).to_dict(orient="records"),
-            "calibration": calibration_table(predictions).astype(
-                {"bin": str}
-            ).to_dict(orient="records"),
-        }
+        validation = build_validation(oracle.features, args.first_season)
         backtest_cache.write_text(json.dumps(validation, default=str), encoding="utf-8")
         payload["validation"] = validation
 

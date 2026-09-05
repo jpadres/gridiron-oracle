@@ -95,3 +95,15 @@ test("sin rondas declaradas, «cuántos picks me quedan» es null y no cero", ()
   const sinRondas = hasNumber(null) ? 0 : null;
   assert.equal(sinRondas, null);
 });
+
+
+test("una cadena de espacios es un HUECO, no un cero", () => {
+  // `Number("   ")` vale cero porque JS recorta antes de convertir. Es el caso
+  // que más se parece a un dato: una celda de CSV, un campo de texto vaciado.
+  for (const hueco of ["   ", "\t", "\n", " \t\n "]) {
+    assert.equal(numberOrNull(hueco), null, JSON.stringify(hueco));
+    assert.equal(hasNumber(hueco), false, JSON.stringify(hueco));
+  }
+  // Y lo que SÍ es un número con espacios alrededor sigue siéndolo.
+  assert.equal(numberOrNull(" 7 "), 7);
+});

@@ -242,13 +242,25 @@ class MarketAwareModel:
         pred_total = total_line.copy()
 
         totals_for_sigma = np.where(np.isfinite(pred_total), pred_total, 44.0)
-        raw_probs = np.array(
-            [
-                self.distribution.win_probability(pred, total)
-                for pred, total in zip(pred_margin, totals_for_sigma, strict=True)
-            ]
-        )
-        win_prob = _apply_calibration(raw_probs, self.calibration)
+
+        def _probs(margins: np.ndarray) -> np.ndarray:
+            raw = np.array(
+                [
+                    self.distribution.win_probability(pred, total)
+                    for pred, total in zip(margins, totals_for_sigma, strict=True)
+                ]
+            )
+            return _apply_calibration(raw, self.calibration)
+
+        win_prob = _probs(pred_margin)
+        # La variante AUTÓNOMA por el mismo camino, para poder medirla en el
+        # backtest en vez de citarla de memoria. Es la que sale cuando no hay
+        # línea publicada (jornada futura: la página de survivor vive de ella),
+        # así que lo único que cambia respecto de la publicada es el margen —
+        # misma distribución, misma calibración, mismo total. La comparación es
+        # PAREADA sobre los mismos partidos; cualquier otra cosa mezcla dos
+        # cambios y no se puede atribuir.
+        win_prob_free = _probs(free)
 
         out = frame.copy()
         out["pred_margin"] = pred_margin
@@ -256,6 +268,7 @@ class MarketAwareModel:
         out["pred_margin_market"] = market
         out["pred_total"] = pred_total
         out["home_win_prob"] = win_prob
+        out["home_win_prob_free"] = win_prob_free
         out["away_win_prob"] = 1.0 - win_prob
         out["edge_vs_line"] = np.where(np.isfinite(line), pred_margin - line, np.nan)
         return out

@@ -340,3 +340,37 @@ test("propiedad por id: mío, de otro o AGENTE LIBRE en esa liga", () => {
   // Una defensa se posee por código de equipo, que es su id en Sleeper.
   assert.equal(ownershipLabel({ ownership, sid: "ARI", myRosterId: 3 }).status, "MINE");
 });
+
+/* ── «no hay dato» no es «cero» ───────────────────────────────────────────
+   `Number(null)` vale CERO y es finito, así que preguntar
+   `Number.isFinite(Number(x))` responde que SÍ hay dato sobre un hueco. Aquí
+   costaba dos afirmaciones falsas a la vez: una liga sin récord publicado
+   salía «0-0», y un enfrentamiento que aún no se ha jugado publicaba CERO
+   PUNTOS —para mí y para el rival— con la misma pinta que un marcador real. */
+test("un enfrentamiento sin puntos publicados da null, no cero", () => {
+  const sinJugar = matchupFrom({
+    matchups: [
+      { roster_id: 1, matchup_id: 7, starters: ["a"], points: null },
+      { roster_id: 2, matchup_id: 7, starters: ["b"] },
+    ],
+    rosterId: 1,
+    week: 3,
+  });
+  assert.equal(sinJugar.myPoints, null, "null, no 0");
+  assert.equal(sinJugar.opponentPoints, null, "undefined tampoco es cero");
+});
+
+test("una liga que no publica victorias no tiene récord 0-0", () => {
+  const conRosters = (settings) => leagueSnapshotFrom({
+    league: { league_id: "L", name: "L", season: "2026", total_rosters: 2, roster_positions: ["QB", "BN"], scoring_settings: { rec: 1 } },
+    draft: null,
+    rosters: [{ roster_id: 1, owner_id: "u1", players: [], starters: [], settings }],
+    users: [{ user_id: "u1", display_name: "yo" }],
+    userId: "u1",
+    season: 2026,
+  });
+  assert.equal(conRosters({ wins: null }).teams[0].record, null, "sin victorias reportadas: null");
+  assert.equal(conRosters({}).teams[0].record, null);
+  assert.deepEqual(conRosters({ wins: 3, losses: 1 }).teams[0].record,
+    { wins: 3, losses: 1, ties: 0 });
+});

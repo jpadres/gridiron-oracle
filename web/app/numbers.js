@@ -24,7 +24,13 @@
  * mismo fallo con otro disfraz, y lo destapó el propio test de este fichero.
  */
 export function numberOrNull(value) {
-  if (value === null || value === undefined || value === "") return null;
+  if (value === null || value === undefined) return null;
+  // `Number("")` es cero y `Number("   ")` TAMBIÉN: JavaScript recorta antes de
+  // convertir, así que una celda con espacios —lo que deja un CSV, un campo de
+  // texto vacío o un `join` de nada— entraba como una medición de cero. La
+  // primera versión de este helper sólo miraba la cadena vacía exacta y por eso
+  // dejaba pasar el caso que más se parece a un dato de verdad.
+  if (typeof value === "string" && value.trim() === "") return null;
   if (typeof value === "object") return null;
   const n = Number(value);
   return Number.isFinite(n) ? n : null;

@@ -19,6 +19,7 @@ import { num } from "../../../data/model.js";
 import { Headshot } from "../../headshot.jsx";
 import { TeamMark } from "../../sports.jsx";
 import LeagueBar from "../LeagueBar.jsx";
+import { numberOrNull } from "../../numbers.js";
 import { restOfSeason } from "../leagueAdvice.js";
 import { weeklyIndex } from "../leagueWeek.js";
 import { lineupFrom, sideBySide, startSit } from "../lineup.js";
@@ -26,7 +27,9 @@ import { VALUED, headToHead, powerRankings, tradeOpenings } from "../leagueAnaly
 
 /** `{wins, losses, ties}` -> «3-1» o «3-1-1». Sin récord, cadena vacía. */
 function recordLabel(record) {
-  if (!record || !Number.isFinite(Number(record.wins))) return "";
+  // `Number(null)` es cero y es finito: preguntando así, «no hay récord» se
+  // pintaba «0-0». `numberOrNull` es la única forma de preguntarlo en la web.
+  if (!record || numberOrNull(record.wins) === null) return "";
   const { wins, losses, ties } = record;
   return Number(ties) ? `${wins}-${losses}-${ties}` : `${wins}-${losses}`;
 }

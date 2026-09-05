@@ -1,3 +1,4 @@
+import { numberOrNull } from "../numbers.js";
 import { model, num, pct } from "../../data/model.js";
 import { Callout, NoDataYet, Note, Stat, Table } from "../ui.jsx";
 
@@ -76,6 +77,17 @@ export default function Survivor() {
 
   const best = survivor.short_board?.[0];
   const weeks = survivor.through - survivor.from_week + 1;
+
+  /* LAS DOS CIFRAS DE LA VARIANTE AUTÓNOMA SALEN DEL PAYLOAD, NO DE AQUÍ.
+     Hasta el 5 de septiembre de 2026 estaban escritas a mano —«0.2187 frente a
+     0.2117»— y la segunda no era ningún dato de este repositorio: ni el Brier
+     del modelo (0.2127) ni el del mercado (0.2119). Es el fallo de las cifras
+     de portada, que ya costó un guardián en Python, vivo en una página.
+     `free_brier` se mide ahora en el mismo walk-forward y sobre los MISMOS
+     partidos; si un build no lo trae, la frase dice que no está medido en vez
+     de rellenar el hueco. */
+  const libre = numberOrNull(model.validation?.overall?.free_brier);
+  const anclado = numberOrNull(model.validation?.overall?.brier);
 
   return (
     <>
@@ -164,9 +176,17 @@ export default function Survivor() {
         </li>
         <li>
           <strong>Distant weeks are not forecasts.</strong> No market line is published for a
-          future week, so the model falls back to its standalone variant, which is worse (Brier
-          0.2187 against 0.2117 in the backtest). Week 15 computed today is a team-strength
-          prior.
+          future week, so the model falls back to its standalone variant. That variant is
+          measured on the same out-of-sample games as everything else, and it is worse:{" "}
+          {libre === null || anclado === null ? (
+            <strong>how much worse is not measured in this build</strong>
+          ) : (
+            <>
+              Brier <strong>{num(libre, 4)}</strong> against {num(anclado, 4)} for the
+              market-anchored model it replaces
+            </>
+          )}
+          . Week 15 computed today is a team-strength prior.
         </li>
         <li>
           <strong>It knows nothing about injuries.</strong> Like the rest of the project. The{" "}

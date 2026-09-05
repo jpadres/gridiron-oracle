@@ -40,7 +40,7 @@ Corregido, y con guardián: `scripts/check_headline_metrics.py`, en CI.
 | Anti-fuga temporal (pasada cronológica única) | **Verificada** (`test_features_have_no_future_information`) |
 | Walk-forward sin validación cruzada aleatoria | **Verificado** (`test_walk_forward_never_trains_on_the_future`) |
 | Brier / MAE del modelo de partidos | **Medido** sobre datos reales (arriba) |
-| `pred_margin_free` (MAE 10.24, Brier 0.2187) | **SIN REPRODUCIR** — se calcula, pero el backtest no lo saca por separado al payload |
+| `pred_margin_free` (MAE 10.28, Brier 0.2186) | **Medido** desde 2026-09-05: el backtest lo saca al payload (`validation.overall.free_brier`) y la página de survivor lo lee de ahí. Las del proyecto original eran 10.24 / 0.2187 |
 | Capacidades de fantasy, una por una | Ver `src/oracle/capabilities.py`: cada una lleva su experimento, su métrica y su muestra, y el test del registro no deja subir de BLOCKED sin ellos |
 | Calibración del QB = 0.812 y demás constantes | **Heredadas del documento**, no reajustadas aquí |
 

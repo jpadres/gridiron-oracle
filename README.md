@@ -59,13 +59,17 @@ RETIRÓ: sobre estos mismos 3.829 partidos era peor que la línea a secas —MAE
 a sí misma. Publicar un «10.53 del modelo» era anunciar una capacidad que ya no
 existe.
 
-Y sin usar la línea en absoluto (`pred_margin_free`, sólo señal deportiva): MAE
-**10.24**, Brier **0.2187**, 65% de acierto directo — un modelo autónomo a 0,27
-puntos de la línea de Las Vegas con datos gratuitos. **Estas tres cifras son del
-proyecto original y no se han reproducido aquí**: el modelo libre se calcula
-(`predictor.py`) pero el backtest no lo saca por separado al payload, así que no
-hay una medición de esta implementación que citar. UNKNOWN antes que dar por
-actual lo que no se ha vuelto a medir.
+Y sin usar la línea en absoluto (`pred_margin_free`, sólo señal deportiva):
+Brier **0.2186** frente a **0.2127**, MAE **10.28** frente a **10.04** — un
+modelo autónomo a 0,30 puntos de la línea de Las Vegas con datos gratuitos.
+
+Desde el 5 de septiembre de 2026 **estas cifras están medidas en esta
+implementación**, sobre los mismos 3.829 partidos y por el mismo camino que la
+publicada: sólo cambia el margen, la distribución y la calibración son las
+mismas, así que la comparación es pareada. Antes se citaban las del proyecto
+original (10.24 / 0.2187) marcadas como SIN REPRODUCIR, y la página de survivor
+las citaba **sin** esa marca y encima con un segundo número —0.2117— que no era
+ningún dato de este repositorio.
 
 > **Dónde está el edge real, y por qué no está aquí todavía.** Este backtest se
 > valida contra la línea de *cierre*. Nadie apuesta al cierre. El dinero se hace
