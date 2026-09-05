@@ -467,7 +467,15 @@ def test_features_do_not_see_the_game_they_describe(synthetic_data):
     altered.loc[k, "total"] = float(altered.loc[k, "total"]) + 40.0
     if "home_score" in altered.columns:
         altered.loc[k, "home_score"] = float(altered.loc[k, "home_score"]) + 40.0
-    changed, _ = build_features(altered, team_games)
+    # Y las estadísticas por equipo de ESE partido también: la eficiencia entra
+    # por `team_games`, no por `games`, y una feature que leyera el EPA de su
+    # propio partido pasaba la primera versión de este test (lo cazó el crítico).
+    altered_tg = team_games.copy()
+    same = altered_tg["game_id"] == ordered.loc[k, "game_id"]
+    assert bool(same.any()), "el partido alterado tiene que existir en team_games"
+    for column in ("off_epa", "pass_epa", "rush_epa"):
+        altered_tg.loc[same, column] = altered_tg.loc[same, column] + 1.0
+    changed, _ = build_features(altered, altered_tg)
 
     assert list(full["game_id"]) == list(changed["game_id"])
     for column in FEATURE_COLUMNS:
@@ -478,3 +486,11 @@ def test_features_do_not_see_the_game_they_describe(synthetic_data):
             err_msg=f"'{column}' cambia en la fila del partido alterado o antes: "
                     "la feature ve el resultado del partido que describe",
         )
+    # Y las posteriores SÍ tienen que verlo: si nada cambia después de k, el
+    # test pasa en vacío sobre unas features que ignoran los resultados.
+    moved = any(
+        not np.allclose(full[c].to_numpy(dtype=float)[k + 1:], changed[c].to_numpy(dtype=float)[k + 1:],
+                        rtol=1e-10, atol=1e-10, equal_nan=True)
+        for c in FEATURE_COLUMNS
+    )
+    assert moved, "ninguna feature posterior cambió: el resultado alterado no llegó a nada"

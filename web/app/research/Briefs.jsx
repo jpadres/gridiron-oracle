@@ -64,14 +64,17 @@ function formatDate(iso, options) {
 const longDate = (iso) => formatDate(iso, { weekday: "long", month: "long", day: "numeric" });
 
 /** La ficha. Misma anatomía que la del servidor: una sola forma para una cosa. */
-function Brief({ item, showDate = false }) {
+function Brief({ item }) {
   const confidence = CONFIDENCE[item.confidence] ?? CONFIDENCE.rumor;
+  // La fecha va SIEMPRE que exista. La primera versión la escondía tras un
+  // interruptor de renderizado que nadie pasaba: el arreglo de «published» contra «seen»
+  // estaba escrito y no llegaba a ninguna pantalla — lo cazó el crítico.
   const when = dateLabel(item);
   return (
     <article className={`note note--${item.impact}`}>
       <h3>{item.headline}</h3>
       <p className="note-meta">
-        {showDate && when ? (
+        {when ? (
           <span className="tag" title={when.word === "seen"
             ? "No publication date in the source; this is when the sweep read it"
             : "Publication date reported by the source"}>

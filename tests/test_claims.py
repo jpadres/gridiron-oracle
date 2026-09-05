@@ -76,6 +76,34 @@ def test_newer_supersedes_older_and_the_older_is_kept():
     assert contradictions(linked) == [(older, newer)]
 
 
+def test_a_third_claim_does_not_erase_the_dispute_between_the_first_two():
+    a = claim_from_item(_item(headline="Walker up", impact="alza", published_at="2026-09-01"))
+    b = claim_from_item(_item(headline="Walker down", impact="baja", published_at="2026-09-02"))
+    c = claim_from_item(_item(headline="Walker still down", impact="baja", published_at="2026-09-03"))
+    link([c, a, b])
+    assert (a.status, b.status, c.status) == ("DISPUTED", "DISPUTED", "CURRENT")
+    assert contradictions([a, b, c]) == [(a, b)]
+
+
+def test_the_same_name_on_two_teams_is_two_people():
+    buf = claim_from_item(_item(players=["Josh Allen"], player_ids=[], team="BUF", published_at="2026-09-01"))
+    jax = claim_from_item(_item(players=["Josh Allen"], player_ids=[], team="JAX", published_at="2026-09-02"))
+    link([buf, jax])
+    assert jax.supersedes is None and buf.status == "CURRENT"
+
+
+def test_a_name_without_a_team_is_not_chained():
+    a = claim_from_item(_item(players=["Josh Allen"], player_ids=[], team=None, published_at="2026-09-01"))
+    b = claim_from_item(_item(players=["Josh Allen"], player_ids=[], team=None, published_at="2026-09-02"))
+    link([a, b])
+    assert b.supersedes is None
+
+
+def test_a_press_FACT_label_is_not_an_official_communication():
+    assert normalize_evidence("HECHO") == "REPORTED"
+    assert normalize_evidence("OFICIAL") == "OFFICIAL"
+
+
 def test_same_direction_is_superseded_not_disputed():
     older = claim_from_item(_item(headline="Walker limited", published_at="2026-09-02"))
     newer = claim_from_item(_item(headline="Walker still limited", published_at="2026-09-03"))
@@ -104,8 +132,7 @@ def test_coverage_counts_what_is_missing():
 
 def test_the_real_archive_converts_and_reports_its_gaps():
     files = sorted(glob.glob(str(ROOT / "research" / "20*.json")))
-    if not files:
-        return
+    assert files, "el archivo de research está versionado: sin ficheros este test no prueba nada"
     days = [json.loads(Path(f).read_text(encoding="utf-8")) for f in files]
     claims = link(claims_from_archive(days))
     cov = coverage(claims)

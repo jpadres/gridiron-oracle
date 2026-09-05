@@ -8,18 +8,18 @@
 #
 #     Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar.
 #
-cd /home/user/gridiron-oracle
-R=""
+cd "$(dirname "$0")/.." || exit 1
+BAK=$(mktemp)
 run() { # nombre | fichero | sed-expr | comando guardián
   local nombre="$1" f="$2" expr="$3" cmd="$4"
-  cp "$f" /tmp/inj.bak
+  cp "$f" $BAK
   python - "$f" "$expr" <<'PY'
 import sys; p,expr=sys.argv[1],sys.argv[2]; old,new=expr.split("|||"); s=open(p).read()
 assert old in s, f"no encuentro la línea a inyectar en {p}: {old[:60]}"
 open(p,"w").write(s.replace(old,new,1))
 PY
   if bash -c "$cmd" >/dev/null 2>&1; then res="VERDE (NO ES GUARDIÁN)"; else res="ROJO"; fi
-  cp /tmp/inj.bak "$f"
+  cp $BAK "$f"
   if bash -c "$cmd" >/dev/null 2>&1; then back="verde tras restaurar"; else back="SIGUE ROJO TRAS RESTAURAR"; fi
   printf "%-42s %-24s %s\n" "$nombre" "$res" "$back"
 }

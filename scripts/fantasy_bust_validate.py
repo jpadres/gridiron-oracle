@@ -20,7 +20,7 @@ from oracle.fantasy.availability import history, season_availability
 from oracle.fantasy.bust import BUST_FRACTION, expected_calibration_error, fit, predict
 from oracle.fantasy.draft import project_season
 from oracle.fantasy.risk import components
-from oracle.fantasy.scoring import PPR, score_player_weeks
+from oracle.fantasy.scoring import PPR, regular_season, score_player_weeks
 
 ECE_THRESHOLD = 0.08
 LIFT_THRESHOLD = 1.5
@@ -34,6 +34,9 @@ TD_POINTS = {"QB": 4.0, "RB": 6.0, "WR": 6.0, "TE": 6.0}
 
 def panel() -> pd.DataFrame:
     players = pd.read_parquet("data/processed/player_weeks.parquet")
+    # Sólo temporada regular: hasta 2026-09-05 las jornadas de playoffs entraban
+    # en la evaluación, que es medir contra partidos que la fantasy no puntúa.
+    players = regular_season(players)
     team_games = pd.read_parquet("data/processed/team_games.parquet")
 
     scored = players.copy()

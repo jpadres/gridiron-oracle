@@ -153,5 +153,7 @@ def test_una_edicion_regional_no_es_otra_organizacion():
 def test_los_recuentos_no_se_inflan_con_lo_rechazado_ni_con_lo_redundante():
     d = catalogo()
     origenes = [e for e in d["organizations"] if e["counts_as_origin"]]
-    assert len(origenes) < len(d["organizations"]) + len(d["rejected"])
+    ecos = [e for e in d["organizations"] if e["classification"] == "REDUNDANT"]
+    assert len(origenes) == len(d["organizations"]) - len(ecos)
+    assert ecos, "sin ningún eco clasificado este test no prueba nada"
     assert all(e["citations"] >= 1 for e in d["organizations"])

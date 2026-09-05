@@ -8,6 +8,7 @@
  * palabra, y sin ninguna de las dos no se inventa nada.
  */
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { test } from "node:test";
 
 import { dateLabel } from "../app/research/dates.js";
@@ -26,4 +27,12 @@ test("sin ninguna de las dos no hay etiqueta: UNKNOWN antes que el reloj", () =>
   assert.equal(dateLabel({ date: "2026-09-04" }), null);   // `date` es el día del barrido, no una fecha de la ficha
   assert.equal(dateLabel({}), null);
   assert.equal(dateLabel(null), null);
+});
+
+test("la ficha PINTA la etiqueta: sin ningún interruptor que nadie pase", () => {
+  const src = readFileSync(new URL("../app/research/Briefs.jsx", import.meta.url), "utf8");
+  assert.match(src, /const when = dateLabel\(item\);/);
+  assert.match(src, /\{when \? \(/, "la etiqueta tiene que depender sólo de que haya fecha");
+  assert.doesNotMatch(src, /showDate/, "un interruptor con valor por defecto falso la apagaba en todas las fichas");
+  assert.match(src, /\{when\.word\} \{formatDate\(when\.iso/);
 });

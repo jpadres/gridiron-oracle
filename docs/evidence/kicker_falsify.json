@@ -1,0 +1,89 @@
+{
+  "experiment": "E8c",
+  "evaluation": [
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "n": 2108,
+  "global_bias": -0.6554845346488539,
+  "strata": [
+    {
+      "stratum": "total alto",
+      "n": 703,
+      "bias": -0.3943749048266346,
+      "mae_model": 3.5601169709559985,
+      "mae_form": 3.9506628657268927
+    },
+    {
+      "stratum": "total bajo",
+      "n": 704,
+      "bias": -0.8371294134241976,
+      "mae_model": 3.7777593351703675,
+      "mae_form": 4.128751713104934
+    },
+    {
+      "stratum": "total medio",
+      "n": 701,
+      "bias": -0.7349168814493933,
+      "mae_model": 3.845415112048854,
+      "mae_form": 4.125044899183361
+    },
+    {
+      "stratum": "favorito",
+      "n": 1055,
+      "bias": -0.7326313000698875,
+      "mae_model": 3.6964720972011507,
+      "mae_form": 3.9553136678673027
+    },
+    {
+      "stratum": "no favorito",
+      "n": 1053,
+      "bias": -0.5781912416581697,
+      "mae_model": 3.7589389682251073,
+      "mae_form": 4.181156462829448
+    },
+    {
+      "stratum": "aire libre",
+      "n": 1383,
+      "bias": -0.34418180644594476,
+      "mae_model": 3.560440520577428,
+      "mae_form": 3.984654060537493
+    },
+    {
+      "stratum": "techo cerrado",
+      "n": 725,
+      "bias": -1.2493213251379895,
+      "mae_model": 4.046691801558164,
+      "mae_form": 4.227361529980775
+    }
+  ],
+  "alarms": [
+    {
+      "stratum": "total bajo",
+      "bias": -0.8371294134241976,
+      "beats_form": true
+    },
+    {
+      "stratum": "total medio",
+      "bias": -0.7349168814493933,
+      "beats_form": true
+    },
+    {
+      "stratum": "favorito",
+      "bias": -0.7326313000698875,
+      "beats_form": true
+    },
+    {
+      "stratum": "no favorito",
+      "bias": -0.5781912416581697,
+      "beats_form": true
+    },
+    {
+      "stratum": "techo cerrado",
+      "bias": -1.2493213251379895,
+      "beats_form": true
+    }
+  ]
+}

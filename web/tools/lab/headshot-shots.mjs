@@ -90,7 +90,8 @@ for (const width of [390, 768, 1440]) {
   // `splitAvailable`; aquí se comprueba que la partición LLEGA a la pantalla.
   await page.waitForSelector("ol[aria-label='Unavailable players']", { timeout: 10000 }).catch(() => {});
   const sugeridos = (await page.locator(".onclock, .picks.deal .pick").allInnerTexts()).join("\n");
-  check(`${width}: el modo draft no sugiere a un OUT`, !/Jacobs/.test(sugeridos));
+  check(`${width}: el modo draft no sugiere a un OUT`, sugeridos.length > 0 && !/Jacobs/.test(sugeridos),
+    sugeridos.length === 0 ? "sin sugerencias pintadas: no se ha mirado nada" : "");
   const bloqueDraft = (await page.locator("ol[aria-label='Unavailable players']").allInnerTexts()).join("\n");
   check(`${width}: el modo draft aparta a los OUT con su marca y su valor`,
     /Jacobs/.test(bloqueDraft) && /EXEMPT/i.test(bloqueDraft) && /VOR/.test(bloqueDraft), bloqueDraft.split("\n").slice(0, 3).join(" / "));

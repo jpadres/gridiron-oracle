@@ -27,7 +27,6 @@ import json
 import re
 import sys
 from collections import Counter
-from datetime import date
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -62,15 +61,15 @@ LOCAL_PATTERNS = (
     r"nypost\.com$", r"masslive\.com$", r"bostonglobe\.com$", r"baltimoresun\.com$",
     r"cleveland\.com$", r"dispatch\.com$", r"freep\.com$", r"jsonline\.com$",
     r"startribune\.com$", r"kansascity\.com$", r"denverpost\.com$", r"azcentral\.com$",
-    r"sfchronicle\.com$", r"mercurynews\.com$", r"pressdemocrat\.com$", r"pittsburgh",
+    r"sfchronicle\.com$", r"mercurynews\.com$", r"pressdemocrat\.com$", r"^(www\.)?pittsburgh[a-z-]*\.com$",
     r"post-gazette\.com$", r"tampabay\.com$", r"miamiherald\.com$", r"sun-sentinel\.com$",
-    r"jacksonville\.com$", r"tennessean\.com$", r"indystar\.com$", r"courier-journal",
+    r"jacksonville\.com$", r"tennessean\.com$", r"indystar\.com$", r"courier-journal\.com$",
     r"charlotteobserver\.com$", r"newsobserver\.com$", r"nola\.com$", r"buffalonews\.com$",
     r"oregonlive\.com$", r"reviewjournal\.com$", r"nbcsportsbayarea\.com$", r"suntimes\.com$",
     r"nbcsportsboston\.com$", r"nbcsportsphiladelphia\.com$", r"nbcsportschicago\.com$",
-    r"^[a-z0-9-]+\.com$",  # placeholder que NUNCA casa solo: se combina abajo
+    r"nbcsportsboston\.com$",
 )
-_LOCAL = [re.compile(p) for p in LOCAL_PATTERNS[:-1]]
+_LOCAL = [re.compile(p) for p in LOCAL_PATTERNS]
 # Sitios oficiales de equipo: los 32 dominios son distintos y no todos son
 # `*.com` obvios, así que se lista lo que el archivo ya citó y se amplía a mano.
 TEAM_SITES = {
@@ -89,7 +88,7 @@ REDUNDANT = {
     "athlonsports.com": "agregador: reescribe informes ajenos",
     "msn.com": "sindicación: republica artículos de otros medios",
     "profootballrumors.com": "agregador declarado: resume y enlaza informes ajenos",
-    "bleacherreport.com": "mayoritariamente reescritura; origen sólo con firma de insider",
+    "bleacherreport.com": "mayoritariamente reescritura: se cuenta como eco (una firma de insider tendría que entrar como AUTHOR)",
     "sportskeeda.com": "agregador: reescribe informes ajenos",
     "essentiallysports.com": "agregador: reescribe informes ajenos",
     "totalprosports.com": "agregador: reescribe informes ajenos",
@@ -233,8 +232,10 @@ def main() -> int:
     catalog["organizations"] = derived["organizations"]
     catalog["authors"] = derived["authors"]
     catalog["rejected"] = derived["rejected"]
+    # `at` es la fecha del barrido MÁS NUEVO que se leyó, no el reloj de hoy:
+    # regenerar el catálogo sin barridos nuevos no lo hace más actual (regla 5).
     catalog["derived"] = {
-        "at": date.today().isoformat(),
+        "at": max(derived["archive_files"])[:10] if derived["archive_files"] else None,
         "from": derived["archive_files"],
         "rule": "organizations/authors/rejected se DERIVAN del archivo con este script; providers y feeds se curan a mano",
     }

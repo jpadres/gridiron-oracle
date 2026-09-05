@@ -14,8 +14,8 @@ Tres decisiones, cada una con su motivo:
      queda `UNKNOWN`, no «la primera que aparezca».
 
   2. **Superseder no es borrar.** Dos afirmaciones del mismo jugador y del
-     mismo tipo se ordenan por su fecha (`event_at` si la hay, `published_at`
-     si no, y NUNCA la de descarga): la más nueva supersede a la anterior y la
+     mismo tipo se ordenan por su fecha de publicación (el archivo no trae
+     `event_at`; y NUNCA la de descarga): la más nueva supersede a la anterior y la
      anterior se conserva con `status = SUPERSEDED`. Cuando además se
      contradicen en impacto (alza contra baja), las DOS quedan marcadas
      `DISPUTED`: «el equipo lo da dudoso» y «el reportero espera que juegue» no
@@ -61,8 +61,12 @@ _KIND_TO_TYPE = {
 
 # Clase epistémica: qué clase de evidencia es. El orden importa para resolver.
 EVIDENCE_CLASSES = ("OFFICIAL", "OBSERVED", "REPORTED", "OPINION", "UNKNOWN")
+# `HECHO`/`FACT` es la etiqueta del barrido para «esto es un hecho», puesta por
+# un modelo de lenguaje: NO es una comunicación oficial del equipo o la liga, y
+# la clase OFFICIAL es la que `freshness` pone por delante de todo. Cae a
+# REPORTED, que es lo que de verdad es: un medio afirmándolo.
 _EVIDENCE = {
-    "OFICIAL": "OFFICIAL", "OFFICIAL": "OFFICIAL", "HECHO": "OFFICIAL", "FACT": "OFFICIAL",
+    "OFICIAL": "OFFICIAL", "OFFICIAL": "OFFICIAL", "HECHO": "REPORTED", "FACT": "REPORTED",
     "OBSERVADO": "OBSERVED", "OBSERVED": "OBSERVED",
     "REPORTADO": "REPORTED", "REPORTED": "REPORTED",
     "OPINION": "OPINION", "OPINIÓN": "OPINION",
@@ -189,11 +193,18 @@ def claims_from_archive(days: list[dict]) -> list[Claim]:
 # ---------------------------------------------------------------------------
 
 def _key(claim: Claim) -> tuple[str, str] | None:
-    """Sobre quién y sobre qué. Sin sujeto identificable no se cruza nada."""
-    who = claim.player_id or (claim.subject if claim.subject != claim.team else None)
-    if not who:
+    """Sobre quién y sobre qué. Sin sujeto identificable no se cruza nada.
+
+    Sin `player_id` —que hoy son TODAS las fichas del archivo— el nombre va con
+    el EQUIPO: dos «Josh Allen» de equipos distintos no se superseden entre sí.
+    Es la lección de los dos Robinson, y sin equipo no se cruza: un nombre
+    suelto sin equipo no identifica a nadie.
+    """
+    if claim.player_id:
+        return (claim.player_id.lower(), claim.claim_type)
+    if not claim.team or claim.subject == claim.team:
         return None
-    return (who.lower(), claim.claim_type)
+    return (f"{claim.subject.lower()}@{claim.team.upper()}", claim.claim_type)
 
 
 def link(claims: list[Claim]) -> list[Claim]:
@@ -215,7 +226,10 @@ def link(claims: list[Claim]) -> list[Claim]:
         group.sort(key=lambda c: (c.as_of, c.claim_id))
         for previous, current in zip(group, group[1:], strict=False):
             current.supersedes = previous.claim_id
-            previous.status = "SUPERSEDED"
+            # Una disputa ya marcada NO se pisa al seguir la cadena: A(UP) →
+            # B(DOWN) → C(DOWN) deja A y B en disputa aunque C supersede a B.
+            if previous.status != "DISPUTED":
+                previous.status = "SUPERSEDED"
             if {previous.impact, current.impact} == {"UP", "DOWN"}:
                 previous.status = "DISPUTED"
                 current.status = "DISPUTED"
@@ -223,14 +237,19 @@ def link(claims: list[Claim]) -> list[Claim]:
 
 
 def contradictions(claims: list[Claim]) -> list[tuple[Claim, Claim]]:
-    """Pares DISPUTED, en orden: (anterior, posterior)."""
+    """Pares que discrepan en dirección, en orden: (anterior, posterior).
+
+    Se decide por los IMPACTOS del par, no por el estado: el estado de la
+    anterior puede haber pasado a SUPERSEDED por una tercera afirmación y la
+    discrepancia entre las dos primeras sigue siendo información.
+    """
     by_id = {c.claim_id: c for c in claims}
-    return [
-        (by_id[c.supersedes], c)
-        for c in claims
-        if c.status == "DISPUTED" and c.supersedes and by_id.get(c.supersedes) is not None
-        and by_id[c.supersedes].status == "DISPUTED"
-    ]
+    out = []
+    for c in claims:
+        prev = by_id.get(c.supersedes) if c.supersedes else None
+        if prev is not None and {prev.impact, c.impact} == {"UP", "DOWN"}:
+            out.append((prev, c))
+    return out
 
 
 # ---------------------------------------------------------------------------

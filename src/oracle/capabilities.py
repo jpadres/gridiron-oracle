@@ -755,7 +755,8 @@ REGISTRY: tuple[Capability, ...] = (
             # Se publica sin corregir: no hay corrección preregistrada, y un
             # multiplicador a ojo sería peor que el sesgo conocido.
             "Proyecta BAJO de forma sistemática (E8c): sesgo global −0,66 puntos "
-            "por partido, y −1,25 bajo techo cerrado (725 pateador-semanas). "
+            "por partido, y −1,25 en estadios con techo fijo o retráctil (725 "
+            "pateador-semanas; si el retráctil estaba abierto no se sabe). "
             "Sin corregir: ninguna corrección está preregistrada ni validada.",
         ),
         last_validated="2026-09-05",

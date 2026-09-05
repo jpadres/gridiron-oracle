@@ -473,7 +473,7 @@
       "kind": "ORGANIZATION",
       "domain": "bleacherreport.com",
       "classification": "REDUNDANT",
-      "classification_basis": "mayoritariamente reescritura; origen sólo con firma de insider",
+      "classification_basis": "mayoritariamente reescritura: se cuenta como eco (una firma de insider tendría que entrar como AUTHOR)",
       "state": "MANUAL_REFERENCE",
       "ingestible": null,
       "citations": 9,
@@ -1537,8 +1537,8 @@
       "name": "DK Pittsburgh Sports",
       "kind": "ORGANIZATION",
       "domain": "dkpittsburghsports.com",
-      "classification": "VETTED",
-      "classification_basis": "prensa local o blog de SB Nation, familias que el prompt admite",
+      "classification": "DISCOVERED",
+      "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
       "ingestible": null,
       "citations": 1,
@@ -2529,7 +2529,7 @@
     }
   ],
   "derived": {
-    "at": "2026-09-05",
+    "at": "2026-09-04",
     "from": [
       "2026-08-17.json",
       "2026-08-19.json",

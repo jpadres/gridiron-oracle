@@ -32,7 +32,7 @@ from scipy.stats import spearmanr
 from oracle.config import paths as resolve_paths
 from oracle.fantasy import risk
 from oracle.fantasy.draft import _td_points, project_season
-from oracle.fantasy.scoring import rules_from_name, score_player_weeks
+from oracle.fantasy.scoring import regular_season, rules_from_name, score_player_weeks
 
 SEASONS = (2022, 2023, 2024, 2025)
 MIN_SPEARMAN = 0.10
@@ -47,6 +47,9 @@ def main(argv: list[str] | None = None) -> int:
 
     paths = resolve_paths(args.root)
     players = pd.read_parquet(paths.player_weeks)
+    # Sólo temporada regular: hasta 2026-09-05 las jornadas de playoffs entraban
+    # en la evaluación, que es medir contra partidos que la fantasy no puntúa.
+    players = regular_season(players)
     rules = rules_from_name(args.scoring)
     td_points = {pos: _td_points(pos, rules) for pos in ("QB", "RB", "WR", "TE")}
 

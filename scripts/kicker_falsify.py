@@ -123,9 +123,11 @@ def main() -> int:
         ],
         "alarms": [{"stratum": n, "bias": b, "beats_form": bool(g)} for n, b, g in alarmas],
     }
-    Path("out").mkdir(exist_ok=True)
-    Path("out/kicker_falsify.json").write_text(json.dumps(out, indent=2, ensure_ascii=False))
-    print("Escrito out/kicker_falsify.json")
+    # Versionado a propósito (docs/evidence): el registro de capacidades y la
+    # pantalla lo repiten, y el test que los cruza tiene que poder correr en CI.
+    Path("docs/evidence").mkdir(parents=True, exist_ok=True)
+    Path("docs/evidence/kicker_falsify.json").write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
+    print("Escrito docs/evidence/kicker_falsify.json")
     return 0
 
 

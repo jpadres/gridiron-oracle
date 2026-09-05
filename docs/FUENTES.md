@@ -115,7 +115,7 @@ base va escrita dentro de cada entrada:
 | `REDUNDANT` | agregador que reescribe informes ajenos | **no**: es un eco (§2) |
 | `REJECTED` | no es prensa deportiva | no, y va en `rejected` |
 
-Lo que salió del archivo de once barridos (237 fichas, 542 enlaces): 101
+Lo que salió del archivo de siete barridos (237 fichas, 542 enlaces): 101
 organizaciones distintas —27 VETTED, 67 DISCOVERED, 7 REDUNDANT—, una
 rechazada y **tres autores**. Ese último número es el hallazgo: el barrido cita
 enlaces, no firmas, así que el linaje por autor (§2) no se puede establecer

@@ -101,7 +101,7 @@ let errores=0, misTurnosVerificados=0; const t0=Date.now();
    del draft —se adapta mientras queden huecos, vuelve al board cuando no— y
    mirarlo en un solo turno no distingue «se adapta» de «siempre dice lo
    mismo». La comprobación es que el cambio ocurre y en el orden correcto. */
-const turnos=[];
+const turnos=[]; let sinRecomendado=0;
 for(let no=1; no<=180; no+=1){
   if(mine(no)){
     // MI TURNO: el asistente tiene que detectarlo SIN que yo pulse nada.
@@ -136,6 +136,9 @@ for(let no=1; no<=180; no+=1){
     const nombre = await page.locator(".room-pick-who b").first().innerText().catch(() => "");
     const rec = nombre ? libres().find((r) => (r.player_full_name ?? r.player_name) === nombre.trim()) : null;
     if (rec) elegido = rec;
+    // Si había panel y NO se pudo fichar lo recomendado, se cuenta: un respaldo
+    // silencioso al board sería volver a medir el board del día sin decirlo.
+    else if (nombre) sinRecomendado += 1;
   }
   emitir(no, elegido);
   await page.clock.runFor(16_000);             // dispara el siguiente sondeo
@@ -154,6 +157,8 @@ check("los 180 picks entraron por el proveedor sin intervención manual",
       (await cuenta(page))==="180" && errores===0, `${errores} errores`);
 check("mis 15 turnos se detectaron solos y con lista corta",misTurnosVerificados===15,
       `${misTurnosVerificados}/15`);
+check("en cada turno con panel se fichó LO RECOMENDADO, sin caer al board", sinRecomendado===0,
+      `${sinRecomendado} turnos con panel cuyo recomendado no se encontró en el pool`);
 
 /* === la lista corta se adapta a MI plantilla ============================= */
 /* La queja que originó esto: con el ala cerrada o el quarterback ya cogidos,
