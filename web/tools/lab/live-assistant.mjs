@@ -177,7 +177,11 @@ check("el cambio ocurre UNA vez y no va y viene",
    segundo ala cerrada con el hueco de ala cerrada ya ocupado. */
 check("mientras hay hueco, el recomendado SIEMPRE llena uno abierto",
       conAjuste.length>0 &&
-      conAjuste.every(t=>t.porque.some(l=>/starter open|Fits your open/i.test(l))),
+      // «Fills an open …» es la MISMA propiedad dicha por la rama nueva: cuando
+      // nadie supera el nivel de reemplazo, lo que encabeza es quien llena un
+      // hueco titular que si no se queda a cero. El regex anterior sólo conocía
+      // las dos redacciones viejas y ponía en rojo un turno correcto.
+      conAjuste.every(t=>t.porque.some(l=>/starter open|Fits your open|Fills an open/i.test(l))),
       `${conAjuste.length} turnos · ${conAjuste[0]?.porque.join(" | ")}`);
 check("el draft se declara completo y ofrece revisarlo",
       /draft complete/i.test(await page.locator(".room-state").innerText()) &&

@@ -71,7 +71,7 @@ export function openSlotPositions(slots) {
  * lista corta: es el board otra vez.
  */
 /** El pool recomendable, con las exclusiones de arriba. Una sola definición. */
-export function draftablePool(available) {
+export function draftablePool(available, { requireSample = true } = {}) {
   return (available ?? []).filter(
     (row) => RANKED_POSITIONS.includes(row.position)
       && row.rostered !== false
@@ -80,7 +80,8 @@ export function draftablePool(available) {
       // una muestra nula valía CERO —finito— así que en vez de escapar caía en
       // el `>= MIN` y quedaba EXCLUIDO: justo al revés de lo que dice hacer.
       // Hoy no hay filas así en el payload; el fallo estaba latente.
-      && (row.rookie || !hasNumber(row.weighted_games ?? row.wg)
+      && (!requireSample
+          || row.rookie || !hasNumber(row.weighted_games ?? row.wg)
           || numberOrNull(row.weighted_games ?? row.wg) >= MIN_WEIGHTED_GAMES)
   );
 }
@@ -247,6 +248,91 @@ export function bestForMe(available, {
   const puedeJugar = (row) => (yaTengo[row.position] ?? 0) < (cupo[row.position] ?? 0);
 
   const mejoran = rows.filter((row) => MEJORA(byId.get(row.player_id)) && puedeJugar(row));
+
+  /* UN HUECO TITULAR VACÍO SON CERO PUNTOS, NO EL NIVEL DE REEMPLAZO.
+     ─────────────────────────────────────────────────────────────────────────
+     El marginal compara con lo que pondrías si no lo tuvieras, y `slotFloor`
+     valora un hueco ABIERTO al nivel de reemplazo — correcto mientras exista en
+     el pool alguien de ese nivel, porque es literalmente lo que acabarías
+     poniendo. Cuando el pool cae por debajo, la resta da ~0 para TODOS y el
+     motor concluía «nadie mejora tu alineación», se iba al banquillo y dejaba
+     el hueco VACÍO para siempre. Un hueco vacío no rinde el reemplazo: rinde
+     CERO.
+
+     Pasa de verdad: con once rivales drafteando corredores, en la ronda 6
+     quedaban ~90 RB disponibles, los dos huecos de RB abiertos, y el motor
+     recomendaba banquillo. El draft terminaba con CERO running backs.
+
+     Y es el error exacto que E23 midió EN EL BASELINE —«un drafter por VOR puro
+     a veces termina sin ala cerrada; un hueco vacío son cero puntos»—, que era
+     el 47% de la ventaja atribuida a este motor. Cometerlo aquí no sólo es un
+     fallo: invalidaría la razón por la que este motor existe.
+
+     El arreglo NO toca `rosterFit` —así la identidad «plantilla vacía → VOR
+     publicado» sigue exacta y E23 sigue valiendo— ni el board, ni añade una
+     constante. Sólo cambia a quién se ofrece cuando nadie supera el reemplazo:
+     si queda un hueco titular abierto y alguien del pool puede ocuparlo, ESE es
+     el pick, ordenado por los puntos que aporta frente al cero que habría. */
+  if (mejoran.length === 0) {
+    const posDeHuecosAbiertos = new Set();
+    for (const hueco of state.open ?? []) {
+      for (const pos of hueco.eligible ?? SLOT_ELIGIBILITY[hueco.slot] ?? []) {
+        posDeHuecosAbiertos.add(pos);
+      }
+    }
+    /* Se busca en el POOL ENTERO y no en `rows`, que es la ventana de 50 de
+       `orderByFit`. Bajo presión de pool los que quedan para tu hueco están en
+       el puesto 200 del board: con la ventana, la lista salía vacía y el hueco
+       se quedaba sin llenar. Es el artefacto del «los cuatro primeros no te
+       caben, el que sí te sirve está en el 15», otra vez — la ventana acota
+       cuánto se ORDENA, no si existe alguien que pueda ocupar un hueco
+       obligatorio. */
+    const porPuntos = (a, b) =>
+      (numberOrNull(b.projected_points) ?? 0) - (numberOrNull(a.projected_points) ?? 0);
+    let llenanHueco = pool.filter((row) => posDeHuecosAbiertos.has(row.position)).sort(porPuntos);
+
+    /* ÚLTIMO RECURSO: ni un jugador de muestra suficiente cabe en el hueco.
+       Pasa de verdad en ligas profundas —20 equipos con la posición agotada
+       dejaba 44 corredores en el board y CERO drafteables, porque todos caen
+       bajo el umbral de partidos ponderados—. Ese umbral existe para no
+       RECOMENDAR a alguien de muestra corta como si fuera fiable, no para
+       impedirte llenar un hueco obligatorio: entre un jugador dudoso y un cero
+       garantizado, el cero es peor y encima no es una elección tuya. Se ofrece,
+       se dice que es de muestra corta, y sólo en esta rama. */
+    let muestraCorta = false;
+    if (llenanHueco.length === 0) {
+      const ancho = draftablePool(available, { requireSample: false });
+      llenanHueco = ancho.filter((row) => posDeHuecosAbiertos.has(row.position)).sort(porPuntos);
+      muestraCorta = llenanHueco.length > 0;
+    }
+
+    if (llenanHueco.length > 0) {
+      const conMotivo = llenanHueco.slice(0, limit + 1).map((row) => ({
+        row,
+        fit: byId.get(row.player_id) ?? null,
+        reasons: [
+          { key: "EMPTY_SLOT", text: `Fills an open ${row.position} slot that would otherwise score 0` },
+          muestraCorta
+            ? { key: "SHORT_SAMPLE", text: "Below the sample threshold — offered only because the slot would stay empty" }
+            : { key: "BELOW_REPLACEMENT", text: "No one left beats replacement level at your open slots" },
+        ],
+      }));
+      return {
+        state,
+        primary: conMotivo[0] ?? null,
+        alternates: conMotivo.slice(1, limit + 1),
+        startersComplete: state.startersComplete,
+        mustFillSpecialist: urgeEspecialista(state, picksLeftForMe),
+        benchOnly: false,
+        // Se marca para que la pantalla pueda decir POR QUÉ este orden no es el
+        // de «lo que más añade»: aquí nadie añade nada sobre el reemplazo.
+        fillingEmptySlot: true,
+        shortSampleOnly: muestraCorta,
+        bench: [],
+      };
+    }
+  }
+
   if (mejoran.length === 0) {
     return {
       state,

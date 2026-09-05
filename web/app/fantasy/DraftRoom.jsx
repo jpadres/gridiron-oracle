@@ -817,7 +817,13 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
               </span>
             </span>
             <span className="room-cand-vor">
-              {num(forMe.primary.fit.marginal, 1)}<small>to your lineup</small>
+              {/* `fit` es null cuando NADIE supera el nivel de reemplazo y lo
+                  que se ofrece es llenar un hueco titular vacío: ahí no hay
+                  marginal que enseñar y no se inventa uno. Leerlo a pelo era un
+                  `TypeError` en un componente de cliente — la caída en blanco. */}
+              {forMe.primary.fit
+                ? <>{num(forMe.primary.fit.marginal, 1)}<small>to your lineup</small></>
+                : <><span className="room-cand-slot">fills slot</span><small>no one beats replacement</small></>}
               <em>{num(forMe.primary.row.vor, 1)} VOR</em>
             </span>
           </button>
@@ -841,7 +847,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                         {entry.row.player_full_name ?? entry.row.player_name}
                       </span>
                       <span className="alt-why">{entry.reasons[0]?.text ?? ""}</span>
-                      <span className="alt-n">{num(entry.fit.marginal, 0)}</span>
+                      <span className="alt-n">{entry.fit ? num(entry.fit.marginal, 0) : "—"}</span>
                     </button>
                   </li>
                 ))}
