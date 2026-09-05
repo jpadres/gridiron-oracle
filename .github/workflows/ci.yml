@@ -34,6 +34,13 @@ jobs:
       - name: Contraste de color (WCAG AA)
         run: python scripts/check_contrast.py
 
+      # La web lee las métricas del payload; la documentación las tenía escritas
+      # a mano y llevaba meses publicando las del proyecto ORIGINAL del autor.
+      # Nada falla cuando eso pasa —es prosa— así que se comprueba: las cuatro
+      # cifras de portada contra `validation.overall`.
+      - name: Cifras de portada contra el payload
+        run: python scripts/check_headline_metrics.py
+
       - name: Lint
         run: ruff check src tests scripts
 

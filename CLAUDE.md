@@ -9,8 +9,17 @@ dueño del repo). Sin cuentas, sin base de datos, sin backend.
 
 ## Lo primero que hay que entender
 
-**El modelo iguala a la línea de cierre del mercado; no la bate.** Brier 0.2118
-frente a 0.2113, MAE 10.00 frente a 9.97, en 3.829 partidos fuera de muestra.
+**El modelo iguala a la línea de cierre del mercado; no la bate.** Brier **0.2127**
+frente a **0.2119**, MAE **10.04** frente a **9.97**, en 3.829 partidos fuera de
+muestra (2012-2025).
+
+Esas cifras salen de `validation.overall` del payload —lo que este código midió y
+lo que la web publica—, no de una tabla escrita a mano. Durante meses aquí ponía
+0.2118 / 0.2113 y 10.00 / 9.97, que son las del **proyecto original** del autor y
+nunca se reconciliaron con esta implementación. La corrección va en la dirección
+incómoda: la distancia real al mercado es algo MAYOR que la publicada —0,0008 de
+Brier en vez de 0,0005; 0,065 de MAE en vez de 0,03—. Si vuelves a ver cuatro
+cifras de portada que no cuadran con el payload, **el payload manda**.
 
 Ese resultado es correcto y está bien medido. La línea de cierre de la NFL agrega
 el dinero de todos los modelos privados que existen. Si en algún momento un
@@ -544,6 +553,7 @@ comentario está para que no los reintroduzcas.
 | Pintar 564 filas para mirar diez | `BoardShell.jsx` | El board medía 35.202 px —treinta y cinco pantallas— y el navegador montaba quinientas filas con foto y marcas para llegar a las diez que se miran. Se pintan cien y se dice «100 de 564»; el POOL no se toca, que los tiers y los conteos se cuenten sobre lo pintado es el fallo del «2 left in tier», dos veces ya |
 | El plan repartía el ancho a ojo | `system.css` | Cuatro cifras en una fila de flex se partían 3+1 en escritorio con medio panel vacío al lado, y en móvil se estiraban con huecos verticales de 100 px (`align-content: stretch` en un flex que envuelve). Rejilla de cuatro columnas iguales en su propia fila: el reparto deja de depender de lo largo que sea el texto de una |
 | «$0 · 1u · braked» en la misma celda | `BettingShell.jsx` | El tamaño sugerido era cero porque el tope de la semana estaba gastado, y debajo ponía «1u», que es lo contrario. Cuando no queda tope, lo que se lee es por qué: «week budget spent» |
+| Las cifras de portada eran las de OTRO proyecto | `README.md`, `CLAUDE.md` | La web lee `validation.overall` del payload y enseñaba Brier 0.2127 / 10.04; los dos documentos tenían escritas a mano 0.2118 / 10.00, que son las del proyecto ORIGINAL del autor y nunca se reconciliaron. **Nada falla cuando la prosa miente**, y encima la diferencia caía del lado incómodo: la distancia real al mercado es MAYOR que la publicada. Guardián estrecho en `scripts/check_headline_metrics.py` —sólo esas cuatro cifras, buscadas por su frase— y si la frase cambia de forma se pone ROJO por «no la encuentro» en vez de pasar en vacío |
 | `npm audit` reintentaba y `pip-audit` no | `.github/workflows/ci.yml` | PyPI cortó la conexión en pleno handshake y la auditoría entera se fue a rojo **sin haber mirado una sola dependencia**. El tratamiento correcto —reintentar, y si sigue sin poderse consultar quedarse en ROJO porque «no he podido auditar» no es «no hay vulnerabilidades»— llevaba meses escrito dos pasos más abajo, para npm. La misma cobertura incompleta de siempre, esta vez en un control de seguridad. Un fallo de red se distingue por el TRACEBACK, no por una palabra suelta: la salida de un hallazgo real es una tabla, así que exigir las dos cosas hace imposible confundirlos |
 
 ---
@@ -554,6 +564,11 @@ comentario está para que no los reintroduzcas.
 semanal por posición, web desplegada, CI con tests + lint + escaneo de
 dependencias + verificación de cabeceras, workflow semanal que regenera y publica.
 
+Del lado de Python, CI comprueba además el contraste de color y que **las cifras
+de portada de este fichero y del README sean las del payload**
+(`scripts/check_headline_metrics.py`): la web las lee de los datos y la
+documentación las tenía a mano, que es como acabaron diciendo cosas distintas.
+
 **Lo que CI comprueba de la web**, para no volver a creer que algo vigila cuando
 no: `next build`, los tests de `node --test`, el idioma de la interfaz, las
 cabeceras de seguridad, los tres controles de red (CSP y `fetch` acotado), los
@@ -562,10 +577,18 @@ laboratorios de Playwright NO corren en CI** — son locales, y por eso una
 pantalla puede romperse sin que el verde se entere. Ése fue el hueco exacto de
 los cuatro días de `/fantasy`.
 
-**Pendiente de la mano del dueño** (ver `docs/ESTADO.md`):
-1. Subir el repo a GitHub — `./scripts/bootstrap_github.sh jpadres/gridiron-oracle --public`
-2. Importar en su Vercel personal con **Root Directory: `web`**
-3. Borrar el proyecto viejo del equipo PeopleCloud
+**Pendiente de la mano del dueño** (ver `docs/ESTADO.md`). Los tres puntos que
+había aquí —subir el repo, importarlo en Vercel, borrar el proyecto viejo— ya no
+son tareas: el repo está en `jpadres/gridiron-oracle`, el proyecto de Vercel
+publica producción desde la rama por defecto (que es la de trabajo; **no hay
+`main`**) y no existe ningún proyecto viejo que borrar. Vive en el equipo
+PeopleCloud y no en una cuenta personal, que es una diferencia a tener presente,
+no una tarea. Lo que sí queda:
+
+1. **Restaurar el secret `ANTHROPIC_API_KEY`** en GitHub Actions: sin él el
+   barrido diario de prensa no puede correrse solo.
+2. **Rotar** las dos credenciales filtradas en una sesión anterior — rotar y no
+   borrar, porque siguen vivas en el historial.
 
 **Roadmap** (18 issues los crea el script de bootstrap). Los tres que más valen:
 

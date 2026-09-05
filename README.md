@@ -3,11 +3,12 @@
 > **Estado.** Esta base de código es una reconstrucción desde cero de la
 > arquitectura descrita aquí, y **ya se ha ejecutado contra los datos reales de
 > nflverse**. El backtest reproduce el recuento de partidos (3.829) y el MAE del
-> mercado (9.97) del proyecto original, con Brier 0.2128 frente al 0.2119 del
-> mercado y MAE 10.04. Las diferencias en el tercer decimal frente a las tablas
-> de abajo son de implementación, no de método: dos implementaciones
-> independientes sobre los mismos datos aterrizan en el mismo sitio, que es la
-> mejor señal de que ninguna tiene una fuga.
+> mercado (9.97) del proyecto original, con Brier **0.2127** frente al 0.2119 del
+> mercado y MAE **10.04**. Las diferencias en el tercer decimal son de
+> implementación, no de método: dos implementaciones independientes sobre los
+> mismos datos aterrizan en el mismo sitio, que es la mejor señal de que ninguna
+> tiene una fuga. Las tablas de abajo publican ya las cifras MEDIDAS AQUÍ, con
+> las del proyecto original al lado — ver «Resultado honesto en una línea».
 
 Modelo de pronóstico para la NFL: margen, total, probabilidad de victoria,
 detección de valor frente al mercado y rankings de fantasy football. Datos 100%
@@ -25,8 +26,15 @@ gratuitos de GitHub y Vercel — coste total del proyecto: 0.
 ## Resultado honesto en una línea
 
 **El modelo iguala a la línea de cierre del mercado.** En 3.829 partidos fuera de
-muestra (2012-2025) obtiene un Brier de **0.2118** frente al **0.2113** de las
-casas de apuestas, y un MAE de margen de **10.00** frente a **9.97**.
+muestra (2012-2025) obtiene un Brier de **0.2127** frente al **0.2119** de las
+casas de apuestas, y un MAE de margen de **10.04** frente a **9.97**.
+
+Esas cifras son las que produce ESTE código y las que publica la web: salen de
+`validation.overall` del payload, no de una tabla escrita a mano. Las del
+proyecto original van al lado, etiquetadas, porque la diferencia cae del lado
+incómodo: **la distancia real al mercado es algo MAYOR que la que se venía
+publicando** —0,0008 de Brier en vez de 0,0005, y 0,065 de MAE en vez de 0,03—.
+La tesis no cambia por eso; se refuerza.
 
 Esto es exactamente lo que debe pasar y es la mejor noticia posible: la línea de
 cierre de la NFL es uno de los estimadores más eficientes que existen en cualquier
@@ -35,18 +43,29 @@ un margen amplio, con datos públicos, está sobreajustando o midiendo mal.
 
 Lo que sí aporta este modelo:
 
-| | Modelo | Mercado (cierre) |
-|---|---|---|
-| Brier (prob. de victoria) | 0.2118 | 0.2113 |
-| Log-loss | 0.6113 | — |
-| Error de calibración (ECE) | **0.0172** | — |
-| MAE del margen | 10.00 | 9.97 |
-| MAE del total | 10.53 | 10.51 |
-| Acierto directo (ganador) | **66.5%** | — |
+| | Modelo (medido aquí) | Mercado (cierre) | Proyecto original |
+|---|---|---|---|
+| Brier (prob. de victoria) | 0.2127 | 0.2119 | 0.2118 / 0.2113 |
+| Log-loss | 0.6135 | — | 0.6113 |
+| Error de calibración (ECE) | **0.0162** | — | 0.0172 |
+| MAE del margen | 10.04 | 9.97 | 10.00 / 9.97 |
+| MAE del total | *no hay modelo* | 10.51 | 10.53 / 10.51 |
+| Acierto directo (ganador) | **66.4%** | — | 66.5% |
 
-Y sin usar la línea en absoluto (`pred_margin_free`, sólo señal deportiva):
-MAE **10.24**, Brier **0.2187**, 65% de acierto directo. Un modelo autónomo a
-0.27 puntos de la línea de Las Vegas usando únicamente datos gratuitos.
+**La fila del total no está vacía por descuido.** Hubo un modelo de totales y se
+RETIRÓ: sobre estos mismos 3.829 partidos era peor que la línea a secas —MAE
+10,574 contra 10,510, diferencia pareada +0,064 ± 0,019, t = +3,42— así que
+`pred_total` **es** la línea (`predictor.py`) y ese 10,51 es la línea midiéndose
+a sí misma. Publicar un «10.53 del modelo» era anunciar una capacidad que ya no
+existe.
+
+Y sin usar la línea en absoluto (`pred_margin_free`, sólo señal deportiva): MAE
+**10.24**, Brier **0.2187**, 65% de acierto directo — un modelo autónomo a 0,27
+puntos de la línea de Las Vegas con datos gratuitos. **Estas tres cifras son del
+proyecto original y no se han reproducido aquí**: el modelo libre se calcula
+(`predictor.py`) pero el backtest no lo saca por separado al payload, así que no
+hay una medición de esta implementación que citar. UNKNOWN antes que dar por
+actual lo que no se ha vuelto a medir.
 
 > **Dónde está el edge real, y por qué no está aquí todavía.** Este backtest se
 > valida contra la línea de *cierre*. Nadie apuesta al cierre. El dinero se hace
