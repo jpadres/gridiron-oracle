@@ -456,7 +456,7 @@ export default function BettingShell({ predictions, weekly, context, markets = [
           ) : (
             <p className="caption">
               No market clears the staking threshold this week (minimum edge 1.5 points of
-              probability after shrinkage). That is the normal state for a model that
+              probability, measured before shrinkage). That is the normal state for a model that
               matches the closing line; the table below still shows where it stands.
             </p>
           )}

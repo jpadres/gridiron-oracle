@@ -112,10 +112,21 @@ class OpportunityModel:
         equipo, menos oportunidad» contradice lo que el modelo es. Pasado el
         vértice la oportunidad se queda plana. Es la variante que se envía y
         la que E8d volvió a evaluar fuera de muestra (C2m).
+
+        Dos cifras del sesgo conviven y no son la misma medición: −0,42 → −0,11
+        es E8d (walk-forward por temporada, `kicker_bias_experiment.json`) y
+        −0,66 → −0,39 es E8c (bloque fijo de evaluación, `kicker_falsify.json`),
+        que es la que la web cita. Con menos de 200 filas el ajuste cae a la
+        recta: en producción no ocurre porque se calibra con todo el historial.
         """
         if quad < 0.0:
             vertex = -slope / (2.0 * quad)
             points = min(points, vertex)
+        elif quad > 0.0 and slope < 0.0:
+            # Abierta hacia arriba con pendiente negativa: bajaría ANTES del
+            # vértice. Plana hasta él, por la misma razón que arriba.
+            vertex = -slope / (2.0 * quad)
+            points = max(points, vertex)
         return max(intercept + slope * points + quad * points**2, 0.0)
 
 

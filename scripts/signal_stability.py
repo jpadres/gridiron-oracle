@@ -24,6 +24,7 @@ import pandas as pd
 from scipy.stats import pearsonr, spearmanr
 
 from oracle.config import paths as resolve_paths
+from oracle.fantasy.scoring import regular_season
 
 POS = ("QB", "RB", "WR", "TE")
 MIN_GAMES = 8
@@ -66,7 +67,8 @@ def red_zone(paths, seasons):
 def main() -> int:
     paths = resolve_paths(None).ensure()
     pw = pd.read_parquet(paths.player_weeks)
-    pw = pw[(pw["season_type"] == "REG") & pw["position"].isin(POS) & (pw["season"] >= FIRST)].copy()
+    pw = regular_season(pw)
+    pw = pw[pw["position"].isin(POS) & (pw["season"] >= FIRST)].copy()
 
     # --- cobertura por temporada de cada columna que interesa ---------------
     print("=== COBERTURA (fracción no nula / fracción no cero) por temporada ===")

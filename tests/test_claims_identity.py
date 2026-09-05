@@ -104,7 +104,7 @@ def test_only_resolved_ids_chain_claims_and_ambiguous_ones_never_supersede_each_
     resolve_identities([a, b, x], BOARD)
     link([a, b, x])
     assert b.supersedes == a.claim_id
-    # el ambiguo se encadena por nombre@equipo con sus iguales, nunca con Bijan
+    # el ambiguo no se encadena con nadie: ni con Bijan ni con otro «B.Robinson»
     assert x.supersedes is None
 
 
@@ -136,3 +136,31 @@ def test_fuzz_name_variations_only_resolve_to_the_same_player_or_nothing():
         c = _claim([variant], "ATL")
         resolve_identities([c], BOARD)
         assert c.player_id is None, variant
+
+
+def test_sweep_ids_are_never_paired_by_position_when_the_lists_differ():
+    # `attach` deja fuera los nombres que no resolvió: la lista de ids es más
+    # corta y el primer id es el del SEGUNDO jugador. Emparejar por posición
+    # colgaba la nota de Hendrickson de la ficha de Burrow, como RESOLVED.
+    c = claim_from_item({"team": "CIN", "players": ["Trey Hendrickson", "Joe Burrow"],
+                         "player_ids": ["00-burrow"], "kind": "injury", "headline": "x",
+                         "published_at": "2026-09-01", "sources": []})
+    assert c.subject == "Trey Hendrickson"
+    assert c.player_id is None
+    assert c.identity_status == IDENTITY_UNRESOLVED
+    # con un id por nombre, el emparejamiento posicional sí es cierto
+    ok = _claim(["Trey Hendrickson", "Joe Burrow"], "CIN", ids=["00-hend", "00-burrow"])
+    assert ok.player_id == "00-hend" and ok.identity_status == IDENTITY_RESOLVED
+
+
+def test_two_ambiguous_claims_do_not_share_a_key_or_supersede_each_other():
+    # Dos «B.Robinson» de ATL pueden ser Bijan y Brian: no se encadenan ni entre sí.
+    from oracle.narrative.claims import _key
+
+    x = _claim(["B.Robinson"], "ATL"); x.published_at = "2026-09-01"
+    y = _claim(["B.Robinson"], "ATL"); y.published_at = "2026-09-02"
+    resolve_identities([x, y], BOARD)
+    assert x.identity_status == y.identity_status == IDENTITY_AMBIGUOUS
+    assert _key(x) is None and _key(y) is None
+    link([x, y])
+    assert y.supersedes is None and x.status != "SUPERSEDED"

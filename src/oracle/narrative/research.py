@@ -423,6 +423,24 @@ def _clean(item: object, beat: str) -> dict | None:
 FUTURE_TOLERANCE_DAYS = 1
 
 
+def _press_zones() -> dict:
+    """Abreviaturas de zona que usa la prensa y que dateutil ignoraría en silencio."""
+    from zoneinfo import ZoneInfo
+
+    zones = {"ET": "America/New_York", "CT": "America/Chicago",
+             "MT": "America/Denver", "PT": "America/Los_Angeles"}
+    out = {}
+    for abbr, name in zones.items():
+        tz = ZoneInfo(name)
+        out[abbr] = tz
+        out[abbr[0] + "ST"] = tz
+        out[abbr[0] + "DT"] = tz
+    return out
+
+
+_PRESS_ZONES = _press_zones()
+
+
 def parse_publication_date(stamp: object, now: object | None = None) -> str | None:
     """Una fecha de publicación, en ISO, o None. NUNCA hoy por defecto.
 
@@ -452,12 +470,23 @@ def parse_publication_date(stamp: object, now: object | None = None) -> str | No
         text = str(stamp).strip()
         if not text or len(text) > 64 or not re.search(r"\d{4}", text) or re.fullmatch(r"[\d.+eE]+", text):
             return None
-        if re.search(r"\d{1,2}/\d{1,2}/\d{2,4}", text):
-            return None  # 4/9/2026: día y mes ambiguos, no se adivina
+        if re.search(r"(?<!\d)\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}", text):
+            return None  # 4/9/2026, 4-9-2026, 4.9.2026: día y mes ambiguos, no se adivina
+        # dateutil RELLENA lo que falta con el reloj de la máquina: «September
+        # 2026» salía con el día de HOY, que es la fecha de descarga disfrazada
+        # de publicación. Se lee dos veces con dos rellenos distintos: si el
+        # resultado cambia, es que el texto no traía ese campo, y sin año, mes
+        # y día completos no hay fecha.
         try:
-            parsed = _dateparser.parse(text.replace("Sept ", "Sep "), fuzzy=False, dayfirst=False)
+            first = _dateparser.parse(text.replace("Sept ", "Sep "), fuzzy=False, dayfirst=False,
+                                      default=datetime(2001, 1, 1), tzinfos=_PRESS_ZONES)
+            second = _dateparser.parse(text.replace("Sept ", "Sep "), fuzzy=False, dayfirst=False,
+                                       default=datetime(2002, 2, 2), tzinfos=_PRESS_ZONES)
         except (ValueError, OverflowError, TypeError):
             return None
+        if (first.year, first.month, first.day) != (second.year, second.month, second.day):
+            return None
+        parsed = first
     if parsed.tzinfo is None:
         parsed = parsed.replace(tzinfo=timezone.utc)
     reference = now or datetime.now(timezone.utc)

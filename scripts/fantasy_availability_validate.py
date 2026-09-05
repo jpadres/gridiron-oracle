@@ -15,7 +15,7 @@ import pandas as pd
 from scipy.stats import spearmanr
 
 from oracle.fantasy.availability import history, season_availability
-from oracle.fantasy.scoring import PPR, score_player_weeks
+from oracle.fantasy.scoring import PPR, regular_season, score_player_weeks
 
 THRESHOLD = 0.15
 SEASONS = range(2015, 2026)
@@ -36,7 +36,7 @@ def main() -> int:
 
     availability = season_availability(player_weeks, team_games)
 
-    scored = player_weeks[player_weeks["season_type"] == "REG"].copy()
+    scored = regular_season(player_weeks).copy()
     scored["fantasy_points"] = score_player_weeks(scored, PPR)
     season_points = scored.groupby(["season", "player_id"], observed=True)[
         "fantasy_points"

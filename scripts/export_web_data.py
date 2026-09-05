@@ -796,7 +796,10 @@ def _round_frame(frame: pd.DataFrame, decimals: int = 4) -> pd.DataFrame:
     """
     out = frame.copy()
     for column in out.select_dtypes(include=["float64", "float32"]).columns:
-        out[column] = out[column].round(decimals)
+        # La fracción de apuesta ya viene DECIDIDA por `kelly.decide`; redondearla
+        # a cuatro decimales podía dejar un BET con stake_fraction 0.0, que es la
+        # decisión y el número contradiciéndose en la misma fila.
+        out[column] = out[column].round(6 if column == "stake_fraction" else decimals)
     return out
 
 

@@ -168,7 +168,13 @@ def claim_from_item(item: dict, *, observed_at: str | None = None) -> Claim:
     sources = [s for s in (item.get("sources") or []) if isinstance(s, dict)]
     domains = tuple(sorted({d for d in (_domain(s.get("url")) for s in sources) if d}))
     players = item.get("players") or []
-    ids = item.get("player_ids") or []
+    # `matching.attach` deja fuera los nombres que no resolvió, así que la lista
+    # de ids puede ser MÁS CORTA que la de nombres y estar desplazada: el primer
+    # id sería entonces el del SEGUNDO jugador. Sólo se emparejan por posición
+    # cuando hay un id por nombre; si no, el sujeto queda sin id y lo resuelve
+    # `resolve_identities` con el índice conservador — nunca por posición.
+    sweep_ids = item.get("player_ids") or []
+    ids = sweep_ids if len(sweep_ids) == len(players) else []
     first_source = sources[0] if sources else {}
     return Claim(
         claim_id=claim_id_for(item),
@@ -236,6 +242,12 @@ def _key(claim: Claim) -> tuple[str, str] | None:
     """
     if claim.player_id and claim.identity_status == "RESOLVED":
         return (claim.player_id.lower(), claim.claim_type)
+    # AMBIGUOUS significa que el índice encontró DOS jugadores para ese nombre en
+    # ese equipo: «B.Robinson» en ATL. Encadenarlas por nombre@equipo haría que
+    # una nota de Bijan supersediera una de Brian — los dos Robinson, otra vez.
+    # Ante la duda no se empareja, tampoco entre sí.
+    if claim.identity_status == "AMBIGUOUS":
+        return None
     if not claim.team or claim.subject == claim.team:
         return None
     return (f"{claim.subject.lower()}@{claim.team.upper()}", claim.claim_type)

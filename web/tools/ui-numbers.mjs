@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url";
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const LEDGER = path.join(WEB, "..", "docs", "evidence", "ui_numbers.json");
-const NUMBER = /(?<![\w.$/-])(\d{1,3}[.,]\d{1,4}\s?%|\b0[.,]\d{2,4}\b|\b\d{1,3}[.,]\d{1,2}\s(?:points|pts|puntos|pp)\b)(?![\w-])/g;
+const NUMBER = /(?<![\w.$/-])(\d{1,3}[.,]\d{1,4}\s?%|\b0[.,]\d{2,4}\b|\b\d{1,3}[.,]\d{1,2}\s(?:points|pts|puntos|pp)\b|\b\d{1,3}[.,]\d{1,2}(?=(?:&nbsp;|\s)?\/))(?![\w-])/g;
 
 function* jsxFiles(dir) {
   for (const name of readdirSync(dir)) {

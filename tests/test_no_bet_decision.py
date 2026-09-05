@@ -81,6 +81,8 @@ def test_fuzz_decision_and_fraction_never_disagree():
 
 def test_exact_equality_at_the_minimum_is_a_bet_with_exactly_representable_numbers():
     # 0,125 y 0,25 son exactos en binario: edge == min_edge sin ruido de coma
+    # (el caso `delta=0.0` del test de bordes NO está en el borde exacto —0,415−0,40
+    # no es 0,015 en coma flotante—; es ESTE test el que pone rojo el drill 11)
     # flotante. `edge < min_edge` deja pasar la igualdad; un `<=` la pararía.
     cfg = KellyConfig(min_edge=0.125)
     d = decide(0.375, 5.0, 0.25, cfg)  # a +400 el edge encogido bate el precio de sobra

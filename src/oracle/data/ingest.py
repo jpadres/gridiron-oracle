@@ -12,7 +12,10 @@ lo que entra pasa por `normalize_team`.
 
 from __future__ import annotations
 
+import json
 import os
+import re
+import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -112,11 +115,11 @@ def _download(
     if dest.exists() and not force:
         return dest
     tmp = dest.with_suffix(dest.suffix + ".part")
-    last_modified = None
+    origin = None
     try:
         with urllib.request.urlopen(url) as response, open(tmp, "wb") as handle:
             handle.write(response.read())
-            last_modified = _http_date(response.headers.get("Last-Modified"))
+            origin = _http_date(response.headers.get("Last-Modified"))
     except urllib.error.HTTPError as error:
         tmp.unlink(missing_ok=True)
         if optional and error.code == 404:
@@ -126,17 +129,29 @@ def _download(
     # cada sección por el mtime del fichero de origen, así que un `force=True`
     # que reescribiera el mismo contenido cada refresh le pondría al calendario
     # la fecha de hoy sin que nflverse hubiera cambiado un byte — la regla 5
-    # fabricada dentro del propio refresco. Dos defensas: contenido idéntico no
-    # se toca (conserva su mtime), y si el servidor dice Last-Modified, el
-    # fichero lleva ESA fecha, que es la de publicación del origen.
+    # fabricada dentro del propio refresco. Tres defensas: contenido idéntico no
+    # se toca (conserva su mtime); si el servidor dice Last-Modified, el fichero
+    # lleva ESA fecha; y si viene de GitHub sin Last-Modified —que es el caso
+    # del calendario en raw.githubusercontent.com—, se pregunta a la API por el
+    # ÚLTIMO COMMIT que tocó el fichero, que es su fecha de publicación real.
+    # Sólo cuando ninguna de las tres sabe nada queda la hora de descarga, y se
+    # dice por stderr: un mtime de hoy sin aviso es exactamente la falsa
+    # actualidad que este bloque existe para impedir.
+    if origin is None:
+        origin = _github_commit_date(url)
     if dest.exists() and _same_bytes(tmp, dest):
         tmp.unlink(missing_ok=True)
+        if origin is not None and abs(dest.stat().st_mtime - origin) > 1:
+            os.utime(dest, (origin, origin))
         return dest
     # Rename atómico: un Ctrl-C a media descarga no deja un parquet truncado en
     # la caché, que luego falla al leer de forma incomprensible.
     tmp.replace(dest)
-    if last_modified is not None:
-        os.utime(dest, (last_modified, last_modified))
+    if origin is not None:
+        os.utime(dest, (origin, origin))
+    else:
+        print(f"AVISO: {dest.name} sin fecha de origen; su mtime es la hora de DESCARGA, "
+              "no la del dato", file=sys.stderr)
     return dest
 
 
@@ -175,15 +190,56 @@ def _same_bytes(a: Path, b: Path) -> bool:
     return digest(a) == digest(b)
 
 
-def _http_date(value: str | None) -> float | None:
-    """`Last-Modified` en segundos desde la época, o None si no viene o no se lee."""
+def _http_date(value: str | None, now: float | None = None) -> float | None:
+    """`Last-Modified` en segundos desde la época, o None si no viene o no se lee.
+
+    Una fecha del FUTURO tampoco vale: un servidor con el reloj mal puesto no
+    puede adelantar la fecha del dato, y un mtime futuro haría que `data_dates`
+    publicara una actualidad que no existe. Se tolera un día por zonas y relojes.
+    """
     if not value:
         return None
+    import time
     from email.utils import parsedate_to_datetime
 
     try:
-        return parsedate_to_datetime(value).timestamp()
+        stamp = parsedate_to_datetime(value).timestamp()
     except (TypeError, ValueError):
+        return None
+    if stamp > (time.time() if now is None else now) + 86_400:
+        return None
+    return stamp
+
+
+_RAW_GITHUB = re.compile(r"^https://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)/(.+)$")
+
+
+def _github_commit_date(url: str, opener=None) -> float | None:
+    """Fecha del último commit que tocó un fichero servido por raw.githubusercontent.com.
+
+    Ese host NO manda `Last-Modified`, y `games.csv` —el calendario con las
+    líneas de mercado— viene de ahí con `force=True` en cada refresco: cada vez
+    que nflverse mueve una línea, el fichero cambiaba y su mtime pasaba a ser la
+    hora de la descarga. La API de commits sí sabe cuándo se publicó. Cualquier
+    fallo (sin red, cuota, otro host) devuelve None: se prefiere no saber a
+    inventar, y quien llama decide qué hacer con el «no sé».
+    """
+    match = _RAW_GITHUB.match(url)
+    if not match:
+        return None
+    owner, repo, ref, path = match.groups()
+    api = (f"https://api.github.com/repos/{owner}/{repo}/commits"
+           f"?path={path}&sha={ref}&per_page=1")
+    request = urllib.request.Request(api, headers={"User-Agent": "gridiron-oracle",
+                                                   "Accept": "application/vnd.github+json"})
+    try:
+        with (opener or urllib.request.urlopen)(request, timeout=20) as response:
+            commits = json.loads(response.read().decode("utf-8"))
+        stamp = commits[0]["commit"]["committer"]["date"]
+        from datetime import datetime
+
+        return datetime.fromisoformat(stamp.replace("Z", "+00:00")).timestamp()
+    except Exception:  # noqa: BLE001 — cualquier fallo es «no sé», nunca una fecha
         return None
 
 

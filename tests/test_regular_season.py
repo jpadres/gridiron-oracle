@@ -148,3 +148,29 @@ def test_a_publication_date_from_the_future_is_unknown(stamp, expected):
 
     now = datetime(2026, 9, 5, 12, 0, tzinfo=timezone.utc)
     assert _not_from_the_future(stamp, now=now) == expected
+
+
+def test_nobody_filters_the_season_stage_by_hand():
+    """El contrato de temporada regular es UNA función, y todos la llaman.
+
+    Un `== "REG"` a mano es correcto hoy y fail-open mañana: si la columna
+    cambia de nombre o de etiquetas, ese filtro deja pasar los playoffs en
+    silencio. `fantasy_build.py` no llamaba a nada y publicó pateadores con 21
+    partidos. Se comprueba en el código, que es donde vuelve a aparecer.
+    """
+    import re
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    readers = [root / "scripts" / "fantasy_build.py", root / "scripts" / "draft_quality_export.py",
+               root / "scripts" / "kicker_validate.py", root / "scripts" / "startsit_backtest.py",
+               root / "src" / "oracle" / "fantasy" / "availability.py",
+               root / "src" / "oracle" / "fantasy" / "rookies.py"]
+    hand = re.compile(r'\[\s*"season_type"\s*\]\s*==\s*"REG"')
+    for path in sorted((root / "src" / "oracle" / "fantasy").glob("*.py")) + readers:
+        text = path.read_text(encoding="utf-8")
+        if path.name == "scoring.py":
+            continue
+        assert not hand.search(text), f"{path.name} filtra la etapa a mano en vez de llamar a regular_season()"
+    for path in readers:
+        assert "regular_season(" in path.read_text(encoding="utf-8"), f"{path.name} lee player_weeks sin regular_season()"

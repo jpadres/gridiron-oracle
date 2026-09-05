@@ -27,6 +27,7 @@ from oracle.fantasy.kickers import (
     fit_opportunity,
     project,
 )
+from oracle.fantasy.scoring import regular_season
 
 CALIBRATION = (2018, 2019, 2020, 2021)
 EVALUATION = (2022, 2023, 2024, 2025)
@@ -50,7 +51,8 @@ def main() -> int:
     paths = resolve_paths(args.root).ensure()
 
     pw = pd.read_parquet(paths.player_weeks)
-    k = pw[(pw["position"] == "K") & (pw["season_type"] == "REG")].copy()
+    k = regular_season(pw)
+    k = k[k["position"] == "K"].copy()
     k["fantasy_points"] = score_kicker(k)
 
     tg = pd.read_parquet(paths.team_games)

@@ -78,3 +78,13 @@ run "13 colisión de jugador resuelta al primero" src/oracle/narrative/matching.
 run "14 el runner de CI con CERO comprobaciones" web/tools/lab/smoke.mjs \
   'const PAGINAS = [|||const PAGINAS = [] || [' \
   "cd web && SKIP_BUILD=1 LABS=smoke.mjs node tools/lab/ci-required.mjs"
+run "15 fantasy_build carga los playoffs (sin regular_season al leer)" scripts/fantasy_build.py \
+  "    players = regular_season(pd.read_parquet(paths.player_weeks))|||    players = pd.read_parquet(paths.player_weeks)" \
+  "python -m pytest -q tests/test_regular_season.py"
+run "16 ids del barrido emparejados por posición" src/oracle/narrative/claims.py \
+  "    ids = sweep_ids if len(sweep_ids) == len(players) else []|||    ids = sweep_ids" \
+  "python -m pytest -q tests/test_claims_identity.py"
+run "17 una fecha sin día toma el día de HOY" src/oracle/narrative/research.py \
+  "        if (first.year, first.month, first.day) != (second.year, second.month, second.day):
+            return None|||        pass" \
+  "python -m pytest -q tests/test_publication_date.py"

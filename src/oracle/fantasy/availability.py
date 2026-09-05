@@ -36,6 +36,8 @@ from __future__ import annotations
 
 import pandas as pd
 
+from .scoring import regular_season
+
 # Mismo 56/30/14 que la proyección: si la ausencia se ponderase distinto que los
 # puntos, dos números de la misma fila estarían mirando ventanas distintas del
 # historial y la comparación entre ellos dejaría de significar nada.
@@ -58,7 +60,7 @@ def season_availability(
     vez en `fantasy/weekly.py` sumando medias condicionales, y que se descubrió
     dibujando la gráfica.
     """
-    regular = player_weeks[player_weeks["season_type"] == "REG"]
+    regular = regular_season(player_weeks)
     schedule = (
         team_games[team_games["game_type"] == "REG"]
         if "game_type" in team_games.columns

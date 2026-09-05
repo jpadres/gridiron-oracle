@@ -603,6 +603,11 @@ comentario está para que no los reintroduzcas.
 | La escala del novato: hipótesis FALSADA, no ajustada | `scripts/rookie_scale_experiment.py` | El candidato preregistrado (× 15,5 como el veterano) salió IDÉNTICO al baseline porque `expected_games` ya vale 15,5 para todo novato. La diferencia emparejada de +108,9 no es una convención de partidos: es otra cosa, y hasta que un preregistro la separe el novato sigue visible y drafteable con la autoridad de E9 |
 | Un `force=True` que fechaba el dato con la descarga | `data/ingest.py` | `refresh` reescribía `games.csv` en cada ejecución aunque nflverse no hubiera cambiado un byte, y `data_dates` fecha por el mtime: el calendario habría dicho «hoy» sin serlo — la regla 5 fabricada dentro del propio refresco. Contenido idéntico no se toca, y si el servidor manda `Last-Modified`, el fichero lleva esa fecha |
 | Los laboratorios de navegador, fuera de CI | `.github/workflows/ci.yml` | Así estuvo `/fantasy` caída cuatro días en verde. Cinco laboratorios deterministas entran como job requerido por commit (`tools/lab/ci-required.mjs`), con una guarda que pone en rojo CERO comprobaciones — y esa guarda se disparó a sí misma en la primera pasada porque `controles` agrega en 16 líneas y el mínimo estaba en 30: el mínimo es ahora la mitad de lo medido. Lo caro va de madrugada (`labs-nightly.yml`). La ruta de Chromium vive en UN sitio (`tools/lab/browser.mjs`), no en 26 |
+| «Un solo `regular_season()` y los tres lo llaman», y el cuarto no lo llamaba | `scripts/fantasy_build.py` | `draft.py`, `weekly.py` y el pateador sí; el script que PUBLICA el board seguía pasando `player_weeks` entero al modelo de bust, a la validación y al bloque de especialistas: el payload enseñaba a NE con **21 partidos** y la validación comparaba proyección regular con realizado de REG+POST. Lo cazó el crítico independiente leyendo el payload, no la suite. Ahora se filtra UNA vez al cargar, `availability.py` y `rookies.py` dejaron su `== "REG"` a mano, y un test lee el CÓDIGO: nadie filtra la etapa a mano y quien lee `player_weeks` llama a `regular_season()` |
+| El primer id del barrido, colgado del primer NOMBRE | `narrative/claims.py` | `attach()` deja fuera los nombres que no resuelve, así que la lista de ids es más corta y está desplazada: una nota de Hendrickson y Burrow con sólo Burrow resuelto salía como Hendrickson con el id de Burrow y RESOLVED. Sólo se empareja por posición con un id por nombre; si no, sin id, y lo resuelve el índice conservador |
+| Dos «B.Robinson» AMBIGUOS encadenados entre sí | `narrative/claims.py` | `_key` caía a `nombre@equipo` para los ambiguos, y un test lo BENDECÍA con un comentario. Dos notas de «B.Robinson» en ATL pueden ser Bijan y Brian: ante la duda no se empareja, tampoco entre sí. Clave `None` |
+| «September 2026» fechado el día de HOY | `narrative/research.py` | dateutil rellena lo que falta con el reloj de la máquina —ni siquiera con el `now` que se le pasa—, así que un mes sin día salía con el día de la descarga: la regla 5 dentro del arreglo de la regla 5, por segunda vez. Se lee dos veces con dos rellenos distintos y, si cambia, no había fecha. Y «4-9-2026» con guiones o puntos es tan ambiguo como con barras: tampoco se adivina. Las zonas de la prensa (ET, PT, EST…) se conservan en vez de caer a UTC |
+| El calendario, fechado con la descarga cada vez que nflverse movía una línea | `data/ingest.py` | `raw.githubusercontent.com` no manda `Last-Modified`, y `games.csv` viene de ahí con `force=True`: la defensa de «contenido idéntico conserva su fecha» sólo protegía cuando no había nada que proteger. Ahora se pregunta a la API de GitHub por el ÚLTIMO COMMIT que tocó el fichero; sin respuesta queda la hora de descarga y se DICE por stderr. Desde este contenedor la API no contesta, así que `markets` sigue fechado con la descarga hasta el próximo refresco en CI |
 | 26 cifras escritas a mano en el JSX, sin libro | `web/tools/ui-numbers.mjs` | Ninguna comprobación miraba «48,8%», «0,388» o «0,61» en la prosa de la interfaz. Ahora cada cifra a mano tiene entrada en `docs/evidence/ui_numbers.json` con procedencia (PAYLOAD, ARITHMETIC, EXPERIMENT:id, CONVENTION o UNVERIFIED) y una cifra nueva sin entrada es rojo. Doce siguen UNVERIFIED — dicho, no escondido |
 
 ---
@@ -663,8 +668,8 @@ no una tarea. Lo que sí queda:
   apuesta. Ahí es donde está el edge real, no en más features.
 - **La escala del novato contra la del veterano** (M5). Los novatos ya están en
   el board, con la previa por capital de draft. Lo que queda es que las dos
-  escalas no son comparables —medido: +107,6 puntos a favor del novato a igual
-  proyección— y arreglarlo de verdad pasa por el lado del VETERANO, cuya
+  escalas no son comparables —medido en E25: +108,9 puntos a favor del novato a igual
+  proyección, 123 pares— y arreglarlo de verdad pasa por el lado del VETERANO, cuya
   proyección supone 15,5 partidos para todo el mundo.
 - **Line shopping** (M2). Buena parte del edge no está en el modelo, está en
   apostar el mismo número donde mejor lo pagan.
@@ -693,11 +698,14 @@ está construida:
 | `controles.mjs` | **Control por control, las doce páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete nueve fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete diecisiete fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
-liquidación que paga de más— y exige nueve rojos y nueve verdes al restaurar.
+liquidación que paga de más, y desde el crítico del 5 de septiembre los playoffs
+entrando por `fantasy_build.py`, los ids del barrido emparejados por posición y
+una fecha sin día tomando el de hoy— y exige diecisiete rojos y diecisiete
+verdes al restaurar.
 
 ## El skill de UI/UX
 

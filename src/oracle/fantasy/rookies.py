@@ -41,7 +41,7 @@ import numpy as np
 import pandas as pd
 
 from .components import COMPONENTS, component_series
-from .scoring import PPR, ScoringRules, score_player_weeks
+from .scoring import PPR, ScoringRules, regular_season, score_player_weeks
 
 FANTASY_POSITIONS = ("QB", "RB", "WR", "TE")
 PICKS_PER_ROUND = 32
@@ -195,7 +195,7 @@ def season_table(
         (rosters["years_exp"] == 0) & rosters["position"].isin(FANTASY_POSITIONS)
     ].drop_duplicates(["gsis_id", "season"]).copy()
 
-    weeks = player_weeks[player_weeks["season_type"] == "REG"].copy()
+    weeks = regular_season(player_weeks).copy()
     weeks["points"] = score_player_weeks(weeks, rules)
     for name in COMPONENTS:
         weeks[name] = component_series(weeks, name)

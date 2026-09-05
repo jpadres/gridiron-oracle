@@ -25,7 +25,7 @@ import pandas as pd  # noqa: E402
 
 from oracle.config import paths as resolve_paths  # noqa: E402
 from oracle.fantasy.draft import draft_board, project_season  # noqa: E402
-from oracle.fantasy.scoring import PPR, score_player_weeks  # noqa: E402
+from oracle.fantasy.scoring import PPR, regular_season, score_player_weeks  # noqa: E402
 
 # Las mismas del resto de validaciones del repositorio, para que los números se
 # puedan comparar entre estudios sin preguntarse por la ventana.
@@ -38,7 +38,7 @@ POOL = 400
 def main() -> int:
     paths = resolve_paths()
     players = pd.read_parquet(paths.player_weeks)
-    weeks = players[players["season_type"] == "REG"].copy()
+    weeks = regular_season(players).copy()
     weeks["fp"] = score_player_weeks(weeks, PPR)
     realizado = weeks.groupby(["player_id", "season"], observed=True)["fp"].sum()
 

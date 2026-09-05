@@ -57,7 +57,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from oracle.config import paths as resolve_paths  # noqa: E402
 from oracle.data.ingest import normalize_team  # noqa: E402
-from oracle.fantasy.scoring import PPR, score_player_weeks  # noqa: E402
+from oracle.fantasy.scoring import PPR, regular_season, score_player_weeks  # noqa: E402
 
 SEASONS = (2022, 2023, 2024, 2025)
 FANTASY_POSITIONS = ("QB", "RB", "WR", "TE")
@@ -100,8 +100,9 @@ def main() -> int:
     schedule = schedule.drop_duplicates()
     schedule["team"] = schedule["team"].map(normalize_team)
 
+    players = regular_season(players)
     produced = players[
-        (players["season_type"] == "REG") & players["season"].isin(SEASONS)
+        players["season"].isin(SEASONS)
     ][["season", "week", "player_id"]].drop_duplicates()
     produced["produced"] = True
 

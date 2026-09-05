@@ -40,7 +40,7 @@ from oracle.fantasy.league import (
     SUPERFLEX_SLOTS,
     roster_context,
 )
-from oracle.fantasy.scoring import ScoringRules, rules_from_name, score_player_weeks
+from oracle.fantasy.scoring import ScoringRules, regular_season, rules_from_name, score_player_weeks
 
 # Temporadas sobre las que se reporta la validación. Se fija antes de mirar el
 # resultado, que es la regla del proyecto.
@@ -456,7 +456,11 @@ def main(argv: list[str] | None = None) -> int:
     else:
         rules = rules_from_name(args.scoring)
         settings = None
-    players = pd.read_parquet(paths.player_weeks)
+    # Cuatro partidos de playoffs entraban en el modelo de bust, en la validación
+    # publicada y en el bloque de especialistas (NE con 21 partidos) porque cada
+    # función filtraba —o no— por su cuenta. Se filtra UNA vez, al cargar, y con
+    # la función que falla cerrada si el esquema cambia.
+    players = regular_season(pd.read_parquet(paths.player_weeks))
 
     season = args.season or int(players["season"].max()) + 1
     if settings is None:

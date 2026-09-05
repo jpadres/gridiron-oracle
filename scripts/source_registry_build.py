@@ -249,14 +249,16 @@ def ingestibility(domain: str, cls: str, probe: dict | None) -> dict:
         info = {"access_method": _HTML, "feed_candidate": None, "paywall": False, "terms": "blog independiente de equipo", **info}
     else:
         info = {"access_method": _HTML, "feed_candidate": None, "paywall": None, "terms": None, **info}
-    if tech["status"] == "FEED_READ" and tech.get("items_with_date", 0) > 0 and tech.get("items_with_id", 0) > 0:
-        state, why = "PRODUCTION_INGESTIBLE", "feed leído con fechas e ids estables"
-    elif cls == "REDUNDANT":
+    # Un eco no es un origen aunque tenga feed, y un muro de pago es decisión del
+    # dueño aunque el feed se lea: esas dos condiciones van ANTES de la técnica.
+    if cls == "REDUNDANT":
         state, why = "MANUAL_REFERENCE", "eco: se lee, no se ingiere como origen"
-    elif tech["status"] == "SITE_REFUSED":
-        state, why = "BLOCKED", "el sitio rechazó la lectura automática"
     elif info.get("paywall"):
         state, why = "PAID_CANDIDATE", "muro de pago o API de pago: decisión del dueño"
+    elif tech["status"] == "FEED_READ" and tech.get("items_with_date", 0) > 0 and tech.get("items_with_id", 0) > 0:
+        state, why = "PRODUCTION_INGESTIBLE", "feed leído con fechas e ids estables"
+    elif tech["status"] == "SITE_REFUSED":
+        state, why = "BLOCKED", "el sitio rechazó la lectura automática"
     elif info.get("feed_candidate") or info.get("access_method") == "API":
         state, why = "ON_DEMAND", "feed o API candidatos conocidos, SIN verificar desde este entorno"
     else:
