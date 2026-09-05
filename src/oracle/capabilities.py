@@ -750,8 +750,15 @@ REGISTRY: tuple[Capability, ...] = (
             "REJECTED (E8b) y la interfaz publica puntos sin columna K1…K12.",
             "Todo el modelo es del equipo: la identidad del pateador no aporta "
             "parámetros (r 0,024 año contra año en acierto).",
+            # E8c (scripts/kicker_falsify.py, 2022-2025, 2.108 pateador-semanas):
+            # bate a la forma en TODOS los estratos, y proyecta BAJO en todos.
+            # Se publica sin corregir: no hay corrección preregistrada, y un
+            # multiplicador a ojo sería peor que el sesgo conocido.
+            "Proyecta BAJO de forma sistemática (E8c): sesgo global −0,66 puntos "
+            "por partido, y −1,25 bajo techo cerrado (725 pateador-semanas). "
+            "Sin corregir: ninguna corrección está preregistrada ni validada.",
         ),
-        last_validated="2026-08-30",
+        last_validated="2026-09-05",
         model_version=MODEL_VERSION,
     ),
     Capability(

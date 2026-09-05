@@ -3,7 +3,7 @@
  *
  * `draft-sim.mjs` cubre tres ligas y corre en CI. Esto cubre la matriz que un
  * usuario real puede encontrarse —de 8 a 32 equipos, siete formatos, snake y
- * lineal, y siete estrategias de rival— y por eso NO va en CI: son cientos de
+ * lineal, y diez estrategias de rival— y por eso NO va en CI: son cientos de
  * drafts completos.
  *
  * Los bots son TORTURA DE COMPORTAMIENTO, no validación predictiva. Sirven para
@@ -49,6 +49,7 @@ const ESTRATEGIAS = [
   ["bpa", BOTS.bpa()], ["rbHeavy", BOTS.rbHeavy()], ["wrHeavy", BOTS.wrHeavy()],
   ["qbEarly", BOTS.qbEarly()], ["teHeavy", BOTS.teHeavy()], ["posRun", BOTS.posRun()],
   ["random", BOTS.randomValid(1234)],
+  ["scarcity", BOTS.scarcity()], ["zeroRb", BOTS.zeroRb()], ["adpNoise", BOTS.adpNoise(1234)],
 ];
 
 let drafts = 0, turnosTotales = 0;

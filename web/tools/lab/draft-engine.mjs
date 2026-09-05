@@ -71,6 +71,28 @@ export const BOTS = {
     return mejorDe(disp, [orden[Math.floor(overall / 7) % orden.length]]);
   },
   randomValid: (seed = 7) => { const r = rng(seed); return (disp) => disp[Math.floor(r() * Math.min(disp.length, 40))] ?? disp[0]; },
+  // §40 — tres rivales más, cada uno una forma distinta de vaciar el pool:
+  // ESCASEZ: va a la posición con MENOS jugadores por encima del reemplazo.
+  // Es el rival que agota justo lo que a ti te falta, que es el escenario que
+  // dejó un hueco titular vacío para siempre (candidates.js, 2026-09).
+  scarcity: () => (disp) => {
+    let peor = null;
+    for (const pos of ["QB", "RB", "WR", "TE"]) {
+      const quedan = disp.filter((r) => r.position === pos && (r.vor ?? 0) > 0).length;
+      if (quedan > 0 && (peor === null || quedan < peor.quedan)) peor = { pos, quedan };
+    }
+    return peor ? mejorDe(disp, [peor.pos]) : (candidates(disp, { limit: 1 })[0]?.row ?? disp[0]);
+  },
+  // ZERO RB: ni un corredor hasta la ronda 5, después el mejor del board.
+  zeroRb: () => (disp, { ronda }) => (ronda <= 4
+    ? mejorDe(disp, ["WR", "TE", "QB"])
+    : candidates(disp, { limit: 1 })[0]?.row ?? disp[0]),
+  // ADP CON RUIDO: humano medio — coge uno de los tres primeros, el primero
+  // el 60% de las veces. Es la varianza que un draft real tiene y bpa no.
+  adpNoise: (seed = 11) => { const r = rng(seed); return (disp) => {
+    const x = r(); const k = x < 0.6 ? 0 : x < 0.85 ? 1 : 2;
+    return disp[Math.min(k, disp.length - 1)] ?? disp[0];
+  }; },
 };
 
 /**

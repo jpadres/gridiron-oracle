@@ -123,7 +123,21 @@ for(let no=1; no<=180; no+=1){
       });
     }
   }
-  emitir(no, libres()[0]);
+  /* EN MI TURNO SE FICHA LO QUE EL ASISTENTE RECOMIENDA; en los demás, el
+     primero del board. Antes yo también cogía el primero del board, y la
+     propiedad de abajo —«con los titulares llenos el panel desaparece»— sólo
+     se cumple si el que draftea LLENA los titulares: con el board de
+     2026-09-05 (sin playoffs) el primero del board en mis quince turnos no fue
+     nunca un quarterback, el hueco de QB se quedó abierto hasta el final y el
+     panel lo dijo los quince turnos, que es lo CORRECTO. El laboratorio
+     medía el board del día, no el producto. */
+  let elegido = libres()[0];
+  if (mine(no)) {
+    const nombre = await page.locator(".room-pick-who b").first().innerText().catch(() => "");
+    const rec = nombre ? libres().find((r) => (r.player_full_name ?? r.player_name) === nombre.trim()) : null;
+    if (rec) elegido = rec;
+  }
+  emitir(no, elegido);
   await page.clock.runFor(16_000);             // dispara el siguiente sondeo
   let entro=true;
   await esperar(page,no).catch(()=>{ errores+=1; entro=false; });
@@ -181,7 +195,7 @@ check("mientras hay hueco, el recomendado SIEMPRE llena uno abierto",
       // nadie supera el nivel de reemplazo, lo que encabeza es quien llena un
       // hueco titular que si no se queda a cero. El regex anterior sólo conocía
       // las dos redacciones viejas y ponía en rojo un turno correcto.
-      conAjuste.every(t=>t.porque.some(l=>/starter open|Fits your open|Fills an open/i.test(l))),
+      conAjuste.every(t=>t.porque.some(l=>/starter open|Fits your open|Fills an open|Fills your open/i.test(l))),
       `${conAjuste.length} turnos · ${conAjuste[0]?.porque.join(" | ")}`);
 check("el draft se declara completo y ofrece revisarlo",
       /draft complete/i.test(await page.locator(".room-state").innerText()) &&

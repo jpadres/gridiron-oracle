@@ -282,6 +282,13 @@ export default function WeeklyExplorer({
                 exists here, on purpose. A kicker ranking is mostly a ranking of offenses.</>
               : <>No K1&hellip;K12 column is shown: this screen only claims what the capability
                 registry backs, and an ordinal kicker ranking is not currently backed.</>}
+            {" "}
+            {/* E8c: el sesgo se DICE, no se corrige. Los dos números salen de
+                out/kicker_falsify.json y el registro los repite; un test
+                comprueba que las tres copias digan lo mismo. */}
+            It also runs low: measured against 2022&ndash;2025, projections sit 0.66 points
+            per game under the real result on average, and 1.25 under a closed roof. That
+            bias is published, not corrected &mdash; no correction has been validated.
           </p>
           <div className="table-wrap">
             <table className="rank-table wk-table">

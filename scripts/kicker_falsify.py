@@ -9,6 +9,7 @@ forma. No se toca el modelo: sólo se le busca dónde falla.
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -106,6 +107,25 @@ def main() -> int:
                 alarmas.append((name, bias, gana))
         print()
     print("Estratos con sesgo > 0,5 o donde pierde con la forma:", alarmas or "ninguno")
+    global_bias = float((ev["proyectado"] - ev["fantasy_points"]).mean())
+    print(f"Sesgo global: {global_bias:+.2f}")
+    # Se deja escrito para que el registro de capacidades cite un fichero y
+    # no un recuerdo. Es un resultado NEGATIVO y se publica tal cual.
+    out = {
+        "experiment": "E8c", "evaluation": list(EVALUATION), "n": int(len(ev)),
+        "global_bias": global_bias,
+        "strata": [
+            {"stratum": name, "n": int(len(g)),
+             "bias": float((g["proyectado"] - g["fantasy_points"]).mean()),
+             "mae_model": float((g["proyectado"] - g["fantasy_points"]).abs().mean()),
+             "mae_form": float((g["forma"] - g["fantasy_points"]).abs().mean())}
+            for col in ("total_bin", "fav_bin", "roof_bin") for name, g in ev.groupby(col)
+        ],
+        "alarms": [{"stratum": n, "bias": b, "beats_form": bool(g)} for n, b, g in alarmas],
+    }
+    Path("out").mkdir(exist_ok=True)
+    Path("out/kicker_falsify.json").write_text(json.dumps(out, indent=2, ensure_ascii=False))
+    print("Escrito out/kicker_falsify.json")
     return 0
 
 
