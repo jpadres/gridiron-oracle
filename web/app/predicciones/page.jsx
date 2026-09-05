@@ -1,5 +1,5 @@
-import { model, num, pct } from "../../data/model.js";
-import { Callout, NoDataYet, Note, Table } from "../ui.jsx";
+import { dataDate, model, num, pct } from "../../data/model.js";
+import { Callout, DataDate, NoDataYet, Note, Table } from "../ui.jsx";
 import { MatchupCard, StatHero, TeamMark } from "../sports.jsx";
 
 export const metadata = {
@@ -49,6 +49,11 @@ export default function Predicciones() {
         fourteen seasons), <strong>not</strong> the market&rsquo;s, and not a recommendation
         &mdash; the market&rsquo;s own probabilities remain slightly sharper.
       </p>
+      {/* Las líneas que se publican aquí son las MISMAS que en /betting, y allí
+          llevaban fecha desde el principio mientras aquí salían desnudas. Un
+          spread caduca en minutos: es el dato al que menos se le puede prestar
+          la hora del build. */}
+      <DataDate date={dataDate("markets")} what="Lines and schedule from nflverse," />
 
       {widest ? (
         <section className="band spotlight" aria-label="Widest disagreement">

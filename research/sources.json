@@ -19,11 +19,16 @@
       "freshness_expectation": "4 veces al día en temporada (0/6/12/18 UTC)",
       "cadence_verified_at": "2026-09-05",
       "cadence_source": "https://raw.githubusercontent.com/nflverse/nflreadr/main/vignettes/articles/nflverse_data_schedule.Rmd",
-      "reachable_from_ci": true,
       "cost_class": "FREE",
       "state": "PRODUCTION_CANDIDATE",
       "unlocks": "El hueco de SNAPS, que hoy limita la proyección semanal. Es la misma familia de datos que el proyecto ya ingiere.",
-      "notes": "Verificado con HTTP 200 sobre snap_counts_2025.parquet desde este entorno."
+      "notes": "Verificado con HTTP 200 sobre snap_counts_2025.parquet desde este entorno.",
+      "reachability": {
+        "result": "HTTP 200",
+        "checked_from": "sesión de desarrollo (proxy del entorno remoto)",
+        "checked_at": "2026-09-05",
+        "from_ci": null
+      }
     },
     {
       "source_id": "nflverse.participation",
@@ -42,11 +47,16 @@
       "freshness_expectation": "NO actualiza en temporada: se publica tras los playoffs",
       "cadence_verified_at": "2026-09-05",
       "cadence_source": "https://raw.githubusercontent.com/nflverse/nflreadr/main/vignettes/articles/nflverse_data_schedule.Rmd",
-      "reachable_from_ci": true,
       "cost_class": "FREE",
       "state": "PRODUCTION_CANDIDATE_HISTORICAL_ONLY",
       "unlocks": "Rutas y participación para VALIDACIÓN histórica. NUNCA para una proyección semanal en vivo.",
-      "notes": "La fuente anterior a 2023 (NGS) MURIÓ durante la temporada 2023. Citado literal: «provided after all post-season games are completed. It does not update during the season!»"
+      "notes": "La fuente anterior a 2023 (NGS) MURIÓ durante la temporada 2023. Citado literal: «provided after all post-season games are completed. It does not update during the season!»",
+      "reachability": {
+        "result": "HTTP 200",
+        "checked_from": "sesión de desarrollo (proxy del entorno remoto)",
+        "checked_at": "2026-09-05",
+        "from_ci": null
+      }
     },
     {
       "source_id": "nflverse.ftn_charting",
@@ -64,7 +74,8 @@
       "cost_class": "FREE",
       "state": "ON_DEMAND",
       "unlocks": "Charting en temporada. NO es lo mismo que `participation`, aunque las dos vengan de FTN — confundirlas sería publicar como semanal algo que sólo existe tras los playoffs.",
-      "notes": "Distinción deliberada: charting SÍ actualiza en temporada, participation NO."
+      "notes": "Distinción deliberada: charting SÍ actualiza en temporada, participation NO.",
+      "cadence_source": "https://raw.githubusercontent.com/nflverse/nflreadr/main/vignettes/articles/nflverse_data_schedule.Rmd"
     },
     {
       "source_id": "nflverse.schedules",
@@ -82,11 +93,17 @@
       "authority_class": "DATA_PROVIDER",
       "freshness_expectation": "cada 5 minutos en temporada",
       "cadence_verified_at": "2026-09-05",
-      "reachable_from_ci": true,
       "cost_class": "FREE",
       "state": "PRODUCTION_INGEST",
       "unlocks": "Ya en producción: es la fuente del calendario y de la línea publicada.",
-      "notes": "Cadencia de 5 minutos comprobada en la documentación primaria. El proyecto la refrescaba cada varios días, que era el hueco real."
+      "notes": "Cadencia de 5 minutos comprobada en la documentación primaria. El proyecto la refrescaba cada varios días, que era el hueco real.",
+      "reachability": {
+        "result": "HTTP 200",
+        "checked_from": "sesión de desarrollo (proxy del entorno remoto)",
+        "checked_at": "2026-09-05",
+        "from_ci": null
+      },
+      "cadence_source": "https://raw.githubusercontent.com/nflverse/nflreadr/main/vignettes/articles/nflverse_data_schedule.Rmd"
     }
   ],
   "organizations": [],

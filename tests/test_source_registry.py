@@ -76,6 +76,36 @@ def test_una_afirmacion_de_cadencia_lleva_su_verificacion():
             assert e.get("cadence_verified_at"), (
                 f"{e['source_id']} declara cadencia sin fecha de verificación"
             )
+            # Y CONTRA QUÉ se comprobó. Sólo la fecha deja «lo miré el día 5»,
+            # que no se puede volver a comprobar ni contrastar: dos de las
+            # cuatro entradas se subieron sin este campo y el test las dejó
+            # pasar mientras el documento afirmaba que lo vigilaba.
+            assert e.get("cadence_source"), (
+                f"{e['source_id']} declara cadencia sin decir de dónde sale"
+            )
+
+
+def test_una_afirmacion_de_ALCANCE_dice_desde_donde_se_comprobo():
+    """`reachable_from_ci: true` era una creencia con forma de dato.
+
+    Lo que se comprobó fue un HTTP 200 desde ESTA sesión; CI tiene otra red y
+    otra política de salida, y nadie lo probó allí. Una afirmación sobre un
+    entorno en el que no se ha ejecutado nada es exactamente la clase de dato
+    que este catálogo existe para no publicar: UNKNOWN antes que supuesto.
+    """
+    for e in entradas(catalogo()):
+        alcance = e.get("reachability")
+        if alcance is None:
+            continue
+        assert alcance.get("checked_from"), f"{e['source_id']}: alcance sin origen"
+        assert alcance.get("checked_at"), f"{e['source_id']}: alcance sin fecha"
+        assert "from_ci" in alcance, f"{e['source_id']}: falta declarar el caso de CI"
+        assert alcance["from_ci"] is None or isinstance(alcance["from_ci"], bool)
+    # Y que nadie reintroduzca el campo plano que lo afirmaba sin comprobarlo.
+    for e in entradas(catalogo()):
+        assert "reachable_from_ci" not in e, (
+            f"{e['source_id']} vuelve a afirmar alcance desde CI sin haberlo comprobado"
+        )
 
 
 def test_lo_que_no_sirve_en_temporada_no_se_marca_como_produccion_semanal():

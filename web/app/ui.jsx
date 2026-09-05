@@ -453,3 +453,25 @@ export function NoDataYet() {
     </Callout>
   );
 }
+
+
+/**
+ * LA FECHA DE ORIGEN DE UNA SECCIÓN, o UNKNOWN.
+ *
+ * El pie dice «cada sección fecha lo suyo». Durante un tiempo eso fue FALSO:
+ * sólo la página de apuestas leía una fecha, y `/predicciones` publicaba las
+ * MISMAS líneas sin fecha ninguna. Una promesa en el pie que ninguna pantalla
+ * cumplía es peor que no prometer nada — deja la sensación de que algo fecha.
+ *
+ * Sin fecha se escribe UNKNOWN y NUNCA el sello de build: la hora de
+ * compilación no da frescura a un dato (regla 5).
+ */
+export function DataDate({ date, what, className = "caption" }) {
+  return (
+    <p className={className}>
+      {what} retrieved{" "}
+      <strong>{date ? date : "on an unknown date"}</strong> — not when this page was
+      built.
+    </p>
+  );
+}

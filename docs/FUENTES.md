@@ -15,7 +15,14 @@ Cuatro tipos de entidad que **no se suman entre sí**:
 
 32 subpáginas de un mismo medio son **un** `ORGANIZATION` y 32 `FEED`. Sumarlas
 para llegar a una cifra redonda es exactamente lo que este documento prohíbe.
-`tests/test_source_registry.py` lo comprueba.
+
+Lo que `tests/test_source_registry.py` comprueba de esto, con precisión: que
+**todo `kind` del catálogo sea uno de los cuatro** —así una familia nueva no
+entra sin declararse— y que los ids sean únicos. Lo que **no** comprueba es la
+suma en sí, porque este repositorio no publica todavía ninguna cifra agregada:
+el día que una pantalla escriba un total, el guardián de que no mezcla familias
+se escribe entonces y contra esa pantalla. Decir aquí que ya está vigilado sería
+la sensación de que algo vigila, que es peor que no tener nada.
 
 ## 2. Un informe repetido no es corroboración
 
@@ -79,7 +86,11 @@ Dos consecuencias que importan:
 - La fuente de participación anterior a 2023 (NGS) **murió** durante 2023, así
   que la serie tiene una costura de proveedor en medio.
 
-Los tres ficheros responden HTTP 200 desde este entorno y desde CI.
+Los tres ficheros respondieron **HTTP 200 el 2026-09-05 desde el entorno de
+desarrollo**. Desde CI **no se ha comprobado**: tiene otra red y otra política
+de salida, y afirmarlo sin haber ejecutado nada allí sería justo el dato
+supuesto que este catálogo existe para no publicar. En `sources.json` eso es
+`reachability.from_ci: null`, que es UNKNOWN y no «no llega».
 
 ## 6. Lo que puede entrar en un modelo
 

@@ -120,9 +120,21 @@ export function capabilityStatus(id) {
   return typeof cap?.status === "string" && cap.status ? cap.status : null;
 }
 
+/**
+ * La fecha de origen de una sección, o `null`.
+ *
+ * La lógica vive en `dateFrom` y no aquí porque `dataDate` lee el payload REAL,
+ * que hoy trae las tres claves con fecha: un test suyo no puede ejercitar la
+ * rama del valor vacío y pasaba en vacío, que es el fallo que este repositorio
+ * lleva cazado media docena de veces. `dateFrom` sí se puede probar.
+ */
+export function dateFrom(dates, section) {
+  const value = dates?.[section];
+  return typeof value === "string" && value.trim() ? value : null;
+}
+
 export function dataDate(section) {
-  const value = model?.data_dates?.[section];
-  return typeof value === "string" && value ? value : null;
+  return dateFrom(model?.data_dates, section);
 }
 
 /**

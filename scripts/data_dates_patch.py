@@ -30,6 +30,16 @@ from export_web_data import _fechas_de_origen, write_payload  # noqa: E402
 from oracle.pipeline import resolve_paths  # noqa: E402
 
 
+def fechas_que_se_perderian(antes: dict, ahora: dict) -> list[str]:
+    """Secciones que el payload YA fecha y que este cálculo dejaría en UNKNOWN.
+
+    Aparte para poder probarla: `main` resuelve las rutas desde la raíz del
+    repositorio, así que el caso —un clon sin `data/`— no se puede montar
+    llamándolo.
+    """
+    return sorted(k for k, v in ahora.items() if not v and (antes or {}).get(k))
+
+
 def main() -> int:
     paths = resolve_paths(RAIZ)
     destino = RAIZ / "web" / "data"
@@ -39,16 +49,34 @@ def main() -> int:
 
     payload = json.loads(crudo.read_text(encoding="utf-8"))
     fechas = _fechas_de_origen(paths)
-    antes = payload.get("data_dates")
+    antes = payload.get("data_dates") or {}
+
+    # BORRAR UNA FECHA CIERTA NO ES «PUBLICAR UNKNOWN».
+    #
+    # `data/` está en `.gitignore` y pesa 490 MB: en un clon recién hecho no
+    # hay un solo fichero de origen, así que este script calcularía tres
+    # `None` y los escribiría ENCIMA de las fechas que el payload ya traía,
+    # medidas cuando sí había datos. El resultado —tres UNKNOWN— parece
+    # prudente y es una pérdida de información: la regla dice UNKNOWN antes
+    # que INVENTADO, no UNKNOWN antes que MEDIDO.
+    #
+    # Es el mismo fallo que el research diario, que publicaba 45 fichas
+    # sueltas encima de las buenas porque su índice vivía en `out/`.
+    perdidas = fechas_que_se_perderian(antes, fechas)
+    if perdidas:
+        print("No sobrescribo fechas medidas con UNKNOWN. Sin fichero de origen "
+              f"para: {', '.join(perdidas)}.")
+        print("Ejecuta `oracle refresh` antes, o deja el payload como está.")
+        return 1
+
     payload["data_dates"] = fechas
     write_payload(destino, payload)
 
-    print(f"data_dates: {antes} -> {fechas}")
+    print(f"data_dates: {antes or None} -> {fechas}")
     faltan = [k for k, v in fechas.items() if not v]
     if faltan:
-        # No es un error: sin el fichero de origen la fecha es UNKNOWN y la
-        # interfaz lo dice. Pero se avisa, porque publicar UNKNOWN teniendo el
-        # dato sería media medición.
+        # Aquí sí es correcto: el payload tampoco las tenía. UNKNOWN es la
+        # verdad y la interfaz lo escribe.
         print(f"  (aviso) sin fichero de origen para: {', '.join(faltan)}")
     return 0
 

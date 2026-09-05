@@ -830,6 +830,22 @@ def _trim_records(section: object, key: str, columns: tuple[str, ...]) -> object
     return section
 
 
+def _mas_nuevo(directorio: Path, patron: str) -> Path | None:
+    """El fichero más reciente de una serie por temporada (`pbp_*.parquet`).
+
+    Se mira ESE y no el más viejo de la serie: `pbp_1999.parquet` no se vuelve a
+    descargar nunca y arrastraría la fecha a la primera instalación. Lo que
+    caduca es la temporada en curso.
+    """
+    try:
+        candidatos = [r for r in directorio.glob(patron) if r.is_file()]
+    except OSError:
+        return None
+    if not candidatos:
+        return None
+    return max(candidatos, key=lambda r: r.name)
+
+
 def _fecha_de(ruta: Path) -> str | None:
     """Cuándo se DESCARGÓ ese fichero, en fecha y sin hora. `None` si no está.
 
@@ -843,30 +859,84 @@ def _fecha_de(ruta: Path) -> str | None:
     ficheros dan el mismo valor, así que el payload no cambia por regenerarlo.
     """
     try:
-        if not ruta.exists():
+        if not ruta.is_file():
             return None
-        return dt.datetime.fromtimestamp(ruta.stat().st_mtime, dt.timezone.utc).date().isoformat()
+        info = ruta.stat()
+        # Un fichero de cero bytes es una descarga que no terminó. Fecharlo
+        # sería afirmar frescura sobre un fichero que no tiene datos.
+        if info.st_size == 0:
+            return None
+        cuando = dt.datetime.fromtimestamp(info.st_mtime, dt.timezone.utc)
+        # Un mtime en el futuro sale de un reloj mal puesto o de una copia con
+        # marcas corruptas, y es una fecha de descarga imposible: UNKNOWN antes
+        # que una frescura que nadie ha tenido.
+        if cuando > dt.datetime.now(dt.timezone.utc) + dt.timedelta(days=1):
+            return None
+        return cuando.date().isoformat()
     except OSError:
         return None
+
+
+def _mas_vieja(*fechas: str | None) -> str | None:
+    """La más antigua de varias fechas, o `None` si falta alguna.
+
+    Una sección es tan actual como su fuente MÁS VIEJA: si el board se compila
+    con estadística de jugadores del 17 de agosto y rosters de hoy, lo que no
+    sabe es lo que pasó desde el 17 de agosto. Quedarse con la más nueva sería
+    publicar la frescura del fichero que menos manda.
+
+    Si falta cualquiera de las fuentes, la respuesta es UNKNOWN y no la fecha
+    de las que sí están: media medición presentada como entera.
+    """
+    if any(f is None for f in fechas):
+        return None
+    return min(fechas)  # ISO-8601 ordena como texto
 
 
 def _fechas_de_origen(paths) -> dict:
     """La fecha de cada sección, tomada del fichero que de verdad la alimenta.
 
     Las tres NO tienen por qué coincidir, y cuando no coinciden eso es
-    información: el mercado sale del calendario de nflverse, el modelo de los
-    features compilados y el board del histórico de jugadores. Aplanarlas en una
-    sola borraría el desacuerdo que la regla 5 manda conservar.
+    información: el mercado sale del calendario de nflverse, el modelo de ese
+    calendario más el play-by-play, y el board de la estadística por jugador más
+    los rosters. Aplanarlas en una sola borraría el desacuerdo que la regla 5
+    manda conservar.
+
+    ## Sólo ficheros DESCARGADOS, nunca compilados
+
+    La primera versión fechaba el modelo con `features.parquet` y el board con
+    `player_weeks.parquet`, que son artefactos que produce este repositorio: su
+    mtime es cuándo corrí el pipeline, no cuándo se bajaron los datos. Correr
+    `oracle features` hoy sobre una descarga de hace tres semanas ponía la fecha
+    de HOY — la misma falsa actualidad que este campo existe para impedir, por
+    tercera vez y en el arreglo del arreglo.
+
+    Estaba pasando: el sitio publicaba `fantasy: 2026-09-05` con
+    `player_stats_2025.parquet` descargado el **17 de agosto**. Diecinueve días
+    fabricados sobre la sección que alimenta el board entero.
 
     `None` cuando el fichero no está: la interfaz escribe UNKNOWN, que es la
     verdad, en vez de heredar la fecha de otra sección.
     """
+    raw = paths.raw
+    pbp = _mas_nuevo(raw, "pbp_*.parquet")
+    stats = _mas_nuevo(raw, "player_stats_*.parquet")
+    rosters = _mas_nuevo(raw, "roster_*.parquet")
     return {
         # `spread_line` y `total_line` viajan en el calendario de nflverse.
-        "markets": _fecha_de(paths.raw / "games.csv"),
-        "model": _fecha_de(paths.processed / "features.parquet")
-                 or _fecha_de(paths.raw / "games.csv"),
-        "fantasy": _fecha_de(paths.processed / "player_weeks.parquet"),
+        "markets": _fecha_de(raw / "games.csv"),
+        # El modelo se compila del calendario y del play-by-play. Su fecha es la
+        # del más viejo de los dos.
+        "model": _mas_vieja(
+            _fecha_de(raw / "games.csv"),
+            _fecha_de(pbp) if pbp else None,
+        ),
+        # El board sale de la estadística por jugador y de los rosters — que son
+        # los que dicen quién sigue en un equipo NFL.
+        "fantasy": _mas_vieja(
+            _fecha_de(stats) if stats else None,
+            _fecha_de(rosters) if rosters else None,
+        ),
     }
 
 

@@ -1,6 +1,6 @@
-import { availabilityByPlayer, briefsByPlayer, model, num } from "../../data/model.js";
+import { availabilityByPlayer, briefsByPlayer, dataDate, model, num } from "../../data/model.js";
 import { PositionChip, VorCurve } from "../charts.jsx";
-import { Callout, NoDataYet, Note, Table } from "../ui.jsx";
+import { Callout, DataDate, NoDataYet, Note, Table } from "../ui.jsx";
 import BoardShell from "./BoardShell.jsx";
 
 export const metadata = {
@@ -80,6 +80,11 @@ export default function Fantasy() {
       availability={availabilityByPlayer(model.dossier)}
       briefs={briefsByPlayer(model.dossier, model.research)}
       context={{
+        // La fecha del ORIGEN del board, para que la pantalla la diga. El pie
+        // promete que cada sección fecha lo suyo, y esta no lo hacía: sus datos
+        // salían del payload sin fecha ninguna mientras el board se leía como
+        // de hoy. Ver `data_dates` en `export_web_data.py`.
+        dataDate: dataDate("fantasy"),
         season: fantasy.season,
         scoring: fantasy.scoring,
         teams: fantasy.teams,

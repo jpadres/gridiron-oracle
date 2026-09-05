@@ -1,6 +1,6 @@
-import { model, num, pct } from "../../data/model.js";
+import { dataDate, model, num, pct } from "../../data/model.js";
 import { CalibrationPlot } from "../charts.jsx";
-import { Callout, NoDataYet, Note, Table } from "../ui.jsx";
+import { Callout, DataDate, NoDataYet, Note, Table } from "../ui.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — The Model",
@@ -49,6 +49,10 @@ export default function Modelo() {
         Seven decisions that separate this from a dressed-up Elo. None came free: each was
         chosen by measuring, and several made things worse before they made them better.
       </p>
+      <DataDate
+        date={dataDate("model")}
+        what="Schedule and play-by-play behind these numbers,"
+      />
 
       <h2>1. A discrete distribution with key numbers, not a normal</h2>
       <p>

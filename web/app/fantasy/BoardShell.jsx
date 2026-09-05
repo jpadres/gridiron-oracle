@@ -199,6 +199,14 @@ export default function BoardShell({
         {context.scoring} · {context.teams}-team league · {board.length} players
         {context.league ? <> · synced from Sleeper: <strong>{context.league}</strong></> : null}
       </p>
+      {/* La fecha del dato, no la del build: un board de hace tres semanas se
+          lee igual que uno de hoy, y ésa es exactamente la confusión que el
+          pie promete que no se comete. UNKNOWN si el payload no la trae. */}
+      <p className="caption">
+        Player stats and rosters behind this board retrieved{" "}
+        <strong>{context.dataDate ? context.dataDate : "on an unknown date"}</strong> —
+        not when this page was built.
+      </p>
 
       {/* La puerta al Draft Room. El board sirve para preparar; el Room es para
           el día del draft, y hasta ahora no había forma de llegar desde aquí. */}
