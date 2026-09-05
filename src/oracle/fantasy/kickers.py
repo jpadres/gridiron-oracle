@@ -85,15 +85,38 @@ class OpportunityModel:
     pat_slope: float = 0.0
     fg_intercept: float = 0.0
     fg_slope: float = 0.0
+    # Término cuadrático en los puntos del equipo. E8d (2026-09-05,
+    # docs/PREREGISTRO_kicker_bias.md): los intentos de campo NO crecen
+    # linealmente con los puntos —un equipo que marca 35 anota touchdowns, no
+    # patea más— y la recta subestimaba en el centro del rango. Con el término
+    # cuadrático el sesgo global fuera de muestra pasa de −0,42 a −0,11 y bajo
+    # techo de −1,00 a −0,68, con MAE 3,715 frente a 3,710 (dentro del margen
+    # de 0,02 fijado antes de mirar). A cero, el modelo es el lineal de antes.
+    pat_quad: float = 0.0
+    fg_quad: float = 0.0
     conversion: dict[str, float] = field(default_factory=dict)
     pat_rate: float = 0.95
 
     def expected(self, team_points: float) -> Opportunity:
         points = float(team_points) if np.isfinite(team_points) else 21.0
         return Opportunity(
-            pat_attempts=max(self.pat_intercept + self.pat_slope * points, 0.0),
-            fg_attempts=max(self.fg_intercept + self.fg_slope * points, 0.0),
+            pat_attempts=self._curve(self.pat_intercept, self.pat_slope, self.pat_quad, points),
+            fg_attempts=self._curve(self.fg_intercept, self.fg_slope, self.fg_quad, points),
         )
+
+    @staticmethod
+    def _curve(intercept: float, slope: float, quad: float, points: float) -> float:
+        """Parábola con MESETA: más puntos nunca dan menos intentos.
+
+        Una parábola cóncava baja después de su vértice, y «más puntos del
+        equipo, menos oportunidad» contradice lo que el modelo es. Pasado el
+        vértice la oportunidad se queda plana. Es la variante que se envía y
+        la que E8d volvió a evaluar fuera de muestra (C2m).
+        """
+        if quad < 0.0:
+            vertex = -slope / (2.0 * quad)
+            points = min(points, vertex)
+        return max(intercept + slope * points + quad * points**2, 0.0)
 
 
 def fit_opportunity(kicker_weeks: pd.DataFrame, team_points: pd.DataFrame) -> OpportunityModel:
@@ -108,8 +131,16 @@ def fit_opportunity(kicker_weeks: pd.DataFrame, team_points: pd.DataFrame) -> Op
         return OpportunityModel()
 
     points = merged["points_for"].to_numpy(dtype=float)
-    pat_slope, pat_intercept = np.polyfit(points, merged["pat_att"].fillna(0).to_numpy(float), 1)
-    fg_slope, fg_intercept = np.polyfit(points, merged["fg_att"].fillna(0).to_numpy(float), 1)
+    # Grado 2 (E8d). Con menos de 200 partidos-pateador de calibración un
+    # cuadrático puede curvarse por ruido: ahí se queda la recta.
+    degree = 2 if len(points) >= 200 else 1
+    pat_coef = np.polyfit(points, merged["pat_att"].fillna(0).to_numpy(float), degree)
+    fg_coef = np.polyfit(points, merged["fg_att"].fillna(0).to_numpy(float), degree)
+    if degree == 1:
+        pat_coef = np.concatenate([[0.0], pat_coef])
+        fg_coef = np.concatenate([[0.0], fg_coef])
+    pat_quad, pat_slope, pat_intercept = (float(v) for v in pat_coef)
+    fg_quad, fg_slope, fg_intercept = (float(v) for v in fg_coef)
 
     # Tasa de acierto de la LIGA por tramo. No por pateador: con 30 intentos al
     # año repartidos en seis tramos, una tasa individual por tramo se apoya en
@@ -126,6 +157,7 @@ def fit_opportunity(kicker_weeks: pd.DataFrame, team_points: pd.DataFrame) -> Op
     return OpportunityModel(
         pat_intercept=float(pat_intercept), pat_slope=float(pat_slope),
         fg_intercept=float(fg_intercept), fg_slope=float(fg_slope),
+        pat_quad=pat_quad, fg_quad=fg_quad,
         conversion=conversion,
         pat_rate=float(pat_made / pat_att) if pat_att > 0 else 0.95,
     )

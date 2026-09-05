@@ -56,3 +56,25 @@ run "8 ranking K1..K12 sin registro que lo respalde" web/app/fantasy/semanal/Wee
 run "9 liquidación paga stake x decimal" web/app/betting/bankroll.js \
   "return decimal === null ? 0 : bet.stake * (decimal - 1);|||return decimal === null ? 0 : bet.stake * decimal;" \
   "cd web && node --test tests/bankroll.test.mjs"
+run "10 playoffs colándose (fail-open al faltar la columna)" src/oracle/fantasy/scoring.py \
+  '    if "season_type" not in player_weeks.columns:
+        raise SeasonStageUnknown(|||    if "season_type" not in player_weeks.columns:
+        return player_weeks  # INYECCIÓN
+        raise SeasonStageUnknown(' \
+  "python -m pytest -q tests/test_regular_season.py"
+run "11 NO BET en el borde exacto del mínimo" src/oracle/betting/kelly.py \
+  "    if edge < config.min_edge:|||    if edge <= config.min_edge:" \
+  "python -m pytest -q tests/test_no_bet_decision.py"
+run "12 una fecha ilegible se convierte en HOY" src/oracle/narrative/research.py \
+  '        except (ValueError, OverflowError, TypeError):
+            return None|||        except (ValueError, OverflowError, TypeError):
+            return (now or datetime.now(timezone.utc)).isoformat()  # INYECCIÓN' \
+  "python -m pytest -q tests/test_publication_date.py"
+run "13 colisión de jugador resuelta al primero" src/oracle/narrative/matching.py \
+  "    if _is_abbreviated(name):
+        return candidates[0][1] if len(candidates) == 1 else None|||    if _is_abbreviated(name):
+        return candidates[0][1]" \
+  "python -m pytest -q tests/test_claims_identity.py tests/test_identity_redteam.py"
+run "14 el runner de CI con CERO comprobaciones" web/tools/lab/smoke.mjs \
+  'const PAGINAS = [|||const PAGINAS = [] || [' \
+  "cd web && SKIP_BUILD=1 LABS=smoke.mjs node tools/lab/ci-required.mjs"

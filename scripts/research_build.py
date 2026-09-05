@@ -86,7 +86,10 @@ def main(argv: list[str] | None = None) -> int:
             # verde y encima commiteaba «barrido del <fecha>»: un trabajo que no
             # puede hacer lo suyo tiene que ponerse ROJO, no informar de un
             # barrido que no existió.
-            print("ERROR: se exigía la clave (--require-key) y no está.", file=sys.stderr)
+            # Diagnóstico con nombre, para que el rojo de CI diga QUÉ falta y no
+            # «el research falló». El valor nunca se imprime: no lo hay.
+            print("MISSING_SECRET: ANTHROPIC_API_KEY (se exigía con --require-key y no está en el entorno)",
+                  file=sys.stderr)
             return 1
         return 0 if ok else 1
 

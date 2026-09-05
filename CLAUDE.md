@@ -599,6 +599,11 @@ comentario está para que no los reintroduzcas.
 | «Sept 4, 2026» se perdía por no ser ISO | `narrative/research.py` | El guardián de fechas futuras sólo leía ISO, así que una fecha real escrita como la escribe un medio caía a «seen». Ahora se leen los formatos de la prensa y los feeds; lo que no es una fecha es None, una fecha futura es None, y «4/9/2026» se rechaza porque día y mes son ambiguos y no se adivinan. NUNCA la fecha de hoy por defecto |
 | 237 afirmaciones y CERO con `player_id` | `narrative/claims.py` | El archivo guarda las fichas en crudo y el enlace se hacía sólo al publicar. Ahora las afirmaciones se resuelven con el MISMO índice conservador de la prensa (`matching.resolve_one`) y llevan `identity_status`: 186 RESOLVED, 27 UNRESOLVED (casi todos traspasos que el board de agosto no conoce), 13 sin equipo, 0 AMBIGUOUS. Lo no resuelto existe igual y no se cuelga de nadie |
 | E11 medido con jornadas de playoffs | `scripts/startsit_backtest.py` | Se recomprobó sólo sobre temporada regular con los umbrales ya escritos: RB 54,9/52,7, WR 52,0/49,1, TE 51,0/49,4, QB 53,5/54,6. Mismos veredictos, cifras distintas, y las cifras se propagaron al registro EN EL MISMO COMMIT — una etiqueta de autoridad con la cifra vieja es la deriva de las cifras de portada otra vez |
+| El pateador proyectaba bajo por una RECTA | `fantasy/kickers.py` | E8d, preregistrado: los intentos de campo no crecen linealmente con los puntos del equipo (35 puntos son touchdowns, no patadas) y la recta subestimaba en el centro. El término cuadrático con meseta cumplió los tres criterios fijados antes —MAE no peor que +0,02, sesgo a menos de la mitad, techo mejor en 3 de 4— y el sesgo global pasa de −0,66 a −0,39. No se sumó ningún +0,66: se cambió el modelo y se volvió a medir. El orden K1…K12 sigue REJECTED |
+| La escala del novato: hipótesis FALSADA, no ajustada | `scripts/rookie_scale_experiment.py` | El candidato preregistrado (× 15,5 como el veterano) salió IDÉNTICO al baseline porque `expected_games` ya vale 15,5 para todo novato. La diferencia emparejada de +108,9 no es una convención de partidos: es otra cosa, y hasta que un preregistro la separe el novato sigue visible y drafteable con la autoridad de E9 |
+| Un `force=True` que fechaba el dato con la descarga | `data/ingest.py` | `refresh` reescribía `games.csv` en cada ejecución aunque nflverse no hubiera cambiado un byte, y `data_dates` fecha por el mtime: el calendario habría dicho «hoy» sin serlo — la regla 5 fabricada dentro del propio refresco. Contenido idéntico no se toca, y si el servidor manda `Last-Modified`, el fichero lleva esa fecha |
+| Los laboratorios de navegador, fuera de CI | `.github/workflows/ci.yml` | Así estuvo `/fantasy` caída cuatro días en verde. Cinco laboratorios deterministas entran como job requerido por commit (`tools/lab/ci-required.mjs`), con una guarda que pone en rojo CERO comprobaciones — y esa guarda se disparó a sí misma en la primera pasada porque `controles` agrega en 16 líneas y el mínimo estaba en 30: el mínimo es ahora la mitad de lo medido. Lo caro va de madrugada (`labs-nightly.yml`). La ruta de Chromium vive en UN sitio (`tools/lab/browser.mjs`), no en 26 |
+| 26 cifras escritas a mano en el JSX, sin libro | `web/tools/ui-numbers.mjs` | Ninguna comprobación miraba «48,8%», «0,388» o «0,61» en la prosa de la interfaz. Ahora cada cifra a mano tiene entrada en `docs/evidence/ui_numbers.json` con procedencia (PAYLOAD, ARITHMETIC, EXPERIMENT:id, CONVENTION o UNVERIFIED) y una cifra nueva sin entrada es rojo. Doce siguen UNVERIFIED — dicho, no escondido |
 
 ---
 
@@ -620,10 +625,12 @@ identificadores huérfanos de `tools/no-undef.mjs`, la simulación de draft, que
 ninguna pantalla le preste al dato la hora del build y que **cada sección del
 payload que trae fecha la pinte alguien** (`tests/dataDate.test.mjs`), y que
 nadie vuelva a preguntar «¿hay dato?» con un idioma que dice que sí sobre un
-hueco (`tests/numbers.test.mjs`). **Los
-laboratorios de Playwright NO corren en CI** — son locales, y por eso una
-pantalla puede romperse sin que el verde se entere. Ése fue el hueco exacto de
-los cuatro días de `/fantasy`.
+hueco (`tests/numbers.test.mjs`). **Desde el 5 de
+septiembre de 2026 cinco laboratorios de Playwright SÍ corren en CI** como job
+requerido (`tools/lab/ci-required.mjs`: headshot-shots, smoke, apuestas,
+movil, controles), y el resto de madrugada en `labs-nightly.yml`. Antes no
+corría ninguno, y así estuvo `/fantasy` caída cuatro días en verde. Ver
+`docs/CI.md`.
 
 **La rama de trabajo es `claude/gridiron-oracle-setup-98d7ob`** y no hay otra:
 es la rama por defecto del repo, el upstream configurado, tiene 81 commits que

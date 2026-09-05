@@ -12,6 +12,8 @@ lo que entra pasa por `normalize_team`.
 
 from __future__ import annotations
 
+import os
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -110,17 +112,31 @@ def _download(
     if dest.exists() and not force:
         return dest
     tmp = dest.with_suffix(dest.suffix + ".part")
+    last_modified = None
     try:
         with urllib.request.urlopen(url) as response, open(tmp, "wb") as handle:
             handle.write(response.read())
+            last_modified = _http_date(response.headers.get("Last-Modified"))
     except urllib.error.HTTPError as error:
         tmp.unlink(missing_ok=True)
         if optional and error.code == 404:
             return None
         raise
+    # LA FECHA DEL DATO ES LA DEL DATO, NO LA DE LA DESCARGA. `data_dates` fecha
+    # cada sección por el mtime del fichero de origen, así que un `force=True`
+    # que reescribiera el mismo contenido cada refresh le pondría al calendario
+    # la fecha de hoy sin que nflverse hubiera cambiado un byte — la regla 5
+    # fabricada dentro del propio refresco. Dos defensas: contenido idéntico no
+    # se toca (conserva su mtime), y si el servidor dice Last-Modified, el
+    # fichero lleva ESA fecha, que es la de publicación del origen.
+    if dest.exists() and _same_bytes(tmp, dest):
+        tmp.unlink(missing_ok=True)
+        return dest
     # Rename atómico: un Ctrl-C a media descarga no deja un parquet truncado en
     # la caché, que luego falla al leer de forma incomprensible.
     tmp.replace(dest)
+    if last_modified is not None:
+        os.utime(dest, (last_modified, last_modified))
     return dest
 
 
@@ -142,6 +158,33 @@ def _is_optional(dataset: str, season: int, current_season: int) -> bool:
        la semana 1.
     """
     return season < FIRST_SEASON_BY_DATASET[dataset] or season >= current_season
+
+
+def _same_bytes(a: Path, b: Path) -> bool:
+    """¿Mismo contenido? Se compara por hash, no por tamaño: un CSV de líneas
+    puede cambiar una cuota sin cambiar de longitud."""
+    import hashlib
+
+    def digest(path: Path) -> str:
+        h = hashlib.sha256()
+        with open(path, "rb") as handle:
+            for chunk in iter(lambda: handle.read(1 << 20), b""):
+                h.update(chunk)
+        return h.hexdigest()
+
+    return digest(a) == digest(b)
+
+
+def _http_date(value: str | None) -> float | None:
+    """`Last-Modified` en segundos desde la época, o None si no viene o no se lee."""
+    if not value:
+        return None
+    from email.utils import parsedate_to_datetime
+
+    try:
+        return parsedate_to_datetime(value).timestamp()
+    except (TypeError, ValueError):
+        return None
 
 
 def download_season(

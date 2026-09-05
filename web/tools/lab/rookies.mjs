@@ -20,7 +20,7 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { chromium } from "playwright";
+import { launch } from "./browser.mjs";
 
 import { USERNAME, crearLiga, emitir as emitirPick, montar } from "./sleeper-double.mjs";
 
@@ -40,7 +40,7 @@ if(!process.env.SKIP_BUILD){
 const server=spawn("npx",["next","start","-p",String(PORT)],{cwd:WEB,stdio:"ignore",detached:true});
 const stop=()=>{try{process.kill(-server.pid);}catch{}};process.on("exit",stop);
 for(let i=0;i<60;i+=1){try{if((await fetch(BASE)).ok)break;}catch{}await new Promise(r=>setTimeout(r,400));}
-const browser=await chromium.launch({executablePath:"/opt/pw-browsers/chromium-1194/chrome-linux/chrome"});
+const browser=await launch();
 let fallos=0;
 const check=(n,ok,d="")=>{if(!ok)fallos+=1;console.log(`  ${ok?"ok   ":"FALLA"} ${n}${d?` — ${d}`:""}`);};
 

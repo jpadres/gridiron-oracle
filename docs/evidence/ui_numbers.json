@@ -1,0 +1,161 @@
+{
+ "note": "Cada cifra escrita a mano en el JSX, con su procedencia. source: PAYLOAD (la pinta el dato, no debería estar aquí), ARITHMETIC (deducible: 52.4% = 1/1.9091), EXPERIMENT:<id> (medida, con el documento), CONVENTION (constante declarada), UNVERIFIED (sin procedencia todavía: se declara, no se esconde).",
+ "entries": [
+  {
+   "file": "app/betting/BankCurve.jsx",
+   "value": "0.05",
+   "source": "CONVENTION",
+   "verified_by": "el ±5% mínimo del eje de la curva de banca, declarado en el propio componente"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "1.5 points",
+   "source": "CONVENTION",
+   "verified_by": "el mínimo de ventaja de kelly.py (min_edge = 0,015) expresado en puntos porcentuales"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "3.5 points",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "48.8%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "49.3%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "50.9%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "52.4%",
+   "source": "ARITHMETIC",
+   "verified_by": "1/1.9091 a −110; no es una medición"
+  },
+  {
+   "file": "app/charts.jsx",
+   "value": "0.25",
+   "source": "CONVENTION",
+   "verified_by": "cuartiles de la banda del gráfico"
+  },
+  {
+   "file": "app/charts.jsx",
+   "value": "0.75",
+   "source": "CONVENTION",
+   "verified_by": "cuartiles de la banda del gráfico"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.61",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.78",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
+   "value": "0.044",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
+   "value": "0.060",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
+   "value": "0.388",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
+   "value": "0.39",
+   "source": "EXPERIMENT:E8c",
+   "verified_by": "tests/test_kicker_bias.py cruza registro, pantalla y docs/evidence/kicker_falsify.json"
+  },
+  {
+   "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
+   "value": "0.97",
+   "source": "EXPERIMENT:E8c",
+   "verified_by": "tests/test_kicker_bias.py cruza registro, pantalla y docs/evidence/kicker_falsify.json"
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "0.15",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "0.25",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "0.55",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "0.6 points",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "1.5%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "2.7 points",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/predicciones/page.jsx",
+   "value": "48.8%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/predicciones/page.jsx",
+   "value": "49.3%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/predicciones/page.jsx",
+   "value": "50.9%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/predicciones/page.jsx",
+   "value": "52.4%",
+   "source": "ARITHMETIC",
+   "verified_by": "1/1.9091 a −110; no es una medición"
+  }
+ ]
+}

@@ -7,7 +7,7 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { chromium } from "playwright";
+import { launch } from "./browser.mjs";
 
 import { USERNAME, crearLiga, emitir as emitirPick, libres as libresDe, montar }
   from "./sleeper-double.mjs";
@@ -26,7 +26,7 @@ if(!process.env.SKIP_BUILD){
 const server=spawn("npx",["next","start","-p",String(PORT)],{cwd:WEB,stdio:"ignore",detached:true});
 const stop=()=>{try{process.kill(-server.pid);}catch{/* ya no está */}};process.on("exit",stop);
 for(let i=0;i<60;i+=1){try{if((await fetch(BASE)).ok)break;}catch{/* aún no */}await new Promise(r=>setTimeout(r,400));}
-const browser=await chromium.launch({executablePath:"/opt/pw-browsers/chromium-1194/chrome-linux/chrome"});
+const browser=await launch();
 
 const TEAMS=12, ROUNDS=15;
 /* El doble compartido: los cuatro laboratorios sirven el MISMO Sleeper. */

@@ -1,0 +1,40 @@
+name: Laboratorios profundos (nocturno)
+
+# Lo que NO corre por commit: cuesta minutos, simula drafts enteros por el
+# adaptador de Sleeper o depende del reloj del navegador. Corre de madrugada
+# y a mano. Un rojo aquí no bloquea un push; sí avisa.
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  deep:
+    name: live-assistant, cuenta, conectar, storage-blocked, matrix
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Instalar
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+        run: npm ci
+      - name: Chromium de Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Build
+        run: npm run build
+      - name: Laboratorios profundos
+        run: |
+          set -e
+          for lab in live-assistant cuenta conectar storage-blocked live-assistant-matrix replay roster-isolation; do
+            echo "=== $lab"
+            SKIP_BUILD=1 node tools/lab/$lab.mjs
+          done

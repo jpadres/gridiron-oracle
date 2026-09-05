@@ -743,10 +743,11 @@ REGISTRY: tuple[Capability, ...] = (
         status=Status.VALIDATED,
         evidence=(
             "la proyección por oportunidad del equipo bate en MAE a la media de "
-            "liga y a la forma reciente del pateador (3,73 frente a 3,77 y 4,07)"
+            "liga y a la forma reciente del pateador (3,72 frente a 3,77 y 4,07; "
+            "E8 recomprobado el 2026-09-05 con el término cuadrático de E8d)"
         ),
         experiment_id="E8",
-        metric="MAE 3.73 vs 3.77 (media de liga) y 4.07 (forma)",
+        metric="MAE 3.72 vs 3.77 (media de liga) y 4.07 (forma)",
         sample_size=2108,
         limitations=(
             "Vale la PROYECCIÓN, no el orden: KICKER_ORDINAL_RANKING sigue "
@@ -757,10 +758,12 @@ REGISTRY: tuple[Capability, ...] = (
             # bate a la forma en TODOS los estratos, y proyecta BAJO en todos.
             # Se publica sin corregir: no hay corrección preregistrada, y un
             # multiplicador a ojo sería peor que el sesgo conocido.
-            "Proyecta BAJO de forma sistemática (E8c): sesgo global −0,66 puntos "
-            "por partido, y −1,25 en estadios con techo fijo o retráctil (725 "
+            "Proyecta BAJO (E8c, recomprobado tras E8d): sesgo global −0,39 puntos "
+            "por partido, y −0,97 en estadios con techo fijo o retráctil (725 "
             "pateador-semanas; si el retráctil estaba abierto no se sabe). "
-            "Sin corregir: ninguna corrección está preregistrada ni validada.",
+            "E8d (docs/PREREGISTRO_kicker_bias.md) adoptó intentos cuadráticos en "
+            "los puntos del equipo por cumplir los tres criterios fijados antes; "
+            "el sesgo que queda se publica, no se parchea.",
         ),
         last_validated="2026-09-05",
         model_version=MODEL_VERSION,

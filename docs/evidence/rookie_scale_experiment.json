@@ -1,0 +1,98 @@
+{
+ "experiment": "E25",
+ "preregistration": "docs/PREREGISTRO_novato_escala.md",
+ "acceptance": {
+  "pair_diff_abs": 20.0,
+  "spearman_slack": 0.02,
+  "n_min": 100
+ },
+ "per_season": [
+  {
+   "season": 2019,
+   "n_rookies": 253,
+   "spearman_baseline": 0.5321615320396407,
+   "spearman_C1": 0.5321615320396407,
+   "mae_baseline": 22.07511468248808,
+   "mae_C1": 22.07511468248808,
+   "bias_baseline": 0.021876368717768924,
+   "bias_C1": 0.021876368717768924
+  },
+  {
+   "season": 2020,
+   "n_rookies": 202,
+   "spearman_baseline": 0.6590013898632245,
+   "spearman_C1": 0.6590013898632245,
+   "mae_baseline": 23.343369401361194,
+   "mae_C1": 23.343369401361194,
+   "bias_baseline": 3.353713410995617,
+   "bias_C1": 3.353713410995617
+  },
+  {
+   "season": 2021,
+   "n_rookies": 158,
+   "spearman_baseline": 0.7091695486750422,
+   "spearman_C1": 0.7091695486750422,
+   "mae_baseline": 27.372831657814015,
+   "mae_C1": 27.372831657814015,
+   "bias_baseline": 2.088804691518758,
+   "bias_C1": 2.088804691518758
+  },
+  {
+   "season": 2022,
+   "n_rookies": 231,
+   "spearman_baseline": 0.6978128610644425,
+   "spearman_C1": 0.6978128610644425,
+   "mae_baseline": 19.776246877348157,
+   "mae_C1": 19.776246877348157,
+   "bias_baseline": -2.112756899227328,
+   "bias_C1": -2.112756899227328
+  },
+  {
+   "season": 2023,
+   "n_rookies": 223,
+   "spearman_baseline": 0.7054212625036896,
+   "spearman_C1": 0.7054212625036896,
+   "mae_baseline": 23.43608199332058,
+   "mae_C1": 23.43608199332058,
+   "bias_baseline": 5.092813480341708,
+   "bias_C1": 5.092813480341708
+  },
+  {
+   "season": 2024,
+   "n_rookies": 228,
+   "spearman_baseline": 0.6708867221770264,
+   "spearman_C1": 0.6708867221770264,
+   "mae_baseline": 23.389682952989375,
+   "mae_C1": 23.389682952989375,
+   "bias_baseline": -1.01774372719659,
+   "bias_C1": -1.01774372719659
+  },
+  {
+   "season": 2025,
+   "n_rookies": 237,
+   "spearman_baseline": 0.6490222485802625,
+   "spearman_C1": 0.6490222485802625,
+   "mae_baseline": 20.6273828272129,
+   "mae_C1": 20.6273828272129,
+   "bias_baseline": 1.801137718049032,
+   "bias_C1": 1.801137718049032
+  }
+ ],
+ "summary": {
+  "baseline": {
+   "pair_diff": 108.94511557038985,
+   "n_pairs": 123,
+   "spearman": 0.6560627252370433,
+   "mae": 22.6118595249269,
+   "bias": 1.2111557463042821
+  },
+  "C1": {
+   "pair_diff": 108.94511557038985,
+   "n_pairs": 123,
+   "spearman": 0.6560627252370433,
+   "mae": 22.6118595249269,
+   "bias": 1.2111557463042821,
+   "ACCEPTED": false
+  }
+ }
+}

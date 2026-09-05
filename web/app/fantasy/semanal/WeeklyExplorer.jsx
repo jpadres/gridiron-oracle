@@ -286,8 +286,8 @@ export default function WeeklyExplorer({
             {/* E8c: el sesgo se DICE, no se corrige. Los dos números salen de
                 out/kicker_falsify.json y el registro los repite; un test
                 comprueba que las tres copias digan lo mismo. */}
-            It also runs low: measured against 2022&ndash;2025, projections sit 0.66 points
-            per game under the real result on average, and 1.25 in domes and retractable-roof stadiums
+            It also runs low: measured against 2022&ndash;2025, projections sit 0.39 points
+            per game under the real result on average, and 0.97 in domes and retractable-roof stadiums
             (whether a retractable roof was open is not known). That
             bias is published, not corrected &mdash; no correction has been validated.
           </p>

@@ -33,14 +33,13 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { chromium } from "playwright";
+import { launch } from "./browser.mjs";
 
 import { USERNAME, crearLiga, crearMock, emitir, slotOf, montar } from "./sleeper-double.mjs";
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const PORT = Number(process.env.PORT ?? 4531);
 const BASE = `http://127.0.0.1:${PORT}`;
-const CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome";
 
 const TODAS = [
   "/", "/modelo", "/predicciones", "/betting",
@@ -97,7 +96,7 @@ const KICKERS = model.fantasy.specialists?.kickers ?? [];
 const SLEEPER_OF = Object.fromEntries(
   Object.entries(model.fantasy.sleeper_ids).map(([sid, gsis]) => [gsis, sid]));
 
-const browser = await chromium.launch({ executablePath: CHROME });
+const browser = await launch();
 
 /** Vigila las DOS vías por las que un fallo de cliente puede llegar. */
 function vigilar(page) {

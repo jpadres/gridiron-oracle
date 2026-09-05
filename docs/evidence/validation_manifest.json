@@ -1,0 +1,87 @@
+{
+ "code_sha": "6c5cbe4",
+ "note": "las fechas son las de los ficheros de ORIGEN descargados (mtime), nunca la de este script",
+ "artifacts": {
+  "player_weeks": {
+   "rows_all": 476158,
+   "rows_regular_season": 456154,
+   "stage_filter": "season_type == REG (falla cerrado sin columna)",
+   "seasons": [
+    1999,
+    2025
+   ],
+   "source_snapshot": {
+    "player_stats_2023.parquet": "2026-08-17",
+    "player_stats_2024.parquet": "2026-08-17",
+    "player_stats_2025.parquet": "2026-08-17"
+   }
+  },
+  "games": {
+   "rows": 7548,
+   "seasons": [
+    1999,
+    2026
+   ],
+   "played": 7276,
+   "source_snapshot": {
+    "games.csv": "2026-09-05"
+   }
+  },
+  "backtest_preds": {
+   "rows": 3829,
+   "seasons": [
+    2012,
+    2025
+   ],
+   "method": "walk-forward: temporada S sólo con < S",
+   "generated_from": "oracle backtest"
+  },
+  "e11_startsit": {
+   "script": "scripts/startsit_backtest.py",
+   "evaluation": [
+    2024,
+    2025
+   ],
+   "stage_filter": "REG",
+   "evidence": "docs/evidence/e11_regular_season_2026-09-05.md"
+  },
+  "e8c_kicker_bias": {
+   "script": "scripts/kicker_falsify.py",
+   "evaluation": [
+    2022,
+    2025
+   ],
+   "calibration": "bloque fijo",
+   "stage_filter": "REG",
+   "evidence": "docs/evidence/kicker_falsify.json"
+  },
+  "e8d_kicker_quadratic": {
+   "script": "scripts/kicker_bias_experiment.py",
+   "evaluation": [
+    2022,
+    2025
+   ],
+   "calibration": "walk-forward desde 2016",
+   "stage_filter": "REG",
+   "evidence": "docs/evidence/kicker_bias_experiment.json"
+  },
+  "e25_rookie_scale": {
+   "script": "scripts/rookie_scale_experiment.py",
+   "evaluation": [
+    2019,
+    2025
+   ],
+   "stage_filter": "REG",
+   "evidence": "docs/evidence/rookie_scale_experiment.json"
+  },
+  "bust_risk_weekly": {
+   "scripts": [
+    "fantasy_bust_validate.py",
+    "fantasy_risk_validate.py",
+    "fantasy_weekly_calibrate.py"
+   ],
+   "stage_filter": "REG",
+   "evidence": "docs/evidence/revalidacion_sin_playoffs_2026-09-05.md"
+  }
+ }
+}

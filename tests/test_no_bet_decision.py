@@ -77,3 +77,12 @@ def test_fuzz_decision_and_fraction_never_disagree():
         if d.no_bet_reason == NO_BET_BELOW_PRICE:
             assert p - market >= CFG.min_edge
         assert d.stake_fraction <= CFG.max_fraction
+
+
+def test_exact_equality_at_the_minimum_is_a_bet_with_exactly_representable_numbers():
+    # 0,125 y 0,25 son exactos en binario: edge == min_edge sin ruido de coma
+    # flotante. `edge < min_edge` deja pasar la igualdad; un `<=` la pararía.
+    cfg = KellyConfig(min_edge=0.125)
+    d = decide(0.375, 5.0, 0.25, cfg)  # a +400 el edge encogido bate el precio de sobra
+    assert d.decision == "BET" and d.no_bet_reason is None
+    assert decide(0.375 - 1e-12, 5.0, 0.25, cfg).no_bet_reason == NO_BET_UNDER_MINIMUM

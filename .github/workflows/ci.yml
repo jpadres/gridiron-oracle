@@ -214,6 +214,36 @@ jobs:
             exit 1
           fi
 
+  # Los laboratorios de navegador DETERMINISTAS, por commit. Hasta el 5 de
+  # septiembre de 2026 ninguno corría en CI, y así /fantasy estuvo caída
+  # cuatro días con todo en verde. Lo caro y lo que depende del reloj va en
+  # labs-nightly.yml. Sin `|| true`: cero comprobaciones también es rojo
+  # (tools/lab/ci-required.mjs).
+  browser:
+    name: Laboratorios de navegador (requeridos)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Instalar
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+        run: npm ci
+      - name: Chromium de Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Build
+        run: npm run build
+      - name: Laboratorios requeridos
+        run: node tools/lab/ci-required.mjs
+
   dependencies:
     name: Auditoría de dependencias
     runs-on: ubuntu-latest
