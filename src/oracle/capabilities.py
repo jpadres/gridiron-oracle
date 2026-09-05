@@ -375,14 +375,17 @@ REGISTRY: tuple[Capability, ...] = (
         status=Status.VALIDATED,
         evidence="la mezcla con la forma reciente bate al baseline en MAE en las cuatro posiciones",
         experiment_id="E7",
-        metric="MAE 5,13–6,57 según posición, siempre por debajo del baseline",
+        metric="MAE 5,11–6,60 según posición, siempre por debajo del baseline",
         sample_size=6299,
         limitations=(
             "Es una MEZCLA: el modelo solo no bate al baseline en ninguna posición.",
             "Calibrada en nivel, no en dispersión: la proyección sigue comprimida "
             "frente a la realidad (sd 3,3 frente a 8,4 en QB).",
+            "Recomprobada el 2026-09-05 SÓLO sobre temporada regular (antes las "
+            "jornadas de playoffs entraban en la evaluación): mismo veredicto, "
+            "docs/evidence/revalidacion_sin_playoffs_2026-09-05.md.",
         ),
-        last_validated="2026-08-29",
+        last_validated="2026-09-05",
         model_version=MODEL_VERSION,
     ),
     Capability(
