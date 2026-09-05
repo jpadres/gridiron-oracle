@@ -590,6 +590,15 @@ laboratorios de Playwright NO corren en CI** — son locales, y por eso una
 pantalla puede romperse sin que el verde se entere. Ése fue el hueco exacto de
 los cuatro días de `/fantasy`.
 
+**La rama de trabajo es `claude/gridiron-oracle-setup-98d7ob`** y no hay otra:
+es la rama por defecto del repo, el upstream configurado, tiene 81 commits que
+la otra no tiene, y es de la que Vercel publica producción. Varias instrucciones
+la han llamado «muerta» señalando a `claude/instrucciones-28an59`, que está
+contenida entera en ella con CERO commits propios. La evidencia, con el detalle
+del commit que parecía varado y no lo estaba, en `docs/RAMA_CANONICA.md`.
+Empujar a la otra no sería un detalle de organización: el trabajo no se
+desplegaría y el sitio seguiría sirviendo lo anterior sin dar ningún error.
+
 **Pendiente de la mano del dueño** (ver `docs/ESTADO.md`). Los tres puntos que
 había aquí —subir el repo, importarlo en Vercel, borrar el proyecto viejo— ya no
 son tareas: el repo está en `jpadres/gridiron-oracle`, el proyecto de Vercel
