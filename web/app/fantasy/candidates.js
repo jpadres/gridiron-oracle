@@ -41,17 +41,7 @@
  */
 
 import { MIN_WEIGHTED_GAMES, SLOT_ELIGIBILITY, priorShare } from "./leagueValue.js";
-import { fitIsActive, rosterFit } from "./rosterFit.js";
-
-/**
- * Cuántos candidatos se miran antes de ordenar por ajuste a la plantilla.
- *
- * Reordenar sólo los cuatro que se enseñan no serviría: si los cuatro primeros
- * del board son quarterbacks y alas cerradas y ya tienes los dos, el corredor
- * que sí te añade algo está en el puesto 15 y nunca entraría en la lista. Se
- * evalúan cincuenta y se enseñan cuatro.
- */
-const VENTANA = 50;
+import { orderByFit } from "./rosterFit.js";
 
 /** Posiciones cuyo ORDEN está validado. K y DST quedan fuera a propósito. */
 export const RANKED_POSITIONS = ["QB", "RB", "WR", "TE"];
@@ -121,25 +111,12 @@ export function candidates(
   // la plantilla declarada, por lo que cada uno añade a la alineación de hoy.
   // Sin estructura no se reordena nada: suponer una plantilla es justo lo que
   // se retiró, y un orden personalizado sobre una suposición no falla, miente.
-  const ventana = pool.slice(0, VENTANA);
-  const fit = rosterFit({ candidates: ventana, roster, rosterPositions, replacement });
-  const porId = fit ? new Map(fit.map((f) => [f.player_id, f])) : null;
   // TERCER ESTADO: la estructura está declarada pero ya no queda hueco titular
   // que nadie pueda mejorar. El orden vuelve a ser el del board por el propio
   // desempate, y la lista tiene que DECIRLO en vez de seguir rotulada como
   // personalizada — con un +0 en las cuatro filas, que es la contradicción.
-  const fitActive = fit ? fitIsActive(fit) : false;
-  const ordenados = porId
-    ? [...ventana].sort((a, b) => {
-        const ma = porId.get(a.player_id)?.marginal ?? -Infinity;
-        const mb = porId.get(b.player_id)?.marginal ?? -Infinity;
-        // Empate a marginal —dos jugadores que no entran en tu alineación, o
-        // dos que la mejoran igual— se rompe por el valor del board. Sin este
-        // desempate, con todos los huecos llenos el orden quedaría al azar del
-        // `sort`, que es peor que el board y encima no se nota.
-        return mb - ma || (Number(b.vor) || 0) - (Number(a.vor) || 0);
-      })
-    : pool;
+  const { rows: ordenados, byId: porId, active: fitActive } =
+    orderByFit(pool, { roster, rosterPositions, replacement });
 
   return ordenados.slice(0, limit).map((row, index) => {
     const ajuste = porId?.get(row.player_id) ?? null;

@@ -54,10 +54,11 @@ import {
   DRAFT_STATUS, agoLabel, mySlot, pickSchedule, picksUntilMe, reconciliation, syncState,
 } from "./draftSync.js";
 import { compilePoints, rulesFromSleeper } from "./scoring.js";
-import { useSleeperDraft } from "./useSleeperDraft.js";
+import { SLEEPER, useSleeperDraft } from "./useSleeperDraft.js";
 import {
   activeBoardFrom, leagueBoardFrom, rosterContext, setComponentOrder, valueConfidence,
 } from "./leagueValue.js";
+import { orderByFit, replacementPoints } from "./rosterFit.js";
 import { syncPool } from "./sleeperAccount.js";
 
 
@@ -191,9 +192,17 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   // Y de ahí sale gratis lo que antes no se podía: deshacer un pick del sondeo
   // aguanta, porque el UNDO lleva reloj de verdad y el evento del proveedor
   // lleva un ordinal. Antes volvía a aparecer quince segundos después.
+  /* MI PUESTO, arriba del todo: el estado plegado lo necesita para atribuir los
+     picks que el proveedor no puede (draft seguido por id, sin cuenta). Estaba
+     doscientas líneas más abajo, junto al calendario, que es donde se usaba
+     antes — leerlo desde aquí sin moverlo es un ReferenceError en el render. */
+  const slot = useMemo(
+    () => mySlot({ draft, userId: prefs.userId }),
+    [draft, prefs.userId]
+  );
   const state = useMemo(
-    () => fold([...events, ...providerEvents(sync.canonical ?? [])]),
-    [events, sync.canonical]
+    () => fold([...events, ...providerEvents(sync.canonical ?? [], { mySlot: slot })]),
+    [events, sync.canonical, slot]
   );
 
   // --- ¿se puede valorar EN ESTA liga? ---------------------------------------
@@ -247,6 +256,11 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
     () => activeBoardFrom(leagueBoard, board), [leagueBoard, board]
   );
 
+  /* MIS JUGADORES. Se lee AQUÍ y no después del `if (!ready)` porque la
+     sugerencia lo necesita para ordenar por lo que cada uno añade: leerlo más
+     abajo era un ReferenceError, y leerlo dos veces sería otra fuente. */
+  const picked = activeBoard.filter((row) => state.mine.has(row.player_id));
+
   const counts = useMemo(() => {
     const out = { QB: 0, RB: 0, WR: 0, TE: 0 };
     for (const row of activeBoard) if (state.mine.has(row.player_id)) out[row.position] += 1;
@@ -269,6 +283,18 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   // de otra posición no se tachara y que tu plantilla apareciera vacía en
   // cuanto filtrabas — con el filtro en WR, el corredor que acababas de coger
   // desaparecía del recuento.
+  /* EL NIVEL DE REEMPLAZO, leído del pool por la identidad `proj − vor`. Sale
+     del board que se esté usando —el de tu liga si se pudo compilar—, así que
+     una superflex trae el suyo sin que esta pantalla sepa qué es. */
+  const replacement = useMemo(() => replacementPoints(pool), [pool]);
+
+  /* LA SUGERENCIA, ordenada por lo que cada uno AÑADE a tu alineación.
+     Mismo `orderByFit` que la lista corta del Draft Room: las dos pantallas
+     enseñan la misma decisión con distinta caja, y cada una con su propio orden
+     habría sido la sexta vez que dos traductores del mismo formato divergen.
+     Sin huecos declarados —`roster_positions` de la liga— no se reordena nada
+     y la pantalla lo dice: suponer una plantilla es lo que se retiró. */
+  const declaredRoster = leagueInfo?.roster_positions ?? null;
   const suggestions = useMemo(() => {
     const scored = available.map((row) => ({
       ...row,
@@ -280,8 +306,15 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
       positionFilter === "ALL"
         ? scored
         : scored.filter((row) => row.position === positionFilter);
-    return visible.slice(0, 8);
-  }, [available, counts, positionFilter]);
+    const { rows, byId, active } = orderByFit(visible, {
+      roster: picked, rosterPositions: declaredRoster, replacement,
+    });
+    return {
+      rows: rows.slice(0, 8).map((row) => ({ ...row, fit: byId?.get(row.player_id) ?? null })),
+      active,
+      known: Boolean(declaredRoster?.length),
+    };
+  }, [available, counts, positionFilter, picked, declaredRoster, replacement]);
 
   // Búsqueda sobre el board entero, no sólo sobre las sugerencias.
   //
@@ -368,10 +401,6 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   const draftTeams = Number(draft?.settings?.teams) || null;
   const draftRounds = Number(draft?.settings?.rounds) || null;
   const draftType = typeof draft?.type === "string" ? draft.type : null;
-  const slot = useMemo(
-    () => mySlot({ draft, userId: prefs.userId }),
-    [draft, prefs.userId]
-  );
   const schedule = useMemo(
     () => pickSchedule({ slot, teams: draftTeams, rounds: draftRounds, type: draftType }),
     [slot, draftTeams, draftRounds, draftType]
@@ -445,7 +474,7 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
     return <p className="caption">Loading draft mode…</p>;
   }
 
-  const picked = activeBoard.filter((row) => state.mine.has(row.player_id));
+
   // El recuento real, sincronizados incluidos. La versión anterior sumaba sólo
   // las marcas manuales, así que con Sleeper conectado decía «3 off the board»
   // con treinta jugadores tachados.
@@ -454,15 +483,27 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   // La sugerencia ya puntuada se PARTE en dos para pintarla: la primera es la
   // decisión, el resto es la cola. No se recalcula nada — `suggestions` sale del
   // mismo `useMemo` de siempre, con el mismo ajuste posicional.
-  const onClock = suggestions[0] ?? null;
-  const next = suggestions.slice(1, 5);
+  const onClock = suggestions.rows[0] ?? null;
+  const next = suggestions.rows.slice(1, 5);
+  /* TRES estados, igual que en el Draft Room y con las mismas palabras:
+       · sin huecos declarados          -> orden del board, y se dice por qué
+       · con huecos que alguien mejora  -> orden por lo que añade a tu alineación
+       · con TODOS los titulares llenos -> orden del board otra vez, y se dice
+     Reordenar en silencio sería indistinguible de un board roto, y rotular la
+     lista «lo que más añade» con un +0 serían dos frases que se contradicen. */
+  const fitted = suggestions.active;
+  const startersFull = suggestions.known && !fitted && picked.length > 0;
 
   // «¿Puedo esperar?» es un CONTEO, no una predicción: cuántos jugadores de su
   // misma posición y su mismo tier siguen disponibles. No dice si esperar es
   // buena idea —eso sería una afirmación que nadie ha validado— dice cuántos
   // quedan, que es el dato con el que se decide.
+  /* Se cuenta sobre el POOL DISPONIBLE, no sobre las ocho sugerencias pintadas.
+     Contarlo sobre lo renderizado decía «2 left in tier» con doce disponibles:
+     un número que se lee como escasez y era un artefacto del recorte. Ya estaba
+     corregido en el Draft Room y aquí no — el fallo de los dos traductores. */
   const sameTier = onClock
-    ? suggestions.filter(
+    ? available.filter(
         (row) => row.position === onClock.position && row.tier === onClock.tier
       ).length
     : 0;
@@ -552,7 +593,9 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
 
       {onClock && sync.view.canRecommend ? (
         <section className="onclock" style={teamVars(onClock.team)} aria-label="On the clock">
-          <p className="eyebrow">Best available by VOR</p>
+          <p className="eyebrow">
+            {fitted ? "Best for your roster" : "Best available by VOR"}
+          </p>
           <div className="onclock-body">
             <span className="rank-numeral rank-numeral--hero">{onClock.position_rank}</span>
             <div className="onclock-who hs-who">
@@ -571,12 +614,43 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
                 ) : null}
               </p>
             </div>
+            {/* Los DOS números juntos cuando el orden se ha adaptado: enseñar
+                sólo el ajustado escondería que el board dice otra cosa, y sólo
+                el del board dejaría el reorden sin explicación visible. */}
             <div className="onclock-signal">
-              <span className="value">{num(onClock.vor, 1)}</span>
-              <span className="label">VOR</span>
+              {fitted && Number.isFinite(onClock.fit?.marginal) ? (
+                <>
+                  <span className="value">{num(onClock.fit.marginal, 1)}</span>
+                  <span className="label">to your lineup</span>
+                  <span className="label label--board">{num(onClock.vor, 1)} VOR</span>
+                </>
+              ) : (
+                <>
+                  <span className="value">{num(onClock.vor, 1)}</span>
+                  <span className="label">VOR</span>
+                </>
+              )}
             </div>
           </div>
           <p className="onclock-wait">{waitAdvice}</p>
+          {/* POR QUÉ el orden es el que es. Los tres estados con sus palabras:
+              sin huecos declarados no se adapta nada y se dice; con todos los
+              titulares puestos el orden vuelve al board, que es el correcto
+              para un pick de banquillo. */}
+          <p className="onclock-why">
+            {fitted ? (
+              <>Ordered by what each one adds to <strong>your</strong> starting lineup,
+              from the same VOR — the board below stays in pure VOR order.</>
+            ) : startersFull ? (
+              <>Your starters are all filled, so nobody adds to this lineup any more:
+              back to board order, which is the right one for a bench pick.</>
+            ) : suggestions.known ? (
+              <>Board order. Nothing is on your roster yet, so there is nothing to adapt to.</>
+            ) : (
+              <>Board order — this league has not declared its roster slots, so nothing
+              is adapted to your team. Connect the league to get its real structure.</>
+            )}
+          </p>
           <div className="onclock-actions">
             <button type="button" className="act act--mine" onClick={() => take(onClock.player_id, true)}>
               Drafted by me

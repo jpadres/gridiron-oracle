@@ -216,12 +216,39 @@ export function untilMyTurn({ count, teams, type, mySlot, rounds = null }) {
  * No se guarda nada: quien llame funde estos eventos con el registro persistido
  * en cada render y tira el resultado.
  */
-export function providerEvents(picks, { source = SOURCE.SLEEPER } = {}) {
+export function providerEvents(picks, { source = SOURCE.SLEEPER, mySlot = null } = {}) {
+  /* DE QUIÉN ES EL PICK CUANDO SLEEPER NO LO DICE.
+   *
+   * Siguiendo un DRAFT POR ID —un mock, o mirar un draft sin haber tecleado tu
+   * usuario— no hay `userId` ni `rosterId` que cruzar, así que el adaptador
+   * marca TODOS los picks UNKNOWN. Y eso es correcto por su parte: él no sabe
+   * quién eres. El efecto era que tu plantilla se quedaba vacía y todo lo que
+   * depende de ella —la lista corta que se adapta, los huecos abiertos, el
+   * conteo por posición— no tenía nada que mirar, en silencio.
+   *
+   * El pick SÍ trae su `draft_slot`, y tú SÍ has declarado tu puesto. Cruzar
+   * los dos no es adivinar: es la MISMA derivación por puesto que usa el modo
+   * manual, sobre un dato que has declarado tú. Sin puesto declarado, o sin
+   * casilla en el pick, se queda UNKNOWN — «no sé de quién es» nunca se
+   * convierte en «es de otro».
+   *
+   * Y lo que el adaptador YA resolvió no se toca: `picked_by`/`roster_id` es
+   * evidencia más fuerte que la casilla. */
+  const casilla = Number(mySlot);
+  const porCasilla = (pick) => {
+    if (pick.roster && pick.roster !== ROSTER.UNKNOWN) return pick.roster;
+    const suya = Number(pick.draftSlot);
+    if (!Number.isFinite(casilla) || casilla <= 0 || !Number.isFinite(suya) || suya <= 0) {
+      return ROSTER.UNKNOWN;
+    }
+    return suya === casilla ? ROSTER.MINE : ROSTER.OPPONENT;
+  };
+
   return (Array.isArray(picks) ? picks : []).map((pick, index) => ({
     kind: "TAKE",
     playerId: pick.playerId,
-    roster: pick.roster ?? ROSTER.UNKNOWN,
-    rosterSource: "PROVIDER",
+    roster: porCasilla(pick),
+    rosterSource: pick.roster && pick.roster !== ROSTER.UNKNOWN ? "PROVIDER" : "DERIVED",
     overall: null,
     source,
     providerId: pick.providerId ?? null,

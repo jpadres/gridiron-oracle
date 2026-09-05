@@ -67,7 +67,14 @@ import { buildIndex, mockLeagueId, mockScoringSettings, rosterFromDraftSettings 
 
 // El único destino externo de todo el sitio. La CSP no permite ningún otro, y
 // CI comprueba que `fetch` no aparezca fuera de los ficheros declarados.
-const SLEEPER = "https://api.sleeper.app/v1";
+/* LA BASE DE LA API, exportada y ÚNICA.
+   `DraftMode.jsx` la usaba con una copia local; al refactorizar la ingesta esa
+   copia se borró y sus cuatro `fetch` se quedaron con un `SLEEPER` que no
+   existía. La pantalla de /fantasy se caía en render en cuanto había una liga
+   configurada —el `catch` no salva un ReferenceError en el cuerpo del efecto—
+   y ningún laboratorio conducía esa pantalla CON liga, así que estuvo rota
+   cuatro días en verde. Se exporta para que no vuelva a haber dos. */
+export const SLEEPER = "https://api.sleeper.app/v1";
 
 // Cada quince segundos. Sleeper no publica un límite duro para lecturas
 // anónimas; quince es cómodo para todos y suficiente para un draft, donde un
@@ -301,6 +308,12 @@ export function useSleeperDraft(pool, { leagueId, draftId: wantedDraftId, season
               ? ROSTER.UNKNOWN
               : (mineByRoster || mineByUser) ? ROSTER.MINE : ROSTER.OPPONENT,
             pickNo: Number(pick.pick_no) || null,
+            // LA CASILLA DEL PICK. Viaja siempre, aunque el dueño se haya
+            // podido resolver: es lo que permite atribuir un pick cuando no hay
+            // cuenta enlazada —un draft seguido por id— cruzándola con el
+            // puesto que TÚ has declarado. Quien decide es `providerEvents`,
+            // que es el traductor compartido por las dos pantallas.
+            draftSlot: Number(pick.draft_slot) || null,
             providerId: String(pick.player_id),
           });
         }

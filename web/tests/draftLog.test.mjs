@@ -337,3 +337,54 @@ test("el replay recorre picks, no números: con huecos sigue avanzando de uno en
   assert.equal(replayState(state, 2).count, 2);
   assert.deepEqual(replayState(state, 2).picks.map((p) => p.overall), [1, 4]);
 });
+
+
+/* ── de quién es el pick cuando Sleeper no lo dice ───────────────────────────
+ *
+ * Siguiendo un DRAFT POR ID —el caso del mock, y el de mirar un draft sin haber
+ * tecleado tu usuario— Sleeper manda `picked_by` y `roster_id` de gente que no
+ * sabemos quién es: sin `userId` ni `rosterId` resueltos, el adaptador marca
+ * TODOS los picks UNKNOWN, incluidos los tuyos. Tu plantilla se quedaba vacía
+ * y todo lo que depende de ella —la lista corta que se adapta, los huecos, el
+ * conteo por posición— no tenía nada que mirar. En silencio.
+ *
+ * Pero el pick SÍ trae `draft_slot`, y tú SÍ has declarado tu puesto. Cruzar
+ * esos dos no es adivinar: es la misma derivación por puesto que usa el modo
+ * manual, sobre un dato que has declarado tú. Sin puesto declarado se queda
+ * UNKNOWN, que es lo que manda la regla del roster.
+ */
+
+const sinDueño = (playerId, pickNo, draftSlot) =>
+  ({ playerId, pickNo, draftSlot, providerId: `s${playerId}`, roster: ROSTER.UNKNOWN });
+
+test("con mi puesto declarado, el pick de MI casilla es mío", () => {
+  const { picks, mine } = fold(providerEvents(
+    [sinDueño("a", 1, 1), sinDueño("b", 2, 3), sinDueño("c", 3, 3)],
+    { mySlot: 3 }
+  ));
+  assert.deepEqual([...mine], ["b", "c"]);
+  assert.equal(picks.find((p) => p.playerId === "a").roster, ROSTER.OPPONENT);
+});
+
+test("SIN puesto declarado no se adivina: se queda UNKNOWN", () => {
+  const { picks, mine } = fold(providerEvents([sinDueño("a", 1, 1), sinDueño("b", 2, 3)]));
+  assert.equal(mine.size, 0);
+  assert.ok(picks.every((p) => p.roster === ROSTER.UNKNOWN),
+    "sin saber tu puesto, «no sé de quién es» NO puede convertirse en «es de otro»");
+});
+
+test("y un pick SIN casilla tampoco se adivina, aunque el puesto esté declarado", () => {
+  const { picks } = fold(providerEvents([sinDueño("a", 1, null)], { mySlot: 3 }));
+  assert.equal(picks[0].roster, ROSTER.UNKNOWN);
+});
+
+test("lo que el adaptador YA resolvió no se toca", () => {
+  // Con la cuenta enlazada el adaptador cruza por `picked_by`/`roster_id`, que
+  // es más fuerte que la casilla: si ya dijo de quién es, aquí no se recalcula.
+  const { picks } = fold(providerEvents(
+    [{ playerId: "a", pickNo: 1, draftSlot: 3, roster: ROSTER.OPPONENT, providerId: "sa" }],
+    { mySlot: 3 }
+  ));
+  assert.equal(picks[0].roster, ROSTER.OPPONENT,
+    "el adaptador sabía el dueño real; la casilla no puede pisarlo");
+});

@@ -592,7 +592,7 @@ h2 { font-variation-settings: "wdth" 82; letter-spacing: -0.005em; }
   font-size: var(--text-micro); text-transform: uppercase;
   letter-spacing: var(--tracking-caps); color: var(--chalk-dim);
 }
-.onclock-wait {
+.onclock-wait, .onclock-why {
   margin: var(--space-3) 0 0; font-size: var(--text-dense);
   color: var(--chalk); font-weight: var(--weight-semibold);
 }
@@ -2183,3 +2183,8 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   border-top: 2px solid var(--flag-ink, #a33b3b); color: var(--flag-ink, #a33b3b);
   font-size: var(--text-micro); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
 }
+
+/* El VOR del board, debajo del ajustado y en segundo plano: son dos cosas
+   —qué mide la cifra grande y cuál es el número del board— y con el mismo
+   peso se leerían como una sola. */
+.onclock-signal .label--board { opacity: 0.7; white-space: nowrap; }

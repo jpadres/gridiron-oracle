@@ -362,6 +362,56 @@ console.log("\n=== un pick sin emparejar no corre a los demás ===");
   await c5.close();
 }
 
+/* === siguiendo un draft SIN cuenta: mis picks tienen que ser míos =========
+ *
+ * El caso de la captura del dueño: FOLLOWING draft <id>, sin usuario de Sleeper
+ * tecleado. Ahí `picked_by` y `roster_id` son de gente que no sabemos quién es,
+ * así que el adaptador marca TODOS los picks UNKNOWN —correcto por su parte— y
+ * la plantilla se quedaba vacía. Efecto: coges a McBride y la lista te sigue
+ * ofreciendo a Kittle, porque no hay ningún ala cerrada «tuyo» que mirar.
+ *
+ * El pick SÍ trae su casilla y tú SÍ has declarado tu puesto: cruzarlos es la
+ * misma derivación por puesto del modo manual, no una suposición. */
+console.log("\n=== draft seguido sin cuenta: mis picks entran en MI plantilla ===");
+{
+  reiniciar(3);
+  const c6=await browser.newContext({viewport:{width:1440,height:1400},reducedMotion:"reduce"});
+  await montarDoble(c6);
+  // SIN `userId`: es lo que distingue este escenario del resto del laboratorio.
+  await c6.addInitScript((l)=>localStorage.setItem("gridiron-room-league-v1",JSON.stringify(l)),
+    {...LIGA,userId:"",mySlot:3});
+  const p6=await c6.newPage();
+  await p6.clock.install();
+  await p6.goto(`${BASE}/fantasy/draft`,{waitUntil:"domcontentloaded"});
+  await p6.waitForSelector(".room-grid-row");
+
+  // Dos picks ajenos y el tercero MÍO (puesto 3): un ala cerrada.
+  const te=BOARD.find(r=>r.position==="TE");
+  emitir(1,libres()[0]); emitir(2,libres()[0]); emitir(3,te);
+  await p6.clock.runFor(16_000);
+  await p6.waitForFunction(()=>document.querySelector(".room-count strong")?.textContent==="3",
+                           null,{timeout:8000});
+
+  const mios=await p6.locator(".room-roster--slots .nm, .room-roster .nm").allInnerTexts();
+  const apellido=(te.player_full_name??te.player_name).split(" ").pop();
+  check("el pick de MI casilla entra en mi plantilla aunque no haya cuenta",
+        mios.some(t=>t.includes(apellido)), mios.join(" | ") || "plantilla vacía");
+  // Hasta mi siguiente turno: con 12 en snake y el puesto 3, el 22 es mío.
+  for(let no=4;no<=21;no+=1) emitir(no,libres()[0]);
+  await p6.clock.runFor(16_000);
+  await p6.waitForSelector(".room-cands > li",{timeout:8000});
+
+  // Y la consecuencia, que es la queja: con el TE ya cogido, la lista corta no
+  // puede seguir encabezada por otro TE mientras queden huecos abiertos.
+  const cabecera=(await p6.locator(".room-shortlist .room-h").innerText().catch(()=>"")).split("\n")[0].trim();
+  const posiciones=await p6.locator(".room-cands .ptag").allInnerTexts();
+  check("y con el ala cerrada cogido, la lista deja de ofrecer otro",
+        cabecera==="Best for your roster" && !posiciones.some(t=>t.startsWith("TE")),
+        `${cabecera} · ${posiciones.join(" ")}`);
+  await p6.screenshot({path:`${OUT}/lda-1440-sin-cuenta.png`});
+  await c6.close();
+}
+
 console.log("\n=== 390 y 768 ===");
 for(const [w,h] of [[390,844],[768,1024]]){
   reiniciar(1);

@@ -177,3 +177,41 @@ export function rosterFit({ candidates, roster, rosterPositions, replacement }) 
     };
   });
 }
+
+
+/**
+ * Cuántos candidatos se miran antes de ordenar. Reordenar sólo los que se
+ * pintan no serviría: si los primeros del board ya no te caben, el que sí te
+ * sirve está en el puesto quince y nunca entraría en la lista.
+ */
+export const FIT_WINDOW = 50;
+
+/**
+ * EL ORDEN POR AJUSTE A LA PLANTILLA. Una sola implementación, dos pantallas.
+ *
+ * El Draft Room y el board de `/fantasy` enseñan la misma decisión con distinta
+ * caja, y cada uno con su propio orden sería la sexta vez que dos traductores
+ * del mismo formato divergen en este proyecto. Aquí se ordena; cada pantalla
+ * decide cómo lo pinta.
+ *
+ * Devuelve `active: false` cuando no hay estructura declarada o cuando ya no
+ * queda hueco titular que nadie pueda mejorar — en los dos casos el orden es el
+ * del board, y la pantalla tiene que decir cuál de los dos es.
+ */
+export function orderByFit(rows, { roster, rosterPositions, replacement, window = FIT_WINDOW } = {}) {
+  const lista = Array.isArray(rows) ? rows : [];
+  const ventana = lista.slice(0, window);
+  const fit = rosterFit({ candidates: ventana, roster, rosterPositions, replacement });
+  if (!fit) return { rows: lista, byId: null, active: false };
+
+  const byId = new Map(fit.map((f) => [f.player_id, f]));
+  const ordered = [...ventana].sort((a, b) => {
+    const ma = byId.get(a.player_id)?.marginal ?? -Infinity;
+    const mb = byId.get(b.player_id)?.marginal ?? -Infinity;
+    // Empate a marginal —dos que no entran en tu alineación, o dos que la
+    // mejoran igual— se rompe por el valor del board. Sin el desempate, con
+    // todos los huecos llenos el orden quedaría al azar del `sort`.
+    return mb - ma || (Number(b.vor) || 0) - (Number(a.vor) || 0);
+  });
+  return { rows: ordered, byId, active: fitIsActive(fit) };
+}

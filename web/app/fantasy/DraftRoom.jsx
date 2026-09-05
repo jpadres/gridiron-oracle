@@ -247,8 +247,9 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
   // sabe que a igualdad de instante manda MANUAL sobre SLEEPER: una corrección
   // tuya nunca la pisa el proveedor.
   const state = useMemo(
-    () => fold([...events, ...providerEvents(sync.canonical ?? [], { source: SOURCE.SLEEPER })]),
-    [events, sync.canonical]
+    () => fold([...events, ...providerEvents(sync.canonical ?? [],
+                                             { source: SOURCE.SLEEPER, mySlot })]),
+    [events, sync.canonical, mySlot]
   );
 
   /**
