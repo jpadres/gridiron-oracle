@@ -1,0 +1,342 @@
+{
+ "note": "cobertura OBSERVADA en el archivo de research, cruzada con la clasificación del catálogo; no es una promesa de cobertura",
+ "archive_items_without_team": 16,
+ "matrix": {
+  "ARI": {
+   "official": 3,
+   "local": 0,
+   "national": 11,
+   "fantasy": 1,
+   "injury_practice": 4,
+   "items": 9
+  },
+  "ATL": {
+   "official": 1,
+   "local": 0,
+   "national": 9,
+   "fantasy": 2,
+   "injury_practice": 1,
+   "items": 8
+  },
+  "BAL": {
+   "official": 2,
+   "local": 0,
+   "national": 5,
+   "fantasy": 1,
+   "injury_practice": 2,
+   "items": 5
+  },
+  "BUF": {
+   "official": 0,
+   "local": 0,
+   "national": 3,
+   "fantasy": 0,
+   "injury_practice": 1,
+   "items": 2
+  },
+  "CAR": {
+   "official": 0,
+   "local": 0,
+   "national": 8,
+   "fantasy": 2,
+   "injury_practice": 5,
+   "items": 7
+  },
+  "CHI": {
+   "official": 1,
+   "local": 3,
+   "national": 9,
+   "fantasy": 1,
+   "injury_practice": 7,
+   "items": 10
+  },
+  "CIN": {
+   "official": 2,
+   "local": 0,
+   "national": 6,
+   "fantasy": 0,
+   "injury_practice": 5,
+   "items": 6
+  },
+  "CLE": {
+   "official": 1,
+   "local": 0,
+   "national": 7,
+   "fantasy": 1,
+   "injury_practice": 0,
+   "items": 5
+  },
+  "DAL": {
+   "official": 2,
+   "local": 1,
+   "national": 11,
+   "fantasy": 3,
+   "injury_practice": 0,
+   "items": 6
+  },
+  "DEN": {
+   "official": 2,
+   "local": 0,
+   "national": 3,
+   "fantasy": 3,
+   "injury_practice": 2,
+   "items": 5
+  },
+  "DET": {
+   "official": 0,
+   "local": 0,
+   "national": 6,
+   "fantasy": 2,
+   "injury_practice": 3,
+   "items": 5
+  },
+  "GB": {
+   "official": 8,
+   "local": 0,
+   "national": 14,
+   "fantasy": 4,
+   "injury_practice": 3,
+   "items": 12
+  },
+  "HOU": {
+   "official": 2,
+   "local": 0,
+   "national": 15,
+   "fantasy": 2,
+   "injury_practice": 7,
+   "items": 9
+  },
+  "IND": {
+   "official": 3,
+   "local": 0,
+   "national": 13,
+   "fantasy": 6,
+   "injury_practice": 6,
+   "items": 11
+  },
+  "JAX": {
+   "official": 2,
+   "local": 0,
+   "national": 3,
+   "fantasy": 1,
+   "injury_practice": 1,
+   "items": 5
+  },
+  "KC": {
+   "official": 3,
+   "local": 0,
+   "national": 8,
+   "fantasy": 2,
+   "injury_practice": 4,
+   "items": 8
+  },
+  "LAC": {
+   "official": 1,
+   "local": 0,
+   "national": 4,
+   "fantasy": 3,
+   "injury_practice": 1,
+   "items": 4
+  },
+  "LAR": {
+   "official": 1,
+   "local": 0,
+   "national": 6,
+   "fantasy": 3,
+   "injury_practice": 2,
+   "items": 5
+  },
+  "LV": {
+   "official": 4,
+   "local": 1,
+   "national": 19,
+   "fantasy": 8,
+   "injury_practice": 3,
+   "items": 11
+  },
+  "MIA": {
+   "official": 1,
+   "local": 0,
+   "national": 5,
+   "fantasy": 2,
+   "injury_practice": 1,
+   "items": 5
+  },
+  "MIN": {
+   "official": 4,
+   "local": 1,
+   "national": 7,
+   "fantasy": 1,
+   "injury_practice": 0,
+   "items": 5
+  },
+  "NE": {
+   "official": 1,
+   "local": 0,
+   "national": 7,
+   "fantasy": 4,
+   "injury_practice": 1,
+   "items": 9
+  },
+  "NO": {
+   "official": 3,
+   "local": 0,
+   "national": 13,
+   "fantasy": 1,
+   "injury_practice": 4,
+   "items": 7
+  },
+  "NYG": {
+   "official": 3,
+   "local": 0,
+   "national": 13,
+   "fantasy": 4,
+   "injury_practice": 6,
+   "items": 9
+  },
+  "NYJ": {
+   "official": 1,
+   "local": 0,
+   "national": 9,
+   "fantasy": 1,
+   "injury_practice": 5,
+   "items": 7
+  },
+  "PHI": {
+   "official": 0,
+   "local": 0,
+   "national": 1,
+   "fantasy": 3,
+   "injury_practice": 1,
+   "items": 4
+  },
+  "PIT": {
+   "official": 1,
+   "local": 0,
+   "national": 1,
+   "fantasy": 1,
+   "injury_practice": 0,
+   "items": 1
+  },
+  "SEA": {
+   "official": 3,
+   "local": 0,
+   "national": 10,
+   "fantasy": 6,
+   "injury_practice": 3,
+   "items": 9
+  },
+  "SF": {
+   "official": 2,
+   "local": 3,
+   "national": 16,
+   "fantasy": 3,
+   "injury_practice": 12,
+   "items": 15
+  },
+  "TB": {
+   "official": 1,
+   "local": 0,
+   "national": 7,
+   "fantasy": 6,
+   "injury_practice": 5,
+   "items": 6
+  },
+  "TEN": {
+   "official": 0,
+   "local": 0,
+   "national": 5,
+   "fantasy": 2,
+   "injury_practice": 0,
+   "items": 4
+  },
+  "WAS": {
+   "official": 0,
+   "local": 0,
+   "national": 3,
+   "fantasy": 4,
+   "injury_practice": 5,
+   "items": 7
+  }
+ },
+ "gaps": {
+  "no_official_source": [
+   "BUF",
+   "CAR",
+   "DET",
+   "PHI",
+   "TEN",
+   "WAS"
+  ],
+  "no_local_source": [
+   "ARI",
+   "ATL",
+   "BAL",
+   "BUF",
+   "CAR",
+   "CIN",
+   "CLE",
+   "DEN",
+   "DET",
+   "GB",
+   "HOU",
+   "IND",
+   "JAX",
+   "KC",
+   "LAC",
+   "LAR",
+   "MIA",
+   "NE",
+   "NO",
+   "NYG",
+   "NYJ",
+   "PHI",
+   "PIT",
+   "SEA",
+   "TB",
+   "TEN",
+   "WAS"
+  ],
+  "no_injury_item": [
+   "CLE",
+   "DAL",
+   "MIN",
+   "PIT",
+   "TEN"
+  ],
+  "fewest_items": [
+   [
+    "PIT",
+    1
+   ],
+   [
+    "BUF",
+    2
+   ],
+   [
+    "PHI",
+    4
+   ],
+   [
+    "TEN",
+    4
+   ],
+   [
+    "LAC",
+    4
+   ],
+   [
+    "DET",
+    5
+   ],
+   [
+    "CLE",
+    5
+   ],
+   [
+    "LAR",
+    5
+   ]
+  ]
+ }
+}

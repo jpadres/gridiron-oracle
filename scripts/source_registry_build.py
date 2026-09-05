@@ -142,6 +142,155 @@ def classify(domain: str) -> tuple[str, str]:
     return "DISCOVERED", "citado por el barrido; sin revisión manual"
 
 
+# ---------------------------------------------------------------------------
+# INGESTIBILIDAD, dominio a dominio. Es una clasificación EDITORIAL —qué clase
+# de acceso ofrece el sitio, si cobra, si sus términos lo permiten— y va aparte
+# del estado TÉCNICO, que sale del sondeo (`source_feed_probe.py`) y dice qué
+# contestó la red desde este entorno en esta fecha. Un feed que no se ha leído
+# no es «ingestible»: como mucho es un candidato con URL.
+#
+#   PRODUCTION_INGESTIBLE  feed leído y verificado (fechas, ids estables)
+#   ON_DEMAND              feed candidato conocido, sin verificar todavía
+#   MANUAL_REFERENCE       se lee a mano o vía búsqueda; sin feed razonable
+#   PAID_CANDIDATE         muro de pago o API de pago
+#   BLOCKED                el sitio bloquea la lectura automática o sus términos la prohíben
+#   REJECTED               no es prensa deportiva, o es promoción de apuestas
+# ---------------------------------------------------------------------------
+_RSS = "RSS_CANDIDATE"
+_HTML = "HTML"
+ACCESS: dict[str, dict] = {
+    # nacionales
+    "espn.com": {"access_method": _RSS, "feed_candidate": "https://www.espn.com/espn/rss/nfl/news", "paywall": False, "terms": "RSS público; ESPN+ aparte"},
+    "nfl.com": {"access_method": _RSS, "feed_candidate": "https://www.nfl.com/rss/rsslanding?searchString=home", "paywall": False, "terms": "notas oficiales de la liga"},
+    "sports.yahoo.com": {"access_method": _RSS, "feed_candidate": "https://sports.yahoo.com/nfl/rss/", "paywall": False, "terms": None},
+    "cbssports.com": {"access_method": _RSS, "feed_candidate": "https://www.cbssports.com/rss/headlines/nfl/", "paywall": False, "terms": None},
+    "nbcsports.com": {"access_method": _RSS, "feed_candidate": "https://www.nbcsports.com/rss/nfl", "paywall": False, "terms": "Pro Football Talk"},
+    "si.com": {"access_method": _RSS, "feed_candidate": "https://www.si.com/rss/si_nfl.rss", "paywall": False, "terms": None},
+    "foxsports.com": {"access_method": _HTML, "feed_candidate": None, "paywall": False, "terms": None},
+    "theringer.com": {"access_method": _RSS, "feed_candidate": "https://www.theringer.com/rss/index.xml", "paywall": False, "terms": None},
+    "cbsnews.com": {"access_method": _RSS, "feed_candidate": "https://www.cbsnews.com/latest/rss/main", "paywall": False, "terms": "generalista"},
+    "forbes.com": {"access_method": _HTML, "feed_candidate": None, "paywall": True, "terms": "muro blando; colaboradores, no redacción"},
+    "washingtonpost.com": {"access_method": _RSS, "feed_candidate": "https://feeds.washingtonpost.com/rss/sports", "paywall": True, "terms": "muro de pago"},
+    # fantasy
+    "fantasypros.com": {"access_method": "API", "feed_candidate": "https://www.fantasypros.com/nfl/news/rss.php", "paywall": True, "terms": "API de pago; el consenso no se redistribuye"},
+    "rotowire.com": {"access_method": "API", "feed_candidate": None, "paywall": True, "terms": "API de pago con licencia"},
+    "rotoballer.com": {"access_method": _RSS, "feed_candidate": "https://www.rotoballer.com/feed", "paywall": False, "terms": None},
+    "pff.com": {"access_method": _HTML, "feed_candidate": None, "paywall": True, "terms": "datos propios de pago"},
+    "footballguys.com": {"access_method": _HTML, "feed_candidate": None, "paywall": True, "terms": "suscripción"},
+    "4for4.com": {"access_method": _HTML, "feed_candidate": None, "paywall": True, "terms": "suscripción"},
+    "draftsharks.com": {"access_method": _HTML, "feed_candidate": None, "paywall": True, "terms": "suscripción"},
+    "fantasypoints.com": {"access_method": _HTML, "feed_candidate": None, "paywall": True, "terms": "suscripción"},
+    "ftnfantasy.com": {"access_method": _HTML, "feed_candidate": None, "paywall": True, "terms": "suscripción"},
+    "fantasylife.com": {"access_method": _HTML, "feed_candidate": None, "paywall": False, "terms": None},
+    "fantasynerds.com": {"access_method": "API", "feed_candidate": None, "paywall": True, "terms": "API de pago"},
+    "fantasyfootballcalculator.com": {"access_method": "API", "feed_candidate": None, "paywall": False, "terms": "ADP con API pública documentada"},
+    "playerprofiler.com": {"access_method": _HTML, "feed_candidate": None, "paywall": False, "terms": None},
+    "thefantasyfootballers.com": {"access_method": _RSS, "feed_candidate": "https://www.thefantasyfootballers.com/feed/", "paywall": False, "terms": None},
+    "walterfootball.com": {"access_method": _HTML, "feed_candidate": None, "paywall": False, "terms": None},
+    "gridironexperts.com": {"access_method": _RSS, "feed_candidate": "https://gridironexperts.com/feed/", "paywall": False, "terms": None},
+    "profootballnetwork.com": {"access_method": _RSS, "feed_candidate": "https://www.profootballnetwork.com/feed/", "paywall": False, "terms": None},
+    "sharpfootballanalysis.com": {"access_method": _RSS, "feed_candidate": "https://www.sharpfootballanalysis.com/feed/", "paywall": True, "terms": "parte de pago"},
+    # promoción de apuestas y DFS: no es prensa, y el interés es el suyo
+    "prizepicks.com": {"reject": "promoción de DFS: contenido de marketing, no prensa"},
+    "statpick.ai": {"reject": "picks generados: no es una fuente de hechos"},
+    "dimers.com": {"reject": "promoción de apuestas"},
+    "dknetwork.draftkings.com": {"reject": "contenido de marketing de una casa de apuestas"},
+    "vegasinsider.com": {"access_method": _HTML, "feed_candidate": None, "paywall": False, "terms": "referencia de cuotas; no prensa de hechos"},
+    "dazn.com": {"reject": "streaming: no es prensa"},
+    "complex.com": {"reject": "entretenimiento: no es prensa deportiva de hechos"},
+    "bolavip.com": {"reject": "reescritura para otros mercados, con promoción de apuestas"},
+}
+# Prensa local de pago (diarios) y radios/televisiones locales.
+PAID_LOCAL = {"dallasnews.com", "detroitnews.com", "startribune.com", "reviewjournal.com", "deseret.com",
+              "chicago.suntimes.com", "washingtontimes.com", "northeasttimes.com", "dkpittsburghsports.com"}
+LOCAL_BROADCAST = {"kctv5.com", "fox19.com", "wbay.com", "denver7.com", "local10.com", "spectrumnews1.com",
+                   "wtop.com", "640wxsm.com", "wmbdradio.com", "clickondetroit.com", "nbcsportsbayarea.com"}
+SBNATION = {"thefalcoholic.com", "hogshaven.com", "bigblueview.com", "cincyjungle.com", "fieldgulls.com",
+            "ninersnation.com", "prideofdetroit.com", "turfshowtimes.com"}
+LOCAL_BLOGS = {"49erswebzone.com", "steelersdepot.com", "bleachernation.com", "zonecoverage.com",
+               "empiresportsmedia.com", "joebucsfan.com", "pewterreport.com", "sportscapitoldc.com",
+               "phillyvoice.com", "elevenwarriors.com"}
+MORE_REDUNDANT = {"fansided.com": "red de blogs que reescribe", "sportsnaut.com": "agregador: reescribe informes ajenos",
+                  "thebiglead.com": "agregador: reescribe informes ajenos", "lastwordonsports.com": "agregador: reescribe informes ajenos"}
+REDUNDANT.update(MORE_REDUNDANT)
+
+
+def ingestibility(domain: str, cls: str, probe: dict | None) -> dict:
+    """La ficha de acceso de un dominio: editorial + técnica, cada una con su origen."""
+    tech = {"status": "NOT_PROBED", "checked_from": None, "checked_at": None, "feed_found": None}
+    if probe is not None:
+        r = probe["results"].get(domain)
+        tech["checked_from"], tech["checked_at"] = probe["checked_from"], probe["checked_at"]
+        if r is None:
+            tech["status"] = "NOT_PROBED"
+        elif r["best"]:
+            tech.update(status="FEED_READ", feed_found=r["best"]["url"], items=r["best"]["items"],
+                        items_with_date=r["best"]["items_with_date"], items_with_id=r["best"]["items_with_id"])
+        elif r["root_status"] is None:
+            tech["status"] = "BLOCKED_FROM_DEV_ENV"   # la política de salida del entorno lo deniega
+        elif any(f.get("status") in (401, 402, 403, 451) for f in r["feeds"]):
+            tech["status"] = "SITE_REFUSED"
+        else:
+            tech["status"] = "NO_FEED_AT_COMMON_PATHS"
+    info = ACCESS.get(domain, {})
+    if cls == "REJECTED" or "reject" in info:
+        state, why = "REJECTED", info.get("reject") or REJECTED.get(domain) or "no es prensa deportiva"
+        return {"state": state, "basis": why, "access_method": None, "feed_candidate": None,
+                "paywall": None, "terms": None, "structured": False, "timestamp_quality": "N/A", "technical": tech}
+    if domain in TEAM_SITES:
+        info = {"access_method": _HTML, "feed_candidate": None, "paywall": False, "terms": "sitio oficial del equipo; notas de plantilla y partes", **info}
+    elif domain in PAID_LOCAL:
+        info = {"access_method": _HTML, "feed_candidate": None, "paywall": True, "terms": "diario local con muro de pago", **info}
+    elif domain in LOCAL_BROADCAST:
+        info = {"access_method": _HTML, "feed_candidate": None, "paywall": False, "terms": "televisión o radio local", **info}
+    elif domain in SBNATION:
+        info = {"access_method": _RSS, "feed_candidate": f"https://www.{domain}/rss/index.xml", "paywall": False, "terms": "blog de SB Nation; RSS habitual en /rss/index.xml", **info}
+    elif domain in LOCAL_BLOGS:
+        info = {"access_method": _HTML, "feed_candidate": None, "paywall": False, "terms": "blog independiente de equipo", **info}
+    else:
+        info = {"access_method": _HTML, "feed_candidate": None, "paywall": None, "terms": None, **info}
+    if tech["status"] == "FEED_READ" and tech.get("items_with_date", 0) > 0 and tech.get("items_with_id", 0) > 0:
+        state, why = "PRODUCTION_INGESTIBLE", "feed leído con fechas e ids estables"
+    elif cls == "REDUNDANT":
+        state, why = "MANUAL_REFERENCE", "eco: se lee, no se ingiere como origen"
+    elif tech["status"] == "SITE_REFUSED":
+        state, why = "BLOCKED", "el sitio rechazó la lectura automática"
+    elif info.get("paywall"):
+        state, why = "PAID_CANDIDATE", "muro de pago o API de pago: decisión del dueño"
+    elif info.get("feed_candidate") or info.get("access_method") == "API":
+        state, why = "ON_DEMAND", "feed o API candidatos conocidos, SIN verificar desde este entorno"
+    else:
+        state, why = "MANUAL_REFERENCE", "sin feed conocido: se lee a mano o por búsqueda"
+    return {"state": state, "basis": why, "access_method": info["access_method"], "feed_candidate": info["feed_candidate"],
+            "paywall": info["paywall"], "terms": info["terms"],
+            "structured": info["access_method"] in (_RSS, "API"),
+            "timestamp_quality": "GOOD" if tech.get("items_with_date") else ("EXPECTED" if info["access_method"] in (_RSS, "API") else "UNKNOWN"),
+            "technical": tech}
+
+
+# Los que MERECEN entrar en producción cuando el feed se verifique, y por qué.
+# No se sondean 101 dominios porque existan: se elige por lo que aportan.
+PRODUCTION_SET = {
+    "nfl.com": "notas OFICIALES de la liga: transacciones, listas, partes",
+    "espn.com": "cabecera nacional con insiders y partes de práctica",
+    "sports.yahoo.com": "cabecera nacional; es la más citada del archivo (97)",
+    "cbssports.com": "cabecera nacional con cobertura de lesiones por jugador",
+    "nbcsports.com": "Pro Football Talk: transacciones y disciplina antes que nadie",
+    "rotoballer.com": "noticias de fantasy con feed abierto",
+    "profootballnetwork.com": "noticias de fantasy con feed abierto",
+    "thefantasyfootballers.com": "noticias de fantasy con feed abierto",
+}
+
+
+def _load_probe() -> dict | None:
+    path = ROOT / "docs/evidence/feed_probe.json"
+    if not path.exists():
+        return None
+    data = json.loads(path.read_text(encoding="utf-8"))
+    data["results"] = {r["domain"]: r for r in data["results"]}
+    return data
+
+
 STATE = {"VETTED": "MANUAL_REFERENCE", "DISCOVERED": "MANUAL_REFERENCE",
          "REDUNDANT": "MANUAL_REFERENCE", "REJECTED": "REJECTED"}
 
@@ -187,8 +336,12 @@ def build() -> dict:
                         a["beats"][beat] += 1
 
     organizations, rejected = [], []
+    probe = _load_probe()
     for dom, o in sorted(orgs.items(), key=lambda kv: (-kv[1]["citations"], kv[0])):
         cls, basis = classify(dom)
+        if "reject" in ACCESS.get(dom, {}):
+            cls, basis = "REJECTED", ACCESS[dom]["reject"]
+        ing = ingestibility(dom, cls, probe)
         entry = {
             "source_id": f"org.{dom}",
             "name": o["outlets"].most_common(1)[0][0],
@@ -196,8 +349,9 @@ def build() -> dict:
             "domain": dom,
             "classification": cls,
             "classification_basis": basis,
-            "state": STATE[cls],
-            "ingestible": None,
+            "state": ing["state"],
+            "ingestibility": ing,
+            "production_set": PRODUCTION_SET.get(dom),
             "citations": o["citations"],
             "citations_with_author": o["authored"],
             "first_cited": o["first_cited"],

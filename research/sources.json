@@ -114,8 +114,24 @@
       "domain": "sports.yahoo.com",
       "classification": "VETTED",
       "classification_basis": "nombrado en el prompt del barrido",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://sports.yahoo.com/nfl/rss/",
+        "paywall": false,
+        "terms": null,
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": "cabecera nacional; es la más citada del archivo (97)",
       "citations": 99,
       "citations_with_author": 0,
       "first_cited": "2026-08-17",
@@ -156,8 +172,24 @@
       "domain": "espn.com",
       "classification": "VETTED",
       "classification_basis": "nombrado en el prompt del barrido",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.espn.com/espn/rss/nfl/news",
+        "paywall": false,
+        "terms": "RSS público; ESPN+ aparte",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": "cabecera nacional con insiders y partes de práctica",
       "citations": 47,
       "citations_with_author": 1,
       "first_cited": "2026-08-17",
@@ -197,8 +229,24 @@
       "domain": "nfl.com",
       "classification": "VETTED",
       "classification_basis": "nombrado en el prompt del barrido; notas oficiales de la liga",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.nfl.com/rss/rsslanding?searchString=home",
+        "paywall": false,
+        "terms": "notas oficiales de la liga",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": "notas OFICIALES de la liga: transacciones, listas, partes",
       "citations": 46,
       "citations_with_author": 0,
       "first_cited": "2026-08-17",
@@ -236,8 +284,24 @@
       "domain": "nbcsports.com",
       "classification": "VETTED",
       "classification_basis": "Pro Football Talk, nombrado en el prompt del barrido",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.nbcsports.com/rss/nfl",
+        "paywall": false,
+        "terms": "Pro Football Talk",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": "Pro Football Talk: transacciones y disciplina antes que nadie",
       "citations": 43,
       "citations_with_author": 0,
       "first_cited": "2026-08-17",
@@ -273,8 +337,24 @@
       "domain": "si.com",
       "classification": "VETTED",
       "classification_basis": "cabecera nacional con cobertura de beat",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.si.com/rss/si_nfl.rss",
+        "paywall": false,
+        "terms": null,
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 40,
       "citations_with_author": 1,
       "first_cited": "2026-08-17",
@@ -314,8 +394,24 @@
       "domain": "cbssports.com",
       "classification": "VETTED",
       "classification_basis": "nombrado en el prompt del barrido",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.cbssports.com/rss/headlines/nfl/",
+        "paywall": false,
+        "terms": null,
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": "cabecera nacional con cobertura de lesiones por jugador",
       "citations": 34,
       "citations_with_author": 0,
       "first_cited": "2026-08-17",
@@ -351,8 +447,24 @@
       "domain": "fantasypros.com",
       "classification": "VETTED",
       "classification_basis": "consenso de expertos: agregación DECLARADA, no reescritura",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "API",
+        "feed_candidate": "https://www.fantasypros.com/nfl/news/rss.php",
+        "paywall": true,
+        "terms": "API de pago; el consenso no se redistribuye",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 18,
       "citations_with_author": 0,
       "first_cited": "2026-08-17",
@@ -386,8 +498,24 @@
       "domain": "rotoballer.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.rotoballer.com/feed",
+        "paywall": false,
+        "terms": null,
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": "noticias de fantasy con feed abierto",
       "citations": 16,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -412,8 +540,24 @@
       "domain": "profootballnetwork.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.profootballnetwork.com/feed/",
+        "paywall": false,
+        "terms": null,
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": "noticias de fantasy con feed abierto",
       "citations": 15,
       "citations_with_author": 0,
       "first_cited": "2026-09-01",
@@ -443,8 +587,24 @@
       "domain": "rotowire.com",
       "classification": "VETTED",
       "classification_basis": "notas de plantilla con fuente citada",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "API",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "API de pago con licencia",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 12,
       "citations_with_author": 0,
       "first_cited": "2026-08-17",
@@ -475,7 +635,23 @@
       "classification": "REDUNDANT",
       "classification_basis": "mayoritariamente reescritura: se cuenta como eco (una firma de insider tendría que entrar como AUTHOR)",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "eco: se lee, no se ingiere como origen",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 9,
       "citations_with_author": 0,
       "first_cited": "2026-08-17",
@@ -501,7 +677,23 @@
       "classification": "REDUNDANT",
       "classification_basis": "agregador: reescribe informes ajenos",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "eco: se lee, no se ingiere como origen",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 7,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -527,7 +719,23 @@
       "classification": "VETTED",
       "classification_basis": "cabecera nacional",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 7,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -551,8 +759,24 @@
       "domain": "pff.com",
       "classification": "VETTED",
       "classification_basis": "datos de charting propios (origen, no eco)",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "datos propios de pago",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 7,
       "citations_with_author": 1,
       "first_cited": "2026-08-29",
@@ -579,7 +803,23 @@
       "classification": "REDUNDANT",
       "classification_basis": "agregador: reescribe informes ajenos",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "eco: se lee, no se ingiere como origen",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 6,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -603,8 +843,24 @@
       "domain": "draftsharks.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "suscripción",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 6,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -632,7 +888,23 @@
       "classification": "REDUNDANT",
       "classification_basis": "agregador: reescribe informes ajenos",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "eco: se lee, no se ingiere como origen",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 6,
       "citations_with_author": 0,
       "first_cited": "2026-09-01",
@@ -655,8 +927,24 @@
       "domain": "footballguys.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "suscripción",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 5,
       "citations_with_author": 0,
       "first_cited": "2026-08-29",
@@ -680,7 +968,23 @@
       "classification": "REDUNDANT",
       "classification_basis": "agregador declarado: resume y enlaza informes ajenos",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "eco: se lee, no se ingiere como origen",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 5,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -707,7 +1011,23 @@
       "classification": "REDUNDANT",
       "classification_basis": "agregador: reescribe informes ajenos",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "eco: se lee, no se ingiere como origen",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 5,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -729,8 +1049,24 @@
       "domain": "sharpfootballanalysis.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.sharpfootballanalysis.com/feed/",
+        "paywall": true,
+        "terms": "parte de pago",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 4,
       "citations_with_author": 0,
       "first_cited": "2026-08-19",
@@ -753,8 +1089,24 @@
       "domain": "thefalcoholic.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.thefalcoholic.com/rss/index.xml",
+        "paywall": false,
+        "terms": "blog de SB Nation; RSS habitual en /rss/index.xml",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 4,
       "citations_with_author": 0,
       "first_cited": "2026-08-17",
@@ -779,7 +1131,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "blog independiente de equipo",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 3,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -801,8 +1169,24 @@
       "domain": "4for4.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "suscripción",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 3,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -825,8 +1209,24 @@
       "domain": "chicago.suntimes.com",
       "classification": "VETTED",
       "classification_basis": "prensa local o blog de SB Nation, familias que el prompt admite",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "diario local con muro de pago",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 3,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -849,7 +1249,23 @@
       "classification": "VETTED",
       "classification_basis": "prensa local o blog de SB Nation, familias que el prompt admite",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "televisión o radio local",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 3,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -871,7 +1287,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "blog independiente de equipo",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -893,8 +1325,24 @@
       "domain": "deseret.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "diario local con muro de pago",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -916,8 +1364,24 @@
       "domain": "fantasyfootballcalculator.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "API",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "ADP con API pública documentada",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -938,7 +1402,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -960,8 +1440,24 @@
       "domain": "fantasynerds.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "API",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "API de pago",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -982,8 +1478,24 @@
       "domain": "fantasypoints.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "suscripción",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-08-29",
@@ -1006,7 +1518,23 @@
       "classification": "VETTED",
       "classification_basis": "sitio oficial del equipo",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "sitio oficial del equipo; notas de plantilla y partes",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -1028,8 +1556,24 @@
       "domain": "hogshaven.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.hogshaven.com/rss/index.xml",
+        "paywall": false,
+        "terms": "blog de SB Nation; RSS habitual en /rss/index.xml",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1052,7 +1596,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -1073,7 +1633,23 @@
       "classification": "VETTED",
       "classification_basis": "sitio oficial del equipo",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "sitio oficial del equipo; notas de plantilla y partes",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -1096,7 +1672,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "blog independiente de equipo",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -1116,10 +1708,26 @@
       "name": "The Big Lead",
       "kind": "ORGANIZATION",
       "domain": "thebiglead.com",
-      "classification": "DISCOVERED",
-      "classification_basis": "citado por el barrido; sin revisión manual",
+      "classification": "REDUNDANT",
+      "classification_basis": "agregador: reescribe informes ajenos",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "eco: se lee, no se ingiere como origen",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1130,7 +1738,7 @@
       "claim_types": {
         "INJURY": 2
       },
-      "counts_as_origin": true
+      "counts_as_origin": false
     },
     {
       "source_id": "org.theringer.com",
@@ -1139,8 +1747,24 @@
       "domain": "theringer.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.theringer.com/rss/index.xml",
+        "paywall": false,
+        "terms": null,
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 2,
       "citations_with_author": 0,
       "first_cited": "2026-08-19",
@@ -1162,7 +1786,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "televisión o radio local",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1183,7 +1823,23 @@
       "classification": "VETTED",
       "classification_basis": "sitio oficial del equipo",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "sitio oficial del equipo; notas de plantilla y partes",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -1203,8 +1859,24 @@
       "domain": "bigblueview.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.bigblueview.com/rss/index.xml",
+        "paywall": false,
+        "terms": "blog de SB Nation; RSS habitual en /rss/index.xml",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1218,27 +1890,6 @@
       "counts_as_origin": true
     },
     {
-      "source_id": "org.bolavip.com",
-      "name": "Bolavip US",
-      "kind": "ORGANIZATION",
-      "domain": "bolavip.com",
-      "classification": "DISCOVERED",
-      "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
-      "citations": 1,
-      "citations_with_author": 0,
-      "first_cited": "2026-09-04",
-      "last_cited": "2026-09-04",
-      "beats": {
-        "Transactions": 1
-      },
-      "claim_types": {
-        "DEPTH_CHART": 1
-      },
-      "counts_as_origin": true
-    },
-    {
       "source_id": "org.buffalobills.com",
       "name": "Buffalo Bills",
       "kind": "ORGANIZATION",
@@ -1246,7 +1897,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -1266,8 +1933,24 @@
       "domain": "cbsnews.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.cbsnews.com/latest/rss/main",
+        "paywall": false,
+        "terms": "generalista",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1288,7 +1971,23 @@
       "classification": "VETTED",
       "classification_basis": "sitio oficial del equipo",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "sitio oficial del equipo; notas de plantilla y partes",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -1308,8 +2007,24 @@
       "domain": "cincyjungle.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.cincyjungle.com/rss/index.xml",
+        "paywall": false,
+        "terms": "blog de SB Nation; RSS habitual en /rss/index.xml",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1330,28 +2045,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
-      "citations": 1,
-      "citations_with_author": 0,
-      "first_cited": "2026-09-04",
-      "last_cited": "2026-09-04",
-      "beats": {
-        "Injuries": 1
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "televisión o radio local",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
       },
-      "claim_types": {
-        "INJURY": 1
-      },
-      "counts_as_origin": true
-    },
-    {
-      "source_id": "org.complex.com",
-      "name": "Complex",
-      "kind": "ORGANIZATION",
-      "domain": "complex.com",
-      "classification": "DISCOVERED",
-      "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1372,7 +2082,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1392,8 +2118,24 @@
       "domain": "dallasnews.com",
       "classification": "VETTED",
       "classification_basis": "prensa local o blog de SB Nation, familias que el prompt admite",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "diario local con muro de pago",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -1407,27 +2149,6 @@
       "counts_as_origin": true
     },
     {
-      "source_id": "org.dazn.com",
-      "name": "DAZN",
-      "kind": "ORGANIZATION",
-      "domain": "dazn.com",
-      "classification": "DISCOVERED",
-      "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
-      "citations": 1,
-      "citations_with_author": 0,
-      "first_cited": "2026-09-04",
-      "last_cited": "2026-09-04",
-      "beats": {
-        "Transactions": 1
-      },
-      "claim_types": {
-        "TRANSACTION": 1
-      },
-      "counts_as_origin": true
-    },
-    {
       "source_id": "org.denver7.com",
       "name": "Denver7",
       "kind": "ORGANIZATION",
@@ -1435,7 +2156,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "televisión o radio local",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1456,7 +2193,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1476,8 +2229,24 @@
       "domain": "detroitnews.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "diario local con muro de pago",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-08-17",
@@ -1491,56 +2260,30 @@
       "counts_as_origin": true
     },
     {
-      "source_id": "org.dimers.com",
-      "name": "Dimers",
-      "kind": "ORGANIZATION",
-      "domain": "dimers.com",
-      "classification": "DISCOVERED",
-      "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
-      "citations": 1,
-      "citations_with_author": 0,
-      "first_cited": "2026-09-04",
-      "last_cited": "2026-09-04",
-      "beats": {
-        "Analysts": 1
-      },
-      "claim_types": {
-        "OTHER": 1
-      },
-      "counts_as_origin": true
-    },
-    {
-      "source_id": "org.dknetwork.draftkings.com",
-      "name": "DK Network",
-      "kind": "ORGANIZATION",
-      "domain": "dknetwork.draftkings.com",
-      "classification": "DISCOVERED",
-      "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
-      "citations": 1,
-      "citations_with_author": 0,
-      "first_cited": "2026-08-31",
-      "last_cited": "2026-08-31",
-      "beats": {
-        "AFC Este": 1
-      },
-      "claim_types": {
-        "DEPTH_CHART": 1
-      },
-      "counts_as_origin": true
-    },
-    {
       "source_id": "org.dkpittsburghsports.com",
       "name": "DK Pittsburgh Sports",
       "kind": "ORGANIZATION",
       "domain": "dkpittsburghsports.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "diario local con muro de pago",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1561,7 +2304,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "blog independiente de equipo",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1582,7 +2341,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "blog independiente de equipo",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -1600,10 +2375,26 @@
       "name": "FanSided",
       "kind": "ORGANIZATION",
       "domain": "fansided.com",
-      "classification": "DISCOVERED",
-      "classification_basis": "citado por el barrido; sin revisión manual",
+      "classification": "REDUNDANT",
+      "classification_basis": "red de blogs que reescribe",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "eco: se lee, no se ingiere como origen",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1614,7 +2405,7 @@
       "claim_types": {
         "OTHER": 1
       },
-      "counts_as_origin": true
+      "counts_as_origin": false
     },
     {
       "source_id": "org.fieldgulls.com",
@@ -1623,8 +2414,24 @@
       "domain": "fieldgulls.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.fieldgulls.com/rss/index.xml",
+        "paywall": false,
+        "terms": "blog de SB Nation; RSS habitual en /rss/index.xml",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1644,8 +2451,24 @@
       "domain": "forbes.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "muro blando; colaboradores, no redacción",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1666,7 +2489,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "televisión o radio local",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -1686,8 +2525,24 @@
       "domain": "ftnfantasy.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "suscripción",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -1707,8 +2562,24 @@
       "domain": "gridironexperts.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://gridironexperts.com/feed/",
+        "paywall": false,
+        "terms": null,
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-01",
@@ -1729,7 +2600,23 @@
       "classification": "VETTED",
       "classification_basis": "sitio oficial del equipo",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "sitio oficial del equipo; notas de plantilla y partes",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -1750,7 +2637,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "blog independiente de equipo",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1771,7 +2674,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "televisión o radio local",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1789,10 +2708,26 @@
       "name": "Last Word On Sports",
       "kind": "ORGANIZATION",
       "domain": "lastwordonsports.com",
-      "classification": "DISCOVERED",
-      "classification_basis": "citado por el barrido; sin revisión manual",
+      "classification": "REDUNDANT",
+      "classification_basis": "agregador: reescribe informes ajenos",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "eco: se lee, no se ingiere como origen",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -1803,7 +2738,7 @@
       "claim_types": {
         "DISCIPLINE": 1
       },
-      "counts_as_origin": true
+      "counts_as_origin": false
     },
     {
       "source_id": "org.local10.com",
@@ -1813,7 +2748,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "televisión o radio local",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1834,7 +2785,23 @@
       "classification": "VETTED",
       "classification_basis": "sitio oficial del equipo",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "sitio oficial del equipo; notas de plantilla y partes",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1854,8 +2821,24 @@
       "domain": "ninersnation.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.ninersnation.com/rss/index.xml",
+        "paywall": false,
+        "terms": "blog de SB Nation; RSS habitual en /rss/index.xml",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -1875,8 +2858,24 @@
       "domain": "northeasttimes.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "diario local con muro de pago",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -1897,7 +2896,23 @@
       "classification": "VETTED",
       "classification_basis": "sitio oficial del equipo",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "sitio oficial del equipo; notas de plantilla y partes",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -1918,7 +2933,23 @@
       "classification": "VETTED",
       "classification_basis": "sitio oficial del equipo",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "sitio oficial del equipo; notas de plantilla y partes",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1939,7 +2970,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "blog independiente de equipo",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1960,7 +3007,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "blog independiente de equipo",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -1981,7 +3044,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -2001,8 +3080,24 @@
       "domain": "prideofdetroit.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.prideofdetroit.com/rss/index.xml",
+        "paywall": false,
+        "terms": "blog de SB Nation; RSS habitual en /rss/index.xml",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2016,35 +3111,30 @@
       "counts_as_origin": true
     },
     {
-      "source_id": "org.prizepicks.com",
-      "name": "PrizePicks",
-      "kind": "ORGANIZATION",
-      "domain": "prizepicks.com",
-      "classification": "DISCOVERED",
-      "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
-      "citations": 1,
-      "citations_with_author": 0,
-      "first_cited": "2026-09-04",
-      "last_cited": "2026-09-04",
-      "beats": {
-        "Analysts": 1
-      },
-      "claim_types": {
-        "OTHER": 1
-      },
-      "counts_as_origin": true
-    },
-    {
       "source_id": "org.reviewjournal.com",
       "name": "Review-Journal",
       "kind": "ORGANIZATION",
       "domain": "reviewjournal.com",
       "classification": "VETTED",
       "classification_basis": "prensa local o blog de SB Nation, familias que el prompt admite",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "diario local con muro de pago",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -2065,7 +3155,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "televisión o radio local",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2086,7 +3192,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "blog independiente de equipo",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2104,10 +3226,26 @@
       "name": "Sportsnaut",
       "kind": "ORGANIZATION",
       "domain": "sportsnaut.com",
-      "classification": "DISCOVERED",
-      "classification_basis": "citado por el barrido; sin revisión manual",
+      "classification": "REDUNDANT",
+      "classification_basis": "agregador: reescribe informes ajenos",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "eco: se lee, no se ingiere como origen",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2118,7 +3256,7 @@
       "claim_types": {
         "INJURY": 1
       },
-      "counts_as_origin": true
+      "counts_as_origin": false
     },
     {
       "source_id": "org.startribune.com",
@@ -2127,8 +3265,24 @@
       "domain": "startribune.com",
       "classification": "VETTED",
       "classification_basis": "prensa local o blog de SB Nation, familias que el prompt admite",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "diario local con muro de pago",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2142,27 +3296,6 @@
       "counts_as_origin": true
     },
     {
-      "source_id": "org.statpick.ai",
-      "name": "Stat Pick",
-      "kind": "ORGANIZATION",
-      "domain": "statpick.ai",
-      "classification": "DISCOVERED",
-      "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
-      "citations": 1,
-      "citations_with_author": 0,
-      "first_cited": "2026-09-04",
-      "last_cited": "2026-09-04",
-      "beats": {
-        "Analysts": 1
-      },
-      "claim_types": {
-        "OTHER": 1
-      },
-      "counts_as_origin": true
-    },
-    {
       "source_id": "org.steelers.com",
       "name": "Steelers",
       "kind": "ORGANIZATION",
@@ -2170,7 +3303,23 @@
       "classification": "VETTED",
       "classification_basis": "sitio oficial del equipo",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "sitio oficial del equipo; notas de plantilla y partes",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -2190,8 +3339,24 @@
       "domain": "thefantasyfootballers.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.thefantasyfootballers.com/feed/",
+        "paywall": false,
+        "terms": null,
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": "noticias de fantasy con feed abierto",
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2212,7 +3377,23 @@
       "classification": "VETTED",
       "classification_basis": "sitio oficial del equipo",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "sitio oficial del equipo; notas de plantilla y partes",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2233,7 +3414,23 @@
       "classification": "REDUNDANT",
       "classification_basis": "agregador: reescribe informes ajenos",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "eco: se lee, no se ingiere como origen",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2253,8 +3450,24 @@
       "domain": "turfshowtimes.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "ON_DEMAND",
+      "ingestibility": {
+        "state": "ON_DEMAND",
+        "basis": "feed o API candidatos conocidos, SIN verificar desde este entorno",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://www.turfshowtimes.com/rss/index.xml",
+        "paywall": false,
+        "terms": "blog de SB Nation; RSS habitual en /rss/index.xml",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2275,7 +3488,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "referencia de cuotas; no prensa de hechos",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2296,7 +3525,23 @@
       "classification": "VETTED",
       "classification_basis": "sitio oficial del equipo",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "sitio oficial del equipo; notas de plantilla y partes",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2317,7 +3562,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-01",
@@ -2337,8 +3598,24 @@
       "domain": "washingtonpost.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "RSS_CANDIDATE",
+        "feed_candidate": "https://feeds.washingtonpost.com/rss/sports",
+        "paywall": true,
+        "terms": "muro de pago",
+        "structured": true,
+        "timestamp_quality": "EXPECTED",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2358,8 +3635,24 @@
       "domain": "washingtontimes.com",
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
-      "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "state": "PAID_CANDIDATE",
+      "ingestibility": {
+        "state": "PAID_CANDIDATE",
+        "basis": "muro de pago o API de pago: decisión del dueño",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": true,
+        "terms": "diario local con muro de pago",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -2380,7 +3673,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "televisión o radio local",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-08-31",
@@ -2401,7 +3710,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "televisión o radio local",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2422,7 +3747,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "televisión o radio local",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-02",
@@ -2443,7 +3784,23 @@
       "classification": "DISCOVERED",
       "classification_basis": "citado por el barrido; sin revisión manual",
       "state": "MANUAL_REFERENCE",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "MANUAL_REFERENCE",
+        "basis": "sin feed conocido: se lee a mano o por búsqueda",
+        "access_method": "HTML",
+        "feed_candidate": null,
+        "paywall": false,
+        "terms": "blog independiente de equipo",
+        "structured": false,
+        "timestamp_quality": "UNKNOWN",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
@@ -2507,6 +3864,191 @@
   "feeds": [],
   "rejected": [
     {
+      "source_id": "org.bolavip.com",
+      "name": "Bolavip US",
+      "kind": "ORGANIZATION",
+      "domain": "bolavip.com",
+      "classification": "REJECTED",
+      "classification_basis": "reescritura para otros mercados, con promoción de apuestas",
+      "state": "REJECTED",
+      "ingestibility": {
+        "state": "REJECTED",
+        "basis": "reescritura para otros mercados, con promoción de apuestas",
+        "access_method": null,
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "N/A",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.complex.com",
+      "name": "Complex",
+      "kind": "ORGANIZATION",
+      "domain": "complex.com",
+      "classification": "REJECTED",
+      "classification_basis": "entretenimiento: no es prensa deportiva de hechos",
+      "state": "REJECTED",
+      "ingestibility": {
+        "state": "REJECTED",
+        "basis": "entretenimiento: no es prensa deportiva de hechos",
+        "access_method": null,
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "N/A",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Injuries": 1
+      },
+      "claim_types": {
+        "INJURY": 1
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.dazn.com",
+      "name": "DAZN",
+      "kind": "ORGANIZATION",
+      "domain": "dazn.com",
+      "classification": "REJECTED",
+      "classification_basis": "streaming: no es prensa",
+      "state": "REJECTED",
+      "ingestibility": {
+        "state": "REJECTED",
+        "basis": "streaming: no es prensa",
+        "access_method": null,
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "N/A",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Transactions": 1
+      },
+      "claim_types": {
+        "TRANSACTION": 1
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.dimers.com",
+      "name": "Dimers",
+      "kind": "ORGANIZATION",
+      "domain": "dimers.com",
+      "classification": "REJECTED",
+      "classification_basis": "promoción de apuestas",
+      "state": "REJECTED",
+      "ingestibility": {
+        "state": "REJECTED",
+        "basis": "promoción de apuestas",
+        "access_method": null,
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "N/A",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Analysts": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.dknetwork.draftkings.com",
+      "name": "DK Network",
+      "kind": "ORGANIZATION",
+      "domain": "dknetwork.draftkings.com",
+      "classification": "REJECTED",
+      "classification_basis": "contenido de marketing de una casa de apuestas",
+      "state": "REJECTED",
+      "ingestibility": {
+        "state": "REJECTED",
+        "basis": "contenido de marketing de una casa de apuestas",
+        "access_method": null,
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "N/A",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-08-31",
+      "last_cited": "2026-08-31",
+      "beats": {
+        "AFC Este": 1
+      },
+      "claim_types": {
+        "DEPTH_CHART": 1
+      },
+      "counts_as_origin": false
+    },
+    {
       "source_id": "org.netflix.com",
       "name": "Netflix Tudum",
       "kind": "ORGANIZATION",
@@ -2514,13 +4056,103 @@
       "classification": "REJECTED",
       "classification_basis": "streaming: no es prensa",
       "state": "REJECTED",
-      "ingestible": null,
+      "ingestibility": {
+        "state": "REJECTED",
+        "basis": "streaming: no es prensa",
+        "access_method": null,
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "N/A",
+        "technical": {
+          "status": "NOT_PROBED",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
       "citations": 1,
       "citations_with_author": 0,
       "first_cited": "2026-09-04",
       "last_cited": "2026-09-04",
       "beats": {
         "Transactions": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.prizepicks.com",
+      "name": "PrizePicks",
+      "kind": "ORGANIZATION",
+      "domain": "prizepicks.com",
+      "classification": "REJECTED",
+      "classification_basis": "promoción de DFS: contenido de marketing, no prensa",
+      "state": "REJECTED",
+      "ingestibility": {
+        "state": "REJECTED",
+        "basis": "promoción de DFS: contenido de marketing, no prensa",
+        "access_method": null,
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "N/A",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Analysts": 1
+      },
+      "claim_types": {
+        "OTHER": 1
+      },
+      "counts_as_origin": false
+    },
+    {
+      "source_id": "org.statpick.ai",
+      "name": "Stat Pick",
+      "kind": "ORGANIZATION",
+      "domain": "statpick.ai",
+      "classification": "REJECTED",
+      "classification_basis": "picks generados: no es una fuente de hechos",
+      "state": "REJECTED",
+      "ingestibility": {
+        "state": "REJECTED",
+        "basis": "picks generados: no es una fuente de hechos",
+        "access_method": null,
+        "feed_candidate": null,
+        "paywall": null,
+        "terms": null,
+        "structured": false,
+        "timestamp_quality": "N/A",
+        "technical": {
+          "status": "BLOCKED_FROM_DEV_ENV",
+          "checked_from": "development container via egress proxy",
+          "checked_at": "2026-09-05T18:08:36+00:00",
+          "feed_found": null
+        }
+      },
+      "production_set": null,
+      "citations": 1,
+      "citations_with_author": 0,
+      "first_cited": "2026-09-04",
+      "last_cited": "2026-09-04",
+      "beats": {
+        "Analysts": 1
       },
       "claim_types": {
         "OTHER": 1

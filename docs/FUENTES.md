@@ -132,3 +132,57 @@ Lo que NO se afirma, a propósito:
 - 101 organizaciones no son 101 fuentes independientes: son 94 posibles
   orígenes y 7 ecos. Quien pinte «confirmado por N fuentes» sigue teniendo que
   pasar por `sources/lineage.py`.
+
+## 8. Ingestibilidad, clasificada para las 101 — y lo que la red NO dejó comprobar
+
+Desde el 5 de septiembre de 2026 cada organización lleva una ficha
+`ingestibility` con dos capas que no se mezclan:
+
+- **Editorial** (`state`, `basis`, `access_method`, `feed_candidate`, `paywall`,
+  `terms`): qué clase de acceso ofrece el sitio y si cobra. Curada a mano en
+  `scripts/source_registry_build.py::ACCESS`, con reglas por familia (sitio
+  oficial, diario de pago, radio/TV local, SB Nation, blog independiente).
+- **Técnica** (`technical.status`, `checked_from`, `checked_at`): qué contestó
+  la red al sondear las rutas habituales de RSS/Atom
+  (`scripts/source_feed_probe.py` → `docs/evidence/feed_probe.json`).
+
+Resultado editorial: 21 `ON_DEMAND` (feed o API candidatos conocidos, sin
+verificar), 21 `PAID_CANDIDATE` (muro de pago o API de pago), 52
+`MANUAL_REFERENCE`, 8 `REJECTED` (streaming, entretenimiento y promoción de
+apuestas o DFS: no son prensa de hechos y el interés es el suyo). **Cero
+`PRODUCTION_INGESTIBLE`**, porque ese estado exige un feed LEÍDO con fechas e
+ids estables, y desde el entorno de desarrollo la política de salida denegó el
+CONNECT a los 101 dominios (`technical.status = BLOCKED_FROM_DEV_ENV`). Eso es
+un hecho del entorno, no del sitio: el sondeo se corre desde una máquina con
+salida y la ficha técnica cambia sola. Un test impide que nadie sea
+`PRODUCTION_INGESTIBLE` sin `FEED_READ`.
+
+## 9. El conjunto de producción: ocho, con motivo
+
+No se sondean 101 dominios porque existan. Los que merecen entrar cuando su
+feed se verifique, y por qué (`production_set` en cada entrada):
+
+| Dominio | Por qué |
+|---|---|
+| nfl.com | notas OFICIALES de la liga: transacciones, listas, partes |
+| espn.com | cabecera nacional con insiders y partes de práctica |
+| sports.yahoo.com | cabecera nacional; la más citada del archivo (97) |
+| cbssports.com | cabecera nacional con cobertura de lesiones por jugador |
+| nbcsports.com | Pro Football Talk: transacciones y disciplina antes que nadie |
+| rotoballer.com | noticias de fantasy con feed abierto |
+| profootballnetwork.com | noticias de fantasy con feed abierto |
+| thefantasyfootballers.com | noticias de fantasy con feed abierto |
+
+Los sitios oficiales de los equipos entran por familia en cuanto se
+verifique un patrón de feed común; hoy no hay ninguno leído y no se afirma.
+
+## 10. Cobertura por equipo, observada
+
+`scripts/source_coverage_matrix.py` cruza las fichas del archivo con la
+clasificación y escribe `docs/evidence/team_coverage.json`. Lo que dice del
+archivo de siete barridos: **27 equipos sin ninguna fuente local citada**, 6
+sin fuente oficial (BUF, CAR, DET, PHI, TEN, WAS), 5 sin una sola ficha de
+lesión (CLE, DAL, MIN, PIT, TEN) y PIT con una ficha en total. Ahí es donde
+tiene sentido buscar fuentes nuevas: por hueco, no por número. La búsqueda
+exige red, así que queda como lista de trabajo y no como entradas
+inventadas en el catálogo.

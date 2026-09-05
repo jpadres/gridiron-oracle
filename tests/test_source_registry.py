@@ -17,6 +17,8 @@ CATALOGO = RAIZ / "research" / "sources.json"
 
 ESTADOS = {
     "PRODUCTION_INGEST",
+    "PRODUCTION_INGESTIBLE",
+    "BLOCKED",
     "PRODUCTION_CANDIDATE",
     "PRODUCTION_CANDIDATE_HISTORICAL_ONLY",
     "ON_DEMAND",
@@ -123,13 +125,39 @@ def test_lo_que_no_sirve_en_temporada_no_se_marca_como_produccion_semanal():
 CLASIFICACIONES = {"VETTED", "DISCOVERED", "REDUNDANT", "REJECTED"}
 
 
+INGEST_STATES = {"PRODUCTION_INGESTIBLE", "ON_DEMAND", "MANUAL_REFERENCE", "PAID_CANDIDATE", "BLOCKED", "REJECTED"}
+TECH_STATES = {"FEED_READ", "BLOCKED_FROM_DEV_ENV", "SITE_REFUSED", "NO_FEED_AT_COMMON_PATHS", "NOT_PROBED"}
+
+
 def test_toda_organizacion_derivada_lleva_clasificacion_con_su_base():
     d = catalogo()
     for e in d["organizations"] + d["rejected"]:
         assert e.get("classification") in CLASIFICACIONES, e["source_id"]
         assert e.get("classification_basis"), f"{e['source_id']}: clasificación sin base escrita"
-        # «ingestible» es una afirmación sobre un feed verificado: sin feed, null.
-        assert "ingestible" in e and (e["ingestible"] is None or isinstance(e["ingestible"], bool))
+        ing = e.get("ingestibility")
+        assert ing and ing["state"] in INGEST_STATES and ing["basis"], f"{e['source_id']}: sin ingestibilidad clasificada"
+        assert e["state"] == ing["state"]
+        # Lo TÉCNICO va aparte y dice desde dónde y cuándo se miró.
+        assert ing["technical"]["status"] in TECH_STATES, e["source_id"]
+        assert "ingestible" not in e, "el booleano ambiguo se retiró: hay estado, base y técnica"
+
+
+def test_nadie_es_PRODUCTION_INGESTIBLE_sin_un_feed_LEIDO():
+    d = catalogo()
+    for e in d["organizations"]:
+        ing = e["ingestibility"]
+        if ing["state"] == "PRODUCTION_INGESTIBLE":
+            assert ing["technical"]["status"] == "FEED_READ", e["source_id"]
+            assert ing["technical"].get("items_with_date", 0) > 0 and ing["technical"].get("items_with_id", 0) > 0
+
+
+def test_el_conjunto_de_produccion_tiene_motivo_y_no_es_todo_el_catalogo():
+    d = catalogo()
+    chosen = [e for e in d["organizations"] if e.get("production_set")]
+    assert 3 <= len(chosen) <= 15, "un conjunto de producción es una selección, no el catálogo"
+    for e in chosen:
+        assert isinstance(e["production_set"], str) and len(e["production_set"]) > 10, e["source_id"]
+        assert e["ingestibility"]["state"] != "REJECTED"
 
 
 def test_un_eco_no_cuenta_como_origen():

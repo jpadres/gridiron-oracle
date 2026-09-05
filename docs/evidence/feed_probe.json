@@ -1,0 +1,717 @@
+{
+ "checked_from": "development container via egress proxy",
+ "checked_at": "2026-09-05T18:08:36+00:00",
+ "note": "estado TÉCNICO de red en esta fecha desde este entorno; no es una clasificación editorial ni una promesa de ingestibilidad",
+ "domains": 101,
+ "with_feed": 0,
+ "root_unreachable": 101,
+ "results": [
+  {
+   "domain": "sports.yahoo.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "espn.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "nfl.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "nbcsports.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "si.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "cbssports.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "fantasypros.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "rotoballer.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "profootballnetwork.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "rotowire.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "bleacherreport.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "athlonsports.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "foxsports.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "pff.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "clutchpoints.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "draftsharks.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "heavy.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "footballguys.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "profootballrumors.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "yardbarker.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "sharpfootballanalysis.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "thefalcoholic.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "49erswebzone.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "4for4.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "chicago.suntimes.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "nbcsportsbayarea.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "bleachernation.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "deseret.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "fantasyfootballcalculator.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "fantasylife.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "fantasynerds.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "fantasypoints.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "giants.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "hogshaven.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "newyorkjets.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "seahawks.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "steelersdepot.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "thebiglead.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "theringer.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "640wxsm.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "azcardinals.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "bigblueview.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "bolavip.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "buffalobills.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "cbsnews.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "chargers.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "cincyjungle.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "clickondetroit.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "complex.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "dallascowboys.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "dallasnews.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "dazn.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "denver7.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "denverbroncos.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "detroitnews.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "dimers.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "dknetwork.draftkings.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "dkpittsburghsports.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "elevenwarriors.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "empiresportsmedia.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "fansided.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "fieldgulls.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "forbes.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "fox19.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "ftnfantasy.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "gridironexperts.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "jaguars.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "joebucsfan.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "kctv5.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "lastwordonsports.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "local10.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "neworleanssaints.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "ninersnation.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "northeasttimes.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "packers.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "patriots.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "pewterreport.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "phillyvoice.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "playerprofiler.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "prideofdetroit.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "prizepicks.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "reviewjournal.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "spectrumnews1.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "sportscapitoldc.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "sportsnaut.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "startribune.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "statpick.ai",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "steelers.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "thefantasyfootballers.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "therams.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "totalprosports.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "turfshowtimes.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "vegasinsider.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "vikings.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "walterfootball.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "washingtonpost.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "washingtontimes.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "wbay.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "wmbdradio.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "wtop.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  },
+  {
+   "domain": "zonecoverage.com",
+   "root_status": null,
+   "root_error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+   "feeds": [],
+   "best": null
+  }
+ ]
+}
