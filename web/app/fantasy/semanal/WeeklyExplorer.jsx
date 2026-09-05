@@ -39,7 +39,7 @@ const CHIPS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
 
 export default function WeeklyExplorer({
   rankings, kickers, defenses, notes = {}, news = {}, availability = {},
-  kickerRankStatus = null, kickerProjStatus = null,
+  kickerRankStatus = null, kickerProjStatus = null, startSitStatus = {},
   board = [], byes = {}, week = null, season = null,
 }) {
   // El conjunto vacío significa ALL. Multi-selección: cada chip conmuta, y
@@ -157,6 +157,31 @@ export default function WeeklyExplorer({
           </button>
         ) : null}
       </div>
+      {/* LA AUTORIDAD DE CADA POSICIÓN, leída del registro y no escrita aquí.
+          RB, WR y TE tienen su start/sit VALIDADO (E11); el del QB está
+          NOT_READY. La pantalla los presentaba EXACTAMENTE igual: filtras a QB y
+          la tabla se lee con la misma autoridad que la de RB, que es el bypass
+          del registro que este proyecto no puede permitirse.
+
+          Es general y no un caso especial del QB: cualquier posición cuyo
+          estado no sea VALIDATED se avisa, y si mañana un experimento sube el
+          QB, el aviso desaparece solo. */}
+      {(() => {
+        const flojas = [...picked].filter(
+          (pos) => startSitStatus[pos] && startSitStatus[pos] !== "VALIDATED"
+        );
+        if (flojas.length === 0) return null;
+        return (
+          <p className="callout wk-authority">
+            <strong>{flojas.join(", ")}</strong>: the weekly start/sit call for{" "}
+            {flojas.length > 1 ? "these positions is" : "this position is"} not validated
+            ({flojas.map((p2) => `${p2} ${startSitStatus[p2]}`).join(", ")} in the capability
+            registry). The projection is shown as information; the ordering does not carry
+            the start/sit authority that RB, WR and TE do.
+          </p>
+        );
+      })()}
+
       {/* La línea de contexto habla de la vista que HAY: la de rank ordinal
           sólo aplica a la tabla ofensiva, y pintarla sobre el panel de K —
           donde el rank no existe a propósito — la contradiría. */}

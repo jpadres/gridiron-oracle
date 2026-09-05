@@ -53,6 +53,26 @@ test("la pantalla semanal LEE la autoridad del registro, no la tiene escrita", (
     "sin registro que lo respalde, la pantalla tiene que decir eso y no afirmar");
 });
 
+test("el start/sit del QB sigue sin validar, y RB/WR/TE validados", () => {
+  // Si un experimento mueve cualquiera de los cuatro, esto se pone rojo y
+  // obliga a mirar la pantalla que los presenta.
+  assert.equal(capabilityStatus("START_SIT_QB"), "NOT_READY");
+  for (const pos of ["RB", "WR", "TE"]) {
+    assert.equal(capabilityStatus(`START_SIT_${pos}`), "VALIDATED", `${pos} debería estar validado`);
+  }
+});
+
+test("la pantalla semanal avisa de la posición cuya autoridad NO es RECOMEND", () => {
+  const page = leer("app/fantasy/semanal/page.jsx");
+  assert.match(page, /START_SIT_QB/, "la página tiene que consultar el registro por posición");
+  const shell = leer("app/fantasy/semanal/WeeklyExplorer.jsx");
+  // GENERAL, no un caso especial del QB: si estuviera cableado a "QB" el aviso
+  // no aparecería el día que otra posición perdiera su validación.
+  assert.match(shell, /startSitStatus\[pos\] !== "VALIDATED"/,
+    "el aviso tiene que derivarse del estado, no de la posición");
+  assert.ok(!/pos === "QB"/.test(shell), "y no puede estar cableado al QB");
+});
+
 test("ninguna pantalla enseña un rank ordinal de pateador", () => {
   // La afirmación que el registro RECHAZA, comprobada en el sitio donde se
   // rompería: la tabla de pateadores no puede pintar una columna de orden.

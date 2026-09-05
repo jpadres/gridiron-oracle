@@ -153,6 +153,12 @@ export default function Semanal() {
         defenses={weekly.defenses ?? []}
         kickerRankStatus={capabilityStatus("KICKER_ORDINAL_RANKING")}
         kickerProjStatus={capabilityStatus("KICKER_PROJECTION")}
+        startSitStatus={{
+          QB: capabilityStatus("START_SIT_QB"),
+          RB: capabilityStatus("START_SIT_RB"),
+          WR: capabilityStatus("START_SIT_WR"),
+          TE: capabilityStatus("START_SIT_TE"),
+        }}
         notes={notes}
         news={newsByPlayer}
         availability={availability}

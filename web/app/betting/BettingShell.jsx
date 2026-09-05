@@ -464,7 +464,14 @@ export default function BettingShell({ predictions, weekly, context, markets = [
               <thead>
                 <tr>
                   <th>Game</th><th>Model score</th><th>Fair ML</th>
-                  <th>Side</th><th>Cover</th><th>House</th><th>Edge</th><th>EV at −110</th><th>Stake</th><th>History</th>
+                  {/* «Edge» era la cabecera de una columna cuya capacidad el
+                      registro tiene REJECTED (E4: el desacuerdo no predice
+                      acierto). El texto de alrededor lo decía, pero una
+                      cabecera literal es la afirmación en el sitio donde más se
+                      lee. La columna no cambia — es la diferencia entre modelo
+                      y mercado— y ahora se llama por lo que es. */}
+                  <th>Side</th><th>Cover</th><th>House</th><th>Model − market</th>
+                  <th>EV at −110</th><th>Stake</th><th>History</th>
                 </tr>
               </thead>
               <tbody>
