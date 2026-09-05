@@ -401,7 +401,7 @@ def _clean(item: object, beat: str) -> dict | None:
         # Momento exacto de publicación, para medir latencia. Vacío se guarda
         # como None y no como cadena: un `""` acaba comparándose como fecha
         # válida en cuanto alguien escribe un `if item["published_at"]:` mal.
-        "published_at": (str(item.get("published_at") or "").strip() or None),
+        "published_at": _not_from_the_future(str(item.get("published_at") or "").strip() or None),
         # Cuándo lo vimos nosotros por primera vez. Lo rellena la ingesta, no el
         # modelo: el modelo no sabe cuándo lo leímos.
         "first_seen_at": item.get("first_seen_at"),
@@ -415,6 +415,35 @@ def _clean(item: object, beat: str) -> dict | None:
         "schema_version": SCHEMA_VERSION,
         "sources": sources[:3],
     }
+
+
+# Un día de tolerancia: husos horarios y un reloj un poco adelantado caben;
+# una ficha «publicada» la semana que viene no es una fecha, es un error.
+FUTURE_TOLERANCE_DAYS = 1
+
+
+def _not_from_the_future(stamp: str | None, now: object | None = None) -> str | None:
+    """Una fecha de publicación posterior a hoy no puede ser cierta.
+
+    Un modelo que extrae `published_at` de un artículo puede leer mal un año,
+    confundir el día con el mes, o copiar la fecha del evento futuro del que
+    habla («el partido del domingo 14»). Guardarla tal cual la convierte en la
+    ficha más «reciente» del archivo y la pone la primera en cada orden por
+    fecha. Se deja en None: UNKNOWN antes que una frescura imposible.
+    """
+    if not stamp:
+        return None
+    from datetime import datetime, timedelta, timezone
+    try:
+        parsed = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    reference = now or datetime.now(timezone.utc)
+    if parsed > reference + timedelta(days=FUTURE_TOLERANCE_DAYS):
+        return None
+    return stamp
 
 
 def _team_code(value: object) -> str:

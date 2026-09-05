@@ -439,3 +439,42 @@ def test_calibration_bins_are_readable_percentages():
     assert labels[0] == "0–10%"
     assert labels[-1] == "90–100%"
     assert not any("-" in label.replace("–", "") for label in labels), labels
+
+
+def test_features_do_not_see_the_game_they_describe(synthetic_data):
+    """FUGA DEL MISMO PARTIDO: el guardián de arriba NO la ve, y esto sí.
+
+    `test_features_have_no_future_information` trunca el historial y compara
+    las filas anteriores al corte. Una feature que lea el resultado de SU
+    PROPIO partido pasa esa prueba: las dos construcciones ven el mismo
+    resultado para la misma fila. Se comprobó inyectándolo —`qb_diff +=
+    0.01 * margin`— y el test insignia siguió VERDE.
+
+    La propiedad que faltaba: la fila del partido k no puede cambiar si se
+    altera el resultado del partido k. Las filas ANTERIORES tampoco (no lo han
+    visto), y las posteriores SÍ pueden (lo han visto ya, y deben).
+    """
+    games, team_games = synthetic_data
+    ordered = games.sort_values(["gameday", "game_id"], kind="mergesort").reset_index(drop=True)
+    k = 900
+    assert bool(ordered.loc[k, "played"]), "el caso exige un partido jugado"
+
+    full, _ = build_features(ordered, team_games)
+
+    altered = ordered.copy()
+    # Un resultado imposible de confundir con ruido de redondeo.
+    altered.loc[k, "margin"] = float(altered.loc[k, "margin"]) + 40.0
+    altered.loc[k, "total"] = float(altered.loc[k, "total"]) + 40.0
+    if "home_score" in altered.columns:
+        altered.loc[k, "home_score"] = float(altered.loc[k, "home_score"]) + 40.0
+    changed, _ = build_features(altered, team_games)
+
+    assert list(full["game_id"]) == list(changed["game_id"])
+    for column in FEATURE_COLUMNS:
+        a = full[column].to_numpy(dtype=float)[: k + 1]
+        b = changed[column].to_numpy(dtype=float)[: k + 1]
+        np.testing.assert_allclose(
+            a, b, rtol=1e-10, atol=1e-10, equal_nan=True,
+            err_msg=f"'{column}' cambia en la fila del partido alterado o antes: "
+                    "la feature ve el resultado del partido que describe",
+        )

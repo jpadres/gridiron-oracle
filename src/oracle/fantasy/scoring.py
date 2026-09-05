@@ -87,6 +87,31 @@ _STAT_COLUMNS: dict[str, str] = {
 _ALIAS_GROUPS: tuple[tuple[str, ...], ...] = (("passing_interceptions", "interceptions"),)
 
 
+def regular_season(player_weeks: pd.DataFrame) -> pd.DataFrame:
+    """Sólo temporada regular: la que la fantasy puntúa.
+
+    `player_weeks` trae también los playoffs (20.004 filas de `season_type ==
+    "POST"`), y hasta el 5 de septiembre de 2026 entraban en la proyección de
+    draft, en la semanal y en la del pateador sin que nada los filtrara. Sólo
+    `availability.py` y `rookies.py` lo hacían, cada uno por su cuenta.
+
+    Medido antes de arreglarlo, sobre la proyección 2026 en PPR: 347 de 858
+    jugadores cambian más de medio punto, **106 de los 150 primeros cambian de
+    puesto** (hasta 21 puestos), y los que más bajan son justo los de equipos
+    que llegan lejos en enero — Walker 173,7 → 162,4, Nacua 241,6 → 232,4,
+    Barkley 205,4 → 197,5, Allen 287,9 → 281,3. Cuatro partidos de playoffs
+    prestaban muestra y puntos a una proyección que se paga en las 17 jornadas
+    de la temporada regular, y sólo a quien los había jugado.
+
+    No es una decisión de modelado que alguien validara: era una unión sin
+    filtrar. Una liga de fantasy es una competición de temporada regular y el
+    historial tiene que ser de la misma competición que predice.
+    """
+    if "season_type" not in player_weeks.columns:
+        return player_weeks
+    return player_weeks[player_weeks["season_type"] == "REG"]
+
+
 def score_player_weeks(stats: pd.DataFrame, rules: ScoringRules = PPR) -> pd.Series:
     """Puntos de fantasy por fila (jugador-semana).
 

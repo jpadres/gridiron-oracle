@@ -43,7 +43,7 @@ import pandas as pd
 
 from .components import COMPONENTS, weighted_components
 from .league import LeagueContext, greedy_replacement, roster_context
-from .scoring import PPR, ScoringRules, score_player_weeks
+from .scoring import PPR, ScoringRules, regular_season, score_player_weeks
 
 # Ponderación de las tres últimas temporadas. Suma 1.
 SEASON_WEIGHTS = (0.56, 0.30, 0.14)
@@ -138,7 +138,10 @@ def project_season(
     walk-forward del modelo de partidos: la validación de 2024 no puede haber
     visto 2024.
     """
-    history = player_weeks[player_weeks["season"] < season].copy()
+    # Temporada regular y anterior a `season`. Ver `regular_season`: los
+    # playoffs movían 106 de los 150 primeros del board.
+    history = regular_season(player_weeks)
+    history = history[history["season"] < season].copy()
     if history.empty:
         raise ValueError(f"No hay historial anterior a {season}.")
 

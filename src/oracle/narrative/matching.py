@@ -72,30 +72,80 @@ def full_name_key(name: str) -> str:
     return " ".join(_fold(token) for token in tokens)
 
 
-def build_index(players: Iterable[dict]) -> dict[tuple[str, str], str]:
-    """Índice (clave, equipo) -> player_id a partir de las filas del ranking."""
-    index: dict[tuple[str, str], str] = {}
+def _is_abbreviated(name: str) -> bool:
+    """«J.Burrow» sí; «Joe Burrow» no. Lo abreviado no puede decir el nombre."""
+    return bool(re.match(r"^[A-Za-z]\.\s*\S", name.strip()))
+
+
+def build_index(players: Iterable[dict]) -> dict[tuple[str, str], list[tuple[str | None, str]]]:
+    """Índice (clave, equipo) -> [(nombre completo o None, player_id), ...].
+
+    Se guardan TODOS los que comparten clave y equipo, no el último: un
+    diccionario que se queda con uno convierte una colisión en un emparejamiento
+    equivocado que no falla. Bijan y Brian Robinson, los dos «B.Robinson» de
+    ATL, ya costaron «el consenso sube a Robinson 316 puestos» sobre el Robinson
+    equivocado — y ese arreglo vivía sólo en el consenso: `resolve`, que cuelga
+    la PRENSA de las filas, seguía devolviendo al último indexado. Se cazó con
+    los fixtures adversarios de `tests/test_identity_redteam.py`.
+    """
+    index: dict[tuple[str, str], list[tuple[str | None, str]]] = {}
     for player in players:
         key = player_key(str(player.get("player_name", "")))
         team = normalize_team(player.get("team")) or ""
-        if key and team:
-            index[(key, team)] = str(player.get("player_id", ""))
+        if not key or not team:
+            continue
+        full = str(player.get("player_full_name") or "").strip()
+        index.setdefault((key, team), []).append(
+            (full_name_key(full) if full else None, str(player.get("player_id", "")))
+        )
     return index
 
 
-def resolve(names: Iterable[str], team: str, index: dict[tuple[str, str], str]) -> list[str]:
+def _pick(name: str, candidates: list[tuple[str | None, str]]) -> str | None:
+    """Uno, o ninguno. Nunca «el primero que haya».
+
+      · Nombre completo en la nota y en el board: tienen que ser el MISMO nombre
+        completo. Dos apellidos iguales con nombre distinto no son la misma
+        persona aunque la clave abreviada coincida.
+      · Nombre completo en la nota y el board sin él: vale la clave abreviada
+        sólo si es única en ese equipo.
+      · Nota abreviada («B.Robinson»): sólo si la clave es única. Con dos, no
+        hay forma de saber cuál, y elegir es peor que callar.
+    """
+    if not candidates:
+        return None
+    if _is_abbreviated(name):
+        return candidates[0][1] if len(candidates) == 1 else None
+    wanted = full_name_key(name)
+    exact = [pid for full, pid in candidates if full == wanted]
+    if len(exact) == 1:
+        return exact[0]
+    if exact:
+        return None
+    # Ningún nombre completo coincide. Si alguno del board SÍ tiene nombre
+    # completo y es otro, no es él; sólo los que no lo tienen pueden serlo.
+    unnamed = [pid for full, pid in candidates if full is None]
+    named_other = [pid for full, pid in candidates if full is not None]
+    if named_other and not unnamed:
+        return None
+    return unnamed[0] if len(unnamed) == 1 and not named_other else None
+
+
+def resolve(names: Iterable[str], team: str, index: dict) -> list[str]:
     """`player_id` de los nombres citados en una noticia de ese equipo.
 
     Los que no aparecen en el ranking se descartan en silencio: la mayoría de las
     noticias hablan de jugadores que el modelo no clasifica (defensas, suplentes,
-    liniero ofensivo), y eso no es un error.
+    liniero ofensivo), y eso no es un error. Los AMBIGUOS también se descartan,
+    y eso tampoco lo es: ver `_pick`.
     """
     team = normalize_team(team) or ""
     if not team:
         return []
     resolved = []
     for name in names:
-        player_id = index.get((player_key(str(name)), team))
+        name = str(name)
+        player_id = _pick(name, index.get((player_key(name), team), []))
         if player_id and player_id not in resolved:
             resolved.append(player_id)
     return resolved

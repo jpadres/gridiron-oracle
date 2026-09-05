@@ -43,7 +43,7 @@ import numpy as np
 import pandas as pd
 
 from .kickers import KickerScoring, distance_mix, fit_opportunity, project
-from .scoring import PPR, ScoringRules, score_player_weeks
+from .scoring import PPR, ScoringRules, regular_season, score_player_weeks
 
 # --- volumen de equipo ------------------------------------------------------
 # Jugadas de scrimmage en un partido medio y su sensibilidad al total esperado.
@@ -159,6 +159,8 @@ def weekly_rankings(
     """
     calibration = calibration or WeeklyCalibration()
 
+    # Sólo temporada regular (ver `regular_season`) y anterior a (season, week).
+    player_weeks = regular_season(player_weeks)
     history = player_weeks[
         (player_weeks["season"] < season)
         | ((player_weeks["season"] == season) & (player_weeks["week"] < week))
@@ -684,6 +686,7 @@ def weekly_kickers(
     `team_games`). Sólo se usa historial anterior a (season, week).
     """
     scoring = scoring or KickerScoring()
+    player_weeks = regular_season(player_weeks)
     before = (player_weeks["season"] < season) | (
         (player_weeks["season"] == season) & (player_weeks["week"] < week)
     )

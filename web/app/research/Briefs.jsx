@@ -24,6 +24,7 @@
 import { useMemo, useState } from "react";
 
 import { ImpactTag, Sources } from "../ui.jsx";
+import { dateLabel } from "./dates.js";
 
 /** Fichas por tramo. Veinte es una sesión de lectura; sesenta es un muro. */
 const TRAMO = 20;
@@ -65,12 +66,17 @@ const longDate = (iso) => formatDate(iso, { weekday: "long", month: "long", day:
 /** La ficha. Misma anatomía que la del servidor: una sola forma para una cosa. */
 function Brief({ item, showDate = false }) {
   const confidence = CONFIDENCE[item.confidence] ?? CONFIDENCE.rumor;
+  const when = dateLabel(item);
   return (
     <article className={`note note--${item.impact}`}>
       <h3>{item.headline}</h3>
       <p className="note-meta">
-        {showDate && item.date ? (
-          <span className="tag">{formatDate(item.date, { month: "short", day: "numeric" })}</span>
+        {showDate && when ? (
+          <span className="tag" title={when.word === "seen"
+            ? "No publication date in the source; this is when the sweep read it"
+            : "Publication date reported by the source"}>
+            {when.word} {formatDate(when.iso, { month: "short", day: "numeric" })}
+          </span>
         ) : null}
         <span className="chip">{item.team}</span>
         <span className="tag">{KIND[item.kind] ?? KIND.otro}</span>
@@ -172,7 +178,9 @@ export default function Briefs({ items = [] }) {
 
       {byDay.map(([day, dayItems]) => (
         <section key={day} id={day}>
-          <h3 className="day">{day === NO_DATE ? day : longDate(day)}</h3>
+          {/* El grupo es por día del BARRIDO, y se dice: dentro, cada ficha
+              lleva su «published» o su «seen». */}
+          <h3 className="day">{day === NO_DATE ? day : <>Sweep · {longDate(day)}</>}</h3>
           {dayItems.map((item, index) => (
             <Brief key={`${day}-${index}`} item={item} />
           ))}

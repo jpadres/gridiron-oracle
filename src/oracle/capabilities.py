@@ -516,15 +516,25 @@ REGISTRY: tuple[Capability, ...] = (
             "el total implícito del rival predice los puntos permitidos a r 0,388, "
             "frente a r 0,060 del último partido de la propia defensa"
         ),
-        experiment_id=None,
-        metric="r = 0.388 (exploratorio, sin modelo construido)",
-        sample_size=7658,
+        experiment_id="E24",
+        metric="walk-forward 2018-2025: el modelo bate a los tres baselines en 0 de 8 temporadas",
+        sample_size=4254,
         limitations=(
-            "Medido, no construido. No hay modelo ni validación walk-forward.",
+            "E24 (preregistrado en docs/PREREGISTRO_dst.md, 2026-09-05): una regresión "
+            "sobre total implícito del rival + capturas y balones recientes NO bate al "
+            "total implícito del rival a secas en NINGUNA de las ocho temporadas: la forma "
+            "reciente no aporta nada. Se queda en DESIGN_ONLY por el umbral fijado antes.",
+            "Lo que sí salió: el total implícito del rival, solo, ordena las defensas "
+            "dentro de la jornada a Spearman 0,31 de media y bate a la media de liga y a "
+            "la forma reciente en las ocho. Era un BASELINE del preregistro, no el "
+            "candidato, así que no se promueve por haberlo visto: queda para un "
+            "preregistro nuevo con ese candidato.",
+            "La puntuación medida es PARCIAL: sin touchdowns defensivos, safeties ni "
+            "bloqueos, que `team_games` no tiene.",
             "Las pérdidas forzadas NO son una cualidad estable: balones sueltos "
             "año contra año r 0,044.",
         ),
-        last_validated=None,
+        last_validated="2026-09-05",
         model_version=None,
     ),
     Capability(

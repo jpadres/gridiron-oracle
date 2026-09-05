@@ -377,6 +377,18 @@ def _strip_runtime_fields(section: dict | None) -> dict | None:
     if not section:
         return section
     for item in section.get("items", []):
+        # CUÁNDO LO VIMOS no es CUÁNDO SE PUBLICÓ, y las dos viajan.
+        #
+        # 27 de las 40 fichas del barrido del 4 de septiembre no traen fecha de
+        # publicación —el artículo no la tenía o el modelo no la sacó— y la
+        # interfaz les pintaba la fecha del barrido con la misma etiqueta que a
+        # las que sí la tienen: la fecha de importación presentada como fecha
+        # del hecho, que es la regla 5 rota en la sección de prensa. Ahora
+        # `retrieved_at` es un campo propio, la pantalla dice «seen» cuando es lo
+        # único que sabe, y `published_at` puede ser null sin que nadie lo
+        # rellene con el reloj.
+        seen = item.get("first_seen_at") or None
+        item["retrieved_at"] = str(seen)[:10] if seen else None
         for field in RUNTIME_ONLY_FIELDS:
             item.pop(field, None)
     return section

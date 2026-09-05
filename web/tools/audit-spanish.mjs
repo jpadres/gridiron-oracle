@@ -240,8 +240,11 @@ const DATOS_PREFIJOS = [
   ".fantasy.validation_bands[]",
   ".fantasy.validation_top_n[]",
   ".fantasy.validation_value[]",
-  // Marcas de tiempo ISO de las fichas de hoy: fechas, no prosa.
-  ".research.today[].published_at",
+  // Marcas de tiempo ISO de las fichas: cuándo se PUBLICÓ y cuándo se VIO por
+  // primera vez en el barrido. Dos fechas distintas a propósito (regla 5): la
+  // segunda nunca se pinta como la primera.
+  ".research.today[].published_at", ".research.today[].retrieved_at",
+  ".research.items[].retrieved_at",
   // Pateadores y defensas del semanal, y los fichables del draft: ids GSIS o
   // sintéticos (DST_KC), nombres propios y códigos de equipo — datos, no prosa.
   ".fantasy_weekly.kickers[]", ".fantasy_weekly.defenses[]",
