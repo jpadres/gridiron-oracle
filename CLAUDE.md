@@ -380,6 +380,7 @@ src/oracle/
   narrative/             textos generados y barrido de prensa (opcional, con clave)
   narrative/status.py    suspensiones, exentos y listas: MARCA, no calcula
   freshness.py           ventanas por dominio: qué se puede afirmar como ACTUAL
+  sources/lineage.py     ORIGEN: quince ecos de un informe son UN origen, no quince
   survivor/              plan de survivor: asignación lineal sobre log-probabilidades
   leagues/sleeper.py     liga, puntuación y picks del draft (API pública, sin clave)
   fantasy/risk.py        volatilidad de la proyección, VALIDADA contra el error real

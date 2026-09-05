@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-09-05",
+  "note": "Catálogo de fuentes. Cuatro tipos de entidad que NO se suman entre sí: ORGANIZATION, AUTHOR, FEED, PROVIDER. Ver docs/FUENTES.md.",
+  "providers": [
+    {
+      "source_id": "nflverse.snap_counts",
+      "name": "nflverse — PFR snap counts",
+      "organization": "nflverse",
+      "kind": "PROVIDER",
+      "upstream": "Pro Football Reference",
+      "access_method": "parquet en releases de GitHub",
+      "url": "https://github.com/nflverse/nflverse-data/releases/download/snap_counts/",
+      "coverage_topics": [
+        "snap_counts",
+        "snap_share"
+      ],
+      "authority_class": "DATA_PROVIDER",
+      "freshness_expectation": "4 veces al día en temporada (0/6/12/18 UTC)",
+      "cadence_verified_at": "2026-09-05",
+      "cadence_source": "https://raw.githubusercontent.com/nflverse/nflreadr/main/vignettes/articles/nflverse_data_schedule.Rmd",
+      "reachable_from_ci": true,
+      "cost_class": "FREE",
+      "state": "PRODUCTION_CANDIDATE",
+      "unlocks": "El hueco de SNAPS, que hoy limita la proyección semanal. Es la misma familia de datos que el proyecto ya ingiere.",
+      "notes": "Verificado con HTTP 200 sobre snap_counts_2025.parquet desde este entorno."
+    },
+    {
+      "source_id": "nflverse.participation",
+      "name": "nflverse — participation (FTN)",
+      "organization": "nflverse",
+      "kind": "PROVIDER",
+      "upstream": "FTN Data (2023+); NFL NGS antes de 2023",
+      "access_method": "parquet en releases de GitHub",
+      "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp_participation/",
+      "coverage_topics": [
+        "routes",
+        "alignment",
+        "personnel"
+      ],
+      "authority_class": "DATA_PROVIDER",
+      "freshness_expectation": "NO actualiza en temporada: se publica tras los playoffs",
+      "cadence_verified_at": "2026-09-05",
+      "cadence_source": "https://raw.githubusercontent.com/nflverse/nflreadr/main/vignettes/articles/nflverse_data_schedule.Rmd",
+      "reachable_from_ci": true,
+      "cost_class": "FREE",
+      "state": "PRODUCTION_CANDIDATE_HISTORICAL_ONLY",
+      "unlocks": "Rutas y participación para VALIDACIÓN histórica. NUNCA para una proyección semanal en vivo.",
+      "notes": "La fuente anterior a 2023 (NGS) MURIÓ durante la temporada 2023. Citado literal: «provided after all post-season games are completed. It does not update during the season!»"
+    },
+    {
+      "source_id": "nflverse.ftn_charting",
+      "name": "nflverse — FTN charting",
+      "organization": "nflverse",
+      "kind": "PROVIDER",
+      "upstream": "FTN Data",
+      "access_method": "parquet en releases de GitHub",
+      "coverage_topics": [
+        "charting"
+      ],
+      "authority_class": "DATA_PROVIDER",
+      "freshness_expectation": "4 veces al día en temporada",
+      "cadence_verified_at": "2026-09-05",
+      "cost_class": "FREE",
+      "state": "ON_DEMAND",
+      "unlocks": "Charting en temporada. NO es lo mismo que `participation`, aunque las dos vengan de FTN — confundirlas sería publicar como semanal algo que sólo existe tras los playoffs.",
+      "notes": "Distinción deliberada: charting SÍ actualiza en temporada, participation NO."
+    },
+    {
+      "source_id": "nflverse.schedules",
+      "name": "nflverse — schedules",
+      "organization": "nflverse",
+      "kind": "PROVIDER",
+      "access_method": "games.csv",
+      "url": "https://raw.githubusercontent.com/nflverse/nfldata/master/data/games.csv",
+      "coverage_topics": [
+        "schedule",
+        "spread_line",
+        "total_line",
+        "result"
+      ],
+      "authority_class": "DATA_PROVIDER",
+      "freshness_expectation": "cada 5 minutos en temporada",
+      "cadence_verified_at": "2026-09-05",
+      "reachable_from_ci": true,
+      "cost_class": "FREE",
+      "state": "PRODUCTION_INGEST",
+      "unlocks": "Ya en producción: es la fuente del calendario y de la línea publicada.",
+      "notes": "Cadencia de 5 minutos comprobada en la documentación primaria. El proyecto la refrescaba cada varios días, que era el hueco real."
+    }
+  ],
+  "organizations": [],
+  "authors": [],
+  "feeds": [],
+  "rejected": []
+}
