@@ -591,6 +591,7 @@ comentario está para que no los reintroduzcas.
 | Un 429 contestado a los cuatro segundos | `useSleeperDraft.js` | El sondeo no tenía retroceso: con Sleeper pidiendo calma, o caído, seguía a la cadencia de un draft en vivo. La regla de cadencia sale del hook a `draftSync.js::nextCadence` —sin React, para poder probarla— y se dobla por fallo consecutivo hasta un minuto; el primer fallo no cuesta nada. Guardián probado inyectando «sin retroceso» |
 | Un laboratorio que medía el board del día | `live-assistant.mjs` | En mis turnos el laboratorio fichaba el PRIMERO del board, no lo que el asistente recomendaba. Con el board sin playoffs, el primero del board en quince turnos nunca fue un quarterback: el hueco de QB se quedó abierto y el panel «Best pick for you» lo dijo los quince turnos — que es lo correcto, y el laboratorio lo puso en rojo. La propiedad «con los titulares llenos el panel desaparece» sólo se puede exigir a quien LLENA titulares: ahora ficha la recomendación |
 | Josh Jacobs, exento, el 38 de «Best available» sin marca | `DraftMode.jsx` | El Draft Room apartaba a los OUT y el modo draft de `/fantasy` no miraba el estado. Séptima vez de los dos traductores, en la pantalla que el dueño usa. `availablePool.js::splitAvailable` es la única partición y un test comprueba que ninguna pantalla se defina la suya |
+| La CUARTA copia del Brier de portada, sin vigilar | `check_headline_metrics.py` | El simulacro de inyección (`scripts/injection_drill.sh`) cambió el 0.2127 del bloque «Estado» del README y el guardián siguió VERDE: miraba la frase de abajo y la tabla, no la cabecera. Es la copia que se lee primero. Cuatro copias, cuatro patrones — y el simulacro se queda en el repo para correrlo cada vez que se añada un guardián |
 
 ---
 
@@ -678,7 +679,11 @@ está construida:
 | `controles.mjs` | **Control por control, las doce páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián.
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete nueve fallos
+conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
+quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
+negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
+liquidación que paga de más— y exige nueve rojos y nueve verdes al restaurar.
 
 ## El skill de UI/UX
 

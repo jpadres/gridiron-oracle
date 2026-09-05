@@ -52,6 +52,16 @@ COMPROBACIONES = [
         r"Brier \*\*([\d.]+)\*\*\s+frente a \*\*([\d.]+)\*\*, MAE \*\*([\d.]+)\*\* frente a \*\*([\d.]+)\*\*",
         [("brier", 4), ("market_brier", 4), ("margin_mae", 2), ("market_margin_mae", 2)],
     ),
+    # El bloque de «Estado» de la cabecera. Salió a la luz en el simulacro de
+    # inyección del 2026-09-05: cambiar ese 0.2127 dejaba el guardián VERDE,
+    # porque sólo miraba la frase de abajo y la tabla. Cuatro copias, cuatro
+    # patrones: una copia sin vigilar es una copia que puede mentir.
+    (
+        "README.md",
+        "bloque de Estado de la cabecera",
+        r"mercado \(([\d.]+)\) del proyecto original, con Brier \*\*([\d.]+)\*\* frente al ([\d.]+) del\s+>?\s*mercado y MAE \*\*([\d.]+)\*\*",
+        [("market_margin_mae", 2), ("brier", 4), ("market_brier", 4), ("margin_mae", 2)],
+    ),
     (
         "README.md",
         "resultado honesto en una línea",
