@@ -230,7 +230,18 @@ const sinEstilo = []; // primarios con el botón por defecto del sistema
    tamaño y sus tres botones —«Link», «Find» y «Connect», todo el flujo de
    Sleeper— se pintaban como un botón del sistema operativo. */
 const GRIS_DEL_SISTEMA = /^rgba?\(239,\s*239,\s*239/;
-const ES_PRIMARIO = /(^|\s)(pick--mine|act--mine|lg-primary|bk-primary)(\s|$)/;
+const ES_PRIMARIO = /(^|\s)(pick--mine|act--primary|lg-primary|bk-primary)(\s|$)/;
+
+/* LA MISMA ACCIÓN, UN SOLO COLOR.
+   La acción principal se pintaba de tres colores según la pantalla: negro en
+   /betting, ámbar en fantasy y azul en la barra de cuenta. Ninguno era un error
+   por separado; juntos son tres respuestas a la misma pregunta, y dos de ellos
+   gastaban un color que ya significaba otra cosa (`--live` es identidad,
+   `--accent` es el color de los enlaces).
+
+   `.act--mine` queda FUERA de este conteo a propósito: ése no es un primario,
+   es la marca de «este pick es mío», y su pareja es `.act--gone`. */
+const coloresPrimarios = new Map();
 
 for (const vista of VISTAS) {
   console.log(`\n=== ${vista.nombre}: geometría y nombre de cada control ===`);
@@ -260,6 +271,10 @@ for (const vista of VISTAS) {
       if (ES_PRIMARIO.test(f.clases) && GRIS_DEL_SISTEMA.test(f.fondo)) {
         sinEstilo.push(`${vista.nombre} ${ruta} → ${f.sel} «${f.nombre}» con el fondo del sistema (${f.fondo})`);
       }
+      if (ES_PRIMARIO.test(f.clases) && !vista.movil) {
+        if (!coloresPrimarios.has(f.fondo)) coloresPrimarios.set(f.fondo, []);
+        coloresPrimarios.get(f.fondo).push(`${ruta} «${f.nombre}»`);
+      }
     }
     for (const [A, B, dx, dy] of solapes(filas)) {
       pisan.push(`${vista.nombre} ${ruta} → ${A.sel} «${A.nombre}» pisa ${B.sel} «${B.nombre}» (${dx}×${dy} px)`);
@@ -283,6 +298,11 @@ check(mudos.length === 0, `lo deshabilitado se ve deshabilitado — ${mudos.leng
 for (const s of mudos.slice(0, 12)) console.log(`        · ${s}`);
 check(sinEstilo.length === 0, `ningún primario sale con el botón del sistema — ${sinEstilo.length}`);
 for (const s of sinEstilo.slice(0, 12)) console.log(`        · ${s}`);
+check(coloresPrimarios.size === 1,
+  `la acción principal tiene UN color en todo el producto — ${coloresPrimarios.size}`);
+for (const [color, donde] of coloresPrimarios) {
+  console.log(`        · ${color}: ${donde.slice(0, 4).join(", ")}`);
+}
 
 /* ══════════════════════════════════════════════════════════════════════════
  * 2. TODO ENLACE INTERNO RESPONDE

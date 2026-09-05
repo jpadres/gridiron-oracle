@@ -607,11 +607,53 @@ h2 { font-variation-settings: "wdth" 82; letter-spacing: -0.005em; }
   font-weight: var(--weight-semibold); font-size: var(--text-dense);
   cursor: pointer;
 }
+/* IDENTIDAD, NO «BOTÓN IMPORTANTE».
+   `--live` es el ámbar de «esto es MÍO / esto está en vivo», y su pareja es
+   `.act--gone`. Lo llevaban también «Enter draft room» y «Open the Draft
+   Assistant», que no marcan identidad ninguna: son la acción principal de su
+   pantalla. Gastar el color de identidad en un CTA genérico es lo que hacía que
+   la misma acción se pintara de tres colores según dónde estuvieras. */
 .act--mine { background: var(--live); color: var(--live-ink); }
 .act--gone {
   background: transparent; color: var(--chalk); border-color: var(--yard-line);
 }
 .act:focus-visible { outline: 2px solid var(--chalk); outline-offset: 2px; }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   UN SOLO PRIMARIO EN TODO EL PRODUCTO
+   ────────────────────────────────────────────────────────────────────────────
+   La acción principal se pintaba de TRES colores según la pantalla, medido:
+
+       /betting            «Start month»        rgb(20,24,26)   .bk-primary
+       /fantasy, /draft    «Enter draft room»   rgb(154,107,0)  .act--mine
+       barra de cuenta     «Continue», «Link»   rgb(29,78,216)  .lg-primary
+
+   Ninguno de los tres era un error por separado; juntos son tres respuestas a
+   la misma pregunta. Y los dos que se retiran gastaban además un color que YA
+   significaba otra cosa: `--live` es la identidad del draft («mío», «en vivo»)
+   y `--accent` es el color de los ENLACES, así que un botón relleno de accent
+   compite con cada enlace de la página.
+
+   Se queda el neutro `--chalk` sobre `--field`, que es el que ya usaba
+   `/betting`: máximo contraste, cambia con el tema y no pisa ningún
+   significado. No se inventa ni un token.
+
+   `system.css` se carga DESPUÉS de `globals.css`, así que esta regla gana sobre
+   lo que `.lg-primary` declara allí sin tener que tocarlo. */
+.bk-primary,
+.lg-primary,
+.act--primary,
+button.pick--mine {
+  background: var(--chalk);
+  color: var(--field);
+  border: 1px solid var(--chalk);
+  border-radius: var(--radius-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+/* El de `/fantasy` es un enlace con forma de botón: sin subrayado y centrado. */
+a.act--primary { text-decoration: none; display: inline-flex; align-items: center;
+                 justify-content: center; }
 
 .next-h { margin-bottom: var(--space-2); }
 
@@ -691,16 +733,10 @@ h2 { font-variation-settings: "wdth" 82; letter-spacing: -0.005em; }
    El nombre de la clase decía «mío» y no pintaba nada de identidad, que es el
    fallo de los 72 raíles grises por tercera vez.
 
-   NO se inventa un color: se le da el MISMO que a `.act--mine`, que es el
-   primario de esta misma familia de pantallas. */
-button.pick--mine {
-  background: var(--live);
-  color: var(--live-ink);
-  border: 1px solid var(--live);
-  border-radius: var(--radius-sm);
-  font-weight: var(--weight-semibold);
-  cursor: pointer;
-}
+   El color se lo da ahora la regla del PRIMARIO ÚNICO de más arriba. La
+   primera versión de este arreglo le puso el ámbar de `.act--mine` —«el
+   primario de esta misma familia»—, que quitaba el defecto y dejaba en pie el
+   de fondo: tres colores para la misma acción. */
 .pick-actions button.ghost { color: var(--chalk-dim); }
 
 /* 5. Las pestañas medían 36px de alto y «Risk» 33 de ancho, por debajo del

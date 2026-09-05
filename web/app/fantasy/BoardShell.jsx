@@ -211,7 +211,7 @@ export default function BoardShell({
       {/* La puerta al Draft Room. El board sirve para preparar; el Room es para
           el día del draft, y hasta ahora no había forma de llegar desde aquí. */}
       <p className="room-entry">
-        <a href="/fantasy/draft" className="act act--mine">Open the Draft Assistant</a>
+        <a href="/fantasy/draft" className="act act--primary">Open the Draft Assistant</a>
         <span className="caption">
           Live companion for draft day. Works on any platform — mark picks as they happen.
         </span>

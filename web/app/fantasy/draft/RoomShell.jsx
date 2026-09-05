@@ -437,7 +437,7 @@ export default function RoomShell({ board, context }) {
             </div>
           </fieldset>
 
-          <button type="submit" className="act act--mine">Enter draft room</button>
+          <button type="submit" className="act act--primary">Enter draft room</button>
         </form>
       </>
     );
