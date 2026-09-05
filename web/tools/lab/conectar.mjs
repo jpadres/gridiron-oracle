@@ -140,11 +140,22 @@ console.log("\n=== /fantasy con liga conectada ===");
   await p2.clock.runFor(16_000);
   await p2.waitForTimeout(600);
 
-  const eyebrow=(await p2.locator(".onclock .eyebrow").innerText().catch(()=>"")).trim();
-  const porque=await p2.locator(".onclock-why").innerText().catch(()=>"");
-  check("mi pick entra en MI plantilla y el orden se adapta",
-        /^best for your roster$/i.test(eyebrow),`${eyebrow || "sin panel"}`);
-  check("y la pantalla dice POR QUÉ ese es el orden",/adds to/i.test(porque),porque.slice(0,90));
+  /* LAS DOS SECCIONES, igual que en el Draft Room: la recomendación con
+     contexto arriba y el board intacto debajo. Que cada pantalla enseñara una
+     versión distinta de lo mismo es el fallo que este proyecto lleva seis veces
+     cometiendo, así que se comprueban las dos aquí. */
+  const paraMi=(await p2.locator(".room-pick .eyebrow").innerText().catch(()=>"")).trim();
+  const pos=await p2.locator(".room-pick .room-pick-who .ptag").innerText().catch(()=>"");
+  const motivos=await p2.locator(".room-pick .room-why--pick li").allInnerTexts();
+  check("«Best pick for you» aparece con su recomendación",
+        /^best pick for you$/i.test(paraMi) && pos.length>0, `${paraMi} · ${pos}`);
+  check("con dos a cuatro motivos, todos hechos",
+        motivos.length>=2 && motivos.length<=4, motivos.join(" · "));
+  check("y con el ala cerrada cogido ya no encabeza con otro",
+        !pos.startsWith("TE"), pos);
+  const board=(await p2.locator(".onclock .eyebrow").innerText().catch(()=>"")).trim();
+  check("y el board de debajo SIGUE siendo «Best available by VOR», sin renombrar",
+        /^best available by vor$/i.test(board), board || "sin board");
   check("ni al SINCRONIZAR, que es cuando corren los efectos con red",errores.length===0,errores.slice(0,2).join(" | "));
   await c2.close();
 }

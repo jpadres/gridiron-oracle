@@ -50,6 +50,7 @@ import {
 import {
   ROSTER, SOURCE, fold, providerEvents, takeEvent, undoEvent,
 } from "./draftLog.js";
+import { bestForMe } from "./candidates.js";
 import {
   DRAFT_STATUS, agoLabel, mySlot, pickSchedule, picksUntilMe, reconciliation, syncState,
 } from "./draftSync.js";
@@ -58,7 +59,7 @@ import { SLEEPER, useSleeperDraft } from "./useSleeperDraft.js";
 import {
   activeBoardFrom, leagueBoardFrom, rosterContext, setComponentOrder, valueConfidence,
 } from "./leagueValue.js";
-import { orderByFit, replacementPoints } from "./rosterFit.js";
+import { replacementPoints } from "./rosterFit.js";
 import { syncPool } from "./sleeperAccount.js";
 
 
@@ -288,13 +289,15 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
      una superflex trae el suyo sin que esta pantalla sepa qué es. */
   const replacement = useMemo(() => replacementPoints(pool), [pool]);
 
-  /* LA SUGERENCIA, ordenada por lo que cada uno AÑADE a tu alineación.
-     Mismo `orderByFit` que la lista corta del Draft Room: las dos pantallas
-     enseñan la misma decisión con distinta caja, y cada una con su propio orden
-     habría sido la sexta vez que dos traductores del mismo formato divergen.
-     Sin huecos declarados —`roster_positions` de la liga— no se reordena nada
-     y la pantalla lo dice: suponer una plantilla es lo que se retiró. */
   const declaredRoster = leagueInfo?.roster_positions ?? null;
+
+  /* ESTA LISTA ES EL BOARD, Y NO SE TOCA.
+     La versión anterior la REORDENABA por ajuste a la plantilla y le cambiaba
+     el nombre — que es exactamente lo que se quitó del Draft Room, porque
+     entonces no queda dónde ver el orden puro. Que las dos pantallas hicieran
+     cosas distintas con el mismo nombre habría sido la séptima vez que dos
+     traductores del mismo formato divergen aquí. La adaptación vive abajo, en
+     su propia sección, igual que allí. */
   const suggestions = useMemo(() => {
     const scored = available.map((row) => ({
       ...row,
@@ -306,15 +309,9 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
       positionFilter === "ALL"
         ? scored
         : scored.filter((row) => row.position === positionFilter);
-    const { rows, byId, active } = orderByFit(visible, {
-      roster: picked, rosterPositions: declaredRoster, replacement,
-    });
-    return {
-      rows: rows.slice(0, 8).map((row) => ({ ...row, fit: byId?.get(row.player_id) ?? null })),
-      active,
-      known: Boolean(declaredRoster?.length),
-    };
-  }, [available, counts, positionFilter, picked, declaredRoster, replacement]);
+    return visible.slice(0, 8);
+  }, [available, counts, positionFilter]);
+
 
   // Búsqueda sobre el board entero, no sólo sobre las sugerencias.
   //
@@ -405,6 +402,21 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
     () => pickSchedule({ slot, teams: draftTeams, rounds: draftRounds, type: draftType }),
     [slot, draftTeams, draftRounds, draftType]
   );
+
+  /* BEST PICK FOR YOU: la MISMA función que el Draft Room, con la misma caja de
+     motivos. El filtro visual de posición NO entra aquí a propósito: si filtras
+     a RB+WR, los quarterbacks no dejan de existir para decidir qué te conviene.
+     `picksLeftForMe` sale del calendario del proveedor cuando lo hay. */
+  const forMe = useMemo(
+    () => bestForMe(available, {
+      roster: picked, rosterPositions: declaredRoster, replacement,
+      picksLeftForMe: Number.isFinite(Number(draftRounds)) && schedule?.next
+        ? Math.max(0, Number(draftRounds) - Math.floor((schedule.next.overall - 1) / (draftTeams || 1)))
+        : null,
+      limit: 4,
+    }),
+    [available, picked, declaredRoster, replacement, draftRounds, draftTeams, schedule]
+  );
   const nextPick = useMemo(
     // En un draft terminado no hay «siguiente turno»: enseñarlo invita a
     // esperar un pick que ya no llega.
@@ -483,16 +495,15 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   // La sugerencia ya puntuada se PARTE en dos para pintarla: la primera es la
   // decisión, el resto es la cola. No se recalcula nada — `suggestions` sale del
   // mismo `useMemo` de siempre, con el mismo ajuste posicional.
-  const onClock = suggestions.rows[0] ?? null;
-  const next = suggestions.rows.slice(1, 5);
+  const onClock = suggestions[0] ?? null;
+  const next = suggestions.slice(1, 5);
   /* TRES estados, igual que en el Draft Room y con las mismas palabras:
        · sin huecos declarados          -> orden del board, y se dice por qué
        · con huecos que alguien mejora  -> orden por lo que añade a tu alineación
        · con TODOS los titulares llenos -> orden del board otra vez, y se dice
      Reordenar en silencio sería indistinguible de un board roto, y rotular la
      lista «lo que más añade» con un +0 serían dos frases que se contradicen. */
-  const fitted = suggestions.active;
-  const startersFull = suggestions.known && !fitted && picked.length > 0;
+
 
   // «¿Puedo esperar?» es un CONTEO, no una predicción: cuántos jugadores de su
   // misma posición y su mismo tier siguen disponibles. No dice si esperar es
@@ -591,11 +602,69 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
         </section>
       ) : null}
 
+      {/* --- BEST PICK FOR YOU ---------------------------------------------
+             La MISMA función y la misma caja de motivos que el Draft Room. Las
+             dos pantallas enseñan la misma decisión, así que enseñan lo mismo:
+             cada una con su propia versión es cómo este proyecto ha divergido
+             seis veces ya. Si no se puede sostener, esta sección no se pinta y
+             abajo queda el board, que es lo que sí se puede afirmar. */}
+      {forMe?.primary && sync.view.canRecommend ? (
+        <section className="room-pick" aria-label="Best pick for you"
+                 style={teamVars(forMe.primary.row.team)}>
+          <p className="eyebrow">Best pick for you</p>
+          <button type="button" className="room-pick-hero"
+                  onClick={() => take(forMe.primary.row.player_id, true)}>
+            <Headshot sid={forMe.primary.row.sid} team={forMe.primary.row.team}
+                      position={forMe.primary.row.position}
+                      name={forMe.primary.row.player_full_name ?? forMe.primary.row.player_name}
+                      size={56} className="hs--hero" />
+            <span className="room-pick-who">
+              <b>{forMe.primary.row.player_full_name ?? forMe.primary.row.player_name}</b>
+              <span className="meta">
+                <TeamMark abbr={forMe.primary.row.team} />
+                <span className={`ptag ptag--${forMe.primary.row.position.toLowerCase()}`}>
+                  {forMe.primary.row.position}{forMe.primary.row.position_rank}
+                </span>
+              </span>
+            </span>
+            <span className="room-cand-vor">
+              {num(forMe.primary.fit.marginal, 1)}<small>to your lineup</small>
+              <em>{num(forMe.primary.row.vor, 1)} VOR</em>
+            </span>
+          </button>
+          <ul className="room-why room-why--pick">
+            {forMe.primary.reasons.map((r) => <li key={r.kind}>{r.text}</li>)}
+          </ul>
+          {forMe.alternates.length > 0 ? (
+            <ol className="room-alts">
+              {forMe.alternates.map((entry) => (
+                <li key={entry.row.player_id} style={teamVars(entry.row.team)}>
+                  <button type="button" onClick={() => take(entry.row.player_id, true)}>
+                    <span className={`ptag ptag--${entry.row.position.toLowerCase()}`}>
+                      {entry.row.position}
+                    </span>
+                    <span className="nm">
+                      {entry.row.player_full_name ?? entry.row.player_name}
+                    </span>
+                    <span className="alt-why">{entry.reasons[0]?.text ?? ""}</span>
+                    <span className="alt-n">{num(entry.fit.marginal, 0)}</span>
+                  </button>
+                </li>
+              ))}
+            </ol>
+          ) : null}
+          {forMe.mustFillSpecialist ? (
+            <p className="room-must">
+              {forMe.state.openSpecialist.map((x) => x.slot).join(" + ")} still open with about
+              as many picks left as starting slots — fill them before the draft ends.
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
       {onClock && sync.view.canRecommend ? (
         <section className="onclock" style={teamVars(onClock.team)} aria-label="On the clock">
-          <p className="eyebrow">
-            {fitted ? "Best for your roster" : "Best available by VOR"}
-          </p>
+          <p className="eyebrow">Best available by VOR</p>
           <div className="onclock-body">
             <span className="rank-numeral rank-numeral--hero">{onClock.position_rank}</span>
             <div className="onclock-who hs-who">
@@ -614,42 +683,19 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
                 ) : null}
               </p>
             </div>
-            {/* Los DOS números juntos cuando el orden se ha adaptado: enseñar
-                sólo el ajustado escondería que el board dice otra cosa, y sólo
-                el del board dejaría el reorden sin explicación visible. */}
             <div className="onclock-signal">
-              {fitted && Number.isFinite(onClock.fit?.marginal) ? (
-                <>
-                  <span className="value">{num(onClock.fit.marginal, 1)}</span>
-                  <span className="label">to your lineup</span>
-                  <span className="label label--board">{num(onClock.vor, 1)} VOR</span>
-                </>
-              ) : (
-                <>
-                  <span className="value">{num(onClock.vor, 1)}</span>
-                  <span className="label">VOR</span>
-                </>
-              )}
+              <span className="value">{num(onClock.vor, 1)}</span>
+              <span className="label">VOR</span>
             </div>
           </div>
           <p className="onclock-wait">{waitAdvice}</p>
-          {/* POR QUÉ el orden es el que es. Los tres estados con sus palabras:
-              sin huecos declarados no se adapta nada y se dice; con todos los
-              titulares puestos el orden vuelve al board, que es el correcto
-              para un pick de banquillo. */}
           <p className="onclock-why">
-            {fitted ? (
-              <>Ordered by what each one adds to <strong>your</strong> starting lineup,
-              from the same VOR — the board below stays in pure VOR order.</>
-            ) : startersFull ? (
-              <>Your starters are all filled, so nobody adds to this lineup any more:
-              back to board order, which is the right one for a bench pick.</>
-            ) : suggestions.known ? (
-              <>Board order. Nothing is on your roster yet, so there is nothing to adapt to.</>
-            ) : (
-              <>Board order — this league has not declared its roster slots, so nothing
-              is adapted to your team. Connect the league to get its real structure.</>
-            )}
+            Board order, and it never looks at your roster.{" "}
+            {forMe?.primary
+              ? "What fits your team is above."
+              : declaredRoster?.length
+                ? "Nothing on your roster improves with what is left, so this is also the right order for a bench pick."
+                : "This league has not declared its roster slots, so nothing here is adapted to your team."}
           </p>
           <div className="onclock-actions">
             <button type="button" className="act act--mine" onClick={() => take(onClock.player_id, true)}>

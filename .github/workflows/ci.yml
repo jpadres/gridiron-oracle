@@ -77,8 +77,23 @@ jobs:
         run: node tools/audit-spanish.mjs
 
       # Aislamiento entre ligas y compilador de puntuación.
+      # `next build` compila un identificador inexistente sin rechistar, y no hay
+      # linter de JS aquí: /fantasy estuvo CUATRO DÍAS cayéndose en render por un
+      # `const SLEEPER` borrado que dejó cuatro `fetch` usándolo. Esta
+      # comprobación es estrecha a propósito —sólo interpolaciones de plantilla—
+      # y por eso no tiene falsos positivos.
+      - name: Identificadores huérfanos
+        run: node tools/no-undef.mjs
+
       - name: Tests de JavaScript
         run: npm test
+
+      # La simulación de draft no necesita navegador: tres ligas enteras contra
+      # el board publicado, comprobando que la recomendación es coherente en
+      # TODOS los turnos. Los laboratorios de Playwright no corren en CI; éste sí
+      # puede, y es el que cubre el motor que decide qué se recomienda.
+      - name: Simulación de draft (3 ligas)
+        run: node tools/lab/draft-sim.mjs
 
       # Las cabeceras se comprueban CONTRA EL SERVIDOR REAL, no leyendo
       # next.config.mjs. La distinción importa: un config puede ser correcto y
