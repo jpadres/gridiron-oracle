@@ -59,7 +59,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { ROSTER } from "./draftLog.js";
-import { DRAFT_STATUS, mySlot as slotFromDraft, syncState } from "./draftSync.js";
+import {
+  DRAFT_STATUS, POLL_MS, mySlot as slotFromDraft, nextCadence, syncState,
+} from "./draftSync.js";
 // El índice de identidad y la traducción de un mock viven en el módulo puro:
 // una implementación para el draft en vivo y para la plantilla de la cuenta.
 import { buildIndex, mockLeagueId, mockScoringSettings, rosterFromDraftSettings }
@@ -88,9 +90,9 @@ export const SLEEPER = "https://api.sleeper.app/v1";
  * empezado, y un minuto cuando ya terminó y no va a cambiar nada. El coste es
  * de un usuario mirando su propio draft, no de un servicio.
  */
-export const POLL_MS = 15000;
-export const POLL_LIVE_MS = 4000;
-export const POLL_IDLE_MS = 60000;
+// Las constantes y la regla de cadencia viven en `draftSync.js`, sin React,
+// para poder probarlas; se reexportan por compatibilidad con quien las importe.
+export { POLL_MS, POLL_LIVE_MS, POLL_IDLE_MS } from "./draftSync.js";
 
 async function getJSON(url) {
   // Sólo a Sleeper: otro host es un error de programación, no una petición.
@@ -139,6 +141,9 @@ export function useSleeperDraft(pool, { leagueId, draftId: wantedDraftId, season
     // La cadencia actual del bucle. Es un objeto y no una variable suelta para
     // que `schedule()` lea SIEMPRE la última, no la que hubiera al montarse.
     const cadencia = { current: POLL_MS };
+    // Fallos CONSECUTIVOS del sondeo: gobiernan el retroceso y se ponen a cero
+    // con la primera respuesta buena.
+    let fallos = 0;
 
     /** Liga, rosters, draft e identidad. Una vez por liga (o por mock). */
     async function resolveStable() {
@@ -346,10 +351,13 @@ export function useSleeperDraft(pool, { leagueId, draftId: wantedDraftId, season
         // La cadencia sigue al estado REAL que acaba de contestar Sleeper, no a
         // lo que creíamos al montar: un draft que arranca mientras miras pasa
         // solo a la cadencia rápida, y uno que termina deja de castigar la red.
-        cadencia.current = draft?.status === DRAFT_STATUS.DRAFTING
-          ? POLL_LIVE_MS
-          : draft?.status === DRAFT_STATUS.COMPLETE ? POLL_IDLE_MS : POLL_MS;
+        fallos = 0;
+        cadencia.current = nextCadence({ draftStatus: draft?.status, failures: 0 });
       } catch (error) {
+        // Y con Sleeper fallando, se sondea CADA VEZ MÁS DESPACIO: un 429 es
+        // una petición de calma, y un 503 sostenido no mejora insistiendo.
+        fallos += 1;
+        cadencia.current = nextCadence({ draftStatus: stable?.draft?.status, failures: fallos });
         // El error NO borra `lastSyncAt` ni los picks ya reconciliados: «falló
         // hace un momento, pero lo último bueno es de hace 40 segundos» son dos
         // hechos distintos y los dos importan. El tablero se queda en pantalla.

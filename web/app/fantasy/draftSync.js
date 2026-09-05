@@ -47,6 +47,36 @@ export const DRAFT_STATUS = {
  * Etiqueta de frescura a partir de la edad del último sondeo correcto.
  * `UNKNOWN` cuando no hay ninguno: nunca se degrada a algo más optimista.
  */
+// Cadencia del sondeo. Vive aquí, sin React, para poder probarla con `node
+// --test`: el hook sólo la llama.
+export const POLL_MS = 15000;
+export const POLL_LIVE_MS = 4000;
+export const POLL_IDLE_MS = 60000;
+// Tope del retroceso tras fallos consecutivos. Un minuto es la cadencia de un
+// draft terminado: más lento que eso ya no es «sondear».
+export const POLL_BACKOFF_MAX_MS = 60000;
+
+/**
+ * Cuánto esperar hasta el siguiente sondeo.
+ *
+ * Con Sleeper contestando, la cadencia sigue al ESTADO del draft: 4 s
+ * drafteando, 15 s antes, 60 s acabado. Con Sleeper fallando, se DOBLA por
+ * cada fallo consecutivo hasta el tope. Hasta 2026-09-05 no había retroceso:
+ * un 429 —«más despacio»— en pleno draft se contestaba con otra petición a
+ * los cuatro segundos, o sea exactamente lo contrario de lo que pedía, y un
+ * 503 sostenido eran quince peticiones por minuto contra un servicio caído.
+ * El primer fallo no cambia nada: un corte de un segundo no tiene que costar
+ * un sondeo lento.
+ */
+export function nextCadence({ draftStatus, failures = 0 }) {
+  const base = draftStatus === DRAFT_STATUS.DRAFTING
+    ? POLL_LIVE_MS
+    : draftStatus === DRAFT_STATUS.COMPLETE ? POLL_IDLE_MS : POLL_MS;
+  const n = Number.isInteger(failures) && failures > 0 ? failures : 0;
+  if (n <= 1) return base;
+  return Math.min(base * 2 ** (n - 1), POLL_BACKOFF_MAX_MS);
+}
+
 export function freshness(lastSyncAt, now = Date.now()) {
   if (!lastSyncAt) return "UNKNOWN";
   const age = now - lastSyncAt;
