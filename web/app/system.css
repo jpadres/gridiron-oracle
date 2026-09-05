@@ -678,6 +678,29 @@ h2 { font-variation-settings: "wdth" 82; letter-spacing: -0.005em; }
   font-size: var(--text-micro); font-weight: var(--weight-semibold);
 }
 .pick-actions button:hover { border-color: var(--chalk-dim); }
+
+/* EL PRIMARIO DEL FLUJO DE SLEEPER, QUE NO ESTABA ESTILADO.
+   ─────────────────────────────────────────────────────────────────────────────
+   `.pick--mine` sólo declaraba tamaño —`min-height`, `min-width` y relleno
+   lateral—, así que sus tres botones («Link» en Leagues, «Find» y «Connect» en
+   el board) se pintaban con el botón POR DEFECTO del sistema operativo: gris
+   claro, borde del sistema, ajeno a todo lo demás. Medido: fondo
+   rgb(239,239,239), que es el del agente de usuario y no un color de esta
+   paleta.
+
+   El nombre de la clase decía «mío» y no pintaba nada de identidad, que es el
+   fallo de los 72 raíles grises por tercera vez.
+
+   NO se inventa un color: se le da el MISMO que a `.act--mine`, que es el
+   primario de esta misma familia de pantallas. */
+button.pick--mine {
+  background: var(--live);
+  color: var(--live-ink);
+  border: 1px solid var(--live);
+  border-radius: var(--radius-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
 .pick-actions button.ghost { color: var(--chalk-dim); }
 
 /* 5. Las pestañas medían 36px de alto y «Risk» 33 de ancho, por debajo del
@@ -1319,103 +1342,18 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   font-weight: 700; font-size: var(--text-micro); color: var(--chalk-dim);
   font-variant-numeric: tabular-nums; min-width: 2.75rem;
 }
-.room-feed .is-mine /* --- REPLAY ----------------------------------------------------------------
-   Inconfundiblemente histórico: marco de archivo, sin ámbar y sin reloj. En
-   replay las filas no se pulsan y deshacer desaparece — el pasado se mira. */
-.room-state--replay {
-  background: var(--field-raised);
-  border-bottom: 1px dashed var(--chalk-dim);
-}
-.room-replay-tag {
-  margin: 0; font-family: var(--face-display); font-variation-settings: "wdth" 80;
-  font-weight: 700; font-size: var(--text-dense); letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--chalk-dim);
-  border: 1px solid var(--chalk-dim); padding: 2px var(--space-2);
-}
-.room-done {
-  margin: 0; font-family: var(--face-display); font-variation-settings: "wdth" 72;
-  font-weight: 700; font-size: clamp(1.6rem, 6vw, 2.6rem); line-height: 0.95;
-  color: var(--chalk); text-transform: uppercase; letter-spacing: 0.01em;
-  white-space: nowrap;
-}
-.room-replay-enter {
-  margin-left: auto; min-height: 44px; padding-inline: var(--space-3);
-  background: none; border: 1px solid var(--yard-line); color: var(--chalk-dim);
-  font: inherit; font-size: var(--text-dense); cursor: pointer;
-}
-.room-replay-enter:hover { border-color: var(--chalk); color: var(--chalk); }
-.room-replay-enter--loud { border-color: var(--chalk); color: var(--chalk); }
-.room-replay-enter:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
+/* EL PICK MÍO EN EL TICKER, en el color de identidad.
 
-.room-replay-bar {
-  display: flex; align-items: center; gap: var(--space-2);
-  margin-top: var(--space-2); padding: var(--space-1) 0;
-}
-.room-replay-bar button {
-  min-width: 44px; min-height: 44px; background: none;
-  border: 1px solid var(--yard-line); color: var(--chalk); font-size: 1rem;
-  cursor: pointer;
-}
-.room-replay-bar button:disabled { opacity: 0.35; cursor: default; }
-.room-replay-bar button:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
-.room-replay-bar input[type="range"] { flex: 1 1 auto; min-height: 44px; accent-color: var(--live); }
+   Esta regla estuvo ROTA: una pegada duplicó 95 líneas de la sección de REPLAY
+   justo en medio de ella, y el comentario de la copia se tragó el selector. Lo
+   que quedaba era `.room-feed .is-mine .room-state--replay` —que no casa con
+   nada— y, sobre todo, una cola huérfana `.feed-pick { color: var(--live) }`
+   SIN cualificar: en el feed se pintaban del color de «mío» TODOS los picks,
+   así que la única marca que distinguía los tuyos no distinguía nada.
 
-.room--replaying .room-x { display: none; }
-.room--replaying .room-row { cursor: default; }
-.room--replaying .room-row:hover { background: none; }
-.room--replaying .room-list > li.is-best .room-row:hover { background: var(--field-raised); }
-
-/* --- construcción de plantilla --------------------------------------------
-   Los huecos que la liga declara, con quién los ocupa. Un hueco abierto es un
-   HECHO y se pinta como tal: atenuado, sin color de aviso, sin verbo. */
-.room-roster--slots .slot-tag {
-  min-width: 2.9rem; text-align: center; margin-right: 0;
-}
-/* FLEX, SFLX, DEF y K no son las cuatro posiciones del modelo y no les
-   corresponde un color de posición: neutro con borde. El color de posición
-   significa posición en toda la web o no significa nada. */
-.ptag--flex, .ptag--sflx, .ptag--def, .ptag--k {
-  background: none; border: 1px solid var(--yard-line); color: var(--chalk-dim);
-}
-.room-roster--slots > li.is-open {
-  border-left-style: dashed; opacity: 0.75;
-}
-.slot-tag--open { border-style: dashed; }
-.nm--open { color: var(--chalk-dim); font-weight: 400; }
-.slot-pos {
-  margin-left: var(--space-1); font-size: var(--text-micro);
-  font-weight: 400; color: var(--chalk-dim); letter-spacing: 0.04em;
-}
-.room-h--sub { margin-top: var(--space-3); }
-
-/* Contadores del configurador: una rejilla de nueve, no un formulario de
-   comisionado. */
-.room-roster-config legend {
-  display: flex; align-items: baseline; gap: var(--space-3); padding: 0;
-}
-.room-roster-config legend .link {
-  background: none; border: none; padding: 0; font: inherit;
-  font-size: var(--text-micro); color: var(--chalk-dim);
-  text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
-  min-height: 44px;
-}
-.room-roster-config legend .link:hover { color: var(--live); }
-.roster-counts {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-2); margin-top: var(--space-2);
-}
-.roster-count { display: grid; gap: 2px; font-size: var(--text-micro); color: var(--chalk-dim); }
-.roster-count span { letter-spacing: 0.05em; }
-.roster-count input { min-height: 44px; text-align: center; }
-
-/* La semana de descanso: dato, no alarma. Mismo peso que el resto del contexto
-   de la fila; si llevara color de aviso estaría diciendo qué hacer. */
-.room-bye {
-  flex: 0 0 auto; font-size: var(--text-micro); color: var(--chalk-dim);
-  font-variant-numeric: tabular-nums; letter-spacing: 0.03em;
-}
-
-.feed-pick { color: var(--live); }
+   Nada fallaba. Es el fallo de los 72 raíles de equipo grises otra vez: la
+   identidad faltando justo donde el diseño la promete. */
+.room-feed .is-mine .feed-pick { color: var(--live); }
 
 /* Deshacer en el feed: presente, recesivo, y con objetivo táctil de verdad.
    Un botón por cada pick pasado convertía el ticker en una tabla. */

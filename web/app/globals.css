@@ -157,6 +157,19 @@
 
 * { box-sizing: border-box; }
 
+/* DECIRLE AL NAVEGADOR EN QUÉ TEMA ESTAMOS.
+   ─────────────────────────────────────────────────────────────────────────────
+   El sitio seguía `prefers-color-scheme` para SUS colores y no se lo decía al
+   navegador, así que todo lo que pinta el NAVEGADOR y no esta hoja seguía en
+   claro dentro de una página oscura: el icono del selector de mes de /betting
+   (glifo oscuro sobre fondo oscuro, casi invisible en la captura que lo
+   destapó), el desplegable de un `select`, la barra de desplazamiento, el
+   cursor de texto y el fondo del autorrelleno.
+
+   Una línea, y se sincroniza solo: la paleta ya cambia con la misma consulta,
+   así que no hay dos fuentes de verdad que puedan divergir. */
+:root { color-scheme: light dark; }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -398,6 +411,61 @@ footer { border-top: 1px solid var(--line); margin-top: var(--space-7); padding-
 /* Nunca quitar el contorno sin sustituirlo. Se deja escrito para que se vea la
    intención si alguien lo intenta. */
 :where(a, button, input, select):focus:not(:focus-visible) { outline: none; }
+
+/* CAMPOS: el sistema de diseño ya decía 16 px, y nadie lo aplicaba.
+   ─────────────────────────────────────────────────────────────────────────────
+   `--text-body` está documentado arriba como «16px — prosa, navegación,
+   CAMPOS», pero no había una sola regla que se lo diera a un input: los
+   diecisiete campos del sitio salían con el defecto del navegador — 13,3 px de
+   texto, 1 px de relleno y 21 px de alto—, mientras el botón de al lado sí
+   estaba estilado. Se veía como un descuido y era peor que eso:
+
+     · 21 px está a menos de la mitad del mínimo táctil de 44, que es el
+       estándar que este proyecto ya se aplicó a los botones «Yo»/«Fuera»;
+     · y por debajo de 16 px **Safari en iPhone AMPLÍA la página al enfocar**,
+       así que teclear tu usuario de Sleeper te dejaba el sitio con zoom.
+
+   La receta no es nueva: es exactamente la de `.draft-search`, que la tenía
+   bien desde el principio. Estaba escrita para UN campo en vez de para todos —
+   el fallo de los dos traductores, esta vez entre una regla y el resto del
+   formulario.
+
+   Va en `:where()` a propósito: especificidad CERO, así que cualquier regla que
+   ya vista un campo concreto (`.draft-search`, `.roster-count input`) sigue
+   ganando sin tener que tocarla.
+
+   Se dejan fuera los controles que NO son cajas de texto: un `range`, una
+   casilla o un color se rompen con relleno y borde. */
+:where(input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]):not([type=file]),
+       select, textarea) {
+  font: inherit;
+  font-size: var(--text-body);
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  color: var(--fg);
+  max-width: 100%;
+}
+
+/* DESHABILITADO SE TIENE QUE VER.
+   ─────────────────────────────────────────────────────────────────────────────
+   Nueve controles del producto se deshabilitan según el estado y sólo TRES
+   tenían un estilo para decirlo. El peor es el botón «Link» de `/fantasy/leagues`
+   —la puerta de toda la integración con Sleeper—: con el campo vacío está
+   deshabilitado y se pinta exactamente igual que activo, así que pulsas y no
+   pasa nada. Un control que no responde y no explica por qué se lee como una
+   pantalla rota, no como una condición sin cumplir.
+
+   Especificidad mínima a propósito: `:where()` es cero, así que `.lg-primary`,
+   `.lg-refresh` y la barra de replay siguen mandando en lo que ya declaran — y
+   como esas reglas no fijan `opacity`, lo de aquí se les SUMA en vez de
+   pisarlas. */
+:where(button, [role="button"], input, select, textarea):disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 
 /* Sin retardo de 300 ms al tocar, y sin el destello gris de Android.
    El modo draft se usa con el pulgar mientras corre el reloj del pick. */
@@ -944,6 +1012,25 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
   margin-top: var(--space-4);
 }
 
+/* EL CAMPO EMPIEZA DONDE EMPIEZA SU ETIQUETA, NO DONDE ACABA SU TEXTO.
+   ─────────────────────────────────────────────────────────────────────────────
+   La etiqueta es un bloque pero su contenido fluye en línea, así que el input
+   arrancaba justo detrás de la última palabra. Medido en el asistente de draft
+   a 390 px: cuatro campos del MISMO ancho empezando en x = 98, 24, 54 y 24,
+   según lo larga que fuera la etiqueta y por dónde partiera. En una columna de
+   formulario eso se lee como una pantalla rota, y no lo caza ninguna
+   comprobación de geometría: nada desborda, nada se pisa y todo llega a 44 px.
+   Se ve mirando, que es justo lo que un guardián no hace.
+
+   El campo pasa a su propia línea; el ancho completo es sólo para los de texto,
+   porque un «Teams» de 390 px de ancho para escribir «12» sería el error
+   contrario. */
+.field-label > :where(input, select, textarea) {
+  display: block;
+  margin-top: var(--space-1);
+}
+.field-label > :where(input:not([type="number"]), select, textarea) { width: 100%; }
+
 /* Desplazamiento suave al saltar de sección, salvo que el sistema pida lo
    contrario: la animación ayuda a no perder el sitio en una página larga, y a
    quien le marea la quita su propia preferencia. */
@@ -1036,9 +1123,24 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
   cursor: pointer;
   color: var(--muted);
   font-size: var(--text-dense);
-  padding: var(--space-1) 0;
+  /* 31 px de alto medidos en 390: es un control que abre y cierra una sección
+     entera, así que le toca el mismo mínimo táctil que a un botón. El relleno
+     va sólo en vertical para no desplazar el texto respecto del párrafo. */
+  padding: var(--space-2) 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 .methodology > summary:hover { color: var(--fg); }
+
+/* El desplegable de sincronización con Sleeper: 26 px de alto, y es la puerta a
+   toda la integración. Mismo mínimo táctil, misma razón. */
+.sleeper-setup > summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
 .methodology[open] > summary { margin-bottom: var(--space-2); }
 
 @media (max-width: 30rem) {
@@ -1140,6 +1242,10 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
   border-radius: var(--radius-sm); padding: var(--space-2) var(--space-4);
   font-weight: var(--weight-semibold); cursor: pointer;
 }
+/* 33 px de alto en /semanal, /resto y /analisis: es el botón que abre toda la
+   integración con Sleeper y estaba por debajo del mínimo táctil. Mismo remedio
+   que `button.pick--mine`. */
+.lg-primary { min-height: 44px; }
 .lg-primary:disabled { opacity: 0.5; cursor: default; }
 .lg-who { display: inline-flex; align-items: center; gap: var(--space-2); }
 .lg-avatar { border-radius: 50%; width: 28px; height: 28px; object-fit: cover; }
