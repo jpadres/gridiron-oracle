@@ -61,6 +61,7 @@ import {
 } from "./leagueValue.js";
 import { replacementPoints } from "./rosterFit.js";
 import { syncPool } from "./sleeperAccount.js";
+import { hasNumber } from "../numbers.js";
 
 
 // Cuántos titulares tienes ya de cada posición, para DECIRLO como hecho junto
@@ -410,7 +411,14 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   const forMe = useMemo(
     () => bestForMe(available, {
       roster: picked, rosterPositions: declaredRoster, replacement,
-      picksLeftForMe: Number.isFinite(Number(draftRounds)) && schedule?.next
+      // `hasNumber` y no `Number.isFinite(Number(...))`: sin rondas declaradas
+      // `draftRounds` es null, `Number(null)` es CERO y esto fabricaba «te
+      // quedan 0 picks». `candidates.js` ya exige `picksLeftForMe === null`
+      // explícito para no caer en eso — pero el guardia estaba en el callee y
+      // aquí se le entregaba un cero, así que no lo veía nunca: el aviso de
+      // pateador/defensa saltaba desde el primer turno. Mismo fallo, otro lado
+      // de la llamada.
+      picksLeftForMe: hasNumber(draftRounds) && schedule?.next
         ? Math.max(0, Number(draftRounds) - Math.floor((schedule.next.overall - 1) / (draftTeams || 1)))
         : null,
       limit: 4,

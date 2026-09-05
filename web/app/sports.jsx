@@ -1,4 +1,5 @@
 import { model } from "../data/model.js";
+import { hasNumber, numberOrNull } from "./numbers.js";
 
 /**
  * Piezas de identidad deportiva. Todas de servidor: no llevan estado ni
@@ -77,20 +78,25 @@ export function MatchupCard({ game, children, detailed = false }) {
     ...(away ? { "--away-light": away.primary, "--away-dark": away.mark } : {}),
     ...(home ? { "--home-light": home.primary, "--home-dark": home.mark } : {}),
   };
-  const line = Number(game.spread_line);
+  // `numberOrNull` y no `Number(...)`: un partido SIN línea llega como
+  // `spread_line: null` —el exportador convierte NaN a null conservando la
+  // clave— y `Number(null)` es CERO. Con el idioma anterior, «no hay mercado»
+  // se publicaba como «Pick'em», que es una afirmación, no un hueco.
+  const line = numberOrNull(game.spread_line);
   // La línea se escribe desde el lado que la lleva, que es como se dice en voz
   // alta: «Seattle da 3 y medio». Publicarla siempre desde el local obliga a
   // interpretar un signo, y un signo mal leído aquí cambia la apuesta.
-  const favored = Number.isFinite(line) && line !== 0
+  const favored = line !== null && line !== 0
     ? (line > 0 ? game.home_team : game.away_team)
     : null;
-  const spread = Number.isFinite(line) && line !== 0
-    ? `${favored} −${Math.abs(line).toFixed(1)}`
-    : "Pick'em";
+  // TRES estados, no dos: hay línea, es un pick'em de verdad (0), o no hay
+  // mercado. Los dos últimos decían lo mismo y no son lo mismo.
+  const spread = line === null
+    ? "no market"
+    : (line === 0 ? "Pick'em" : `${favored} −${Math.abs(line).toFixed(1)}`);
   const hasScore =
-    Number.isFinite(Number(game.pred_home_points)) &&
-    Number.isFinite(Number(game.pred_away_points));
-  const marketTotal = Number(game.total_line);
+    hasNumber(game.pred_home_points) && hasNumber(game.pred_away_points);
+  const marketTotal = numberOrNull(game.total_line);
 
   return (
     <article className="matchup" style={style}>
@@ -106,14 +112,14 @@ export function MatchupCard({ game, children, detailed = false }) {
         {/* MODELO y MERCADO, cada uno con su nombre. Antes el total del MODELO
             salía rotulado «O/U», que es lenguaje de mercado: la fusión visual
             exacta que esta tarjeta existe para impedir. */}
-        {Number.isFinite(Number(game.pred_total)) ? (
+        {hasNumber(game.pred_total) ? (
           <span className="line line--model">
             <small>Model total</small> {Number(game.pred_total).toFixed(1)}
           </span>
         ) : null}
         <span className="line line--market">
           <small>Market</small> {spread}
-          {Number.isFinite(marketTotal) ? ` · O/U ${marketTotal.toFixed(1)}` : ""}
+          {marketTotal !== null ? ` · O/U ${marketTotal.toFixed(1)}` : ""}
         </span>
       </div>
       <div className="side side--home">

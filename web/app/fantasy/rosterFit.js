@@ -47,6 +47,7 @@
  */
 
 import { SLOT_ELIGIBILITY, assignSlots } from "./leagueValue.js";
+import { numberOrNull } from "../numbers.js";
 
 const BENCH = new Set(["BN", "BE", "BENCH", "IR", "TAXI"]);
 
@@ -69,7 +70,11 @@ export const FIT_EPSILON = 0.5;
 export function fitIsActive(entries) {
   return (entries ?? []).some((f) => Number(f?.marginal) > FIT_EPSILON);
 }
-const num = (x) => (Number.isFinite(Number(x)) ? Number(x) : null);
+// Era `Number.isFinite(Number(x)) ? Number(x) : null`, que devuelve CERO para
+// `null` en vez de null. Aquí no mordía porque las filas sin proyección traen
+// la clave AUSENTE y no a null —`Number(undefined)` sí es NaN— o sea que estaba
+// bien por accidente y por un campo distinto del que el guardia nombra.
+const num = numberOrNull;
 
 /**
  * El nivel de reemplazo por posición, LEÍDO del board y no recalculado.

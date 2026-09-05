@@ -49,6 +49,7 @@ import { MIN_WEIGHTED_GAMES, SLOT_ELIGIBILITY, priorShare } from "./leagueValue.
 import {
   FIT_EPSILON, POSITION_STATE, orderByFit, starterState,
 } from "./rosterFit.js";
+import { hasNumber, numberOrNull } from "../numbers.js";
 
 /** Posiciones cuyo ORDEN está validado. K y DST quedan fuera a propósito. */
 export const RANKED_POSITIONS = ["QB", "RB", "WR", "TE"];
@@ -75,8 +76,12 @@ export function draftablePool(available) {
     (row) => RANKED_POSITIONS.includes(row.position)
       && row.rostered !== false
       && row.status_severity !== "OUT"
-      && (row.rookie || !Number.isFinite(Number(row.weighted_games ?? row.wg))
-          || Number(row.weighted_games ?? row.wg) >= MIN_WEIGHTED_GAMES)
+      // La escapatoria es para «no sé su muestra», y con el idioma anterior
+      // una muestra nula valía CERO —finito— así que en vez de escapar caía en
+      // el `>= MIN` y quedaba EXCLUIDO: justo al revés de lo que dice hacer.
+      // Hoy no hay filas así en el payload; el fallo estaba latente.
+      && (row.rookie || !hasNumber(row.weighted_games ?? row.wg)
+          || numberOrNull(row.weighted_games ?? row.wg) >= MIN_WEIGHTED_GAMES)
   );
 }
 

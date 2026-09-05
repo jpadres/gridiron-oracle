@@ -39,6 +39,7 @@ import {
 } from "./plan.js";
 import BankCurve from "./BankCurve.jsx";
 import { browserStorage } from "../fantasy/draftStorage.js";
+import { hasNumber } from "../numbers.js";
 
 const PROP_CATEGORIES = [
   { key: "proj_pass_yds", label: "Passing yards", positions: ["QB"], decimals: 1 },
@@ -152,7 +153,7 @@ export default function BettingShell({ predictions, weekly, context, markets = [
     const spec = PROP_CATEGORIES.find((c) => c.key === category);
     if (!spec) return [];
     return (weekly ?? [])
-      .filter((r) => spec.positions.includes(r.position) && Number.isFinite(Number(r[category])))
+      .filter((r) => spec.positions.includes(r.position) && hasNumber(r[category]))
       .sort((a, b) => Number(b[category]) - Number(a[category]))
       .slice(0, 24)
       .map((r) => ({ ...r, projection: Number(r[category]) }));
@@ -532,7 +533,11 @@ export default function BettingShell({ predictions, weekly, context, markets = [
               {predictions.map((game) => {
                 const rows = board.filter((r) => r.gameId === game.game_id);
                 const spreadLean = rows.find((r) => r.family === "SPREAD") ?? null;
-                const noMarket = !Number.isFinite(Number(game.spread_line));
+                // `hasNumber` y no `Number.isFinite(Number(...))`: sin línea
+                // el payload trae `spread_line: null` y `Number(null)` es CERO,
+                // así que esta rama —la que el pie de la tabla promete— nunca
+                // se alcanzaba y el partido salía como un pick'em en 0.0.
+                const noMarket = !hasNumber(game.spread_line);
                 return (
                   <tr key={game.game_id}>
                     <td className="who">
@@ -742,7 +747,7 @@ export default function BettingShell({ predictions, weekly, context, markets = [
                       <small>
                         {bet.week === null ? "week unknown" : `week ${bet.week}`}
                         {" · "}{money(bet.stake)} at {bet.odds}
-                        {Number.isFinite(Number(bet.snapshot?.model))
+                        {hasNumber(bet.snapshot?.model)
                           ? ` · model ${num(bet.snapshot.model, 1)} vs ${num(bet.snapshot?.market, 1)}`
                           : ""}
                       </small>

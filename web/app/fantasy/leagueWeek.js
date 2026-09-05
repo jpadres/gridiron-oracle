@@ -13,6 +13,8 @@
  * eso sería un consejo que nadie ha validado; el dato que lo decide sí está.
  */
 
+import { numberOrNull } from "../numbers.js";
+
 const OFFENSE = ["QB", "RB", "WR", "TE"];
 
 /** Índice `sleeper_id` -> fila del ranking semanal (o del pateador). */
@@ -36,9 +38,14 @@ export function lineupOf(starterIds, index) {
     const id = String(raw ?? "");
     if (!id || id === "0") { rows.push({ sid: null, empty: true }); unknown += 1; continue; }
     const row = index.get(id);
-    if (row && Number.isFinite(Number(row.projected_points))) {
-      rows.push({ sid: id, row, points: Number(row.projected_points) });
-      projected += Number(row.projected_points);
+    // Un titular SIN proyección tiene que caer en `unknown`, no contar como
+    // conocido con cero puntos: `Number(null)` es cero y es finito, así que el
+    // idioma anterior desinflaba el total de la alineación mientras la
+    // presentaba como completa.
+    const puntos = numberOrNull(row?.projected_points);
+    if (row && puntos !== null) {
+      rows.push({ sid: id, row, points: puntos });
+      projected += puntos;
     } else {
       rows.push({ sid: id, row: row ?? null, points: null });
       unknown += 1;
