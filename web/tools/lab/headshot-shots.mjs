@@ -84,6 +84,16 @@ for (const width of [390, 768, 1440]) {
     bandIndex > 0 && firstOutIndex === bandIndex + 1 && lastPlayableIndex < bandIndex, `banda ${bandIndex}, primer OUT ${firstOutIndex}, último jugable ${lastPlayableIndex}`);
   check(`${width}: Jacobs conserva su número dentro del bloque`,
     /38/.test(await page.locator(".rank-table tr.is-out").first().locator("td.rk").innerText().catch(() => "")));
+  // Y EL MODO DRAFT DE ESTA MISMA PÁGINA dice lo mismo que la tabla y que el
+  // Draft Room: hasta 2026-09-05 no miraba el estado, y Jacobs salía en las
+  // sugerencias sin marca. Las tres superficies parten el pool con
+  // `splitAvailable`; aquí se comprueba que la partición LLEGA a la pantalla.
+  await page.waitForSelector("ol[aria-label='Unavailable players']", { timeout: 10000 }).catch(() => {});
+  const sugeridos = (await page.locator(".onclock, .picks.deal .pick").allInnerTexts()).join("\n");
+  check(`${width}: el modo draft no sugiere a un OUT`, !/Jacobs/.test(sugeridos));
+  const bloqueDraft = (await page.locator("ol[aria-label='Unavailable players']").allInnerTexts()).join("\n");
+  check(`${width}: el modo draft aparta a los OUT con su marca y su valor`,
+    /Jacobs/.test(bloqueDraft) && /EXEMPT/i.test(bloqueDraft) && /VOR/.test(bloqueDraft), bloqueDraft.split("\n").slice(0, 3).join(" / "));
   // DOS AFIRMACIONES DE DISPONIBILIDAD EN LA MISMA FILA. La del dossier es de
   // agosto y la marca de estado es de hoy: la vieja tiene que llevar su fecha
   // a la vista y no puede competir con la de hoy. Con el código anterior salía

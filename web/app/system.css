@@ -2152,6 +2152,9 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .rank-table tr.is-out td { opacity: 0.62; }
 .rank-table tr.is-out .mark--out { opacity: 1; }
 .room-list > li.is-out .room-row { opacity: 0.62; }
+/* El mismo bloque en el board de /fantasy: fila atenuada, marca a plena tinta. */
+.picks .pick.is-out { opacity: 0.62; }
+.picks .pick.is-out .room-row-out { opacity: 1; }
 .room-out-divider {
   list-style: none; margin: var(--space-2) 0 0; padding: var(--space-2) var(--space-3);
   border-top: 2px solid var(--flag-ink, #a33b3b); color: var(--flag-ink, #a33b3b);

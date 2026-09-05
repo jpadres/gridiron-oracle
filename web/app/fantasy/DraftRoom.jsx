@@ -48,6 +48,7 @@ import {
   assignSlots, PRIOR_SHARE_VISIBLE, priorShare, VALIDATED_MAX_TEAMS, valueConfidence,
 } from "./leagueValue.js";
 import { bestForMe, candidates as buildCandidates } from "./candidates.js";
+import { splitAvailable } from "./availablePool.js";
 import { POSITION_STATE, replacementPoints } from "./rosterFit.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
@@ -279,12 +280,8 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
   // profundidad y los tiers; `unavailable` va al pie, buscable, con su valor
   // intacto y su marca diciendo por qué. Sigue siendo drafteable: un pick de
   // un OUT se registra igual.
-  const available = useMemo(
-    () => board.filter((row) => !effective.byPlayer.has(row.player_id) && row.status_severity !== "OUT"),
-    [board, effective]
-  );
-  const unavailable = useMemo(
-    () => board.filter((row) => !effective.byPlayer.has(row.player_id) && row.status_severity === "OUT"),
+  const { available, unavailable } = useMemo(
+    () => splitAvailable(board, effective.byPlayer),
     [board, effective]
   );
   const availableSpecialists = useMemo(

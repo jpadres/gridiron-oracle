@@ -61,6 +61,7 @@ import {
 } from "./leagueValue.js";
 import { replacementPoints } from "./rosterFit.js";
 import { syncPool } from "./sleeperAccount.js";
+import { splitAvailable } from "./availablePool.js";
 import { hasNumber } from "../numbers.js";
 
 
@@ -269,8 +270,11 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
     return out;
   }, [activeBoard, state]);
 
-  const available = useMemo(
-    () => activeBoard.filter((row) => !state.byPlayer.has(row.player_id)),
+  // La MISMA partición que el Draft Room (`availablePool.js`): `available` es
+  // quien puede jugar; `unavailable` quien no va a jugar, aparte y con su
+  // valor; `untaken` los dos, que es sobre lo que se busca para tachar.
+  const { available, unavailable, untaken } = useMemo(
+    () => splitAvailable(activeBoard, state.byPlayer),
     [activeBoard, state]
   );
 
@@ -323,7 +327,7 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
   const found = useMemo(() => {
     const needle = query.trim().toLowerCase();
     if (needle.length < 2) return [];
-    return available
+    return untaken
       .filter(
         (row) =>
           row.player_name.toLowerCase().includes(needle) ||
@@ -331,7 +335,7 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
           row.position?.toLowerCase() === needle
       )
       .slice(0, 10);
-  }, [available, query]);
+  }, [untaken, query]);
 
   // Los miembros de la liga, para saber cuál de los picks son tuyos. Se pide una
   // vez al conectar y no en cada sondeo: no cambia durante un draft.
@@ -765,6 +769,36 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
         </>
       ) : null}
 
+      {unavailable.length > 0 ? (
+        /* Quien NO VA A JUGAR, aparte y nombrado, como en el Draft Room: el
+           valor es el mismo con marca y sin ella; lo que cambia es que se dice
+           y que no encabeza. Sigue siendo drafteable — Mine/Gone funcionan. */
+        <>
+          <p className="eyebrow next-h">Unavailable · {unavailable.length} — suspended, exempt, IR or PUP. Value unchanged; listed last.</p>
+          <ol className="picks picks--found" aria-label="Unavailable players">
+            {unavailable.slice(0, 6).map((row) => (
+              <li key={row.player_id} className="pick is-out" style={teamVars(row.team)}>
+                <span className="pick-rank">{row.overall_rank}</span>
+                <span className="pick-who hs-who">
+                  <Headshot sid={row.sid} team={row.team} position={row.position} name={row.player_full_name ?? row.player_name} size={28} />
+                  <span className="nm">{row.player_full_name ?? row.player_name}</span>
+                  <span className="meta">
+                    <span className="room-row-out">{row.status_label ?? "OUT"}</span>
+                    {" "}{row.position}{row.position_rank} · {row.team} · VOR {num(row.vor, 1)}
+                  </span>
+                </span>
+                <span className="pick-actions">
+                  <button type="button" onClick={() => take(row.player_id, true)}>Mine</button>
+                  <button type="button" className="ghost" onClick={() => take(row.player_id, false)}>
+                    Gone
+                  </button>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </>
+      ) : null}
+
       <div className="draft-tools">
       <div className="draft-head">
         <div>
@@ -993,6 +1027,9 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
                   <Headshot sid={row.sid} team={row.team} position={row.position} name={row.player_full_name ?? row.player_name} size={28} />
                   <span className="nm">{row.player_name}</span>
                   <span className="meta">
+                    {row.status_severity === "OUT" ? (
+                      <span className="room-row-out">{row.status_label ?? "OUT"}</span>
+                    ) : null}{row.status_severity === "OUT" ? " " : null}
                     {row.position}
                     {row.position_rank} · {row.team} · VOR {num(row.vor, 1)}
                   </span>
