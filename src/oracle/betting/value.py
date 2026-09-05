@@ -21,7 +21,7 @@ import pandas as pd
 
 from ..models.distribution import MarginDistribution
 from .devig import devig_shin
-from .kelly import KellyConfig, expected_value, stake_fraction
+from .kelly import KellyConfig, decide, expected_value
 from .odds import american_to_decimal
 
 # Precio estándar de un spread cuando no hay cuota publicada. -110 en los dos
@@ -58,12 +58,15 @@ def value_bets(
     frame["ev"] = [
         expected_value(p, o) for p, o in zip(frame["model_prob"], frame["decimal_odds"], strict=True)
     ]
-    frame["stake_fraction"] = [
-        stake_fraction(p, o, m, config)
+    decisions = [
+        decide(p, o, m, config)
         for p, o, m in zip(
             frame["model_prob"], frame["decimal_odds"], frame["market_prob"], strict=True
         )
     ]
+    frame["stake_fraction"] = [d.stake_fraction for d in decisions]
+    frame["decision"] = [d.decision for d in decisions]
+    frame["no_bet_reason"] = [d.no_bet_reason for d in decisions]
     frame["stake"] = (frame["stake_fraction"] * bankroll).round(2)
 
     frame = frame[frame["stake"] > 0].copy()
@@ -100,12 +103,17 @@ def enumerate_markets(
     frame["ev"] = [
         expected_value(p, o) for p, o in zip(frame["model_prob"], frame["decimal_odds"], strict=True)
     ]
-    frame["stake_fraction"] = [
-        stake_fraction(p, o, m, config)
+    decisions = [
+        decide(p, o, m, config)
         for p, o, m in zip(
             frame["model_prob"], frame["decimal_odds"], frame["market_prob"], strict=True
         )
     ]
+    frame["stake_fraction"] = [d.stake_fraction for d in decisions]
+    # La DECISIÓN viaja con el mercado: la web no la recalcula (y menos sobre
+    # valores redondeados). Un solo sitio decide NO BET y por qué.
+    frame["decision"] = [d.decision for d in decisions]
+    frame["no_bet_reason"] = [d.no_bet_reason for d in decisions]
     return frame.sort_values(["game_id", "market", "selection"]).reset_index(drop=True)
 
 
@@ -200,5 +208,6 @@ def _empty_frame() -> pd.DataFrame:
     columns = [
         "game_id", "season", "week", "matchup", "market", "selection", "model_prob",
         "market_prob", "decimal_odds", "push_prob", "edge", "ev", "stake_fraction", "stake",
+        "decision", "no_bet_reason",
     ]
     return pd.DataFrame(columns=columns)

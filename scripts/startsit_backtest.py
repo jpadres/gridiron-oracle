@@ -21,7 +21,7 @@ import numpy as np
 import pandas as pd
 
 from oracle.config import paths as resolve_paths
-from oracle.fantasy.scoring import rules_from_name, score_player_weeks
+from oracle.fantasy.scoring import regular_season, rules_from_name, score_player_weeks
 from oracle.fantasy.weekly import WeeklyCalibration, weekly_rankings
 from oracle.pipeline import Oracle
 
@@ -101,6 +101,9 @@ def main() -> int:
     rules = rules_from_name(args.scoring)
 
     players = pd.read_parquet(paths.player_weeks)
+    # E11 se midió el 2026-08-29 CON jornadas de playoffs en la evaluación; se
+    # recomprueba sólo sobre temporada regular con los umbrales ya escritos.
+    players = regular_season(players)
     oracle = Oracle.train(args.root)
     scored = players.copy()
     scored["fantasy_points"] = score_player_weeks(scored, rules)

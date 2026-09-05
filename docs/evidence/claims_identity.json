@@ -1,0 +1,40 @@
+{
+  "claims": 237,
+  "identity": {
+    "RESOLVED": 186,
+    "UNRESOLVED": 27,
+    "NO_TEAM": 13,
+    "NO_SUBJECT": 11
+  },
+  "product_linked": 186,
+  "with_published_at": 210,
+  "disputed": 10,
+  "superseded": 41,
+  "board_players": 616,
+  "archive_files": 7,
+  "ambiguous_examples": [],
+  "unresolved_examples": [
+    "A.J. Brown (NE)",
+    "Andrei Iosivas (CIN)",
+    "Broderick Jones (DAL)",
+    "Christian Kirk (SF)",
+    "Coby Bryant (CHI)",
+    "Efton Chism III (NE)",
+    "Greg Dortch (DET)",
+    "Isiah Pacheco (DET)",
+    "J.K. Dobbins (DEN)",
+    "James Pearce Jr. (ATL)",
+    "K.C. Concepcion (CLE)",
+    "Kaleb Johnson (GB)",
+    "Laremy Tunsil (WAS)",
+    "Luke Musgrave (GB)",
+    "Micah Parsons (GB)",
+    "Mike Evans (TB)",
+    "Mike Washington Jr. (LV)",
+    "Nick Chubb (CLE)",
+    "Omar Cooper Jr. (NYJ)",
+    "Roschon Johnson (CHI)",
+    "Shemar Stewart (CIN)",
+    "Trevor Etienne (CAR)"
+  ]
+}

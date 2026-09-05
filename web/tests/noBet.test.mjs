@@ -1,31 +1,33 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import { NO_BET, noBetReason } from "../app/betting/noBet.js";
 import { model } from "../data/model.js";
 
-test("por debajo del mínimo: NO BET por el mínimo", () => {
-  assert.equal(noBetReason({ edge: 0.01, market_prob: 0.5, decimal_odds: 1.9091 }), NO_BET.UNDER_MINIMUM);
-});
-
-test("edge del 4,3% a −110: el edge a la mitad no bate el precio (el caso ARI @ LAC)", () => {
-  assert.equal(noBetReason({ edge: 0.043, market_prob: 0.5, decimal_odds: 1.9091 }), NO_BET.BELOW_PRICE);
-});
-
-test("edge del 7,2% a −110: se apuesta, sin motivo de NO BET (el caso MIA @ LV)", () => {
-  assert.equal(noBetReason({ edge: 0.0722, market_prob: 0.5, decimal_odds: 1.9091 }), null);
-});
-
-test("sin números no se inventa un motivo", () => {
-  assert.equal(noBetReason({ edge: null, market_prob: 0.5, decimal_odds: 1.9 }), null);
+test("traduce los códigos que publica Python, y nada más", () => {
+  assert.equal(noBetReason({ decision: "NO_BET", no_bet_reason: "UNDER_MINIMUM" }), NO_BET.UNDER_MINIMUM);
+  assert.equal(noBetReason({ decision: "NO_BET", no_bet_reason: "BELOW_PRICE" }), NO_BET.BELOW_PRICE);
+  assert.equal(noBetReason({ decision: "BET", no_bet_reason: null }), null);
   assert.equal(noBetReason(null), null);
 });
 
-test("sobre el payload entero, el espejo y Python dicen lo mismo lado a lado", () => {
+test("un código desconocido no se disfraza de motivo conocido", () => {
+  assert.match(noBetReason({ decision: "NO_BET", no_bet_reason: "SOMETHING_NEW" }), /not sized/);
+  assert.equal(noBetReason({ decision: "NO_BET", no_bet_reason: null }), "reason not published");
+});
+
+test("el fichero no recalcula nada: sin umbrales ni aritmética", () => {
+  const src = readFileSync(new URL("../app/betting/noBet.js", import.meta.url), "utf8");
+  assert.doesNotMatch(src, /MIN_EDGE|EDGE_SHRINK|decimal_odds|market_prob|Math\./);
+});
+
+test("en el payload, cada lado trae la decisión y el motivo cuadra con el tamaño", () => {
   const markets = model.markets ?? [];
   assert.ok(markets.length > 0);
   for (const side of markets) {
-    const reason = noBetReason(side);
-    if (side.stake_fraction > 0) assert.equal(reason, null, `${side.matchup} ${side.market}: Python apuesta y esto dice «${reason}»`);
-    else assert.ok(reason, `${side.matchup} ${side.market}: Python no apuesta y esto no sabe por qué`);
+    assert.ok(side.decision === "BET" || side.decision === "NO_BET", `${side.matchup}: sin decisión`);
+    assert.equal(side.decision === "BET", side.stake_fraction > 0, `${side.matchup} ${side.market}`);
+    assert.equal(side.no_bet_reason == null, side.decision === "BET", `${side.matchup} ${side.market}`);
+    if (side.decision === "NO_BET") assert.ok(noBetReason(side) && !/not sized|not published/.test(noBetReason(side)));
   }
 });

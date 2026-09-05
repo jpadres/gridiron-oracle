@@ -29,6 +29,7 @@ Actions. `--beats` y `--max-searches` existen para bajarlo, y
 
 from __future__ import annotations
 
+import re
 from urllib.parse import urlparse
 
 from oracle.narrative.client import ask_json, web_tools
@@ -422,28 +423,54 @@ def _clean(item: object, beat: str) -> dict | None:
 FUTURE_TOLERANCE_DAYS = 1
 
 
-def _not_from_the_future(stamp: str | None, now: object | None = None) -> str | None:
-    """Una fecha de publicación posterior a hoy no puede ser cierta.
+def parse_publication_date(stamp: object, now: object | None = None) -> str | None:
+    """Una fecha de publicación, en ISO, o None. NUNCA hoy por defecto.
 
-    Un modelo que extrae `published_at` de un artículo puede leer mal un año,
-    confundir el día con el mes, o copiar la fecha del evento futuro del que
-    habla («el partido del domingo 14»). Guardarla tal cual la convierte en la
-    ficha más «reciente» del archivo y la pone la primera en cada orden por
-    fecha. Se deja en None: UNKNOWN antes que una frescura imposible.
+        FECHA PASADA O ACTUAL    -> se conserva, normalizada a ISO
+        FECHA FUTURA             -> None (UNKNOWN): un modelo que extrae la fecha
+                                    puede copiar la del partido del que habla
+        NO SE PUEDE LEER         -> None (UNKNOWN), sin inventar
+
+    La primera versión sólo entendía ISO: «Sept 4, 2026» —una fecha real,
+    escrita como la escribe un medio— se perdía y la ficha caía a «seen» con la
+    fecha del barrido. Se admiten los formatos habituales de la prensa (ISO con
+    o sin hora y zona, «Sep 4, 2026», «September 4, 2026», «4 Sep 2026»,
+    RFC 2822 de los feeds) y se rechaza todo lo que no sea una fecha: un número
+    suelto o una palabra no se convierten en nada. El día NUNCA va delante del
+    mes en «4/9/2026»: la ambigüedad de ese formato no se resuelve adivinando,
+    y por eso no se acepta.
     """
-    if not stamp:
+    if stamp is None or isinstance(stamp, bool):
         return None
     from datetime import datetime, timedelta, timezone
-    try:
-        parsed = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
-    except ValueError:
-        return None
+
+    from dateutil import parser as _dateparser
+
+    if isinstance(stamp, datetime):
+        parsed = stamp
+    else:
+        text = str(stamp).strip()
+        if not text or len(text) > 64 or not re.search(r"\d{4}", text) or re.fullmatch(r"[\d.+eE]+", text):
+            return None
+        if re.search(r"\d{1,2}/\d{1,2}/\d{2,4}", text):
+            return None  # 4/9/2026: día y mes ambiguos, no se adivina
+        try:
+            parsed = _dateparser.parse(text.replace("Sept ", "Sep "), fuzzy=False, dayfirst=False)
+        except (ValueError, OverflowError, TypeError):
+            return None
     if parsed.tzinfo is None:
         parsed = parsed.replace(tzinfo=timezone.utc)
     reference = now or datetime.now(timezone.utc)
     if parsed > reference + timedelta(days=FUTURE_TOLERANCE_DAYS):
         return None
-    return stamp
+    if parsed.year < 1990:
+        return None
+    return parsed.isoformat()
+
+
+def _not_from_the_future(stamp: str | None, now: object | None = None) -> str | None:
+    """Alias histórico de `parse_publication_date`."""
+    return parse_publication_date(stamp, now=now)
 
 
 def _team_code(value: object) -> str:

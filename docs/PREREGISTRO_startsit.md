@@ -146,3 +146,10 @@ Con dos condiciones que no estaban en el preregistro pero que los datos imponen:
 2. **Nunca un porcentaje de «probabilidad de que A supere a B»** sin calibrarlo,
    que es otro experimento. Lo que se puede publicar es la tasa histórica de
    acierto del sistema en decisiones de esta dificultad: **54%**.
+
+## Adenda del 5 de septiembre de 2026: sólo temporada regular
+
+Las cifras de arriba se midieron con jornadas de playoffs en la evaluación.
+Recomprobado sólo sobre temporada regular, con los mismos umbrales:
+RB 54,9% / 52,7%, WR 52,0% / 49,1%, TE 51,0% / 49,4%, QB 53,5% / 54,6%.
+Mismos veredictos. Detalle en `docs/evidence/e11_regular_season_2026-09-05.md`.

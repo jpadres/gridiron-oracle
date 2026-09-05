@@ -318,38 +318,38 @@ REGISTRY: tuple[Capability, ...] = (
     Capability(
         id="START_SIT_RB",
         status=Status.VALIDATED,
-        evidence="53,9% de acierto en pares apretados frente al 51,8% de su forma reciente",
+        evidence="54,9% de acierto en pares apretados frente al 52,7% de su forma reciente (E11, sólo temporada regular, 2026-09-05)",
         experiment_id="E11",
-        metric="acierto por pares = 0.539",
+        metric="acierto por pares = 0.549 (forma 0.527, n = 8.257)",
         sample_size=8294,
         limitations=(
             "Sólo pares con los dos jugadores proyectados por encima de 8 puntos.",
             "Por debajo de 1 punto de diferencia proyectada el acierto cae al 50,6%: "
             "ver SEPARATION_SCALE.",
         ),
-        last_validated="2026-08-29",
+        last_validated="2026-09-05",
         model_version=MODEL_VERSION,
     ),
     Capability(
         id="START_SIT_WR",
         status=Status.VALIDATED,
-        evidence="52,4% frente al 48,6% de su forma reciente — la mayor ventaja medida",
+        evidence="52,0% frente al 49,1% de su forma reciente — la mayor ventaja medida (E11, sólo temporada regular, 2026-09-05)",
         experiment_id="E11",
-        metric="acierto por pares = 0.524",
+        metric="acierto por pares = 0.520 (forma 0.491, n = 24.224)",
         sample_size=24834,
         limitations=("Misma zona de decisión que RB.",),
-        last_validated="2026-08-29",
+        last_validated="2026-09-05",
         model_version=MODEL_VERSION,
     ),
     Capability(
         id="START_SIT_TE",
         status=Status.VALIDATED,
-        evidence="51,7% frente al 49,7% de su forma reciente",
+        evidence="51,0% frente al 49,4% de su forma reciente (E11, sólo temporada regular, 2026-09-05)",
         experiment_id="E11",
-        metric="acierto por pares = 0.517",
+        metric="acierto por pares = 0.510 (forma 0.494, n = 3.170)",
         sample_size=3267,
         limitations=("Ventaja de 2 puntos porcentuales: la más pequeña de las tres validadas.",),
-        last_validated="2026-08-29",
+        last_validated="2026-09-05",
         model_version=MODEL_VERSION,
     ),
     Capability(
@@ -358,16 +358,16 @@ REGISTRY: tuple[Capability, ...] = (
         evidence=(
             "PIERDE contra la media ponderada de sus seis últimos partidos por tres "
             "vías independientes: Spearman 0,213 frente a 0,248, acierto por pares "
-            "54,2% frente a 54,4%, y el MAE sólo gana después de mezclar"
+            "53,5% frente a 54,6% (E11, sólo temporada regular, 2026-09-05), y el MAE sólo gana después de mezclar"
         ),
         experiment_id="E6, E7, E11",
-        metric="acierto por pares = 0.542 frente a baseline 0.544",
+        metric="acierto por pares = 0.535 frente a baseline 0.546 (n = 5.884)",
         sample_size=5959,
         limitations=(
             "El modelo produce proyecciones utilizables — la interfaz puede enseñarlas.",
             "Lo que no está validado es RECOMENDAR entre dos quarterbacks.",
         ),
-        last_validated="2026-08-29",
+        last_validated="2026-09-05",
         model_version=MODEL_VERSION,
     ),
     Capability(

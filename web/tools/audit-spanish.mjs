@@ -252,6 +252,9 @@ const DATOS_PREFIJOS = [
   // Nombres de feature del modelo («elo_diff»): identificadores del esquema
   // que la tarjeta traduce al pintar (DRIVER_LABEL en sports.jsx).
   ".predictions[].drivers[].f",
+  // La decisión del motor de apuestas y su motivo: códigos («BET», «NO_BET»,
+  // «UNDER_MINIMUM») que la pantalla traduce. Se deciden en Python.
+  ".markets[].decision", ".markets[].no_bet_reason", ".bets[].decision", ".bets[].no_bet_reason",
   ".research.items[].team", ".research.items[].players[]",
   ".research.items[].player_ids[]", ".research.items[].date",
   ".research.items[].published", ".research.items[].beat",

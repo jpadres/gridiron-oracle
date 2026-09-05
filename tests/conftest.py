@@ -160,6 +160,9 @@ def _player_row(rng, player_id, position, usage, team, season, week) -> dict:
         "opponent": TEAMS[(hash(player_id) + week) % len(TEAMS)],
         "season": season,
         "week": week,
+        # nflverse trae la etapa en cada fila; sin ella `regular_season` FALLA
+        # CERRADO a propósito, así que el doble tiene que parecerse al original.
+        "season_type": "REG",
         "attempts": 0.0,
         "carries": 0.0,
         "targets": 0.0,

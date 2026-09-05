@@ -87,8 +87,17 @@ _STAT_COLUMNS: dict[str, str] = {
 _ALIAS_GROUPS: tuple[tuple[str, ...], ...] = (("passing_interceptions", "interceptions"),)
 
 
+class SeasonStageUnknown(ValueError):
+    """No se puede distinguir la temporada regular: se PARA, no se incluye todo."""
+
+
+# Etapas conocidas de nflverse. Cualquier otra cosa es un esquema que no
+# conocemos y no se adivina.
+SEASON_STAGES = frozenset({"REG", "POST", "PRE"})
+
+
 def regular_season(player_weeks: pd.DataFrame) -> pd.DataFrame:
-    """Sólo temporada regular: la que la fantasy puntúa.
+    """Sólo temporada regular: la que la fantasy puntúa. FALLA CERRADO.
 
     `player_weeks` trae también los playoffs (20.004 filas de `season_type ==
     "POST"`), y hasta el 5 de septiembre de 2026 entraban en la proyección de
@@ -103,13 +112,28 @@ def regular_season(player_weeks: pd.DataFrame) -> pd.DataFrame:
     prestaban muestra y puntos a una proyección que se paga en las 17 jornadas
     de la temporada regular, y sólo a quien los había jugado.
 
-    No es una decisión de modelado que alguien validara: era una unión sin
-    filtrar. Una liga de fantasy es una competición de temporada regular y el
-    historial tiene que ser de la misma competición que predice.
+    La primera versión devolvía el frame ENTERO si faltaba la columna: un
+    fail-open que habría vuelto a meter los playoffs en silencio ante un cambio
+    de esquema. Ahora, sin columna, con valores nulos o con una etapa que no
+    conocemos, se levanta `SeasonStageUnknown`: UNKNOWN antes que playoffs
+    presentados como temporada regular.
     """
     if "season_type" not in player_weeks.columns:
-        return player_weeks
-    return player_weeks[player_weeks["season_type"] == "REG"]
+        raise SeasonStageUnknown(
+            "player_weeks no trae `season_type`: no se puede separar la temporada regular "
+            "de los playoffs, y no se incluye todo por defecto"
+        )
+    stage = player_weeks["season_type"]
+    if stage.isna().any():
+        raise SeasonStageUnknown(
+            f"{int(stage.isna().sum())} filas con `season_type` nulo: etapa desconocida"
+        )
+    unknown = set(stage.astype(str).unique()) - SEASON_STAGES
+    if unknown:
+        raise SeasonStageUnknown(
+            f"etapas no reconocidas en `season_type`: {sorted(unknown)} — sólo se entienden {sorted(SEASON_STAGES)}"
+        )
+    return player_weeks[stage == "REG"]
 
 
 def score_player_weeks(stats: pd.DataFrame, rules: ScoringRules = PPR) -> pd.Series:

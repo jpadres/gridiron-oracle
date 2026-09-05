@@ -18,7 +18,7 @@ import pandas as pd
 import pytest
 
 from oracle.fantasy.draft import project_season
-from oracle.fantasy.scoring import PPR, regular_season
+from oracle.fantasy.scoring import PPR, SeasonStageUnknown, regular_season
 
 
 def _weeks(seed: int = 7) -> pd.DataFrame:
@@ -70,9 +70,36 @@ def test_regular_season_keeps_only_REG():
     assert len(regular_season(with_post)) == len(w)
 
 
-def test_regular_season_tolerates_a_frame_without_the_column():
-    w = _weeks().drop(columns=["season_type"])
-    assert regular_season(w) is w
+def test_regular_season_FAILS_CLOSED_without_the_column():
+    frame = pd.DataFrame({"player_id": ["a", "b"], "season": [2024, 2024]})
+    with pytest.raises(SeasonStageUnknown, match="season_type"):
+        regular_season(frame)
+
+
+@pytest.mark.parametrize("stage", [["REG", None], ["REG", float("nan")]])
+def test_regular_season_FAILS_CLOSED_with_null_stages(stage):
+    frame = pd.DataFrame({"player_id": ["a", "b"], "season_type": stage})
+    with pytest.raises(SeasonStageUnknown, match="nulo"):
+        regular_season(frame)
+
+
+@pytest.mark.parametrize("stage", ["REGULAR", "reg", "PLAYOFF", "", "SB"])
+def test_regular_season_FAILS_CLOSED_with_an_unknown_stage(stage):
+    frame = pd.DataFrame({"player_id": ["a", "b"], "season_type": ["REG", stage]})
+    with pytest.raises(SeasonStageUnknown, match="no reconocidas"):
+        regular_season(frame)
+
+
+def test_regular_season_drops_PRE_and_POST_and_keeps_REG():
+    frame = pd.DataFrame({"player_id": list("abcd"), "season_type": ["PRE", "REG", "POST", "REG"]})
+    kept = regular_season(frame)
+    assert list(kept["player_id"]) == ["b", "d"]
+    assert set(kept["season_type"]) == {"REG"}
+
+
+def test_an_empty_frame_with_the_column_is_fine():
+    frame = pd.DataFrame({"player_id": [], "season_type": []})
+    assert len(regular_season(frame)) == 0
 
 
 def test_playoff_rows_cannot_move_a_regular_season_projection():

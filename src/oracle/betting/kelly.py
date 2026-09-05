@@ -62,13 +62,30 @@ def full_kelly(probability: float, decimal_odds: float) -> float:
     return max(edge / b, 0.0)
 
 
-def stake_fraction(
+# Los motivos de NO APOSTAR, como códigos: viajan en el payload y la web sólo
+# los traduce a texto. Hasta el 5 de septiembre de 2026 el navegador repetía
+# esta aritmética sobre valores redondeados a cuatro decimales, y en el borde
+# exacto del umbral podía discrepar de Python. Una sola autoridad: ésta.
+NO_BET_UNDER_MINIMUM = "UNDER_MINIMUM"   # edge < min_edge
+NO_BET_BELOW_PRICE = "BELOW_PRICE"       # el edge encogido no bate el precio
+
+
+@dataclass(frozen=True)
+class Decision:
+    """Lo que el motor decide sobre un lado, con la fracción y el motivo."""
+
+    stake_fraction: float
+    decision: str            # "BET" | "NO_BET"
+    no_bet_reason: str | None
+
+
+def decide(
     probability: float,
     decimal_odds: float,
     market_probability: float | None = None,
     config: KellyConfig | None = None,
-) -> float:
-    """Fracción del bankroll a apostar, con los cuatro frenos aplicados.
+) -> Decision:
+    """La decisión entera, en un solo sitio y con precisión completa.
 
     `market_probability` es la probabilidad de la casa ya sin margen. Cuando se
     pasa, el edge se mide contra ella (que es la comparación correcta) y no
@@ -81,14 +98,30 @@ def stake_fraction(
     )
     edge = probability - reference
     if edge < config.min_edge:
-        return 0.0
+        return Decision(0.0, "NO_BET", NO_BET_UNDER_MINIMUM)
 
     # El encogimiento se aplica sobre la probabilidad, no sobre la fracción
     # final. Es lo mismo sólo si Kelly fuese lineal en p, y no lo es.
     shrunk = reference + (1 - config.edge_shrink) * edge
     kelly = full_kelly(shrunk, decimal_odds)
+    if kelly <= 0.0:
+        return Decision(0.0, "NO_BET", NO_BET_BELOW_PRICE)
 
-    return min(config.fraction * kelly, config.max_fraction)
+    fraction = min(config.fraction * kelly, config.max_fraction)
+    return Decision(fraction, "BET", None)
+
+
+def stake_fraction(
+    probability: float,
+    decimal_odds: float,
+    market_probability: float | None = None,
+    config: KellyConfig | None = None,
+) -> float:
+    """Fracción del bankroll a apostar, con los cuatro frenos aplicados.
+
+    Es `decide(...).stake_fraction`: no hay una segunda aritmética.
+    """
+    return decide(probability, decimal_odds, market_probability, config).stake_fraction
 
 
 def stake(

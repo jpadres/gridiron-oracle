@@ -24,6 +24,7 @@ def _kicker_row(player_id, team, season, week, fg_att=2.0, pat_att=3.0):
         "player_name": player_id.replace("_", " "),
         "position": "K",
         "team": team,
+        "season_type": "REG",  # el doble se parece al original: sin etapa, regular_season falla cerrado
         "season": season,
         "week": week,
         "fg_att": fg_att,

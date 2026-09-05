@@ -131,6 +131,38 @@ def _pick(name: str, candidates: list[tuple[str | None, str]]) -> str | None:
     return unnamed[0] if len(unnamed) == 1 and not named_other else None
 
 
+# Estados de identidad de una mención. NUNCA se adivina: lo que no se puede
+# resolver de forma determinista queda sin `player_id`, y se dice por qué.
+IDENTITY_RESOLVED = "RESOLVED"        # exactamente un candidato compatible
+IDENTITY_AMBIGUOUS = "AMBIGUOUS"      # dos o más compatibles: los dos Robinson
+IDENTITY_UNRESOLVED = "UNRESOLVED"    # nadie en el board con ese nombre y equipo
+IDENTITY_NO_TEAM = "NO_TEAM"          # sin equipo no hay contexto para cruzar
+
+
+def resolve_one(name: object, team: object, index: dict) -> tuple[str | None, str]:
+    """(`player_id` o None, estado) de UNA mención en UN equipo.
+
+    Es `_pick` con el motivo del fallo: AMBIGUOUS cuando había candidatos y la
+    regla conservadora se negó a elegir; UNRESOLVED cuando no había ninguno.
+    La distinción importa para medir cobertura —«no está en el board» y «está
+    dos veces» piden remedios distintos— y ninguna de las dos se convierte en
+    un emparejamiento.
+    """
+    code = normalize_team(team) or ""
+    if not code:
+        return None, IDENTITY_NO_TEAM
+    text = str(name or "").strip()
+    if not text:
+        return None, IDENTITY_UNRESOLVED
+    candidates = index.get((player_key(text), code), [])
+    if not candidates:
+        return None, IDENTITY_UNRESOLVED
+    picked = _pick(text, candidates)
+    if picked:
+        return picked, IDENTITY_RESOLVED
+    return None, IDENTITY_AMBIGUOUS if len(candidates) > 1 else IDENTITY_UNRESOLVED
+
+
 def resolve(names: Iterable[str], team: str, index: dict) -> list[str]:
     """`player_id` de los nombres citados en una noticia de ese equipo.
 

@@ -37,6 +37,7 @@ from __future__ import annotations
 import hashlib
 import re
 from collections import Counter, defaultdict
+from collections.abc import Iterable
 from dataclasses import asdict, dataclass, field
 from datetime import date, datetime
 from urllib.parse import urlparse
@@ -138,6 +139,16 @@ class Claim:
     supporting_sources: int = 0     # ORÍGENES distintos, no enlaces
     source_domains: tuple[str, ...] = field(default=())
     beat: str | None = None
+    # Identidad: la afirmación EXISTE aunque no se sepa de quién es. Sólo la
+    # RESOLVED se puede colgar de la ficha de un jugador; el resto se queda a
+    # nivel de equipo, con su sujeto en crudo.
+    identity_status: str = "UNRESOLVED"   # RESOLVED | AMBIGUOUS | UNRESOLVED | NO_TEAM | NO_SUBJECT
+    subject_raw: str | None = None
+
+    @property
+    def product_linked(self) -> bool:
+        """¿Puede colgarse de la ficha de un jugador? Sólo con identidad resuelta."""
+        return self.identity_status == "RESOLVED" and bool(self.player_id)
 
     @property
     def as_of(self) -> str | None:
@@ -175,6 +186,8 @@ def claim_from_item(item: dict, *, observed_at: str | None = None) -> Claim:
         supporting_sources=len(domains),
         source_domains=domains,
         beat=item.get("beat") or None,
+        identity_status=("RESOLVED" if ids else ("UNRESOLVED" if players else "NO_SUBJECT")),
+        subject_raw=str(players[0]) if players else None,
     )
 
 
@@ -192,6 +205,27 @@ def claims_from_archive(days: list[dict]) -> list[Claim]:
 # Supersesión y contradicción
 # ---------------------------------------------------------------------------
 
+def resolve_identities(claims: list[Claim], players: Iterable[dict]) -> list[Claim]:
+    """Cuelga cada afirmación de su jugador por el índice canónico, o no.
+
+    Usa el MISMO índice y la MISMA regla conservadora que la prensa del board
+    (`matching.build_index` / `_pick`): nombre completo idéntico, o abreviado
+    único en ese equipo. Lo que ya venía con `player_id` del barrido se
+    respeta. Lo demás queda UNRESOLVED o AMBIGUOUS, y la afirmación sigue
+    existiendo con su sujeto en crudo.
+    """
+    from .matching import build_index, resolve_one
+
+    index = build_index(players)
+    for claim in claims:
+        if claim.player_id or claim.identity_status == "NO_SUBJECT":
+            continue
+        pid, status = resolve_one(claim.subject_raw or claim.subject, claim.team, index)
+        claim.player_id = pid
+        claim.identity_status = status
+    return claims
+
+
 def _key(claim: Claim) -> tuple[str, str] | None:
     """Sobre quién y sobre qué. Sin sujeto identificable no se cruza nada.
 
@@ -200,7 +234,7 @@ def _key(claim: Claim) -> tuple[str, str] | None:
     Es la lección de los dos Robinson, y sin equipo no se cruza: un nombre
     suelto sin equipo no identifica a nadie.
     """
-    if claim.player_id:
+    if claim.player_id and claim.identity_status == "RESOLVED":
         return (claim.player_id.lower(), claim.claim_type)
     if not claim.team or claim.subject == claim.team:
         return None
@@ -253,6 +287,55 @@ def contradictions(claims: list[Claim]) -> list[tuple[Claim, Claim]]:
 
 
 # ---------------------------------------------------------------------------
+# Estado actual: cronología + autoridad, no el último titular
+# ---------------------------------------------------------------------------
+
+_AUTHORITY = {"OFFICIAL": 4, "OBSERVED": 3, "REPORTED": 2, "OPINION": 1, "UNKNOWN": 0}
+
+
+@dataclass
+class CurrentState:
+    """Lo que hoy se puede afirmar de (sujeto, tipo), con lo que discrepa al lado."""
+
+    current: Claim
+    others: tuple[Claim, ...]
+    disputed: bool
+
+    @property
+    def basis(self) -> str:
+        return f"{self.current.confidence_class} {self.current.published_at or 'undated'}"
+
+
+def current_state(claims: list[Claim]) -> dict[tuple[str, str], CurrentState]:
+    """El estado actual por (sujeto, tipo): primero lo OFICIAL, después lo más nuevo.
+
+    Es la regla 5 aplicada a las afirmaciones: «el equipo lo da inactivo» (oficial,
+    domingo) manda sobre «el reportero esperaba que jugara» (reportado, martes o
+    viernes), y al revés también: un oficial del viernes sigue mandando sobre un
+    reportero del sábado. Entre iguales de clase, la más nueva. Lo que pierde
+    NO se borra: va en `others`, y si discrepa en dirección, `disputed`.
+
+    Sin fecha de publicación no se puede ordenar y la afirmación no compite:
+    aparece sólo en `others`, nunca como estado actual.
+    """
+    groups: dict[tuple[str, str], list[Claim]] = defaultdict(list)
+    for claim in claims:
+        key = _key(claim)
+        if key is not None:
+            groups[key].append(claim)
+    out: dict[tuple[str, str], CurrentState] = {}
+    for key, group in groups.items():
+        dated = [c for c in group if c.as_of]
+        if not dated:
+            continue
+        winner = max(dated, key=lambda c: (_AUTHORITY.get(c.confidence_class, 0), c.as_of, c.claim_id))
+        others = tuple(c for c in group if c is not winner)
+        disputed = any({o.impact, winner.impact} == {"UP", "DOWN"} for o in others)
+        out[key] = CurrentState(current=winner, others=others, disputed=disputed)
+    return out
+
+
+# ---------------------------------------------------------------------------
 # Cobertura: lo que hay y lo que falta, en números
 # ---------------------------------------------------------------------------
 
@@ -264,6 +347,8 @@ def coverage(claims: list[Claim]) -> dict:
     return {
         "claims": n,
         "with_player_id": sum(1 for c in claims if c.player_id),
+        "identity": dict(Counter(c.identity_status for c in claims).most_common()),
+        "product_linked": sum(1 for c in claims if c.product_linked),
         "with_published_at": sum(1 for c in claims if c.published_at),
         "with_author": sum(1 for c in claims if c.author),
         "single_origin": sum(1 for c in claims if c.supporting_sources <= 1),
