@@ -34,6 +34,7 @@ import {
   settleBet, summary, updateBet,
 } from "./bankroll.js";
 import { gameLeans, propLean, rankedLeans } from "./leans.js";
+import { noBetReason } from "./noBet.js";
 import {
   DEFAULT_WEEK_PCT, bankPath, betProfit, careerSummary, weekLedger, weekPlan,
 } from "./plan.js";
@@ -503,7 +504,11 @@ export default function BettingShell({ predictions, weekly, context, markets = [
                       <td>{pctOf(side.market_prob)}</td>
                       <td className={side.edge >= 0 ? "wk-up" : "wk-down"}>{side.edge > 0 ? "+" : ""}{num(side.edge * 100, 1)}</td>
                       <td className={side.ev >= 0 ? "wk-up" : "wk-down"}>{side.ev > 0 ? "+" : ""}{num(side.ev * 100, 1)}%</td>
-                      <td>{side.stake_fraction > 0 ? money(side.stake_fraction * record.starting) : "0"}</td>
+                      <td>{side.stake_fraction > 0
+                        ? money(side.stake_fraction * record.starting)
+                        /* NO BET es la decisión más frecuente del motor, y un «0»
+                           se lee como celda vacía. Se dice, y se dice por qué. */
+                        : <span className="bk-nomarket">no bet · {noBetReason(side) ?? "not sized"}</span>}</td>
                       <td><small>{side.evidence_label}{side.evidence_bets ? ` · ${num(side.evidence_win_rate * 100, 1)}%` : ""}</small></td>
                     </tr>
                   ));
@@ -516,8 +521,9 @@ export default function BettingShell({ predictions, weekly, context, markets = [
             numbers (3 and 7) and the push split out; the house is −110 both ways de-vigged
             (Shin), so 50/50. Fair ML is the model&rsquo;s win probability turned into a
             no-vig price — compare it with your book&rsquo;s. Stake is fractional Kelly with
-            the project&rsquo;s brakes (quarter Kelly, edge halved, 2% cap, 1.5-point
-            minimum) at this month&rsquo;s starting bankroll. &ldquo;History&rdquo; is the
+            the project&rsquo;s brakes (quarter Kelly, edge halved, 2% cap, a minimum edge of
+            1.5 percentage points) at this month&rsquo;s starting bankroll. &ldquo;No bet&rdquo;
+            names the brake that stopped it. &ldquo;History&rdquo; is the
             out-of-sample record of bets with this size of model–market disagreement: read
             it before the edge. Totals have no distribution here, so they stay leans.
           </p>

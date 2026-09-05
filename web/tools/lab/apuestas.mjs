@@ -74,6 +74,18 @@ for (const width of [390, 1440]) {
   check(`${width}: las apuestas que pasan el umbral salen con stake a este bankroll`,
     (await page.locator(".bk-bets > li").count()) === bets.length
       && (bets.length === 0 || /\$\d/.test(await page.locator(".bk-bets").innerText())), `${bets.length}`);
+  /* NO BET, DICHO. Un tamaño de cero se pintaba «0», que se lee como celda
+     vacía. Ahora cada lado sin apuesta nombra el freno que lo paró, y «not
+     sized» —el respaldo cuando el espejo no sabe— no puede aparecer nunca
+     sobre el payload real. Se cuenta contra los mercados del payload, no
+     contra lo pintado. */
+  const sinApuesta = (model.markets ?? []).filter((m) => !(m.stake_fraction > 0)).length;
+  const celdas = await page.locator(".bk-markets tbody .bk-nomarket").allInnerTexts();
+  const noBet = celdas.filter((t) => /^no bet · /i.test(t));
+  check(`${width}: cada lado sin apuesta dice NO BET y su motivo`,
+    noBet.length === sinApuesta && noBet.every((t) => /minimum|price/i.test(t)),
+    `${noBet.length} pintados / ${sinApuesta} en el payload · ${[...new Set(noBet)].join(" | ")}`);
+  check(`${width}: ninguno queda «not sized»`, !celdas.some((t) => /not sized/i.test(t)));
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
   check(`${width}: sin desbordamiento horizontal`, !overflow);
   check(`${width}: sin errores de página`, errores.length === 0, errores.join(" | "));
