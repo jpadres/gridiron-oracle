@@ -188,7 +188,12 @@ const DATOS = new Set([
   // Fechas ISO de cuándo se descargó cada sección (`2026-08-29`). Son DATOS y
   // no copy: la interfaz las pinta dentro de una frase que sí está en inglés.
   ".data_dates.fantasy", ".data_dates.markets", ".data_dates.model",
-  ".data_dates.rosters",
+  ".data_dates.rosters", ".data_dates.research",
+  // La procedencia del ADP: el nombre de la fuente, su formato de puntuación y
+  // dos fechas ISO. Todo son tokens de la fuente; la frase que los envuelve la
+  // escribe la interfaz en inglés.
+  ".fantasy.adp_source.fetched_at", ".fantasy.adp_source.scoring",
+  ".fantasy.adp_source.source", ".fantasy.adp_source.window_start",
   ".bets[].game_id", ".bets[].matchup", ".bets[].selection",
   ".markets[].game_id", ".markets[].matchup", ".markets[].selection",
   ".dossier.ambiguous[][]", ".dossier.generated", ".dossier.sources_books[]",

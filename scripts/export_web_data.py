@@ -306,6 +306,8 @@ def main(argv: list[str] | None = None) -> int:
     _attach_status(payload, paths)
     # Y la situación de plantilla en el RANKING SEMANAL, que no la tenía.
     _attach_roster_al_semanal(payload, paths, season)
+    # El ADP público: CONDUCTA del mercado, al lado y nunca dentro.
+    _attach_adp(payload, paths)
 
     # --- research (prensa e insiders) ---------------------------------------
     # Viaja aparte de todo lo anterior a propósito: son afirmaciones de terceros
@@ -535,6 +537,110 @@ def _attach_roster_al_semanal(payload: dict, paths, season: int) -> None:
         if row.get("roster_state") in roster_status.OFF_ACTIVE_ROSTER
     )
     print(f"  plantilla en el semanal: {marcadas} filas marcadas, {fuera} fuera del 53.")
+
+
+def _attach_adp(payload: dict, paths) -> None:
+    """El ADP público, colgado del board por identidad ESTRICTA.
+
+        UN ADP ES CONDUCTA DEL MERCADO, NO CALIDAD DEL JUGADOR.
+
+    Sirve para una sola pregunta —«¿puedo esperar a mi siguiente pick?»— y por
+    eso se publica al LADO del número, nunca dentro. Como las marcas de prensa
+    y las de plantilla, escribe **sólo** campos con prefijo `adp_`, para que la
+    regla se pueda comprobar leyendo la función entera: ninguna proyección,
+    ningún VOR y ningún tier cambia por esto.
+
+    El emparejamiento es el de `adp.match_to_players`: nombre completo primero,
+    clave abreviada después, y **ante dos candidatos, ninguno**. Lo que no
+    empareja se cuenta y se dice; desaparecer en silencio es cómo se cuelga un
+    dato del jugador equivocado.
+    """
+    from oracle.data.ingest import normalize_team
+    from oracle.fantasy.adp import AdpEntry, AdpSnapshot, match_to_players
+
+    fantasy = payload.get("fantasy")
+    board = fantasy.get("board") if isinstance(fantasy, dict) else None
+    if not isinstance(board, list) or not board:
+        return
+    # La instantánea de la puntuación con la que se compiló el board. No se
+    # mezcla con otra: dos ADP de fuentes o formatos distintos no son
+    # comparables, y elegir «el que haya» sería inventar de cuál es el número.
+    reglas = str(fantasy.get("scoring") or "ppr").lower().replace("-", "_")
+    equipos = int(fantasy.get("teams") or 12)
+    path = paths.root / "research" / f"adp_{reglas}_{equipos}.json"
+    if not path.exists():
+        print(f"  (aviso) sin {path.name}: el board sale sin ADP de mercado.")
+        return
+    datos = json.loads(path.read_text(encoding="utf-8"))
+    # LA FUENTE ESCRIBE `PK` Y `DEF`; ESTE PROYECTO ESCRIBE `K` Y `DST`.
+    # Traducir el vocabulario es lo mismo que `normalize_team`, y no traducirlo
+    # dejaba 48 de las 71 filas sin emparejar por una diferencia de nombre —el
+    # `AZ`/`ARI` de siempre, aplicado a la posición.
+    ALIAS = {"PK": "K", "DEF": "DST"}
+    snapshot = AdpSnapshot(
+        entries=tuple(
+            AdpEntry(**{**e, "position": ALIAS.get(str(e.get("position", "")).upper(),
+                                                   str(e.get("position", "")).upper())})
+            for e in datos.get("entries", [])
+        ),
+        source=datos["source"], scoring=datos["scoring"],
+        league_size=datos["league_size"], fetched_at=datos["fetched_at"],
+        sample_size=datos["sample_size"], window=datos["window"],
+    )
+    identidades = {
+        str(row["player_id"]): (
+            str(row.get("player_full_name") or row.get("player_name") or ""),
+            str(row.get("position") or ""),
+            str(row.get("team") or ""),
+        )
+        for row in board if row.get("player_id")
+    }
+    informe = match_to_players(snapshot, identidades)
+    for row in board:
+        adp = informe.matched.get(str(row.get("player_id")))
+        if adp is not None:
+            row["adp"] = round(float(adp), 1)
+
+    # LOS ESPECIALISTAS TAMBIÉN, y ahí es donde más falta hace: el pateador y
+    # la defensa no tienen VOR, así que el ADP es la ÚNICA referencia de cuándo
+    # los coge la gente. Un pateador se empareja por nombre como cualquiera;
+    # una defensa, por equipo — «Seattle Defense» no es el nombre de nadie, y
+    # un equipo tiene exactamente una, así que la clave es inequívoca por
+    # construcción y no hace falta aflojar ninguna regla.
+    especialistas = (fantasy.get("specialists") or {}) if isinstance(fantasy, dict) else {}
+    por_equipo = {
+        normalize_team(str(e.team)): e.adp
+        for e in snapshot.entries if e.position == "DST" and e.team
+    }
+    for fila in especialistas.get("defenses") or []:
+        adp = por_equipo.get(normalize_team(str(fila.get("team") or "")))
+        if adp is not None:
+            fila["adp"] = round(float(adp), 1)
+    ks = {
+        str(f["player_id"]): (str(f.get("player_full_name") or f.get("player_name") or ""),
+                              "K", str(f.get("team") or ""))
+        for f in (especialistas.get("kickers") or []) if f.get("player_id")
+    }
+    informe_k = match_to_players(snapshot, ks)
+    for fila in especialistas.get("kickers") or []:
+        adp = informe_k.matched.get(str(fila.get("player_id")))
+        if adp is not None:
+            fila["adp"] = round(float(adp), 1)
+    fantasy["adp_source"] = {
+        "source": snapshot.source, "scoring": snapshot.scoring,
+        "league_size": snapshot.league_size, "sample_size": snapshot.sample_size,
+        # LAS DOS FECHAS SEPARADAS: desde cuándo agrega la fuente, y cuándo lo
+        # bajamos. La segunda NO es la del dato.
+        "window_start": snapshot.window, "fetched_at": snapshot.fetched_at,
+        "matched": len(informe.matched), "unmatched": len(informe.unmatched),
+        "ambiguous": len(informe.ambiguous),
+    }
+    ks_ok = len(informe_k.matched)
+    dst_ok = sum(1 for f in especialistas.get("defenses") or [] if "adp" in f)
+    fantasy["adp_source"]["matched_specialists"] = ks_ok + dst_ok
+    print(f"  ADP: {len(informe.matched)} del board emparejados de {len(snapshot.entries)}, "
+          f"{ks_ok} pateadores y {dst_ok} defensas, "
+          f"{len(informe.ambiguous)} ambiguos (no se emparejan).")
 
 
 def _attach_components(payload: dict, source: dict | None) -> None:

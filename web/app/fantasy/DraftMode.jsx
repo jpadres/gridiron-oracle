@@ -62,6 +62,8 @@ import {
 import { replacementPoints } from "./rosterFit.js";
 import { syncPool } from "./sleeperAccount.js";
 import { splitAvailable, tierPool } from "./availablePool.js";
+import { marketNote } from "./marketAdp.js";
+import { matchesFilter } from "./positionFilter.js";
 import { rosterMark, updatedSinceModel } from "./rosterMark.js";
 import { hasNumber } from "../numbers.js";
 
@@ -314,10 +316,9 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
       typical: TYPICAL_STARTERS[row.position] ?? 1,
     }));
     scored.sort((a, b) => b.vor - a.vor);
-    const visible =
-      positionFilter === "ALL"
-        ? scored
-        : scored.filter((row) => row.position === positionFilter);
+    // Una lente sobre lo que se pinta, y sólo eso: `bestForMe` de más abajo
+    // sigue recibiendo `available` SIN filtrar. Ver `positionFilter.js`.
+    const visible = scored.filter((row) => matchesFilter(row, positionFilter));
     return visible.slice(0, 8);
   }, [available, counts, positionFilter]);
 
@@ -657,6 +658,9 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
           <ul className="room-why room-why--pick">
             {forMe.primary.reasons.map((r) => <li key={r.kind}>{r.text}</li>)}
           </ul>
+          {marketNote(forMe.primary.row) ? (
+            <p className="room-market">{marketNote(forMe.primary.row)}</p>
+          ) : null}
           {/* LO QUE EL MODELO NO PUDO VER. Las dos pantallas del draft dicen lo
               mismo o vuelve a haber dos verdades — ha pasado siete veces. */}
           {(() => {

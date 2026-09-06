@@ -1997,6 +1997,13 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   text-transform: none;
   color: var(--chalk-dim);
 }
+/* El mercado, al lado del número. Contexto, no aviso: en tinta secundaria. */
+.room-market {
+  margin: calc(var(--space-1) * -1) 0 var(--space-2);
+  font-size: var(--text-small);
+  color: var(--chalk-dim);
+}
+
 /* LO QUE PASÓ DESPUÉS DE LA FECHA DEL MODELO, sobre el candidato principal.
    Va en el ámbar de «esto contradice lo que asumirías», que es exactamente lo
    que es: el número de arriba no lo sabe. */

@@ -51,6 +51,7 @@ import {
   bestForMe, candidates as buildCandidates, headlineReason, whyNotTopAvailable,
 } from "./candidates.js";
 import { isUnavailable, splitAvailable, tierPool as countableTier } from "./availablePool.js";
+import { marketNote } from "./marketAdp.js";
 import { rosterMark, updatedSinceModel } from "./rosterMark.js";
 import { POSITION_STATE, replacementPoints } from "./rosterFit.js";
 
@@ -844,6 +845,12 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
           <ul className="room-why room-why--pick">
             {forMe.primary.reasons.map((r) => <li key={r.kind}>{r.text}</li>)}
           </ul>
+          {/* EL MERCADO, al lado. Contesta «¿puedo esperar?» y nada más: los
+              dos números y su diferencia, sin una palabra que prometa
+              disponibilidad futura — eso exige un modelo calibrado que no hay. */}
+          {marketNote(forMe.primary.row) ? (
+            <p className="room-market">{marketNote(forMe.primary.row)}</p>
+          ) : null}
           {/* LO QUE EL MODELO NO PUDO VER. El número de arriba se compiló con
               datos del {context.modelDate}; el registro de plantillas es
               posterior. Si entre las dos fechas pasó algo MATERIAL —cambió de

@@ -54,4 +54,16 @@ jobs:
             exit 0
           fi
           git commit -m "research: instantánea de ADP público"
-          git push
+          # DOS WORKFLOWS QUE PUBLICAN EN LA MISMA RAMA SE PISAN. Pasó a los
+          # cuarenta segundos de existir el segundo: el barrido de feeds
+          # commiteó sus 292 entradas y el push salió rechazado porque el de
+          # ADP había empujado primero. El trabajo estaba HECHO y se perdió.
+          # Se reintenta sobre lo que haya llegado; el rebase es trivial porque
+          # cada uno toca sólo su propio artefacto.
+          for intento in 1 2 3; do
+            git pull --rebase --autostash origin "$GITHUB_REF_NAME" && git push && exit 0
+            echo "push rechazado (intento $intento), reintentando..."
+            sleep $((intento * 5))
+          done
+          echo "no se pudo publicar tras tres intentos" >&2
+          exit 1

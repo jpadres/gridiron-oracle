@@ -34,6 +34,7 @@ import { useCallback, useEffect, useState } from "react";
 import { num } from "../../data/model.js";
 import { BustCell, Callout, RankTable } from "../ui.jsx";
 import DraftMode from "./DraftMode.jsx";
+import { POSITION_FILTERS, isBoardFilter } from "./positionFilter.js";
 
 // Las columnas viven aquí y no en la página porque llevan funciones `format`,
 // y una función no cruza la frontera de servidor a cliente. Además son
@@ -78,10 +79,9 @@ const VIEWS = [
  * Una sola etiqueta por posición en todo el producto: `DST`, nunca DEF, D/ST ni
  * Defense. Alternarlas hace pensar que son cosas distintas.
  */
-const POSITION_FILTERS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
-
-// Las que el board de VOR sí ordena. El resto tiene panel propio.
-const BOARD_POSITIONS = new Set(["ALL", "QB", "RB", "WR", "TE"]);
+// La lista y la pertenencia viven en `positionFilter.js`: las usan esta
+// pantalla y `DraftMode`, y dos copias del mismo reparto es el fallo que este
+// repositorio lleva ocho iteraciones persiguiendo.
 
 const VIEW_IDS = new Set(VIEWS.map((view) => view.id));
 
@@ -190,7 +190,7 @@ export default function BoardShell({
 
   const filtered = position === "ALL" ? board : board.filter((row) => row.position === position);
   const filteredGap = position === "ALL" ? gap : gap.filter((row) => row.position === position);
-  const showBoard = (view === "draft" || view === "risk") && BOARD_POSITIONS.has(position);
+  const showBoard = (view === "draft" || view === "risk") && isBoardFilter(position);
 
   return (
     <>
@@ -281,7 +281,7 @@ export default function BoardShell({
           contador de plantilla y el buscador sugiere que se puede draftear un
           pateador desde esta lista, y no se puede. Sigue MONTADO: el draft en
           curso no se pierde al mirar K un momento. */}
-      <div hidden={view !== "draft" || !BOARD_POSITIONS.has(position)}>
+      <div hidden={view !== "draft" || !isBoardFilter(position)}>
         {/* El board va ENTERO. El filtro viaja aparte porque DraftMode lo usa
             para el índice de Sleeper, el recuento de tu plantilla y el ajuste
             por posición: recortarlo aquí le rompía las tres cosas. */}
@@ -289,7 +289,7 @@ export default function BoardShell({
         {draftNote}
       </div>
 
-      {!BOARD_POSITIONS.has(position) ? (
+      {!isBoardFilter(position) ? (
         <SpecialTeamsPanel position={position} league={context.league} />
       ) : null}
 
