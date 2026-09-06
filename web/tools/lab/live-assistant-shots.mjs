@@ -57,6 +57,19 @@ const ESTADOS=[
   {id:"deep",   hasta:10, liga:{...LIGA,name:"Deep32",leagueId:"LGD",draftId:"DRD",teams:32,mySlot:11}},
   {id:"error",  hasta:6,  liga:LIGA, caida:true},
   {id:"done",   hasta:TEAMS*ROUNDS, liga:LIGA},
+  /* LOS ESTADOS QUE DECIDEN SI ESTO SE ENTIENDE EN TRES SEGUNDOS.
+     `mios` fuerza QUÉ posición cojo yo en mis turnos: con el puesto 11 de una
+     serpiente de 12, mis picks son el 11, el 14, el 35, el 38... Es el único
+     camino honesto para llegar a «ya tengo QB» — forzar una clase a mano
+     enseñaría una pantalla que el usuario no puede alcanzar. */
+  {id:"qb-lleno", hasta:34, liga:LIGA, mios:{11:"QB"}},
+  {id:"te-lleno", hasta:34, liga:LIGA, mios:{11:"TE"}},
+  {id:"sf-qb",    hasta:34, liga:{...LIGA,name:"Superflex",leagueId:"LGF",draftId:"DRF",
+     roster:["QB","RB","RB","WR","WR","TE","FLEX","SUPER_FLEX","BN","BN","BN","BN","BN","BN","BN"]},
+     mios:{11:"QB"}},
+  /* Fase de banquillo: todos mis titulares puestos. Con nueve huecos y mis
+     picks cada doce, el 106 es el décimo. */
+  {id:"banquillo", hasta:118, liga:LIGA},
 ];
 for(const est of ESTADOS){
   for(const [w,h] of ANCHOS){
@@ -64,8 +77,11 @@ for(const est of ESTADOS){
     // La corrida: cinco receptores seguidos justo antes de mi turno.
     for(let no=1;no<=est.hasta;no+=1){
       const pool=libres();
-      const fila=(est.corrida && no>est.hasta-5)
-        ? pool.find(r=>r.position==="WR") : pool[0];
+      // Lo que YO cojo en un turno mío, cuando el estado lo declara.
+      const forzada=est.mios?.[no];
+      const fila=forzada ? (pool.find(r=>r.position===forzada) ?? pool[0])
+        : (est.corrida && no>est.hasta-5)
+          ? pool.find(r=>r.position==="WR") : pool[0];
       emitir(no,fila);
     }
     const ctx=await browser.newContext({viewport:{width:w,height:h},reducedMotion:"reduce"});

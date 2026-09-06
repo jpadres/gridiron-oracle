@@ -241,6 +241,63 @@ def attach(rows: list[dict], entries: dict[str, RosterEntry]) -> int:
     return marcadas
 
 
+def reconcile(rows: list[dict]) -> list[dict]:
+    """Cuando la PRENSA y el REGISTRO se contradicen, decide quién vio después.
+
+        UN HECHO DE MARZO NO DESCRIBE UNA PLANTILLA DE SEPTIEMBRE.
+
+    Caso real y medido el 6 de septiembre de 2026: la capa curada marcaba a
+    **Stefon Diggs** como `NO NFL TEAM` con severidad OUT —efectivo el 11 de
+    marzo, recomprobado el 3 de septiembre— mientras el registro de plantillas
+    del **5 de septiembre** lo daba ACTIVO en Washington, y el mercado lo
+    drafteaba en el ADP 94,6. Un OUT saca al jugador de la lista corta entera,
+    así que el receptor número 72 del board desaparecía del asistente por una
+    afirmación que un registro posterior contradice.
+
+    La regla de conflicto ya estaba escrita (regla 5): **primero lo oficial,
+    después lo más NUEVO, después lo mejor atribuido — conservando el
+    desacuerdo.** Aquí se aplica con el discriminador que generaliza:
+
+        el HECHO de la prensa (`status_effective_at`) es ANTERIOR a la
+        instantánea del registro (`roster_source_as_of`), y el registro dice lo
+        contrario  ->  el registro vio después.
+
+    Al revés no: si a alguien lo cortan hoy y el fichero de plantillas es de la
+    semana pasada, la prensa es la que vio después y no se toca.
+
+    Lo que hace y lo que NO hace:
+
+    * NO borra la afirmación de la prensa. Se conserva entera —etiqueta, fecha,
+      fuente— porque el desacuerdo es información.
+    * NO cambia ningún número. Escribe `status_disputed` y `status_dispute`, y
+      nada más.
+    * Sí quita el efecto de EXCLUIR: un OUT tiene que ser un hecho, y éste ha
+      dejado de estarlo. Lo que se publica es la disputa, no una de las mitades.
+
+    Devuelve las filas afectadas, para poder decir cuántas fueron.
+    """
+    tocadas = []
+    for row in rows:
+        if row.get("status_label") != "NO NFL TEAM":
+            continue
+        if row.get("roster_state") != ACTIVE or not row.get("roster_team"):
+            continue
+        efectivo = str(row.get("status_effective_at") or "")[:10]
+        registro = str(row.get("roster_source_as_of") or "")[:10]
+        if not efectivo or not registro or efectivo >= registro:
+            # Sin las dos fechas no se puede decir quién vio después, y sin
+            # saberlo NO se desactiva un aviso: UNKNOWN no es «adelante».
+            continue
+        row["status_disputed"] = True
+        row["status_dispute"] = (
+            f"Reported without an NFL team as of {efectivo}, but the "
+            f"{registro} roster registry lists him active on {row['roster_team']}. "
+            "Both are shown; the registry is the later look."
+        )
+        tocadas.append(row)
+    return tocadas
+
+
 def team_changes(rows: list[dict], entries: dict[str, RosterEntry]) -> list[dict]:
     """Board cuyo equipo NO es el que dice la plantilla de hoy.
 

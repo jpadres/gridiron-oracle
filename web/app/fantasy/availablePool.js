@@ -38,7 +38,17 @@
  * gente del motor. Ver `tierPool`.
  */
 export function isUnavailable(row) {
-  return row?.status_severity === "OUT";
+  // UN OUT TIENE QUE SER UN HECHO. Cuando el registro de plantillas —oficial y
+  // POSTERIOR— contradice la afirmación de la prensa, el hecho ha dejado de
+  // estar establecido y lo que hay es una DISPUTA. Apartar al jugador
+  // entonces es quedarse con una de las dos mitades y llamarla verdad.
+  //
+  // Medido: Stefon Diggs, receptor 72 del board, marcado `NO NFL TEAM` por un
+  // hecho del 11 de marzo, ACTIVO en Washington según el registro del 5 de
+  // septiembre, y drafteado por el mercado en el ADP 94,6. Salía del asistente
+  // entero. La disputa se PINTA (ver `roster_status.reconcile`); lo que no
+  // hace es excluir.
+  return row?.status_severity === "OUT" && row?.status_disputed !== true;
 }
 
 /**

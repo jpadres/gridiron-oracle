@@ -10,7 +10,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { splitAvailable } from "../app/fantasy/availablePool.js";
+import { isUnavailable, splitAvailable } from "../app/fantasy/availablePool.js";
 
 const rows = [
   { player_id: "1", position: "RB", status_severity: null },
@@ -54,4 +54,17 @@ test("las DOS pantallas derivan «disponible» de splitAvailable, no de un filtr
     const own = src.match(/const available = useMemo\([^;]*byPlayer\.has[^;]*;/s);
     assert.equal(own, null, `${file} define su propio «available»: ${own?.[0]?.slice(0, 80)}`);
   }
+});
+
+test("una afirmación EN DISPUTA no aparta a nadie de la lista corta", () => {
+  /* Un OUT tiene que ser un HECHO. Cuando el registro de plantillas —oficial y
+     posterior— contradice a la prensa, lo que hay es un desacuerdo, y quedarse
+     con una de las dos mitades y llamarla verdad sacaba a un receptor del
+     puesto 72 del asistente entero. */
+  const disputado = { player_id: "d", position: "WR", status_severity: "OUT",
+                      status_label: "NO NFL TEAM", status_disputed: true };
+  const cierto = { player_id: "c", position: "WR", status_severity: "OUT",
+                   status_label: "NO NFL TEAM" };
+  assert.equal(isUnavailable(disputado), false);
+  assert.equal(isUnavailable(cierto), true);
 });

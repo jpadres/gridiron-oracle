@@ -306,6 +306,10 @@ def main(argv: list[str] | None = None) -> int:
     _attach_status(payload, paths)
     # Y la situación de plantilla en el RANKING SEMANAL, que no la tenía.
     _attach_roster_al_semanal(payload, paths, season)
+    # Y cuando las DOS capas se contradicen, quién vio después. Va aquí porque
+    # necesita las dos ya colgadas: la de prensa (`_attach_status`) y la de
+    # plantilla (`fantasy_build`). Ver `roster_status.reconcile`.
+    _reconciliar_estado(payload)
     # El ADP público: CONDUCTA del mercado, al lado y nunca dentro.
     _attach_adp(payload, paths)
 
@@ -537,6 +541,23 @@ def _attach_roster_al_semanal(payload: dict, paths, season: int) -> None:
         if row.get("roster_state") in roster_status.OFF_ACTIVE_ROSTER
     )
     print(f"  plantilla en el semanal: {marcadas} filas marcadas, {fuera} fuera del 53.")
+
+
+def _reconciliar_estado(payload: dict) -> None:
+    """La disputa entre la prensa y el registro de plantillas, publicada."""
+    from oracle.fantasy import roster_status
+
+    for seccion, clave in ((payload.get("fantasy"), "board"),
+                           (payload.get("fantasy_weekly"), "rankings")):
+        filas = seccion.get(clave) if isinstance(seccion, dict) else None
+        if not isinstance(filas, list):
+            continue
+        tocadas = roster_status.reconcile(filas)
+        for fila in tocadas:
+            print(f"  disputa: {fila.get('player_full_name') or fila.get('player_name')} "
+                  f"— la prensa lo da sin equipo desde {fila.get('status_effective_at')}, "
+                  f"el registro del {fila.get('roster_source_as_of')} lo da activo en "
+                  f"{fila.get('roster_team')}. Se publican las dos.")
 
 
 def _attach_adp(payload: dict, paths) -> None:

@@ -214,3 +214,69 @@ def test_la_ausencia_de_fila_se_fecha_con_el_fichero(tmp_path):
     assert filas[0]["roster_state"] == roster_status.NOT_ON_ROSTER
     assert filas[0]["roster_basis"] == "SIN_FILA"
     assert filas[0]["roster_source_as_of"] == fecha
+
+
+def test_una_afirmacion_de_marzo_no_describe_una_plantilla_de_septiembre():
+    """El conflicto entre la prensa y el registro, resuelto por QUIÉN VIO DESPUÉS.
+
+    Caso real del 6 de septiembre de 2026: Stefon Diggs, receptor 72 del board,
+    marcado `NO NFL TEAM` con severidad OUT por un hecho del 11 de marzo, y
+    ACTIVO en Washington según el registro de plantillas del 5 de septiembre.
+    Un OUT lo sacaba de la lista corta entera.
+    """
+    filas = [{
+        "player_id": "00-0031588", "player_full_name": "Stefon Diggs",
+        "status_label": "NO NFL TEAM", "status_severity": "OUT",
+        "status_effective_at": "2026-03-11", "status_verified_at": "2026-09-03",
+        "roster_state": roster_status.ACTIVE, "roster_team": "WAS",
+        "roster_source_as_of": "2026-09-05",
+        "projected_points": 180.0, "vor": 48.0,
+    }]
+    antes = dict(filas[0])
+    tocadas = roster_status.reconcile(filas)
+    assert len(tocadas) == 1
+    assert filas[0]["status_disputed"] is True
+    assert "2026-03-11" in filas[0]["status_dispute"]
+    assert "2026-09-05" in filas[0]["status_dispute"]
+    # NO SE BORRA NADA: el desacuerdo es información, y los números tampoco.
+    assert filas[0]["status_label"] == "NO NFL TEAM"
+    assert filas[0]["projected_points"] == antes["projected_points"]
+    assert filas[0]["vor"] == antes["vor"]
+
+
+def test_si_la_prensa_vio_DESPUES_no_se_toca():
+    """A quien cortan hoy con un fichero de plantillas de la semana pasada, la
+    prensa es la que vio después. La regla no es «el registro siempre gana»."""
+    filas = [{
+        "player_id": "x", "status_label": "NO NFL TEAM", "status_severity": "OUT",
+        "status_effective_at": "2026-09-06",
+        "roster_state": roster_status.ACTIVE, "roster_team": "WAS",
+        "roster_source_as_of": "2026-09-01",
+    }]
+    assert roster_status.reconcile(filas) == []
+    assert "status_disputed" not in filas[0]
+
+
+def test_sin_las_dos_fechas_NO_se_desactiva_un_aviso():
+    """Sin saber quién vio después no se decide: UNKNOWN no es «adelante»."""
+    filas = [{
+        "player_id": "x", "status_label": "NO NFL TEAM", "status_severity": "OUT",
+        "roster_state": roster_status.ACTIVE, "roster_team": "WAS",
+        "roster_source_as_of": "2026-09-05",
+    }]
+    assert roster_status.reconcile(filas) == []
+    filas[0]["status_effective_at"] = "2026-03-11"
+    filas[0]["roster_source_as_of"] = None
+    assert roster_status.reconcile(filas) == []
+
+
+def test_un_OUT_que_el_registro_CONFIRMA_sigue_siendo_un_OUT():
+    """Tyreek Hill: la prensa dice sin equipo y el registro tampoco lo tiene."""
+    filas = [{
+        "player_id": "y", "status_label": "NO NFL TEAM", "status_severity": "OUT",
+        "status_effective_at": "2026-02-01",
+        "roster_state": roster_status.NOT_ON_ROSTER, "roster_team": None,
+        "roster_source_as_of": "2026-09-05",
+    }]
+    assert roster_status.reconcile(filas) == []
+    assert "status_disputed" not in filas[0]

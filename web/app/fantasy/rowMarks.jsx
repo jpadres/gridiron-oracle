@@ -34,8 +34,14 @@ export function RowMarks({ row, id, notes, news, availability, statusVerifiedAt 
   return (
     <>
       {row?.status_label ? (
-        <span className={row.status_severity === "OUT" ? "mark mark--out" : "mark mark--risk"}
-              title={`${row.status_detail} `
+        /* UNA AFIRMACIÓN EN DISPUTA NO SE PINTA COMO UN HECHO. Cuando el
+           registro de plantillas, posterior y oficial, contradice a la prensa,
+           la etiqueta sigue —el desacuerdo es información— pero baja a `risk` y
+           el `title` lleva las dos versiones con sus dos fechas. */
+        <span className={row.status_disputed ? "mark mark--risk"
+          : row.status_severity === "OUT" ? "mark mark--out" : "mark mark--risk"}
+              title={(row.status_disputed ? `DISPUTED. ${row.status_dispute} ` : "")
+                + `${row.status_detail} `
                 + (row.status_freshness === "CURRENT"
                   ? `Verified ${row.status_verified_at}.`
                   : `LAST VERIFIED ${row.status_verified_at}.`)
