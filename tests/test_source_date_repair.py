@@ -7,7 +7,26 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from scripts import source_date_repair as repair
+
+def _script(nombre):
+    """Carga un script de `scripts/` POR RUTA, sin depender de `sys.path`.
+
+    `from scripts import ...` funciona con `python -m pytest` —que mete el
+    directorio actual en `sys.path`— y **no** con `pytest` a secas, que es lo
+    que ejecuta CI. La suite entera se quedó sin recolectar por eso, con los
+    589 tests en verde en local. Cargar por ruta no depende de cómo se invoque.
+    """
+    import importlib.util
+    from pathlib import Path
+
+    ruta = Path(__file__).resolve().parents[1] / "scripts" / f"{nombre}.py"
+    spec = importlib.util.spec_from_file_location(f"_scripts_{nombre}", ruta)
+    modulo = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(modulo)
+    return modulo
+
+
+repair = _script("source_date_repair")
 
 
 def _repo(tmp_path: Path) -> Path:

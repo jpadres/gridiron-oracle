@@ -149,11 +149,15 @@ def test_specialists_are_checked_against_the_roster_too(tmp_path, monkeypatch):
     estaban mal — cuatro sin equipo, tres activos en otro equipo, dos en el
     equipo de prácticas. Es el pick de última ronda, donde nadie mira dos veces.
     """
-    import sys
+    import importlib.util
     from pathlib import Path
 
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-    from scripts import fantasy_build
+    # Por RUTA, no por `sys.path`: CI ejecuta `pytest` a secas y ése no mete el
+    # directorio actual en la ruta de módulos.
+    ruta = Path(__file__).resolve().parents[1] / "scripts" / "fantasy_build.py"
+    spec = importlib.util.spec_from_file_location("_scripts_fantasy_build", ruta)
+    fantasy_build = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(fantasy_build)
 
     _roster([
         {"gsis_id": "activo", "status": "ACT", "team": "KC"},
