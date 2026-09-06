@@ -21,6 +21,12 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 
 
+def normaliza(codigo: object) -> str:
+    """Todo código de equipo pasa por aquí — el `AZ`/`ARI` de la tabla."""
+    from oracle.data.ingest import normalize_team
+    return normalize_team(codigo) or str(codigo or "")
+
+
 def marcas(row: dict) -> list[str]:
     """Lo que hay que saber de una fila antes de gastarle un pick."""
     out = []
@@ -117,12 +123,22 @@ def main() -> int:
           f"{r.get('team')} | {' · '.join(marcas(r))} |\n")
 
     ks = esp.get("kickers") or []
+    # NO BASTA «no está activo». Un pateador puede estar perfectamente ACTIVO
+    # y en OTRO equipo, y entonces no tiene el puesto que el board le supone:
+    # Grupe con el board en IND y el registro en NYJ, Carlson LV/NO, Folk
+    # NYJ/ATL. La primera versión de este filtro sólo miraba `rostered is
+    # False` y el estado, así que decía SEIS conflictos donde hay NUEVE — y los
+    # tres que se dejaba fuera son los que más se parecen a un pateador normal.
     sin_puesto = [k for k in ks
                   if k.get("rostered") is False
-                  or (k.get("roster_state") and k["roster_state"] != "ACTIVE")]
+                  or (k.get("roster_state") and k["roster_state"] != "ACTIVE")
+                  or (k.get("roster_team")
+                      and normaliza(k.get("team")) != normaliza(k.get("roster_team")))]
     w(f"\n## Pateadores: {len(ks) - len(sin_puesto)} de {len(ks)} activos en su equipo\n\n")
     w("El board de especialistas sale de quien más pateó la temporada PASADA, así que un cambio\n"
-      "de puesto no lo ve solo. Estos seis NO tienen hoy el puesto que el board les supone:\n\n")
+      f"de puesto no lo ve solo. Estos {len(sin_puesto)} NO tienen hoy el puesto que el board les\n"
+      "supone — cuatro sin equipo, dos en el equipo de prácticas y tres ACTIVOS EN OTRO EQUIPO,\n"
+      "que es el caso que más se parece a un pateador normal:\n\n")
     w("| pateador | board | registro de plantillas |\n|---|---|---|\n")
     for k in sin_puesto:
         destino = k.get("roster_label") or "NO NFL TEAM"

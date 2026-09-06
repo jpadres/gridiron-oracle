@@ -53,7 +53,7 @@ import {
 import { isUnavailable, splitAvailable, tierPool as countableTier } from "./availablePool.js";
 import { marketNote } from "./marketAdp.js";
 import { RowMarks } from "./rowMarks.jsx";
-import { rosterMark, updatedSinceModel } from "./rosterMark.js";
+import { rosterMark, teamChangeMark, updatedSinceModel } from "./rosterMark.js";
 import { POSITION_STATE, replacementPoints } from "./rosterFit.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
@@ -1208,6 +1208,20 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                       {rosterMark(entry.row, { yaDiceSinEquipo: true }) ? (
                         <span className="room-row-out" title={rosterMark(entry.row, { yaDiceSinEquipo: true }).title}>
                           {rosterMark(entry.row, { yaDiceSinEquipo: true }).text}
+                        </span>
+                      ) : null}
+                      {/* CAMBIO DE EQUIPO. `rosterMark` calla con ACTIVE —es el
+                          caso normal— así que un jugador perfectamente activo
+                          EN OTRO EQUIPO salía aquí sin una sola marca. Medido en
+                          los pateadores: Grupe con el board en IND y el registro
+                          en NYJ, Carlson LV/NO y Folk NYJ/ATL, en la ronda donde
+                          nadie mira dos veces. La marca ya existía y ya se
+                          pintaba en la tarjeta de recomendación y en el semanal
+                          (`RowMarks`): faltaba justo en la lista del board. Dos
+                          superficies con distinta cobertura, otra vez. */}
+                      {teamChangeMark(entry.row) ? (
+                        <span className="room-row-risk" title={teamChangeMark(entry.row).title}>
+                          {teamChangeMark(entry.row).text}
                         </span>
                       ) : null}
                       {entry.row.rostered === false && entry.row.status_severity !== "OUT" ? (

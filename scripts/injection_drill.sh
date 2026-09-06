@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 41 fallos conocidos, 41 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 42 fallos conocidos, 42 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -180,3 +180,6 @@ run "40 un tocayo universitario colgado del jugador del board" src/oracle/narrat
 run "41 dos nombres iguales emparejados con el primero" src/oracle/narrative/press.py \
   "    return {k: v[0] for k, v in vistos.items() if len(v) == 1}|||    return {k: v[0] for k, v in vistos.items()}" \
   "python -m pytest -q tests/test_press.py"
+run "42 el cambio de equipo escondido en la lista del board" web/app/fantasy/DraftRoom.jsx \
+  "                      {teamChangeMark(entry.row) ? (|||                      {false ? (" \
+  "cd web && node --test tests/rosterMark.test.mjs"

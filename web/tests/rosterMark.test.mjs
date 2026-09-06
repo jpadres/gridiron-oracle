@@ -266,3 +266,35 @@ test("las tres superficies piden la marca a la MISMA función", () => {
     assert.match(fuente, /teamChangeMark/, `${ruta} no marca el cambio de equipo`);
   }
 });
+
+test("las DOS listas de board pintan el cambio de equipo, no sólo la tarjeta", () => {
+  /* `rosterMark` calla con ACTIVE porque es el caso normal, así que un jugador
+     ACTIVO EN OTRO EQUIPO no produce marca por esa vía. Medido en los
+     pateadores del board de 2026: Blake Grupe con el board en IND y el registro
+     en NYJ, Daniel Carlson LV/NO y Nick Folk NYJ/ATL — tres filas que salían en
+     la lista del board SIN UNA SOLA MARCA, en la ronda donde nadie mira dos
+     veces. `teamChangeMark` ya existía y ya se pintaba en la tarjeta de
+     recomendación y en el semanal (`RowMarks`): faltaba en la lista. Es el
+     fallo de las dos superficies con distinta cobertura, y por eso se comprueba
+     leyendo el JSX de las dos. */
+  for (const file of ["app/fantasy/DraftRoom.jsx", "app/fantasy/DraftMode.jsx"]) {
+    const src = readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
+    /* Se mira la CONDICIÓN del JSX, no que el nombre aparezca. La primera
+       versión pedía `teamChangeMark(` a secas y la inyección —cambiar la
+       condición por `false`— la dejaba VERDE, porque el nombre sigue estando
+       en el `title` y en el texto de dentro. Es el «la palabra aparece cerca»
+       que ya costó dos versiones en `tests/candidates.test.mjs`. */
+    assert.match(src, /\{\s*teamChangeMark\([^)]*\)\s*\?\s*\(/,
+      `${file} no pinta el cambio de equipo en su lista de board`);
+  }
+});
+
+test("un pateador ACTIVO en otro equipo produce marca de cambio", () => {
+  const grupe = { player_full_name: "Blake Grupe", position: "K", team: "IND",
+                  roster_state: "ACTIVE", roster_team: "NYJ",
+                  roster_source_as_of: "2026-09-05" };
+  assert.equal(rosterMark(grupe), null, "ACTIVE no produce marca de plantilla, y es correcto");
+  const cambio = teamChangeMark(grupe);
+  assert.ok(cambio, "un activo en otro equipo tiene que marcarse");
+  assert.equal(cambio.text, "NOW NYJ");
+});

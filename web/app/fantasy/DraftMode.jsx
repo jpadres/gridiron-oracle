@@ -65,7 +65,7 @@ import { splitAvailable, tierPool } from "./availablePool.js";
 import { marketNote } from "./marketAdp.js";
 import { RowMarks } from "./rowMarks.jsx";
 import { matchesFilter } from "./positionFilter.js";
-import { rosterMark, updatedSinceModel } from "./rosterMark.js";
+import { rosterMark, teamChangeMark, updatedSinceModel } from "./rosterMark.js";
 import { hasNumber } from "../numbers.js";
 
 
@@ -1097,6 +1097,16 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
                       <>
                         <span className="room-row-out" title={rosterMark(row, { yaDiceSinEquipo: true }).title}>
                           {rosterMark(row, { yaDiceSinEquipo: true }).text}
+                        </span>{" "}
+                      </>
+                    ) : null}
+                    {/* Y el CAMBIO DE EQUIPO, que `rosterMark` no dice porque
+                        su estado es ACTIVE: activo, sí, pero en otro sitio.
+                        Misma marca que ya pinta la tarjeta de recomendación. */}
+                    {teamChangeMark(row) ? (
+                      <>
+                        <span className="room-row-risk" title={teamChangeMark(row).title}>
+                          {teamChangeMark(row).text}
                         </span>{" "}
                       </>
                     ) : null}

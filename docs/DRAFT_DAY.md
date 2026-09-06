@@ -100,18 +100,23 @@ Si sigues el board aquí, alcanzas respecto a la sala. Ni bueno ni malo: es el d
 | 46 | Sam LaPorta | TE | DET | QUESTIONABLE (RISK) |
 | 49 | Jaylen Waddle | WR | DEN | MIA -> DEN |
 
-## Pateadores: 26 de 32 activos en su equipo
+## Pateadores: 23 de 32 activos en su equipo
 
 El board de especialistas sale de quien más pateó la temporada PASADA, así que un cambio
-de puesto no lo ve solo. Estos seis NO tienen hoy el puesto que el board les supone:
+de puesto no lo ve solo. Estos 9 NO tienen hoy el puesto que el board les
+supone — cuatro sin equipo, dos en el equipo de prácticas y tres ACTIVOS EN OTRO EQUIPO,
+que es el caso que más se parece a un pateador normal:
 
 | pateador | board | registro de plantillas |
 |---|---|---|
 | Zane Gonzalez | ATL | NOT ON A ROSTER |
 | Matt Prater | BUF | NOT ON A ROSTER |
 | Brandon McManus | GB | NOT ON A ROSTER |
+| Blake Grupe | IND | ACTIVE ROSTER (NYJ) |
+| Daniel Carlson | LV | ACTIVE ROSTER (NO) |
 | Charlie Smyth | NO | PRACTICE SQUAD (NO) |
 | Younghoe Koo | NYG | NOT ON A ROSTER |
+| Nick Folk | NYJ | ACTIVE ROSTER (ATL) |
 | Jake Moody | WAS | PRACTICE SQUAD (BAL) |
 
 Y el orden entre pateadores sigue siendo `KICKER_ORDINAL_RANKING` = REJECTED: el hueco es un hecho de tu liga, el orden K1…K12 no.
