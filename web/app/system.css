@@ -988,6 +988,8 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   border-radius: var(--radius-sm); padding: 0 3px; align-self: center;
 }
 .room-why-news { color: var(--chalk); }
+.room-why-fit { color: var(--chalk); font-weight: 600; }
+.room-why-fit--none { color: var(--flag-ink, #a33b3b); font-weight: 600; }
 .room-why-news b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
 /* SIN EQUIPO: esto SÍ es una alarma. El número de al lado no vale. */
 .room-row-noteam {

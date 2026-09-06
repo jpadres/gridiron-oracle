@@ -54,7 +54,7 @@ import { isUnavailable, splitAvailable, tierPool as countableTier } from "./avai
 import { marketNote } from "./marketAdp.js";
 import { RowMarks } from "./rowMarks.jsx";
 import { rosterMark, teamChangeMark, updatedSinceModel } from "./rosterMark.js";
-import { POSITION_STATE, replacementPoints } from "./rosterFit.js";
+import { FIT_EPSILON, POSITION_STATE, replacementPoints } from "./rosterFit.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
 // El board de VOR sólo ordena estas cuatro. K y DST son FICHABLES —existen en
@@ -443,6 +443,26 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
     () => whyNotTopAvailable(shortlist[0]?.row ?? null, forMe),
     [shortlist, forMe]
   );
+  /* La frase por fila de BEST AVAILABLE: lo que ESE jugador añade a tu
+     alineación, leído del mismo ajuste que ordena «Best pick for you». Sin
+     estructura declarada no hay frase, y con la alineación llena tampoco se
+     inventa: se dice que ya no cabe. */
+  const fitLine = useCallback((row) => {
+    const fit = forMe?.byId?.get?.(row.player_id);
+    const estado = forMe?.state?.byPosition?.[row.position];
+    if (!fit || !Number.isFinite(fit.marginal)) return null;
+    if (fit.marginal <= FIT_EPSILON) {
+      const porQue = estado === POSITION_STATE.STARTER_FILLED
+        ? `your ${row.position} starter is already filled`
+        : estado === POSITION_STATE.BENCH_DEPTH
+          ? `no open slot can start a ${row.position}`
+          : "your lineup is not better with him in it";
+      return { className: "room-why-fit room-why-fit--none",
+               text: `Adds nothing to your lineup — ${porQue}` };
+    }
+    return { className: "room-why-fit",
+             text: `Adds ${num(fit.marginal, 1)} to your lineup` };
+  }, [forMe]);
 
 
   /**
@@ -1091,6 +1111,16 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                   {entry.reasons.map((reason) => (
                     <li key={reason.kind}>{reason.text}</li>
                   ))}
+                  {/* LO QUE AÑADE A TU ALINEACIÓN, EN LA FILA DEL BOARD.
+                      La lista sigue en VOR puro —no se reordena—, pero cada
+                      fila dice el segundo término de la resta con TU
+                      plantilla: en un teléfono esta lista es lo primero que
+                      se ve, y «Last TE in tier 8» con el TE ya puesto se leía
+                      como una recomendación. La cifra sale del MISMO `byId`
+                      del motor, no de un segundo cálculo. */}
+                  {fitLine(entry.row) ? (
+                    <li className={fitLine(entry.row).className}>{fitLine(entry.row).text}</li>
+                  ) : null}
                   {context.briefs?.[entry.row.player_id] ? (
                     /* El contexto actual va con los hechos, marcado como lo que
                        es. No entra en el VOR ni reordena la lista. */
