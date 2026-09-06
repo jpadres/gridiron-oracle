@@ -39,15 +39,42 @@ const PINTA = {
   RESERVE: { text: "RESERVE LIST", tone: "out" },
   PRACTICE_SQUAD: { text: "PRACTICE SQUAD", tone: "risk" },
   EXEMPT: { text: "EXEMPT LIST", tone: "out" },
+  NOT_ON_ROSTER: { text: "NO NFL TEAM", tone: "out" },
 };
 
 /**
  * @param row fila del board.
+ * @param opciones.yaDiceSinEquipo la pantalla YA pinta «sin equipo» por su
+ *   cuenta (el Draft Room y el modo draft lo hacen desde `rostered === false`).
+ *   Sólo entonces se calla, para no decir el mismo hecho dos veces.
+ *
+ *   La primera versión lo daba por hecho SIEMPRE, y la tabla principal de
+ *   `/fantasy` no lo pintaba: Brandon Aiyuk salía en el puesto 119 sin una sola
+ *   marca, sin equipo NFL, bajo un rótulo que prometía justo ese dato. Una
+ *   promesa que la pantalla no cumple es peor que no prometer nada.
  * @returns null, o `{text, className, title}` listo para pintar.
  */
-export function rosterMark(row) {
+export function rosterMark(row, { yaDiceSinEquipo = false } = {}) {
+  if (yaDiceSinEquipo && row?.roster_state === "NOT_ON_ROSTER") return null;
   const shown = PINTA[row?.roster_state];
   if (!shown) return null;
+  // NO SE DICE DOS VECES EL MISMO HECHO. La capa de prensa ya escribe su propia
+  // etiqueta en la fila, y en once del board las dos hablaban de lo mismo:
+  // «EXEMPT LIST» y «EXEMPT LIST» pegadas, o «IR» junto a «RESERVE LIST».
+  // Cuando la prensa dice lo mismo con MÁS detalle —ella sí puede distinguir IR
+  // de PUP, con fuente— la suya es la buena y ésta sobra. Si dijeran cosas
+  // distintas se conservarían las dos: el desacuerdo es información.
+  if (dicenLoMismo(row)) return null;
+  if (row.roster_state === "NOT_ON_ROSTER") {
+    return {
+      text: shown.text,
+      className: `mark mark--${shown.tone}`,
+      title: "Not on any NFL roster as of "
+        + (row.roster_source_as_of ?? "an unknown date")
+        + ". The projection comes from his production with a team he is no longer on."
+        + " Changes no number on this row.",
+    };
+  }
   const team = row.roster_team ? ` on ${row.roster_team}` : "";
   const code = row.roster_code ? ` nflverse code ${row.roster_code}.` : "";
   const asOf = row.roster_source_as_of
@@ -71,4 +98,23 @@ export function rosterMark(row) {
  */
 export function changedSinceModel(row) {
   return row?.roster_state != null && row.roster_state !== "ACTIVE";
+}
+
+/**
+ * ¿La marca de prensa de esta fila ya dice lo que diría la de plantilla?
+ *
+ * No es «hay marca de prensa»: es que hable del MISMO hecho. Un jugador en
+ * lista de reserva con una nota de prensa que dice «IR» son la misma
+ * afirmación con dos niveles de detalle. Uno con «SUSPENDED» y estado
+ * `RESERVE` son dos hechos y se enseñan los dos.
+ */
+function dicenLoMismo(row) {
+  const prensa = String(row?.status_label ?? "").toUpperCase();
+  if (!prensa) return false;
+  if (row.roster_state === "EXEMPT") return prensa.includes("EXEMPT");
+  if (row.roster_state === "RESERVE") {
+    return prensa.includes("IR") || prensa.includes("RESERVE") || prensa.includes("PUP");
+  }
+  if (row.roster_state === "NOT_ON_ROSTER") return prensa.includes("NO NFL TEAM");
+  return false;
 }

@@ -94,15 +94,24 @@ run "18 un cortado contando como que tiene equipo" src/oracle/fantasy/roster_sta
 run "19 una situación de plantilla desconocida pasa por ACTIVA" src/oracle/fantasy/roster_status.py \
   "    desconocidos = sorted(set(frame[\"status\"].dropna().unique()) - set(FROM_NFLVERSE))|||    desconocidos = []" \
   "python -m pytest -q tests/test_roster_status.py"
-run "20 la partición y el separador vuelven a discrepar" web/app/fantasy/availablePool.js \
-  "  return row?.status_severity === \"OUT\" || row?.rostered === false;|||  return row?.status_severity === \"OUT\";" \
+run "20 el conteo de tier cuenta a quien no tiene equipo NFL" web/app/fantasy/availablePool.js \
+  "  return (rows ?? []).filter((row) => row?.rostered !== false);|||  return rows ?? [];" \
   "cd web && node --test tests/rosterMark.test.mjs"
 run "21 LAR y LA como equipos distintos" src/oracle/fantasy/roster_status.py \
-  "        if normalize_team(str(row[\"team\"])) != normalize_team(entry.team):|||        if str(row[\"team\"]).upper() != entry.team.upper():" \
+  "            team=normalize_team(str(row[\"team\"])) if row.get(\"team\") else None,|||            team=str(row[\"team\"]) if row.get(\"team\") else None," \
   "python -m pytest -q tests/test_roster_status.py"
 run "22 un artefacto de feeds VACÍO se publica igual" src/oracle/narrative/feed_fetch.py \
   "    return collected.sources_ok > 0 and len(collected.entries) > 0|||    return True" \
   "python -m pytest -q tests/test_feed_fetch.py"
+run "24 los especialistas sin comprobar su plantilla" scripts/fantasy_build.py \
+  "        roster_status.attach(kickers, entries)|||        pass  # INYECCIÓN" \
+  "python -m pytest -q tests/test_roster_status.py"
+run "25 el mismo hecho dicho dos veces en la fila" web/app/fantasy/rosterMark.js \
+  "  if (dicenLoMismo(row)) return null;|||  if (false) return null;" \
+  "cd web && node --test tests/rosterMark.test.mjs"
+run "26 sin equipo, invisible en la tabla principal" web/app/fantasy/rosterMark.js \
+  "  NOT_ON_ROSTER: { text: \"NO NFL TEAM\", tone: \"out\" },|||" \
+  "cd web && node --test tests/rosterMark.test.mjs"
 run "23 la hora de descarga como fecha de publicación del origen" scripts/source_date_repair.py \
   "    published = commit_date(url, clone_dir)
     if published is None:|||    published = commit_date(url, clone_dir)

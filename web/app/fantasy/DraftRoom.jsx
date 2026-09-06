@@ -48,7 +48,7 @@ import {
   assignSlots, PRIOR_SHARE_VISIBLE, priorShare, VALIDATED_MAX_TEAMS, valueConfidence,
 } from "./leagueValue.js";
 import { bestForMe, candidates as buildCandidates } from "./candidates.js";
-import { isUnavailable, splitAvailable } from "./availablePool.js";
+import { isUnavailable, splitAvailable, tierPool as countableTier } from "./availablePool.js";
 import { rosterMark } from "./rosterMark.js";
 import { POSITION_STATE, replacementPoints } from "./rosterFit.js";
 
@@ -516,7 +516,10 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
     // estaba fuera. Un número que se lee como escasez y que era un artefacto
     // del scroll.
     const rankedWanted = new Set(all ? RANKED_POSITIONS : RANKED_POSITIONS.filter((p) => picked.has(p)));
-    const tierPool = available.filter((r) => rankedWanted.has(r.position));
+    // Sobre QUIÉN se cuenta el tier: los que pueden jugar Y tienen equipo NFL.
+    // Contar a los 142 del board sin plantilla decía «quedan 8» sobre un tier
+    // donde la mitad son agentes libres, y ese número se lee como escasez.
+    const tierRows = countableTier(available).filter((r) => rankedWanted.has(r.position));
     // Los tiers salen de los huecos del board PUBLICADO y la lista se ordena por
     // el VOR de TU liga. Arriba las dos ordenaciones coinciden; en la cola dejan
     // de hacerlo, y entonces el separador repetía el mismo tier —«TIER 12» tres
@@ -542,7 +545,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
         monotonic = false;
       }
       if (marking && monotonic && Number.isFinite(row.tier) && row.tier !== previous) {
-        const left = tierPool.filter((r) => r.tier === row.tier).length;
+        const left = tierRows.filter((r) => r.tier === row.tier).length;
         out.push({ kind: "tier", tier: row.tier, left, key: `t${row.tier}` });
       }
       if (Number.isFinite(row.tier)) previous = row.tier;
@@ -955,9 +958,9 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                   {/* No está en el 53 de su equipo. Es un hecho del registro de
                       plantillas, no una noticia, y por eso cubre a todo el board
                       y no sólo a quien alguien curó a mano. */}
-                  {rosterMark(entry.row) ? (
-                    <li className="room-why-out" title={rosterMark(entry.row).title}>
-                      <b>{rosterMark(entry.row).text}</b> — not on the active roster
+                  {rosterMark(entry.row, { yaDiceSinEquipo: true }) ? (
+                    <li className="room-why-out" title={rosterMark(entry.row, { yaDiceSinEquipo: true }).title}>
+                      <b>{rosterMark(entry.row, { yaDiceSinEquipo: true }).text}</b> — not on the active roster
                     </li>
                   ) : null}
                   {entry.row.rookie ? (
@@ -1051,7 +1054,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
               {rows.map((entry) =>
                 entry.kind === "out" ? (
                   <li key={entry.key} className="room-out-divider" aria-label="Unavailable players">
-                    Unavailable · {entry.count} — no NFL team, suspended, exempt, IR or PUP. Value unchanged; listed last.
+                    Unavailable · {entry.count} — suspended, exempt, IR or PUP. Value unchanged; listed last.
                   </li>
                 ) : entry.kind === "tier" ? (
                   /* El corte de tier, visible al escanear y sin ser un panel.
@@ -1110,9 +1113,9 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                           {entry.row.status_label}
                         </span>
                       ) : null}
-                      {rosterMark(entry.row) ? (
-                        <span className="room-row-out" title={rosterMark(entry.row).title}>
-                          {rosterMark(entry.row).text}
+                      {rosterMark(entry.row, { yaDiceSinEquipo: true }) ? (
+                        <span className="room-row-out" title={rosterMark(entry.row, { yaDiceSinEquipo: true }).title}>
+                          {rosterMark(entry.row, { yaDiceSinEquipo: true }).text}
                         </span>
                       ) : null}
                       {entry.row.rostered === false && entry.row.status_severity !== "OUT" ? (

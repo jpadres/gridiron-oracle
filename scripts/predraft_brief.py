@@ -150,6 +150,18 @@ def construir(paths, season: int) -> dict:
         "practice_squad": grupos.get(roster_status.PRACTICE_SQUAD, []),
         "exempt": grupos.get(roster_status.EXEMPT, []),
         "team_changes": cambios,
+        # CUÁNTOS JUGADORES DISTINTOS, no cuántas filas. Los seis cambios de
+        # equipo están TAMBIÉN en reserva o en prácticas, así que sumar las
+        # cinco listas contaba a algunos dos veces y la pantalla decía 40 donde
+        # hay 34. Se cuenta aquí, una vez, y la interfaz lo pinta.
+        "changed_players": len({
+            r.get("player_id")
+            for grupo in (grupos.get(roster_status.NOT_ON_ROSTER, []),
+                          grupos.get(roster_status.RESERVE, []),
+                          grupos.get(roster_status.PRACTICE_SQUAD, []),
+                          grupos.get(roster_status.EXEMPT, []), cambios)
+            for r in grupo if r.get("player_id")
+        }),
         "kickers": kickers_por_equipo(roster_path),
         "pool": {k: v for k, v in sorted(pool.items()) if k},
         "rookies_on_board": len(novatos),

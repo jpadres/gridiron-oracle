@@ -8,6 +8,7 @@ import { Fragment } from "react";
 
 import { pct } from "../data/model.js";
 import { availabilityMark } from "./availability.js";
+import { rosterMark } from "./fantasy/rosterMark.js";
 import { Headshot } from "./headshot.jsx";
 
 export function Callout({ title, children }) {
@@ -264,6 +265,19 @@ export function RankTable({
                               : `LAST VERIFIED ${row.status_verified_at}.`)
                             + " Changes no number on this row."}>
                           {row.status_label}
+                        </span>
+                      ) : null}
+                      {/* SITUACIÓN DE PLANTILLA. El rótulo de arriba promete
+                          «quién fue cortado, quién está en una lista de reserva,
+                          quién cambió de equipo» y esta tabla no lo pintaba:
+                          Brandon Aiyuk salía el 119 sin equipo NFL y sin una
+                          sola marca, con «70% PRIOR» al lado, que se lee como un
+                          matiz de modelado. Una promesa que la pantalla no
+                          cumple es peor que no prometer nada. */}
+                      {rosterMark(row) ? (
+                        <span className={rosterMark(row).className}
+                              title={rosterMark(row).title}>
+                          {rosterMark(row).text}
                         </span>
                       ) : null}
                       {/* Cuánto del número es el prior de la posición y no

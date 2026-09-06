@@ -5,8 +5,8 @@
 `mark_rostered` preguntaba «¿aparece este jugador en algún roster?» y daba por
 bueno a todo el que apareciera. El fichero de nflverse trae **también** a los
 cortados, a los retirados y a los que están en una lista de reserva, así que la
-respuesta era que sí para 421 jugadores cortados. En el board de 2026 eso son
-73 filas que se leían como un jugador normal el día antes de un draft.
+respuesta era que sí para los 444 cortados y retirados. En el board de 2026
+eso son 76 filas que se leían como un jugador normal el día antes de un draft.
 
 Este módulo separa lo que aquel booleano juntaba, con las categorías que el
 propio fichero declara en su columna `status` —no las inventa nadie aquí—:
@@ -44,6 +44,8 @@ from datetime import date
 from pathlib import Path
 
 import pandas as pd
+
+from ..data.ingest import normalize_team
 
 ACTIVE = "ACTIVE"
 RESERVE = "RESERVE"
@@ -83,7 +85,7 @@ class RosterStageUnknown(ValueError):
 
     Falla cerrado por el mismo motivo que `regular_season()`: ante un cambio de
     esquema, seguir devolviendo «todos activos» convertiría un fallo en un board
-    que afirma que 421 cortados están en su equipo.
+    que afirma que 444 cortados y retirados están en su equipo.
     """
 
 
@@ -164,7 +166,11 @@ def load(roster_path: Path) -> dict[str, RosterEntry]:
         entries[str(row["gsis_id"])] = RosterEntry(
             player_id=str(row["gsis_id"]),
             state=FROM_NFLVERSE[raw],
-            team=str(row["team"]) if row.get("team") else None,
+            # NORMALIZADO AQUÍ, no en cada consumidor. El fichero escribe «LA»
+            # y el board «LAR»: `team_changes` ya lo comparaba bien, pero el
+            # campo CRUDO viajaba a la pantalla y el pateador de los Rams salía
+            # «on LA» junto a una fila que dice LAR. Un solo sitio.
+            team=normalize_team(str(row["team"])) if row.get("team") else None,
             roster_code=str(code) if code and not pd.isna(code) else None,
             season=int(row["season"]) if row.get("season") else 0,
             week=week,
@@ -226,6 +232,13 @@ def team_changes(rows: list[dict], entries: dict[str, RosterEntry]) -> list[dict
     for row in rows:
         entry = entries.get(str(row.get("player_id")))
         if entry is None or not entry.team or not row.get("team"):
+            continue
+        # A QUIEN NO TIENE EQUIPO NO SE LE ASIGNA UNO. El fichero conserva el
+        # equipo que lo CORTÓ, así que Jashaun Corbin salía a la vez en «sin
+        # plantilla» y en «NYG → DAL», y Dallas es quien lo despidió. Afirmar un
+        # equipo de quien no lo tiene es justo el dato inventado que este módulo
+        # existe para no producir.
+        if not entry.has_team:
             continue
         if normalize_team(str(row["team"])) != normalize_team(entry.team):
             salida.append(

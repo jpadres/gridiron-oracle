@@ -2208,3 +2208,16 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   .room-pick-hero { grid-template-columns: auto minmax(0, 1fr); }
   .room-pick-hero .room-cand-vor { grid-column: 2; text-align: left; }
 }
+
+/* Las dos fechas del dato en la cabecera de la sala. Una línea, tono de
+   apunte: es contexto permanente, no una alarma — y la de las plantillas es
+   tres semanas más nueva que la del modelo, que es justo lo que hay que ver. */
+.room-asof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.75rem;
+  margin: 0.15rem 0 0;
+  font-size: var(--text-caption);
+  color: var(--muted);
+}
+.room-asof span + span::before { content: "·"; margin-right: 0.75rem; }

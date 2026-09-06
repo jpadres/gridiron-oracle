@@ -20,14 +20,43 @@
  * ¿Este jugador NO va a jugar? UNA definición, para las tres cosas que dependen
  * de ella: la partición, el separador de la lista y la clase de la fila.
  *
- * Tenerla en tres sitios ya se rompió: al mover «sin equipo NFL» a
- * `unavailable`, el separador y la clase `is-out` seguían mirando SÓLO la capa
- * de prensa, así que 142 filas caían detrás del separador sin que el separador
- * llegara a pintarse — la lista decía que estaban disponibles y el orden decía
- * que no. Es el fallo de los dos traductores, ahora dentro de una sola pantalla.
+ * Tenerla en tres sitios ya se rompió una vez y se arregló con esta función.
+ *
+ * ## Por qué SIN EQUIPO no entra aquí, aunque lo parezca
+ *
+ * Se probó: mover `rostered === false` a `unavailable` deja los conteos de tier
+ * limpios —142 agentes libres dejaban de contar como «8 RBs left in tier»— y
+ * **rompe el motor bajo presión de pool**. La tortura de 780 drafts lo puso en
+ * rojo en cuatro: con 32 equipos y rivales que agotan la posición, el asistente
+ * terminaba con huecos TITULARES vacíos habiendo jugadores en el board.
+ *
+ * Y un hueco vacío no rinde el nivel de reemplazo: rinde CERO. Es el error que
+ * E23 midió en el baseline y el 47% de la ventaja que se le atribuía a este
+ * motor, así que cometerlo aquí invalidaría su razón de existir.
+ *
+ * El conteo de tier se arregla donde estaba mal —contando— y no escondiendo
+ * gente del motor. Ver `tierPool`.
  */
 export function isUnavailable(row) {
-  return row?.status_severity === "OUT" || row?.rostered === false;
+  return row?.status_severity === "OUT";
+}
+
+/**
+ * Sobre quién se CUENTA «cuántos quedan de este tier».
+ *
+ *     «8 RBs LEFT IN TIER 6» SE LEE COMO ESCASEZ Y SE DECIDE CON ELLO.
+ *
+ * Contarlo sobre todo el disponible metía a los 142 del board que no están en
+ * ninguna plantilla de la NFL: el número decía que podías esperar y la mitad de
+ * lo que contaba eran agentes libres sin equipo. Es el artefacto del «2 left in
+ * tier» por tercera vez — antes por contar sobre lo pintado, ahora por contar
+ * sobre quien no juega.
+ *
+ * Los que sí pueden jugar siguen en el pool del motor: esto acota el CONTEO,
+ * no la disponibilidad.
+ */
+export function tierPool(rows) {
+  return (rows ?? []).filter((row) => row?.rostered !== false);
 }
 
 export function splitAvailable(rows, taken) {

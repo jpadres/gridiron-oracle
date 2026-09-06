@@ -61,7 +61,7 @@ import {
 } from "./leagueValue.js";
 import { replacementPoints } from "./rosterFit.js";
 import { syncPool } from "./sleeperAccount.js";
-import { splitAvailable } from "./availablePool.js";
+import { splitAvailable, tierPool } from "./availablePool.js";
 import { rosterMark } from "./rosterMark.js";
 import { hasNumber } from "../numbers.js";
 
@@ -527,7 +527,7 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
      un número que se lee como escasez y era un artefacto del recorte. Ya estaba
      corregido en el Draft Room y aquí no — el fallo de los dos traductores. */
   const sameTier = onClock
-    ? available.filter(
+    ? tierPool(available).filter(
         (row) => row.position === onClock.position && row.tier === onClock.tier
       ).length
     : 0;
@@ -780,7 +780,7 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
               otra vez, esta vez en la frase. */}
           <p className="eyebrow next-h">
             Unavailable · showing {Math.min(6, unavailable.length)} of {unavailable.length} —
-            no NFL team, suspended, exempt, IR or PUP. Value unchanged; listed last.
+            suspended, exempt, IR or PUP. Value unchanged; listed last.
           </p>
           <ol className="picks picks--found" aria-label="Unavailable players">
             {unavailable.slice(0, 6).map((row) => (
@@ -1041,10 +1041,10 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
                         de septiembre, tres semanas más nuevo que el board, y es
                         la respuesta a «¿está este tío en el 53 de su equipo?».
                         No mueve el VOR de al lado: lo dice. */}
-                    {rosterMark(row) ? (
+                    {rosterMark(row, { yaDiceSinEquipo: true }) ? (
                       <>
-                        <span className="room-row-out" title={rosterMark(row).title}>
-                          {rosterMark(row).text}
+                        <span className="room-row-out" title={rosterMark(row, { yaDiceSinEquipo: true }).title}>
+                          {rosterMark(row, { yaDiceSinEquipo: true }).text}
                         </span>{" "}
                       </>
                     ) : null}

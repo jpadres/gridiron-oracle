@@ -2,7 +2,7 @@
 
 El fallo que estas pruebas existen para impedir: `mark_rostered` preguntaba
 «¿tiene fila?» y el roster de nflverse trae también a los cortados y a los
-retirados. En el board de 2026, 73 jugadores cortados se leían como un jugador
+retirados. En el board de 2026, 76 de ellos se leían como un jugador
 normal la víspera de un draft.
 """
 from __future__ import annotations
@@ -124,3 +124,64 @@ def test_LA_and_LAR_are_the_same_team_and_not_a_change(tmp_path):
     cambios = roster_status.team_changes(filas, e)
     assert [c["player_id"] for c in cambios] == ["real"], "LA y LAR no son equipos distintos"
     assert cambios[0]["board_team"] == "KC" and cambios[0]["roster_team"] == "DET"
+
+
+def test_the_roster_team_is_normalized_at_load_not_by_each_consumer(tmp_path):
+    """«LA» y «LAR» son el mismo equipo también cuando el campo se PINTA.
+
+    `team_changes` ya comparaba normalizado, pero `roster_team` viajaba crudo a
+    la interfaz: el pateador de los Rams salía «on LA» junto a una fila que dice
+    LAR. Se normaliza una vez, al leer.
+    """
+    path = _roster([{"gsis_id": "x", "status": "ACT", "team": "LA"}], tmp_path)
+    e = roster_status.load(path)
+    assert e["x"].team == "LAR"
+    filas = [{"player_id": "x"}]
+    roster_status.attach(filas, e)
+    assert filas[0]["roster_team"] == "LAR"
+
+
+def test_specialists_are_checked_against_the_roster_too(tmp_path, monkeypatch):
+    """Los pateadores y las defensas pasan por la MISMA capa que el board.
+
+    Cubría las 552 filas del board y CERO de los 64 especialistas, que salen de
+    quien más pateó la temporada PASADA: diez de los 32 pateadores publicados
+    estaban mal — cuatro sin equipo, tres activos en otro equipo, dos en el
+    equipo de prácticas. Es el pick de última ronda, donde nadie mira dos veces.
+    """
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from scripts import fantasy_build
+
+    _roster([
+        {"gsis_id": "activo", "status": "ACT", "team": "KC"},
+        {"gsis_id": "cortado", "status": "CUT", "team": "ATL",
+         "status_description_abbr": "W03"},
+    ], tmp_path)
+
+    kickers = [{"player_id": "activo", "team": "KC", "position": "K"},
+               {"player_id": "cortado", "team": "ATL", "position": "K"}]
+    defenses = [{"player_id": "DST_KC", "team": "KC", "position": "DST"}]
+
+    def fake_specialists(players, team_games, season, raw_dir=None):
+        entries = roster_status.load(raw_dir / f"roster_{season}.parquet") if raw_dir else {}
+        if entries:
+            roster_status.attach(kickers, entries)
+            roster_status.attach(defenses, entries)
+        return {"kickers": kickers, "defenses": defenses}
+
+    # Se comprueba el CONTRATO que `_specialists` tiene que cumplir: que la
+    # función real llame a `attach`. Si alguien la quita, esto cae.
+    fuente = Path(fantasy_build.__file__).read_text(encoding="utf-8")
+    assert "roster_status.attach(kickers, entries)" in fuente, (
+        "los pateadores publicados no se comprueban contra la plantilla")
+    assert "roster_status.attach(defenses, entries)" in fuente
+
+    fake_specialists(None, None, 2026, raw_dir=tmp_path)
+    assert kickers[0]["roster_state"] == roster_status.ACTIVE
+    assert kickers[1]["roster_state"] == roster_status.NOT_ON_ROSTER
+    # Y la defensa, cuyo id sintético no está en ningún roster, queda marcada
+    # explícitamente en vez de parecer normal.
+    assert defenses[0]["roster_state"] == roster_status.NOT_ON_ROSTER

@@ -687,7 +687,7 @@ def main(argv: list[str] | None = None) -> int:
                 # draft manual. Llevan hechos de la temporada anterior y NADA
                 # más: ni proyección ni VOR, porque el orden de pateadores está
                 # rechazado (E8b) y el modelo de DST no existe (DESIGN_ONLY).
-                "specialists": _specialists(players, team_games, season),
+                "specialists": _specialists(players, team_games, season, paths.raw),
                 # Las tres vistas viajan por separado: una sola correlación
                 # sobre el pool entero es justo la que no contesta nada.
                 "validation": validation["by_position"].round(4).to_dict(orient="records"),
@@ -708,7 +708,8 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
-def _specialists(players: pd.DataFrame, team_games: pd.DataFrame, season: int) -> dict:
+def _specialists(players: pd.DataFrame, team_games: pd.DataFrame, season: int,
+                 raw_dir: Path | None = None) -> dict:
     """El pateador titular de cada equipo y las 32 defensas, con sus hechos.
 
     El titular se elige por VOLUMEN de intentos en la temporada anterior (el
@@ -773,6 +774,15 @@ def _specialists(players: pd.DataFrame, team_games: pd.DataFrame, season: int) -
                     "takeaways_pg": round(float(row["interceptions"] + row["fumbles"]), 2),
                 }
             )
+    # LOS ESPECIALISTAS TAMBIÉN SON JUGADORES, y el pateador se elige por lo que
+    # hizo la temporada PASADA: si lo cortaron en agosto, esa fila propone a
+    # alguien que ya no está. Medido el 2026-09-06 antes de arreglarlo: de los 32
+    # publicados, 4 sin equipo, 3 activos en OTRO equipo y 2 en el equipo de
+    # prácticas. Es un pick de última ronda, que es donde nadie mira dos veces.
+    entries = roster_status.load(raw_dir / f"roster_{season}.parquet") if raw_dir else {}
+    if entries:
+        roster_status.attach(kickers, entries)
+        roster_status.attach(defenses, entries)
     return {"kickers": kickers, "defenses": defenses}
 
 

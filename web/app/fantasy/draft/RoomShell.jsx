@@ -453,6 +453,14 @@ export default function RoomShell({ board, context }) {
           Lo que sí hace falta es la identidad de la liga, y cabe en la línea. */}
       <header className="room-head">
         <h1>Draft Assistant</h1>
+        {/* LAS DOS FECHAS, TAMBIÉN AQUÍ. El panel completo vivía sólo en la
+            pantalla de alta, así que quien guardó su liga ayer entraba mañana
+            y no las veía nunca — y mañana es cuando se draftea. En la sala va
+            comprimido a una línea: el detalle está en el panel de alta. */}
+        <p className="room-asof">
+          <span>model {context.modelDate ?? "UNKNOWN"}</span>
+          <span>rosters {context.rosterDate ?? "UNKNOWN"}</span>
+        </p>
         {/* La cabecera lee la liga EFECTIVA, no la tecleada. Con Sleeper
             conectado enseñaba «12-team · slot 9» mientras la parrilla dibujaba
             10 columnas y marcaba el puesto 2: los dos números en pantalla a la
@@ -500,10 +508,10 @@ export default function RoomShell({ board, context }) {
 function PreDraftFreshness({ modelDate, rosterDate, predraft }) {
   if (!modelDate && !rosterDate) return null;
   const n = (list) => (Array.isArray(list) ? list.length : 0);
-  const cambios = predraft
-    ? n(predraft.not_on_roster) + n(predraft.reserve) + n(predraft.practice_squad)
-      + n(predraft.exempt) + n(predraft.team_changes)
-    : 0;
+  // JUGADORES DISTINTOS, no la suma de las listas: los seis cambios de equipo
+  // están TAMBIÉN en reserva o en prácticas, así que sumar decía 40 donde hay
+  // 34. Lo cuenta `predraft_brief.py` una vez; aquí sólo se pinta.
+  const cambios = predraft?.changed_players ?? 0;
   return (
     <div className="note">
       <p>
@@ -514,8 +522,9 @@ function PreDraftFreshness({ modelDate, rosterDate, predraft }) {
       </p>
       {predraft && cambios > 0 ? (
         <p className="caption">
-          {cambios} of the top {predraft.detail_through_rank} are not on an active
-          roster or changed team after the model date:{" "}
+          {cambios} players in the top {predraft.detail_through_rank} are not on an
+          active roster, or are on a different team, as of the roster date. Some
+          appear in more than one line below:{" "}
           {n(predraft.not_on_roster)} with no NFL team, {n(predraft.reserve)} on a
           reserve list, {n(predraft.practice_squad)} on a practice squad,{" "}
           {n(predraft.exempt)} exempt, {n(predraft.team_changes)} on a different team.

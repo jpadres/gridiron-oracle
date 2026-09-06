@@ -81,6 +81,11 @@ jobs:
           args=""
           if [ -n "${{ inputs.season }}" ]; then args="--season ${{ inputs.season }}"; fi
           if [ -n "${{ inputs.week }}" ]; then args="$args --week ${{ inputs.week }}"; fi
+          # El informe previo al draft cruza el board con el registro de plantillas.
+          # Sale a `out/`, que está en .gitignore, así que si NO se genera aquí el
+          # export escribe `predraft: null` y el panel del asistente desaparece sin
+          # que nada falle — el fallo de «Today's Intelligence», otra vez.
+          python scripts/predraft_brief.py
           python scripts/export_web_data.py --with-narrative $args
 
       - name: Comprobar que la web sigue construyendo

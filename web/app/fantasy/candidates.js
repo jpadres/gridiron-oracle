@@ -350,6 +350,32 @@ export function bestForMe(available, {
       muestraCorta = llenanHueco.length > 0;
     }
 
+    /* Y EL ÚLTIMO ESCALÓN DE VERDAD: nadie CON EQUIPO NFL queda para ese hueco.
+       Pasa cuando los rivales agotan la posición —32 equipos con superflex y
+       bots que van a por receptores se llevan los 144 con plantilla— y hasta
+       hoy el motor prefería dejar el hueco titular VACÍO. La tortura de 780
+       drafts lo puso en rojo en cuatro casos.
+
+       Es exactamente el argumento del escalón anterior llevado a su conclusión:
+       la regla «un jugador sin equipo no se RECOMIENDA» existe para no ofrecer
+       un agente libre como si fuera un titular, no para dejarte sin alineación.
+       Un hueco vacío rinde CERO —el error que E23 midió en el baseline y el 47%
+       de la ventaja atribuida a este motor—, y un agente libre rinde CERO O MÁS.
+
+       La fila ya llega marcada SIN EQUIPO por `rostered === false`, así que se
+       ofrece diciendo lo que es. Sólo en esta rama, y sólo cuando la anterior
+       salió vacía. */
+    let sinEquipo = false;
+    if (llenanHueco.length === 0) {
+      const conSinEquipo = (available ?? []).filter(
+        (row) => RANKED_POSITIONS.includes(row.position)
+          && row.status_severity !== "OUT"
+          && posDeHuecosAbiertos.has(row.position)
+      ).sort(porPuntos);
+      llenanHueco = conSinEquipo;
+      sinEquipo = llenanHueco.length > 0;
+    }
+
     if (llenanHueco.length > 0) {
       /* El motivo nombra EL HUECO QUE SE LLENARÍA, no la posición del jugador.
          Escribía «fills an open WR slot» sobre un receptor que sólo entraba por
@@ -373,9 +399,14 @@ export function bestForMe(available, {
                 ? `Fills your open ${slot}, which would otherwise score 0`
                 : "Fills an open starting slot that would otherwise score 0",
             },
-            muestraCorta
-              ? { kind: "SHORT_SAMPLE", text: "Below the sample threshold — offered only because the slot would stay empty" }
-              : { kind: "BELOW_REPLACEMENT", text: "No one left beats replacement level at your open slots" },
+            sinEquipo
+              // La etiqueta tiene que ser CIERTA: no es «muestra corta», es que
+              // no queda nadie con equipo NFL. Decir lo otro sería etiquetar mal
+              // a alguien que sí tiene muestra — el fallo que ya costó 33 rojos.
+              ? { kind: "NO_NFL_TEAM", text: "No rostered player is left for this slot — this one has no NFL team" }
+              : muestraCorta
+                ? { kind: "SHORT_SAMPLE", text: "Below the sample threshold — offered only because the slot would stay empty" }
+                : { kind: "BELOW_REPLACEMENT", text: "No one left beats replacement level at your open slots" },
           ],
         };
       });
@@ -390,6 +421,9 @@ export function bestForMe(available, {
         // de «lo que más añade»: aquí nadie añade nada sobre el reemplazo.
         fillingEmptySlot: true,
         shortSampleOnly: muestraCorta,
+        // Nadie con equipo NFL queda para el hueco. La pantalla lo dice; la
+        // fila ya llega marcada SIN EQUIPO por su propio campo.
+        noRosteredLeft: sinEquipo,
         bench: [],
       };
     }
