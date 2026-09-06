@@ -137,7 +137,10 @@ run "30 el cupo escondiendo una mejora de +93" web/app/fantasy/candidates.js \
   "  let mejoran = rows.filter((row) => MEJORA(byId.get(row.player_id)));|||  let mejoran = rows.filter((row) => MEJORA(byId.get(row.player_id)) && puedeJugar(row));" \
   "cd web && node --test tests/engineRegressions.test.mjs"
 run "31 el filtro de la interfaz acotando el motor" web/app/fantasy/DraftMode.jsx \
-  "    () => bestForMe(available, {|||    () => bestForMe(suggestions, {" \
+  "    () => bestForMe(poolParaElMotor, {|||    () => bestForMe(suggestions, {" \
+  "cd web && node --test tests/candidates.test.mjs"
+run "37 el motor sin pateadores ni defensas en su pool" web/app/fantasy/DraftRoom.jsx \
+  "    () => available.concat(availableSpecialists),|||    () => available," \
   "cd web && node --test tests/candidates.test.mjs"
 run "32 una marca de prensa moviendo el VOR" src/oracle/narrative/status.py \
   "        row[\"status_severity\"] = entry.severity|||        row[\"status_severity\"] = entry.severity
