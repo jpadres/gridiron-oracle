@@ -1,4 +1,4 @@
-import { model } from "../../data/model.js";
+import { dataDate, model } from "../../data/model.js";
 import { AVAILABILITY_LABEL } from "../availability.js";
 import { Callout, ImpactTag, NoDataYet, Note as Aside, Sources, Stat } from "../ui.jsx";
 import { partition } from "./select.js";
@@ -7,7 +7,7 @@ import Briefs from "./Briefs.jsx";
 export const metadata = {
   title: "Gridiron Oracle — Research",
   description:
-    "Daily sweep of beat writers, insiders and camp reports across all 32 teams, each with its source. None of it touches the model.",
+    "Beat writers, insiders and camp reports, each with its source and its date. None of it touches the model.",
 };
 
 /**
@@ -158,7 +158,7 @@ export default function Research() {
       <>
         <h1>Research</h1>
         <p className="lede">
-          Daily sweep of beat writers, insiders and camp reports across all 32 teams.
+          Beat writers, insiders and camp reports, each with its source and its date.
         </p>
         <NoDataYet />
         <p className="caption">
@@ -190,14 +190,29 @@ export default function Research() {
 
   const linked = items.filter((item) => item.player_ids?.length).length;
   const lastSweep = items[0]?.date;
+  // La fecha de la SECCIÓN, del payload: el `published_at` más nuevo que se
+  // publica. Ver `fecha_del_research` en `scripts/export_web_data.py`.
+  const researchDate = dataDate("research");
+  // CUÁNTOS EQUIPOS HAY DE VERDAD en esta ventana. La página prometía los 32.
+  const equiposCubiertos = new Set(
+    items.map((item) => item.team).filter((team) => team && team !== "LIGA"),
+  ).size;
 
   return (
     <>
       <h1>Research</h1>
+      {/* LO QUE DE VERDAD PASA, no lo que el workflow haría con su secret puesto.
+          Decía «every day this sweeps ... all 32 teams»: el barrido que resume
+          y juzga necesita `ANTHROPIC_API_KEY`, que hoy no está, así que no
+          corre a diario; y «los 32 equipos» era una aspiración — en esta
+          ventana hay {equiposCubiertos} con alguna ficha. Las dos frases eran
+          ciertas del diseño y falsas del sitio, que es la peor clase de
+          afirmación porque nada falla. La cifra sale de las fichas. */}
       <p className="lede">
-        Every day this sweeps what gets published about all 32 teams — national and local
-        beats, ESPN, team blogs and insiders — and summarizes it here with the source link
-        alongside. Anything without a checkable source does not get published.
+        National and local beats, ESPN, team blogs and insiders, summarized with the source
+        link alongside. Anything without a checkable source does not get published. This
+        window covers <strong>{equiposCubiertos} of 32 teams</strong>; the last sweep ran{" "}
+        {lastSweep ? formatDate(lastSweep, { month: "long", day: "numeric" }) : "on an unknown date"}.
       </p>
 
       <Callout title="None of this touches the model. On purpose.">
@@ -220,10 +235,23 @@ export default function Research() {
         <Stat label="Move a lineup" value={today.length + destacadas.length}
               hint="Relevance 4 or 5" />
         <Stat label="Linked to a player" value={linked} hint="From the weekly rankings" />
+        {/* LAS DOS FECHAS, SEPARADAS Y CON ESA PALABRA DELANTE.
+            «Newest report» es de cuándo son las NOTICIAS —sale de `data_dates`,
+            que sólo mira `published_at`— y «last sweep» es cuándo se MIRÓ. Una
+            sola caja con la del barrido diría que la prensa está al día porque
+            el barrido corrió, que es la regla 5 rota exactamente como ya pasó
+            en `Briefs.jsx` con «published» sobre `first_seen_at`.
+            El pie del sitio promete que cada sección fecha lo suyo; ésta es la
+            de research, y `tests/dataDate.test.mjs` lo exige por sección. */}
+        <Stat
+          label="Newest report"
+          value={researchDate ? formatDate(researchDate, { month: "short", day: "numeric" }) : "unknown date"}
+          hint={researchDate ? "Publication date, not sweep date" : "No item carries a publication date"}
+        />
         <Stat
           label="Last sweep"
           value={lastSweep ? formatDate(lastSweep, { month: "short", day: "numeric" }) : "—"}
-          hint="Daily, 12:00 UTC"
+          hint="When this was last checked"
         />
       </div>
 
@@ -369,11 +397,17 @@ export default function Research() {
         insider report gets summarized here just as well as a right one — that is what the
         confidence tag is for, and why the link is mandatory.
       </p>
+      {/* DOS ETAPAS Y FALLAN POR SEPARADO, y decirlo importa porque una de las
+          dos está parada. Sin `ANTHROPIC_API_KEY` no hay resumen ni juicio;
+          bajar un RSS no necesita un modelo y ese sí corre. */}
       <p className="caption">
-        The sweep is run by Claude with web search, once a day. Items without a valid link are
-        discarded before they reach this page, and the full history stays in{" "}
-        <code>research/</code> inside the repository: if the link dies tomorrow, what was
-        published today still exists.
+        There are two stages here and they fail separately. Reading the feeds is deterministic
+        and needs no key — it runs on a schedule and records which sources answered. Summarizing
+        and judging is run by Claude with web search and needs an API key; when the key is
+        missing that stage does not run at all, and nothing on this page gets newer. Items
+        without a valid link are discarded before they reach this page, and the full history
+        stays in <code>research/</code> inside the repository: if the link dies tomorrow, what
+        was published today still exists.
       </p>
     </>
   );

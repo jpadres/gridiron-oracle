@@ -186,6 +186,31 @@ def test_specialists_are_checked_against_the_roster_too(tmp_path, monkeypatch):
     fake_specialists(None, None, 2026, raw_dir=tmp_path)
     assert kickers[0]["roster_state"] == roster_status.ACTIVE
     assert kickers[1]["roster_state"] == roster_status.NOT_ON_ROSTER
-    # Y la defensa, cuyo id sintético no está en ningún roster, queda marcada
-    # explícitamente en vez de parecer normal.
-    assert defenses[0]["roster_state"] == roster_status.NOT_ON_ROSTER
+    # Y LA DEFENSA NO ES UNA PERSONA. La versión anterior de esta prueba exigía
+    # `NOT_ON_ROSTER` para ella —«no está en ningún roster»— y con eso el
+    # payload publicaba las 32 defensas como si no tuvieran equipo NFL: un
+    # hecho inventado, a un `rosterMark` de distancia de pintarse «NO NFL
+    # TEAM» junto a la defensa de Kansas City. Marcarla es correcto; marcarla
+    # con una de las cinco respuestas de un jugador, no.
+    assert defenses[0]["roster_state"] == roster_status.TEAM_UNIT
+    assert defenses[0]["roster_team"] == "KC"
+    assert defenses[0]["roster_state"] not in roster_status.NO_TEAM, (
+        "una defensa nunca puede contar como «sin equipo NFL»")
+
+
+def test_la_ausencia_de_fila_se_fecha_con_el_fichero(tmp_path):
+    """«No aparece en el roster» es una afirmación SOBRE EL FICHERO.
+
+    Sin fecha, la pantalla escribía «not on any NFL roster as of an unknown
+    date» en 66 filas del board teniendo la fecha del fichero delante. La
+    afirmación era cierta y la presentación rompía la regla 5: una afirmación
+    de actualidad sin su fecha.
+    """
+    _roster([{"gsis_id": "activo", "status": "ACT", "team": "KC"}], tmp_path)
+    entries = roster_status.load(tmp_path / "roster_2026.parquet")
+    fecha = next(iter(entries.values())).source_as_of
+    filas = [{"player_id": "fantasma", "team": "KC", "position": "WR"}]
+    roster_status.attach(filas, entries)
+    assert filas[0]["roster_state"] == roster_status.NOT_ON_ROSTER
+    assert filas[0]["roster_basis"] == "SIN_FILA"
+    assert filas[0]["roster_source_as_of"] == fecha

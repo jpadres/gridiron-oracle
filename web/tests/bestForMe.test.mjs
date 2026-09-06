@@ -320,3 +320,80 @@ function ramaDeHuecoVacio() {
   assert.ok(r && r.primary, "el caso base tiene que producir una recomendación");
   return r;
 }
+
+/* ── §7: un hueco titular NUNCA se queda vacío por falta de candidatos ─────
+ *
+ *     UN HUECO VACÍO NO RINDE EL NIVEL DE REEMPLAZO: RINDE CERO.
+ *
+ * Es el error exacto que E23 midió en el BASELINE —0,27 huecos por equipo, el
+ * 47% de la ventaja atribuida a este motor— así que cometerlo aquí invalidaría
+ * la razón de existir del motor. Lo destapó la tortura de 780 drafts, que NO
+ * corre en `ci.yml`: estas tres pruebas son la versión rápida y permanente,
+ * una por escalón de la escalera de respaldo. */
+
+test("sin nadie que mejore, el hueco titular se llena igual (escalón 1)", () => {
+  // Todos por debajo del reemplazo: `MEJORA` los descarta a todos y el motor
+  // se iba al banquillo dejando el hueco de TE abierto para siempre.
+  n = 0;
+  const flojos = [p("TE", 40), p("TE", 35)];
+  const out = bestForMe(flojos, {
+    roster: [], rosterPositions: ["TE", "BN"], replacement: REP,
+  });
+  assert.ok(out?.primary, "tiene que ofrecer a alguien para el hueco de TE");
+  assert.equal(out.primary.row.position, "TE");
+  assert.equal(out.fillingEmptySlot, true);
+  assert.ok(out.primary.reasons.some((r) => r.kind === "EMPTY_SLOT"));
+});
+
+test("y si sólo quedan de muestra corta, se ofrecen DICIENDO que lo son (escalón 2)", () => {
+  n = 0;
+  // `wg` bajo = por debajo del umbral de muestra: `draftablePool` los excluye
+  // de la recomendación normal, no de llenar un hueco obligatorio.
+  const cortos = [p("TE", 40, { wg: 1 }), p("TE", 35, { wg: 1 })];
+  const out = bestForMe(cortos, {
+    roster: [], rosterPositions: ["TE", "BN"], replacement: REP,
+  });
+  assert.ok(out?.primary, "un hueco obligatorio se llena aunque la muestra sea corta");
+  assert.equal(out.shortSampleOnly, true);
+  assert.ok(out.primary.reasons.some((r) => r.kind === "SHORT_SAMPLE"),
+    "y la etiqueta tiene que ser CIERTA: muestra corta, no otra cosa");
+});
+
+test("y si no queda NADIE con equipo NFL, tampoco se deja vacío (escalón 3)", () => {
+  n = 0;
+  const sinEquipo = [p("TE", 40, { rostered: false }), p("TE", 35, { rostered: false })];
+  const out = bestForMe(sinEquipo, {
+    roster: [], rosterPositions: ["TE", "BN"], replacement: REP,
+  });
+  assert.ok(out?.primary, "un agente libre rinde CERO O MÁS; el hueco vacío rinde cero");
+  assert.equal(out.noRosteredLeft, true);
+  assert.ok(out.primary.reasons.some((r) => r.kind === "NO_NFL_TEAM"),
+    "y se dice lo que es: no queda nadie con equipo para ese hueco");
+});
+
+test("el escalón 3 NO se usa si queda alguien con equipo", () => {
+  /* La otra mitad, y la que impide que «arreglar el hueco vacío» se convierta
+     en «ofrecer agentes libres siempre»: mientras exista un jugador con equipo
+     para ese hueco, el que no lo tiene no encabeza. */
+  n = 0;
+  const mezcla = [p("TE", 300, { rostered: false }), p("TE", 40, { rostered: true })];
+  const out = bestForMe(mezcla, {
+    roster: [], rosterPositions: ["TE", "BN"], replacement: REP,
+  });
+  assert.ok(out?.primary);
+  assert.equal(out.noRosteredLeft ?? false, false);
+  assert.equal(out.primary.row.rostered, true,
+    "con un TE con equipo disponible, el de 300 sin equipo no puede encabezar");
+});
+
+test("un OUT no llena el hueco ni siquiera como último recurso", () => {
+  // La escalera baja el listón de MUESTRA y de EQUIPO, nunca el de «no va a
+  // jugar»: eso no es un dato peor, es un hecho contrario.
+  n = 0;
+  const fuera = [p("TE", 300, { rostered: false, status_severity: "OUT", status_label: "SUSPENDED" })];
+  const out = bestForMe(fuera, {
+    roster: [], rosterPositions: ["TE", "BN"], replacement: REP,
+  });
+  assert.ok(!out?.primary || out.primary.row.status_severity !== "OUT",
+    "un suspendido no puede encabezar por muchos escalones que se bajen");
+});

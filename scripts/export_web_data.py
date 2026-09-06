@@ -304,11 +304,15 @@ def main(argv: list[str] | None = None) -> int:
     # marca que se cuelga encima, igual que los componentes. Y no toca ningún
     # número — la regla 8 no tiene excepción aquí (ver narrative/status.py).
     _attach_status(payload, paths)
+    # Y la situación de plantilla en el RANKING SEMANAL, que no la tenía.
+    _attach_roster_al_semanal(payload, paths, season)
 
     # --- research (prensa e insiders) ---------------------------------------
     # Viaja aparte de todo lo anterior a propósito: son afirmaciones de terceros
     # con su fuente al lado, no salidas del modelo, y no entran en ningún cálculo.
     payload["research"] = attach_today(_strip_runtime_fields(_research(paths, payload)))
+    # Y su FECHA, en la misma clave que las otras tres. Ver `fecha_del_research`.
+    payload["data_dates"]["research"] = fecha_del_research(payload["research"])
 
     # --- dossier curado (parte médico, campamento, reporteros) ---------------
     # Atribuido y fechado, pero SIN enlace: por eso viaja aparte del research y
@@ -488,6 +492,49 @@ def _attach_status(payload: dict, paths) -> None:
         # una entrada con el id mal escrito, y callarla es cómo se queda una
         # marca sin efecto durante meses.
         print(f"    sin fila en el board: {', '.join(huerfanas)}")
+
+
+def _attach_roster_al_semanal(payload: dict, paths, season: int) -> None:
+    """La situación de plantilla, también en el ranking semanal y sus pateadores.
+
+        EL BOARD LO DECÍA Y EL SEMANAL NO. OTRA VEZ DOS PANTALLAS, DOS VERDADES.
+
+    `fantasy_build.py` cuelga `roster_status` del board de draft y de los
+    especialistas, así que un cortado sale marcado ahí. El ranking semanal —256
+    filas, la pantalla que se usa TODA la temporada para decidir alineaciones—
+    no llevaba ni un campo `roster_`: un jugador cortado en septiembre seguía
+    apareciendo como una opción normal de titular en la jornada 6.
+
+    Va DESPUÉS de `_trim_records` a propósito, igual que `_attach_status`: no
+    son columnas del ranking, son marcas que se cuelgan encima, y así no hay que
+    mantener una lista blanca en dos sitios.
+
+    Las defensas semanales no entran: esas filas no tienen `player_id` —van
+    indexadas por equipo— así que no hay nadie de quien afirmar nada, y
+    marcarlas `NOT_ON_ROSTER` por no encontrar fila es exactamente el hecho
+    inventado que `TEAM_UNIT` existe para no publicar.
+    """
+    from oracle.fantasy import roster_status
+
+    entries = roster_status.load(paths.raw / f"roster_{season}.parquet")
+    if not entries:
+        print("  (aviso) sin fichero de plantillas: el semanal sale sin marcas de roster.")
+        return
+    weekly = payload.get("fantasy_weekly")
+    if not isinstance(weekly, dict):
+        return
+    marcadas = 0
+    for key in ("rankings", "kickers"):
+        rows = weekly.get(key)
+        if isinstance(rows, list) and rows:
+            marcadas += roster_status.attach(rows, entries)
+    fuera = sum(
+        1
+        for key in ("rankings", "kickers")
+        for row in (weekly.get(key) or [])
+        if row.get("roster_state") in roster_status.OFF_ACTIVE_ROSTER
+    )
+    print(f"  plantilla en el semanal: {marcadas} filas marcadas, {fuera} fuera del 53.")
 
 
 def _attach_components(payload: dict, source: dict | None) -> None:
@@ -977,6 +1024,44 @@ def _fechas_de_origen(paths) -> dict:
         # desacuerdo que decide un pick la víspera de un draft.
         "rosters": _fecha_de(rosters) if rosters else None,
     }
+
+
+def fecha_del_research(research: dict | None) -> str | None:
+    """La fecha de la sección de prensa: la del HECHO más nuevo que publica.
+
+        LA FECHA DEL BARRIDO NO ES LA FECHA DE LA NOTICIA.
+
+    Las otras tres secciones se fechan por el mtime del fichero descargado. La
+    prensa no es un fichero: es un flujo de fichas, y cada una lleva **dos**
+    marcas distintas —`published_at`, cuándo lo publicó el medio, y
+    `retrieved_at`, cuándo lo vio el barrido—. Fechar la sección con la segunda
+    es exactamente la regla 5 rota: la hora de descarga convertida en
+    actualidad, que es el fallo que este repositorio ya cometió cuatro veces
+    (`Briefs.jsx`, `data_dates`, `ingest.py`, `research.py`).
+
+    Así que aquí sólo cuenta `published_at`. Si ninguna ficha la trae, esto
+    devuelve `None` y la pantalla escribe UNKNOWN — que es la verdad: se tienen
+    noticias, y no se sabe de cuándo son.
+
+    **Se llama desde las DOS rutas** que escriben la sección: la regeneración
+    semanal y `research_patch.py`. Escribirla sólo en la primera dejaría el
+    parche diario publicando fichas nuevas con la fecha de la semana pasada —
+    el fallo de los dos traductores, que en esta misma pareja de rutas ya costó
+    tres iteraciones (`today`, `_strip_runtime_fields`, las marcas de estado).
+    """
+    if not isinstance(research, dict):
+        return None
+    fechas = [
+        str(item["published_at"])[:10]
+        for item in (research.get("items") or [])
+        if isinstance(item, dict) and item.get("published_at")
+    ]
+    # Una fecha del FUTURO no fecha nada: `narrative/research.py` ya las
+    # descarta al parsear, y si alguna se colara aquí diría que la prensa está
+    # más al día de lo que puede estar.
+    hoy = dt.date.today().isoformat()
+    fechas = [f for f in fechas if len(f) == 10 and f <= hoy]
+    return max(fechas) if fechas else None
 
 
 def _finite(value):

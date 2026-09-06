@@ -30,6 +30,7 @@ from export_web_data import (  # noqa: E402
     _attach_status,
     _strip_runtime_fields,
     attach_today,
+    fecha_del_research,
     write_payload,
 )
 
@@ -70,6 +71,11 @@ def main(argv: list[str] | None = None) -> int:
     # aquí: el fichero curado cambia a diario y sin esto un parche de research
     # publicaba las fichas nuevas con las marcas de la semana pasada.
     _attach_status(payload, paths)
+    # Y LA FECHA DE LA SECCIÓN, por la MISMA función que la regeneración
+    # semanal. Sin esto el barrido diario publicaría fichas nuevas debajo de la
+    # fecha de la semana pasada — la cuarta divergencia de esta pareja de rutas,
+    # después de `today`, `_strip_runtime_fields` y las marcas de estado.
+    payload.setdefault("data_dates", {})["research"] = fecha_del_research(payload["research"])
     write_payload(paths.web_data, payload)
     research = payload["research"]
     print(

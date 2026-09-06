@@ -50,7 +50,7 @@ import {
 import {
   ROSTER, SOURCE, fold, providerEvents, takeEvent, undoEvent,
 } from "./draftLog.js";
-import { bestForMe } from "./candidates.js";
+import { bestForMe, headlineReason } from "./candidates.js";
 import {
   DRAFT_STATUS, agoLabel, mySlot, pickSchedule, picksUntilMe, reconciliation, syncState,
 } from "./draftSync.js";
@@ -665,7 +665,7 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
                     <span className="nm">
                       {entry.row.player_full_name ?? entry.row.player_name}
                     </span>
-                    <span className="alt-why">{entry.reasons[0]?.text ?? ""}</span>
+                    <span className="alt-why">{headlineReason(entry)?.text ?? ""}</span>
                     <span className="alt-n">{entry.fit ? num(entry.fit.marginal, 0) : "—"}</span>
                   </button>
                 </li>

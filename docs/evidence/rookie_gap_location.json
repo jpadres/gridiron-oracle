@@ -1,0 +1,150 @@
+{
+ "experiment": "E26",
+ "question": "¿de qué lado del emparejamiento está el sesgo, y dónde duele?",
+ "seasons": [
+  2019,
+  2025
+ ],
+ "window_points": 10.0,
+ "bias_by_rank": [
+  {
+   "desde": 1,
+   "hasta": 50,
+   "veteranos": {
+    "n": 350,
+    "proyectado": 198.0,
+    "realizado": 214.9,
+    "sesgo": 16.9
+   },
+   "novatos": {
+    "n": 0,
+    "proyectado": null,
+    "realizado": null,
+    "sesgo": null
+   }
+  },
+  {
+   "desde": 51,
+   "hasta": 100,
+   "veteranos": {
+    "n": 350,
+    "proyectado": 168.0,
+    "realizado": 148.9,
+    "sesgo": -19.1
+   },
+   "novatos": {
+    "n": 0,
+    "proyectado": null,
+    "realizado": null,
+    "sesgo": null
+   }
+  },
+  {
+   "desde": 101,
+   "hasta": 150,
+   "veteranos": {
+    "n": 348,
+    "proyectado": 151.5,
+    "realizado": 112.2,
+    "sesgo": -39.3
+   },
+   "novatos": {
+    "n": 2,
+    "proyectado": 131.6,
+    "realizado": 190.4,
+    "sesgo": 58.8
+   }
+  },
+  {
+   "desde": 151,
+   "hasta": 250,
+   "veteranos": {
+    "n": 691,
+    "proyectado": 137.9,
+    "realizado": 42.5,
+    "sesgo": -95.3
+   },
+   "novatos": {
+    "n": 9,
+    "proyectado": 123.4,
+    "realizado": 169.3,
+    "sesgo": 45.9
+   }
+  },
+  {
+   "desde": 251,
+   "hasta": 400,
+   "veteranos": {
+    "n": 1042,
+    "proyectado": 123.4,
+    "realizado": 17.8,
+    "sesgo": -105.5
+   },
+   "novatos": {
+    "n": 8,
+    "proyectado": 115.0,
+    "realizado": 185.1,
+    "sesgo": 70.1
+   }
+  },
+  {
+   "desde": 401,
+   "hasta": 552,
+   "veteranos": {
+    "n": 1056,
+    "proyectado": 113.8,
+    "realizado": 14.1,
+    "sesgo": -99.8
+   },
+   "novatos": {
+    "n": 8,
+    "proyectado": 107.3,
+    "realizado": 157.7,
+    "sesgo": 50.4
+   }
+  }
+ ],
+ "pairs_by_cutoff": [
+  {
+   "corte": 150,
+   "n_pares": 2,
+   "diferencia": 90.9,
+   "novato_realizado": 190.4,
+   "veterano_realizado": 99.5,
+   "veteranos_a_cero": 0.25
+  },
+  {
+   "corte": 250,
+   "n_pares": 11,
+   "diferencia": 113.3,
+   "novato_realizado": 173.1,
+   "veterano_realizado": 59.8,
+   "veteranos_a_cero": 0.37
+  },
+  {
+   "corte": 400,
+   "n_pares": 19,
+   "diferencia": 146.2,
+   "novato_realizado": 178.2,
+   "veterano_realizado": 32.0,
+   "veteranos_a_cero": 0.612
+  },
+  {
+   "corte": 552,
+   "n_pares": 27,
+   "diferencia": 150.7,
+   "novato_realizado": 172.1,
+   "veterano_realizado": 21.4,
+   "veteranos_a_cero": 0.694
+  },
+  {
+   "corte": null,
+   "n_pares": 123,
+   "diferencia": 108.9,
+   "novato_realizado": 128.9,
+   "veterano_realizado": 20.0,
+   "veteranos_a_cero": 0.494
+  }
+ ],
+ "conclusion": "El sesgo está en el VETERANO y crece con el puesto: casi nulo en el top 50, cerca de -100 puntos a partir del puesto 150. Es la tasa por partido CONDICIONADA a jugar extendida a una temporada entera. La previa del novato ya lleva dentro a quien no jugó."
+}

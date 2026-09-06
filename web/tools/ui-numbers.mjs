@@ -17,7 +17,22 @@ import { fileURLToPath } from "node:url";
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const LEDGER = path.join(WEB, "..", "docs", "evidence", "ui_numbers.json");
-const NUMBER = /(?<![\w.$/-])(\d{1,3}[.,]\d{1,4}\s?%|\b0[.,]\d{2,4}\b|\b\d{1,3}[.,]\d{1,2}\s(?:points|pts|puntos|pp)\b|\b\d{1,3}[.,]\d{1,2}(?=(?:&nbsp;|\s)?\/))(?![\w-])/g;
+/* ESTRECHO Y CIERTO, no amplio y ruidoso: la lección de `no-undef.mjs`, donde
+   mirar «cualquier identificador en mayúsculas» dio 56 falsos positivos y un
+   guardián con falsos positivos acaba desactivado.
+
+   La primera versión sólo veía DECIMALES, y por eso «127 points against 20
+   (n=128 matched)» pudo quedarse desfasado en la página de fantasy mientras la
+   medición decía 129 / 20 / n=123: la cifra que decide cómo se lee el board no
+   estaba en el libro porque era un entero. Se añaden dos formas que no admiten
+   otra lectura:
+
+     ENTERO CON UNIDAD   «17 points», «95 fewer points», «63 pts»
+     TAMAÑO DE MUESTRA   «n=123», «n = 123»
+
+   Lo que sigue FUERA a propósito: los enteros sueltos («32 teams», «12
+   equipos», «top 50»), que son estructura del dominio y no mediciones. */
+const NUMBER = /(?<![\w.$/-])(\d{1,3}[.,]\d{1,4}\s?%|\b0[.,]\d{2,4}\b|\b\d{1,4}[.,]?\d{0,2}\s(?:points|pts|puntos|pp)\b|\bn\s?=\s?\d{1,6}\b|\b\d{1,3}[.,]\d{1,2}(?=(?:&nbsp;|\s)?\/))(?![\w-])/g;
 
 function* jsxFiles(dir) {
   for (const name of readdirSync(dir)) {
@@ -27,14 +42,30 @@ function* jsxFiles(dir) {
   }
 }
 
-/** Sólo el texto: fuera comentarios, expresiones {…} y atributos. */
+/** Sólo el TEXTO que se pinta: lo que hay entre `>` y `<`, sin llaves.
+ *
+ * La primera versión quitaba etiquetas con `<[^>]+>`, y ese patrón **cruza
+ * saltos de línea**: en un fichero con una comparación (`row.wg + 10 >= 0.6`,
+ * `a < b`) se traga desde ese `<` hasta el siguiente `>`, que puede estar
+ * veinte líneas más abajo. Medido en `app/fantasy/page.jsx`: de 29.848
+ * caracteres sobrevivían **2.470**. O sea que el guardián decía «todos los
+ * números tienen libro» sobre el 8% del fichero — y por ahí se coló que la
+ * prosa dijera «127 points against 20 (n=128)» mientras la medición decía
+ * 129 / 20 / n=123.
+ *
+ * Tomar el texto en vez de quitar las etiquetas no tiene ese modo de fallo: un
+ * `<` de comparación nunca abre un tramo de texto, porque el tramo empieza en
+ * `>` y no puede contener ni `<` ni llaves.
+ */
 function proseOf(src) {
-  return src
+  const limpio = src
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, " ")
     .replace(/\/\*[\s\S]*?\*\//g, " ")
-    .replace(/^\s*\/\/.*$/gm, " ")
-    .replace(/\{[^{}]*\}/g, " ")
-    .replace(/\{[^{}]*\}/g, " ")
-    .replace(/<[^>]+>/g, " ");
+    .replace(/^\s*\/\/.*$/gm, " ");
+  // Un tramo de texto empieza donde acaba una etiqueta o una expresión (`>`
+  // o `}`) y acaba donde empieza la siguiente (`<` o `{`). Exigir `<` al
+  // final perdía todo lo que termina en `{" "}` — y ahí estaba «n=123».
+  return [...limpio.matchAll(/(?<=[>}])([^<>{}]+)(?=[<{])/g)].map((m) => m[1]).join("\n");
 }
 
 export function found() {

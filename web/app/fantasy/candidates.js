@@ -219,6 +219,66 @@ const MEJORA = (ajuste) => Number(ajuste?.marginal) > FIT_EPSILON;
  * `null` cuando no se puede sostener: sin estructura declarada, sin valor, o
  * sin nada que mejore. Entonces la pantalla enseña BEST AVAILABLE y lo dice.
  */
+/**
+ * El motivo que hay que enseñar cuando SÓLO CABE UNO.
+ *
+ *     UNA ADVERTENCIA QUE NO SE PINTA EN LA FILA NO ADVIERTE DE NADA.
+ *
+ * Los motivos llegan en orden: primero el que explica por qué encabeza («llena
+ * tu hueco de WR») y detrás la SALVEDAD que lo cualifica («no queda nadie con
+ * equipo NFL para ese hueco»). El panel principal los pinta todos, pero las
+ * alternativas tienen sitio para uno y pintaban `reasons[0]` — o sea, la mitad
+ * bonita. En la rama de último recurso eso presenta a un agente libre con
+ * exactamente el mismo texto que a un titular, que es justo lo que no puede
+ * pasar.
+ *
+ * Vive aquí y no en cada pantalla porque el Draft Room y el modo draft ya han
+ * divergido siete veces en este proyecto, y lo que divergiría es si una fila
+ * dice o no que el jugador no tiene equipo.
+ */
+/**
+ * EL POOL CON EL QUE SE PUEDE TRABAJAR, y con qué salvedad.
+ *
+ *     BAJAR EL LISTÓN DE MUESTRA Y DE EQUIPO, NUNCA EL DE «NO VA A JUGAR».
+ *
+ * Tres escalones, en orden, y sólo se baja al siguiente cuando el anterior sale
+ * VACÍO:
+ *
+ *   1. el pool recomendable de siempre;
+ *   2. el mismo sin el umbral de muestra ponderada;
+ *   3. cualquiera con posición rankeada que no esté OUT — incluidos los que no
+ *      tienen equipo NFL.
+ *
+ * Existía escrito TRES VECES dentro del bloque del hueco vacío y **no existía
+ * en la guarda de entrada**: con todo el pool por debajo del umbral,
+ * `bestForMe` devolvía `null` antes de llegar a la escalera y la pantalla se
+ * quedaba en blanco con huecos titulares abiertos. O sea, el arreglo del hueco
+ * vacío era inalcanzable justo en el caso extremo para el que se escribió.
+ *
+ * @param posiciones Set de posiciones admisibles, o `null` para no filtrar.
+ */
+export function poolEscalonado(available, posiciones = null) {
+  const dentro = (row) => !posiciones || posiciones.has(row.position);
+  let rows = draftablePool(available).filter(dentro);
+  if (rows.length > 0) return { rows, muestraCorta: false, sinEquipo: false };
+  rows = draftablePool(available, { requireSample: false }).filter(dentro);
+  if (rows.length > 0) return { rows, muestraCorta: true, sinEquipo: false };
+  rows = (available ?? []).filter(
+    (row) => RANKED_POSITIONS.includes(row.position)
+      && row.status_severity !== "OUT"
+      && dentro(row),
+  );
+  return { rows, muestraCorta: false, sinEquipo: rows.length > 0 };
+}
+
+export const CAVEAT_KINDS = ["NO_NFL_TEAM", "SHORT_SAMPLE", "BELOW_REPLACEMENT"];
+
+export function headlineReason(entry) {
+  const reasons = entry?.reasons ?? [];
+  return reasons.find((r) => CAVEAT_KINDS.includes(r.kind)) ?? reasons[0] ?? null;
+}
+
+
 export function bestForMe(available, {
   roster = null, rosterPositions = null, replacement = null,
   picksLeftForMe = null, limit = 4,
@@ -226,8 +286,19 @@ export function bestForMe(available, {
   const state = starterState({ roster, rosterPositions });
   if (!state) return null;
 
-  const pool = draftablePool(available);
-  if (pool.length === 0) return null;
+  /* LA GUARDA DE ENTRADA TAMBIÉN BAJA ESCALONES. Devolvía `null` en cuanto el
+     pool recomendable estaba vacío, así que en una liga profunda donde todo lo
+     que queda es de muestra corta —o no tiene equipo— la pantalla no enseñaba
+     NADA y el hueco titular se quedaba vacío: exactamente el fallo que la
+     escalera de más abajo existe para impedir, con la escalera inalcanzable.
+
+     Cuando hay que relajar, se va DIRECTO a la rama del hueco vacío, que es la
+     única que etiqueta la salvedad. Colar un jugador de muestra corta por el
+     camino normal lo presentaría como una recomendación cualquiera. */
+  const base = poolEscalonado(available);
+  if (base.rows.length === 0) return null;
+  const pool = base.rows;
+  const poolRelajado = base.muestraCorta || base.sinEquipo;
 
   let { rows, byId } = orderByFit(pool, { roster, rosterPositions, replacement });
   if (!byId) return null;
@@ -317,7 +388,7 @@ export function bestForMe(available, {
     }
   }
 
-  if (mejoran.length === 0) {
+  if (mejoran.length === 0 || poolRelajado) {
     const posDeHuecosAbiertos = new Set();
     for (const hueco of state.open ?? []) {
       for (const pos of hueco.eligible ?? SLOT_ELIGIBILITY[hueco.slot] ?? []) {
@@ -333,48 +404,10 @@ export function bestForMe(available, {
        obligatorio. */
     const porPuntos = (a, b) =>
       (numberOrNull(b.projected_points) ?? 0) - (numberOrNull(a.projected_points) ?? 0);
-    let llenanHueco = pool.filter((row) => posDeHuecosAbiertos.has(row.position)).sort(porPuntos);
-
-    /* ÚLTIMO RECURSO: ni un jugador de muestra suficiente cabe en el hueco.
-       Pasa de verdad en ligas profundas —20 equipos con la posición agotada
-       dejaba 44 corredores en el board y CERO drafteables, porque todos caen
-       bajo el umbral de partidos ponderados—. Ese umbral existe para no
-       RECOMENDAR a alguien de muestra corta como si fuera fiable, no para
-       impedirte llenar un hueco obligatorio: entre un jugador dudoso y un cero
-       garantizado, el cero es peor y encima no es una elección tuya. Se ofrece,
-       se dice que es de muestra corta, y sólo en esta rama. */
-    let muestraCorta = false;
-    if (llenanHueco.length === 0) {
-      const ancho = draftablePool(available, { requireSample: false });
-      llenanHueco = ancho.filter((row) => posDeHuecosAbiertos.has(row.position)).sort(porPuntos);
-      muestraCorta = llenanHueco.length > 0;
-    }
-
-    /* Y EL ÚLTIMO ESCALÓN DE VERDAD: nadie CON EQUIPO NFL queda para ese hueco.
-       Pasa cuando los rivales agotan la posición —32 equipos con superflex y
-       bots que van a por receptores se llevan los 144 con plantilla— y hasta
-       hoy el motor prefería dejar el hueco titular VACÍO. La tortura de 780
-       drafts lo puso en rojo en cuatro casos.
-
-       Es exactamente el argumento del escalón anterior llevado a su conclusión:
-       la regla «un jugador sin equipo no se RECOMIENDA» existe para no ofrecer
-       un agente libre como si fuera un titular, no para dejarte sin alineación.
-       Un hueco vacío rinde CERO —el error que E23 midió en el baseline y el 47%
-       de la ventaja atribuida a este motor—, y un agente libre rinde CERO O MÁS.
-
-       La fila ya llega marcada SIN EQUIPO por `rostered === false`, así que se
-       ofrece diciendo lo que es. Sólo en esta rama, y sólo cuando la anterior
-       salió vacía. */
-    let sinEquipo = false;
-    if (llenanHueco.length === 0) {
-      const conSinEquipo = (available ?? []).filter(
-        (row) => RANKED_POSITIONS.includes(row.position)
-          && row.status_severity !== "OUT"
-          && posDeHuecosAbiertos.has(row.position)
-      ).sort(porPuntos);
-      llenanHueco = conSinEquipo;
-      sinEquipo = llenanHueco.length > 0;
-    }
+    const escalon = poolEscalonado(available, posDeHuecosAbiertos);
+    const llenanHueco = [...escalon.rows].sort(porPuntos);
+    const muestraCorta = escalon.muestraCorta;
+    const sinEquipo = escalon.sinEquipo;
 
     if (llenanHueco.length > 0) {
       /* El motivo nombra EL HUECO QUE SE LLENARÍA, no la posición del jugador.
@@ -428,6 +461,12 @@ export function bestForMe(available, {
       };
     }
   }
+
+  /* Y SI SE RELAJÓ EL POOL Y NINGÚN HUECO ADMITE A LOS QUE QUEDAN, tampoco se
+     encabeza con ellos: todo lo disponible es de muestra corta o sin equipo, y
+     el camino normal los presentaría como una recomendación cualquiera. Lo que
+     queda es banquillo, y el banquillo sí se dice que es banquillo. */
+  if (poolRelajado) mejoran = [];
 
   if (mejoran.length === 0) {
     return {

@@ -24,7 +24,12 @@ test("un jugador en el 53 activo no lleva marca", () => {
 test("sin equipo se pinta salvo donde la pantalla ya lo dice", () => {
   // El Draft Room y el modo draft pintan «SIN EQUIPO» por su cuenta desde
   // `rostered === false`, y ahí esta marca se calla para no decirlo dos veces.
-  assert.equal(rosterMark({ roster_state: "NOT_ON_ROSTER" }, { yaDiceSinEquipo: true }), null);
+  // La condición es ESA, no la palabra del que llama: una fila sin `rostered`
+  // —los especialistas— no la cumple y sí lleva marca. Ver el test de abajo.
+  assert.equal(
+    rosterMark({ roster_state: "NOT_ON_ROSTER", rostered: false }, { yaDiceSinEquipo: true }),
+    null,
+  );
   // Pero la tabla principal de /fantasy NO lo pintaba, y su rótulo prometía
   // justo ese dato: Brandon Aiyuk salía el 119 sin equipo y sin una sola marca.
   const mark = rosterMark({ roster_state: "NOT_ON_ROSTER", roster_source_as_of: "2026-09-05" });
@@ -148,4 +153,42 @@ test("los especialistas del payload llevan su situación de plantilla", () => {
   for (const k of sp.kickers) {
     if (k.roster_state !== "ACTIVE") assert.ok(rosterMark(k), `${k.player_full_name} sin marca`);
   }
+});
+
+test("una defensa de equipo no lleva marca ni cuenta como cambio", () => {
+  /* El payload marcaba las 32 defensas `NOT_ON_ROSTER` porque un equipo no
+     tiene fila en el registro de plantillas. `rosterMark` con
+     `yaDiceSinEquipo` se callaba por casualidad, pero la tabla principal la
+     llama SIN esa opción: una pantalla de distancia de escribir «NO NFL TEAM»
+     al lado de la defensa de Kansas City. */
+  const defensa = { position: "DST", team: "KC", roster_state: "TEAM_UNIT",
+                    roster_label: "TEAM UNIT", roster_team: "KC",
+                    roster_source_as_of: "2026-09-05" };
+  assert.equal(rosterMark(defensa), null);
+  assert.equal(changedSinceModel(defensa), false);
+});
+
+test("y sin fila, la marca lleva la fecha del fichero de plantillas", () => {
+  // «as of an unknown date» salía en 66 filas del board teniendo la fecha.
+  const fantasma = { position: "WR", roster_state: "NOT_ON_ROSTER",
+                     roster_source_as_of: "2026-09-05" };
+  const marca = rosterMark(fantasma);
+  assert.match(marca.title, /2026-09-05/);
+  assert.ok(!/unknown date/.test(marca.title));
+});
+
+test("un especialista sin equipo NFL SÍ lleva marca aunque la pantalla prometa pintarla", () => {
+  /* `yaDiceSinEquipo` era una promesa del llamador, y el Draft Room sólo
+     cumple esa promesa cuando `rostered === false`. Los pateadores y las
+     defensas no traen ese campo, así que los cuatro pateadores sin equipo del
+     payload de 2026 salían en la sala sin ninguna marca. */
+  const pateador = { position: "K", roster_state: "NOT_ON_ROSTER",
+                     roster_source_as_of: "2026-09-05" };
+  const marca = rosterMark(pateador, { yaDiceSinEquipo: true });
+  assert.ok(marca, "sin `rostered === false` nadie más lo dice: hay que decirlo aquí");
+  assert.equal(marca.text, "NO NFL TEAM");
+
+  // Y con el campo puesto sí se calla, que es para lo que existe la opción.
+  const jugador = { position: "WR", roster_state: "NOT_ON_ROSTER", rostered: false };
+  assert.equal(rosterMark(jugador, { yaDiceSinEquipo: true }), null);
 });

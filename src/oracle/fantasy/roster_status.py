@@ -18,6 +18,7 @@ propio fichero declara en su columna `status` —no las inventa nadie aquí—:
     CUT  NOT_ON_ROSTER   cortado
     RET  NOT_ON_ROSTER   retirado
     (sin fila)           NOT_ON_ROSTER: no está en ninguna plantilla
+    (defensa)            TEAM_UNIT: la pregunta no se le hace a un equipo
 
 ## Lo que NO se traduce, a propósito
 
@@ -52,6 +53,16 @@ RESERVE = "RESERVE"
 PRACTICE_SQUAD = "PRACTICE_SQUAD"
 EXEMPT = "EXEMPT"
 NOT_ON_ROSTER = "NOT_ON_ROSTER"
+#: UNA DEFENSA NO ES UNA PERSONA, y el registro de plantillas sólo tiene
+#: personas. Sin este estado, `attach` no encontraba fila para los 32 equipos y
+#: los marcaba `NOT_ON_ROSTER`: el payload afirmaba que la defensa de Kansas
+#: City no está en ninguna plantilla NFL. Una fila del board que no es un
+#: jugador no admite ninguna de las cinco respuestas, y la sexta no es «no» —
+#: es «esa pregunta no se le hace».
+TEAM_UNIT = "TEAM_UNIT"
+
+#: Posiciones que son un equipo entero. `DST` y `DEF` conviven en las fuentes.
+TEAM_UNIT_POSITIONS = frozenset({"DST", "DEF", "D/ST", "DEFENSE"})
 
 #: Traducción de la columna `status` del roster. Sólo estas seis existen en el
 #: fichero; cualquier otra levanta en vez de colarse como «activo».
@@ -70,6 +81,7 @@ LABEL = {
     PRACTICE_SQUAD: "PRACTICE SQUAD",
     EXEMPT: "EXEMPT LIST",
     NOT_ON_ROSTER: "NOT ON A ROSTER",
+    TEAM_UNIT: "TEAM UNIT",
 }
 
 #: Quién NO está en el 53 de su equipo. No es «malo»: es un hecho que cambia
@@ -193,15 +205,30 @@ def attach(rows: list[dict], entries: dict[str, RosterEntry]) -> int:
     """
     if not entries:
         return 0
+    # LA FECHA DEL FICHERO, UNA VEZ. «No aparece en el roster» es una afirmación
+    # sobre el fichero ENTERO, así que lleva su fecha igual que la de quien sí
+    # aparece: 66 filas del board decían «not on any NFL roster as of an unknown
+    # date» teniendo la fecha delante. Una afirmación de actualidad sin fecha
+    # visible es la regla 5 rota, aunque la afirmación sea cierta.
+    fecha = next((e.source_as_of for e in entries.values() if e.source_as_of), None)
     marcadas = 0
     for row in rows:
+        if str(row.get("position") or "").upper() in TEAM_UNIT_POSITIONS:
+            row["roster_state"] = TEAM_UNIT
+            row["roster_label"] = LABEL[TEAM_UNIT]
+            row["roster_code"] = None
+            row["roster_team"] = row.get("team")
+            row["roster_source_as_of"] = fecha
+            row["roster_basis"] = "NO_ES_UN_JUGADOR"
+            marcadas += 1
+            continue
         entry = entries.get(str(row.get("player_id")))
         if entry is None:
             row["roster_state"] = NOT_ON_ROSTER
             row["roster_label"] = LABEL[NOT_ON_ROSTER]
             row["roster_code"] = None
             row["roster_team"] = None
-            row["roster_source_as_of"] = None
+            row["roster_source_as_of"] = fecha
             row["roster_basis"] = "SIN_FILA"
         else:
             row["roster_state"] = entry.state
@@ -230,6 +257,8 @@ def team_changes(rows: list[dict], entries: dict[str, RosterEntry]) -> list[dict
 
     salida = []
     for row in rows:
+        if str(row.get("position") or "").upper() in TEAM_UNIT_POSITIONS:
+            continue
         entry = entries.get(str(row.get("player_id")))
         if entry is None or not entry.team or not row.get("team"):
             continue

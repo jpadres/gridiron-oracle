@@ -21,3 +21,33 @@ test("lo que está en el libro sigue existiendo en la pantalla (sin entradas fan
   const present = new Set(found().map((e) => `${e.file}|${e.value}`));
   for (const e of ledger().entries) assert.ok(present.has(`${e.file}|${e.value}`), `${e.file} ${e.value} ya no está en el JSX: bórrala del libro`);
 });
+
+test("el extractor no se queda ciego a partir de una comparación en el código", () => {
+  /* EL SUELO DE 20 ERA EL «suma >= pintadas» OTRA VEZ.
+     El extractor quitaba etiquetas con `<[^>]+>`, y ese patrón cruza saltos de
+     línea: un `<` de comparación (`row.wg + 10 >= 0.6`) se traga desde ahí
+     hasta el siguiente `>`. En `app/fantasy/page.jsx` sobrevivían 2.470 de
+     29.848 caracteres — el 8% — y el guardián decía «todos los números tienen
+     libro» sobre ese 8%. Con el suelo en 20 y 31 encontradas, seguía verde.
+
+     La propiedad que sí distingue las dos versiones no es un conteo: es que
+     cifras CONCRETAS de tramos que caen después de una comparación estén ahí.
+     Con el extractor viejo ninguna de estas tres aparece. */
+  const hay = new Set(found().map((e) => `${e.file}|${e.value}`));
+  for (const clave of [
+    "app/fantasy/page.jsx|129 points",   // detrás de varias comparaciones del fichero
+    "app/fantasy/page.jsx|n=123",        // y además cierra en `{" "}`, no en `<`
+    "app/modelo/page.jsx|47.8%",
+  ]) {
+    assert.ok(hay.has(clave), `el extractor no ve ${clave}: se está quedando ciego`);
+  }
+});
+
+test("un tamaño de muestra escrito a mano también necesita libro", () => {
+  // «n=128» convivió meses con una medición que decía 123, y no era rojo
+  // porque el patrón sólo miraba decimales. Un entero con unidad o un `n=`
+  // no admiten otra lectura que «esto es una medición».
+  const libro = new Set(ledger().entries.map((e) => `${e.file}|${e.value}`));
+  assert.ok(libro.has("app/fantasy/page.jsx|n=123"));
+  assert.ok(libro.has("app/fantasy/page.jsx|129 points"));
+});

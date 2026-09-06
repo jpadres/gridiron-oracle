@@ -14,6 +14,9 @@
  *
  *   ACTIVE          nada. Es el caso normal, y una marca que sale siempre no
  *                   informa: es decoración con nombre técnico.
+ *   TEAM_UNIT       nada. Es una defensa de equipo: la pregunta «¿está en una
+ *                   plantilla?» no se le hace a un equipo, y responderla que
+ *                   NO —que es lo que hacía— publicaba 32 hechos falsos.
  *   NOT_ON_ROSTER   nada AQUÍ. Ese hecho ya lo pinta `rostered === false` como
  *                   «NO NFL TEAM», y dos marcas para el mismo hecho se leen
  *                   como dos problemas.
@@ -55,7 +58,17 @@ const PINTA = {
  * @returns null, o `{text, className, title}` listo para pintar.
  */
 export function rosterMark(row, { yaDiceSinEquipo = false } = {}) {
-  if (yaDiceSinEquipo && row?.roster_state === "NOT_ON_ROSTER") return null;
+  // SÓLO SE CALLA SI LA OTRA MARCA VA A SALIR DE VERDAD. La opción era una
+  // PROMESA del que llama —«esta pantalla ya lo pinta»— y esa promesa es falsa
+  // para los especialistas: el Draft Room pinta «SIN EQUIPO» desde
+  // `rostered === false`, y un pateador no trae ese campo. Resultado medido:
+  // los cuatro pateadores sin equipo NFL del payload salían en la sala SIN UNA
+  // SOLA MARCA, en la ronda donde nadie mira dos veces. Ahora la condición se
+  // comprueba en la fila en vez de creerse, que es la diferencia entre una
+  // invariante y un acuerdo entre dos ficheros.
+  if (yaDiceSinEquipo && row?.roster_state === "NOT_ON_ROSTER" && row?.rostered === false) {
+    return null;
+  }
   const shown = PINTA[row?.roster_state];
   if (!shown) return null;
   // NO SE DICE DOS VECES EL MISMO HECHO. La capa de prensa ya escribe su propia
@@ -97,6 +110,11 @@ export function rosterMark(row, { yaDiceSinEquipo = false } = {}) {
  * desde la fecha del modelo»), no para ordenar nada.
  */
 export function changedSinceModel(row) {
+  // `TEAM_UNIT` NO ES UN CAMBIO. Una defensa no está en el registro de
+  // plantillas porque no es una persona, y contarla como «cambió de situación»
+  // metería 32 equipos en un conteo que dice «cuántos del top 150 ya no están
+  // donde el board cree». Ver `roster_status.TEAM_UNIT`.
+  if (row?.roster_state === "TEAM_UNIT") return false;
   return row?.roster_state != null && row.roster_state !== "ACTIVE";
 }
 

@@ -418,9 +418,12 @@ def _clean(item: object, beat: str) -> dict | None:
     }
 
 
-# Un día de tolerancia: husos horarios y un reloj un poco adelantado caben;
-# una ficha «publicada» la semana que viene no es una fecha, es un error.
-FUTURE_TOLERANCE_DAYS = 1
+# UNA SOLA TOLERANCIA para «esto no puede venir del futuro», compartida con el
+# parser de feeds (`timestamps.publication`). Estaba escrita aquí y allí no
+# existía, así que las fechas de máquina entraban sin comprobar mientras las de
+# prosa sí — dos traductores del mismo concepto, otra vez. Se importa, no se
+# copia: un número duplicado es un número que puede divergir.
+from .timestamps import FUTURE_TOLERANCE_DAYS  # noqa: E402
 
 
 def _press_zones() -> dict:

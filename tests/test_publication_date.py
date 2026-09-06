@@ -78,3 +78,69 @@ def test_press_time_zones_are_kept_not_dropped_to_utc(stamp, expected):
 def test_iso_dates_are_not_mistaken_for_ambiguous_ones():
     assert parse_publication_date("2026-09-04", now=NOW) == "2026-09-04T00:00:00+00:00"
     assert parse_publication_date("2026-09-04T10:15:00-05:00", now=NOW) == "2026-09-04T10:15:00-05:00"
+
+
+# --- El futuro tampoco entra por el parser de FEEDS ------------------------
+#
+# `parse_publication_date` rechazaba el futuro desde hace semanas. El parser de
+# feeds, que lee instantes de máquina en vez de prosa, NO: la primera ejecución
+# real de `research-feeds.yml` (6 de septiembre de 2026) publicó como entrada
+# más reciente una fechada `2026-09-14T02:00:00Z` — ocho días por delante del
+# reloj. Dos traductores del mismo concepto con distinta cobertura, otra vez.
+
+
+def test_publication_rechaza_el_futuro_y_conserva_el_pasado():
+    from datetime import datetime, timezone
+
+    from oracle.narrative.timestamps import publication
+
+    ahora = datetime(2026, 9, 6, 12, 0, tzinfo=timezone.utc)
+    assert publication("2026-09-14T02:00:00Z", now=ahora) is None
+    assert publication("2026-09-05T10:00:00Z", now=ahora) == "2026-09-05T10:00:00Z"
+    # Un día de tolerancia: un reloj adelantado o un huso mal declarado caben.
+    assert publication("2026-09-06T23:00:00Z", now=ahora) == "2026-09-06T23:00:00Z"
+    # Y lo de siempre: sin huso NO se convierte.
+    assert publication("2026-09-05 10:00:00", now=ahora) is None
+
+
+def test_una_entrada_de_feed_fechada_en_el_futuro_sale_SIN_fecha():
+    """La propiedad del PRODUCTO, no la de la función.
+
+    Un guardián sobre una función que ninguna ruta llama vigila una función. Se
+    comprueba con `feeds.parse`, que es por donde pasa lo que se publica.
+    """
+    from oracle.narrative import feeds
+
+    lejano = "Mon, 14 Sep 2093 02:00:00 +0000"
+    xml = f"""<?xml version="1.0"?><rss version="2.0"><channel>
+      <item><title>Preview</title><link>https://ejemplo.com/a</link>
+      <pubDate>{lejano}</pubDate></item>
+      <item><title>Ayer</title><link>https://ejemplo.com/b</link>
+      <pubDate>Fri, 05 Sep 2025 10:00:00 +0000</pubDate></item>
+    </channel></rss>"""
+    entradas = {e.title: e for e in feeds.parse(xml, feeds.Feed("https://ejemplo.com/f", "X"))}
+    assert entradas["Preview"].published_at is None, (
+        "una nota fechada en el futuro no puede viajar como fecha de publicación: "
+        "se propaga como «lo más nuevo que sabemos»"
+    )
+    assert entradas["Ayer"].published_at == "2025-09-05T10:00:00Z"
+
+
+def test_el_workflow_de_feeds_no_pregunta_por_un_fichero_QUE_NO_RASTREA():
+    """`git diff --quiet` no ve un fichero nuevo, y por eso el barrido salió
+    verde sin publicar nada la primera vez que funcionó de verdad.
+
+    Estrecho a propósito: se exige que el `git add` del artefacto ocurra ANTES
+    de la comparación, que es el orden que hace la pregunta contestable.
+    """
+    from pathlib import Path
+
+    texto = Path(".github/workflows/research-feeds.yml").read_text(encoding="utf-8")
+    add = texto.find("git add -- research/feeds_latest.json")
+    diff = texto.find("git diff --cached --quiet -- research/feeds_latest.json")
+    assert add != -1, "el artefacto tiene que añadirse al índice"
+    assert diff != -1, "y compararse contra el ÍNDICE, que sí ve lo nuevo"
+    assert add < diff, "añadir va ANTES de comparar, o la primera publicación no ocurre"
+    assert "git diff --quiet -- research/feeds_latest.json" not in texto, (
+        "la comparación ciega a los ficheros nuevos no puede volver"
+    )

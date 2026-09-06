@@ -47,7 +47,7 @@ import { agoLabel, clockLabel, pickClock, reconciliation } from "./draftSync.js"
 import {
   assignSlots, PRIOR_SHARE_VISIBLE, priorShare, VALIDATED_MAX_TEAMS, valueConfidence,
 } from "./leagueValue.js";
-import { bestForMe, candidates as buildCandidates } from "./candidates.js";
+import { bestForMe, candidates as buildCandidates, headlineReason } from "./candidates.js";
 import { isUnavailable, splitAvailable, tierPool as countableTier } from "./availablePool.js";
 import { rosterMark } from "./rosterMark.js";
 import { POSITION_STATE, replacementPoints } from "./rosterFit.js";
@@ -847,7 +847,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                       <span className="nm">
                         {entry.row.player_full_name ?? entry.row.player_name}
                       </span>
-                      <span className="alt-why">{entry.reasons[0]?.text ?? ""}</span>
+                      <span className="alt-why">{headlineReason(entry)?.text ?? ""}</span>
                       <span className="alt-n">{entry.fit ? num(entry.fit.marginal, 0) : "—"}</span>
                     </button>
                   </li>

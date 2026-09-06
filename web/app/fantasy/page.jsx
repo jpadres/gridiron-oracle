@@ -142,14 +142,33 @@ export default function Fantasy() {
             position and round, because several of those cells split in two — the
             second-round quarterback averages 63 points with a median of 16.
           </p>
+          {/* LAS CIFRAS SON LAS DE LA MEDICIÓN DE HOY, no las de la de antes.
+              Decían «127 contra 20, n=128» cuando E25/E26 miden 129 contra 20
+              con n=123: la diferencia la introdujo filtrar los playoffs y la
+              prosa se quedó atrás. Es la deriva de las cifras de portada en
+              pequeño, y por eso los enteros con unidad entran ahora en el libro
+              de `tools/ui-numbers.mjs`. */}
           <p className="caption">
             Measured and left uncorrected: at the same projection and position, rookies from
-            2019&ndash;2025 went on to score <strong>127 points against 20</strong> for the
-            veterans they were ranked beside (n=128 matched). The two scales differ — a
-            veteran is projected as if he plays 15.5 games, a rookie prior is the observed
-            season total with the zeros in it — so the board places rookies low. There is no
-            validated correction for that gap, and inventing a multiplier would be worse
-            than the bias, so the number stands and this note travels with it.
+            2019–2025 went on to score <strong>129 points against 20</strong> for the
+            veterans they were ranked beside (n=123 matched). The two numbers do not promise
+            the same thing — a veteran is projected from his points per game in the games he{" "}
+            <em>played</em>, stretched over 15.5 games, while a rookie prior is the observed
+            season total of his draft-capital cell with the zeros already inside it. Neither
+            carries a probability of being on the field, and only one of them needs to.
+          </p>
+          {/* DÓNDE ESTÁ EL SESGO. E26 lo parte por puesto y contesta lo que la
+              diferencia global no puede: de qué lado del emparejamiento está el
+              error, y si cae donde de verdad se draftea. */}
+          <p className="caption">
+            E26 puts it on the veteran side, and it grows with the rank: over 2019–2025 the
+            top 50 of the board realised <strong>17 points more</strong> than projected, ranks
+            101–150 <strong>39 fewer</strong>, and ranks 151–250 <strong>95 fewer</strong>{" "}
+            — because past that point around half the veterans at a given projection do not
+            score a point all season. Rookies in those same rows realised <em>more</em> than
+            projected. Repairing it means giving the veteran number an availability term,
+            which does not exist here yet; a multiplier picked by eye would be worse than a
+            bias that is measured and stated.
           </p>
           {fantasy.league ? null : (
             <p className="caption">

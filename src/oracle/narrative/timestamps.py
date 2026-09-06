@@ -24,7 +24,7 @@ y para latencia no sirve.
 
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from email.utils import parsedate_to_datetime
 
 # La forma canónica: ISO 8601 en UTC terminando en Z. Sin microsegundos, que no
@@ -94,6 +94,51 @@ def _try_rfc822(text: str) -> datetime | None:
         return parsedate_to_datetime(text)
     except (TypeError, ValueError):
         return None
+
+
+#: Cuánto se le tolera a un reloj ajeno ir por delante. Un servidor mal puesto
+#: en hora, o una zona mal declarada, pueden adelantar unas horas; un día cubre
+#: eso de sobra. Más allá no es un reloj: es una fecha que no es de publicación.
+FUTURE_TOLERANCE_DAYS = 1
+
+
+def publication(value: object, *, now: datetime | None = None) -> str | None:
+    """Un instante de PUBLICACIÓN canónico, o `None`. Nunca uno del futuro.
+
+        LO QUE TODAVÍA NO HA PASADO NO SE HA PUBLICADO.
+
+    `canonical()` convierte cualquier instante con huso, y hace bien: también
+    canoniza `retrieved_at`, que es de ahora mismo, y las marcas propias. Pero
+    una fecha de PUBLICACIÓN tiene una restricción que las otras no tienen, y
+    faltaba: **no puede estar por delante del reloj**.
+
+    No es teórico. El primer barrido real de feeds en CI
+    (`research-feeds.yml`, 6 de septiembre de 2026) leyó 292 entradas y publicó
+    como más reciente `2026-09-14T02:00:00Z` — ocho días en el futuro, casi con
+    seguridad la fecha del PARTIDO del que habla la nota, o una previa
+    programada. Sin este filtro esa fecha se propaga como «lo más nuevo que
+    sabemos», que es una afirmación de actualidad fabricada: la regla 5 rota
+    por el lado contrario al de siempre.
+
+    `narrative/research.py` ya rechazaba el futuro **en su propio parser**
+    (`parse_publication_date`), que lee fechas escritas por humanos. El de
+    feeds, que lee instantes de máquina, no lo hacía: dos traductores del mismo
+    concepto con distinta cobertura, el fallo que este repositorio lleva ocho
+    iteraciones persiguiendo. La tolerancia vive AQUÍ y aquel la importa.
+    """
+    stamp = canonical(value)
+    if stamp is None:
+        return None
+    reference = now or datetime.now(UTC)
+    if reference.tzinfo is None:
+        reference = reference.replace(tzinfo=UTC)
+    try:
+        parsed = datetime.strptime(stamp, CANONICAL).replace(tzinfo=UTC)
+    except ValueError:
+        return None
+    if parsed > reference + timedelta(days=FUTURE_TOLERANCE_DAYS):
+        return None
+    return stamp
 
 
 def earliest(*values: str | None) -> str | None:

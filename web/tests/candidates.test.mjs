@@ -11,7 +11,9 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { candidates } from "../app/fantasy/candidates.js";
+import { readFileSync } from "node:fs";
+
+import { candidates, headlineReason } from "../app/fantasy/candidates.js";
 
 const fila = (id, vor, extra = {}) => ({
   player_id: id, player_name: id, position: "RB", team: "GB", vor, tier: 1, ...extra,
@@ -95,4 +97,40 @@ test("sin dato de muestra no se excluye a nadie", () => {
   // peor que el problema.
   const out = candidates([fila("sinwg", 40), fila("otro", 30)], { limit: 4 });
   assert.equal(out.length, 2);
+});
+
+// --- §6: nunca presentar como normal a quien no lo es ---------------------
+
+test("la alternativa enseña la SALVEDAD, no la mitad bonita", () => {
+  /* Las alternativas pintaban `reasons[0]`, que siempre es «llena tu hueco
+     de X». En la rama de último recurso todas las filas llevan además «no
+     queda nadie con equipo NFL para ese hueco», y esa era la que se caía: un
+     agente libre presentado con el mismo texto que un titular. */
+  const entrada = {
+    reasons: [
+      { kind: "EMPTY_SLOT", text: "Fills your open WR, which would otherwise score 0" },
+      { kind: "NO_NFL_TEAM", text: "No rostered player is left for this slot — this one has no NFL team" },
+    ],
+  };
+  assert.equal(headlineReason(entrada).kind, "NO_NFL_TEAM");
+  // Y sin salvedad se enseña lo de siempre.
+  assert.equal(
+    headlineReason({ reasons: [{ kind: "OPEN_STARTER", text: "Fills your open RB" }] }).kind,
+    "OPEN_STARTER",
+  );
+  assert.equal(headlineReason(null), null);
+  assert.equal(headlineReason({ reasons: [] }), null);
+});
+
+test("las dos pantallas piden el motivo a la MISMA función", () => {
+  // Séptima vez que el Draft Room y el modo draft divergen. Lo que divergiría
+  // aquí es si una fila dice o no que el jugador no tiene equipo NFL.
+  for (const ruta of ["app/fantasy/DraftRoom.jsx", "app/fantasy/DraftMode.jsx"]) {
+    const fuente = readFileSync(new URL(`../${ruta}`, import.meta.url), "utf8");
+    assert.match(fuente, /headlineReason\(entry\)/, `${ruta} no usa headlineReason`);
+    assert.ok(
+      !/entry\.reasons\[0\]/.test(fuente),
+      `${ruta} sigue pintando reasons[0]: se le cae la salvedad`,
+    );
+  }
 });

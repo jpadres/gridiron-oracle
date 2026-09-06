@@ -64,14 +64,69 @@ def candidatos_del_registro(root: Path) -> list[Feed]:
     return salida
 
 
+def resumen_markdown(artefacto: Path) -> str:
+    """La salud del último barrido, en Markdown, LEÍDA DEL ARTEFACTO.
+
+    No vuelve a bajar nada a propósito: el resumen tiene que describir lo que se
+    PUBLICÓ, no una segunda lectura que puede dar otra cosa. Si el artefacto no
+    está, eso es lo que se dice — y es información, porque significa que el
+    barrido no llegó a publicar.
+    """
+    if not artefacto.exists():
+        return (
+            "## Feeds\n\n**No hay artefacto publicado.** El barrido no escribió "
+            f"`{artefacto.name}`: o ninguna fuente respondió (el paso anterior "
+            "está en rojo) o el paso de publicación no llegó a correr.\n"
+        )
+    datos = json.loads(artefacto.read_text(encoding="utf-8"))
+    resumen = datos.get("summary") or {}
+    salud = datos.get("health") or []
+    lineas = [
+        "## Feeds",
+        "",
+        f"- Generado: `{resumen.get('generated_at')}`",
+        f"- Fuentes: **{resumen.get('sources_ok')} OK**, "
+        f"{resumen.get('sources_empty')} vacías, {resumen.get('sources_error')} con error "
+        f"de {resumen.get('sources_total')}",
+        f"- Entradas: **{resumen.get('entries')}** "
+        f"({resumen.get('entries_dated')} con fecha de publicación, "
+        f"{resumen.get('entries_undated')} sin ella)",
+        # LAS DOS FECHAS, SEPARADAS. «Generado» es cuándo corrió esto; «más
+        # reciente publicada» es de cuándo son las noticias. Confundirlas es el
+        # fallo que este proyecto persigue en todas partes.
+        f"- Más reciente publicada: `{resumen.get('newest_published_at') or 'NINGUNA'}`",
+        f"- Equipos con alguna entrada: {len(resumen.get('teams_covered') or [])}",
+        "",
+    ]
+    caidas = [h for h in salud if h.get("status") != feed_fetch.OK]
+    if caidas:
+        lineas += [
+            f"### {len(caidas)} fuentes sin entradas",
+            "",
+            "| fuente | estado | detalle |",
+            "| --- | --- | --- |",
+        ]
+        for h in sorted(caidas, key=lambda x: (x.get("status") or "", x.get("outlet") or "")):
+            lineas.append(f"| {h.get('outlet')} | {h.get('status')} | {h.get('error') or ''} |")
+        lineas.append("")
+    return "\n".join(lineas)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", default=None)
     parser.add_argument("--include-candidates", action="store_true",
                         help="Añade los feed_candidate del registro, sin verificar.")
     parser.add_argument("--out", default=None)
+    parser.add_argument("--summary-only", action="store_true",
+                        help="No baja nada: escribe en Markdown la salud del ÚLTIMO "
+                             "artefacto publicado. Para el resumen del job.")
     args = parser.parse_args()
     paths = resolve_paths(args.root)
+    destino_por_defecto = paths.root / "research" / "feeds_latest.json"
+    if args.summary_only:
+        print(resumen_markdown(Path(args.out) if args.out else destino_por_defecto))
+        return 0
 
     feeds_a_leer = list(sources.ALL_FEEDS)
     if args.include_candidates:
@@ -96,7 +151,7 @@ def main() -> int:
     print(f"Más reciente publicada: {resumen['newest_published_at'] or 'NINGUNA'}")
     print(f"Equipos con alguna entrada: {len(resumen['teams_covered'])}")
 
-    destino = Path(args.out) if args.out else paths.root / "research" / "feeds_latest.json"
+    destino = Path(args.out) if args.out else destino_por_defecto
     if not feed_fetch.publishable(recogido):
         # NO se pisa lo anterior. Un artefacto vacío con fecha de hoy es peor
         # que uno viejo: parece actual y no lo es.

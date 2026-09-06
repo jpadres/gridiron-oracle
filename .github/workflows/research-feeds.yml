@@ -47,17 +47,31 @@ jobs:
         # vigila cuando no.
         run: python scripts/feed_harvest.py --include-candidates
 
+      - name: Resumen legible del barrido
+        # OBSERVABLE SIN ABRIR EL LOG. La primera ejecución real salió VERDE con
+        # 15 de 31 fuentes muertas (12 vacías, 3 con 404) y eso sólo se veía
+        # desplazando cien líneas de log. El resumen del job lo pone en la
+        # página de la ejecución.
+        if: always()
+        run: python scripts/feed_harvest.py --summary-only >> "$GITHUB_STEP_SUMMARY"
+
       - name: Publicar lo leído
-        # Sólo si el paso anterior escribió algo. `git diff --quiet` distingue
-        # «no hubo novedades» de «no se pudo leer»: lo primero no es un fallo,
-        # lo segundo ya puso el job en rojo más arriba.
+        # `git diff --quiet` NO VE UN FICHERO NUEVO: sólo compara lo que ya está
+        # en el índice o en HEAD. `research/feeds_latest.json` no existía en el
+        # repositorio, así que la primera ejecución real escribió las 292
+        # entradas, preguntó «¿ha cambiado?», el fichero no estaba rastreado,
+        # la respuesta fue «no» y el job salió VERDE sin publicar nada. Un
+        # barrido que no puede publicar su PRIMER artefacto es exactamente el
+        # «verde sin barrer nada» que este workflow existe para no repetir.
+        #
+        # Se añade PRIMERO y se compara contra el índice, que sí ve lo nuevo.
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- research/feeds_latest.json; then
+          git add -- research/feeds_latest.json
+          if git diff --cached --quiet -- research/feeds_latest.json; then
             echo "Sin cambios en el artefacto de feeds."
             exit 0
           fi
-          git add research/feeds_latest.json
           git commit -m "research: barrido determinista de feeds"
           git push

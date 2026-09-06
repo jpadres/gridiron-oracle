@@ -33,7 +33,7 @@ import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
-from .timestamps import canonical, earliest, now
+from .timestamps import earliest, now, publication
 
 # De dónde vino de verdad un insight. Se guarda para poder responder, dentro de
 # unos meses, si lo que aporta valor son los feeds, la búsqueda o los datos
@@ -153,7 +153,10 @@ def _from_rss(item: ET.Element, feed: Feed, stamp: str) -> Entry | None:
         # `pubDate` es RFC 822 y trae huso. Si el feed lo omite o lo escribe sin
         # huso, `canonical` devuelve None y el campo se queda vacío: no se le
         # supone uno.
-        published_at=canonical(_text(item, "pubDate")),
+        # `publication` y no `canonical`: además de exigir huso, descarta lo que
+        # está por delante del reloj. Un feed real publicó una entrada fechada
+        # ocho días en el futuro — ver `timestamps.publication`.
+        published_at=publication(_text(item, "pubDate")),
         author=_text(item, "author") or _text(item, "dc:creator"),
         summary=_text(item, "description"),
         stamp=stamp,
@@ -172,7 +175,9 @@ def _from_atom(item: ET.Element, feed: Feed, stamp: str) -> Entry | None:
         title=title,
         url=url,
         feed=feed,
-        published_at=canonical(_text(item, "atom:published") or _text(item, "atom:updated")),
+        published_at=publication(
+            _text(item, "atom:published") or _text(item, "atom:updated")
+        ),
         author=name.text.strip() if name is not None and name.text else None,
         summary=_text(item, "atom:summary"),
         stamp=stamp,
