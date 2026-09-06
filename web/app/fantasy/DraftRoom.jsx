@@ -474,6 +474,19 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
     flashTimer.current = setTimeout(() => setFlash(null), 6000);
   }, [onClockOverall, teams, type, mySlot]);
 
+  /* Reasignar un pick ya registrado: se DESHACE y se vuelve a TOMAR con el
+     dueño declarado. Dos eventos y no una edición, para que el registro siga
+     siendo un log — el replay y el sondeo del proveedor lo entienden igual. */
+  const reassign = useCallback((row, roster) => {
+    if (replayCursorRef.current !== null) return;
+    setEvents((previous) => [
+      ...previous,
+      undoEvent({ playerId: row.player_id, source: SOURCE.MANUAL }),
+      takeEvent({ playerId: row.player_id, roster, rosterSource: "DECLARED", source: SOURCE.MANUAL }),
+    ]);
+    setFlash({ row, roster });
+  }, []);
+
   const undo = useCallback((playerId) => {
     if (replayCursorRef.current !== null) return;   // el pasado no se edita
     setEvents((previous) => [...previous, undoEvent({ playerId, source: SOURCE.MANUAL })]);
@@ -829,7 +842,14 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
              alineación. Si no se puede sostener —sin estructura declarada, o
              sin nadie que mejore— esta sección NO se pinta y abajo queda BEST
              AVAILABLE, que es lo que sí se puede afirmar. */}
-      {onClock && !replaying && !complete && forMe?.primary ? (
+      {/* SE PINTA MIENTRAS HAYA ESTRUCTURA Y ALGUIEN QUE MEJORE, esté o no el
+          contador en mi casilla. Con la guarda `onClock` la sección
+          desaparecía en cuanto el contador no estaba en mi puesto —o sea,
+          casi siempre en un draft anotado a mano— y lo único visible era
+          BEST AVAILABLE, que es el board a secas: de ahí «me sigue empujando
+          QB y TE». La respuesta a «¿a quién cojo?» depende de MI plantilla,
+          no de si es mi turno en el contador. */}
+      {!replaying && !complete && forMe?.primary ? (
         <section className="room-pick" aria-label="Best pick for you"
                  style={teamVars(forMe.primary.row.team)}>
           <h2 className="room-h">
@@ -840,7 +860,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
             </small>
           </h2>
           <button type="button" className="room-pick-hero"
-                  onClick={() => record(forMe.primary.row)}>
+                  onClick={() => record(forMe.primary.row, ROSTER.MINE)}>
             <Headshot sid={forMe.primary.row.sid} team={forMe.primary.row.team}
                       position={forMe.primary.row.position}
                       name={forMe.primary.row.player_full_name ?? forMe.primary.row.player_name}
@@ -915,7 +935,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
               <ol className="room-alts">
                 {forMe.alternates.map((entry) => (
                   <li key={entry.row.player_id} style={teamVars(entry.row.team)}>
-                    <button type="button" onClick={() => record(entry.row)}>
+                    <button type="button" onClick={() => record(entry.row, ROSTER.MINE)}>
                       <span className={`ptag ptag--${entry.row.position.toLowerCase()}`}>
                         {entry.row.position}
                       </span>
@@ -1094,6 +1114,24 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
               ? "yours"
               : flash.roster === ROSTER.UNKNOWN ? "taken · roster unknown" : "taken"}
           </span>
+          {/* DE QUIÉN ES, DECLARADO. Un toque en una fila del board registra el
+              pick y DERIVA el dueño del contador de picks — correcto cuando se
+              anota cada pick de la sala, y falso en el uso real: la dueña
+              marcó SU ala cerrada y SU quarterback sin anotar los diez picks
+              de en medio, el contador no estaba en su casilla, los dos
+              cayeron en la plantilla de un rival y el asistente le siguió
+              recomendando TE y QB sobre una plantilla VACÍA. Aquí no había
+              forma de decir «es mío»: sólo Undo. Ahora la corrección es un
+              evento declarado, que es lo que `record` ya sabía recibir. */}
+          {flash.roster !== ROSTER.MINE ? (
+            <button type="button" className="room-undo" onClick={() => reassign(flash.row, ROSTER.MINE)}>
+              Mine
+            </button>
+          ) : (
+            <button type="button" className="room-undo" onClick={() => reassign(flash.row, ROSTER.OPPONENT)}>
+              Not mine
+            </button>
+          )}
           <button type="button" className="room-undo" onClick={() => undo(flash.row.player_id)}>
             Undo
           </button>

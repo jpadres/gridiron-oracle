@@ -298,3 +298,14 @@ test("un pateador ACTIVO en otro equipo produce marca de cambio", () => {
   assert.ok(cambio, "un activo en otro equipo tiene que marcarse");
   assert.equal(cambio.text, "NOW NYJ");
 });
+
+test("el Draft Room deja DECLARAR de quién es un pick: Mine en el flash, y la tarjeta se toma como mía", () => {
+  /* El fallo real de la dueña: tocar su TE y su QB sin anotar los picks de
+     los demás los mandaba a un rival (dueño derivado del contador) y la
+     recomendación se calculaba sobre una plantilla vacía. La corrección es un
+     evento declarado, no una adivinanza. Se lee el JSX. */
+  const src = readFileSync(new URL("../app/fantasy/DraftRoom.jsx", import.meta.url), "utf8");
+  assert.match(src, /reassign\(flash\.row,\s*ROSTER\.MINE\)/, "el flash no ofrece «Mine»");
+  assert.match(src, /record\(forMe\.primary\.row,\s*ROSTER\.MINE\)/, "tomar la tarjeta no la declara mía");
+  assert.doesNotMatch(src, /\{onClock && !replaying && !complete && forMe\?\.primary/, "la lista con plantilla sigue escondida fuera de mi turno");
+});
