@@ -77,13 +77,17 @@ def main() -> int:
     p90 = valores[int(len(valores) * 0.90)]
     grandes = [(g, r) for g, r in brechas if g >= p90]
     novatos = sum(1 for _, r in grandes if r.get("rookie"))
+    # El SENTIDO se cuenta, no se afirma: la primera versión decía «y en todos
+    # el board va por debajo» como prosa fija, que es una cifra a mano dentro
+    # del informe que existe para no tenerlas.
+    debajo = sum(1 for _, r in grandes if r["overall_rank"] > r["adp"])
 
     w("## Board contra mercado\n\n")
     w(f"{len(con_adp)} de {len(board)} filas del board tienen ADP. El umbral de «desacuerdo "
       f"grande» es el percentil 90 de la brecha ({p90:.0f} puestos), elegido sobre la "
       "distribución y no a ojo.\n\n")
-    w(f"**{novatos} de los {len(grandes)} desacuerdos grandes son NOVATOS, y en todos el board "
-      "va por DEBAJO del mercado.**\n\n")
+    w(f"**{novatos} de los {len(grandes)} desacuerdos grandes son NOVATOS**, y en "
+      f"{debajo} de los {len(grandes)} el board va por DEBAJO del mercado.\n\n")
     w("Eso no es una sorpresa ni un fallo nuevo: es la brecha de escala que este repositorio ya\n"
       "midió (E25, +108,9 puntos a favor del novato a igual proyección, 123 pares) y que publica\n"
       "**sin corregir** porque no hay corrección validada. Donde el board y el mercado más se\n"

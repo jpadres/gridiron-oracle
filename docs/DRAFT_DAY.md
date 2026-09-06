@@ -28,7 +28,7 @@ La descarga **no** fecha el dato: el ADP se bajó hoy y su ventana sigue siendo 
 
 192 de 552 filas del board tienen ADP. El umbral de «desacuerdo grande» es el percentil 90 de la brecha (203 puestos), elegido sobre la distribución y no a ojo.
 
-**17 de los 20 desacuerdos grandes son NOVATOS, y en todos el board va por DEBAJO del mercado.**
+**17 de los 20 desacuerdos grandes son NOVATOS**, y en 20 de los 20 el board va por DEBAJO del mercado.
 
 Eso no es una sorpresa ni un fallo nuevo: es la brecha de escala que este repositorio ya
 midió (E25, +108,9 puntos a favor del novato a igual proyección, 123 pares) y que publica
