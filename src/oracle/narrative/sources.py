@@ -49,4 +49,54 @@ TEAMS: tuple[Feed, ...] = (
     Feed("https://www.espn.com/blog/arizonacardinals/rss", "ESPN Cardinals", team="ARI"),
 )
 
-ALL_FEEDS: tuple[Feed, ...] = NATIONAL + TEAMS
+# LOS 32 CLUBES, OFICIALES. Es la fuente que primero y mejor dice lo que decide
+# un pick la víspera de un draft —una baja, una lista de reserva, un corte, un
+# cambio de titular— y la única que lo dice como parte interesada declarada, que
+# para un HECHO administrativo es exactamente lo que se quiere.
+#
+# Se añaden con su código de equipo, que es lo que permite emparejar sin
+# adivinar. Los ocho blogs de ESPN de arriba llevan meses respondiendo VACÍO
+# —medido en CI el 6 de septiembre de 2026, run 34019693087— así que la
+# cobertura por equipo del barrido era CERO. No se borran: su salud se sigue
+# publicando, y un feed que responde vacío es un dato distinto de uno que no se
+# consultó.
+#
+# Ninguno de estos 32 está verificado desde aquí: la política de egreso de este
+# contenedor deniega el CONNECT. Se comprueban en `research-feeds.yml`, que es
+# donde hay salida, y el artefacto publica cuál contestó y cuál no.
+OFFICIAL: tuple[Feed, ...] = (
+    Feed("https://www.azcardinals.com/rss/news", "ARI official", team="ARI"),
+    Feed("https://www.atlantafalcons.com/rss/news", "ATL official", team="ATL"),
+    Feed("https://www.baltimoreravens.com/rss/news", "BAL official", team="BAL"),
+    Feed("https://www.buffalobills.com/rss/news", "BUF official", team="BUF"),
+    Feed("https://www.panthers.com/rss/news", "CAR official", team="CAR"),
+    Feed("https://www.chicagobears.com/rss/news", "CHI official", team="CHI"),
+    Feed("https://www.bengals.com/rss/news", "CIN official", team="CIN"),
+    Feed("https://www.clevelandbrowns.com/rss/news", "CLE official", team="CLE"),
+    Feed("https://www.dallascowboys.com/rss/news", "DAL official", team="DAL"),
+    Feed("https://www.denverbroncos.com/rss/news", "DEN official", team="DEN"),
+    Feed("https://www.detroitlions.com/rss/news", "DET official", team="DET"),
+    Feed("https://www.packers.com/rss/news", "GB official", team="GB"),
+    Feed("https://www.houstontexans.com/rss/news", "HOU official", team="HOU"),
+    Feed("https://www.colts.com/rss/news", "IND official", team="IND"),
+    Feed("https://www.jaguars.com/rss/news", "JAX official", team="JAX"),
+    Feed("https://www.chiefs.com/rss/news", "KC official", team="KC"),
+    Feed("https://www.raiders.com/rss/news", "LV official", team="LV"),
+    Feed("https://www.chargers.com/rss/news", "LAC official", team="LAC"),
+    Feed("https://www.therams.com/rss/news", "LAR official", team="LAR"),
+    Feed("https://www.miamidolphins.com/rss/news", "MIA official", team="MIA"),
+    Feed("https://www.vikings.com/rss/news", "MIN official", team="MIN"),
+    Feed("https://www.patriots.com/rss/news", "NE official", team="NE"),
+    Feed("https://www.neworleanssaints.com/rss/news", "NO official", team="NO"),
+    Feed("https://www.giants.com/rss/news", "NYG official", team="NYG"),
+    Feed("https://www.newyorkjets.com/rss/news", "NYJ official", team="NYJ"),
+    Feed("https://www.philadelphiaeagles.com/rss/news", "PHI official", team="PHI"),
+    Feed("https://www.steelers.com/rss/news", "PIT official", team="PIT"),
+    Feed("https://www.49ers.com/rss/news", "SF official", team="SF"),
+    Feed("https://www.seahawks.com/rss/news", "SEA official", team="SEA"),
+    Feed("https://www.buccaneers.com/rss/news", "TB official", team="TB"),
+    Feed("https://www.tennesseetitans.com/rss/news", "TEN official", team="TEN"),
+    Feed("https://www.commanders.com/rss/news", "WAS official", team="WAS"),
+)
+
+ALL_FEEDS: tuple[Feed, ...] = NATIONAL + TEAMS + OFFICIAL
