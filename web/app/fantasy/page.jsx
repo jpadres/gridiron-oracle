@@ -85,6 +85,9 @@ export default function Fantasy() {
         // salían del payload sin fecha ninguna mientras el board se leía como
         // de hoy. Ver `data_dates` en `export_web_data.py`.
         dataDate: dataDate("fantasy"),
+        // Las plantillas van APARTE: son tres semanas más nuevas que la
+        // estadística y es donde están los cortes y los cambios de equipo.
+        rosterDate: dataDate("rosters"),
         season: fantasy.season,
         scoring: fantasy.scoring,
         teams: fantasy.teams,

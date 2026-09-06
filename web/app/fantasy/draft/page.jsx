@@ -1,4 +1,4 @@
-import { briefsByPlayer, model } from "../../../data/model.js";
+import { briefsByPlayer, dataDate, model } from "../../../data/model.js";
 import { NoDataYet } from "../../ui.jsx";
 import RoomShell from "./RoomShell.jsx";
 
@@ -55,6 +55,15 @@ export default function DraftRoomPage() {
         // K y DST fichables: hechos de la temporada anterior, sin valor. El
         // board de VOR no los ordena y la sala tampoco lo finge.
         specialists: fantasy.specialists ?? null,
+        // LAS DOS FECHAS, SEPARADAS. El modelo piensa con la estadística del 17
+        // de agosto; el registro de plantillas es del 5 de septiembre. Enseñar
+        // una sola haría que el board pareciera saber cosas que no sabe — y es
+        // precisamente en esas tres semanas donde caen los cortes y las listas
+        // de reserva que deciden un pick.
+        modelDate: dataDate("fantasy"),
+        rosterDate: dataDate("rosters"),
+        // Qué ha cambiado entre las dos, ya contado (`predraft_brief.py`).
+        predraft: model.predraft ?? null,
       }}
     />
   );

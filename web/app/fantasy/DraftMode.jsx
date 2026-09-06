@@ -62,6 +62,7 @@ import {
 import { replacementPoints } from "./rosterFit.js";
 import { syncPool } from "./sleeperAccount.js";
 import { splitAvailable } from "./availablePool.js";
+import { rosterMark } from "./rosterMark.js";
 import { hasNumber } from "../numbers.js";
 
 
@@ -774,7 +775,13 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
            valor es el mismo con marca y sin ella; lo que cambia es que se dice
            y que no encabeza. Sigue siendo drafteable — Mine/Gone funcionan. */
         <>
-          <p className="eyebrow next-h">Unavailable · {unavailable.length} — suspended, exempt, IR or PUP. Value unchanged; listed last.</p>
+          {/* La lista se corta en 6 y el rótulo dice de cuántos, porque enseñar
+              seis de 148 sin decirlo es el artefacto de contar sobre lo pintado
+              otra vez, esta vez en la frase. */}
+          <p className="eyebrow next-h">
+            Unavailable · showing {Math.min(6, unavailable.length)} of {unavailable.length} —
+            no NFL team, suspended, exempt, IR or PUP. Value unchanged; listed last.
+          </p>
           <ol className="picks picks--found" aria-label="Unavailable players">
             {unavailable.slice(0, 6).map((row) => (
               <li key={row.player_id} className="pick is-out" style={teamVars(row.team)}>
@@ -1030,6 +1037,17 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
                     {row.status_severity === "OUT" ? (
                       <span className="room-row-out">{row.status_label ?? "OUT"}</span>
                     ) : null}{row.status_severity === "OUT" ? " " : null}
+                    {/* SITUACIÓN DE PLANTILLA. Sale del fichero de nflverse del 5
+                        de septiembre, tres semanas más nuevo que el board, y es
+                        la respuesta a «¿está este tío en el 53 de su equipo?».
+                        No mueve el VOR de al lado: lo dice. */}
+                    {rosterMark(row) ? (
+                      <>
+                        <span className="room-row-out" title={rosterMark(row).title}>
+                          {rosterMark(row).text}
+                        </span>{" "}
+                      </>
+                    ) : null}
                     {row.position}
                     {row.position_rank} · {row.team} · VOR {num(row.vor, 1)}
                   </span>

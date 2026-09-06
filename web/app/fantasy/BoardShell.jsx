@@ -199,13 +199,20 @@ export default function BoardShell({
         {context.scoring} · {context.teams}-team league · {board.length} players
         {context.league ? <> · synced from Sleeper: <strong>{context.league}</strong></> : null}
       </p>
-      {/* La fecha del dato, no la del build: un board de hace tres semanas se
-          lee igual que uno de hoy, y ésa es exactamente la confusión que el
-          pie promete que no se comete. UNKNOWN si el payload no la trae. */}
+      {/* DOS FECHAS, NO UNA. La frase anterior decía «estadística y plantillas
+          recuperadas el <fecha>» con una sola: la estadística es del 17 de
+          agosto y el registro de plantillas del 5 de septiembre, y esa
+          diferencia de tres semanas es precisamente donde están los cortes, las
+          listas de reserva y los cambios de equipo. Aplanarlas hacía que el
+          board pareciera más viejo de lo que es en lo que cambia, y más nuevo
+          de lo que es en lo que no. UNKNOWN cuando el payload no las trae. */}
       <p className="caption">
-        Player stats and rosters behind this board retrieved{" "}
-        <strong>{context.dataDate ? context.dataDate : "on an unknown date"}</strong> —
-        not when this page was built.
+        Model numbers come from player stats retrieved{" "}
+        <strong>{context.dataDate ? context.dataDate : "on an unknown date"}</strong>.
+        Roster facts — who was cut, who is on a reserve list, who changed team —
+        come from rosters retrieved{" "}
+        <strong>{context.rosterDate ? context.rosterDate : "on an unknown date"}</strong>.
+        Neither is the date this page was built.
       </p>
 
       {/* La puerta al Draft Room. El board sirve para preparar; el Room es para

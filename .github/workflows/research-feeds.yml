@@ -1,0 +1,63 @@
+# Barrido DETERMINISTA de feeds — sin clave de modelo.
+#
+#     LA INGESTA Y EL JUICIO SON DOS ETAPAS Y FALLAN POR SEPARADO.
+#
+# `daily-research.yml` necesita `ANTHROPIC_API_KEY` y se pone en rojo sin ella,
+# que es lo correcto para lo que ese workflow hace: juzgar. Bajar un RSS no
+# necesita un modelo, y atarlo a la misma clave es la razón de que el registro
+# de fuentes lleve 101 organizaciones clasificadas y CERO feeds leídos.
+#
+# Este job corre donde SÍ hay salida a los medios. Desde el contenedor de
+# desarrollo la política de red deniega el CONNECT a los 101 dominios
+# (`docs/RED_ENTORNOS.md`), así que es aquí —y no en una suposición— donde se
+# comprueba qué feed contesta de verdad.
+name: Feeds (determinista, sin clave)
+
+on:
+  schedule:
+    # Cada seis horas. Un parte de lesiones del domingo caduca en horas; el
+    # resto de lo que traen estos feeds, en días.
+    - cron: "40 */6 * * *"
+  workflow_dispatch:
+
+# Dos ejecuciones a la vez se pisarían al escribir research/feeds_latest.json.
+concurrency:
+  group: research-feeds
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  feeds:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e .
+
+      - name: Barrer feeds
+        # SIN `|| true` y SIN `continue-on-error`. El script sale con 1 cuando
+        # ninguna fuente respondió, y eso TIENE que poner el job en rojo: un
+        # barrido que sale verde sin barrer nada es exactamente el fallo que ya
+        # se cometió con `daily-research.yml`, y deja la sensación de que algo
+        # vigila cuando no.
+        run: python scripts/feed_harvest.py --include-candidates
+
+      - name: Publicar lo leído
+        # Sólo si el paso anterior escribió algo. `git diff --quiet` distingue
+        # «no hubo novedades» de «no se pudo leer»: lo primero no es un fallo,
+        # lo segundo ya puso el job en rojo más arriba.
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- research/feeds_latest.json; then
+            echo "Sin cambios en el artefacto de feeds."
+            exit 0
+          fi
+          git add research/feeds_latest.json
+          git commit -m "research: barrido determinista de feeds"
+          git push

@@ -299,6 +299,8 @@ export default function RoomShell({ board, context }) {
           Works with any platform. Draft on Sleeper, ESPN, Yahoo or around a kitchen table —
           mark picks here and the board reacts.
         </p>
+        <PreDraftFreshness modelDate={context.modelDate} rosterDate={context.rosterDate}
+                           predraft={context.predraft} />
         <form
           className="room-setup"
           onSubmit={(event) => {
@@ -476,5 +478,51 @@ export default function RoomShell({ board, context }) {
       <DraftRoom board={activeBoard} context={context} league={effectiveLeague}
                  leagueValue={leagueValue} sync={sync} />
     </>
+  );
+}
+
+/**
+ * LAS DOS FECHAS Y LO QUE HAY ENTRE ELLAS.
+ *
+ *     EL MODELO PIENSA CON DATOS DE AGOSTO.
+ *     LAS PLANTILLAS SON DE SEPTIEMBRE.
+ *     PRETENDER QUE ES UNA SOLA FECHA ES LA REGLA 5 EN LA PANTALLA QUE MÁS
+ *     DECIDE.
+ *
+ * No es un panel de estado del sistema: es la respuesta a «¿qué sabe esto que
+ * el board no sabía?». Los números salen de `predraft_brief.py`, que cruza el
+ * board con el registro de plantillas y CUENTA — no interpreta, no ordena, no
+ * mueve un VOR.
+ *
+ * Sin `predraft` en el payload no se inventa un resumen: se enseñan las fechas,
+ * que es lo que sí se sabe.
+ */
+function PreDraftFreshness({ modelDate, rosterDate, predraft }) {
+  if (!modelDate && !rosterDate) return null;
+  const n = (list) => (Array.isArray(list) ? list.length : 0);
+  const cambios = predraft
+    ? n(predraft.not_on_roster) + n(predraft.reserve) + n(predraft.practice_squad)
+      + n(predraft.exempt) + n(predraft.team_changes)
+    : 0;
+  return (
+    <div className="note">
+      <p>
+        <b>Model board</b> — projections from player stats as of{" "}
+        <b>{modelDate ?? "an unknown date"}</b>.{" "}
+        <b>Roster facts</b> — who is cut, on a reserve list or on a new team, as of{" "}
+        <b>{rosterDate ?? "an unknown date"}</b>.
+      </p>
+      {predraft && cambios > 0 ? (
+        <p className="caption">
+          {cambios} of the top {predraft.detail_through_rank} are not on an active
+          roster or changed team after the model date:{" "}
+          {n(predraft.not_on_roster)} with no NFL team, {n(predraft.reserve)} on a
+          reserve list, {n(predraft.practice_squad)} on a practice squad,{" "}
+          {n(predraft.exempt)} exempt, {n(predraft.team_changes)} on a different team.
+          Each one is marked on its own row. Their projections are unchanged — the
+          model never saw this.
+        </p>
+      ) : null}
+    </div>
   );
 }

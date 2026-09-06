@@ -90,6 +90,7 @@ test("el pie promete que CADA sección fecha lo suyo, y las cuatro lo hacen", ()
     markets: ["app/betting/page.jsx", "app/predicciones/page.jsx"],
     model: ["app/modelo/page.jsx"],
     fantasy: ["app/fantasy/page.jsx"],
+    rosters: ["app/fantasy/page.jsx"],
   };
   const secciones = Object.keys(model?.data_dates ?? {});
   assert.ok(secciones.length > 0, "el payload tiene que traer data_dates");

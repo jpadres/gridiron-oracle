@@ -88,3 +88,23 @@ run "17 una fecha sin día toma el día de HOY" src/oracle/narrative/research.py
   "        if (first.year, first.month, first.day) != (second.year, second.month, second.day):
             return None|||        pass" \
   "python -m pytest -q tests/test_publication_date.py"
+run "18 un cortado contando como que tiene equipo" src/oracle/fantasy/roster_status.py \
+  "NO_TEAM = frozenset({NOT_ON_ROSTER})|||NO_TEAM = frozenset()" \
+  "python -m pytest -q tests/test_roster_status.py"
+run "19 una situación de plantilla desconocida pasa por ACTIVA" src/oracle/fantasy/roster_status.py \
+  "    desconocidos = sorted(set(frame[\"status\"].dropna().unique()) - set(FROM_NFLVERSE))|||    desconocidos = []" \
+  "python -m pytest -q tests/test_roster_status.py"
+run "20 la partición y el separador vuelven a discrepar" web/app/fantasy/availablePool.js \
+  "  return row?.status_severity === \"OUT\" || row?.rostered === false;|||  return row?.status_severity === \"OUT\";" \
+  "cd web && node --test tests/rosterMark.test.mjs"
+run "21 LAR y LA como equipos distintos" src/oracle/fantasy/roster_status.py \
+  "        if normalize_team(str(row[\"team\"])) != normalize_team(entry.team):|||        if str(row[\"team\"]).upper() != entry.team.upper():" \
+  "python -m pytest -q tests/test_roster_status.py"
+run "22 un artefacto de feeds VACÍO se publica igual" src/oracle/narrative/feed_fetch.py \
+  "    return collected.sources_ok > 0 and len(collected.entries) > 0|||    return True" \
+  "python -m pytest -q tests/test_feed_fetch.py"
+run "23 la hora de descarga como fecha de publicación del origen" scripts/source_date_repair.py \
+  "    published = commit_date(url, clone_dir)
+    if published is None:|||    published = commit_date(url, clone_dir)
+    if False:" \
+  "python -m pytest -q tests/test_source_date_repair.py"

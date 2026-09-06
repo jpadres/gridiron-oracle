@@ -65,6 +65,13 @@ DRAFT_COLUMNS = (
     # el último en el que jugó. Sin este campo, un agente libre sin firmar se ve
     # exactamente igual que un titular.
     "rostered",
+    # Y la situación FINA de plantilla, que el booleano no da: `rostered` sólo
+    # dice si tiene equipo, y entre «en el 53» y «en una lista de reserva» hay
+    # un pick de diferencia. Sale del fichero de plantillas de nflverse con su
+    # fecha, y no mueve ningún número — el prefijo `roster_` está para que eso
+    # se pueda comprobar leyendo la lista de campos.
+    "roster_state", "roster_label", "roster_code", "roster_team",
+    "roster_source_as_of",
     "tier", "projected_points", "vor",
     # Riesgo: la etiqueta, sus tres componentes y los motivos que se nombran.
     # Las componentes viajan aunque no se pinten en una columna porque el
@@ -313,6 +320,16 @@ def main(argv: list[str] | None = None) -> int:
     # donde el modelo tiene ventaja real: no compite contra un mercado, compite
     # contra el calendario.
     payload["survivor"] = _load_optional(paths.out / "survivor.json")
+    # QUÉ HA CAMBIADO DESDE LA FECHA DEL MODELO. No es una sección más: es el
+    # cruce entre el board (estadística de agosto) y el registro de plantillas
+    # (septiembre), y por eso viaja RECORTADO — los conteos y el top 200, no las
+    # 552 filas, que ya van en el board con su marca. Ver `predraft_brief.py`.
+    predraft = _load_optional(paths.out / "predraft_brief.json")
+    if isinstance(predraft, dict):
+        # Las listas largas ya no aportan en el navegador: la marca va fila a
+        # fila y aquí sólo hace falta el resumen que se lee de un vistazo.
+        predraft = {k: v for k, v in predraft.items() if k != "kickers"}
+    payload["predraft"] = predraft
 
     # --- textos generados ---------------------------------------------------
     if args.with_narrative:
@@ -952,6 +969,13 @@ def _fechas_de_origen(paths) -> dict:
             _fecha_de(stats) if stats else None,
             _fecha_de(rosters) if rosters else None,
         ),
+        # Y las plantillas, POR SEPARADO. No es una redundancia de `fantasy`:
+        # una sección es tan actual como su fuente más vieja, así que `fantasy`
+        # arrastra la estadística de agosto y taparía que el registro de
+        # plantillas —quién está cortado, en reserva o cambió de equipo— es de
+        # tres semanas después. Aplanar las dos en una fecha borra justo el
+        # desacuerdo que decide un pick la víspera de un draft.
+        "rosters": _fecha_de(rosters) if rosters else None,
     }
 
 

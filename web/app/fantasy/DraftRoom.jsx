@@ -48,7 +48,8 @@ import {
   assignSlots, PRIOR_SHARE_VISIBLE, priorShare, VALIDATED_MAX_TEAMS, valueConfidence,
 } from "./leagueValue.js";
 import { bestForMe, candidates as buildCandidates } from "./candidates.js";
-import { splitAvailable } from "./availablePool.js";
+import { isUnavailable, splitAvailable } from "./availablePool.js";
+import { rosterMark } from "./rosterMark.js";
 import { POSITION_STATE, replacementPoints } from "./rosterFit.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
@@ -531,7 +532,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
     for (const row of shown) {
       // El bloque de los que no van a jugar, separado y nombrado: es la única
       // razón por la que un jugador con más valor está debajo de otro con menos.
-      if (row.status_severity === "OUT" && !outMarked) {
+      if (isUnavailable(row) && !outMarked) {
         out.push({ kind: "out", key: "out", count: unavailable.length });
         outMarked = true;
       }
@@ -951,6 +952,14 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                   {entry.row.rostered === false && entry.row.status_severity !== "OUT" ? (
                     <li className="room-why-noteam"><b>No NFL team</b> — free agent</li>
                   ) : null}
+                  {/* No está en el 53 de su equipo. Es un hecho del registro de
+                      plantillas, no una noticia, y por eso cubre a todo el board
+                      y no sólo a quien alguien curó a mano. */}
+                  {rosterMark(entry.row) ? (
+                    <li className="room-why-out" title={rosterMark(entry.row).title}>
+                      <b>{rosterMark(entry.row).text}</b> — not on the active roster
+                    </li>
+                  ) : null}
                   {entry.row.rookie ? (
                     /* Un novato en la lista corta tiene que llegar con su
                        intervalo. El valor de al lado es la media encogida de su
@@ -1042,7 +1051,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
               {rows.map((entry) =>
                 entry.kind === "out" ? (
                   <li key={entry.key} className="room-out-divider" aria-label="Unavailable players">
-                    Unavailable · {entry.count} — suspended, exempt, IR or PUP. Value unchanged; listed last.
+                    Unavailable · {entry.count} — no NFL team, suspended, exempt, IR or PUP. Value unchanged; listed last.
                   </li>
                 ) : entry.kind === "tier" ? (
                   /* El corte de tier, visible al escanear y sin ser un panel.
@@ -1053,7 +1062,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                   </li>
                 ) : (
                   <li key={entry.key} style={teamVars(entry.row.team)}
-                      className={entry.row === best ? "is-best" : entry.row.status_severity === "OUT" ? "is-out" : undefined}>
+                      className={entry.row === best ? "is-best" : isUnavailable(entry.row) ? "is-out" : undefined}>
                     {/* Toda la fila es el botón: el objetivo táctil es la fila
                         entera, que es lo que hace que un pick sea un toque. */}
                     <button type="button" className="room-row" disabled={replaying}
@@ -1099,6 +1108,11 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                       ) : entry.row.status_severity === "RISK" ? (
                         <span className="room-row-risk" title={statusBrief(entry.row)}>
                           {entry.row.status_label}
+                        </span>
+                      ) : null}
+                      {rosterMark(entry.row) ? (
+                        <span className="room-row-out" title={rosterMark(entry.row).title}>
+                          {rosterMark(entry.row).text}
                         </span>
                       ) : null}
                       {entry.row.rostered === false && entry.row.status_severity !== "OUT" ? (

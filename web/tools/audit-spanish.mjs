@@ -188,12 +188,19 @@ const DATOS = new Set([
   // Fechas ISO de cuándo se descargó cada sección (`2026-08-29`). Son DATOS y
   // no copy: la interfaz las pinta dentro de una frase que sí está en inglés.
   ".data_dates.fantasy", ".data_dates.markets", ".data_dates.model",
+  ".data_dates.rosters",
   ".bets[].game_id", ".bets[].matchup", ".bets[].selection",
   ".markets[].game_id", ".markets[].matchup", ".markets[].selection",
   ".dossier.ambiguous[][]", ".dossier.generated", ".dossier.sources_books[]",
   ".fantasy.board[].player_full_name", ".fantasy.board[].player_id",
   ".fantasy.board[].player_name", ".fantasy.board[].position",
   ".fantasy.board[].previous_team", ".fantasy.board[].team",
+  // Situación de plantilla: estado y código de nflverse ("ACTIVE", "R01"),
+  // el equipo que dice la plantilla y la fecha ISO de ese fichero. Tokens de
+  // máquina y fechas; la etiqueta que se PINTA la escribe la interfaz.
+  ".fantasy.board[].roster_state", ".fantasy.board[].roster_label",
+  ".fantasy.board[].roster_code", ".fantasy.board[].roster_team",
+  ".fantasy.board[].roster_source_as_of",
   // Códigos de hueco de plantilla ("QB", "FLEX", "BN") y la etiqueta del modelo
   // de reemplazo ("greedy"): tokens de máquina que la interfaz traduce al pintar.
   ".fantasy.replacement_model", ".fantasy.roster[]",
@@ -202,6 +209,11 @@ const DATOS = new Set([
 ]);
 // Los prefijos que son datos enteros, para no listar campo por campo.
 const DATOS_PREFIJOS = [
+  // El informe previo al draft: nombres propios, códigos de equipo, códigos de
+  // nflverse ("R01") y fechas ISO. La prosa que lo enmarca la escribe la
+  // interfaz, en inglés; aquí no hay una frase que traducir.
+  ".predraft.",
+
   // Lo que queda exento es NOMBRE PROPIO o CÓDIGO, no prosa. La prosa del
   // dossier y del archivo de research se tradujo con `scripts/i18n_migrate.py`
   // y desde entonces se audita como copy: era la vía por la que el español

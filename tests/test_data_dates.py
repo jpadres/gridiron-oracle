@@ -67,9 +67,16 @@ def test_las_secciones_conservan_su_desacuerdo(tmp_path):
         "markets": "2026-08-29",   # el calendario
         "model": "2026-08-20",     # el más viejo de calendario y play-by-play
         "fantasy": "2026-08-17",   # el más viejo de estadística y rosters
+        # Las plantillas, APARTE: `fantasy` arrastra la estadística más vieja y
+        # taparía que el registro de quién está cortado o en reserva es de
+        # dieciocho días después. Es justo el desacuerdo que decide un pick.
+        "rosters": "2026-09-04",
     }
     # La propiedad, no los literales: si un día se aplanan en una sola, esto cae.
-    assert len(set(fechas.values())) == 3
+    assert len(set(fechas.values())) == 4
+    # Y la que más importa la víspera de un draft: las plantillas NO pueden
+    # heredar la fecha de la estadística.
+    assert fechas["rosters"] != fechas["fantasy"]
 
 
 def test_un_ARTEFACTO_COMPILADO_no_puede_dar_frescura(tmp_path):

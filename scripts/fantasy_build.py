@@ -22,7 +22,7 @@ from scipy.stats import pearsonr, spearmanr
 
 from oracle.config import paths as resolve_paths
 from oracle.fantasy import availability as avail
-from oracle.fantasy import risk
+from oracle.fantasy import risk, roster_status
 from oracle.fantasy import rookies as rookie_prior
 from oracle.fantasy.ages import ages_for_season, birth_dates
 from oracle.fantasy.components import COMPONENTS, compile_points
@@ -265,11 +265,19 @@ def mark_rostered(board: pd.DataFrame, raw_dir: Path, season: int) -> pd.DataFra
         # tener el dato sería peor que el problema que esto arregla.
         board["rostered"] = True
         return board
-    roster = pd.read_parquet(path, columns=["gsis_id", "status"])
-    # Cualquier situación de plantilla cuenta como «tiene equipo», incluida la
-    # reserva y el practice squad: lo que se busca es quien no está en NINGUNA.
-    on_a_team = set(roster["gsis_id"].dropna().astype(str))
-    board["rostered"] = board["player_id"].astype(str).isin(on_a_team)
+    entries = roster_status.load(path)
+    if not entries:
+        board["rostered"] = True
+        return board
+    # APARECER EN EL FICHERO NO ES TENER EQUIPO. La versión anterior daba por
+    # bueno a todo el que tuviera fila, y el fichero trae TAMBIÉN a los cortados
+    # y a los retirados: 421 en 2026, de los cuales 73 estaban en este board el
+    # día antes de un draft, con su equipo y sin una marca. La reserva y el
+    # equipo de prácticas sí son equipo —no juegan el domingo, pero el jugador
+    # está fichado— y eso lo dice `roster_state`, no este booleano.
+    board["rostered"] = board["player_id"].astype(str).map(
+        lambda pid: pid in entries and entries[pid].has_team
+    )
     return board
 
 
@@ -520,6 +528,20 @@ def main(argv: list[str] | None = None) -> int:
     board = mark_rostered(board, paths.raw, season)
     sin_equipo = int((~board["rostered"]).sum())
     print(f"Sin equipo en {season}: {sin_equipo} de {len(board)} jugadores del board.")
+    # Y la situación FINA, que el booleano no puede dar: quién está en el 53,
+    # quién en una lista de reserva, quién en el equipo de prácticas. Son hechos
+    # del fichero de plantillas con su fecha de origen, y NO tocan un número.
+    _roster_entries = roster_status.load(paths.raw / f"roster_{season}.parquet")
+    if _roster_entries:
+        filas = board.to_dict(orient="records")
+        roster_status.attach(filas, _roster_entries)
+        for campo in ("roster_state", "roster_label", "roster_code", "roster_team",
+                      "roster_source_as_of", "roster_basis"):
+            board[campo] = [f.get(campo) for f in filas]
+        fuera = int((board["roster_state"] != roster_status.ACTIVE).sum())
+        print(f"  fuera del 53 activo: {fuera} "
+              f"(plantillas de nflverse, semana {next(iter(_roster_entries.values())).week}, "
+              f"origen {next(iter(_roster_entries.values())).source_as_of}).")
 
     # Etiqueta de riesgo. Validada contra el error realizado en
     # `scripts/fantasy_risk_validate.py`: Spearman +0.12 y el tercio de riesgo

@@ -16,6 +16,20 @@
  *   unavailable  quien no va a jugar — se enseña aparte, con su valor intacto
  *                y su marca diciendo por qué. No se esconde, no se penaliza.
  */
+/**
+ * ¿Este jugador NO va a jugar? UNA definición, para las tres cosas que dependen
+ * de ella: la partición, el separador de la lista y la clase de la fila.
+ *
+ * Tenerla en tres sitios ya se rompió: al mover «sin equipo NFL» a
+ * `unavailable`, el separador y la clase `is-out` seguían mirando SÓLO la capa
+ * de prensa, así que 142 filas caían detrás del separador sin que el separador
+ * llegara a pintarse — la lista decía que estaban disponibles y el orden decía
+ * que no. Es el fallo de los dos traductores, ahora dentro de una sola pantalla.
+ */
+export function isUnavailable(row) {
+  return row?.status_severity === "OUT" || row?.rostered === false;
+}
+
 export function splitAvailable(rows, taken) {
   const has = typeof taken?.has === "function" ? (id) => taken.has(id) : () => false;
   const untaken = [];
@@ -24,7 +38,14 @@ export function splitAvailable(rows, taken) {
   for (const row of rows ?? []) {
     if (!row || has(row.player_id)) continue;
     untaken.push(row);
-    if (row.status_severity === "OUT") unavailable.push(row);
+    // SIN EQUIPO NFL cuenta como «no va a jugar», igual que un OUT. No es una
+    // regla nueva: `candidates` ya se negaba a recomendarlos y el Draft Room ya
+    // los marcaba «SIN EQUIPO» — lo que faltaba era que la PARTICIÓN lo supiera,
+    // y de ahí que los conteos de tier los siguieran contando. Con 142 de los
+    // 552 del board sin plantilla, «8 RBs left in tier 6» podía ser medio
+    // agentes libres: el mismo artefacto de «2 left in tier», ahora por contar
+    // sobre gente que no está en ningún equipo en vez de sobre lo pintado.
+    if (isUnavailable(row)) unavailable.push(row);
     else available.push(row);
   }
   return { untaken, available, unavailable };
