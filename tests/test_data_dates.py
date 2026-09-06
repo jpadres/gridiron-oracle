@@ -177,3 +177,32 @@ def test_un_clon_SIN_datos_no_borra_las_fechas_que_el_payload_ya_traia():
     # Y una sección que el payload tampoco fechaba puede quedarse en UNKNOWN.
     assert fechas_que_se_perderian({"markets": "2026-09-05"}, {"markets": "2026-09-05",
                                                               "fantasy": None}) == []
+
+
+def test_el_parche_CONSERVA_las_claves_que_no_calcula():
+    """El fallo real no estaba en la comprobación: estaba en la ASIGNACIÓN.
+
+    `_fechas_de_origen` fecha las secciones que salen de un fichero descargado
+    y `research` no es una de ellas —la calcula `fecha_del_research` sobre las
+    fichas—, así que no aparece en el resultado. Escribirlo entero encima
+    (`payload["data_dates"] = fechas`) BORRABA la fecha de la prensa y la
+    pantalla pasaba a UNKNOWN teniéndola medida. Se funde.
+
+    Se comprueba la propiedad y no la implementación: lo que importa es que
+    una clave que el cálculo no toca siga valiendo lo mismo después.
+    """
+    antes = {"markets": "2026-09-05", "rosters": "2026-09-05", "research": "2026-09-04"}
+    calculadas = {"markets": "2026-09-06", "rosters": "2026-09-06"}
+    despues = {**antes, **calculadas}
+
+    assert despues["research"] == "2026-09-04", "la fecha de la prensa se ha perdido"
+    assert despues["markets"] == "2026-09-06", "un refresco real sí mueve la fecha"
+
+    # Y que el script haga eso de verdad, no sólo el diccionario del test: la
+    # propiedad de arriba se cumple sola. Se lee el CÓDIGO, como en el test que
+    # comprueba que `Briefs.jsx` pinta la etiqueta que su función devuelve.
+    fuente = (RAIZ / "scripts" / "data_dates_patch.py").read_text(encoding="utf-8")
+    assert 'payload["data_dates"] = {**antes, **fechas}' in fuente, (
+        "el parche sustituye data_dates en vez de fundirlo: borra las claves "
+        "que no calcula, y `research` es una de ellas"
+    )

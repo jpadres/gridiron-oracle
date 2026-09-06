@@ -36,6 +36,12 @@ def fechas_que_se_perderian(antes: dict, ahora: dict) -> list[str]:
     Aparte para poder probarla: `main` resuelve las rutas desde la raíz del
     repositorio, así que el caso —un clon sin `data/`— no se puede montar
     llamándolo.
+
+    Sólo mira las claves que este cálculo SÍ produce. Una que no produce en
+    absoluto —`research` no sale de ningún fichero de origen, sale de
+    `fecha_del_research` sobre las fichas— no se pierde: `main` FUNDE en vez
+    de sustituir, así que sigue en el payload. Contarla aquí bloquearía el
+    parche por una pérdida que no ocurre.
     """
     return sorted(k for k, v in ahora.items() if not v and (antes or {}).get(k))
 
@@ -69,7 +75,8 @@ def main() -> int:
         print("Ejecuta `oracle refresh` antes, o deja el payload como está.")
         return 1
 
-    payload["data_dates"] = fechas
+    # Se FUNDE en vez de sustituir: lo que este script no calcula, no lo toca.
+    payload["data_dates"] = {**antes, **fechas}
     write_payload(destino, payload)
 
     print(f"data_dates: {antes or None} -> {fechas}")
