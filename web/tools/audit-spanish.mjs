@@ -283,6 +283,13 @@ const DATOS_PREFIJOS = [
   ".fantasy.validation_bands[]",
   ".fantasy.validation_top_n[]",
   ".fantasy.validation_value[]",
+  // Menciones de prensa (`narrative/press.py`): medio, titular, URL y la fecha
+  // ISO de PUBLICACIÓN, tal y como los escribió el medio. Es material ajeno y
+  // en inglés, no copy de este producto — la frase que lo envuelve la pone la
+  // interfaz. Se declara por PREFIJO porque las claves de `by_player` son los
+  // propios `player_id` y cambian con cada board, igual que `.fantasy.sleeper_ids`.
+  ".research.press.",
+
   // Marcas de tiempo ISO de las fichas: cuándo se PUBLICÓ y cuándo se VIO por
   // primera vez en el barrido. Dos fechas distintas a propósito (regla 5): la
   // segunda nunca se pinta como la primera.

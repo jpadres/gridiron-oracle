@@ -637,6 +637,9 @@ comentario está para que no los reintroduzcas.
 | Cobertura por equipo CERO con ocho feeds de equipo en la lista | `narrative/sources.py` | Los ocho eran blogs de ESPN y los ocho responden VACÍO. La promesa se cumplía en la lista y no en los datos. Con los 32 clubes oficiales: 48 fuentes OK, 2.111 entradas, **32 de 32 equipos** |
 | Un guardián que aceptaba «la palabra aparece cerca» | `tests/candidates.test.mjs` | Dos versiones seguidas salieron VERDES con el fallo inyectado: la primera miraba «hay “pecialist” en los 400 caracteres siguientes» y el array de dependencias se lo daba; la segunda aceptaba `pool.filter(` en cualquier parte del fichero. Se extrae el CUERPO del memo y se mira dentro |
 | Una inyección apuntando a una línea que ya no existe | `scripts/injection_drill.sh` | El `sed` no encontró nada, no inyectó nada, el guardián pasó y el simulacro escribió VERDE (NO ES GUARDIÁN). La vigilancia seguía en pie; lo que se había perdido era la capacidad de demostrarlo |
+| El parche de fechas BORRABA la de la prensa | `data_dates_patch.py` | `_fechas_de_origen` sólo fecha lo que sale de un fichero descargado, y `research` no es una de ésas: la calcula `fecha_del_research` sobre las fichas. La clave no aparecía en el resultado y `payload["data_dates"] = fechas` la tiraba — UNKNOWN en pantalla teniendo la fecha MEDIDA, que es el fallo que ese mismo fichero documenta en su propio comentario. Estaba en la ASIGNACIÓN, no en la comprobación: se FUNDE. Y el primer arreglo amplió la comprobación a la unión de claves y dejó el script sin poder correr: **una clave que no se calcula no se pierde si se funde** |
+| Una inyección que no reproducía el fallo | `scripts/injection_drill.sh` | Metía la capa de prensa ANTES de la correcta, así que la correcta seguía corriendo después y el parte médico seguía ganando: «VERDE (NO ES GUARDIÁN)» sobre un guardián que sí lo era. El fallo estaba en la inyección. Y el `\n` de la cadena llegaba literal al reemplazo: los saltos de línea van CRUDOS, como en la inyección 2 |
+| Dos inyecciones con el mismo número | `scripts/injection_drill.sh` | Se añadieron cuatro al final empezando por 37 y ya había un 37 doscientas líneas más arriba. El simulacro corría las 41, pero el informe tenía dos «37» y un recuento por número habría dado 40 |
 | 26 cifras escritas a mano en el JSX, sin libro | `web/tools/ui-numbers.mjs` | Ninguna comprobación miraba «48,8%», «0,388» o «0,61» en la prosa de la interfaz. Ahora cada cifra a mano tiene entrada en `docs/evidence/ui_numbers.json` con procedencia (PAYLOAD, ARITHMETIC, EXPERIMENT:id, CONVENTION o UNVERIFIED) y una cifra nueva sin entrada es rojo. Doce siguen UNVERIFIED — dicho, no escondido |
 
 ---
@@ -727,7 +730,7 @@ está construida:
 | `controles.mjs` | **Control por control, las doce páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete veintiséis fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CUARENTA Y UN fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -735,8 +738,10 @@ liquidación que paga de más, y desde el crítico del 5 de septiembre los playo
 entrando por `fantasy_build.py`, los ids del barrido emparejados por posición y
 una fecha sin día tomando el de hoy, y desde el crítico del 6 de septiembre un
 cortado contando como que tiene equipo, los especialistas sin comprobar y «sin
-equipo» invisible en la tabla principal— y exige veintiséis rojos y veintiséis
-verdes al restaurar.
+equipo» invisible en la tabla principal, y desde el 6 de septiembre por la tarde
+el parche de fechas borrando la de la prensa, una mención pisando al parte
+médico y dos formas de emparejar mal un nombre— y exige 41 rojos y 41 verdes al
+restaurar.
 
 ## El skill de UI/UX
 

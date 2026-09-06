@@ -198,6 +198,18 @@ export function availabilityByPlayer(dossier) {
 export function briefsByPlayer(dossier, research) {
   const briefs = {};
 
+  // 4. La capa MÁS DÉBIL: una mención de prensa leída hoy. No es un juicio —
+  // nadie la ha clasificado, sólo se ha comprobado que el titular nombra a
+  // este jugador y a su equipo (`narrative/press.py`)—, así que cualquier
+  // capa de abajo la pisa. Lleva su fecha de PUBLICACIÓN delante porque una
+  // mención sin cuándo no dice nada, y el medio para poder juzgarla.
+  for (const [id, items] of Object.entries(research?.press?.by_player ?? {})) {
+    const last = items?.[0];
+    if (!last?.title || !last?.published_at) continue;
+    const day = String(last.published_at).slice(0, 10);
+    const more = items.length > 1 ? ` (+${items.length - 1})` : "";
+    briefs[id] = `${day} · ${last.outlet ?? "press"} — ${firstSentence(last.title)}${more}`;
+  }
   // 3. Contexto de campamento, sólo el de sustancia alta.
   for (const entry of dossier?.camp ?? []) {
     if (entry.player_id && entry.substance === "alta") {

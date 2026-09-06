@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: nueve fallos conocidos, nueve guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 41 fallos conocidos, 41 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -158,3 +158,25 @@ run "35 la previa del novato leída como «sin muestra»" web/app/fantasy/candid
 run "36 una defensa afirmada como «sin equipo NFL»" src/oracle/fantasy/roster_status.py \
   "        if str(row.get(\"position\") or \"\").upper() in TEAM_UNIT_POSITIONS:|||        if False:" \
   "python -m pytest -q tests/test_roster_status.py"
+run "38 el parche de fechas borrando la del research" scripts/data_dates_patch.py \
+  "    payload[\"data_dates\"] = {**antes, **fechas}|||    payload[\"data_dates\"] = fechas" \
+  "python -m pytest -q tests/test_data_dates.py"
+run "39 una mención de prensa pisando al parte médico" web/data/model.js \
+  "  return briefs;
+}
+
+function firstSentence|||  for (const [id, items] of Object.entries(research?.press?.by_player ?? {})) {
+    const last = items?.[0];
+    if (last?.title && last?.published_at) briefs[id] = last.title;
+  }
+  return briefs;
+}
+
+function firstSentence" \
+  "cd web && node --test tests/press.test.mjs"
+run "40 un tocayo universitario colgado del jugador del board" src/oracle/narrative/press.py \
+  "            if not _corrobora(entrada, equipo, texto):|||            if False:" \
+  "python -m pytest -q tests/test_press.py"
+run "41 dos nombres iguales emparejados con el primero" src/oracle/narrative/press.py \
+  "    return {k: v[0] for k, v in vistos.items() if len(v) == 1}|||    return {k: v[0] for k, v in vistos.items()}" \
+  "python -m pytest -q tests/test_press.py"
