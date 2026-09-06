@@ -8,7 +8,7 @@
 import { strict as assert } from "node:assert";
 import test from "node:test";
 
-import { rosterMark, changedSinceModel } from "../app/fantasy/rosterMark.js";
+import { rosterMark, changedSinceModel, updatedSinceModel } from "../app/fantasy/rosterMark.js";
 import { readFileSync } from "node:fs";
 
 import { isUnavailable, splitAvailable, tierPool } from "../app/fantasy/availablePool.js";
@@ -191,4 +191,36 @@ test("un especialista sin equipo NFL SÍ lleva marca aunque la pantalla prometa 
   // Y con el campo puesto sí se calla, que es para lo que existe la opción.
   const jugador = { position: "WR", roster_state: "NOT_ON_ROSTER", rostered: false };
   assert.equal(rosterMark(jugador, { yaDiceSinEquipo: true }), null);
+});
+
+test("«updated since model» sólo habla de hechos MATERIALES y posteriores", () => {
+  const base = { position: "RB", team: "LV", roster_source_as_of: "2026-09-05" };
+  // Cambio de equipo después de la fecha del modelo: material.
+  const cambio = updatedSinceModel({ ...base, roster_team: "KC", roster_state: "ACTIVE" }, "2026-08-17");
+  assert.ok(cambio.facts.some((f) => /Now on KC/.test(f)));
+  assert.equal(cambio.asOf, "2026-09-05");
+
+  // Activo en su mismo equipo: no hay nada que decir.
+  assert.equal(
+    updatedSinceModel({ ...base, roster_team: "LV", roster_state: "ACTIVE" }, "2026-08-17"),
+    null,
+  );
+
+  // ANTERIOR a la fecha del modelo: el modelo ya lo pudo ver.
+  assert.equal(
+    updatedSinceModel({ ...base, roster_team: "KC", roster_state: "ACTIVE",
+                        roster_source_as_of: "2026-08-10" }, "2026-08-17"),
+    null,
+  );
+
+  // Sin fecha del modelo no se afirma que algo sea posterior a ella.
+  assert.equal(updatedSinceModel({ ...base, roster_state: "RESERVE" }, null), null);
+
+  // Y una defensa no genera hechos: no es una persona.
+  assert.equal(
+    updatedSinceModel({ position: "DST", team: "KC", roster_team: "KC",
+                        roster_state: "TEAM_UNIT", roster_source_as_of: "2026-09-05" },
+                      "2026-08-17"),
+    null,
+  );
 });

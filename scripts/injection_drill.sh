@@ -117,3 +117,41 @@ run "23 la hora de descarga como fecha de publicación del origen" scripts/sourc
     if published is None:|||    published = commit_date(url, clone_dir)
     if False:" \
   "python -m pytest -q tests/test_source_date_repair.py"
+
+# ── El motor con contexto de plantilla (§140-149 del encargo del 6-sep) ─────
+# Diez fallos que ya se han pedido por escrito y diez guardianes rápidos que
+# TIENEN que ponerse rojos. Van aquí y no sólo en la tortura de madrugada
+# porque el draft es mañana y lo que sólo se comprueba de noche no protege una
+# tarde.
+run "27 QB2 encabeza en 1QB con titulares abiertos" web/app/fantasy/rosterFit.js \
+  "      : tuvoDedicado ? POSITION_STATE.STARTER_FILLED|||      : tuvoDedicado ? POSITION_STATE.OPEN_STARTER" \
+  "cd web && node --test tests/engineRegressions.test.mjs"
+run "28 el FLEX deja de admitir a quien admite" web/app/fantasy/rosterFit.js \
+  "    const flexAbierto = open.some((s) => !s.dedicated && s.eligible.includes(pos));|||    const flexAbierto = false;" \
+  "cd web && node --test tests/engineRegressions.test.mjs"
+run "29 la saturación de 1QB aplicada a la superflex" web/app/fantasy/rosterFit.js \
+  "    byPosition[pos] = dedicadoAbierto ? POSITION_STATE.OPEN_STARTER|||    if (pos === \"QB\" && (roster ?? []).some((r) => r.position === \"QB\")) { byPosition[pos] = POSITION_STATE.STARTER_FILLED; continue; }
+    byPosition[pos] = dedicadoAbierto ? POSITION_STATE.OPEN_STARTER" \
+  "cd web && node --test tests/engineRegressions.test.mjs"
+run "30 el cupo escondiendo una mejora de +93" web/app/fantasy/candidates.js \
+  "  let mejoran = rows.filter((row) => MEJORA(byId.get(row.player_id)));|||  let mejoran = rows.filter((row) => MEJORA(byId.get(row.player_id)) && puedeJugar(row));" \
+  "cd web && node --test tests/engineRegressions.test.mjs"
+run "31 el filtro de la interfaz acotando el motor" web/app/fantasy/DraftMode.jsx \
+  "    () => bestForMe(available, {|||    () => bestForMe(suggestions, {" \
+  "cd web && node --test tests/candidates.test.mjs"
+run "32 una marca de prensa moviendo el VOR" src/oracle/narrative/status.py \
+  "        row[\"status_severity\"] = entry.severity|||        row[\"status_severity\"] = entry.severity
+        row[\"vor\"] = float(row.get(\"vor\") or 0.0) - 20.0  # INYECCIÓN" \
+  "python -m pytest -q tests/test_status.py"
+run "33 el aviso de plantilla escondido del candidato" web/app/fantasy/rosterMark.js \
+  "  if (yaDiceSinEquipo && row?.roster_state === \"NOT_ON_ROSTER\" && row?.rostered === false) {|||  if (yaDiceSinEquipo && row?.roster_state === \"NOT_ON_ROSTER\") {" \
+  "cd web && node --test tests/rosterMark.test.mjs"
+run "34 los huecos de K/DST sin llenar al final" web/app/fantasy/candidates.js \
+  "  if (urgeEspecialista(state, picksLeftForMe)) {|||  if (false) {" \
+  "cd web && node --test tests/engineRegressions.test.mjs"
+run "35 la previa del novato leída como «sin muestra»" web/app/fantasy/candidates.js \
+  "          || row.rookie || !hasNumber(row.weighted_games ?? row.wg)|||          || !hasNumber(row.weighted_games ?? row.wg)" \
+  "cd web && node --test tests/engineRegressions.test.mjs"
+run "36 una defensa afirmada como «sin equipo NFL»" src/oracle/fantasy/roster_status.py \
+  "        if str(row.get(\"position\") or \"\").upper() in TEAM_UNIT_POSITIONS:|||        if False:" \
+  "python -m pytest -q tests/test_roster_status.py"

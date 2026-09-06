@@ -13,7 +13,9 @@ import { test } from "node:test";
 
 import { readFileSync } from "node:fs";
 
-import { candidates, headlineReason } from "../app/fantasy/candidates.js";
+import {
+  candidates, headlineReason, whyNotTopAvailable,
+} from "../app/fantasy/candidates.js";
 
 const fila = (id, vor, extra = {}) => ({
   player_id: id, player_name: id, position: "RB", team: "GB", vor, tier: 1, ...extra,
@@ -133,4 +135,41 @@ test("las dos pantallas piden el motivo a la MISMA función", () => {
       `${ruta} sigue pintando reasons[0]: se le cae la salvedad`,
     );
   }
+});
+
+test("el filtro de la interfaz NO acota el motor de recomendación", () => {
+  /* §113/§145. El filtro por posición es una lente sobre lo que se PINTA. Si
+     llegara a `bestForMe`, filtrar a WR haría que el motor no viera un corredor
+     que llena tu RB2 y el hueco se quedaría abierto sin que nada lo dijera —
+     un filtro de interfaz convertido en filtro de modelo, que es el fallo del
+     «2 left in tier» contado sobre lo pintado, elevado a decisión. */
+  for (const ruta of ["app/fantasy/DraftMode.jsx", "app/fantasy/DraftRoom.jsx"]) {
+    const fuente = readFileSync(new URL(`../${ruta}`, import.meta.url), "utf8");
+    const llamada = fuente.match(/bestForMe\(\s*([A-Za-z0-9_.]+)/);
+    assert.ok(llamada, `${ruta} tiene que llamar a bestForMe`);
+    assert.equal(llamada[1], "available",
+      `${ruta} le pasa «${llamada[1]}» al motor: sólo vale el pool sin filtrar`);
+    // Y que no exista una variante filtrada colada por delante.
+    assert.ok(
+      !/bestForMe\(\s*(visible|filtered|suggestions|shortlist)/.test(fuente),
+      `${ruta} está pasando una lista ya filtrada al motor`,
+    );
+  }
+});
+
+test("«por qué no el primero del board» sale del ESTADO, no de un adjetivo", () => {
+  // §25. Determinista: misma plantilla y mismo pool, misma frase. Y `null`
+  // cuando las dos listas coinciden — no se escribe nada por escribir.
+  const qb = { player_id: "QB1", player_name: "Top QB", position: "QB" };
+  const forMe = {
+    primary: { row: { player_id: "RB1", player_name: "Mi RB" }, fit: { marginal: 69 } },
+    state: { byPosition: { QB: "STARTER_FILLED", RB: "OPEN_STARTER" } },
+  };
+  const why = whyNotTopAvailable(qb, forMe);
+  assert.equal(why.kind, "STARTER_FILLED");
+  assert.match(why.text, /QB starter is already filled/);
+  // Mismo jugador en las dos listas: no hay diferencia que explicar.
+  assert.equal(whyNotTopAvailable({ player_id: "RB1", position: "RB" }, forMe), null);
+  // Sin estructura declarada tampoco se afirma nada.
+  assert.equal(whyNotTopAvailable(qb, { primary: forMe.primary, state: null }), null);
 });

@@ -47,9 +47,11 @@ import { agoLabel, clockLabel, pickClock, reconciliation } from "./draftSync.js"
 import {
   assignSlots, PRIOR_SHARE_VISIBLE, priorShare, VALIDATED_MAX_TEAMS, valueConfidence,
 } from "./leagueValue.js";
-import { bestForMe, candidates as buildCandidates, headlineReason } from "./candidates.js";
+import {
+  bestForMe, candidates as buildCandidates, headlineReason, whyNotTopAvailable,
+} from "./candidates.js";
 import { isUnavailable, splitAvailable, tierPool as countableTier } from "./availablePool.js";
-import { rosterMark } from "./rosterMark.js";
+import { rosterMark, updatedSinceModel } from "./rosterMark.js";
 import { POSITION_STATE, replacementPoints } from "./rosterFit.js";
 
 const POSITIONS = ["ALL", "QB", "RB", "WR", "TE", "K", "DST"];
@@ -412,6 +414,14 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
       limit: 4,
     }),
     [available, roster, construction, league, replacement, rounds, teams, next]
+  );
+
+  /* La respuesta a «¿y por qué no el primero del board?», derivada del estado
+     de su posición en TU plantilla. Se calcula aquí y no dentro del render
+     para que no dependa del orden en que se pinten las dos secciones. */
+  const porQueNoElPrimero = useMemo(
+    () => whyNotTopAvailable(shortlist[0]?.row ?? null, forMe),
+    [shortlist, forMe]
   );
 
 
@@ -834,6 +844,23 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
           <ul className="room-why room-why--pick">
             {forMe.primary.reasons.map((r) => <li key={r.kind}>{r.text}</li>)}
           </ul>
+          {/* LO QUE EL MODELO NO PUDO VER. El número de arriba se compiló con
+              datos del {context.modelDate}; el registro de plantillas es
+              posterior. Si entre las dos fechas pasó algo MATERIAL —cambió de
+              equipo, entró en reserva, se quedó sin equipo— se dice aquí, antes
+              de que pulses. No mueve ni un número: es la regla 8, y por eso se
+              enseña al lado en vez de dentro. */}
+          {(() => {
+            const nuevo = updatedSinceModel(forMe.primary.row, context.modelDate);
+            return nuevo ? (
+              <p className="room-updated">
+                <b>Not in the model</b>
+                <span>
+                  {nuevo.facts.join(" · ")} — rosters {nuevo.asOf}, model {nuevo.modelDate}
+                </span>
+              </p>
+            ) : null;
+          })()}
           {forMe.alternates.length > 0 ? (
             <>
               <p className="eyebrow">Other good options</p>
@@ -887,6 +914,15 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
               else — this order never looks at your roster
             </small>
           </h2>
+          {/* «¿Y POR QUÉ NO ÉSE?» — la pregunta que se hace cualquiera al ver
+              las dos listas y que la pantalla dejaba sin contestar. La frase
+              sale del ESTADO DE SU POSICIÓN en TU plantilla, es determinista, y
+              no se pinta si las dos listas coinciden o si no hay estructura
+              declarada. Nada de texto generado en el turno: cuando estás en el
+              reloj no se espera a una red. */}
+          {porQueNoElPrimero ? (
+            <p className="room-whynot">{porQueNoElPrimero.text}</p>
+          ) : null}
           {/* La profundidad CALIFICA la lista, no la esconde. El board del
               modo draft ya lo decía y esta pantalla no: la misma liga de 32
               enseñaba VOR sin matizar aquí y matizado allí. E18 validó la

@@ -119,6 +119,44 @@ export function changedSinceModel(row) {
 }
 
 /**
+ * UN HECHO MATERIAL POSTERIOR A LA FECHA DEL MODELO, en una línea.
+ *
+ *     EL NÚMERO ES DEL 17 DE AGOSTO. ESTO PASÓ DESPUÉS.
+ *
+ * No cambia ningún número —regla 8, y `attach()` sólo escribe campos con
+ * prefijo `roster_`— pero es lo que decide si drafteas a alguien. La lista de
+ * lo que cuenta como MATERIAL es corta y cerrada a propósito: cambio de
+ * equipo, lista de reserva, equipo de prácticas, exento, sin equipo NFL, y lo
+ * que la prensa marca como OUT. Una entrevista de pretemporada no entra.
+ *
+ * Devuelve `null` cuando no hay nada material o cuando falta alguna de las dos
+ * fechas: sin saber cuál es la del modelo no se puede afirmar que algo sea
+ * POSTERIOR a ella, y afirmarlo sin comprobarlo es la regla 5 otra vez.
+ */
+const MATERIAL = {
+  RESERVE: "Moved to a reserve list",
+  PRACTICE_SQUAD: "On the practice squad",
+  EXEMPT: "On the exempt list",
+  NOT_ON_ROSTER: "No NFL team",
+};
+
+export function updatedSinceModel(row, modelDate) {
+  const rosterDate = row?.roster_source_as_of;
+  if (!rosterDate || !modelDate || rosterDate <= modelDate) return null;
+  if (row?.roster_state === "TEAM_UNIT") return null;
+  const hechos = [];
+  const cambio = row?.roster_team && row?.team && row.roster_team !== row.team;
+  if (cambio) hechos.push(`Now on ${row.roster_team}, not ${row.team}`);
+  const estado = MATERIAL[row?.roster_state];
+  if (estado) hechos.push(estado);
+  if (row?.status_severity === "OUT" && row?.status_label) {
+    hechos.push(String(row.status_label));
+  }
+  if (hechos.length === 0) return null;
+  return { facts: hechos, asOf: rosterDate, modelDate };
+}
+
+/**
  * ¿La marca de prensa de esta fila ya dice lo que diría la de plantilla?
  *
  * No es «hay marca de prensa»: es que hable del MISMO hecho. Un jugador en

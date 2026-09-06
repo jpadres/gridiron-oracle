@@ -279,6 +279,60 @@ export function headlineReason(entry) {
 }
 
 
+/**
+ * POR QUÉ EL PRIMERO DEL BOARD NO ES TU PRIMER CANDIDATO.
+ *
+ *     LAS DOS LISTAS DICEN COSAS DISTINTAS Y HAY QUE PODER LEER LA DIFERENCIA.
+ *
+ * `Best available` es VOR puro y no mira tu plantilla; `Best pick for you` mira
+ * los huecos que tu liga declara. Cuando el número uno de la primera no
+ * encabeza la segunda, la pregunta que se hace cualquiera en treinta segundos
+ * es «¿por qué no ése?» — y hasta ahora la pantalla enseñaba las dos listas y
+ * dejaba que se contestara sola. Se contesta con el ESTADO DE SU POSICIÓN, que
+ * es un hecho de tu plantilla, no una opinión sobre el jugador.
+ *
+ * Determinista y sin modelo: la misma plantilla y el mismo pool dan la misma
+ * frase. Nada de texto generado en el turno — cuando estás en el reloj no se
+ * espera a una red.
+ *
+ * Devuelve `null` cuando no hay nada que explicar: mismo jugador, o sin estado
+ * declarado. `null` significa «no lo sé», y entonces no se escribe nada.
+ */
+export function whyNotTopAvailable(topRow, forMe) {
+  const pick = forMe?.primary?.row;
+  if (!topRow || !pick || topRow.player_id === pick.player_id) return null;
+  const estado = forMe?.state?.byPosition?.[topRow.position];
+  if (!estado) return null;
+  const nombre = topRow.player_full_name ?? topRow.player_name ?? "The top of the board";
+  if (estado === POSITION_STATE.STARTER_FILLED) {
+    return {
+      kind: "STARTER_FILLED",
+      text: `${nombre} is still the highest raw value, but your ${topRow.position} `
+        + "starter is already filled and no open slot takes him.",
+    };
+  }
+  if (estado === POSITION_STATE.BENCH_DEPTH) {
+    return {
+      kind: "BENCH_DEPTH",
+      text: `${nombre} is still the highest raw value, but no open slot in this `
+        + `league can start a ${topRow.position} right now.`,
+    };
+  }
+  // Cabe en algún hueco y aun así no encabeza: entonces la razón no es el
+  // hueco, es cuánto AÑADE. Se dice con los dos números, sin adjetivos.
+  const suyo = forMe?.byId?.get?.(topRow.player_id)?.marginal;
+  const mio = forMe?.primary?.fit?.marginal;
+  if (Number.isFinite(suyo) && Number.isFinite(mio)) {
+    return {
+      kind: "SMALLER_GAIN",
+      text: `${nombre} is the highest raw value, but he adds ${suyo.toFixed(1)} to your `
+        + `lineup against ${mio.toFixed(1)}.`,
+    };
+  }
+  return null;
+}
+
+
 export function bestForMe(available, {
   roster = null, rosterPositions = null, replacement = null,
   picksLeftForMe = null, limit = 4,
@@ -385,6 +439,64 @@ export function bestForMe(available, {
         byId = ancho.byId;
         mejoran = mejoranAncho;
       }
+    }
+  }
+
+  /* EL FINAL DEL DRAFT: LOS HUECOS QUE SÓLO UN ESPECIALISTA PUEDE LLENAR.
+     ─────────────────────────────────────────────────────────────────────────
+     `urgeEspecialista` ya AVISABA —«te quedan tantos picks como huecos»— y la
+     lista corta seguía ofreciendo receptores, porque un pateador no tiene VOR
+     y nunca entra por el camino normal. Siguiendo la recomendación al pie de
+     la letra se llegaba al último pick con DST y K abiertos, que es una
+     alineación ILEGAL: exactamente lo que el §43 prohíbe y la misma familia
+     del hueco vacío que rinde cero.
+
+     Cuando ya no queda holgura, los ÚNICOS picks que conservan una alineación
+     legal son los que llenan un hueco abierto. Así que la lista pasa a ser
+     ésa, con los especialistas dentro.
+
+     Y se dice lo que es: el hueco es un HECHO de tu liga; el orden entre
+     pateadores NO está validado (`KICKER_ORDINAL_RANKING` sigue REJECTED) y
+     el motivo lo escribe en la propia fila en vez de dejar que el orden se
+     lea como una clasificación. */
+  if (urgeEspecialista(state, picksLeftForMe)) {
+    const necesarias = new Set(
+      state.open.flatMap((h) => h.eligible ?? SLOT_ELIGIBILITY[h.slot] ?? [])
+    );
+    const candidatos = (available ?? [])
+      .filter((row) => necesarias.has(row.position) && row.status_severity !== "OUT")
+      .sort((a, b) => (numberOrNull(b.projected_points) ?? 0)
+        - (numberOrNull(a.projected_points) ?? 0));
+    if (candidatos.length > 0) {
+      const huecoDe = (pos) => (state.open.find(
+        (h) => (h.eligible ?? SLOT_ELIGIBILITY[h.slot] ?? []).includes(pos)
+      )?.slot ?? null);
+      const conMotivo = candidatos.slice(0, limit + 1).map((row) => {
+        const slot = huecoDe(row.position);
+        const motivos = [{
+          kind: "REQUIRED_SLOT",
+          text: `Required roster slot still open: ${slot ?? row.position}`,
+        }];
+        if (row.position === "K" || row.position === "DST" || row.position === "DEF") {
+          motivos.push({
+            kind: "NO_RANK_AUTHORITY",
+            text: `The slot is a fact; the order among ${row.position}s is not — `
+              + "no validated ranking exists inside the top twelve",
+          });
+        }
+        return { row, fit: byId.get(row.player_id) ?? null, reasons: motivos };
+      });
+      return {
+        state,
+        primary: conMotivo[0],
+        alternates: conMotivo.slice(1, limit + 1),
+        startersComplete: state.startersComplete,
+        mustFillSpecialist: true,
+        benchOnly: false,
+        fillingRequiredSlot: true,
+        byId,
+        bench: [],
+      };
     }
   }
 
@@ -513,9 +625,19 @@ export function bestForMe(available, {
     state,
     primary: conMotivos[0] ?? null,
     alternates: conMotivos.slice(1, limit + 1),
-    startersComplete: false,
+    /* LA VERDAD DEL ESTADO, no «he encontrado a alguien». Estaba cableado a
+       `false`, así que con la alineación COMPLETA y un candidato que MEJORA un
+       titular —un QB de 330 sobre el de 300, que es una mejora legítima— la
+       pantalla seguía creyendo que quedaban huecos y podía pintar avisos de
+       hueco abierto en fase de banquillo. Es el mismo fallo que ya se corrigió
+       en la otra salida de esta función, sin aplicar aquí. */
+    startersComplete: state.startersComplete,
     mustFillSpecialist: urgeEspecialista(state, picksLeftForMe),
     benchOnly: false,
+    // El ajuste de CADA candidato evaluado, para que quien pinte la pantalla
+    // pueda contestar «¿y por qué no el primero del board?» con los dos
+    // números en vez de con un adjetivo. Ver `whyNotTopAvailable`.
+    byId,
     bench: [],
   };
 }

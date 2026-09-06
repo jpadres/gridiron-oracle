@@ -95,6 +95,20 @@ jobs:
       - name: Tests de JavaScript
         run: npm test
 
+      # ¿Está el producto ENTERO? Lee el payload versionado —`model.b64.js`, no
+      # `model.json`, que está en .gitignore— y comprueba fechas por sección,
+      # identidad de las 552 filas, plantilla en cada una y con su fecha, pool
+      # por posición, los 64 especialistas y las regresiones del motor.
+      #
+      # Falla cerrado: «no he podido comprobarlo» cuenta como NOT READY, igual
+      # que «no he podido auditar» no es «no hay vulnerabilidades».
+      - name: ¿Listo para un draft? (pre_draft_ready)
+        # `${{ github.workspace }}` y no `.`: este job tiene
+        # `working-directory: web` por defecto, y un `.` relativo lo dejaría
+        # dentro de `web/`, donde el script no está.
+        working-directory: ${{ github.workspace }}
+        run: python3 scripts/pre_draft_ready.py
+
       # La simulación de draft no necesita navegador: tres ligas enteras contra
       # el board publicado, comprobando que la recomendación es coherente en
       # TODOS los turnos. Los laboratorios de Playwright no corren en CI; éste sí

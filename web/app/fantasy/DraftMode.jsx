@@ -62,7 +62,7 @@ import {
 import { replacementPoints } from "./rosterFit.js";
 import { syncPool } from "./sleeperAccount.js";
 import { splitAvailable, tierPool } from "./availablePool.js";
-import { rosterMark } from "./rosterMark.js";
+import { rosterMark, updatedSinceModel } from "./rosterMark.js";
 import { hasNumber } from "../numbers.js";
 
 
@@ -90,6 +90,9 @@ function scoringSummary(settings) {
 
 export default function DraftMode({ board, positionFilter = "ALL", context = {} }) {
   const season = context.season ?? 2026;
+  // La fecha del MODELO, para poder decir qué pasó después de ella. Sin fecha
+  // no se afirma que nada sea posterior: `updatedSinceModel` devuelve null.
+  const modelDate = context.dataDate ?? null;
   // El estado de draft es el REGISTRO, la misma clave que lee el Draft Room.
   // Antes esta pantalla guardaba `{gone, mine}` en su propia clave y la otra
   // guardaba eventos en la suya: dos versiones del mismo draft que nunca se
@@ -654,6 +657,19 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
           <ul className="room-why room-why--pick">
             {forMe.primary.reasons.map((r) => <li key={r.kind}>{r.text}</li>)}
           </ul>
+          {/* LO QUE EL MODELO NO PUDO VER. Las dos pantallas del draft dicen lo
+              mismo o vuelve a haber dos verdades — ha pasado siete veces. */}
+          {(() => {
+            const nuevo = updatedSinceModel(forMe.primary.row, modelDate);
+            return nuevo ? (
+              <p className="room-updated">
+                <b>Not in the model</b>
+                <span>
+                  {nuevo.facts.join(" · ")} — rosters {nuevo.asOf}, model {nuevo.modelDate}
+                </span>
+              </p>
+            ) : null;
+          })()}
           {forMe.alternates.length > 0 ? (
             <ol className="room-alts">
               {forMe.alternates.map((entry) => (

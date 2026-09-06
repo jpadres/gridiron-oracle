@@ -1997,6 +1997,36 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   text-transform: none;
   color: var(--chalk-dim);
 }
+/* LO QUE PASÓ DESPUÉS DE LA FECHA DEL MODELO, sobre el candidato principal.
+   Va en el ámbar de «esto contradice lo que asumirías», que es exactamente lo
+   que es: el número de arriba no lo sabe. */
+.room-updated {
+  display: flex; flex-wrap: wrap; gap: var(--space-1);
+  align-items: baseline;
+  margin: 0 0 var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border-left: 3px solid var(--flag-ink, #a33b3b);
+  background: var(--surface-2, rgba(0, 0, 0, .04));
+  font-size: var(--text-small);
+}
+.room-updated b {
+  font-size: var(--text-micro);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--flag-ink, #a33b3b);
+}
+.room-updated span { color: var(--chalk); }
+
+/* «¿Y por qué no ése?»: la diferencia entre las dos listas, en una línea.
+   NO es un aviso —no hay nada mal— así que no lleva el rojo de
+   `.room-depth-warn`: es contexto, y va en tinta secundaria. */
+.room-whynot {
+  margin: calc(var(--space-1) * -1) 0 var(--space-2);
+  font-size: var(--text-small);
+  line-height: 1.4;
+  color: var(--chalk-dim);
+}
+
 .room-cands { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: grid; gap: var(--space-2); }
 .room-cands > li { border-left: 3px solid var(--team, var(--yard-line)); background: var(--field-raised); }
 .room-cands > li.is-top { border-left-width: 6px; }

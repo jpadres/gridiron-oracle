@@ -1,0 +1,57 @@
+# ADP público: conducta del mercado, con su fuente y su fecha.
+#
+#     ESTO NO ENTRA EN NINGÚN CÁLCULO. Se publica AL LADO del board.
+#
+# Desde el contenedor de desarrollo la política de egreso deniega el CONNECT a
+# todas las fuentes de ADP (403), así que aquí es donde se puede comprobar si
+# la fuente contesta de verdad — igual que con los feeds.
+name: ADP (público, sin clave)
+
+on:
+  schedule:
+    # Dos veces al día. Un ADP se mueve con los drafts que se juegan, no con el
+    # reloj: más a menudo sería ruido.
+    - cron: "20 6,18 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: adp
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  adp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e .
+
+      # SIN `|| true`. El script sale con 1 cuando la fuente no da nada
+      # utilizable, y eso tiene que poner el job en rojo: un ADP que sale verde
+      # sin bajar nada es el «verde sin barrer nada» otra vez.
+      - name: Bajar el ADP
+        run: |
+          python scripts/adp_fetch.py --scoring ppr --teams 12
+          python scripts/adp_fetch.py --scoring half-ppr --teams 12
+          python scripts/adp_fetch.py --scoring 2qb --teams 12
+
+      - name: Publicar la instantánea
+        # `git add` ANTES de comparar: `git diff --quiet` no ve un fichero
+        # nuevo, y por eso el barrido de feeds salió verde sin publicar nada la
+        # primera vez que funcionó.
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- research/adp_*.json
+          if git diff --cached --quiet -- research/adp_*.json; then
+            echo "Sin cambios en el ADP."
+            exit 0
+          fi
+          git commit -m "research: instantánea de ADP público"
+          git push
