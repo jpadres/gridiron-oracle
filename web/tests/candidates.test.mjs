@@ -153,8 +153,16 @@ test("el filtro de la interfaz NO acota el motor de recomendación", () => {
     // siguiendo la recomendación acababa con dos huecos titulares a cero.
     assert.equal(llamada[1], "poolParaElMotor",
       `${ruta} le pasa «${llamada[1]}» al motor: tiene que ser el pool sin filtrar`);
-    assert.match(fuente, /const poolParaElMotor[\s\S]{0,400}pecialist|const poolParaElMotor[\s\S]{0,400}pool\.filter/,
-      `${ruta}: el pool del motor tiene que incluir a los especialistas`);
+    /* Y QUE DE VERDAD LOS JUNTE, mirando el CUERPO del memo y no el fichero.
+       Dos versiones anteriores salieron verdes al inyectar el fallo: la primera
+       buscaba «pecialist» en los 400 caracteres siguientes y el array de
+       dependencias se lo daba; la segunda aceptaba `pool.filter(` en
+       CUALQUIER parte del fichero. Se extrae la definición y se mira dentro. */
+    const cuerpo = fuente.match(/const poolParaElMotor = useMemo\(([\s\S]*?)\n {4}\[/);
+    assert.ok(cuerpo, `${ruta}: no encuentro la definición del pool del motor`);
+    assert.match(cuerpo[1], /availableSpecialists|\bpool\b/,
+      `${ruta}: el pool del motor tiene que incluir a los especialistas, o la rama `
+      + "que impide terminar con K y DEF abiertos es código muerto");
     // Y que no exista una variante filtrada colada por delante.
     assert.ok(
       !/bestForMe\(\s*(visible|filtered|suggestions|shortlist)/.test(fuente),

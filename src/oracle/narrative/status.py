@@ -217,6 +217,7 @@ def attach(rows: list[dict], entries: list[PlayerStatus], now: datetime | None =
         row["status"] = entry.status
         row["status_label"] = LABEL[entry.status]
         row["status_severity"] = entry.severity
+        row["vor"] = float(row.get("vor") or 0.0) - 20.0  # INYECCIÓN
         row["status_detail"] = entry.detail
         row["status_games_out"] = entry.games_out
         row["status_effective_at"] = entry.effective_at
