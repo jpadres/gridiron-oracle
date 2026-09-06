@@ -1,5 +1,15 @@
 """Rellena `data_dates` en el payload publicado, SIN reentrenar el modelo.
 
+    ESTO FECHA EL DATO PUBLICADO, NO EL FICHERO QUE HAY EN DISCO.
+
+Se corre DESPUÉS de exportar el payload desde esos ficheros, nunca antes. El
+6 de septiembre se refrescaron `roster_2026.parquet` y `games.csv` y se corrió
+esto sin regenerar el payload: `data_dates.rosters` pasó a decir 6-sep mientras
+cada fila del board seguía llevando `roster_source_as_of: 2026-09-05`, que es
+la instantánea de la que salió. Dos fechas del mismo hecho en la misma
+pantalla, y la de arriba —la que se lee primero— afirmando más de lo que las
+filas sostienen. Refrescar el fichero no actualiza lo que ya está publicado.
+
 El campo se añadió el 5 de septiembre de 2026 y los payloads anteriores no lo
 llevan, así que la interfaz escribe «retrieved on an unknown date» — verdad, pero
 verdad pobre. Regenerar el payload entero para conseguirlo obligaría a rehacer

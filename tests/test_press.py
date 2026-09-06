@@ -80,3 +80,22 @@ def test_no_lanza_con_filas_y_entradas_basura():
     assert press.mentions(None, None) == {}
     assert press.mentions([None, entrada()], [None, NACUA]) == {}
     assert press.resumen(None, {})["as_of"] is None
+
+
+def test_el_titular_manda_sobre_la_fecha_cuando_solo_caben_tres():
+    """Un repaso que le cita de pasada no puede enterrar lo que habla DE ÉL.
+
+    Es el caso real del 6 de septiembre: el «suspension watch» de Puka Nacua
+    caía al tercer puesto —y sólo se publican tres— por detrás de un artículo
+    cuyo titular era de otro jugador. No se puntúa importancia: se mira si el
+    nombre está en el TITULAR, que es comprobable.
+    """
+    de_pasada = entrada(title="Someone else tabbed the biggest gamewrecker",
+                        summary="Puka Nacua and the Rams also feature",
+                        published_at="2026-09-05T11:15:00Z")
+    sobre_el = entrada(title="Puka Nacua suspension watch", team="LAR",
+                       published_at="2026-09-04T00:43:00Z")
+    out = press.mentions([de_pasada, sobre_el], [NACUA])
+    assert out["3"][0]["title"] == "Puka Nacua suspension watch"
+    assert out["3"][0]["in_title"] is True
+    assert out["3"][1]["in_title"] is False

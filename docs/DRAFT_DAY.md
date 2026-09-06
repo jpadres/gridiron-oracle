@@ -9,8 +9,8 @@ Generado por `scripts/draft_day_brief.py` desde el payload publicado.
 |---|---|
 | model | 2026-08-17 |
 | fantasy | 2026-08-17 |
-| rosters | 2026-09-06 |
-| markets | 2026-09-06 |
+| rosters | 2026-09-05 |
+| markets | 2026-09-05 |
 | research | 2026-09-04 |
 | ADP (ventana) | 2026-08-29 |
 | ADP (descarga) | 2026-09-06T09:27:16Z |

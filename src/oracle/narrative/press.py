@@ -110,6 +110,7 @@ def mentions(entries: Iterable[dict], rows: Iterable[dict]) -> dict[str, list[di
             # Sin fecha de publicación no se afirma actualidad. Se cuenta en
             # `resumen()` y no se cuelga de nadie.
             continue
+        titular = f" {_clave(entrada.get('title'))} "
         texto = f" {_clave((entrada.get('title') or '') + ' ' + (entrada.get('summary') or ''))} "
         for clave, row in idx.items():
             if f" {clave} " not in texto:
@@ -122,9 +123,18 @@ def mentions(entries: Iterable[dict], rows: Iterable[dict]) -> dict[str, list[di
                 "title": entrada.get("title"),
                 "url": entrada.get("url"),
                 "published_at": publicado,
+                # ¿Le nombra el TITULAR, o sólo aparece en el cuerpo? Es un
+                # hecho de dónde está el nombre, no un juicio de importancia.
+                "in_title": f" {clave} " in titular,
             })
+    # Primero las que le nombran en el titular, y dentro de cada grupo la más
+    # nueva. Ordenar sólo por fecha enterraba lo que habla DE ÉL debajo de un
+    # repaso que le cita de pasada: el «suspension watch» de Puka Nacua caía al
+    # tercer puesto —y sólo se publican tres— por detrás de un artículo cuyo
+    # titular es de otro jugador. No se puntúa la importancia; se mira dónde
+    # está el nombre, que sí se puede comprobar.
     for lista in salida.values():
-        lista.sort(key=lambda m: str(m["published_at"]), reverse=True)
+        lista.sort(key=lambda m: (m["in_title"], str(m["published_at"])), reverse=True)
     return salida
 
 
