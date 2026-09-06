@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""¿Está el asistente listo para el draft de mañana? READY o NOT READY, con motivos.
+"""¿Está el asistente listo para el draft? READY o NOT READY, con motivos.
 
     «READY» NO PUEDE SALIR BARATO.
 
@@ -266,7 +266,13 @@ def main() -> int:
     for c in checks:
         print(f"  {c.estado:<6} {c.nombre:<28} {c.detalle}")
     print()
-    print("READY FOR TOMORROW" if listo else "NOT READY")
+    # «FOR DRAFT» y no «FOR TOMORROW»: el veredicto es sobre el ESTADO del
+    # producto, no sobre el calendario. La versión anterior se escribió la
+    # víspera de un draft y el día del draft decía «listo para mañana» —
+    # cierto cuando se escribió, falso al leerlo, y sin nada que fallara. Es
+    # la regla 5 en una cadena de texto: una afirmación con fecha implícita
+    # que envejece sola. Sin fecha dentro, no envejece.
+    print("READY FOR DRAFT" if listo else "NOT READY")
     if bloqueos:
         for c in bloqueos:
             print(f"  bloquea: {c.nombre} — {c.detalle}")
