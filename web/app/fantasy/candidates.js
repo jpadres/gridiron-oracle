@@ -50,6 +50,7 @@ import {
   FIT_EPSILON, FIT_WINDOW, POSITION_STATE, orderByFit, starterState,
 } from "./rosterFit.js";
 import { hasNumber, numberOrNull } from "../numbers.js";
+import { tierPool } from "./availablePool.js";
 
 /** Posiciones cuyo ORDEN está validado. K y DST quedan fuera a propósito. */
 export const RANKED_POSITIONS = ["QB", "RB", "WR", "TE"];
@@ -323,6 +324,20 @@ export function whyNotTopAvailable(topRow, forMe) {
   const suyo = forMe?.byId?.get?.(topRow.player_id)?.marginal;
   const mio = forMe?.primary?.fit?.marginal;
   if (Number.isFinite(suyo) && Number.isFinite(mio)) {
+    /* «HE ADDS -12.0 TO YOUR LINEUP» NO ES UNA FRASE POSIBLE.
+       Añadir a alguien a la plantilla no puede BAJAR tu mejor alineación: en
+       el peor caso lo sientas. Un marginal negativo es un artefacto del
+       repartidor —`assignSlots` coloca por VOR y `lineupFloor` suma puntos, así
+       que puede meter a un candidato en un hueco cuyo suelo no alcanza— y
+       llegó a pintarse en pantalla con −25,9 sobre el board real. La cifra que
+       no se puede afirmar NO se afirma: se dice lo único que sí es cierto. */
+    if (suyo <= 0) {
+      return {
+        kind: "NO_GAIN",
+        text: `${nombre} is the highest raw value, but he does not improve your starting `
+          + "lineup as it stands.",
+      };
+    }
     return {
       kind: "SMALLER_GAIN",
       text: `${nombre} is the highest raw value, but he adds ${suyo.toFixed(1)} to your `
@@ -339,6 +354,110 @@ export function bestForMe(available, {
 } = {}) {
   const state = starterState({ roster, rosterPositions });
   if (!state) return null;
+
+  /* EL FINAL DEL DRAFT: LOS HUECOS QUE SÓLO UN ESPECIALISTA PUEDE LLENAR.
+     ─────────────────────────────────────────────────────────────────────────
+     VA ANTES DE LA GUARDA DE ENTRADA, y no es un detalle de orden: la guarda
+     mira `poolEscalonado`, que filtra por `RANKED_POSITIONS`, así que cuando
+     lo único libre son pateadores y defensas —el final de un draft— devolvía
+     `null` y esta rama no se alcanzaba nunca. La segunda cara del mismo fallo:
+     escrita para que la alineación no quede ilegal, e inalcanzable justo
+     cuando eso pasa.
+     `urgeEspecialista` ya AVISABA —«te quedan tantos picks como huecos»— y la
+     lista corta seguía ofreciendo receptores, porque un pateador no tiene VOR
+     y nunca entra por el camino normal. Siguiendo la recomendación al pie de
+     la letra se llegaba al último pick con DST y K abiertos, que es una
+     alineación ILEGAL: exactamente lo que el §43 prohíbe y la misma familia
+     del hueco vacío que rinde cero.
+
+     Cuando ya no queda holgura, los ÚNICOS picks que conservan una alineación
+     legal son los que llenan un hueco abierto. Así que la lista pasa a ser
+     ésa, con los especialistas dentro.
+
+     Y se dice lo que es: el hueco es un HECHO de tu liga; el orden entre
+     pateadores NO está validado (`KICKER_ORDINAL_RANKING` sigue REJECTED) y
+     el motivo lo escribe en la propia fila en vez de dejar que el orden se
+     lea como una clasificación. */
+  if (urgeEspecialista(state, picksLeftForMe)) {
+    const necesarias = new Set(
+      state.open.flatMap((h) => h.eligible ?? SLOT_ELIGIBILITY[h.slot] ?? [])
+    );
+    /* MISMO LISTÓN QUE EN TODO EL FICHERO, no uno más flojo por ser el final.
+       Esta rama se escribió filtrando sólo por OUT, así que ofrecía como pick
+       PRINCIPAL a un pateador sin equipo NFL habiendo otro con equipo — y en
+       el payload de 2026 hay cuatro sin equipo (Prater, McManus, Koo,
+       Gonzalez) y dos en el equipo de prácticas. Se prefiere a quien SÍ tiene
+       equipo; sólo si no queda ninguno se baja el escalón, y entonces se dice.
+
+       EL ORDEN: los especialistas del board NO traen `projected_points`, así
+       que ordenar por eso era un no-op y el «recomendado» acababa siendo el
+       primero de la lista, o sea Arizona por orden alfabético. Y ordenarlos
+       por calidad tampoco vale: `KICKER_ORDINAL_RANKING` está REJECTED y no
+       hay orden validado dentro del top doce.
+
+       Se ordena por el ADP del MERCADO, que es lo único honesto que se puede
+       decir aquí: no es una afirmación sobre quién es mejor, es conducta
+       observada de 7.430 drafts. Quien no tenga ADP va detrás, en el orden en
+       que lo publica el payload, y el motivo de la fila dice que el orden no
+       es una clasificación. */
+    const elegibles = (available ?? [])
+      .filter((row) => necesarias.has(row.position) && row.status_severity !== "OUT");
+    const conEquipo = elegibles.filter(
+      (row) => row.rostered !== false && row.roster_state !== "NOT_ON_ROSTER"
+    );
+    const sinEquipoAlFinal = conEquipo.length === 0;
+    const porMercado = (a, b) => {
+      const x = numberOrNull(a.adp);
+      const y = numberOrNull(b.adp);
+      if (x === null && y === null) return 0;
+      if (x === null) return 1;
+      if (y === null) return -1;
+      return x - y;
+    };
+    const candidatos = [...(sinEquipoAlFinal ? elegibles : conEquipo)].sort(porMercado);
+    if (candidatos.length > 0) {
+      const huecoDe = (pos) => (state.open.find(
+        (h) => (h.eligible ?? SLOT_ELIGIBILITY[h.slot] ?? []).includes(pos)
+      )?.slot ?? null);
+      const conMotivo = candidatos.slice(0, limit + 1).map((row) => {
+        const slot = huecoDe(row.position);
+        const motivos = [{
+          kind: "REQUIRED_SLOT",
+          text: `Required roster slot still open: ${slot ?? row.position}`,
+        }];
+        if (row.position === "K" || row.position === "DST" || row.position === "DEF") {
+          motivos.push({
+            kind: "NO_RANK_AUTHORITY",
+            text: `The slot is a fact; the order among ${row.position}s is not — `
+              + "no validated ranking exists inside the top twelve. "
+              + (numberOrNull(row.adp) !== null
+                ? `Listed by market ADP ${numberOrNull(row.adp).toFixed(1)}, which is `
+                  + "behaviour, not quality."
+                : "No market ADP for him either, so this is board order."),
+          });
+        }
+        if (sinEquipoAlFinal) {
+          motivos.push({
+            kind: "NO_NFL_TEAM",
+            text: "No rostered player is left for this slot — this one has no NFL team",
+          });
+        }
+        return { row, fit: null, reasons: motivos };
+      });
+      return {
+        state,
+        primary: conMotivo[0],
+        alternates: conMotivo.slice(1, limit + 1),
+        startersComplete: state.startersComplete,
+        mustFillSpecialist: true,
+        benchOnly: false,
+        fillingRequiredSlot: true,
+        noRosteredLeft: sinEquipoAlFinal,
+        bench: [],
+      };
+    }
+  }
+
 
   /* LA GUARDA DE ENTRADA TAMBIÉN BAJA ESCALONES. Devolvía `null` en cuanto el
      pool recomendable estaba vacío, así que en una liga profunda donde todo lo
@@ -439,64 +558,6 @@ export function bestForMe(available, {
         byId = ancho.byId;
         mejoran = mejoranAncho;
       }
-    }
-  }
-
-  /* EL FINAL DEL DRAFT: LOS HUECOS QUE SÓLO UN ESPECIALISTA PUEDE LLENAR.
-     ─────────────────────────────────────────────────────────────────────────
-     `urgeEspecialista` ya AVISABA —«te quedan tantos picks como huecos»— y la
-     lista corta seguía ofreciendo receptores, porque un pateador no tiene VOR
-     y nunca entra por el camino normal. Siguiendo la recomendación al pie de
-     la letra se llegaba al último pick con DST y K abiertos, que es una
-     alineación ILEGAL: exactamente lo que el §43 prohíbe y la misma familia
-     del hueco vacío que rinde cero.
-
-     Cuando ya no queda holgura, los ÚNICOS picks que conservan una alineación
-     legal son los que llenan un hueco abierto. Así que la lista pasa a ser
-     ésa, con los especialistas dentro.
-
-     Y se dice lo que es: el hueco es un HECHO de tu liga; el orden entre
-     pateadores NO está validado (`KICKER_ORDINAL_RANKING` sigue REJECTED) y
-     el motivo lo escribe en la propia fila en vez de dejar que el orden se
-     lea como una clasificación. */
-  if (urgeEspecialista(state, picksLeftForMe)) {
-    const necesarias = new Set(
-      state.open.flatMap((h) => h.eligible ?? SLOT_ELIGIBILITY[h.slot] ?? [])
-    );
-    const candidatos = (available ?? [])
-      .filter((row) => necesarias.has(row.position) && row.status_severity !== "OUT")
-      .sort((a, b) => (numberOrNull(b.projected_points) ?? 0)
-        - (numberOrNull(a.projected_points) ?? 0));
-    if (candidatos.length > 0) {
-      const huecoDe = (pos) => (state.open.find(
-        (h) => (h.eligible ?? SLOT_ELIGIBILITY[h.slot] ?? []).includes(pos)
-      )?.slot ?? null);
-      const conMotivo = candidatos.slice(0, limit + 1).map((row) => {
-        const slot = huecoDe(row.position);
-        const motivos = [{
-          kind: "REQUIRED_SLOT",
-          text: `Required roster slot still open: ${slot ?? row.position}`,
-        }];
-        if (row.position === "K" || row.position === "DST" || row.position === "DEF") {
-          motivos.push({
-            kind: "NO_RANK_AUTHORITY",
-            text: `The slot is a fact; the order among ${row.position}s is not — `
-              + "no validated ranking exists inside the top twelve",
-          });
-        }
-        return { row, fit: byId.get(row.player_id) ?? null, reasons: motivos };
-      });
-      return {
-        state,
-        primary: conMotivo[0],
-        alternates: conMotivo.slice(1, limit + 1),
-        startersComplete: state.startersComplete,
-        mustFillSpecialist: true,
-        benchOnly: false,
-        fillingRequiredSlot: true,
-        byId,
-        bench: [],
-      };
     }
   }
 
@@ -673,7 +734,13 @@ function reasonsFor(row, { state, fit, pool }) {
   // Cuántos quedan de su tier EN EL POOL, no en lo que se pinta. Contarlo sobre
   // la lista visible es un fallo ya cometido dos veces en este proyecto.
   if (Number.isFinite(row.tier)) {
-    const quedan = pool.filter((o) => o.position === row.position && o.tier === row.tier).length;
+    // SOBRE `tierPool`, que es la definición única de «cuántos quedan» del
+    // producto. Contando sobre `pool` —que además quita a los de muestra
+    // corta— diez de las 43 celdas `posición|tier` del board publicado decían
+    // un número distinto del que pinta la pantalla de al lado, y una de ellas
+    // cruza el umbral que cambia el texto entre «Last RB in tier» y «N left».
+    const quedan = tierPool(pool)
+      .filter((o) => o.position === row.position && o.tier === row.tier).length;
     out.push({
       kind: "TIER",
       text: quedan === 1

@@ -16,7 +16,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { bestForMe } from "../app/fantasy/candidates.js";
+import { bestForMe, whyNotTopAvailable } from "../app/fantasy/candidates.js";
 import { POSITION_STATE, replacementPoints, starterState } from "../app/fantasy/rosterFit.js";
 
 /* Niveles de reemplazo del orden de los del board real: el QB es el más alto,
@@ -327,4 +327,89 @@ test("siguiendo la recomendación se llenan TODOS los huecos titulares", () => {
   const fin = starterState({ roster: mios, rosterPositions: UN_QB });
   assert.equal(fin.open.length, 0,
     `quedaron huecos titulares vacíos: ${fin.open.map((s) => s.slot).join(", ")}`);
+});
+
+/* ── §43 · UN DRAFT ENTERO CONTRA EL BOARD PUBLICADO ─────────────────────── */
+
+test("siguiendo la recomendación con el board REAL no queda ni un hueco titular", async () => {
+  /* LA RAMA QUE IMPEDÍA ESTO ERA CÓDIGO MUERTO.
+     `bestForMe` filtraba `available` buscando pateadores y defensas, y ninguna
+     de las dos pantallas metía un pateador en `available`: los tenían en una
+     lista aparte que nunca llegaba al motor. Un draft entero siguiendo la
+     recomendación terminaba con K y DEF a cero y 32 pateadores y 32 defensas
+     libres — el error que E23 midió en el BASELINE, cometido por el motor que
+     existe para no cometerlo.
+
+     Las pruebas de arriba usan pools sintéticos y no lo veían: el fallo no
+     estaba en `candidates.js`, estaba en lo que las pantallas le pasaban. Por
+     eso este bloque draftea contra el PAYLOAD, con los especialistas dentro,
+     igual que la pantalla. */
+  const { model } = await import("../data/model.js");
+  const { splitAvailable } = await import("../app/fantasy/availablePool.js");
+  const fantasy = model.fantasy;
+  const liga = fantasy.roster ?? ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "DEF", "K",
+                                  "BN", "BN", "BN", "BN", "BN", "BN"];
+  const especialistas = [...(fantasy.specialists?.kickers ?? []),
+                         ...(fantasy.specialists?.defenses ?? [])];
+  const replacement = replacementPoints(fantasy.board);
+  const cogidos = new Set();
+  let mios = [];
+  for (let ronda = 1; ronda <= liga.length; ronda += 1) {
+    const { available } = splitAvailable(fantasy.board, cogidos);
+    // EL MISMO POOL QUE LA PANTALLA: disponibles + especialistas libres.
+    const pool = available.concat(
+      especialistas.filter((row) => !cogidos.has(row.player_id))
+    );
+    const out = bestForMe(pool, {
+      roster: mios, rosterPositions: liga, replacement,
+      picksLeftForMe: liga.length - ronda + 1, limit: 4,
+    });
+    const elegido = out?.primary?.row ?? out?.bench?.[0]?.row;
+    assert.ok(elegido, `ronda ${ronda}: el motor no ofreció nada`);
+    cogidos.add(elegido.player_id);
+    mios = [...mios, elegido];
+    // Once rivales se llevan lo mejor que queda, como en un draft de verdad.
+    for (const row of available) {
+      if (cogidos.size % 12 === 0) break;
+      cogidos.add(row.player_id);
+    }
+  }
+  const fin = starterState({ roster: mios, rosterPositions: liga });
+  assert.deepEqual(fin.open.map((s) => s.slot), [],
+    `quedaron huecos titulares vacíos: ${fin.open.map((s) => s.slot).join(", ")}`);
+});
+
+test("un especialista SIN equipo NFL no encabeza si queda uno con equipo", () => {
+  /* La rama del hueco obligatorio se escribió filtrando sólo por OUT, así que
+     ofrecía como pick PRINCIPAL a un pateador sin equipo habiendo otro con
+     equipo. En el payload de 2026 hay cuatro pateadores sin equipo. */
+  n = 0;
+  const mios = [p("QB", 300), p("RB", 200), p("RB", 190), p("WR", 195), p("WR", 185),
+                p("TE", 150), p("RB", 180)];
+  n = 300;
+  const out = bestForMe(
+    [p("K", 130, { rostered: false, adp: 100 }), p("K", 120, { adp: 140 }), p("DST", 95)],
+    { roster: mios, rosterPositions: UN_QB, replacement: REP, picksLeftForMe: 2 },
+  );
+  assert.equal(out.primary.row.rostered, true,
+    "con un pateador con equipo disponible, el que no lo tiene no puede encabezar");
+  assert.equal(out.noRosteredLeft, false);
+  assert.ok(out.primary.reasons.some((r) => r.kind === "REQUIRED_SLOT"));
+  assert.ok(out.primary.reasons.some((r) => r.kind === "NO_RANK_AUTHORITY"),
+    "y se dice que el orden entre pateadores no está validado");
+});
+
+test("un marginal negativo NO se enuncia como «añade»", () => {
+  // «He adds -12.0 to your lineup» no es una frase posible: añadir a alguien no
+  // puede bajar tu mejor alineación. Llegó a pintarse con −25,9.
+  const forMe = {
+    primary: { row: { player_id: "RB1", player_name: "Mi RB" }, fit: { marginal: 8 } },
+    state: { byPosition: { TE: "FLEX_ELIGIBLE" } },
+    byId: new Map([["TE9", { marginal: -12 }]]),
+  };
+  const why = whyNotTopAvailable({ player_id: "TE9", position: "TE", player_name: "Un TE" },
+                                 forMe);
+  assert.equal(why.kind, "NO_GAIN");
+  assert.ok(!/-?\d+\.\d/.test(why.text), `no puede llevar una cifra: «${why.text}»`);
+  assert.match(why.text, /does not improve/);
 });

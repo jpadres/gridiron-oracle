@@ -119,6 +119,51 @@ export function changedSinceModel(row) {
 }
 
 /**
+ * ¿EL EQUIPO QUE PINTA LA FILA ES EL QUE DICE LA PLANTILLA DE HOY?
+ *
+ *     EL RÓTULO PROMETÍA «QUIÉN CAMBIÓ DE EQUIPO» Y NINGUNA FILA LO DECÍA.
+ *
+ * El board pinta `row.team`, que es el último equipo en el que el jugador
+ * JUGÓ. El registro de plantillas dice dónde está hoy. Cuando no coinciden, la
+ * fila enseña un equipo que el fichero del día contradice — y eso importa
+ * doblemente porque la proyección hereda el reparto de uso del equipo
+ * ANTERIOR.
+ *
+ * Medido el 6 de septiembre de 2026: **32 filas del board** con esa
+ * discrepancia y ninguna marcada. Isiah Pacheco salía «RB · KC» con el
+ * registro diciendo DET y en reserva; tres de los 32 pateadores publicados
+ * —Grupe, Carlson, Folk— salían bajo el equipo que ya habían dejado, sin una
+ * sola marca, porque su `roster_state` es ACTIVE y `rosterMark` sólo hablaba
+ * de los que NO están activos. Y la cabecera del board prometía, con esas
+ * palabras, «quién cambió de equipo».
+ *
+ * Los códigos se comparan NORMALIZADOS: el payload publica «LA» y «LAR» para
+ * los Rams, y compararlos en crudo fabricaba un traspaso que no existe. Es el
+ * `AZ`/`ARI` de la tabla de errores, esta vez en el navegador.
+ */
+const ALIAS_EQUIPO = { LA: "LAR", STL: "LAR", SD: "LAC", OAK: "LV", WSH: "WAS", ARZ: "ARI" };
+
+export function normalizeTeam(code) {
+  const limpio = String(code ?? "").trim().toUpperCase();
+  return ALIAS_EQUIPO[limpio] ?? limpio;
+}
+
+export function teamChangeMark(row) {
+  const board = normalizeTeam(row?.team);
+  const registro = normalizeTeam(row?.roster_team);
+  if (!board || !registro || board === registro) return null;
+  if (row?.roster_state === "TEAM_UNIT") return null;
+  return {
+    text: `NOW ${registro}`,
+    className: "mark mark--risk",
+    title: `The board shows ${board} — his last team on the field — but the `
+      + `${row.roster_source_as_of ?? "latest"} roster registry lists him on ${registro}. `
+      + "His projection still carries the usage share of the team he left. "
+      + "Changes no number on this row.",
+  };
+}
+
+/**
  * UN HECHO MATERIAL POSTERIOR A LA FECHA DEL MODELO, en una línea.
  *
  *     EL NÚMERO ES DEL 17 DE AGOSTO. ESTO PASÓ DESPUÉS.
@@ -145,8 +190,14 @@ export function updatedSinceModel(row, modelDate) {
   if (!rosterDate || !modelDate || rosterDate <= modelDate) return null;
   if (row?.roster_state === "TEAM_UNIT") return null;
   const hechos = [];
-  const cambio = row?.roster_team && row?.team && row.roster_team !== row.team;
-  if (cambio) hechos.push(`Now on ${row.roster_team}, not ${row.team}`);
+  // NORMALIZADO. «LA» y «LAR» son los mismos Rams, y compararlos en crudo
+  // emitía «Now on LAR, not LA» — un traspaso inventado sobre cuatro filas del
+  // payload. El `AZ`/`ARI` de siempre, en el navegador.
+  const board = normalizeTeam(row?.team);
+  const registro = normalizeTeam(row?.roster_team);
+  if (board && registro && board !== registro) {
+    hechos.push(`Now on ${registro}, not ${board}`);
+  }
   const estado = MATERIAL[row?.roster_state];
   if (estado) hechos.push(estado);
   if (row?.status_severity === "OUT" && row?.status_label) {

@@ -26,6 +26,15 @@ const { POSITION_STATE, assignSlotsSafe, replacementPoints, starterState } =
   await import(path.join(WEB, "app/fantasy/rosterFit.js"));
 
 const BOARD = model.fantasy.board;
+/* EL POOL DEL LABORATORIO ES EL DE LA PANTALLA, especialistas incluidos.
+   Drafteaba sólo del board, así que alimentaba al motor el mismo pool sin
+   pateadores que la pantalla — y por eso no podía ver que la rama de los
+   huecos obligatorios era código muerto. Es el «un test que aprobaba el fallo
+   que existía para cazar». */
+const ESPECIALISTAS = [
+  ...(model.fantasy.specialists?.kickers ?? []),
+  ...(model.fantasy.specialists?.defenses ?? []),
+];
 const REP = replacementPoints(BOARD);
 let fallos = 0;
 const check = (n, ok, d = "") => {
@@ -54,7 +63,8 @@ function simular({ nombre, roster, teams, rounds, mySlot }) {
     const ronda = Math.floor((overall - 1) / teams) + 1;
     const enRonda = ((overall - 1) % teams) + 1;
     const puesto = ronda % 2 === 0 ? teams - enRonda + 1 : enRonda;
-    const disponibles = BOARD.filter((r) => !tomados.has(r.player_id));
+    const disponibles = BOARD.concat(ESPECIALISTAS)
+      .filter((r) => !tomados.has(r.player_id));
 
     if (puesto !== mySlot) {
       // Rival: el mejor del board, que es lo más adverso para mí.
@@ -83,7 +93,10 @@ function simular({ nombre, roster, teams, rounds, mySlot }) {
       abiertos: estado.open.map((s) => s.slot).join(","),
       mejorBoard: board[0] ? `${board[0].row.position} ${board[0].row.player_name}` : "—",
       paraMi: para?.primary
-        ? `${para.primary.row.position} ${para.primary.row.player_name} (+${para.primary.fit.marginal.toFixed(0)})`
+        // `fit` es null cuando lo que se ofrece es llenar un hueco obligatorio
+        // —un pateador no tiene ajuste que calcular— y leerlo a pelo revienta.
+        ? `${para.primary.row.position} ${para.primary.row.player_name}`
+          + (para.primary.fit ? ` (+${para.primary.fit.marginal.toFixed(0)})` : " (slot)")
         : "— banquillo",
       porque: para?.primary?.reasons.map((r) => r.text).join(" · ") ?? "",
       urgeEspecialista: Boolean(para?.mustFillSpecialist),
@@ -138,11 +151,13 @@ function simular({ nombre, roster, teams, rounds, mySlot }) {
   check("y las recomendaciones llenaron huecos hasta completar la alineación",
         hastaCompletar.length >= 6, `${hastaCompletar.length} turnos con recomendación`);
   const estadoFinal = starterState({ roster: mio, rosterPositions: NORMAL });
-  const huecosSkill = estadoFinal.open.filter(
-    (s) => !s.eligible.every((p) => p === "K" || p === "DST" || p === "DEF")
-  );
-  check("la alineación titular de posiciones con valor se completa",
-        huecosSkill.length === 0, huecosSkill.map((s) => s.slot).join(","));
+  /* LA ALINEACIÓN ENTERA, pateador y defensa incluidos. Antes se BORRABAN esos
+     dos huecos antes de comprobar y luego se daba por bueno que hubiera
+     saltado el AVISO — o sea que el laboratorio aprobaba exactamente el fallo
+     que existe para cazar: el motor avisaba y seguía recomendando receptores,
+     y el draft acababa con dos huecos titulares a cero. */
+  check("la alineación titular se completa ENTERA, K y DEF incluidos",
+        estadoFinal.open.length === 0, estadoFinal.open.map((s) => s.slot).join(","));
   check("en el banquillo, quien AÚN puede alinearse va antes que quien no",
         turnos.filter((t) => t.benchPrimero !== null)
           .every((t) => t.benchPrimero === true || t.benchTodosLlenos),

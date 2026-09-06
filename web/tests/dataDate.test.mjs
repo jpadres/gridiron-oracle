@@ -89,8 +89,8 @@ test("el pie promete que CADA sección fecha lo suyo, y las cuatro lo hacen", ()
   const consumidores = {
     markets: ["app/betting/page.jsx", "app/predicciones/page.jsx"],
     model: ["app/modelo/page.jsx"],
-    fantasy: ["app/fantasy/page.jsx"],
-    rosters: ["app/fantasy/page.jsx"],
+    fantasy: ["app/fantasy/page.jsx", "app/fantasy/semanal/page.jsx"],
+    rosters: ["app/fantasy/page.jsx", "app/fantasy/semanal/page.jsx"],
     research: ["app/research/page.jsx"],
   };
   const secciones = Object.keys(model?.data_dates ?? {});

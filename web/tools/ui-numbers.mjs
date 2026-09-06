@@ -29,10 +29,13 @@ const LEDGER = path.join(WEB, "..", "docs", "evidence", "ui_numbers.json");
 
      ENTERO CON UNIDAD   «17 points», «95 fewer points», «63 pts»
      TAMAÑO DE MUESTRA   «n=123», «n = 123»
+     PORCENTAJE ENTERO   «14%» — la coma decimal no es lo que lo hace una
+                         medición, y «35 de los 250 — 14%» derivó sin que nada
+                         mirara porque el patrón exigía decimales
 
    Lo que sigue FUERA a propósito: los enteros sueltos («32 teams», «12
    equipos», «top 50»), que son estructura del dominio y no mediciones. */
-const NUMBER = /(?<![\w.$/-])(\d{1,3}[.,]\d{1,4}\s?%|\b0[.,]\d{2,4}\b|\b\d{1,4}[.,]?\d{0,2}\s(?:points|pts|puntos|pp)\b|\bn\s?=\s?\d{1,6}\b|\b\d{1,3}[.,]\d{1,2}(?=(?:&nbsp;|\s)?\/))(?![\w-])/g;
+const NUMBER = /(?<![\w.$/-])(\d{1,3}(?:[.,]\d{1,4})?\s?%|\b0[.,]\d{2,4}\b|\b\d{1,4}[.,]?\d{0,2}\s(?:points|pts|puntos|pp)\b|\bn\s?=\s?\d{1,6}\b|\b\d{1,3}[.,]\d{1,2}(?=(?:&nbsp;|\s)?\/))(?![\w-])/g;
 
 function* jsxFiles(dir) {
   for (const name of readdirSync(dir)) {

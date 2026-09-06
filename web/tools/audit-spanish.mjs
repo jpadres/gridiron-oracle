@@ -48,10 +48,36 @@ const NOMBRES_PROPIOS = [
  * funcionales distintas la frase es española de verdad — y una tilde ya es
  * concluyente por sí sola, porque el inglés no las usa.
  */
+/**
+ * Frases sueltas que en una etiqueta de interfaz sólo pueden ser un fallo.
+ *
+ * El detector de arriba pide DOS palabras funcionales distintas, que es lo que
+ * lo hace fiable en prosa y CIEGO en una etiqueta de dos palabras: «SIN EQUIPO»
+ * tiene una sola («sin»), así que convivió meses con «5 LEFT», «on board» y
+ * «picks until you» — la única palabra en español de la pantalla, y encima en
+ * la marca que invalida el número de al lado. Lo vio un crítico mirando una
+ * CAPTURA; ninguna comprobación lo miraba.
+ *
+ * La lista es literal y corta a propósito: cada entrada es una frase que no
+ * existe en inglés. Estrecho y cierto antes que amplio y ruidoso.
+ */
+const FRASES_SUELTAS = [
+  "SIN EQUIPO", "SIN DATOS", "SIN FECHA", "NO DISPONIBLE", "PENDIENTE",
+  "JORNADA", "PLANTILLA", "LESIONADO", "TITULAR", "BANQUILLO", "PATEADOR",
+];
+
 function esEspanol(texto) {
   let limpio = texto;
   for (const nombre of NOMBRES_PROPIOS) limpio = limpio.split(nombre).join(" ");
   if (/[áéíóúñ¿¡«»]/.test(limpio)) return true;
+  // Con FRONTERA DE PALABRA. La primera versión usaba `includes` y sacó
+  // `[alineaciones, misTitulares]` —un array de variables— porque
+  // «misTitulares» contiene «TITULAR». Un guardián con falsos positivos acaba
+  // desactivado, y entonces no guarda nada: es la lección de `no-undef.mjs`.
+  const mayus = limpio.toUpperCase();
+  if (FRASES_SUELTAS.some((f) => new RegExp(`(?<![A-ZÁÉÍÓÚÑ])${f}(?![A-ZÁÉÍÓÚÑ])`).test(mayus))) {
+    return true;
+  }
   const aciertos = new Set((limpio.match(FUNCIONALES) ?? []).map((w) => w.toLowerCase()));
   return aciertos.size >= 2;
 }

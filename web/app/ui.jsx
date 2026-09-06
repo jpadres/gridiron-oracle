@@ -8,7 +8,7 @@ import { Fragment } from "react";
 
 import { pct } from "../data/model.js";
 import { availabilityMark } from "./availability.js";
-import { rosterMark } from "./fantasy/rosterMark.js";
+import { rosterMark, teamChangeMark } from "./fantasy/rosterMark.js";
 import { Headshot } from "./headshot.jsx";
 
 export function Callout({ title, children }) {
@@ -279,6 +279,14 @@ export function RankTable({
                               title={rosterMark(row).title}>
                           {rosterMark(row).text}
                         </span>
+                      ) : null}
+                      {/* Y EL CAMBIO DE EQUIPO. La cabecera de esta tabla promete
+                          «quién cambió de equipo» y ninguna fila lo decía: 32 del
+                          board pintaban el equipo en el que el jugador JUGÓ mientras
+                          el registro del día decía otro. */}
+                      {teamChangeMark(row) ? (
+                        <span className={teamChangeMark(row).className}
+                              title={teamChangeMark(row).title}>{teamChangeMark(row).text}</span>
                       ) : null}
                       {/* Cuánto del número es el prior de la posición y no
                           el jugador. Se deriva de `wg`, que ya viaja: es la

@@ -234,3 +234,17 @@ test("todo aplicado no arma ruido", () => {
 test("un solo pick se dice en singular", () => {
   assert.match(reconciliation({ total: 1, applied: 1 }).label, /1 pick applied/);
 });
+
+test("el estado de ERROR dice QUÉ ha dejado de ser de fiar, no sólo qué falló", () => {
+  /* Decía «/draft/DRS/picks returned 503» y debajo pintaba un board completo e
+     interactivo, idéntico al del estado sano. El contador de picks se lee como
+     un hecho y es un contador PARADO. */
+  const v = syncState({ connected: true, error: "/draft/DRS/picks returned 503",
+                        lastSyncAt: 0, draftStatus: "drafting", now: 1000 });
+  assert.equal(v.level, "ERROR");
+  assert.match(v.detail, /503/, "el fallo técnico sigue estando");
+  assert.match(v.detail, /stopped arriving/i, "y qué implica para el board");
+  assert.match(v.detail, /may already be gone/i);
+  // El board manual NO se invalida: lo sincronizado sigue valiendo.
+  assert.equal(v.canRecommend, true);
+});

@@ -63,6 +63,7 @@ import { replacementPoints } from "./rosterFit.js";
 import { syncPool } from "./sleeperAccount.js";
 import { splitAvailable, tierPool } from "./availablePool.js";
 import { marketNote } from "./marketAdp.js";
+import { RowMarks } from "./rowMarks.jsx";
 import { matchesFilter } from "./positionFilter.js";
 import { rosterMark, updatedSinceModel } from "./rosterMark.js";
 import { hasNumber } from "../numbers.js";
@@ -417,8 +418,19 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
      motivos. El filtro visual de posición NO entra aquí a propósito: si filtras
      a RB+WR, los quarterbacks no dejan de existir para decidir qué te conviene.
      `picksLeftForMe` sale del calendario del proveedor cuando lo hay. */
+  /* Y AQUÍ TAMBIÉN LOS ESPECIALISTAS. `syncPool` ya junta board, pateadores,
+     defensas y novatos —existe porque el board de esta pantalla no tachaba los
+     picks de defensa—, así que el pool del motor sale de ahí quitando lo
+     cogido. Sin ellos, la rama de los huecos obligatorios es código muerto y
+     el draft termina con K y DEF a cero. */
+  const poolParaElMotor = useMemo(
+    () => pool.filter((row) => !state.byPlayer.has(row.player_id)
+      && row.status_severity !== "OUT"),
+    [pool, state]
+  );
+
   const forMe = useMemo(
-    () => bestForMe(available, {
+    () => bestForMe(poolParaElMotor, {
       roster: picked, rosterPositions: declaredRoster, replacement,
       // `hasNumber` y no `Number.isFinite(Number(...))`: sin rondas declaradas
       // `draftRounds` es null, `Number(null)` es CERO y esto fabricaba «te
@@ -432,7 +444,7 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
         : null,
       limit: 4,
     }),
-    [available, picked, declaredRoster, replacement, draftRounds, draftTeams, schedule]
+    [poolParaElMotor, picked, declaredRoster, replacement, draftRounds, draftTeams, schedule]
   );
   const nextPick = useMemo(
     // En un draft terminado no hay «siguiente turno»: enseñarlo invita a
@@ -637,6 +649,18 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
                       size={56} className="hs--hero" />
             <span className="room-pick-who">
               <b>{forMe.primary.row.player_full_name ?? forMe.primary.row.player_name}</b>
+              {/* LAS MARCAS DE ESTADO, AQUÍ TAMBIÉN.
+                  El board de abajo gritaba «QUESTIONABLE Activated off PUP on
+                  23 August after the 11 January Achilles rupture» y este panel
+                  —lo único que se ve en el primer viewport de un teléfono— no
+                  decía nada. Con treinta segundos en el reloj, el que decide ve
+                  la recomendación y NO ve la lesión. Es el fallo de las dos
+                  superficies con distinta cobertura aplicado al sitio donde
+                  más caro sale. Se reutiliza `RowMarks`, que es la misma que
+                  usan el board y el semanal: una implementación. */}
+              <RowMarks row={forMe.primary.row} id={forMe.primary.row.player_id}
+                        news={context.briefs} availability={context.availability}
+                        statusVerifiedAt={forMe.primary.row.status_verified_at} />
               <span className="meta">
                 <TeamMark abbr={forMe.primary.row.team} />
                 <span className={`ptag ptag--${forMe.primary.row.position.toLowerCase()}`}>
@@ -658,8 +682,8 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
           <ul className="room-why room-why--pick">
             {forMe.primary.reasons.map((r) => <li key={r.kind}>{r.text}</li>)}
           </ul>
-          {marketNote(forMe.primary.row) ? (
-            <p className="room-market">{marketNote(forMe.primary.row)}</p>
+          {marketNote(forMe.primary.row, context.adpSource) ? (
+            <p className="room-market">{marketNote(forMe.primary.row, context.adpSource)}</p>
           ) : null}
           {/* LO QUE EL MODELO NO PUDO VER. Las dos pantallas del draft dicen lo
               mismo o vuelve a haber dos verdades — ha pasado siete veces. */}
@@ -685,6 +709,14 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
                     <span className="nm">
                       {entry.row.player_full_name ?? entry.row.player_name}
                     </span>
+                    {/* Y en las alternativas. Una de las cuatro puede acabar
+                        siendo el pick, y la lesión no puede estar sólo en la
+                        primera. */}
+                    {entry.row.status_label ? (
+                      <span className={entry.row.status_severity === "OUT" && !entry.row.status_disputed
+                        ? "mark mark--out" : "mark mark--risk"}
+                            title={entry.row.status_detail ?? ""}>{entry.row.status_label}</span>
+                    ) : null}
                     <span className="alt-why">{headlineReason(entry)?.text ?? ""}</span>
                     <span className="alt-n">{entry.fit ? num(entry.fit.marginal, 0) : "—"}</span>
                   </button>

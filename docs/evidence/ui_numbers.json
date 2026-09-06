@@ -1,503 +1,653 @@
 {
-  "note": "Cada cifra escrita a mano en el JSX, con su procedencia. source: PAYLOAD (la pinta el dato, no debería estar aquí), ARITHMETIC (deducible: 52.4% = 1/1.9091), EXPERIMENT:<id> (medida, con el documento), CONVENTION (constante declarada), UNVERIFIED (sin procedencia todavía: se declara, no se esconde). El libro cubre el TEXTO que se pinta; una constante del código (`const MIN_SPAN = 0.05`) no es una afirmación de la interfaz y no entra: estaba aquí porque el extractor viejo confundía código con prosa.",
-  "entries": [
-    {
-      "file": "app/betting/BettingShell.jsx",
-      "value": "1 points",
-      "source": "EXPERIMENT:E4",
-      "verified_by": "extremo del tramo «0–1 points won 49.3%»: acierto ATS por desacuerdo, docs/PREREGISTRO_confianza.md"
-    },
-    {
-      "file": "app/betting/BettingShell.jsx",
-      "value": "1.5 points",
-      "source": "CONVENTION",
-      "verified_by": "el mínimo de ventaja de kelly.py (min_edge = 0,015) expresado en puntos porcentuales"
-    },
-    {
-      "file": "app/betting/BettingShell.jsx",
-      "value": "2 points",
-      "source": "EXPERIMENT:E4",
-      "verified_by": "extremo del tramo «1–2 points 50.9%»: acierto ATS por desacuerdo, docs/PREREGISTRO_confianza.md"
-    },
-    {
-      "file": "app/betting/BettingShell.jsx",
-      "value": "3.5 points",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/betting/BettingShell.jsx",
-      "value": "48.8%",
-      "source": "EXPERIMENT:E4",
-      "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
-    },
-    {
-      "file": "app/betting/BettingShell.jsx",
-      "value": "49.3",
-      "source": "EXPERIMENT:E4",
-      "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
-    },
-    {
-      "file": "app/betting/BettingShell.jsx",
-      "value": "49.3%",
-      "source": "EXPERIMENT:E4",
-      "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
-    },
-    {
-      "file": "app/betting/BettingShell.jsx",
-      "value": "50.9",
-      "source": "EXPERIMENT:E4",
-      "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
-    },
-    {
-      "file": "app/betting/BettingShell.jsx",
-      "value": "50.9%",
-      "source": "EXPERIMENT:E4",
-      "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
-    },
-    {
-      "file": "app/betting/BettingShell.jsx",
-      "value": "52.4%",
-      "source": "ARITHMETIC",
-      "verified_by": "1/1.9091 a −110; no es una medición"
-    },
-    {
-      "file": "app/charts.jsx",
-      "value": "0.25",
-      "source": "CONVENTION",
-      "verified_by": "cuartiles de la banda del gráfico"
-    },
-    {
-      "file": "app/charts.jsx",
-      "value": "0.75",
-      "source": "CONVENTION",
-      "verified_by": "cuartiles de la banda del gráfico"
-    },
-    {
-      "file": "app/fantasy/BoardShell.jsx",
-      "value": "0.024",
-      "source": "EXPERIMENT:E8c",
-      "verified_by": "r año a año del porcentaje de acierto en field goals, docs/evidence/kicker_falsify.json"
-    },
-    {
-      "file": "app/fantasy/BoardShell.jsx",
-      "value": "0.044",
-      "source": "EXPERIMENT:DST",
-      "verified_by": "r año a año de recuperaciones de balón suelto, docs/PREREGISTRO_dst.md"
-    },
-    {
-      "file": "app/fantasy/BoardShell.jsx",
-      "value": "0.060",
-      "source": "EXPERIMENT:DST",
-      "verified_by": "mismo experimento, la defensa contra su propio partido anterior, docs/PREREGISTRO_dst.md"
-    },
-    {
-      "file": "app/fantasy/BoardShell.jsx",
-      "value": "0.26",
-      "source": "EXPERIMENT:E8c",
-      "verified_by": "separación K1–K6 vs K7–K12, docs/PREREGISTRO_kickers.md"
-    },
-    {
-      "file": "app/fantasy/BoardShell.jsx",
-      "value": "0.36",
-      "source": "EXPERIMENT:E8c",
-      "verified_by": "extremo inferior del IC 95% de esa separación, docs/PREREGISTRO_kickers.md"
-    },
-    {
-      "file": "app/fantasy/BoardShell.jsx",
-      "value": "0.388",
-      "source": "EXPERIMENT:DST",
-      "verified_by": "total implícito del rival vs puntos permitidos, docs/PREREGISTRO_dst.md"
-    },
-    {
-      "file": "app/fantasy/BoardShell.jsx",
-      "value": "0.87",
-      "source": "EXPERIMENT:E8c",
-      "verified_by": "extremo superior del IC 95% de esa separación, docs/PREREGISTRO_kickers.md"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.008",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.035",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.043",
-      "source": "EXPERIMENT:BUST",
-      "verified_by": "error de calibración de P(bust), docs/PREREGISTRO_riesgo.md"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.09",
-      "source": "EXPERIMENT:DISPONIBILIDAD",
-      "verified_by": "el mismo, entre titulares de 16+ partidos: el que desmonta al anterior"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.093",
-      "source": "EXPERIMENT:E9",
-      "verified_by": "baseline de media por posición del mismo experimento, docs/PREREGISTRO_rookies.md"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.20",
-      "source": "EXPERIMENT:RIESGO",
-      "verified_by": "correlación riesgo/error absoluto, scripts/fantasy_risk_validate.py"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.221",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.227",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.24",
-      "source": "EXPERIMENT:DISPONIBILIDAD",
-      "verified_by": "el de la población del board, que es donde se publica"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.45",
-      "source": "EXPERIMENT:RIESGO",
-      "verified_by": "la misma correlación en quarterback, scripts/fantasy_risk_validate.py"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.48",
-      "source": "EXPERIMENT:DISPONIBILIDAD",
-      "verified_by": "Spearman sobre TODOS los jugadores, scripts/fantasy_availability_validate.py"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.604",
-      "source": "EXPERIMENT:E9",
-      "verified_by": "Spearman walk-forward de la previa por capital de draft, docs/PREREGISTRO_rookies.md"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.61",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.643",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.662",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.670",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.69",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.730",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.758",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.775",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.78",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.785",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.788",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.796",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.830",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.831",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "0.864",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "129 points",
-      "source": "EXPERIMENT:E26",
-      "verified_by": "docs/evidence/rookie_gap_location.json + rookie_scale_experiment.json (pair_diff 108,9 sobre 129 vs 20)"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "17 points",
-      "source": "EXPERIMENT:E26",
-      "verified_by": "sesgo del top 50 en docs/evidence/rookie_gap_location.json (bias_by_rank)"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "18.1%",
-      "source": "EXPERIMENT:DISPONIBILIDAD",
-      "verified_by": "ausencia del tercio inferior, scripts/fantasy_availability_validate.py"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "32.9%",
-      "source": "EXPERIMENT:DISPONIBILIDAD",
-      "verified_by": "ausencia del tercio superior, scripts/fantasy_availability_validate.py"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "4.0 points",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "5.1 points",
-      "source": "EXPERIMENT:VALORLIGA",
-      "verified_by": "separación por valor capturado con Spearman idéntico, docs/PREREGISTRO_valorliga.md"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "62.3%",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "63 points",
-      "source": "EXPERIMENT:E9",
-      "verified_by": "media de la celda QB-2ª ronda, con mediana 16: la bimodalidad que obliga a publicar intervalo"
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "68.0%",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "83.5%",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "83.8%",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/page.jsx",
-      "value": "n=123",
-      "source": "EXPERIMENT:E26",
-      "verified_by": "n_pairs del mismo artefacto: docs/evidence/rookie_scale_experiment.json"
-    },
-    {
-      "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
-      "value": "0.044",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
-      "value": "0.060",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
-      "value": "0.26",
-      "source": "EXPERIMENT:E8c",
-      "verified_by": "la misma separación de pateadores, docs/PREREGISTRO_kickers.md"
-    },
-    {
-      "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
-      "value": "0.388",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
-      "value": "0.39",
-      "source": "EXPERIMENT:E8c",
-      "verified_by": "tests/test_kicker_bias.py cruza registro, pantalla y docs/evidence/kicker_falsify.json"
-    },
-    {
-      "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
-      "value": "0.97",
-      "source": "EXPERIMENT:E8c",
-      "verified_by": "tests/test_kicker_bias.py cruza registro, pantalla y docs/evidence/kicker_falsify.json"
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "0.019",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "0.04",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "0.064",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "0.10",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "0.15",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "0.25",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "0.55",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "0.6 points",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "1.5%",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "2.7 points",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "47.5%",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "47.8%",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "52.4%",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "7 points",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/modelo/page.jsx",
-      "value": "9 points",
-      "source": "UNVERIFIED",
-      "verified_by": null
-    },
-    {
-      "file": "app/predicciones/page.jsx",
-      "value": "48.8%",
-      "source": "EXPERIMENT:E4",
-      "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
-    },
-    {
-      "file": "app/predicciones/page.jsx",
-      "value": "49.3%",
-      "source": "EXPERIMENT:E4",
-      "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
-    },
-    {
-      "file": "app/predicciones/page.jsx",
-      "value": "50.9%",
-      "source": "EXPERIMENT:E4",
-      "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
-    },
-    {
-      "file": "app/predicciones/page.jsx",
-      "value": "52.4%",
-      "source": "ARITHMETIC",
-      "verified_by": "1/1.9091 a −110; no es una medición"
-    }
-  ]
+ "note": "Cada cifra escrita a mano en el JSX, con su procedencia. source: PAYLOAD (la pinta el dato, no debería estar aquí), ARITHMETIC (deducible: 52.4% = 1/1.9091), EXPERIMENT:<id> (medida, con el documento), CONVENTION (constante declarada), UNVERIFIED (sin procedencia todavía: se declara, no se esconde). El libro cubre el TEXTO que se pinta; una constante del código (`const MIN_SPAN = 0.05`) no es una afirmación de la interfaz y no entra: estaba aquí porque el extractor viejo confundía código con prosa.",
+ "entries": [
+  {
+   "file": "app/betting/BankCurve.jsx",
+   "value": "5%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "1 points",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "extremo del tramo «0–1 points won 49.3%»: acierto ATS por desacuerdo, docs/PREREGISTRO_confianza.md"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "1.5 points",
+   "source": "CONVENTION",
+   "verified_by": "el mínimo de ventaja de kelly.py (min_edge = 0,015) expresado en puntos porcentuales"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "2 points",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "extremo del tramo «1–2 points 50.9%»: acierto ATS por desacuerdo, docs/PREREGISTRO_confianza.md"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "2%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "3.5 points",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "48.8%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "49.3",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "49.3%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "50.9",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "50.9%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
+   "value": "52.4%",
+   "source": "ARITHMETIC",
+   "verified_by": "1/1.9091 a −110; no es una medición"
+  },
+  {
+   "file": "app/charts.jsx",
+   "value": "0.25",
+   "source": "CONVENTION",
+   "verified_by": "cuartiles de la banda del gráfico"
+  },
+  {
+   "file": "app/charts.jsx",
+   "value": "0.75",
+   "source": "CONVENTION",
+   "verified_by": "cuartiles de la banda del gráfico"
+  },
+  {
+   "file": "app/fantasy/BoardShell.jsx",
+   "value": "0.024",
+   "source": "EXPERIMENT:E8c",
+   "verified_by": "r año a año del porcentaje de acierto en field goals, docs/evidence/kicker_falsify.json"
+  },
+  {
+   "file": "app/fantasy/BoardShell.jsx",
+   "value": "0.044",
+   "source": "EXPERIMENT:DST",
+   "verified_by": "r año a año de recuperaciones de balón suelto, docs/PREREGISTRO_dst.md"
+  },
+  {
+   "file": "app/fantasy/BoardShell.jsx",
+   "value": "0.060",
+   "source": "EXPERIMENT:DST",
+   "verified_by": "mismo experimento, la defensa contra su propio partido anterior, docs/PREREGISTRO_dst.md"
+  },
+  {
+   "file": "app/fantasy/BoardShell.jsx",
+   "value": "0.26",
+   "source": "EXPERIMENT:E8c",
+   "verified_by": "separación K1–K6 vs K7–K12, docs/PREREGISTRO_kickers.md"
+  },
+  {
+   "file": "app/fantasy/BoardShell.jsx",
+   "value": "0.36",
+   "source": "EXPERIMENT:E8c",
+   "verified_by": "extremo inferior del IC 95% de esa separación, docs/PREREGISTRO_kickers.md"
+  },
+  {
+   "file": "app/fantasy/BoardShell.jsx",
+   "value": "0.388",
+   "source": "EXPERIMENT:DST",
+   "verified_by": "total implícito del rival vs puntos permitidos, docs/PREREGISTRO_dst.md"
+  },
+  {
+   "file": "app/fantasy/BoardShell.jsx",
+   "value": "0.87",
+   "source": "EXPERIMENT:E8c",
+   "verified_by": "extremo superior del IC 95% de esa separación, docs/PREREGISTRO_kickers.md"
+  },
+  {
+   "file": "app/fantasy/BoardShell.jsx",
+   "value": "13%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/BoardShell.jsx",
+   "value": "95%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.008",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.035",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.043",
+   "source": "EXPERIMENT:BUST",
+   "verified_by": "error de calibración de P(bust), docs/PREREGISTRO_riesgo.md"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.09",
+   "source": "EXPERIMENT:DISPONIBILIDAD",
+   "verified_by": "el mismo, entre titulares de 16+ partidos: el que desmonta al anterior"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.093",
+   "source": "EXPERIMENT:E9",
+   "verified_by": "baseline de media por posición del mismo experimento, docs/PREREGISTRO_rookies.md"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.20",
+   "source": "EXPERIMENT:RIESGO",
+   "verified_by": "correlación riesgo/error absoluto, scripts/fantasy_risk_validate.py"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.221",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.227",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.24",
+   "source": "EXPERIMENT:DISPONIBILIDAD",
+   "verified_by": "el de la población del board, que es donde se publica"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.45",
+   "source": "EXPERIMENT:RIESGO",
+   "verified_by": "la misma correlación en quarterback, scripts/fantasy_risk_validate.py"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.48",
+   "source": "EXPERIMENT:DISPONIBILIDAD",
+   "verified_by": "Spearman sobre TODOS los jugadores, scripts/fantasy_availability_validate.py"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.604",
+   "source": "EXPERIMENT:E9",
+   "verified_by": "Spearman walk-forward de la previa por capital de draft, docs/PREREGISTRO_rookies.md"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.61",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.643",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.662",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.670",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.69",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.730",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.758",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.775",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.78",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.785",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.788",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.796",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.830",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.831",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "0.864",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "129 points",
+   "source": "EXPERIMENT:E26",
+   "verified_by": "docs/evidence/rookie_gap_location.json + rookie_scale_experiment.json (pair_diff 108,9 sobre 129 vs 20)"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "17 points",
+   "source": "EXPERIMENT:E26",
+   "verified_by": "sesgo del top 50 en docs/evidence/rookie_gap_location.json (bias_by_rank)"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "17%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "18.1%",
+   "source": "EXPERIMENT:DISPONIBILIDAD",
+   "verified_by": "ausencia del tercio inferior, scripts/fantasy_availability_validate.py"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "21%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "23%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "32.9%",
+   "source": "EXPERIMENT:DISPONIBILIDAD",
+   "verified_by": "ausencia del tercio superior, scripts/fantasy_availability_validate.py"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "33%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "36%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "38%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "4.0 points",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "43%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "5.1 points",
+   "source": "EXPERIMENT:VALORLIGA",
+   "verified_by": "separación por valor capturado con Spearman idéntico, docs/PREREGISTRO_valorliga.md"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "62.3%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "63 points",
+   "source": "EXPERIMENT:E9",
+   "verified_by": "media de la celda QB-2ª ronda, con mediana 16: la bimodalidad que obliga a publicar intervalo"
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "68.0%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "7%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "70%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "83.5%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "83.8%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "91%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "97%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/page.jsx",
+   "value": "n=123",
+   "source": "EXPERIMENT:E26",
+   "verified_by": "n_pairs del mismo artefacto: docs/evidence/rookie_scale_experiment.json"
+  },
+  {
+   "file": "app/fantasy/semanal/page.jsx",
+   "value": "26%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/semanal/page.jsx",
+   "value": "28%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/semanal/page.jsx",
+   "value": "45%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
+   "value": "0.044",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
+   "value": "0.060",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
+   "value": "0.26",
+   "source": "EXPERIMENT:E8c",
+   "verified_by": "la misma separación de pateadores, docs/PREREGISTRO_kickers.md"
+  },
+  {
+   "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
+   "value": "0.388",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
+   "value": "0.39",
+   "source": "EXPERIMENT:E8c",
+   "verified_by": "tests/test_kicker_bias.py cruza registro, pantalla y docs/evidence/kicker_falsify.json"
+  },
+  {
+   "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
+   "value": "0.97",
+   "source": "EXPERIMENT:E8c",
+   "verified_by": "tests/test_kicker_bias.py cruza registro, pantalla y docs/evidence/kicker_falsify.json"
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "0.019",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "0.04",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "0.064",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "0.10",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "0.15",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "0.25",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "0.55",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "0.6 points",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "1.5%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "2.7 points",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "2%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "47.5%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "47.8%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "50%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "52.4%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "7 points",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "80%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "9 points",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/modelo/page.jsx",
+   "value": "95%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/predicciones/page.jsx",
+   "value": "48.8%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/predicciones/page.jsx",
+   "value": "49.3%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/predicciones/page.jsx",
+   "value": "50.9%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
+  },
+  {
+   "file": "app/predicciones/page.jsx",
+   "value": "52.4%",
+   "source": "ARITHMETIC",
+   "verified_by": "1/1.9091 a −110; no es una medición"
+  },
+  {
+   "file": "app/predicciones/page.jsx",
+   "value": "74%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/predicciones/page.jsx",
+   "value": "77%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/survivor/page.jsx",
+   "value": "70%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  }
+ ]
 }

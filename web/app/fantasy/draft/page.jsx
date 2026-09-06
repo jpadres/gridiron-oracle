@@ -62,6 +62,8 @@ export default function DraftRoomPage() {
         // de reserva que deciden un pick.
         modelDate: dataDate("fantasy"),
         rosterDate: dataDate("rosters"),
+        // El ADP no significa nada sin su ventana, su muestra y su fuente.
+        adpSource: fantasy.adp_source ?? null,
         // Qué ha cambiado entre las dos, ya contado (`predraft_brief.py`).
         predraft: model.predraft ?? null,
       }}

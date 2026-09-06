@@ -147,8 +147,14 @@ test("el filtro de la interfaz NO acota el motor de recomendación", () => {
     const fuente = readFileSync(new URL(`../${ruta}`, import.meta.url), "utf8");
     const llamada = fuente.match(/bestForMe\(\s*([A-Za-z0-9_.]+)/);
     assert.ok(llamada, `${ruta} tiene que llamar a bestForMe`);
-    assert.equal(llamada[1], "available",
-      `${ruta} le pasa «${llamada[1]}» al motor: sólo vale el pool sin filtrar`);
+    // `poolParaElMotor` = disponibles + especialistas, SIN el filtro visual.
+    // Los especialistas tienen que estar o la rama que impide terminar con los
+    // huecos de K y DEF abiertos es código muerto — lo era, y un draft entero
+    // siguiendo la recomendación acababa con dos huecos titulares a cero.
+    assert.equal(llamada[1], "poolParaElMotor",
+      `${ruta} le pasa «${llamada[1]}» al motor: tiene que ser el pool sin filtrar`);
+    assert.match(fuente, /const poolParaElMotor[\s\S]{0,400}pecialist|const poolParaElMotor[\s\S]{0,400}pool\.filter/,
+      `${ruta}: el pool del motor tiene que incluir a los especialistas`);
     // Y que no exista una variante filtrada colada por delante.
     assert.ok(
       !/bestForMe\(\s*(visible|filtered|suggestions|shortlist)/.test(fuente),

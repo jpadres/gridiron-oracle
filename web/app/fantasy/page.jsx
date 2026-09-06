@@ -59,6 +59,28 @@ const BAND_COLUMNS = [
 
 export default function Fantasy() {
   const fantasy = model.fantasy;
+  // Se CUENTAN, no se recuerdan: ver el comentario del callout de abajo.
+  const cambiaronDeEquipo = fantasy.board.filter((row) => row.team_changed).length;
+  const cambiaronEnElTop = fantasy.board.slice(0, 250).filter((row) => row.team_changed).length;
+  /* LOS PUESTOS, LEÍDOS. Estaban escritos a mano y habían derivado: «Hampton
+     market 12, here 55» cuando el consenso dice 13 y el board 43; «Nacua first
+     overall» cuando es el segundo; Henry, Achane y Allen igual. Cinco cifras
+     ofrecidas explícitamente como guía de draft —«those are the players you can
+     let come to you»— y ninguna vigilada, porque son enteros sin unidad y el
+     libro de `ui-numbers` no los ve. Se leen del payload y dejan de derivar. */
+  const puestoDe = (nombre) => {
+    const fila = fantasy.board.find((row) => row.player_full_name === nombre);
+    return fila?.overall_rank ? `#${fila.overall_rank}` : "unranked here";
+  };
+  const desacuerdo = (nombre) => {
+    const fila = fantasy.board.find((row) => row.player_full_name === nombre);
+    if (!fila?.overall_rank) return "not on this board";
+    // POR ID, no por nombre: el consenso publica el nombre ABREVIADO
+    // («J.Allen») y cruzar por ahí es cómo se tacha al Robinson que no era.
+    const gap = (model.dossier?.gap ?? []).find((g) => g.player_id === fila.player_id);
+    const mercado = gap?.consensus_rank ?? null;
+    return mercado ? `market ${mercado}, here ${fila.overall_rank}` : `here ${fila.overall_rank}`;
+  };
 
   if (!fantasy) {
     return (
@@ -88,6 +110,8 @@ export default function Fantasy() {
         // Las plantillas van APARTE: son tres semanas más nuevas que la
         // estadística y es donde están los cortes y los cambios de equipo.
         rosterDate: dataDate("rosters"),
+        // El ADP no significa nada sin su ventana, su muestra y su fuente.
+        adpSource: fantasy.adp_source ?? null,
         season: fantasy.season,
         scoring: fantasy.scoring,
         teams: fantasy.teams,
@@ -217,22 +241,25 @@ export default function Fantasy() {
             <ul>
               <li>
                 <strong>Short histories the model shrinks toward the average.</strong> Omarion
-                Hampton (market 12, here 55), Ashton Jeanty, Colston Loveland, Emeka Egbuka:
+                Hampton ({desacuerdo("Omarion Hampton")}), Ashton Jeanty, Colston Loveland,
+                Emeka Egbuka:
                 half or more of each number is the positional prior, and the market is pricing
                 a role these data cannot see. You will not get them at this board&rsquo;s
                 price.
               </li>
               <li>
-                <strong>Age at the far end of the curve.</strong> Derrick Henry (market 14,
-                here 136) carries an age factor of 0.61 at 32; Saquon Barkley 0.78 at 29. The
+                <strong>Age at the far end of the curve.</strong> Derrick Henry{" "}
+                ({desacuerdo("Derrick Henry")}) carries an age factor of 0.61 at 32; Saquon
+                Barkley 0.78 at 29. The
                 curve is validated and improved running-back error most of all — but 32 is an
                 extrapolation, and the market disagrees.
               </li>
               <li>
-                <strong>Where this board is higher.</strong> Puka Nacua first overall, Trey
-                McBride 7th on tight-end scarcity, De&rsquo;Von Achane 6th, and Josh Allen
-                15th where the market waits on quarterbacks until the 40s. Those are the
-                players you can let come to you.
+                <strong>Where this board is higher.</strong> Puka Nacua {puestoDe("Puka Nacua")},
+                Trey McBride {puestoDe("Trey McBride")} on tight-end scarcity, De&rsquo;Von
+                Achane {puestoDe("De'Von Achane")}, and Josh Allen {puestoDe("Josh Allen")}{" "}
+                where the market waits on quarterbacks. Those are the players you can let come
+                to you.
               </li>
             </ul>
           </Callout>
@@ -490,7 +517,13 @@ export default function Fantasy() {
             good for <strong>not making large mistakes</strong>.
           </p>
 
-          <Callout title="35 players on this board changed teams, and their projection is the old one">
+          {/* CONTADO DEL PAYLOAD, no escrito a mano. Decía «35 … de los 250 …
+              14%» cuando el board tiene 552 filas y los cambios son 45 (33 en
+              las 250 primeras). Los tres números venían del recorte al top-250
+              que se retiró hace meses, y `tools/ui-numbers.mjs` no podía verlos
+              porque son enteros sin unidad. Una cifra que se puede contar no se
+              escribe de memoria. */}
+          <Callout title={`${cambiaronDeEquipo} players on this board changed teams, and their projection is the old one`}>
             <p>
               The board labels every player with his <strong>2026</strong> roster, but{" "}
               <strong>his projection was computed from the usage split of the team he
@@ -501,8 +534,8 @@ export default function Fantasy() {
               That is why they carry the amber <span className="moved">← TEAM</span> mark next
               to the new team. It is not decoration:{" "}
               <strong>it marks exactly the rows whose number on the right is less
-              trustworthy</strong>. 35 of the board&rsquo;s 250 — 14% — and 146 of the 861
-              players projected.
+              trustworthy</strong>. {cambiaronDeEquipo} of the board&rsquo;s{" "}
+              {fantasy.board.length} rows, {cambiaronEnElTop} of the first 250.
             </p>
           </Callout>
 

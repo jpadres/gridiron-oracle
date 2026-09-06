@@ -862,29 +862,23 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
       igual de alcanzables.
    ========================================================================== */
 
+/* ENVUELVE, NO SE DESPLAZA.
+   Era una tira con desplazamiento horizontal y difuminado en los extremos, y
+   funcionaba con siete opciones. Con once —las cuatro combinaciones de
+   posiciones— las últimas quedaban a dos arrastres, que en la práctica es no
+   existir: es exactamente lo que ya pasó con el menú del móvil y sus doce
+   secciones. Envolver cuesta una línea de alto y enseña las once. */
 .pos-filter {
   display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
+  flex-wrap: wrap;
+  gap: 1px;
   border: 1px solid var(--yard-line);
   border-radius: var(--radius-md);
-  /* Difumina los dos extremos: es la señal de que la tira sigue. */
-  mask-image: linear-gradient(to right, transparent 0, #000 12px,
-                              #000 calc(100% - 12px), transparent 100%);
+  overflow: hidden;
 }
-.pos-filter::-webkit-scrollbar { display: none; }
 .pos-option {
   flex: 1 0 auto;
-  scroll-snap-align: center;
   white-space: nowrap;
-}
-/* A partir de tablet caben las siete sin desplazar: se quita la máscara para
-   que los extremos no salgan difuminados sin motivo. */
-@media (min-width: 48rem) {
-  .pos-filter { mask-image: none; }
-  .pos-option { flex: 1 1 auto; }
 }
 
 /* Panel de K y DST. Sin tarjeta: es prosa con una cifra dentro. */
@@ -962,6 +956,22 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   flex-wrap: wrap;
 }
 .room-state--clock { background: var(--live-field); border-bottom-color: var(--live); }
+
+/* EN EL TELÉFONO, LO URGENTE PRIMERO.
+   Medido sobre la captura de 390: de los 844 px del primer viewport, 570
+   —el 68%— se iban en cromo y procedencia antes del NOMBRE del candidato, y
+   «ON THE CLOCK» aparecía el CUARTO de la banda, a 350 px, detrás de LIVE, de
+   ROUND/PICK y de un recuento de tres cifras. En 1440 sale el primero. La
+   palabra más urgente de la pantalla, enterrada donde menos sitio hay.
+
+   Se reordena con `order` —no se mueve el marcado, que sirve a las dos
+   anchuras— y se guarda la frase de alcance, que es tranquilizadora y no
+   decide un pick: sigue estando, dentro de «Sync details». */
+@media (max-width: 30rem) {
+  .room-state { flex-direction: column; align-items: stretch; gap: var(--space-2); }
+  .room-state .room-clock { order: -1; }
+  .room-state .room-scope-note { display: none; }
+}
 /* FUERA DEL @media: estas marcas se ven en TODAS las anchuras. Estaban
    DENTRO del bloque `min-width: 48rem` de abajo —se añadieron debajo sin
    ver que seguía abierto—, así que el ancho automático de «EXEMPT LIST»,

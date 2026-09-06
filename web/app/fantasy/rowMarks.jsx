@@ -14,7 +14,7 @@
  */
 
 import { availabilityMark } from "../availability.js";
-import { rosterMark } from "./rosterMark.js";
+import { rosterMark, teamChangeMark } from "./rosterMark.js";
 
 /**
  * Marcas de contexto de una fila: estado, nota del modelo, prensa, dossier.
@@ -31,6 +31,10 @@ export function RowMarks({ row, id, notes, news, availability, statusVerifiedAt 
   // La situación de PLANTILLA va con el estado y antes que la nota: que alguien
   // no esté en el 53 de su equipo pesa más que por qué el modelo lo sube.
   const roster = rosterMark(row);
+  // Y el CAMBIO DE EQUIPO, que no es lo mismo que estar fuera del 53: un
+  // jugador puede estar perfectamente activo y en otro sitio. La cabecera del
+  // board lo prometía y ninguna fila lo decía.
+  const cambio = teamChangeMark(row);
   return (
     <>
       {row?.status_label ? (
@@ -51,6 +55,9 @@ export function RowMarks({ row, id, notes, news, availability, statusVerifiedAt 
       ) : null}
       {roster ? (
         <span className={roster.className} title={roster.title}>{roster.text}</span>
+      ) : null}
+      {cambio ? (
+        <span className={cambio.className} title={cambio.title}>{cambio.text}</span>
       ) : null}
       {notes?.[id] ? (
         <span className="mark mark--why" title="The model explains this ranking below">?</span>

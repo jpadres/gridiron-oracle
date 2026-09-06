@@ -52,6 +52,7 @@ import {
 } from "./candidates.js";
 import { isUnavailable, splitAvailable, tierPool as countableTier } from "./availablePool.js";
 import { marketNote } from "./marketAdp.js";
+import { RowMarks } from "./rowMarks.jsx";
 import { rosterMark, updatedSinceModel } from "./rosterMark.js";
 import { POSITION_STATE, replacementPoints } from "./rosterFit.js";
 
@@ -404,8 +405,26 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
      Sleeper y esta lista cambia sola — sin refrescar y sin un segundo modelo de
      plantilla. `picksLeftForMe` es lo que permite decir si ya urge llenar los
      huecos que sólo pateador o defensa pueden llenar, sin cablear una ronda. */
+  /* EL POOL DEL MOTOR INCLUYE A LOS ESPECIALISTAS.
+     ─────────────────────────────────────────────────────────────────────────
+     La rama que impide terminar con los huecos de K y DEF abiertos filtraba
+     `available`… y ninguna de las dos pantallas metía ahí un pateador. O sea:
+     la rama escrita para que la alineación no quede ILEGAL era CÓDIGO MUERTO,
+     y un draft entero siguiendo la recomendación acababa con dos huecos
+     titulares a cero y 32 pateadores y 32 defensas libres. Es el error que E23
+     midió en el baseline, cometido por el motor que existe para no cometerlo.
+
+     Meterlos no ensucia nada más: `draftablePool` filtra por
+     `RANKED_POSITIONS`, así que un pateador no puede colarse en la lista corta
+     normal ni en los conteos de tier — sólo lo ve la rama que pregunta por los
+     huecos obligatorios. */
+  const poolParaElMotor = useMemo(
+    () => available.concat(availableSpecialists),
+    [available, availableSpecialists]
+  );
+
   const forMe = useMemo(
-    () => bestForMe(available, {
+    () => bestForMe(poolParaElMotor, {
       roster,
       rosterPositions: construction ? league.roster : null,
       replacement,
@@ -414,7 +433,7 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
         : null,
       limit: 4,
     }),
-    [available, roster, construction, league, replacement, rounds, teams, next]
+    [poolParaElMotor, roster, construction, league, replacement, rounds, teams, next]
   );
 
   /* La respuesta a «¿y por qué no el primero del board?», derivada del estado
@@ -687,7 +706,17 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                 ) : "not resolved yet"}
               </dd>
               <dt>Polling</dt>
-              <dd>every 15 s while this page is open · {sync.syncing ? "request in flight" : "idle"}</dd>
+              {/* LA CADENCIA REAL, no la de hace tres versiones. Decía «cada
+                  15 s» cuando `nextCadence` sigue al estado del draft —4 s
+                  drafteando, 15 s antes, 60 s acabado— y se dobla por fallo
+                  consecutivo hasta un minuto. Una cifra de la interfaz que ya
+                  no describe al código es la deriva de las cifras de portada
+                  en pequeño. */}
+              <dd>
+                {sync.syncing ? "request in flight" : "idle"} · every 4 s while the draft
+                is running, 15 s before it starts, 60 s once it is over — and it backs off
+                on consecutive failures
+              </dd>
               {sync.unmapped?.length ? (
                 <>
                   <dt>Unmapped picks</dt>
@@ -818,6 +847,18 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                       size={56} className="hs--hero" />
             <span className="room-pick-who">
               <b>{forMe.primary.row.player_full_name ?? forMe.primary.row.player_name}</b>
+              {/* LAS MARCAS DE ESTADO, AQUÍ TAMBIÉN.
+                  El board de abajo gritaba «QUESTIONABLE Activated off PUP on
+                  23 August after the 11 January Achilles rupture» y este panel
+                  —lo único que se ve en el primer viewport de un teléfono— no
+                  decía nada. Con treinta segundos en el reloj, el que decide ve
+                  la recomendación y NO ve la lesión. Es el fallo de las dos
+                  superficies con distinta cobertura aplicado al sitio donde
+                  más caro sale. Se reutiliza `RowMarks`, que es la misma que
+                  usan el board y el semanal: una implementación. */}
+              <RowMarks row={forMe.primary.row} id={forMe.primary.row.player_id}
+                        news={context.briefs} availability={context.availability}
+                        statusVerifiedAt={forMe.primary.row.status_verified_at} />
               <span className="meta">
                 <TeamMark abbr={forMe.primary.row.team} />
                 <span className={`ptag ptag--${forMe.primary.row.position.toLowerCase()}`}>
@@ -848,8 +889,8 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
           {/* EL MERCADO, al lado. Contesta «¿puedo esperar?» y nada más: los
               dos números y su diferencia, sin una palabra que prometa
               disponibilidad futura — eso exige un modelo calibrado que no hay. */}
-          {marketNote(forMe.primary.row) ? (
-            <p className="room-market">{marketNote(forMe.primary.row)}</p>
+          {marketNote(forMe.primary.row, context.adpSource) ? (
+            <p className="room-market">{marketNote(forMe.primary.row, context.adpSource)}</p>
           ) : null}
           {/* LO QUE EL MODELO NO PUDO VER. El número de arriba se compiló con
               datos del {context.modelDate}; el registro de plantillas es
@@ -881,6 +922,14 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                       <span className="nm">
                         {entry.row.player_full_name ?? entry.row.player_name}
                       </span>
+                      {/* Y en las alternativas. Una de las cuatro puede acabar
+                          siendo el pick, y la lesión no puede estar sólo en la
+                          primera. */}
+                      {entry.row.status_label ? (
+                        <span className={entry.row.status_severity === "OUT" && !entry.row.status_disputed
+                          ? "mark mark--out" : "mark mark--risk"}
+                              title={entry.row.status_detail ?? ""}>{entry.row.status_label}</span>
+                      ) : null}
                       <span className="alt-why">{headlineReason(entry)?.text ?? ""}</span>
                       <span className="alt-n">{entry.fit ? num(entry.fit.marginal, 0) : "—"}</span>
                     </button>
@@ -1162,14 +1211,21 @@ export default function DraftRoom({ board, context, league, leagueValue = null, 
                         </span>
                       ) : null}
                       {entry.row.rostered === false && entry.row.status_severity !== "OUT" ? (
-                        /* SIN EQUIPO. Va antes que cualquier otra marca porque
+                        /* NO NFL TEAM. Va antes que cualquier otra marca porque
                            invalida el número de al lado: la proyección salió de
                            lo que hizo en un equipo en el que ya no está. Si ya
                            hay una marca de OUT no se repite: «FREE AGENT» y
-                           «SIN EQUIPO» juntos dicen lo mismo dos veces. */
+                           «NO NFL TEAM» juntos dicen lo mismo dos veces. */
                         <span className="room-row-noteam"
                               title="Not on any 2026 NFL roster. The projection comes from his production with a team he is no longer on.">
-                          SIN EQUIPO
+                          {/* En INGLÉS, como el resto de la interfaz. Salía
+                              «SIN EQUIPO» junto a «5 LEFT», «on board» y
+                              «picks until you»: la única palabra en español de
+                              la pantalla, y encima en la marca que invalida el
+                              número de al lado. Lo cazó el crítico de UX
+                              mirando una captura — `audit-spanish.mjs` no
+                              tenía «SIN EQUIPO» en su lista. */}
+                          NO NFL TEAM
                         </span>
                       ) : null}
                       {priorNote(entry.row) ? (

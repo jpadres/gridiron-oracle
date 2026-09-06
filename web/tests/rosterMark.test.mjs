@@ -8,7 +8,9 @@
 import { strict as assert } from "node:assert";
 import test from "node:test";
 
-import { rosterMark, changedSinceModel, updatedSinceModel } from "../app/fantasy/rosterMark.js";
+import {
+  rosterMark, changedSinceModel, teamChangeMark, updatedSinceModel,
+} from "../app/fantasy/rosterMark.js";
 import { readFileSync } from "node:fs";
 
 import { isUnavailable, splitAvailable, tierPool } from "../app/fantasy/availablePool.js";
@@ -223,4 +225,44 @@ test("«updated since model» sólo habla de hechos MATERIALES y posteriores", (
                       "2026-08-17"),
     null,
   );
+});
+
+test("el cambio de equipo se marca, y «LA» y «LAR» NO son un cambio", () => {
+  /* 32 filas del board pintaban el equipo en el que el jugador JUGÓ mientras
+     el registro del día decía otro, y la cabecera prometía «quién cambió de
+     equipo». Isiah Pacheco salía «RB · KC» con el registro diciendo DET. */
+  const pacheco = { position: "RB", team: "KC", roster_team: "DET",
+                    roster_state: "RESERVE", roster_source_as_of: "2026-09-05" };
+  const marca = teamChangeMark(pacheco);
+  assert.equal(marca.text, "NOW DET");
+  assert.match(marca.title, /KC/);
+  assert.match(marca.title, /2026-09-05/);
+
+  // Un pateador ACTIVO en otro equipo también: `rosterMark` se calla con
+  // ACTIVE, así que sin esto Grupe, Carlson y Folk salían sin ninguna marca.
+  assert.equal(teamChangeMark({ position: "K", team: "IND", roster_team: "NYJ",
+                                roster_state: "ACTIVE" }).text, "NOW NYJ");
+
+  // Y los Rams no se traspasan a sí mismos: el payload publica «LA» y «LAR».
+  assert.equal(teamChangeMark({ position: "WR", team: "LA", roster_team: "LAR" }), null);
+  assert.equal(teamChangeMark({ position: "WR", team: "LAR", roster_team: "LAR" }), null);
+  // Una defensa no cambia de equipo: es el equipo.
+  assert.equal(teamChangeMark({ position: "DST", team: "KC", roster_team: "KC",
+                                roster_state: "TEAM_UNIT" }), null);
+});
+
+test("«updated since model» tampoco inventa un traspaso entre LA y LAR", () => {
+  assert.equal(
+    updatedSinceModel({ position: "WR", team: "LA", roster_team: "LAR",
+                        roster_state: "ACTIVE", roster_source_as_of: "2026-09-05" },
+                      "2026-08-17"),
+    null,
+  );
+});
+
+test("las tres superficies piden la marca a la MISMA función", () => {
+  for (const ruta of ["app/ui.jsx", "app/fantasy/rowMarks.jsx"]) {
+    const fuente = readFileSync(new URL(`../${ruta}`, import.meta.url), "utf8");
+    assert.match(fuente, /teamChangeMark/, `${ruta} no marca el cambio de equipo`);
+  }
 });

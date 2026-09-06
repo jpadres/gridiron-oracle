@@ -1,4 +1,4 @@
-import { availabilityByPlayer, model, capabilityStatus } from "../../../data/model.js";
+import { availabilityByPlayer, dataDate, model, capabilityStatus } from "../../../data/model.js";
 import { DeltaBars } from "../../charts.jsx";
 import { Callout, ImpactTag, MachineWritten, NoDataYet, Note, Sources } from "../../ui.jsx";
 import WeeklyExplorer from "./WeeklyExplorer.jsx";
@@ -121,6 +121,17 @@ export default function Semanal() {
       <h1>
         Weekly Rankings — {weekly.season}, week {weekly.week}
       </h1>
+      {/* LA FECHA DE ESTA SECCIÓN. El pie promete que cada una fecha lo suyo y
+          ésta no fechaba nada: 256 filas de alineación construidas con la
+          estadística por jugador de una fecha que la pantalla no decía. Las dos
+          por separado, porque no son la misma cosa — los números salen de la
+          estadística y las marcas de plantilla del registro. */}
+      <p className="caption">
+        Projections come from player stats retrieved{" "}
+        <strong>{dataDate("fantasy") ?? "on an unknown date"}</strong>; roster facts beside
+        them — who was cut, who is on a reserve list, who changed team — come from rosters
+        retrieved <strong>{dataDate("rosters") ?? "on an unknown date"}</strong>.
+      </p>
       <p className="lede">
         The bridge to the game model is game script: projected margin and total decide how
         many plays each team gets and of what kind. A receiver on a 26% target share in a game

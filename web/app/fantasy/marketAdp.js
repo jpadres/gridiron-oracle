@@ -39,13 +39,29 @@ export function marketGap(row) {
   };
 }
 
-/** Una línea de texto, o `null`. Sin adjetivos y sin probabilidades. */
-export function marketNote(row) {
+/**
+ * Una línea de texto, o `null`. Sin adjetivos y sin probabilidades.
+ *
+ * `source` es `fantasy.adp_source`, y va porque **un ADP sin su contexto no
+ * significa nada**: «ADP 52,3» en presente, sin ventana ni muestra ni fuente,
+ * es una afirmación de actualidad sin fecha — la regla 5 con otra ropa. El
+ * agregado empieza el 29 de agosto, o sea ANTES de los cortes que la propia
+ * pantalla marca al lado, y quien lee tiene que poder saberlo.
+ *
+ * Y va la VENTANA, no `fetched_at`: cuándo lo bajé no es de cuándo es el dato.
+ */
+export function marketNote(row, source = null) {
   const gap = marketGap(row);
   if (!gap) return null;
   const base = `Board ${gap.rank} · market ADP ${gap.adp.toFixed(1)}`;
-  if (gap.direction === "SAME") return base;
-  return gap.direction === "MARKET_LATER"
-    ? `${base} — drafted later than the board ranks him`
-    : `${base} — drafted earlier than the board ranks him`;
+  const dicho = gap.direction === "SAME" ? base
+    : gap.direction === "MARKET_LATER"
+      ? `${base} — drafted later than the board ranks him`
+      : `${base} — drafted earlier than the board ranks him`;
+  const ventana = source?.window_start;
+  const muestra = Number(source?.sample_size);
+  if (!ventana) return dicho;
+  const cuantos = Number.isFinite(muestra) && muestra > 0
+    ? `${muestra.toLocaleString("en-US")} drafts` : "drafts";
+  return `${dicho} · ${cuantos} since ${ventana}`;
 }

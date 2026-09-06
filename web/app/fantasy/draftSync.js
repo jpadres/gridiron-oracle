@@ -118,9 +118,16 @@ export function syncState({
   }
   if (error) {
     return {
-      level: "ERROR", label: "Sync error", detail: error,
-      // El tablero manual sigue siendo válido: lo sincronizado hasta ahora no
-      // se pierde, sólo deja de actualizarse.
+      level: "ERROR", label: "Sync error",
+      /* QUÉ ES LO QUE AHORA NO ES DE FIAR, no sólo qué falló.
+         Decía «/draft/DRS/picks returned 503» y debajo pintaba un board
+         completo, seguro e interactivo, idéntico al del estado sano. Nada en
+         pantalla decía que los picks HAN DEJADO DE LLEGAR y que cualquiera de
+         esa lista puede estar ya cogido. El contador de picks se lee como un
+         hecho y es un contador parado — un board obsoleto con aspecto de
+         estar vivo, que es la forma de romper que parece que funciona. */
+      detail: `${error} — picks have stopped arriving, so anyone still on the `
+        + "board may already be gone. Cross players off by hand until it recovers.",
       canRecommend: true,
     };
   }

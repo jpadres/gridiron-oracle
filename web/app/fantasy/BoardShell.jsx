@@ -251,14 +251,7 @@ export default function BoardShell({
                 type="button"
                 className="pos-option"
                 aria-pressed={position === entry}
-                // La activa se lleva a la vista: con siete opciones en una tira
-                // que se desplaza, DST puede quedar fuera de pantalla y parecer
-                // que no existe.
-                ref={(node) => {
-                  if (node && position === entry) {
-                    node.scrollIntoView({ block: "nearest", inline: "center" });
-                  }
-                }}
+
                 onClick={() => go({ position: entry })}
               >
                 {entry}
