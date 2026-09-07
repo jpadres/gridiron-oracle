@@ -27,7 +27,7 @@ const OUT = process.env.SHOTS
 
 const PAGINAS = [
   "/", "/modelo", "/predicciones", "/betting",
-  "/fantasy", "/fantasy/draft", "/fantasy/leagues", "/fantasy/semanal",
+  "/fantasy", "/fantasy/draft", "/fantasy/leagues", "/fantasy/semanal", "/fantasy/lineups",
   "/fantasy/resto", "/fantasy/analisis", "/survivor", "/research",
 ];
 
@@ -102,7 +102,7 @@ for (const width of [390, 768, 1440]) {
     await page.goto(`${BASE}/`, { waitUntil: "domcontentloaded" });
     const enMenu = await page.evaluate(() =>
       [...document.querySelectorAll("nav.top .top-links a")].map((a) => new URL(a.href).pathname));
-    check("el menú lleva a once secciones", enMenu.length === 11, `${enMenu.length}`);
+    check("el menú lleva a doce secciones", enMenu.length === 12, `${enMenu.length}`);
 
 /* EL MENÚ DEL TELÉFONO ES OTRO ELEMENTO, Y POR ESO SE COMPRUEBA APARTE.
    En 390 px la fila de secciones no cabe y se pinta un desplegable: los dos

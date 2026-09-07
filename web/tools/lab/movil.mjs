@@ -214,9 +214,9 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
   await page.waitForSelector(".cc-panel", { timeout: 10000 });
 
   for (const url of ["/fantasy", "/fantasy/semanal", "/fantasy/resto", "/fantasy/analisis",
-                     "/fantasy/draft", "/fantasy/leagues", "/betting"]) {
+                     "/fantasy/lineups", "/fantasy/draft", "/fantasy/leagues", "/betting"]) {
     await page.goto(`${BASE}${url}`, { waitUntil: "domcontentloaded" });
-    await page.waitForSelector("table, .room-row, .pick, .cc-panel, .bk-plan-grid", { timeout: 10000 }).catch(() => {});
+    await page.waitForSelector("table, .room-row, .pick, .cc-panel, .lu-panel, .bk-plan-grid", { timeout: 10000 }).catch(() => {});
     await page.waitForFunction(() => !document.querySelector(".skeleton"), null, { timeout: 8000 }).catch(() => {});
     await page.waitForTimeout(400);
     const etiqueta = `${w}·${tema}·${fuente}`;
@@ -229,6 +229,8 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
       "/betting": [".bk-plan-grid", ".bk-slip > li", ".bk-ledger tbody tr"],
       "/fantasy/resto": [".ros-filters .pos-option[aria-pressed]", ".rank-table tbody tr"],
       "/fantasy/semanal": [".wk-table"],
+      // Con la cuenta enlazada tiene que haber un panel por liga y sus filas.
+      "/fantasy/lineups": [".lu-panel", ".lu-rows > li"],
       "/fantasy": ["table"],
     }[url] ?? [];
     for (const sel of EXIGIDO) {

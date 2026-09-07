@@ -354,6 +354,10 @@ export function leagueSnapshotFrom({ league, draft, rosters, users, userId, seas
     owner: r?.owner_id != null ? (owners[String(r.owner_id)] ?? String(r.owner_id)) : null,
     players: Array.isArray(r?.players) ? r.players.map(String) : [],
     starters: Array.isArray(r?.starters) ? r.starters.map(String) : [],
+    // IR y taxi: están en `players` y NO pueden alinearse. Sin leerlos, el
+    // optimizador proponía como titular a alguien en la reserva de Sleeper.
+    reserve: Array.isArray(r?.reserve) ? r.reserve.map(String) : [],
+    taxi: Array.isArray(r?.taxi) ? r.taxi.map(String) : [],
     record: registro(r?.settings),
   })) : null;
   return {
@@ -364,6 +368,8 @@ export function leagueSnapshotFrom({ league, draft, rosters, users, userId, seas
     rosterId: mine?.roster_id ?? null,
     players: Array.isArray(mine?.players) ? mine.players.map(String) : null,
     starters: Array.isArray(mine?.starters) ? mine.starters.map(String) : null,
+    reserve: Array.isArray(mine?.reserve) ? mine.reserve.map(String) : [],
+    taxi: Array.isArray(mine?.taxi) ? mine.taxi.map(String) : [],
     record,
     owners,
     rosterCount: Array.isArray(rosters) ? rosters.length : null,

@@ -45,6 +45,7 @@ const PAGES = [
   { href: "/fantasy", label: "Board" },
   { href: "/fantasy/draft", label: "Draft Assistant" },
   { href: "/fantasy/semanal", label: "Weekly" },
+  { href: "/fantasy/lineups", label: "Lineups" },
   { href: "/fantasy/resto", label: "Rest of Season" },
   { href: "/fantasy/analisis", label: "Analyzer" },
   { href: "/survivor", label: "Survivor" },
@@ -100,7 +101,7 @@ export default function RootLayout({ children }) {
         <a className="skip" href="#contenido">Skip to content</a>
         <div className="shell">
           {/* DOS PRESENTACIONES DEL MISMO MENÚ, una lista sola.
-              En escritorio caben las doce secciones en dos líneas y se enseñan.
+              En escritorio caben las doce secciones del menú en dos líneas y se enseñan.
               En el teléfono no: en una tira que se desplaza las cinco últimas
               quedaban a tres arrastres y en la práctica no existían —de ahí
               «no encuentro el resto de temporada»—, y desplegadas costaban 187

@@ -23,6 +23,7 @@ import { numberOrNull } from "../../numbers.js";
 import { restOfSeason } from "../leagueAdvice.js";
 import { weeklyIndex } from "../leagueWeek.js";
 import { lineupFrom, sideBySide, startSit } from "../lineup.js";
+import { fullWeeklyIndex } from "../startSit.js";
 import { VALUED, headToHead, powerRankings, tradeOpenings } from "../leagueAnalyzer.js";
 
 /** `{wins, losses, ties}` -> «3-1» o «3-1-1». Sin récord, cadena vacía. */
@@ -53,7 +54,7 @@ function Gap({ value, digits = 0 }) {
 }
 
 export default function AnalyzerShell({
-  board, byes, week, season, sleeperIds, weekly = [], weeklyKickers = [],
+  board, byes, week, season, sleeperIds, weekly = [], weeklyKickers, weeklyDefenses = [] = [],
 }) {
   // La liga la elige la barra compartida: una sola clave para todo el producto.
   const [league, setLeague] = useState(null);
@@ -103,16 +104,19 @@ export default function AnalyzerShell({
      Son dos preguntas distintas y mezclarlas es el error clásico — a quién
      alineo el domingo no se contesta con lo que vale hasta enero. */
   const semanal = useMemo(() => weeklyIndex(weekly, weeklyKickers), [weekly, weeklyKickers]);
-  /* El índice con el que se REPARTEN los huecos: la proyección semanal manda,
-     y por debajo el board — que es quien conoce a las defensas, sin proyección
-     porque no hay modelo de DST validado. Sin esta mezcla, tu defensa titular
-     salía como un hueco vacío y con su id crudo en el start/sit: existe, ocupa
-     su sitio y no suma, que son tres cosas distintas de «no está». */
-  const paraAlinear = useMemo(() => {
-    const m = new Map(index);
-    for (const [k, v] of semanal) m.set(k, v);
-    return m;
-  }, [index, semanal]);
+  /* EL ÍNDICE CON EL QUE SE REPARTEN LOS HUECOS ES EL SEMANAL, Y NADA MÁS.
+     Antes se fundía el board de resto de temporada «por debajo, para conocer
+     a las defensas» — y el board no tiene defensas: tiene proyecciones de
+     TEMPORADA (hasta 275 puntos). Medido contra el payload: 167 de 483 filas
+     del pool quedaban en esa escala, así que cualquier suplente sin fila
+     semanal ganaba a cualquier titular con ella y «Generate best lineup»
+     sumaba 239 por un quarterback mientras el start/sit mandaba al banquillo
+     al titular de verdad. Las defensas entran por `fullWeeklyIndex`, con el
+     código de Sleeper y sin proyección: ocupan su hueco y no suman. */
+  const paraAlinear = useMemo(
+    () => fullWeeklyIndex({ rankings: weekly, kickers: weeklyKickers, defenses: weeklyDefenses }),
+    [weekly, weeklyKickers, weeklyDefenses]
+  );
   const huecos = league?.config?.roster ?? null;
   const misTitulares = league?.starters ?? null;
   const rivalRosterId = rivalId || defaultRival;

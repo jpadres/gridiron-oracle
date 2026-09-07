@@ -75,8 +75,23 @@ for (const row of mine1) {
   no += 1;
 }
 const myRoster1 = L1.rosters.find((r) => r.roster_id === 7);
-// Titulares: tres jugadores y la defensa, para que la alineación tenga algo SIN proyección.
-myRoster1.starters = [...myRoster1.players.slice(0, 3), myRoster1.players[3]];
+// Titulares COMO LOS PUBLICA SLEEPER: un array alineado con `roster_positions`
+// sin banquillo, y «0» en el hueco vacío. Antes eran «los tres primeros y la
+// defensa» sin posición, así que la defensa caía en el hueco de WR y un
+// corredor en el de QB: un doble que miente en un campo prueba otra cosa. Aquí
+// va cada uno a su hueco, y quedan huecos VACÍOS (algo sin proyección: la
+// defensa; algo vacío: el K no está puesto aunque esté en plantilla).
+{
+  const filaDe = (sid) => [...BOARD, ...DEFENSES, ...KICKERS].find((r) => SLEEPER_OF[r.player_id] === sid) ?? null;
+  const admite = { QB: ["QB"], RB: ["RB"], WR: ["WR"], TE: ["TE"], FLEX: ["RB", "WR", "TE"], DEF: ["DST", "DEF"], K: ["K"] };
+  const libres = new Set(myRoster1.players.slice(0, 4));   // tres jugadores y la defensa; el pateador se queda en el banquillo
+  myRoster1.starters = ROSTER12.filter((slot) => slot !== "BN").map((slot) => {
+    const sid = [...libres].find((id) => (admite[slot] ?? []).includes(String(filaDe(id)?.position ?? "").toUpperCase()));
+    if (!sid) return "0";
+    libres.delete(sid);
+    return sid;
+  });
+}
 myRoster1.settings = { wins: 2, losses: 1, ties: 0 };
 
 // Y LAS ONCE PLANTILLAS RESTANTES. Sin esto la liga tenía un equipo con
@@ -451,6 +466,48 @@ await page.screenshot({ path: `${OUT}/cuenta-1440-power.png` });
 await page.locator("#h2h").scrollIntoViewIfNeeded();
 await page.waitForTimeout(200);
 await page.screenshot({ path: `${OUT}/cuenta-1440-h2h.png` });
+
+/* === 2c. lineups: start/sit de TODAS las ligas a la vez =================== */
+console.log("\n=== lineups ===");
+await page.goto(`${BASE}/fantasy/lineups`, { waitUntil: "domcontentloaded" });
+await page.waitForSelector(".lu-panel", { timeout: 10000 });
+{
+  const paneles = await page.locator(".lu-panel").count();
+  // Las DOS ligas de la cuenta, sin cambiar nada en la barra. El mock no es una
+  // liga y no tiene plantilla que alinear.
+  check("lineups: sale un panel por liga, todas a la vez", paneles === 2, `${paneles}`);
+  const primero = await page.locator(".lu-panel").first().innerText();
+  check("lineups: la liga activa va primero y se dice",
+    /active league/i.test(primero) && /Sunday Twelve/.test(primero), primero.split("\n")[0]);
+  // LA ESCALA. Todo lo que se suma aquí es proyección SEMANAL: ningún número
+  // de una fila puede parecerse a una temporada. El fallo del analizador eran
+  // 239 puntos por un quarterback.
+  const numeros = await page.evaluate(() =>
+    [...document.querySelectorAll(".lu-rows b, .wk-gap-num")]
+      .map((el) => Number(el.textContent.replace(/[^0-9.-]/g, ""))).filter(Number.isFinite));
+  check("lineups: ninguna cifra está en escala de temporada",
+    numeros.length > 0 && numeros.every((n) => n < 60), numeros.filter((n) => n >= 60).slice(0, 3).join(" "));
+  // LA DEFENSA. Está puesta en Sleeper (el doble la siembra como titular) y
+  // tiene que OCUPAR su hueco, no salir como «empty».
+  const filaDef = page.locator(".lu-rows > li").filter({ has: page.locator(".ptag--def") });
+  check("lineups: la defensa ocupa su hueco en las dos columnas",
+    (await filaDef.count()) === 1 && !/empty/.test(await filaDef.first().innerText()),
+    (await filaDef.count()) ? (await filaDef.first().innerText()).replace(/\n/g, " ") : "sin fila DEF");
+  // EL VEREDICTO existe y es uno de los tres posibles.
+  const veredicto = await page.locator(".lu-panel").first().locator(".lu-verdict").innerText();
+  check("lineups: hay un veredicto por liga",
+    /No change|slots? to change|has not published/.test(veredicto), veredicto);
+  // Y con cambios, cada uno lleva SIT, START y su diferencia en la MISMA fila.
+  const cambios = await page.locator(".lu-panel").first().locator(".lu-swaps > li").count();
+  if (cambios > 0) {
+    const fila = await page.locator(".lu-panel").first().locator(".lu-swaps > li").first().innerText();
+    check("lineups: un cambio dice SIT, START y la diferencia en la misma fila",
+      /SIT|FILL/.test(fila) && /START/.test(fila) && /[+−-]?\d+\.\d|—/.test(fila), fila.replace(/\n/g, " "));
+  }
+  const errsLineups = errores.length;
+  check("lineups: sin excepciones en la página", errsLineups === 0, errores.slice(0, 2).join(" | "));
+  await page.screenshot({ path: `${OUT}/cuenta-lineups.png`, fullPage: true });
+}
 
 /* === 3. recargar: sin red ================================================ */
 console.log("\n=== recarga ===");

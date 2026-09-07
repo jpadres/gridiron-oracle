@@ -2270,3 +2270,31 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   color: var(--muted);
 }
 .room-asof span + span::before { content: "·"; margin-right: 0.75rem; }
+
+/* --- LINEUPS: start/sit por liga, todas a la vez ---------------------------- */
+.lu-panel--active { border-top-width: 3px; border-top-color: var(--live, var(--chalk)); }
+.lu-active { font-size: var(--text-micro); color: var(--chalk-dim); font-weight: normal; margin-left: var(--space-2); }
+.lu-verdict { margin: var(--space-3) 0 var(--space-2); font-size: var(--text-body); }
+.lu-verdict--ok { color: var(--chalk); }
+.lu-warnings {
+  list-style: none; margin: 0 0 var(--space-3); padding: 0;
+  display: flex; flex-direction: column; gap: var(--space-1);
+  font-size: var(--text-small);
+}
+.lu-warn { border-left: 3px solid var(--flag-ink, #a33b3b); padding-left: var(--space-2); }
+.lu-warn--no_projection, .lu-warn--unknown_id { border-left-color: var(--yard-line); color: var(--chalk-dim); }
+.lu-swaps { list-style: none; margin: 0 0 var(--space-3); padding: 0; }
+.lu-swaps > li {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: var(--space-2); align-items: center;
+  padding: var(--space-2) 0; border-top: 1px solid var(--yard-line);
+  font-size: var(--text-small);
+}
+.lu-swap-out, .lu-swap-in { min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); }
+.lu-swap-delta { font-variant-numeric: tabular-nums; text-align: right; }
+.lu-row--changed { background: var(--field-sunken); }
+.lu-rows .mark { order: 0; }
+@media (max-width: 560px) {
+  .lu-swaps > li { grid-template-columns: minmax(0, 1fr); }
+  .lu-swap-delta { text-align: left; }
+}

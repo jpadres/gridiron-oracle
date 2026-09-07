@@ -43,7 +43,7 @@ const BASE = `http://127.0.0.1:${PORT}`;
 
 const TODAS = [
   "/", "/modelo", "/predicciones", "/betting",
-  "/fantasy", "/fantasy/draft", "/fantasy/leagues", "/fantasy/semanal",
+  "/fantasy", "/fantasy/draft", "/fantasy/leagues", "/fantasy/semanal", "/fantasy/lineups",
   "/fantasy/resto", "/fantasy/analisis", "/survivor", "/research",
 ];
 /* `SOLO=/ruta,/otra` acota el recorrido. Existe para poder PROBAR LOS
@@ -429,7 +429,7 @@ else {
   }
 
   const CON_CUENTA = ["/fantasy/leagues", "/fantasy/semanal", "/fantasy/resto",
-                      "/fantasy/analisis", "/fantasy"];
+                      "/fantasy/analisis", "/fantasy/lineups", "/fantasy"];
   const malos = { sinNombre: [], pequenos: [], desbordan: [], pisan: [], mudos: [] };
   const rotos = [];
   let pulsados = 0;

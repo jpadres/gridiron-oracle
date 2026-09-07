@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 42 fallos conocidos, 42 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 44 fallos conocidos, 44 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -183,3 +183,9 @@ run "41 dos nombres iguales emparejados con el primero" src/oracle/narrative/pre
 run "42 el cambio de equipo escondido en la lista del board" web/app/fantasy/DraftRoom.jsx \
   "                      {teamChangeMark(entry.row) ? (|||                      {false ? (" \
   "cd web && node --test tests/rosterMark.test.mjs"
+run "43 un OUT propuesto como titular de la semana" web/app/fantasy/startSit.js \
+  "    if (flags.includes(\"OUT\")) { excluded.push({ sid, row, reason: EXCLUDED.OUT }); continue; }|||    // INYECCIÓN: el OUT vuelve al reparto" \
+  "cd web && node --test tests/startSit.test.mjs"
+run "44 el board de TEMPORADA otra vez bajo el índice semanal del analizador" web/app/fantasy/analisis/AnalyzerShell.jsx \
+  "    () => fullWeeklyIndex({ rankings: weekly, kickers: weeklyKickers, defenses: weeklyDefenses }),|||    () => { const m = new Map(index); for (const [k, v] of fullWeeklyIndex({ rankings: weekly, kickers: weeklyKickers, defenses: weeklyDefenses })) m.set(k, v); return m; }," \
+  "cd web && node --test tests/analyzerIndex.test.mjs"

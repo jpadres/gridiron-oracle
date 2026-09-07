@@ -6,7 +6,7 @@
 |---|---|
 | python | ruff, pytest, contraste WCAG, cifras de portada contra el payload |
 | web | `next build`, idioma, identificadores huérfanos, `node --test`, simulación de draft (3 ligas), cabeceras, CSP y `fetch` acotado |
-| browser | **desde 2026-09-05**: `tools/lab/ci-required.mjs` → `headshot-shots` (Draft Assistant con cuenta, fotos, marcas), `smoke` (doce páginas × tres anchos), `apuestas` (NO BET dicho con motivo, signo del handicap, plan), `movil` (geometría 390/360, claro y oscuro), `controles` (control por control con y sin cuenta) |
+| browser | **desde 2026-09-05**: `tools/lab/ci-required.mjs` → `headshot-shots` (Draft Assistant con cuenta, fotos, marcas), `smoke` (trece páginas × tres anchos), `apuestas` (NO BET dicho con motivo, signo del handicap, plan), `movil` (geometría 390/360, claro y oscuro), `controles` (control por control con y sin cuenta) |
 | dependencies | pip-audit y npm audit, con reintento y rojo si no se pudo auditar |
 | secrets | gitleaks |
 

@@ -406,7 +406,7 @@ reescribe la nota, lo que se publicó hoy sólo existe si se guardó hoy.
 **El flujo de datos de la web:** los scripts de Python generan
 `web/data/model.json`, que se comprime a `web/data/model.b64.js` (gzip+base64,
 ~24 KB). `web/data/model.js` lo descomprime en el servidor **en build time**. Por
-eso las 12 páginas son estáticas y el sitio no hace ni una petición de red.
+eso las 13 páginas son estáticas y el sitio no hace ni una petición de red.
 
 Si regeneras los datos, **hay que recomprimir**. El paso está en
 `.github/workflows/weekly-predictions.yml`; cópialo de ahí si lo haces a mano.
@@ -644,6 +644,9 @@ comentario está para que no los reintroduzcas.
 | Una inyección que no reproducía el fallo | `scripts/injection_drill.sh` | Metía la capa de prensa ANTES de la correcta, así que la correcta seguía corriendo después y el parte médico seguía ganando: «VERDE (NO ES GUARDIÁN)» sobre un guardián que sí lo era. El fallo estaba en la inyección. Y el `\n` de la cadena llegaba literal al reemplazo: los saltos de línea van CRUDOS, como en la inyección 2 |
 | Dos inyecciones con el mismo número | `scripts/injection_drill.sh` | Se añadieron cuatro al final empezando por 37 y ya había un 37 doscientas líneas más arriba. El simulacro corría las 41, pero el informe tenía dos «37» y un recuento por número habría dado 40 |
 | 26 cifras escritas a mano en el JSX, sin libro | `web/tools/ui-numbers.mjs` | Ninguna comprobación miraba «48,8%», «0,388» o «0,61» en la prosa de la interfaz. Ahora cada cifra a mano tiene entrada en `docs/evidence/ui_numbers.json` con procedencia (PAYLOAD, ARITHMETIC, EXPERIMENT:id, CONVENTION o UNVERIFIED) y una cifra nueva sin entrada es rojo. Doce siguen UNVERIFIED — dicho, no escondido |
+| El optimizador de alineación sumaba TEMPORADA y SEMANA | `analisis/AnalyzerShell.jsx` | `paraAlinear` fundía el board de resto de temporada «por debajo» del índice semanal «para conocer a las defensas» — y el board no tiene defensas: tiene proyecciones de TEMPORADA. Medido: 167 de 483 filas del pool en escala de 275 puntos, «Generate best lineup» sumaba 239 por un quarterback y el start/sit mandaba al banquillo al titular de verdad; desde la jornada 5, un jugador en BYE (sin fila semanal) quedaba GARANTIZADO como titular. Un solo índice semanal (`fullWeeklyIndex`), las defensas por el código de Sleeper y sin proyección |
+| El double de Sleeper publicaba los titulares SIN posición | `tools/lab/cuenta.mjs` | `starters` eran «los tres primeros y la defensa», y Sleeper publica un array ALINEADO con `roster_positions` (y «0» en el vacío): la defensa caía en el hueco de WR y un corredor en el de QB, y la pantalla nueva enseñaba «SIT B.Robinson» en QB. Un doble que miente en un campo prueba otra cosa, por quinta vez |
+| Un hueco VACÍO contado como «titular sin proyección» | `startSit.js` | Ocho huecos vacíos de una liga pre-draft salían como «8 starters without a weekly projection — a defense has none by design». Sin proyección es alguien PUESTO sin número; un hueco vacío es otra cosa y se avisa como vacío. Lo destapó la captura, no el test |
 
 ---
 
@@ -719,7 +722,7 @@ está construida:
 
 | Laboratorio | Qué prueba |
 |---|---|
-| `smoke.mjs` | Las DOCE páginas en 390/768/1440 sin cuenta: responden, no lanzan, tienen `h1`, no desbordan y ninguna se queda sin enlace. Comprueba la ALCANZABILIDAD, no la presencia en el menú: `/fantasy/leagues` salió del menú a propósito y la enlaza la barra de liga. Y que los dos menús —el de escritorio y el desplegable del teléfono— lleven exactamente lo mismo |
+| `smoke.mjs` | Las TRECE páginas en 390/768/1440 sin cuenta: responden, no lanzan, tienen `h1`, no desbordan y ninguna se queda sin enlace. Comprueba la ALCANZABILIDAD, no la presencia en el menú: `/fantasy/leagues` salió del menú a propósito y la enlaza la barra de liga. Y que los dos menús —el de escritorio y el desplegable del teléfono— lleven exactamente lo mismo |
 | `movil.mjs` | GEOMETRÍA en 390/360, claro y oscuro, y con el texto agrandado: que nada se salga de su celda por la derecha, que nada se monte encima de nada y que las columnas fijas sean opacas. Cada ruta declara además la pieza densa que la define: una comprobación de geometría sobre una pantalla que se quedó vacía sale verde sin mirar nada |
 | `cuenta.mjs` | Enlazar la cuenta, los paneles por liga, el semanal marcado, lo libre, el resto de temporada, el analizador y el recorrido «una cuenta, una liga» |
 | `live-assistant.mjs` | Un draft entero de 180 picks por el adaptador, las carreras por un candidato, los picks leídos que no se aplican, y que la lista corta se ADAPTE a la plantilla: ocho turnos ordenados por lo que añaden y siete de vuelta al board cuando ya no queda titular que llenar |
@@ -730,10 +733,10 @@ está construida:
 | `draft-sim.mjs` | Un draft ENTERO sin navegador en tres ligas —normal de 12, superflex y la de 32 con tres flexibles— siguiendo la recomendación: sin repetidos, sin repartos imposibles, ninguna posición saturada encabezando, el segundo QB encabezando SÓLO en superflex, el aviso de pateador/defensa antes del final y la alineación titular completada |
 | `draft-torture.mjs` | La matriz entera SIN navegador: 780 drafts completos de 8 a 32 equipos, nueve formatos, snake y lineal, y diez estrategias de rival —incluidas escasez, zero-RB y ADP con ruido desde el 5 de septiembre—, con 11.700 turnos míos evaluados. Encontró el hueco titular que se quedaba vacío para siempre. No entra en `ci.yml` por tamaño, pero corre en `.github/workflows/draft-torture.yml`: de madrugada y en cada push que toque el motor de decisión o el board |
 | `apuestas.mjs` | Los mercados partido a partido, el signo del handicap y el plan de la semana: que la apuesta sugerida sea la MISMA fracción de la banca esté arriba o abajo |
-| `controles.mjs` | **Control por control, las doce páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
+| `controles.mjs` | **Control por control, las trece páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CUARENTA Y DOS fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CUARENTA Y CUATRO fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -744,7 +747,9 @@ cortado contando como que tiene equipo, los especialistas sin comprobar y «sin
 equipo» invisible en la tabla principal, y desde el 6 de septiembre por la tarde
 el parche de fechas borrando la de la prensa, una mención pisando al parte
 médico, dos formas de emparejar mal un nombre y el cambio de equipo escondido en
-la lista del board— y exige 42 rojos y 42 verdes al restaurar.
+la lista del board, y desde el 7 de septiembre un OUT propuesto como titular de
+la semana y el board de temporada colándose bajo el índice semanal del
+analizador— y exige 44 rojos y 44 verdes al restaurar.
 
 ## El skill de UI/UX
 
