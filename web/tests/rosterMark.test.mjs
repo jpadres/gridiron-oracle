@@ -331,8 +331,19 @@ test("trackMark exige DOS fallos grandes en la MISMA dirección", () => {
   assert.equal(trackMark({}), null);
 });
 
-test("la marca del historial la PINTA RowMarks, no sólo existe la función", () => {
-  const src = readFileSync(new URL("../app/fantasy/rowMarks.jsx", import.meta.url), "utf8");
-  assert.match(src, /trackMark/, "RowMarks no importa la marca");
-  assert.match(src, /\{\s*track\s*\?\s*\(/, "la marca no se pinta en el JSX");
+test("TODA superficie que pinte rosterMark pinta también el historial", () => {
+  /* El fallo que existe para cazar, y que ya ocurrió: la marca se cableó en
+     `RowMarks` y `RankTable` —la tabla principal de /fantasy, la que se mira—
+     llama a las marcas DIRECTAMENTE. El guardián leía sólo `RowMarks`, así que
+     pasó en verde con la marca invisible en producción. La propiedad correcta
+     no es «alguien la pinta»: es que la pinte QUIEN YA PINTA LAS DEMÁS. */
+  const superficies = ["../app/fantasy/rowMarks.jsx", "../app/ui.jsx"];
+  for (const ruta of superficies) {
+    const src = readFileSync(new URL(ruta, import.meta.url), "utf8");
+    if (!/rosterMark\(/.test(src)) continue;   // no es una superficie de marcas
+    assert.match(src, /trackMark\(/, `${ruta} pinta rosterMark y NO el historial`);
+    // Y que se pinte de verdad, no que sólo esté importado: la condición del JSX.
+    assert.match(src, /\{\s*(trackMark\(row\)|track)\s*\?\s*\(/,
+                 `${ruta} importa trackMark pero no lo pinta`);
+  }
 });

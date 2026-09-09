@@ -8,7 +8,7 @@ import { Fragment } from "react";
 
 import { pct } from "../data/model.js";
 import { availabilityMark } from "./availability.js";
-import { rosterMark, teamChangeMark } from "./fantasy/rosterMark.js";
+import { rosterMark, teamChangeMark, trackMark } from "./fantasy/rosterMark.js";
 import { Headshot } from "./headshot.jsx";
 
 export function Callout({ title, children }) {
@@ -287,6 +287,18 @@ export function RankTable({
                       {teamChangeMark(row) ? (
                         <span className={teamChangeMark(row).className}
                               title={teamChangeMark(row).title}>{teamChangeMark(row).text}</span>
+                      ) : null}
+                      {/* CÓMO LE HA IDO A ESTE MODELO CON ESTE JUGADOR.
+                          Esta tabla es la que se mira, y es donde la marca
+                          tenía que estar desde el principio: se cableó sólo en
+                          `RowMarks` y `RankTable` llama a las marcas DIRECTAMENTE,
+                          así que la pantalla más usada no la pintaba y el
+                          guardián —que sólo leía `RowMarks`— pasó en verde.
+                          Novena vez que dos superficies del mismo hecho tienen
+                          distinta cobertura. */}
+                      {trackMark(row) ? (
+                        <span className={trackMark(row).className}
+                              title={trackMark(row).title}>{trackMark(row).text}</span>
                       ) : null}
                       {/* Cuánto del número es el prior de la posición y no
                           el jugador. Se deriva de `wg`, que ya viaja: es la
