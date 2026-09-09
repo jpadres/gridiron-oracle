@@ -82,6 +82,16 @@ SEVERITY: dict[str, str] = {
     "OUT_FOR_SEASON": "OUT",
     "UNSIGNED": "OUT",      # agente libre sin equipo (redundante con `rostered`,
                             # pero una fuente puede saberlo antes que el roster)
+    # UNA JORNADA NO ES CUATRO, Y POR ESO NO ES `OUT`.
+    # El equipo lo ha descartado para el próximo partido y eso ya no es una
+    # duda — la etiqueta tiene que decirlo o se lee «QUESTIONABLE» encima de
+    # «ruled out», que son dos frases que se contradicen en la misma fila (el
+    # fallo de «DUDA» y «Seguro» que este proyecto ya cometió). Pero la
+    # severidad es RISK y no OUT porque OUT SACA del board de recomendados, y
+    # perderse la jornada 1 no le quita a nadie su valor de TEMPORADA: en un
+    # draft se sigue cogiendo. Los códigos OUT de aquí arriba implican cuatro
+    # partidos como mínimo; éste implica uno.
+    "OUT_WEEK_1": "RISK",
     "ACTIVE_PUP": "RISK",   # PUP activo: puede activarse en cualquier momento
     "HOLDOUT": "RISK",
     "QUESTIONABLE": "RISK",
@@ -101,6 +111,7 @@ LABEL: dict[str, str] = {
     # significa «libre EN TU LIGA», que es lo contrario de un problema. Las dos
     # etiquetas salían juntas en la misma fila diciendo cosas opuestas.
     "UNSIGNED": "NO NFL TEAM",
+    "OUT_WEEK_1": "OUT WEEK 1",
     "ACTIVE_PUP": "PUP",
     "HOLDOUT": "HOLDOUT",
     "QUESTIONABLE": "QUESTIONABLE",

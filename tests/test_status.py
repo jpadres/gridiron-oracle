@@ -155,3 +155,42 @@ def test_una_entrada_recien_verificada_dura_una_semana():
     base = datetime(2026, 9, 1, tzinfo=UTC)
     assert entrada.freshness(base + timedelta(days=6)) == "CURRENT"
     assert entrada.freshness(base + timedelta(days=8)) == "LAST_VERIFIED"
+
+
+def test_perderse_una_jornada_no_saca_a_nadie_del_board(tmp_path):
+    """`OUT_WEEK_1` dice que no juega el domingo y NO le quita valor de temporada.
+
+    El fallo que existe para cazar tiene dos caras y las dos son mentiras de
+    etiqueta. Si se le pone `QUESTIONABLE`, la fila escribe «QUESTIONABLE»
+    encima de un «ruled out» — dos frases que se contradicen, que es el error
+    de «DUDA» y «Seguro» ya cometido aquí. Y si se le pone severidad `OUT`,
+    sale de la lista corta como un suspendido: perderse UNA jornada no le quita
+    a nadie el valor de una temporada, y en un draft se sigue cogiendo.
+    """
+    assert SEVERITY["OUT_WEEK_1"] == "RISK", "un partido no puede pesar como cuatro"
+    # Los códigos que sí sacan del board implican CUATRO partidos o más.
+    for codigo in ("IR", "RESERVE_PUP", "NFI", "SUSPENDED", "EXEMPT", "OUT_FOR_SEASON"):
+        assert SEVERITY[codigo] == "OUT"
+
+    fichero = tmp_path / "s.json"
+    fichero.write_text(json.dumps({"season": 2026, "entries": [
+        _entrada(status="OUT_WEEK_1", games_out=1, detail="Ruled out for the opener.")
+    ]}), encoding="utf-8")
+    entradas = load(fichero)
+    filas = [{"player_id": "00-0000001", "vor": 41.8, "projected_points": 180.0}]
+    attach(filas, entradas)
+    # La etiqueta lo DICE, y el número no se mueve: la regla 8 entera.
+    assert filas[0]["status_label"] == "OUT WEEK 1"
+    assert filas[0]["status_severity"] == "RISK"
+    assert filas[0]["vor"] == 41.8 and filas[0]["projected_points"] == 180.0
+
+
+def test_el_fichero_del_repo_no_afirma_una_baja_de_una_jornada_como_de_temporada():
+    """Nadie marcado por perderse la jornada 1 puede llevar severidad OUT."""
+    from pathlib import Path
+
+    for e in load(Path("research/player_status.json")):
+        texto = e.detail.lower()
+        if "week 1" in texto and "ruled out" in texto:
+            assert e.status == "OUT_WEEK_1", f"{e.player} lleva {e.status}"
+            assert e.severity == "RISK"

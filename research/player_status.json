@@ -11,7 +11,7 @@
   "Un id que no exista no emparejará con nadie, y el build lo dice."
  ],
  "season": 2026,
- "updated_at": "2026-09-04",
+ "updated_at": "2026-09-08",
  "entries": [
   {
    "player_id": "00-0035700",
@@ -394,18 +394,18 @@
    "player": "George Kittle",
    "team": "SF",
    "status": "QUESTIONABLE",
-   "detail": "Activated off PUP on 23 August after the 11 January Achilles rupture. The activation means the club believes he can play inside the first four weeks; it is not a Week 1 declaration and nobody has made one.",
+   "detail": "Limited participant on San Francisco's first practice report of 2026 (8 September), working back from the Achilles tear. Named a team captain for the Melbourne opener and the club cut a body to make room for a long snapper, which reads as him being expected to play. Limited is not out: he can play and he can be held.",
    "games_out": null,
    "effective_at": "2026-08-23",
-   "verified_at": "2026-09-04",
+   "verified_at": "2026-09-08",
    "sources": [
     {
-     "outlet": "NBC Sports",
-     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-george-kittle-from-pup-list"
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/articles/nick-bosa-george-kittle-limited-224438961.html"
     },
     {
-     "outlet": "49ers.com",
-     "url": "https://www.49ers.com/news/day-16-of-2026-training-camp-george-kittle-s-remarkable-return"
+     "outlet": "Niners Nation",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/162295/a-new-starter-pops-up-on-the-49ers-injury-rep"
     }
    ],
    "source": null
@@ -734,19 +734,19 @@
    "player_id": "00-0040734",
    "player": "TreVeyon Henderson",
    "team": "NE",
-   "status": "QUESTIONABLE",
-   "detail": "Low ankle injury after slipping on the turf in the 24 August practice. The Boston Globe reports he avoided anything serious and should be good to go for the 9 September opener against Seattle; a 50-50 split with Rhamondre Stevenson is the plan if he plays.",
-   "games_out": null,
-   "effective_at": "2026-08-25",
-   "verified_at": "2026-09-03",
+   "status": "OUT_WEEK_1",
+   "detail": "Ruled OUT for the Week 1 opener at Seattle on New England's final Tuesday injury report, with the ankle he has been managing all preseason. He is NOT on injured reserve, so this is a one-game absence and his season value is intact: the label says he misses Week 1, not that he is off the board.",
+   "games_out": 1,
+   "effective_at": "2026-09-08",
+   "verified_at": "2026-09-08",
    "sources": [
     {
-     "outlet": "NBC Sports",
-     "url": "https://www.nbcsports.com/fantasy/football/player-news/2026-08-27/beat-henderson-ankle-should-be-good-for-week-1"
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/articles/patriots-vs-seahawks-tuesday-injury-215935695.html"
     },
     {
-     "outlet": "NESN",
-     "url": "https://nesn.com/new-england-patriots/news/patriots-latest-practice-absence-raises-week-1-question/3b37a3b985c2537212537290"
+     "outlet": "Yahoo Sports",
+     "url": "https://sports.yahoo.com/nfl/article/patriots-rule-rb-treveyon-henderson-out-for-wednesdays-super-bowl-rematch"
     }
    ]
   },
@@ -900,18 +900,14 @@
    "player": "Mike Evans",
    "team": "SF",
    "status": "QUESTIONABLE",
-   "detail": "Quad in camp, then a groin issue in late August called minor. He plans to play the Week 1 opener against the Rams. First season in San Francisco after 12 in Tampa.",
+   "detail": "NOT listed on San Francisco's first injury report of the season (8 September): the adductor that had him limited in camp no longer appears. Kept as a flag rather than deleted because one clean report is not a clearance, but the direction is good.",
    "games_out": null,
    "effective_at": "2026-08-27",
-   "verified_at": "2026-09-03",
+   "verified_at": "2026-09-08",
    "sources": [
     {
-     "outlet": "NBC Sports Bay Area",
-     "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/mike-evans-injury-update-week-1/1958924/"
-    },
-    {
      "outlet": "Niners Nation",
-     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/161729/49ers-wide-receiver-mike-evans-plans-to-play-week-1-despite-a-recent-injury"
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/162295/a-new-starter-pops-up-on-the-49ers-injury-rep"
     }
    ]
   },
@@ -952,6 +948,27 @@
     {
      "outlet": "Atlanta Falcons",
      "url": "https://www.atlantafalcons.com/news/falcons-camp-report-recapping-michael-penix-jr-return-full-team-work"
+    }
+   ],
+   "source": null
+  },
+  {
+   "player_id": "00-0035535",
+   "player": "Darius Slayton",
+   "team": "NYG",
+   "status": "UNSIGNED",
+   "detail": "Released by the Giants on 8 September, the team's longest-tenured player; he missed the spring after double sports hernia surgery and lost the depth-chart battle. The nflverse roster snapshot taken that morning still lists him ACT on NYG because it predates the afternoon announcement — press is newer here, and the disagreement is kept, not erased.",
+   "games_out": null,
+   "effective_at": "2026-09-08",
+   "verified_at": "2026-09-08",
+   "sources": [
+    {
+     "outlet": "CBS Sports",
+     "url": "https://www.cbssports.com/nfl/news/giants-release-darius-slayton-landing-spots"
+    },
+    {
+     "outlet": "Big Blue View",
+     "url": "https://www.bigblueview.com/new-york-giants-roster/170262/giants-release-wr-darius-slayton"
     }
    ],
    "source": null
