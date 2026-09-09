@@ -229,6 +229,9 @@ const DATOS = new Set([
   // Situación de plantilla: estado y código de nflverse ("ACTIVE", "R01"),
   // el equipo que dice la plantilla y la fecha ISO de ese fichero. Tokens de
   // máquina y fechas; la etiqueta que se PINTA la escribe la interfaz.
+  // El historial del modelo con cada jugador: `UNDER`/`OVER` son CÓDIGOS, no
+  // prosa — la frase que los explica la escribe la interfaz en inglés.
+  ".fantasy.board[].track_bias",
   ".fantasy.board[].roster_state", ".fantasy.board[].roster_label",
   ".fantasy.board[].roster_code", ".fantasy.board[].roster_team",
   ".fantasy.board[].roster_source_as_of",

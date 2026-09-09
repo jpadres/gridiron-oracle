@@ -14,7 +14,7 @@
  */
 
 import { availabilityMark } from "../availability.js";
-import { rosterMark, teamChangeMark } from "./rosterMark.js";
+import { rosterMark, teamChangeMark, trackMark } from "./rosterMark.js";
 
 /**
  * Marcas de contexto de una fila: estado, nota del modelo, prensa, dossier.
@@ -35,6 +35,9 @@ export function RowMarks({ row, id, notes, news, availability, statusVerifiedAt 
   // jugador puede estar perfectamente activo y en otro sitio. La cabecera del
   // board lo prometía y ninguna fila lo decía.
   const cambio = teamChangeMark(row);
+  // Y cómo le ha ido a ESTE modelo con ESTE jugador. Va con los hechos y no
+  // con la prensa: sale de reproyectar temporadas cerradas, no de una nota.
+  const track = trackMark(row);
   return (
     <>
       {row?.status_label ? (
@@ -55,6 +58,9 @@ export function RowMarks({ row, id, notes, news, availability, statusVerifiedAt 
       ) : null}
       {roster ? (
         <span className={roster.className} title={roster.title}>{roster.text}</span>
+      ) : null}
+      {track ? (
+        <span className={track.className} title={track.title}>{track.text}</span>
       ) : null}
       {cambio ? (
         <span className={cambio.className} title={cambio.title}>{cambio.text}</span>

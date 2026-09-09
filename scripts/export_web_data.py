@@ -72,6 +72,15 @@ DRAFT_COLUMNS = (
     # se pueda comprobar leyendo la lista de campos.
     "roster_state", "roster_label", "roster_code", "roster_team",
     "roster_source_as_of",
+    # EL HISTORIAL DE ESTE MODELO CON ESTE JUGADOR. Un promedio no puede avisar
+    # del caso que el promedio aplasta: la curva de edad está bien calibrada
+    # para el corredor de 30+ MEDIO y aun así se quedó corta con Derrick Henry
+    # por 201 puntos en 2024 y por 145 en 2025. Cada temporada se reproyecta
+    # walk-forward y se compara con lo que dio de verdad; el prefijo `track_`
+    # está, como `roster_` y `status_`, para poder comprobar leyendo la lista de
+    # campos que esto MARCA y no mueve ningún número.
+    "track_seasons", "track_last_error", "track_bias", "track_bias_points",
+    "track_bias_ratio",
     "tier", "projected_points", "vor",
     # Riesgo: la etiqueta, sus tres componentes y los motivos que se nombran.
     # Las componentes viajan aunque no se pinten en una columna porque el

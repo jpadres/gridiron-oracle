@@ -22,7 +22,7 @@ from scipy.stats import pearsonr, spearmanr
 
 from oracle.config import paths as resolve_paths
 from oracle.fantasy import availability as avail
-from oracle.fantasy import risk, roster_status
+from oracle.fantasy import risk, roster_status, track_record
 from oracle.fantasy import rookies as rookie_prior
 from oracle.fantasy.ages import ages_for_season, birth_dates
 from oracle.fantasy.components import COMPONENTS, compile_points
@@ -538,6 +538,42 @@ def main(argv: list[str] | None = None) -> int:
         for campo in ("roster_state", "roster_label", "roster_code", "roster_team",
                       "roster_source_as_of", "roster_basis"):
             board[campo] = [f.get(campo) for f in filas]
+    # EL HISTORIAL DEL MODELO CON CADA JUGADOR. Marca, no calcula: ningún
+    # número de ninguna fila cambia. Existe porque un promedio no puede avisar
+    # del caso que el promedio aplasta — la curva de edad está bien calibrada
+    # para el corredor de 30+ MEDIO y aun así se quedó corta con Derrick Henry
+    # por 201 puntos en 2024 y por 145 en 2025. Quien draftea necesita ver eso
+    # AL LADO del número, no enterarse en enero.
+    #
+    # Cada temporada pasada se reproyecta con el MISMO walk-forward de la
+    # validación (para S sólo entran partidos anteriores a S) y se compara con
+    # lo que esa temporada, ya cerrada, dio de verdad. No hay dato futuro en
+    # ninguna de las dos.
+    try:
+        pasadas = {}
+        realizado = {}
+        for s_pasada in range(season - track_record.SEASONS_SHOWN, season):
+            tabla = project_season(players, s_pasada, rules=rules,
+                                   ages=ages_for_season(bdays, s_pasada))
+            pasadas[s_pasada] = tabla
+            de_esa = players[players["season"] == s_pasada].copy()
+            de_esa["fantasy_points"] = score_player_weeks(de_esa, rules)
+            realizado[s_pasada] = de_esa.groupby("player_id", observed=True)["fantasy_points"].sum()
+        historial = track_record.build(pasadas, realizado)
+        filas = board.to_dict(orient="records")
+        marcadas = track_record.attach(filas, historial)
+        for campo in ("track_seasons", "track_last_error", "track_bias", "track_bias_points",
+                      "track_bias_ratio"):
+            board[campo] = [f.get(campo) for f in filas]
+        sesgados = int(board["track_bias"].notna().sum())
+        print(f"  historial del modelo: {marcadas} filas con {track_record.SEASONS_SHOWN} "
+              f"temporadas reproyectadas; {sesgados} con el mismo fallo grande "
+              f"(>=su error típico por banda) en todas ellas.")
+    except Exception as e:   # noqa: BLE001 - el historial es contexto, no el board
+        # Si esto falla, el board sale igual y se DICE. Lo que no puede pasar es
+        # que el board no se publique por una capa que sólo añade contexto.
+        print(f"  (aviso) sin historial del modelo: {e}")
+
         fuera = int((board["roster_state"] != roster_status.ACTIVE).sum())
         print(f"  fuera del 53 activo: {fuera} "
               f"(plantillas de nflverse, semana {next(iter(_roster_entries.values())).week}, "

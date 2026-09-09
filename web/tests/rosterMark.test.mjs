@@ -9,7 +9,7 @@ import { strict as assert } from "node:assert";
 import test from "node:test";
 
 import {
-  rosterMark, changedSinceModel, teamChangeMark, updatedSinceModel,
+  rosterMark, changedSinceModel, teamChangeMark, trackMark, updatedSinceModel,
 } from "../app/fantasy/rosterMark.js";
 import { readFileSync } from "node:fs";
 
@@ -308,4 +308,31 @@ test("el Draft Room deja DECLARAR de quién es un pick: Mine en el flash, y la t
   assert.match(src, /reassign\(flash\.row,\s*ROSTER\.MINE\)/, "el flash no ofrece «Mine»");
   assert.match(src, /record\(forMe\.primary\.row,\s*ROSTER\.MINE\)/, "tomar la tarjeta no la declara mía");
   assert.doesNotMatch(src, /\{onClock && !replaying && !complete && forMe\?\.primary/, "la lista con plantilla sigue escondida fuera de mi turno");
+});
+
+/* --- EL HISTORIAL DEL MODELO CON ESTE JUGADOR --------------------------------
+   El fallo que existe para cazar es que la marca afirme una tendencia donde
+   sólo hay ruido, o que se pinte sin que ninguna pantalla la llame. */
+test("trackMark exige DOS fallos grandes en la MISMA dirección", () => {
+  // Dos veces corto: eso sí es una tendencia y se dice.
+  const henry = trackMark({
+    track_bias: "UNDER", track_bias_points: 173.2,
+    track_seasons: [
+      { season: 2024, projected: 135.2, realized: 336.4, error: -201.2 },
+      { season: 2025, projected: 134.3, realized: 279.5, error: -145.2 },
+    ],
+  });
+  assert.equal(henry.text, "MODEL LOW 173");
+  assert.match(henry.title, /under-projected him by 173 points/);
+  assert.match(henry.title, /changes no number on this row/i);
+  // Sin sesgo declarado no se inventa uno, aunque haya temporadas.
+  assert.equal(trackMark({ track_seasons: [{ season: 2025, error: -300 }] }), null);
+  assert.equal(trackMark({ track_bias: "UNDER" }), null, "sin puntos no se afirma");
+  assert.equal(trackMark({}), null);
+});
+
+test("la marca del historial la PINTA RowMarks, no sólo existe la función", () => {
+  const src = readFileSync(new URL("../app/fantasy/rowMarks.jsx", import.meta.url), "utf8");
+  assert.match(src, /trackMark/, "RowMarks no importa la marca");
+  assert.match(src, /\{\s*track\s*\?\s*\(/, "la marca no se pinta en el JSX");
 });

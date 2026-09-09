@@ -225,3 +225,42 @@ function dicenLoMismo(row) {
   if (row.roster_state === "NOT_ON_ROSTER") return prensa.includes("NO NFL TEAM");
   return false;
 }
+
+/**
+ * EL HISTORIAL DEL MODELO CON ESTE JUGADOR.
+ *
+ *     UN PROMEDIO NO PUEDE AVISAR DEL CASO QUE EL PROMEDIO APLASTA.
+ *
+ * La curva de edad está bien calibrada para el corredor de 30+ MEDIO —55
+ * temporadas medidas, proyectados 94 y realizados 57, con 22 en cero— y aun
+ * así se quedó corta con Derrick Henry por 201 puntos en 2024 y por 145 en
+ * 2025. Por construcción, ese caso es invisible EN la media: sólo se ve
+ * mirando al jugador, y por eso se enseña en su fila.
+ *
+ * No toca ningún número. `projected_points`, `vor` y el puesto son los mismos
+ * con marca y sin ella — la frontera de la regla 8, aplicada al propio modelo.
+ *
+ * Devuelve `null` cuando no hay dos temporadas con el MISMO fallo grande: un
+ * año malo es ruido, y una marca que sale siempre no informa.
+ */
+export function trackMark(row) {
+  const sesgo = row?.track_bias;
+  if (sesgo !== "UNDER" && sesgo !== "OVER") return null;
+  const puntos = Number(row?.track_bias_points);
+  if (!Number.isFinite(puntos)) return null;
+  const temporadas = Array.isArray(row?.track_seasons) ? row.track_seasons : [];
+  const detalle = temporadas
+    .map((t) => `${t.season}: projected ${t.projected}, scored ${t.realized}`)
+    .join("; ");
+  const corto = sesgo === "UNDER";
+  return {
+    text: corto ? `MODEL LOW ${Math.round(puntos)}` : `MODEL HIGH ${Math.round(puntos)}`,
+    className: `mark mark--${corto ? "risk" : "out"}`,
+    title:
+      `This model's own record on this player: it ${corto ? "under" : "over"}-projected him `
+      + `by ${Math.round(puntos)} points per season, both of the last two. ${detalle}. `
+      + "Each season was re-projected walk-forward, using only earlier seasons, and compared "
+      + "with what he actually scored. It changes no number on this row — the projection, the "
+      + "VOR and the rank are the same with this mark and without it.",
+  };
+}

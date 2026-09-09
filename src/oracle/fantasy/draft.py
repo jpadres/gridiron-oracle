@@ -155,6 +155,10 @@ def project_season(
         s: w for s, w in zip(sorted(seasons, reverse=True), SEASON_WEIGHTS, strict=False)
     }
     history["season_weight"] = history["season"].map(weight_by_season).fillna(0.0)
+    # Cuántos años antes de la temporada proyectada es cada partido de la
+    # muestra. Es el dato que le falta a la curva de edad para saber desde
+    # dónde envejecer.
+    history["season_lag"] = float(season) - history["season"].astype(float)
 
     grouped = history.groupby(["player_id", "position"], observed=True)
     aggregated = grouped.apply(_weighted_player_row, include_groups=False).reset_index()
@@ -295,6 +299,15 @@ def _weighted_player_row(group: pd.DataFrame) -> pd.Series:
         # por antigüedad, y es la escala correcta para el encogimiento
         # (una temporada de hace tres años debe dar menos confianza).
         "weighted_games": float(total),
+        # LA EDAD DE LA MUESTRA, en años antes de la temporada proyectada.
+        # `points_per_game` no es el rendimiento del jugador "ahora": es el de
+        # los partidos que entran en la media, y esos son de hace 1, 2 y 3
+        # temporadas con pesos 0,56/0,30/0,14. Sin este número no se puede
+        # saber DESDE DÓNDE tiene que envejecer una proyección, y la curva de
+        # edad acaba cobrando el deterioro acumulado desde el pico sobre unos
+        # datos que ya lo contienen. Se calcula con los MISMOS pesos que la
+        # media, así que no introduce ninguna constante.
+        "sample_lag": float((group["season_lag"].to_numpy(dtype=float) * weights).sum() / total),
         "points_per_game": float((points * weights).sum() / total),
         "td_per_game": float((tds * weights).sum() / total),
         "player_name": group["player_name"].iloc[-1] if "player_name" in group else "",
