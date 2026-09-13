@@ -1,6 +1,7 @@
 import { dataDate, model, num, pct } from "../../data/model.js";
 import { Callout, DataDate, NoDataYet, Note, Table } from "../ui.jsx";
 import { MatchupCard, StatHero, TeamMark } from "../sports.jsx";
+import { progressLabel, weekWindow, windowLabel } from "../weekWindow.js";
 
 export const metadata = {
   title: "Gridiron Oracle — Predictions",
@@ -34,13 +35,20 @@ export default function Predicciones() {
   // destaca arriba — y el copy dice explícitamente que destacarlo NO es una
   // recomendación, porque medido sobre 3.736 apuestas el acierto no crece con
   // la discrepancia. Es el partido más interesante de mirar, no el mejor.
+  const ventana = weekWindow(predictions);
+
   const widest = [...predictions].sort(
     (a, b) => Math.abs(b.edge_vs_line ?? 0) - Math.abs(a.edge_vs_line ?? 0)
   )[0];
 
   return (
     <>
-      <p className="eyebrow">Week {week.week} · {week.season}</p>
+      {/* La jornada, con lo que permite COMPROBARLA: sus fechas y cuántos van
+          jugados. «Week 1» a secas con dos partidos terminados se lee como una
+          etiqueta que se quedó atrás — pasó el 13 de septiembre de 2026 y la
+          etiqueta era correcta. La jornada la decide Python; esto la describe. */}
+      <p className="eyebrow">Week {week.week} · {week.season}
+        {ventana ? <> · {windowLabel(ventana)} · {progressLabel(ventana)}</> : null}</p>
       <h1>The slate</h1>
       <p className="lede">
         Sixteen games, the model&rsquo;s number against the market&rsquo;s — each labeled,

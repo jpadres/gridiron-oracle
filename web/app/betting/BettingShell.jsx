@@ -45,6 +45,7 @@ import {
   CASH, FUNDING, PERIOD_WEEKS, SIZEABLE, fundingAdvice, monthPlan, periodBounds, review,
 } from "./period.js";
 import { hasNumber } from "../numbers.js";
+import { progressLabel, weekWindow, windowLabel } from "../weekWindow.js";
 
 const PROP_CATEGORIES = [
   { key: "proj_pass_yds", label: "Passing yards", positions: ["QB"], decimals: 1 },
@@ -112,6 +113,7 @@ export default function BettingShell({ predictions, weekly, context, markets = [
 
   const storage = browserStorage();
   const linesKey = `gridiron-prop-lines-v1:${context.season}-w${context.week}`;
+  const ventanaSemana = weekWindow(predictions);
 
   useEffect(() => {
     const known = loadMonths(storage);
@@ -623,7 +625,11 @@ export default function BettingShell({ predictions, weekly, context, markets = [
 
       {/* ============ 3. QUÉ MIRAR HOY ==================================== */}
       <section aria-label="Top model leans">
-        <h2 className="bk-h">Top model leans <small>week {context.week} · not edge — E4 measured that</small></h2>
+        {/* La jornada con sus fechas: en la pantalla del dinero importa el doble,
+            porque «week 1» sobre un slate a medio jugar se lee como líneas viejas. */}
+        <h2 className="bk-h">Top model leans <small>week {context.week}
+          {ventanaSemana ? ` · ${windowLabel(ventanaSemana)} · ${progressLabel(ventanaSemana)}` : ""}
+          {" · "}not edge — E4 measured that</small></h2>
         <ol className="bk-leans">
           {board.slice(0, 5).map((row) => (
             <li key={`${row.gameId}:${row.family}`}>

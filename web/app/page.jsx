@@ -1,5 +1,6 @@
 import { model, num } from "../data/model.js";
 import { Callout, DataCard, MachineWritten, Stat } from "./ui.jsx";
+import { progressLabel, weekWindow, windowLabel } from "./weekWindow.js";
 
 export const metadata = {
   title: "Gridiron Oracle — Overview",
@@ -18,13 +19,20 @@ const STALE_DAYS = 3;
 
 function dataState(payload) {
   const cards = [];
+  const ventanaDeLaSemana = weekWindow(payload.predictions);
 
   if (payload.week) {
     cards.push({
       href: "/predicciones",
       label: "Predictions",
       value: `Week ${payload.week.week}`,
-      detail: `${payload.predictions?.length ?? 0} games · ${payload.week.season}`,
+      // Las fechas y el progreso, por lo mismo que en /predicciones: una jornada
+      // que todavía no ha avanzado tiene que poder explicarse desde la tarjeta.
+      detail: [
+        ventanaDeLaSemana ? windowLabel(ventanaDeLaSemana) : null,
+        ventanaDeLaSemana ? progressLabel(ventanaDeLaSemana) : `${payload.predictions?.length ?? 0} games`,
+        String(payload.week.season),
+      ].filter(Boolean).join(" · "),
     });
   }
   if (payload.fantasy) {
