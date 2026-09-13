@@ -76,3 +76,40 @@ test("la calibración se ajusta contra RESULTADOS, no contra líneas", () => {
   assert.match(py, /self\.free_model\.fit\(X,\s*margin\)/,
     "el modelo libre ya no se ajusta contra el margen real");
 });
+
+test("las cifras de E27 en la pantalla son las del PREREGISTRO", () => {
+  /* Es el guardián de las cifras de portada, aplicado a un experimento. La web
+     afirma «cero de ocho subconjuntos pasaron» con seis números escritos a mano,
+     y el documento que los midió está versionado al lado: si uno se edita sin el
+     otro, nada falla y la página afirma un resultado que nadie midió.
+
+     Estrecho a propósito: sólo esas seis cifras, buscadas en el bloque que las
+     pinta. Y si el bloque cambia de forma se pone ROJO por «no lo encuentro» en
+     vez de pasar en vacío — el fallo que ya costó una versión aquí. */
+  const jsx = readFileSync(new URL("../app/betting/BettingShell.jsx", import.meta.url), "utf8");
+  const doc = readFileSync(
+    new URL("../../docs/PREREGISTRO_edge_subconjuntos.md", import.meta.url), "utf8");
+
+  const bloque = jsx.match(/Eight subsets, none of them beat the price[\s\S]{0,2600}?<\/div>/);
+  assert.ok(bloque, "no encuentro el bloque de E27: si se renombró, este guardián no vigila nada");
+
+  // Cada cifra de la pantalla, con la forma que usa el documento (coma decimal).
+  const CIFRAS = [
+    ["52.26%", "52,26%"],
+    ["49.84%", "49,84%"],
+    ["45.44%", "45,44%"],
+    ["13.3%", "13,3%"],
+    ["66.67%", "66,67%"],
+    ["33.4%", "33,4%"],
+  ];
+  for (const [enPantalla, enDoc] of CIFRAS) {
+    assert.ok(bloque[0].includes(enPantalla),
+      `la pantalla ya no dice ${enPantalla}`);
+    assert.ok(doc.includes(enDoc),
+      `${enPantalla} se afirma en la pantalla y NO está en el preregistro como ${enDoc}`);
+  }
+  // Y el veredicto, que es la afirmación de verdad: ninguno pasó.
+  assert.match(bloque[0], /Zero of the eight/);
+  assert.ok(doc.includes("**NINGUNO PASA"),
+    "el documento tiene que sostener el veredicto que la pantalla publica");
+});

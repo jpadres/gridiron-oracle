@@ -213,7 +213,14 @@ h2 { line-height: var(--leading-tight); font-weight: var(--weight-bold); font-si
 h3 { line-height: var(--leading-tight); font-weight: var(--weight-bold); font-size: var(--text-lead); margin: var(--space-5) 0 var(--space-2); }
 p { margin: var(--space-3) 0; }
 a { color: var(--accent); }
-code { background: var(--surface); padding: var(--space-0) var(--space-1); border-radius: var(--radius-sm); font-size: 0.9em; }
+code { background: var(--surface); padding: var(--space-0) var(--space-1);
+  border-radius: var(--radius-sm); font-size: 0.9em;
+  /* UNA RUTA NO TIENE DÓNDE PARTIR. `docs/PREREGISTRO_edge_subconjuntos.md`
+     desbordaba 74 px en un teléfono de 390 y lo cazó `movil`. `break-word` no
+     basta —no rompe dentro de una palabra sin oportunidad de salto— y
+     `anywhere` sí. Es la URL del `<img>` de Research otra vez: lo que no se
+     puede partir se sale de su caja. */
+  overflow-wrap: anywhere; }
 
 .lede { font-size: var(--text-lead); color: var(--muted); }
 .caption { font-size: var(--text-dense); color: var(--muted); }

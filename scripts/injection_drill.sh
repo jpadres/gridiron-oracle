@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 88 fallos conocidos, 88 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 92 fallos conocidos, 92 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -352,3 +352,15 @@ run "87 la calibración ajustada contra la LÍNEA y no contra el resultado" src/
 run "88 un laboratorio rehaciendo la comparación del saque" web/tools/lab/reloj.mjs \
   "  return PREDICTIONS.filter((g) => hasStarted(g, ms)).length;|||  return PREDICTIONS.filter((g) => ms >= Date.parse(g.kickoff_at ?? \"\")).length;" \
   "cd web && node --test tests/gameClock.test.mjs"
+run "89 la fecha de la jornada leída en UTC" web/app/weekWindow.js \
+  "  return m ? { year: Number(m[1]), month: Number(m[2]), day: Number(m[3]) } : null;|||  const d = new Date(raw); return { year: d.getUTCFullYear(), month: d.getUTCMonth() + 1, day: d.getUTCDate() };" \
+  "cd web && node --test tests/weekWindow.test.mjs"
+run "90 el cruce de número clave, no estricto" scripts/edge_subsets_experiment.py \
+  "            if lo < valor < hi:|||            if lo <= valor <= hi:" \
+  "python -m pytest -q tests/test_edge_subsets.py"
+run "91 el no favorito de E27, con el signo al revés" scripts/edge_subsets_experiment.py \
+  "    dog = (pick_home & (linea < 0)) | (~pick_home & (linea > 0))|||    dog = (pick_home & (linea > 0)) | (~pick_home & (linea < 0))" \
+  "python -m pytest -q tests/test_edge_subsets.py"
+run "92 una cifra de E27 que el preregistro no sostiene" web/app/betting/BettingShell.jsx \
+  "big lines went 45.44%|||big lines went 41.00%" \
+  "cd web && node --test tests/validation.test.mjs"

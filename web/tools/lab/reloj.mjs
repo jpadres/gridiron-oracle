@@ -20,6 +20,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
+import { startServer } from "./server.mjs";
 import { hasStarted } from "../../app/gameClock.js";
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
@@ -48,16 +49,13 @@ function mercadosCerrados(ms) {
   return MARKETS.filter((m) => cerrados.has(m.game_id)).length;
 }
 
-/* Detached + matar el GRUPO: `server.kill()` mata a `npx` y deja a `next`
-   escuchando, que en una segunda ejecución da «port in use». */
-const server = spawn("npx", ["next", "start", "-p", "4537"], { cwd: WEB, stdio: "ignore", detached: true });
-const stop = () => { try { process.kill(-server.pid); } catch { /* ya no está */ } };
-process.on("exit", stop);
+/* El arranque vive en `server.mjs`: comprueba que el puerto esté LIBRE antes de
+   lanzar, porque engancharse a un `next start` huérfano hace que este
+   laboratorio mida un build que no es el suyo — y eso ya se leyó una vez como
+   «/betting no carga» con el producto sano. */
+const { stop } = await startServer({ port: 4537, cwd: WEB });
 const browser = await launch();
 try {
-  for (let i = 0; i < 60; i += 1) {
-    try { await fetch(BASE); break; } catch { await new Promise((r) => setTimeout(r, 500)); }
-  }
   // Los tres momentos, en hora del Este: antes del primer saque, entre el de la
   // una y el de las 16:25, y después del último.
   const MOMENTOS = [

@@ -629,7 +629,40 @@ export default function BettingShell({ predictions, weekly, context, markets = [
             porque «week 1» sobre un slate a medio jugar se lee como líneas viejas. */}
         <h2 className="bk-h">Top model leans <small>week {context.week}
           {ventanaSemana ? ` · ${windowLabel(ventanaSemana)} · ${progressLabel(ventanaSemana)}` : ""}
-          {" · "}not edge — E4 measured that</small></h2>
+          {" · "}not edge — E4 and E27 measured that</small></h2>
+        {/* E27, preregistrado el 13-sep-2026: la pregunta obvia ante un agregado
+            plano es si el edge vive en algún SUBCONJUNTO. Se buscó en ocho, con
+            el umbral fijado antes de mirar, y ninguno pasó. Va aquí y no en una
+            nota al pie porque la regla 3 dice que lo que sale mal se publica
+            igual — y porque es la respuesta a «¿y si apuesto sólo los buenos?».
+            Las cifras están en docs/evidence/ui_numbers.json con procedencia. */}
+        <div className="note">
+          <p>
+            <strong>Eight subsets, none of them beat the price.</strong> A flat overall
+            record invites the obvious follow-up: maybe the edge hides somewhere
+            specific. So it was looked for — games where the model&rsquo;s gap crosses a
+            key number (3 or 7), home underdogs, road underdogs, short lines, big
+            lines, large gaps — with the acceptance threshold fixed in writing
+            <em> before</em> the numbers were computed, a Bonferroni correction for
+            searching eight places at once, and a split that fits on 2012&ndash;2019
+            and confirms on 2020&ndash;2025.
+          </p>
+          <p>
+            <strong>Zero of the eight even cleared the first stage.</strong> The best
+            was short lines at 52.26% while the game fits, then 49.84% in the years
+            that confirm it. The one subset with a real signal points the wrong way:
+            big lines went 45.44%, an ROI of −13.3% — that is information about the
+            model, not a bet with the sign flipped.
+          </p>
+          <p>
+            And the reason the threshold is written first: large gaps showed{" "}
+            <strong>66.67%</strong> in the confirmation years — on <strong>15</strong>{" "}
+            bets, with a corrected interval running from 33.4%. Without the
+            pre-registered minimum of 200 that is the headline this page would be
+            carrying. Full result in{" "}
+            <code>docs/PREREGISTRO_edge_subconjuntos.md</code>.
+          </p>
+        </div>
         <ol className="bk-leans">
           {board.slice(0, 5).map((row) => (
             <li key={`${row.gameId}:${row.family}`}>

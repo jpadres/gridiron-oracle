@@ -470,13 +470,25 @@ REGISTRY: tuple[Capability, ...] = (
         status=Status.REJECTED,
         evidence=(
             "49,81% contra el spread, IC95% [48,2%, 51,4%], frente a un equilibrio de "
-            "52,4%; y el acierto NO crece con la discrepancia (49,3% / 50,9% / 48,8%)"
+            "52,4%; y el acierto NO crece con la discrepancia (49,3% / 50,9% / 48,8%). "
+            "E27 lo buscó además en OCHO subconjuntos preregistrados —el gap que cruza "
+            "un número clave, el no favorito en casa y fuera, línea corta, línea "
+            "grande, gap grande— y NINGUNO pasó: cero llegaron siquiera a la etapa de "
+            "confirmación"
         ),
-        experiment_id="E4",
-        metric="acierto ATS = 0.4981",
-        sample_size=3736,
-        limitations=("Regla permanente del proyecto: docs/REGLA_edge.md.",),
-        last_validated="2026-08-29",
+        experiment_id="E4, E27",
+        metric="acierto ATS = 0.4981 (E4); 0.4961 al reproducirlo con las features del 13-sep (E27)",
+        sample_size=3737,
+        limitations=(
+            "Regla permanente del proyecto: docs/REGLA_edge.md.",
+            "El equilibrio de 52,4% es la CONVENCIÓN de -110 en los dos lados. Con "
+            "precios reales por lado —que el payload de 2026 sí trae— un lado a -118 "
+            "necesita 54,1%, así que la convención es OPTIMISTA.",
+            "E27 es una búsqueda, no una medición única: ocho pruebas al 5% dan un 34% "
+            "de falso positivo, así que lleva Bonferroni (z = 2,734) y partición "
+            "temporal 2012-2019 / 2020-2025.",
+        ),
+        last_validated="2026-09-13",
         model_version=MODEL_VERSION,
     ),
     Capability(
