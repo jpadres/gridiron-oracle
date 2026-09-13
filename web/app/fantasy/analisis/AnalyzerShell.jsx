@@ -131,7 +131,15 @@ export default function AnalyzerShell({
   const alineaciones = useMemo(() => {
     if (!league || !huecos) return null;
     const mia = lineupFrom({ ids: misTitulares, index: paraAlinear, rosterPositions: huecos });
-    const miMejor = lineupFrom({ ids: league.players, index: paraAlinear, rosterPositions: huecos });
+    /* `starters` va aquí y no en `mia`: es la alineación PROPUESTA la que no
+       puede sacar a quien ya jugó. Sin esto, «Generate best lineup» proponía
+       mover a un titular con el partido terminado — el candado se cableó en
+       `/fantasy/lineups` y esta pantalla, que es el OTRO motor de alineación,
+       se habría quedado fuera. Undécima vez con esta forma. */
+    const miMejor = lineupFrom({
+      ids: league.players, index: paraAlinear, rosterPositions: huecos,
+      starters: misTitulares,
+    });
     const idsRival = rivalEsDeLaSemana && league.matchup?.opponentStarters?.length
       ? league.matchup.opponentStarters
       : equipoRival?.players;

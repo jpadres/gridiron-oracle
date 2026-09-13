@@ -663,6 +663,8 @@ comentario está para que no los reintroduzcas.
 | 40 filas del semanal ofrecidas como start/sit con el partido TERMINADO | `startSit.js`, `export_web_data.py` | El ranking semanal proyecta a los 256 de la jornada y no decía cuáles ya habían jugado: el 13 de septiembre, con dos de dieciséis partidos cerrados, Puka Nacua salía WR1 y Drake Maye QB2 de partidos acabados, y `/fantasy/lineups` podía proponer meterlos sentando a otro. Es peor que el caso de apuestas: una apuesta que no se puede hacer se queda sin hacer, pero **un cambio de alineación que no se puede hacer se lee como que tu alineación está mal puesta**. Un partido acabado no descalifica al jugador, lo CONGELA: el titular no se saca, el suplente no se mete, y el optimizador reparte sólo lo que queda |
 | Las 320 filas del semanal marcadas FINAL, con un saque de 2025 | `export_web_data.py` | El mapa de estado se construía sobre `games.csv` ENTERO —7.548 partidos desde 1999— y `(visitante, local)` no es una clave única: ganaba el último de la historia. Trevor Lawrence salía con el saque del 28 de septiembre de **2025**. Y el primer guardián que escribí para esto pasó VERDE con el fallo puesto, porque en el fixture la fila buena era la ÚLTIMA: el «8 y 9 son los dos míos» del test del turno, por segunda vez. Los números se eligen a mano para que las dos respuestas caigan en filas distintas |
 | Un guardián de marca que pedía que el NOMBRE apareciera — otra vez | `tests/rosterMark.test.mjs` | La primera versión de la comprobación de `gameFinalMark` exigía que `gameFinalMark(` estuviera en el fichero. Al inyectar el fallo —cambiar la condición por `false`— siguió VERDE, porque las llamadas de DENTRO del bloque (`.className`, `.title`) siguen ahí. **Es literalmente el mismo fallo que ya costó dos versiones con `teamChangeMark`, en el mismo fichero, dos meses después.** Lo escribió el simulacro como «VERDE (NO ES GUARDIÁN)», no yo leyendo el código: la comprobación mira la CONDICIÓN del JSX, que es lo que decide si se pinta |
+| Dos motores de alineación, y el candado cableado en uno | `lineup.js`, `startSit.js` | `/fantasy/lineups` usa `bestLineup` y el analizador usa `lineupFrom`: dos motores para la misma decisión, y «Generate best lineup» seguía proponiendo sacar a un titular con el partido terminado. **Undécima vez.** La regla vive en `lockedSlots`, los dos la llaman, y el test cuenta las DEFINICIONES —tiene que haber exactamente una— además de exigir que el analizador le pase los titulares: una regla compartida no sirve de nada si el caller no le dice qué hay puesto |
+| Una inyección que dejó de inyectar al mover la línea | `scripts/injection_drill.sh` | Al compartir el candado entre los dos motores de alineación, la línea de la inyección 54 se fue de `startSit.js` a `lineup.js`. El reemplazo no encontró nada, no cambió nada, el guardián pasó y el informe escribió «VERDE (NO ES GUARDIÁN)» **acusando al guardián de un fallo que era de la inyección**. Ya había pasado y se anotó; lo que faltaba era que el simulacro distinguiera las dos cosas. Ahora una inyección que no encuentra su línea sale como `INYECCIÓN ROTA` |
 
 ---
 
@@ -757,7 +759,7 @@ está construida:
 | `controles.mjs` | **Control por control, las trece páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CINCUENTA Y SIETE fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CINCUENTA Y NUEVE fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -777,7 +779,8 @@ las features, el board de draft yéndose a la temporada siguiente, la
 estadística de la temporada que el board NO lee usada para fecharlo, una
 etiqueta de plantilla nueva colada como activo y la moneyline fuera de la
 pantalla de mercados, un titular que ya jugó propuesto para el banquillo y el
-estado de un partido tomado de otra jornada— y exige 57 rojos y 57 verdes al
+estado de un partido tomado de otra jornada, y el analizador —el OTRO motor de
+alineación— sin congelar nada— y exige 59 rojos y 59 verdes al
 restaurar.
 
 ## El skill de UI/UX

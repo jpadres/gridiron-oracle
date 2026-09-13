@@ -4,6 +4,7 @@
  */
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFileSync } from "node:fs";
 
 import { lineupFrom, rowsOf, sideBySide, startSit } from "../app/fantasy/lineup.js";
 
@@ -104,3 +105,48 @@ test("un hueco vacío del rival no puntúa ni rompe la comparación", () => {
 });
 
 function round(x) { return Math.round(x * 10) / 10; }
+
+// -------------------------------------------------------------------------
+// EL CANDADO DEL PARTIDO JUGADO, COMPARTIDO POR LOS DOS MOTORES
+// -------------------------------------------------------------------------
+
+test("`lineupFrom` tampoco saca a quien ya jugó", () => {
+  const index = new Map([
+    ["qb_jugo", { sid: "qb_jugo", position: "QB", projected_points: 8, game_final: true }],
+    ["qb_libre", { sid: "qb_libre", position: "QB", projected_points: 24 }],
+    ["r1", { sid: "r1", position: "RB", projected_points: 15 }],
+    ["r2", { sid: "r2", position: "RB", projected_points: 14 }],
+  ]);
+  const huecos = ["QB", "RB", "RB", "BN"];
+  const ids = [...index.keys()];
+  // Control: sin `starters` no hay nada congelado y el motor sí lo cambia.
+  const libre = lineupFrom({ ids, index, rosterPositions: huecos });
+  assert.equal(libre.slots.find((s) => s.slot === "QB").player.sid, "qb_libre",
+    "el fixture no distingue las dos respuestas");
+  const conCandado = lineupFrom({
+    ids, index, rosterPositions: huecos, starters: ["qb_jugo", "r1", "r2"],
+  });
+  assert.equal(conCandado.slots.find((s) => s.slot === "QB").player.sid, "qb_jugo");
+  assert.equal(conCandado.slots.find((s) => s.slot === "QB").locked, true);
+});
+
+test("LA REGLA DEL CANDADO ES UNA, y los dos motores la llaman", () => {
+  /* El analizador usa `lineupFrom` y `/fantasy/lineups` usa `bestLineup`: dos
+     motores para la misma decisión, que es el fallo que este repositorio ha
+     cometido once veces. La regla vive en `lockedSlots` y ninguno de los dos
+     puede tener la suya. */
+  let definiciones = 0;
+  for (const ruta of ["../app/fantasy/startSit.js", "../app/fantasy/lineup.js"]) {
+    const src = readFileSync(new URL(ruta, import.meta.url), "utf8");
+    assert.match(src, /lockedSlots/, `${ruta} no usa la regla compartida`);
+    definiciones += (src.match(/function lockedSlots\(/g) ?? []).length;
+  }
+  assert.equal(definiciones, 1,
+    "el candado está definido más de una vez: dos motores con dos reglas");
+  // Y la pantalla del analizador tiene que PASARLE los titulares: la regla
+  // compartida no sirve de nada si el caller no le dice qué hay puesto.
+  const shell = readFileSync(
+    new URL("../app/fantasy/analisis/AnalyzerShell.jsx", import.meta.url), "utf8");
+  assert.match(shell, /starters: misTitulares/,
+    "el analizador no le dice al motor qué tiene puesto: nada se congela");
+});

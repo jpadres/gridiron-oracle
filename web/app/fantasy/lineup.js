@@ -30,6 +30,24 @@ import { assignSlots } from "./leagueValue.js";
 
 const round1 = (x) => (Number.isFinite(x) ? Math.round(x * 10) / 10 : null);
 
+/** Huecos que no se alinean. Sleeper publica `starters` SIN ellos. */
+const BENCH = new Set(["BN", "BE", "BENCH", "IR", "TAXI"]);
+
+/**
+ * Los huecos titulares de la liga, en el orden en que Sleeper publica
+ * `starters`: `roster_positions` sin los de banquillo.
+ *
+ * Vive aquí, en la capa baja, porque lo necesitan los DOS motores de
+ * alineación y `lockedSlots` cruza la posición del hueco con la del titular:
+ * si uno de los dos contara el banquillo, los índices se desplazarían y el
+ * candado caería en el hueco de otro.
+ */
+export function starterSlots(rosterPositions) {
+  return (rosterPositions ?? [])
+    .map((raw) => String(raw ?? "").toUpperCase().trim())
+    .filter((slot) => slot && !BENCH.has(slot));
+}
+
 /** Las filas de una lista de ids, resueltas contra el índice semanal. */
 export function rowsOf(ids, index) {
   const rows = [];
@@ -45,6 +63,33 @@ export function rowsOf(ids, index) {
 }
 
 /**
+ * QUÉ HUECOS ESTÁN CONGELADOS PORQUE SU PARTIDO YA TERMINÓ.
+ *
+ *     A MEDIA JORNADA, QUIEN YA JUGÓ NI ENTRA NI SALE.
+ *
+ * Devuelve `índice de hueco -> sid`. Vive aquí y no en cada pantalla porque el
+ * analizador y `/fantasy/lineups` son DOS motores distintos para la misma
+ * decisión —`lineupFrom` y `bestLineup`— y la regla tiene que ser una: cablear
+ * el candado sólo en el segundo habría dejado «Generate best lineup»
+ * proponiendo sacar a un titular que ya jugó, que es el fallo de los dos
+ * traductores del mismo formato por undécima vez.
+ *
+ * Sin `starters` no se congela nada: la pantalla que no sabe qué tienes puesto
+ * no puede saber qué está bloqueado, y suponer que el hueco N lo ocupa el
+ * jugador N sería inventarse una alineación.
+ */
+export function lockedSlots({ starters, slots, index }) {
+  const congelados = new Map();
+  if (!Array.isArray(starters) || !Array.isArray(slots)) return congelados;
+  for (let i = 0; i < slots.length; i += 1) {
+    const sid = String(starters[i] ?? "");
+    if (!sid || sid === "0") continue;
+    if (index?.get?.(sid)?.game_final === true) congelados.set(i, sid);
+  }
+  return congelados;
+}
+
+/**
  * Una alineación valorada con la proyección SEMANAL.
  *
  * `assignSlots` ordena por `vor ?? projected_points`, así que se le pasa
@@ -55,10 +100,27 @@ export function rowsOf(ids, index) {
  * su hueco y **no suma**, y se cuenta aparte. Contarlo como cero hundiría a
  * quien tiene defensa titular, que es todo el mundo.
  */
-export function lineupFrom({ ids, index, rosterPositions }) {
+export function lineupFrom({ ids, index, rosterPositions, starters = null }) {
+  // SIN BANQUILLO: `starters` de Sleeper viene alineado con esta lista, así que
+  // contar los BN aquí desplazaría el candado al hueco de otro.
+  const huecos = starterSlots(rosterPositions);
   const { rows, missing } = rowsOf(ids, index);
-  const paraRepartir = rows.map((r) => ({ ...r, vor: Number(r.projected_points) }));
-  const { slots, unassigned } = assignSlots(paraRepartir, rosterPositions ?? []);
+  // Los huecos cuyo partido acabó no se reparten: se devuelven donde estaban.
+  const congelados = lockedSlots({ starters, slots: huecos, index });
+  const fijos = new Set(congelados.values());
+  const paraRepartir = rows
+    .filter((r) => !fijos.has(String(r.sid)))
+    .map((r) => ({ ...r, vor: Number(r.projected_points) }));
+  const libres = huecos.filter((_, i) => !congelados.has(i));
+  const repartidos = assignSlots(paraRepartir, libres);
+  const unassigned = repartidos.unassigned;
+  const cola = [...repartidos.slots];
+  const slots = huecos.map((slot, i) => {
+    if (!congelados.has(i)) return cola.shift() ?? { slot, player: null };
+    const sid = congelados.get(i);
+    const row = index?.get?.(sid) ?? null;
+    return { slot, player: row ? { ...row, sid } : null, locked: true };
+  });
   let points = 0;
   let unknown = 0;
   for (const slot of slots) {

@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 57 fallos conocidos, 57 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 59 fallos conocidos, 59 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -13,11 +13,24 @@ BAK=$(mktemp)
 run() { # nombre | fichero | sed-expr | comando guardián
   local nombre="$1" f="$2" expr="$3" cmd="$4"
   cp "$f" $BAK
-  python - "$f" "$expr" <<'PY'
+  # UNA INYECCIÓN QUE NO INYECTA NO ES UN GUARDIÁN VERDE: ES UN SIMULACRO ROTO.
+  #
+  # Cuando la línea se mueve —un refactor la lleva a otro fichero, como pasó el
+  # 13 de septiembre de 2026 al compartir el candado entre los dos motores de
+  # alineación—, el reemplazo no encuentra nada, no cambia nada, el guardián
+  # pasa y el informe escribía «VERDE (NO ES GUARDIÁN)» acusando al guardián de
+  # un fallo que era de la inyección. Las dos cosas se distinguen ahora.
+  if ! python - "$f" "$expr" <<'PY'
 import sys; p,expr=sys.argv[1],sys.argv[2]; old,new=expr.split("|||"); s=open(p).read()
-assert old in s, f"no encuentro la línea a inyectar en {p}: {old[:60]}"
+if old not in s:
+    raise SystemExit(3)
 open(p,"w").write(s.replace(old,new,1))
 PY
+  then
+    printf "%-42s %-24s %s\n" "$nombre" "INYECCIÓN ROTA" "la línea a inyectar ya no existe"
+    cp $BAK "$f"
+    return
+  fi
   if bash -c "$cmd" >/dev/null 2>&1; then res="VERDE (NO ES GUARDIÁN)"; else res="ROJO"; fi
   cp $BAK "$f"
   if bash -c "$cmd" >/dev/null 2>&1; then back="verde tras restaurar"; else back="SIGUE ROJO TRAS RESTAURAR"; fi
@@ -216,8 +229,8 @@ run "52 la moneyline fuera de la pantalla de mercados" web/app/betting/BettingSh
 run "53 la tarjeta deja de decir que el partido acabó" web/app/sports.jsx \
   "  const isFinal = game.final === true && finalScoreHome !== null && finalScoreAway !== null;|||  const isFinal = false;" \
   "cd web && node --test tests/noBet.test.mjs"
-run "54 un titular que ya jugó, propuesto para el banquillo" web/app/fantasy/startSit.js \
-  "    if (index.get(sid)?.game_final === true) congelados.set(i, sid);|||    if (false) congelados.set(i, sid);" \
+run "54 un titular que ya jugó, propuesto para el banquillo" web/app/fantasy/lineup.js \
+  "    if (index?.get?.(sid)?.game_final === true) congelados.set(i, sid);|||    if (false) congelados.set(i, sid);" \
   "cd web && node --test tests/startSit.test.mjs"
 run "55 un suplente que ya jugó, propuesto como titular" web/app/fantasy/startSit.js \
   "    if (flags.includes(\"LOCKED\")) { excluded.push({ sid, row, reason: EXCLUDED.GAME_FINAL }); continue; }|||    // INYECCIÓN: vuelve al reparto" \
@@ -228,3 +241,9 @@ run "56 la marca del partido jugado, fuera de la tabla principal" web/app/ui.jsx
 run "57 el estado del partido tomado de OTRA jornada" scripts/export_web_data.py \
   "    games = games[(games[\"season\"] == season) & (games[\"week\"] == week)]|||    pass  # INYECCIÓN" \
   "python -m pytest -q tests/test_data_dates.py"
+run "58 el analizador no dice qué tiene puesto" web/app/fantasy/analisis/AnalyzerShell.jsx \
+  "      starters: misTitulares,|||      // INYECCIÓN" \
+  "cd web && node --test tests/lineup.test.mjs"
+run "59 el OTRO motor de alineación deja de congelar" web/app/fantasy/lineup.js \
+  "  const congelados = lockedSlots({ starters, slots: huecos, index });|||  const congelados = new Map();" \
+  "cd web && node --test tests/lineup.test.mjs"

@@ -34,8 +34,8 @@ import { numberOrNull } from "../numbers.js";
 import { assignSlots, SLOT_ELIGIBILITY } from "./leagueValue.js";
 import { normalizeTeam } from "./rosterMark.js";
 import { weeklyIndex } from "./leagueWeek.js";
+import { lockedSlots, starterSlots } from "./lineup.js";
 
-const BENCH = new Set(["BN", "BE", "BENCH", "IR", "TAXI"]);
 const round1 = (x) => (Number.isFinite(x) ? Math.round(x * 10) / 10 : null);
 
 /**
@@ -85,11 +85,7 @@ export const EXCLUDED = Object.freeze({
  * Los huecos titulares de la liga, en el orden en que Sleeper publica
  * `starters`: `roster_positions` sin los de banquillo.
  */
-export function starterSlots(rosterPositions) {
-  return (rosterPositions ?? [])
-    .map((raw) => String(raw ?? "").toUpperCase().trim())
-    .filter((slot) => slot && !BENCH.has(slot));
-}
+export { starterSlots };
 
 function slotAdmits(slot, position) {
   const elegibles = SLOT_ELIGIBILITY[String(slot).toUpperCase()] ?? [];
@@ -162,13 +158,11 @@ export function bestLineup({
      que es lo que se puede hacer de verdad en Sleeper a esa hora.
      Sin `starters` no hay nada congelado: la pantalla que no sabe qué tienes
      puesto sigue optimizando la plantilla entera, como antes. */
-  const puestos = Array.isArray(starters) ? starters.map((x) => String(x ?? "")) : [];
-  const congelados = new Map();  // índice de hueco -> sid
-  for (let i = 0; i < slots.length; i += 1) {
-    const sid = puestos[i] ?? "";
-    if (!sid || sid === "0") continue;
-    if (index.get(sid)?.game_final === true) congelados.set(i, sid);
-  }
+  // La regla vive en `lineup.js::lockedSlots` y la comparten los DOS motores de
+  // alineación de este proyecto — el analizador usa `lineupFrom`, esta pantalla
+  // usa `bestLineup`, y un candado cableado sólo aquí habría dejado «Generate
+  // best lineup» proponiendo sacar a alguien que ya jugó.
+  const congelados = lockedSlots({ starters, slots, index });
   const sidsCongelados = new Set(congelados.values());
   const elegibles = [];
   const excluded = [];
