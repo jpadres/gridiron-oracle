@@ -449,8 +449,24 @@ def _starters(squad: pd.DataFrame, position: str) -> pd.DataFrame:
     """(2) Sólo los titulares. Un equipo tiene un QB, no cinco.
 
     El criterio de titularidad es el volumen reciente, no el puesto en la
-    plantilla: no hay parte de lesiones en este proyecto y el volumen es la
-    mejor aproximación disponible. Está en las limitaciones del README.
+    plantilla. Está en las limitaciones del README.
+
+    **La justificación de esa aproximación ya no es la que decía aquí.** Hasta
+    el 13 de septiembre de 2026 este comentario alegaba que «no hay parte de
+    lesiones en este proyecto», y desde ese día SÍ lo hay
+    (`fantasy/injuries.py`, el parte oficial que republica nflverse). Lo que
+    sigue siendo cierto es que el parte dice quién está DISPONIBLE, no quién
+    tiene el ROL: son dos preguntas y esta función contesta la segunda.
+
+    Lo que la aproximación cuesta, medido el mismo día: en Nueva Orleans el
+    volumen de la ventana daba los dos puestos de RB a Estimé (5 partidos en
+    2025) y Neal, y dejaba fuera a Alvin Kamara (11 partidos, y QUESTIONABLE en
+    el parte de esa jornada). Igual con Malik Nabers y Rome Odunze. **No se
+    arregla aquí a ojo el domingo por la mañana**: cambiar el modelo de rol sin
+    medirlo es exactamente lo que la regla 3 prohíbe. Lo que sí se hace es
+    DECIRLO — el artefacto del día publica quién está en una plantilla activa,
+    es relevante para fantasy y el modelo no proyecta, para que un hueco del
+    modelo no se lea como «este jugador no cuenta».
     """
     group = squad[squad["position"] == position].copy()
     if group.empty:

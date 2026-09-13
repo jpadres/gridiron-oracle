@@ -278,6 +278,15 @@ const DATOS_PREFIJOS = [
   ".dossier.sources[].url", ".dossier.sources[].publisher",
   ".dossier.strategy[]", ".dossier.teams[]",
   ".fantasy_weekly.rankings[]",
+  // El parte de lesiones oficial: designación («OUT», «QUESTIONABLE»),
+  // participación («DNP», «LIMITED», «FULL»), la lesión tal y como la escribe
+  // el club («Knee») y la fecha ISO del fichero. Tokens del origen; la frase
+  // que los envuelve la escribe la interfaz en inglés.
+  ".fantasy_weekly.kickers[].injury_designation",
+  ".fantasy_weekly.kickers[].injury_severity",
+  ".fantasy_weekly.kickers[].injury_practice",
+  ".fantasy_weekly.kickers[].injury_detail",
+  ".fantasy_weekly.kickers[].injury_source_as_of",
   // El mapa `sleeper_id` -> jugador. Son IDENTIFICADORES de dos catálogos
   // (Sleeper y nflverse) y códigos de equipo para las defensas: ni una
   // palabra que nadie lea. Se declara entero por prefijo porque las claves

@@ -22,6 +22,7 @@ import { TeamMark } from "../../sports.jsx";
 import LeagueBar from "../LeagueBar.jsx";
 import { EXCLUDED, fullWeeklyIndex, leagueStartSit, swapAuthority } from "../startSit.js";
 import { stateLabel } from "../../gameClock.js";
+import { lateStatusRisks } from "../lateRisk.js";
 
 /* «Un par de puntos está dentro del ruido semanal»: la convención declarada en
    docs/evidence/ui_numbers.json («2 points», acierto por desacuerdo). Vive
@@ -81,10 +82,27 @@ function Authority({ position, statuses }) {
   return <span className="mark mark--risk" title={`${a.id}: ${a.status} in the capability registry`}>{text}</span>;
 }
 
+/* LA HORA DEL PARTIDO, EN HORA DEL ESTE — que es como se publica el calendario
+   y como se habla de la jornada («el de la una», «el nocturno»). Se rotula ET
+   siempre: una hora sin zona en una pantalla que se mira desde otro huso es la
+   misma trampa que un saque sin `kickoff_at`. */
+function clockET(ms) {
+  if (!Number.isFinite(ms)) return "an unknown time";
+  return `${new Date(ms).toLocaleTimeString("en-US", {
+    timeZone: "America/New_York", hour: "numeric", minute: "2-digit",
+  })} ET`;
+}
+
 function LeagueLineup({ league, index, byes, week, statuses, active, now }) {
   const out = useMemo(
     () => leagueStartSit({ league, index, byes, week, now }),
     [league, index, byes, week, now]
+  );
+  /* NEEDS ACTION: lo que hay que decidir ANTES de que se cierre una puerta.
+     Va lo primero del panel porque es lo único con reloj — el resto se puede
+     mirar después y esto no. */
+  const riesgos = useMemo(
+    () => lateStatusRisks({ league, index, now }), [league, index, now]
   );
   const config = league?.config ?? null;
   const name = league?.name || `League ${league?.leagueId ?? ""}`;
@@ -277,6 +295,54 @@ function LeagueLineup({ league, index, byes, week, statuses, active, now }) {
           ) : null}
 
           {/* --- QUIÉN QUEDÓ FUERA Y POR QUÉ --------------------------------- */}
+          {riesgos.length > 0 ? (
+            <section className="lu-act" aria-label="Needs action now">
+              <h4 className="lu-act-h">
+                <span className="mark mark--out">NEEDS ACTION</span>{" "}
+                {riesgos.length === 1 ? "1 decision" : `${riesgos.length} decisions`} close
+                before the player they depend on
+              </h4>
+              <ul className="lu-act-list">
+                {riesgos.map((r) => (
+                  <li key={`${r.slot}-${r.starter.sid}`}>
+                    <p className="lu-act-why">
+                      <span className={slotClass(r.slot)}>{SLOT_LABEL(r.slot)}</span>{" "}
+                      <strong>{r.starter.row.player_full_name ?? r.starter.row.player_name}</strong>{" "}
+                      <span className="attrib">
+                        {r.starter.row.injury_designation ?? "in doubt"}
+                        {r.starter.row.injury_detail ? ` — ${r.starter.row.injury_detail}` : ""}
+                        {" · kicks off "}{clockET(r.starterKickoff)}
+                      </span>
+                    </p>
+                    <p className="lu-act-when">
+                      Decide by <strong>{clockET(r.decideBy)}</strong>{" "}
+                      <span className="attrib">
+                        — that is when {r.options.length === 1 ? "your cover" : "your earliest cover"}{" "}
+                        locks, not when his game starts.
+                      </span>
+                    </p>
+                    <p className="lu-act-alt">
+                      Cover:{" "}
+                      {r.options.map((o, i) => (
+                        <span key={o.sid}>
+                          {i > 0 ? " · " : ""}
+                          <strong>{o.row.player_full_name ?? o.row.player_name}</strong>{" "}
+                          <span className="wk-gap-num">{num(o.row.projected_points, 1)}</span>{" "}
+                          <span className="attrib">{clockET(o.kickoff)}</span>
+                        </span>
+                      ))}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+              <p className="caption">
+                A questionable player stays questionable until the official inactive list, which
+                posts 90 minutes before his kickoff. Nothing here estimates whether he plays — it
+                says when your choice expires.
+              </p>
+            </section>
+          ) : null}
+
           {out.best.locked > 0 ? (
             <p className="caption">
               {out.best.locked} slot{out.best.locked === 1 ? "" : "s"} locked: those games have

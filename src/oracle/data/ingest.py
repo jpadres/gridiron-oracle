@@ -43,6 +43,14 @@ PLAYER_STATS_URL = NFLVERSE + "/stats_player/stats_player_week_{season}.parquet"
 # mientras que la URL directa pasa sin problema. Sin redirección hay menos
 # cosas que puedan fallar.
 SCHEDULE_URL = "https://raw.githubusercontent.com/nflverse/nfldata/master/data/games.csv"
+#: EL PARTE DE LESIONES OFICIAL, republicado por nflverse tal y como lo entregan
+#: los clubes a la liga: designación de partido y participación en el
+#: entrenamiento. Es evidencia PRIMARIA —no una agregación de prensa— y hasta el
+#: 13 de septiembre de 2026 el producto no la leía: la única capa de
+#: disponibilidad eran 47 fichas curadas a mano. Se refresca con el resto porque
+#: un parte descargado una vez y nunca más es peor que no tenerlo: caduca en
+#: horas y se leería como actual.
+INJURIES_URL = NFLVERSE + "/injuries/injuries_{season}.parquet"
 
 # Reubicaciones y alias. La política es colapsar la franquicia a su abreviatura
 # actual: los ratings siguen a la organización, no a la ciudad. STL y LAR son el
@@ -157,7 +165,11 @@ def _download(
 
 # Primera temporada de cada dataset. La cobertura de nflverse no es uniforme:
 # el play-by-play llega a 1999, los rosters semanales empiezan en 2002.
-FIRST_SEASON_BY_DATASET = {"pbp": 1999, "roster": 2002, "player_stats": 1999}
+#: `injuries` arranca en 2009: antes la liga no publicaba el parte en un
+#: formato que nflverse pueda republicar.
+FIRST_SEASON_BY_DATASET = {
+    "pbp": 1999, "roster": 2002, "player_stats": 1999, "injuries": 2009,
+}
 
 
 def _is_optional(dataset: str, season: int, current_season: int) -> bool:
@@ -256,6 +268,7 @@ def download_season(
         "pbp": (PBP_URL, f"pbp_{season}.parquet"),
         "roster": (ROSTER_URL, f"roster_{season}.parquet"),
         "player_stats": (PLAYER_STATS_URL, f"player_stats_{season}.parquet"),
+        "injuries": (INJURIES_URL, f"injuries_{season}.parquet"),
     }
     return {
         dataset: _download(

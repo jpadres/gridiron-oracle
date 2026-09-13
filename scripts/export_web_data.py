@@ -41,6 +41,7 @@ from oracle.config import DEFAULT_BACKTEST_START
 from oracle.config import paths as resolve_paths
 from oracle.data import identity
 from oracle.data.ingest import normalize_team
+from oracle.fantasy import injuries
 from oracle.fantasy.components import COMPONENTS
 from oracle.fantasy.draft import (
     PROJECTED_GAMES,
@@ -331,6 +332,8 @@ def main(argv: list[str] | None = None) -> int:
     # marca que se cuelga encima, igual que los componentes. Y no toca ningún
     # número — la regla 8 no tiene excepción aquí (ver narrative/status.py).
     _attach_status(payload, paths)
+    # Y el parte de lesiones OFICIAL, que es evidencia primaria y no prensa.
+    _attach_injuries(payload, paths)
     # Y la situación de plantilla en el RANKING SEMANAL, que no la tenía.
     _attach_roster_al_semanal(payload, paths, season)
     # Y cuando las DOS capas se contradicen, quién vio después. Va aquí porque
@@ -474,6 +477,47 @@ def _attach_byes(payload: dict, fantasy: dict) -> None:
     if not schedule.complete or len(schedule.bye_week) != len(schedule.teams):
         return
     fantasy["byes"] = dict(sorted(schedule.bye_week.items()))
+
+
+def _attach_injuries(payload: dict, paths) -> None:
+    """Cuelga el parte de lesiones oficial en las filas del semanal.
+
+        EL PARTE DE LA LIGA NO ES UNA NOTICIA: ES LO QUE EL CLUB ENTREGA.
+
+    Hasta el 13 de septiembre de 2026 la única capa de disponibilidad de este
+    producto eran 47 fichas curadas a mano desde la prensa. Son insustituibles
+    para lo que los datos no tienen —suspensiones, exentos, IR de temporada—
+    pero no son el parte, y el parte existe: nflverse lo republica con la
+    designación de partido y la participación en el entrenamiento. 153 de sus
+    182 filas de la jornada 1 corresponden a partidos que todavía no se habían
+    jugado esa mañana.
+
+    Va DESPUÉS del recorte de columnas y no toca ningún número: sólo campos con
+    prefijo `injury_`, igual que `status_` y `roster_`.
+
+    La jornada se toma del propio bloque semanal. Sin ella no se marca nada: un
+    parte de otra jornada es un dato real con fecha vieja, que es la regla 5.
+    """
+    weekly = payload.get("fantasy_weekly") or {}
+    temporada, jornada = weekly.get("season"), weekly.get("week")
+    if not weekly or temporada is None or jornada is None:
+        return
+    entradas = injuries.load(
+        paths.raw / f"injuries_{int(temporada)}.parquet",
+        season=int(temporada), week=int(jornada),
+    )
+    if not entradas:
+        print("  (aviso) sin parte de lesiones: la pantalla no afirmará "
+              "disponibilidad por esa vía.")
+        return
+    marcadas = sum(
+        injuries.attach(weekly.get(clave) or [], entradas)
+        for clave in ("rankings", "kickers")
+    )
+    designados = sum(1 for e in entradas.values() if e.designation)
+    print(f"  parte de lesiones: {len(entradas)} filas de la jornada "
+          f"{int(jornada)}, {designados} con designación; "
+          f"{marcadas} filas del semanal marcadas.")
 
 
 def _attach_status(payload: dict, paths) -> None:
