@@ -23,6 +23,7 @@ sys.path.insert(0, str(RAIZ / "scripts"))
 
 from export_web_data import write_payload  # noqa: E402
 
+from oracle.narrative import feeds as feeds_mod
 from oracle.narrative import press  # noqa: E402
 
 FEEDS = RAIZ / "research" / "feeds_latest.json"
@@ -43,7 +44,11 @@ def main() -> int:
         return 1
 
     payload = json.loads(crudo.read_text(encoding="utf-8"))
-    feeds = json.loads(FEEDS.read_text(encoding="utf-8"))
+    # `load_archive` y no `json.loads`: deshace las entidades HTML de los
+    # archivos escritos antes del arreglo del parser. Aquí importa igual que en
+    # el barrido — estos títulos se pintan en el `title=` de la fila del
+    # jugador, y ahí salía «Vikings&#39;» tal cual.
+    feeds = feeds_mod.load_archive(FEEDS)
     entradas = feeds.get("entries") or []
     if not entradas:
         print("El barrido no trae entradas: no toco el payload.")

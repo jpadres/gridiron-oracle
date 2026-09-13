@@ -199,3 +199,65 @@ def test_a_trade_is_not_filed_as_context():
         item = {"kind": kind, "impact": "neutro", "fantasy_relevance": 5,
                 "date": "2026-08-29", "team": "NE"}
         assert intelligence.todays([item])[0]["label"] == "Waiver"
+
+
+def test_el_parser_deshace_las_entidades_html():
+    """`Vikings&#39;` se pintaba TAL CUAL en cuanto algo mostró texto de feed."""
+    import xml.etree.ElementTree as ET
+
+    from oracle.narrative.feeds import _text
+
+    item = ET.fromstring("<item><title>Vikings&amp;#39; QB &amp;amp; more</title></item>")
+    assert _text(item, "title") == "Vikings' QB & more"
+
+
+def test_el_marcado_de_un_description_no_se_pinta():
+    """Un `<description>` de RSS trae HTML, y el orden de limpieza importa."""
+    from oracle.narrative.feeds import clean_text
+
+    crudo = '&lt;p&gt;&lt;img src="https://statico.example.com/a/very/long/name.jpg"&gt;Real news&lt;/p&gt;'
+    assert clean_text(crudo) == "Real news", (
+        "el marcado se está pintando: además de feo, la URL no parte y desborda"
+    )
+    # Al revés no funciona, y por eso el orden está escrito: si se quitaran las
+    # etiquetas ANTES de desescapar, no habría ninguna que quitar.
+    assert "<" not in clean_text(crudo)
+
+
+def test_una_etiqueta_partida_por_el_recorte_tampoco_se_pinta():
+    """`_build` recorta a 600 caracteres y parte el `<img>` por la mitad.
+
+    Sin su `>` no es una etiqueta para ningún patrón, así que se pintaba entera
+    como texto — con una URL de imagen que no tiene por dónde partirse. Es lo
+    que desbordaba `/research` 13 px a 390.
+    """
+    from oracle.narrative.feeds import clean_text
+
+    assert clean_text('<p><img src="https://statico.example.com/a/very/long/na') == ""
+    # Pero un «menor que» de verdad se queda: el patrón exige que parezca
+    # etiqueta, no cualquier `<` al final.
+    assert clean_text("Scores of 3 < 5 happen") == "Scores of 3 < 5 happen"
+
+
+def test_el_cargador_normaliza_los_archivos_viejos(tmp_path):
+    """UN sitio para deshacerlas, no uno por lector.
+
+    El fichero se guardó con el parser anterior y lo leen tres consumidores: el
+    barrido determinista, el parche de prensa y quien venga. Arreglarlo en cada
+    uno es el fallo de los dos traductores; se normaliza al leer.
+    """
+    import json
+
+    from oracle.narrative.feeds import load_archive
+
+    fichero = tmp_path / "feeds.json"
+    fichero.write_text(json.dumps({"entries": [
+        {"title": "Vikings&#39; QB", "summary": "AT&amp;T Stadium", "url": "u"},
+        {"title": "Ya limpio", "summary": None, "url": "v"},
+    ]}), encoding="utf-8")
+    datos = load_archive(fichero)
+    assert datos["entries"][0]["title"] == "Vikings' QB"
+    assert datos["entries"][0]["summary"] == "AT&T Stadium"
+    # Idempotente y tolerante: un texto ya limpio no cambia y un None no rompe.
+    assert datos["entries"][1]["title"] == "Ya limpio"
+    assert datos["entries"][1]["summary"] is None

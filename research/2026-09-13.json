@@ -1,0 +1,1344 @@
+{
+ "date": "2026-09-13",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Kyler Murray"
+   ],
+   "headline": "Kyler Murray will be the ninth Vikings' starting QB since 2023",
+   "summary": "On Sunday, Kyler Murray will make his first start for the Vikings.",
+   "published": "2026-09-13T02:45:45Z",
+   "published_at": "2026-09-13T02:45:45Z",
+   "first_seen_at": "2026-09-13T05:19:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Kyler Murray will be the ninth Vikings' starting QB since 2023",
+     "url": "https://sports.yahoo.com/articles/kyler-murray-ninth-vikings-starting-024545927.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "C.J. Stroud"
+   ],
+   "headline": "Last minute best bets for NFL Week 1: Three underdogs are live, including C.J. Stroud and the Texans",
+   "summary": "Need some last-second help filling your bets for the first Sunday of the season? We've got you covered",
+   "published": "2026-09-13T02:00:53Z",
+   "published_at": "2026-09-13T02:00:53Z",
+   "first_seen_at": "2026-09-13T05:19:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Last minute best bets for NFL Week 1: Three underdogs are live, including C.J. Stroud and the Texans",
+     "url": "https://www.cbssports.com/nfl/news/last-minute-best-bets-for-nfl-week-1"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "‘Drew Mestemaker = Josh Allen’ — CFB World Compares Oklahoma State QB to Bills Superstar After Upset Win vs. Oregon",
+   "summary": "",
+   "published": "2026-09-13T01:44:25Z",
+   "published_at": "2026-09-13T01:44:25Z",
+   "first_seen_at": "2026-09-13T05:19:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Drew Mestemaker = Josh Allen’ — CFB World Compares Oklahoma State QB to Bills Superstar After Upset Win vs. Oregon",
+     "url": "https://www.profootballnetwork.com/cfb/drew-mestemaker-josh-allen-cfb-world-oklahoma-state-oregon-upset-win"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "JAX",
+   "players": [
+    "Parker Washington"
+   ],
+   "headline": "Report: Parker Washington, Jaguars unlikely to come to agreement",
+   "summary": "The Jaguars and wide receiver Parker Washington are unlikely to reach a contract extension before the start of the season, Cameron Wolfe of NFL Media reports.",
+   "published": "2026-09-13T00:40:28Z",
+   "published_at": "2026-09-13T00:40:28Z",
+   "first_seen_at": "2026-09-13T05:19:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Report: Parker Washington, Jaguars unlikely to come to agreement",
+     "url": "https://sports.yahoo.com/articles/report-parker-washington-jaguars-unlikely-004028485.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Malik Nabers"
+   ],
+   "headline": "Giants sign wide receiver Dalen Cambre from practice squad with Malik Nabers questionable",
+   "summary": "The Giants just signed an insurance policy.",
+   "published": "2026-09-13T00:36:53Z",
+   "published_at": "2026-09-13T00:36:53Z",
+   "first_seen_at": "2026-09-13T05:19:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Giants sign wide receiver Dalen Cambre from practice squad with Malik Nabers questionable",
+     "url": "https://sports.yahoo.com/articles/giants-sign-wide-receiver-dalen-003653096.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "A.J. Brown"
+   ],
+   "headline": "Patriots place WR A.J. Brown on IR, officially sign DT DaQuan Jones",
+   "summary": "The Patriots made official the signing of veteran defensive tackle DaQuan Jones.",
+   "published": "2026-09-13T00:12:08Z",
+   "published_at": "2026-09-13T00:12:08Z",
+   "first_seen_at": "2026-09-13T05:19:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Patriots place WR A.J. Brown on IR, officially sign DT DaQuan Jones",
+     "url": "https://sports.yahoo.com/articles/patriots-place-wr-j-brown-001208590.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith",
+    "Cade Klubnik"
+   ],
+   "headline": "Cade Klubnik ready for his Jets turn at QB — whenever it comes",
+   "summary": "He is now one play away from being under center if starter Geno Smith goes down.",
+   "published": "2026-09-12T23:31:31Z",
+   "published_at": "2026-09-12T23:31:31Z",
+   "first_seen_at": "2026-09-13T05:19:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Cade Klubnik ready for his Jets turn at QB — whenever it comes",
+     "url": "https://sports.yahoo.com/articles/cade-klubnik-ready-jets-turn-233131973.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "How to watch Commanders vs. Eagles: TV, radio, streaming, injury report",
+   "summary": "The Washington Commanders’ first game of the 2025/26 season is finally here and it’s a road division game against the Philadelphia Eagles. This is America’s Game of the Week and all eyes will be on Jayden Daniels as he returns from an injury-shortened second season. This will be a new-look Commanders team that has two […]",
+   "published": "2026-09-12T23:30:00Z",
+   "published_at": "2026-09-12T23:30:00Z",
+   "first_seen_at": "2026-09-13T05:19:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "How to watch Commanders vs. Eagles: TV, radio, streaming, injury report",
+     "url": "https://www.hogshaven.com/washington-commanders-game-information/437030/commanders-eagles-nfl-week-1-watch-tv-schedule-online-streaming-injury-report"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Chiefs likely have to use undrafted rookie at key position as injury replacement for Week 1",
+   "summary": "Patrick Mahomes’ return from a torn ACL on Sunday will involve trusting an undrafted rookie as his blindside protector.",
+   "published": "2026-09-12T23:27:16Z",
+   "published_at": "2026-09-12T23:27:16Z",
+   "first_seen_at": "2026-09-13T05:19:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Chiefs likely have to use undrafted rookie at key position as injury replacement for Week 1",
+     "url": "https://sports.yahoo.com/articles/chiefs-likely-undrafted-rookie-key-232716857.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Darius Slayton"
+   ],
+   "headline": "NY Giants complete 53-man roster by adding receiver/special teams depth",
+   "summary": "The New York Giants are completing their 53-man roster by signing wide recever/special teamer Dalen Cambre to the active roster from their practice squad, a source confirms. The move was initially reported by Art Stapleton. The Giants had been carrying just 52 players after releasing wide receiver Darius Slayton earlier in the week. Cambre, a […]",
+   "published": "2026-09-12T22:54:50Z",
+   "published_at": "2026-09-12T22:54:50Z",
+   "first_seen_at": "2026-09-13T05:19:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "NY Giants complete 53-man roster by adding receiver/special teams depth",
+     "url": "https://www.bigblueview.com/new-york-giants-roster/170727/dalen-cambre-signing-practice-squad-darius-slayton-roster-spot"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Tua Tagovailoa",
+    "Michael Penix Jr."
+   ],
+   "headline": "‘This Team Might Be Cursed’ — NFL World Stunned As Cooper Rush Is Latest Falcons QB to Suffer Injury After Tua Tagovailoa, Michael Penix Jr.",
+   "summary": "",
+   "published": "2026-09-12T21:59:49Z",
+   "published_at": "2026-09-12T21:59:49Z",
+   "first_seen_at": "2026-09-13T05:19:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘This Team Might Be Cursed’ — NFL World Stunned As Cooper Rush Is Latest Falcons QB to Suffer Injury After Tua Tagovailoa, Michael Penix Jr.",
+     "url": "https://www.profootballnetwork.com/cursed-cooper-rush-falcons-injury-tua-tagovailoa-michael-penix-jr"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "Jets-Titans Game Preview | The Story Begins",
+   "summary": "QB Geno Smith and LB Demario Davis Hope to Lead a Revival",
+   "published": "2026-09-12T21:00:00Z",
+   "published_at": "2026-09-12T21:00:00Z",
+   "first_seen_at": "2026-09-13T05:19:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets-Titans Game Preview | The Story Begins",
+     "url": "https://www.newyorkjets.com/news/jets-vs-titans-week-1-2026-geno-smith-demario-davis-homecoming-09-13-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Tua Tagovailoa"
+   ],
+   "headline": "‘Wasted Our Time,’ ‘Organization Gotta Be Cursed’ — NFL Fans React As Former OC Todd Haley Predicts Falcons QB Tua Tagovailoa May Retire",
+   "summary": "",
+   "published": "2026-09-12T20:58:23Z",
+   "published_at": "2026-09-12T20:58:23Z",
+   "first_seen_at": "2026-09-13T05:19:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Wasted Our Time,’ ‘Organization Gotta Be Cursed’ — NFL Fans React As Former OC Todd Haley Predicts Falcons QB Tua Tagovailoa May Retire",
+     "url": "https://www.profootballnetwork.com/nfl-fans-react-falcons-tua-tagovailoa-retire-todd-haley"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "On the Runway: Geno Smith Ready for Long-Awaited Return as Jets' Week 1 Starter",
+   "summary": "Success For Smith & The Jets This Season Looks Like Wins",
+   "published": "2026-09-12T20:56:00Z",
+   "published_at": "2026-09-12T20:56:00Z",
+   "first_seen_at": "2026-09-13T05:19:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "On the Runway: Geno Smith Ready for Long-Awaited Return as Jets' Week 1 Starter",
+     "url": "https://www.newyorkjets.com/news/geno-smith-jets-focused-on-winning-with-opener-nearing-09-08-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Breece Hall"
+   ],
+   "headline": "Jets RB Breece Hall Feeling 'Fresh' Ahead of Season Opener",
+   "summary": "OC Frank Reich: ‘If He’s Healthy, He’s Healthy’",
+   "published": "2026-09-12T20:55:00Z",
+   "published_at": "2026-09-12T20:55:00Z",
+   "first_seen_at": "2026-09-13T05:19:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets RB Breece Hall Feeling 'Fresh' Ahead of Season Opener",
+     "url": "https://www.newyorkjets.com/news/jets-breece-hall-feeling-fresh-ahead-of-season-opener-09-10-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Tucker Kraft"
+   ],
+   "headline": "Packers sign TE Tucker Kraft to contract extension",
+   "summary": "General Manager Brian Gutekunst announced the transaction Saturday",
+   "published": "2026-09-12T20:42:00Z",
+   "published_at": "2026-09-12T20:42:00Z",
+   "first_seen_at": "2026-09-13T05:19:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Packers sign TE Tucker Kraft to contract extension",
+     "url": "https://www.packers.com/news/packers-sign-te-tucker-kraft-to-contract-extension-sept-12-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Eli Stowers"
+   ],
+   "headline": "Eagles place second-round pick Eli Stowers on IR",
+   "summary": "Eagles second-round pick Eli Stowers won't be making his regular season debut against the Commanders on Sunday.",
+   "published": "2026-09-12T20:29:24Z",
+   "published_at": "2026-09-12T20:29:24Z",
+   "first_seen_at": "2026-09-13T05:19:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Eagles place second-round pick Eli Stowers on IR",
+     "url": "https://sports.yahoo.com/articles/eagles-place-second-round-pick-202924460.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Eli Stowers"
+   ],
+   "headline": "Eli Stowers injury: Eagles place rookie tight end on injured reserve",
+   "summary": "Week 1 updates.",
+   "published": "2026-09-12T20:21:30Z",
+   "published_at": "2026-09-12T20:21:30Z",
+   "first_seen_at": "2026-09-13T05:19:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Eli Stowers injury: Eagles place rookie tight end on injured reserve",
+     "url": "https://sports.yahoo.com/articles/eli-stowers-injury-eagles-place-202130790.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "A.J. Brown"
+   ],
+   "headline": "Analysis: Patriots place WR A.J. Brown on injured reserve, sign DT DaQuan Jones",
+   "summary": "Brown is eligible to return this season but will miss a minimum of four games.",
+   "published": "2026-09-12T20:00:56Z",
+   "published_at": "2026-09-12T20:00:56Z",
+   "first_seen_at": "2026-09-13T05:19:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "Analysis: Patriots place WR A.J. Brown on injured reserve, sign DT DaQuan Jones",
+     "url": "https://www.patriots.com/news/analysis-patriots-place-wr-a-j-brown-on-injured-reserve-sign-dt-daquan-jones"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Jeremiyah Love"
+   ],
+   "headline": "Promising Outlook For Jeremiyah Love After Cardinals Elevate CB Kalen King",
+   "summary": "No extra running back should mean No. 3 overall pick will play",
+   "published": "2026-09-12T20:00:12Z",
+   "published_at": "2026-09-12T20:00:12Z",
+   "first_seen_at": "2026-09-13T05:18:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "Promising Outlook For Jeremiyah Love After Cardinals Elevate CB Kalen King",
+     "url": "https://www.azcardinals.com/news/promising-outlook-for-jeremiyah-love-after-cardinals-elevate-cb-kalen-king"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "A.J. Brown"
+   ],
+   "headline": "Patriots Sign Veteran DT DaQuan Jones and Place WR A.J. Brown On IR",
+   "summary": "The New England Patriots announced today that they have signed veteran DT DaQuan Jones. In addition, the Patriots placed WR A.J. Brown on injured reserve.",
+   "published": "2026-09-12T20:00:00Z",
+   "published_at": "2026-09-12T20:00:00Z",
+   "first_seen_at": "2026-09-13T05:19:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "Patriots Sign Veteran DT DaQuan Jones and Place WR A.J. Brown On IR",
+     "url": "https://www.patriots.com/news/patriots-sign-veteran-dt-daquan-jones-and-place-wr-a-j-brown-on-ir"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Eli Stowers"
+   ],
+   "headline": "Eagles elevate WR Britain Covey, place TE Eli Stowers on Injured Reserve",
+   "summary": "Covey is elevated for the sixth time in his career with the Eagles.",
+   "published": "2026-09-12T20:00:00Z",
+   "published_at": "2026-09-12T20:00:00Z",
+   "first_seen_at": "2026-09-13T05:19:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PHI official",
+     "title": "Eagles elevate WR Britain Covey, place TE Eli Stowers on Injured Reserve",
+     "url": "https://www.philadelphiaeagles.com/news/eagles-elevate-wr-britain-covey-place-te-eli-stowers-on-injured-reserve"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Josh Williams"
+   ],
+   "headline": "Bucs Activate Ifeatu Melifonwu, Josh Williams for Season Opener",
+   "summary": "With a light depth chart at safety and an injury concern in the running back room, the Buccaneers elevated S Ifeatu Melifonwu and RB Josh Williams from the practice squad for Sunday's game in Cincinnati",
+   "published": "2026-09-12T19:59:45Z",
+   "published_at": "2026-09-12T19:59:45Z",
+   "first_seen_at": "2026-09-13T05:19:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Bucs Activate Ifeatu Melifonwu, Josh Williams for Season Opener",
+     "url": "https://www.buccaneers.com/news/bucs-activate-ifeatu-melifonwu-josh-williams-season-opener"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts",
+    "Saquon Barkley"
+   ],
+   "headline": "Could Tim Settle be vital to stopping Saquon Barkley, Eagles in Week 1?",
+   "summary": "There has been plenty of discussion around Washington’s new defensive additions getting after Philadelphia quarterback Jalen Hurts on Sunday, as Sean Mannion works to install his new Eagles offense. Unfortunately, that aspect of the matchup won’t matter if Washington can’t first stop Saquon Barkley and the Eagles’ rushing attack. In recent seasons, the Commanders’ defense […]",
+   "published": "2026-09-12T18:00:00Z",
+   "published_at": "2026-09-12T18:00:00Z",
+   "first_seen_at": "2026-09-13T05:19:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Could Tim Settle be vital to stopping Saquon Barkley, Eagles in Week 1?",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/438868/tim-settle-commanders-matchup-saquon-barkley-philadelphia-eagles-nfl-week-1"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Miller Moss"
+   ],
+   "headline": "Chicago Bears announce roster moves",
+   "summary": "The Chicago Bears have announced that the club has signed quarterback Miller Moss to the Practice Squad and has elevated Moss and wide receiver Kaden Davis from the practice squad for Sunday’s game against the Carolina Panthers.",
+   "published": "2026-09-12T17:30:00Z",
+   "published_at": "2026-09-12T17:30:00Z",
+   "first_seen_at": "2026-09-13T05:18:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "Chicago Bears announce roster moves",
+     "url": "https://www.chicagobears.com/news/chicago-bears-announce-roster-moves-september-12-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Amon-Ra St. Brown",
+    "Sam LaPorta"
+   ],
+   "headline": "Lions restructure two contracts: What salary cap flexibility means for Sam LaPorta, Brian Branch extensions",
+   "summary": "Detroit reworked the deals of Amon-Ra St. Brown and Penei Sewell",
+   "published": "2026-09-12T17:21:38Z",
+   "published_at": "2026-09-12T17:21:38Z",
+   "first_seen_at": "2026-09-13T05:19:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Lions restructure two contracts: What salary cap flexibility means for Sam LaPorta, Brian Branch extensions",
+     "url": "https://www.cbssports.com/nfl/news/lions-restructure-two-contracts-salary-cap-flexibility"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "‘It Still Bothers Me Today’ — Caleb Williams Recalls Unforgettable Mistake From Impressive Second Season With Bears",
+   "summary": "",
+   "published": "2026-09-12T16:40:40Z",
+   "published_at": "2026-09-12T16:40:40Z",
+   "first_seen_at": "2026-09-13T05:19:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘It Still Bothers Me Today’ — Caleb Williams Recalls Unforgettable Mistake From Impressive Second Season With Bears",
+     "url": "https://www.profootballnetwork.com/caleb-williams-mistake-bears"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Bengals News: Marvin Lewis Reveals his AFC North Favorite",
+   "summary": "Bengals News Quick Hits | With DJ Turner II A Go, Here’s Why Marvin Lewis Says Bengals Favored To Win His Old Stomping Grounds In AFC North As on Thursday, Turner went limited Friday. Everyone knows Joe Burrow, but do you remember these Bengals QBs? The first player the Bengals signed for their inaugural season […]",
+   "published": "2026-09-12T15:36:50Z",
+   "published_at": "2026-09-12T15:36:50Z",
+   "first_seen_at": "2026-09-13T05:19:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Bengals News: Marvin Lewis Reveals his AFC North Favorite",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/198618/bengals-news-marvin-lewis-reveals-his-afc-north-favorite"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Stefon Diggs"
+   ],
+   "headline": "Commanders News: Stefon Diggs over Romeo Doubs looks good at the moment",
+   "summary": "The Daily Slop – 12 September 2026 Editor’s note: Each day, Hogs Haven compiles a collection of articles, podcasts & tweets from around the web to keep you in touch with the Commanders, the NFC East, the NFL and sports in general, with a sprinkling of other stuff. Enjoy! Commanders links Articles The Washington Sun […]",
+   "published": "2026-09-12T15:00:00Z",
+   "published_at": "2026-09-12T15:00:00Z",
+   "first_seen_at": "2026-09-13T05:19:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders News: Stefon Diggs over Romeo Doubs looks good at the moment",
+     "url": "https://www.hogshaven.com/washington-commanders-news/439203/stefon-diggs-over-romeo-doubs-looks-good-at-the-moment-sam-cosmi"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "D'Andre Swift"
+   ],
+   "headline": "Roster Moves: Chicago Bears sign RB D'Andre Swift to three-year extension",
+   "summary": "The Chicago Bears have announced that the club has signed running back D’Andre Swift to a three-year extension through 2029.",
+   "published": "2026-09-12T14:30:00Z",
+   "published_at": "2026-09-12T14:30:00Z",
+   "first_seen_at": "2026-09-13T05:18:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "Roster Moves: Chicago Bears sign RB D'Andre Swift to three-year extension",
+     "url": "https://www.chicagobears.com/news/roster-moves-chicago-bears-sign-rb-d-andre-swift-to-three-year-extension"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Tyler Shough"
+   ],
+   "headline": "Key Ingredients to Victory: Saints vs. Lions | 2026 NFL Week 1",
+   "summary": "Saints offensive balance is critical with Tyler Shough, run game",
+   "published": "2026-09-12T14:00:39Z",
+   "published_at": "2026-09-12T14:00:39Z",
+   "first_seen_at": "2026-09-13T05:19:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NO official",
+     "title": "Key Ingredients to Victory: Saints vs. Lions | 2026 NFL Week 1",
+     "url": "https://www.neworleanssaints.com/news/saints-vs-lions-2026-nfl-week-1-key-ingredients-to-victory"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Terry McLaurin"
+   ],
+   "headline": "Terry McLaurin among five Commanders key to Week 1 clash vs. Eagles",
+   "summary": "We’ve got a game that counts on our hands Sunday afternoon, when the Commanders play the Eagles in Philadelphia. In a word: Finally. The 2026 NFL regular season is here, when we finally see what all those free-agent signings, NFL draft picks, and new play callers can do for a Commanders team looking […]",
+   "published": "2026-09-12T13:00:00Z",
+   "published_at": "2026-09-12T13:00:00Z",
+   "first_seen_at": "2026-09-13T05:19:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Terry McLaurin among five Commanders key to Week 1 clash vs. Eagles",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/439215/terry-mclaurin-sonny-styles-commanders-philadelphia-eagles-nick-allegretti-chig-onkonkwo-klavon-chaisson"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks News: Thoughts on the new Seahawks O after week one",
+   "summary": "Happy Saturday! Hit that snooze button, if you are permitted. With that being said, let’s dive into the links and discuss the Brian Fleury offense and your thoughts, at first blush. Knowing full well that Sam Darnold obviously did not play but four snaps, how were you feeling about the play-calling? Did you like the […]",
+   "published": "2026-09-12T13:00:00Z",
+   "published_at": "2026-09-12T13:00:00Z",
+   "first_seen_at": "2026-09-13T05:19:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks News: Thoughts on the new Seahawks O after week one",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/174614/seahawks-news-thoughts-on-the-new-seahawks-o-after-week-one"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Tetairoa McMillan",
+    "Bryce Young"
+   ],
+   "headline": "Five things to watch as Panthers kick off the season against the Bears",
+   "summary": "From big tests for the pass-rushers and linebackers, to a deep game connection between Bryce Young and Tetairoa McMillan, here are five things to watch as the Panthers take on the Bears in Week 1 of the 2026 season.",
+   "published": "2026-09-12T12:00:17Z",
+   "published_at": "2026-09-12T12:00:17Z",
+   "first_seen_at": "2026-09-13T05:18:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Five things to watch as Panthers kick off the season against the Bears",
+     "url": "https://www.panthers.com/news/five-things-to-watch-as-panthers-kick-off-the-season-against-the-bears"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Michael Penix Jr."
+   ],
+   "headline": "How Cooper Rush starting at QB changes the Falcons’ offensive game plan",
+   "summary": "Tua Tagovailoa’s back is tighter than a clam with lockjaw, and Michael Penix Jr. doesn’t trust his knee as far as he can throw it. It’s Cooper Rush time. For some, this feels like the worst-case scenario for the Atlanta Falcons quarterback room, but is the drop-off from Tagovailoa to Rush really all that significant […]",
+   "published": "2026-09-12T11:00:00Z",
+   "published_at": "2026-09-12T11:00:00Z",
+   "first_seen_at": "2026-09-13T05:19:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "How Cooper Rush starting at QB changes the Falcons’ offensive game plan",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-analysis/96055/cooper-rush-starting-qb-tua-tagovailoa-michael-penix-jr-injuries-week-1-pittsburgh-steelers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Commanders season preview: Stakes are high for Washington, Jayden Daniels",
+   "summary": "Editor’s note: After posting some insightful stories in The Feed, Hogs Haven’s ShogunofHarlem93 has put together his first story for the main site. He breaks down why this Commanders season is so important for Jayden Daniels, new coordinators David Blough and Daronte Jones (and those that hired them). Every season, I try to set realistic […]",
+   "published": "2026-09-12T10:00:00Z",
+   "published_at": "2026-09-12T10:00:00Z",
+   "first_seen_at": "2026-09-13T05:19:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders season preview: Stakes are high for Washington, Jayden Daniels",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/439039/commanders-season-preview-jayden-daniels-daronte-jones-david-blough"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Bucs DB Zyon McCollum gives Joe Burrow and the Bengals some bulletin-board material",
+   "summary": "Every sport has its unwritten rules, and one of the most universal is simple: Don’t give your opponent “bulletin-board material.” Don’t say something that can be printed out, slapped on a wall, and pointed to by a coach looking for a little extra motivation. Don’t give the other team a reason to make the game […]",
+   "published": "2026-09-12T01:34:50Z",
+   "published_at": "2026-09-12T01:34:50Z",
+   "first_seen_at": "2026-09-13T05:19:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Bucs DB Zyon McCollum gives Joe Burrow and the Bengals some bulletin-board material",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/198629/bucs-zyon-mccollum-joe-burrow-bulletin-board-material-tampa-bay"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "James Cook"
+   ],
+   "headline": "Two Carries: Texans Aim to Slow Bills Run Game",
+   "summary": "James Cook ran for 116 yards against Houston last season. John Harris says the tape tells a more encouraging story than the number does.",
+   "published": "2026-09-12T00:00:21Z",
+   "published_at": "2026-09-12T00:00:21Z",
+   "first_seen_at": "2026-09-13T05:19:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "HOU official",
+     "title": "Two Carries: Texans Aim to Slow Bills Run Game",
+     "url": "https://www.houstontexans.com/news/two-carries-texans-aim-to-slow-bills-run-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Jonathon Brooks",
+    "Rome Odunze",
+    "Malik Nabers"
+   ],
+   "headline": "NFL Week 1 injuries: Giants' Malik Nabers, Bears' Rome Odunze listed as questionable",
+   "summary": "Malik Nabers and Rome Odunze are questionable for the season opener, while Cameron Jordan is ruled out and Jonathon Brooks is cleared to return for the Panthers",
+   "published": "2026-09-11T23:50:55Z",
+   "published_at": "2026-09-11T23:50:55Z",
+   "first_seen_at": "2026-09-13T05:19:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "NFL Week 1 injuries: Giants' Malik Nabers, Bears' Rome Odunze listed as questionable",
+     "url": "https://www.cbssports.com/nfl/news/nfl-week-1-injuries-tracker-rome-odunze-alvin-kamara"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Tua Tagovailoa"
+   ],
+   "headline": "Falcons vs. Steelers Week 1 injuries: Tua Tagovailoa ruled out for Sunday",
+   "summary": "The final practice leading up to Week 1 games is in the books. Both the Atlanta Falcons and Pittsburgh Steelers have been prepping all week to face off in their season debuts, and we have been closely monitoring the health of both teams. We learned quite a bit on Friday, so let’s dive into the […]",
+   "published": "2026-09-11T22:10:37Z",
+   "published_at": "2026-09-11T22:10:37Z",
+   "first_seen_at": "2026-09-13T05:19:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "Falcons vs. Steelers Week 1 injuries: Tua Tagovailoa ruled out for Sunday",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-injuries/96049/falcons-vs-steelers-week-1-injuries-tua-tagovailoa-ruled-out-for-sunday"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Malik Nabers"
+   ],
+   "headline": "Malik Nabers questionable for NY Giants vs. Cowboys on Sunday",
+   "summary": "Malik Nabers is listed as questionable by the New York Giants for Sunday night’s season-opening game against the Dallas Cowboys. Nabers, working his way back from a Week 4 torn ACL last season, was a full practice participant all three days this week. No other Giant carries an injury designation heading into the game. For […]",
+   "published": "2026-09-11T21:47:39Z",
+   "published_at": "2026-09-11T21:47:39Z",
+   "first_seen_at": "2026-09-13T05:19:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "Malik Nabers questionable for NY Giants vs. Cowboys on Sunday",
+     "url": "https://www.bigblueview.com/new-york-giants-injuries/170651/malik-nabers-questionable-injury-report-week-1-giants-cowboys"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jaxson Dart"
+   ],
+   "headline": "I wouldn’t want to be Jaxson Dart next week",
+   "summary": "Myles Garrett is still the best defensive player in football and that makes the New York Giants the unfortunate team that has to face him when he’s as pissed off and motivated as he’s ever been. With as many factors working in Garrett’s favor as were working against him in Week 1, that makes Giants […]",
+   "published": "2026-09-11T21:02:51Z",
+   "published_at": "2026-09-11T21:02:51Z",
+   "first_seen_at": "2026-09-13T05:19:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "I wouldn’t want to be Jaxson Dart next week",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-analysis/148578/myles-garrett-jaxson-dart-rams-giants"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Rome Odunze"
+   ],
+   "headline": "Injury Update: Rome Odunze among four players questionable for Sunday's season opener vs. Panthers",
+   "summary": "The Bears listed four players as questionable for their Week 1 matchup in Charlotte Sunday, including receiver Rome Odunze. The third-year pro sustained a calf injury last week and was limited in each of the three practices this week.",
+   "published": "2026-09-11T20:14:39Z",
+   "published_at": "2026-09-11T20:14:39Z",
+   "first_seen_at": "2026-09-13T05:18:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "Injury Update: Rome Odunze among four players questionable for Sunday's season opener vs. Panthers",
+     "url": "https://www.chicagobears.com/news/injury-update-rome-odunze-among-four-players-questionable-for-sunday-s-season-opener-vs-panthers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "D'Andre Swift"
+   ],
+   "headline": "Bears extend RB D'Andre Swift to three-year, $33.75 million deal, per report",
+   "summary": "Swift is fresh off producing career highs in scrimmage yards (1,386) and touchdowns (10) under Ben Johnson in 2025",
+   "published": "2026-09-11T20:03:55Z",
+   "published_at": "2026-09-11T20:03:55Z",
+   "first_seen_at": "2026-09-13T05:19:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Bears extend RB D'Andre Swift to three-year, $33.75 million deal, per report",
+     "url": "https://www.cbssports.com/nfl/news/bears-re-sign-dandre-swift-to-three-year-deal"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Brock Bowers"
+   ],
+   "headline": "Raiders-Dolphins Week 1 Injury Report: Brock Bowers ruled out",
+   "summary": "Take a look at the Raiders' injury report as the team prepares to face the Miami Dolphins.",
+   "published": "2026-09-11T20:01:00Z",
+   "published_at": "2026-09-11T20:01:00Z",
+   "first_seen_at": "2026-09-13T05:19:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "Raiders-Dolphins Week 1 Injury Report: Brock Bowers ruled out",
+     "url": "https://www.raiders.com/news/las-vegas-raiders-miami-dolphins-nfl-week-1-2026-injury-report"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Ryan Flournoy"
+   ],
+   "headline": "Brevyn Spann-Ford, Ryan Flournoy react to signing extensions: 'I'm so grateful'",
+   "summary": "After joining the team together in 2024 as a sixth round pick and undrafted free agent, Cowboys WR Ryan Flournoy and TE Brevyn Spann-Ford will now remain together on the offense long-term after signing their respective contract extensions Friday.",
+   "published": "2026-09-11T19:14:48Z",
+   "published_at": "2026-09-11T19:14:48Z",
+   "first_seen_at": "2026-09-13T05:19:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Brevyn Spann-Ford, Ryan Flournoy react to signing extensions: 'I'm so grateful'",
+     "url": "https://www.dallascowboys.com/news/brevyn-spann-ford-ryan-flournoy-react-to-signing-extensions-i-m-so-grateful"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "NFL Week 1 picks and score predictions: Broncos edge Chiefs, Raiders over Dolphins",
+   "summary": "Here's your weekly dose of John Breech's NFL picks for every game as Seattle hosts a Super Bowl rematch and Patrick Mahomes returns from injury",
+   "published": "2026-09-11T18:31:13Z",
+   "published_at": "2026-09-11T18:31:13Z",
+   "first_seen_at": "2026-09-13T05:19:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "NFL Week 1 picks and score predictions: Broncos edge Chiefs, Raiders over Dolphins",
+     "url": "https://www.cbssports.com/nfl/news/nfl-week-1-picks-and-predictions-chiefs-seahawks-patriots"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford",
+    "Davante Adams"
+   ],
+   "headline": "Rams fans react to 49ers loss: ‘Is Davante Adams washed?’",
+   "summary": "In the wake of the L.A. Rams’ 27-7 loss to the San Francisco 49ers, hot and lukewarm takes about the state of the franchise have been rolling in like California wildfires. The people at the center of those opinions are mostly the stars of the team like Matthew Stafford, Sean McVay, Myles Garrett, and Davante […]",
+   "published": "2026-09-11T18:13:37Z",
+   "published_at": "2026-09-11T18:13:37Z",
+   "first_seen_at": "2026-09-13T05:19:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Rams fans react to 49ers loss: ‘Is Davante Adams washed?’",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-discussion/148561/rams-fans-react-49ers-adams-mcvay"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "Daniel Jones won't be thinking of his Achilles' injury Sunday when he returns to the field",
+   "summary": "The quarterback has not seen game action since sustaining the injury in December 2025.",
+   "published": "2026-09-11T18:12:36Z",
+   "published_at": "2026-09-11T18:12:36Z",
+   "first_seen_at": "2026-09-13T05:19:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "IND official",
+     "title": "Daniel Jones won't be thinking of his Achilles' injury Sunday when he returns to the field",
+     "url": "https://www.colts.com/news/daniel-jones-won-t-be-thinking-of-his-achilles-injury-sunday-when-he-returns-to-the-field"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Tua Tagovailoa",
+    "Michael Penix Jr."
+   ],
+   "headline": "Tua Tagovailoa, Cooper Rush, Michael Penix Jr.: Everything we know about the state of the QB in Atlanta",
+   "summary": "Tua Tagovailoa has been ruled out of Sunday's game. Cooper Rush will start.",
+   "published": "2026-09-11T18:12:22Z",
+   "published_at": "2026-09-11T18:12:22Z",
+   "first_seen_at": "2026-09-13T05:18:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ATL official",
+     "title": "Tua Tagovailoa, Cooper Rush, Michael Penix Jr.: Everything we know about the state of the QB in Atlanta",
+     "url": "https://www.atlantafalcons.com/news/tua-tagovailoa-cooper-rush-michael-penix-jr-state-of-qb-atlanta"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Tua Tagovailoa"
+   ],
+   "headline": "Falcons rule out Tua Tagovailoa against Steelers, Cooper Rush to start at quarterback",
+   "summary": "Tagovailoa suffered an oblique injury in practice Thursday",
+   "published": "2026-09-11T18:07:49Z",
+   "published_at": "2026-09-11T18:07:49Z",
+   "first_seen_at": "2026-09-13T05:19:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Falcons rule out Tua Tagovailoa against Steelers, Cooper Rush to start at quarterback",
+     "url": "https://www.cbssports.com/nfl/news/falcons-rule-out-tua-tagovailoa-vs-steelers-cooper-rush-to-start"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Tua Tagovailoa",
+    "Michael Penix Jr."
+   ],
+   "headline": "Tua Tagovailoa, Michael Penix Jr. both inactive for Week 1 Falcons vs. Steelers",
+   "summary": "The official injury report hasn’t been released as I write this, but the team confirmed to onsite media after practice that both Tua Tagovailoa and Michael Penix Jr. will be inactive against the Steelers in Week 1. This, of course, comes on the heels of Tagovailoa being named the starter just this past Monday. The […]",
+   "published": "2026-09-11T17:53:58Z",
+   "published_at": "2026-09-11T17:53:58Z",
+   "first_seen_at": "2026-09-13T05:19:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "Tua Tagovailoa, Michael Penix Jr. both inactive for Week 1 Falcons vs. Steelers",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-news/96034/tua-tagovailoa-michael-penix-jr-inactive-week-1-falcons-vs-steelers-billy-bowman-zadarius-smith"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "8 snap count observations from Seahawks win over Patriots",
+   "summary": "It’s usually not all that notable when a team comes back from 10 points in the second half to win a game, but the Seattle Seahawks overcoming a 10-0 third quarter deficit to beat the New England Patriots 13-10 to start the 2026 NFL season is one of those exceptions. Sam Darnold was lost to […]",
+   "published": "2026-09-11T17:45:07Z",
+   "published_at": "2026-09-11T17:45:07Z",
+   "first_seen_at": "2026-09-13T05:19:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "8 snap count observations from Seahawks win over Patriots",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-analysis/174560/nfl-analysis-8-snap-count-observations-from-seahawks-win-over-patriots"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "A.J. Brown"
+   ],
+   "headline": "Patriots WR A.J. Brown headed to IR with high ankle sprain, next steps for New England",
+   "summary": "Brown suffered the injury in the third quarter of the season opener against the Seahawks",
+   "published": "2026-09-11T17:44:53Z",
+   "published_at": "2026-09-11T17:44:53Z",
+   "first_seen_at": "2026-09-13T05:19:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Patriots WR A.J. Brown headed to IR with high ankle sprain, next steps for New England",
+     "url": "https://www.cbssports.com/nfl/news/patriots-a-j-brown-injured-reserve"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Tyler Shough"
+   ],
+   "headline": "Quarterback Tyler Shough has taken lead entering his second season with New Orleans Saints",
+   "summary": "\"I wanted to do everything I could to make sure that my teammates knew I had their back\"",
+   "published": "2026-09-11T17:42:08Z",
+   "published_at": "2026-09-11T17:42:08Z",
+   "first_seen_at": "2026-09-13T05:19:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NO official",
+     "title": "Quarterback Tyler Shough has taken lead entering his second season with New Orleans Saints",
+     "url": "https://www.neworleanssaints.com/news/quarterback-tyler-shough-has-taken-lead-entering-his-second-season-with-new-orleans-saints"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Jonathon Brooks"
+   ],
+   "headline": "Five takeaways from Friday, including \"no limitations\" on Jonathon Brooks",
+   "summary": "The third-year running back is medically cleared, and ready to go Sunday against the Bears. Plus more from Friday's practice, including pass-rush options, and a last-minute adjustment to the practice routine.",
+   "published": "2026-09-11T17:40:54Z",
+   "published_at": "2026-09-11T17:40:54Z",
+   "first_seen_at": "2026-09-13T05:18:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Five takeaways from Friday, including \"no limitations\" on Jonathon Brooks",
+     "url": "https://www.panthers.com/news/x-takeaways-from-friday-including-no-limitations-on-jonathon-brooks-princely-umanmielen-brad-idzik"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Tua Tagovailoa"
+   ],
+   "headline": "Falcons Game Report: QB Tua Tagovailoa ruled out of Sunday's game",
+   "summary": "The veteran quarterback has an oblique injury.",
+   "published": "2026-09-11T17:39:05Z",
+   "published_at": "2026-09-11T17:39:05Z",
+   "first_seen_at": "2026-09-13T05:18:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ATL official",
+     "title": "Falcons Game Report: QB Tua Tagovailoa ruled out of Sunday's game",
+     "url": "https://www.atlantafalcons.com/news/falcons-game-report-qb-tua-tagovailoa-ruled-out-of-sunday-s-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Christian McCaffrey"
+   ],
+   "headline": "49ers run game finds elusive balance in dominant Week 1 display",
+   "summary": "The 49ers’ run game has long since been a one-man show. Save for the 2024 season when he spent most of the season on the shelf through injury, the fortunes of the ground attack have hinged almost squarely on Christian McCaffrey. With McCaffrey now 30 years old, that did not seem like a sensible approach […]",
+   "published": "2026-09-11T17:01:00Z",
+   "published_at": "2026-09-11T17:01:00Z",
+   "first_seen_at": "2026-09-13T05:19:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers run game finds elusive balance in dominant Week 1 display",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/162509/49ers-run-game-finds-elusive-balance-dominant-week-1-display"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Jonathon Brooks"
+   ],
+   "headline": "Week 1 Friday Injury Report: Pat Jones out, Jonathon Brooks clear",
+   "summary": "The Panthers ruled outside linebacker Patrick Jones II out for Sunday's opener against the Bears, but he's the only player on the report with an injury status for the game. That means running back Jonathon Brooks is good to go.",
+   "published": "2026-09-11T16:34:43Z",
+   "published_at": "2026-09-11T16:34:43Z",
+   "first_seen_at": "2026-09-13T05:18:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Week 1 Friday Injury Report: Pat Jones out, Jonathon Brooks clear",
+     "url": "https://www.panthers.com/news/week-1-friday-injury-report-pat-jones-out-jonathon-brooks-clear-panthers-chicago-bears"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "Will Brinson's NFL Week 1 predictions and picks: Best bets, player props, anytime touchdown scorers",
+   "summary": "Backing home underdogs like the Colts and Texans offers strong Week 1 value, while Jalen Hurts and the Eagles are primed to cover against the Commanders",
+   "published": "2026-09-11T16:33:31Z",
+   "published_at": "2026-09-11T16:33:31Z",
+   "first_seen_at": "2026-09-13T05:19:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Will Brinson's NFL Week 1 predictions and picks: Best bets, player props, anytime touchdown scorers",
+     "url": "https://www.cbssports.com/betting/news/will-brinsons-nfl-week-1-predictions-and-picks-best-bets-player-props-anytime-touchdown-scorers"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 24,
+ "feeds_generated_at": "2026-09-13T05:18:58+00:00"
+}

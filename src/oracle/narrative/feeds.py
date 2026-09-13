@@ -29,6 +29,8 @@ la ficha no existe.
 
 from __future__ import annotations
 
+import html
+import re
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
@@ -206,8 +208,24 @@ def _build(*, title, url, feed, published_at, author, summary, stamp) -> Entry:
 
 
 def _text(element: ET.Element, tag: str) -> str:
+    """El texto de un nodo, con las ENTIDADES HTML ya resueltas.
+
+    Un feed escribe `Vikings&#39; starting QB` y `AT&amp;T Stadium`: el XML
+    entrega `&#39;` decodificado por el parser sólo si es una entidad XML, y
+    las numéricas de HTML llegan crudas. Mientras nadie pintaba el texto del
+    feed daba igual —`feeds_latest.json` era un archivo que no leía ninguna
+    pantalla—; en cuanto el barrido determinista lo publicó, «Vikings&#39;»
+    apareció TAL CUAL en la ficha. 104 de las 2.113 entradas del 13 de
+    septiembre traen alguna.
+
+    Se resuelve AQUÍ, en el parser, y no en cada consumidor: es el mismo
+    argumento de siempre — dos traductores del mismo formato acaban con
+    distinta cobertura.
+    """
     found = element.find(tag, NAMESPACES) if ":" in tag else element.find(tag)
-    return (found.text or "").strip() if found is not None else ""
+    if found is None:
+        return ""
+    return clean_text(found.text)
 
 
 def merge_duplicates(entries: list[Entry]) -> list[Entry]:
@@ -237,3 +255,61 @@ def merge_duplicates(entries: list[Entry]) -> list[Entry]:
                for source in existing.sources):
             existing.sources.append(entry.as_source())
     return list(merged.values())
+
+
+def clean_text(raw: object) -> str:
+    """Texto de feed listo para pintar: sin entidades y SIN MARCADO.
+
+        UN `<description>` DE RSS CONTIENE HTML. CASI SIEMPRE.
+
+    Y el orden importa: primero se deshacen las entidades y DESPUÉS se quitan
+    las etiquetas. Al revés no sirve de nada — el marcado llega escapado
+    (`&lt;p&gt;`), así que un limpiador que borre `<...>` antes de desescapar
+    no ve ni una etiqueta y las revela justo después.
+
+    Se descubrió al publicar el texto del feed por primera vez: el resumen de
+    profootballnetwork empieza por `<p><img src="https://statico…/drew-…jpg">`
+    y, ya desescapado, eso se pintaba TAL CUAL en la ficha. La URL de la imagen
+    no tiene por dónde partirse, así que además desbordaba la tarjeta 13 px a
+    390 — y el laboratorio de humo lo puso en rojo por «/research desborda»,
+    que es su trabajo.
+    """
+    limpio = html.unescape(str(raw or ""))
+    limpio = re.sub(r"<[^>]{0,400}?>", " ", limpio)
+    # Y LA ETIQUETA QUE SE QUEDÓ SIN CERRAR. `_build` recorta el resumen a 600
+    # caracteres, así que un `<img src="…una URL muy larga…">` al principio del
+    # cuerpo llega PARTIDO: sin su `>`, el patrón de arriba no lo ve y se
+    # pintaba `<img width="1920" height="1080" src="https://statico…` como
+    # texto — con una URL que no parte, que es lo que desbordaba la tarjeta.
+    # Se exige que parezca etiqueta (`<` y letra o barra) para no comerse un
+    # «3 < 5» al final de una frase.
+    limpio = re.sub(r"<[a-zA-Z/][^>]*$", " ", limpio)
+    # Y lo que quede de una entidad dentro del marcado, una segunda vez: el
+    # cuerpo suele traer `&amp;lt;` doblemente escapado.
+    return " ".join(html.unescape(limpio).split())
+
+
+def load_archive(path) -> dict:
+    """`feeds_latest.json` leído, con el TEXTO ya normalizado.
+
+        UN FICHERO GUARDADO AYER SE ESCRIBIÓ CON EL PARSER DE AYER.
+
+    `_text` deshace las entidades HTML desde el 13 de septiembre de 2026, pero
+    los archivos anteriores llevan `&#39;` y `&amp;` crudos: 104 de las 2.113
+    entradas de ese día. Y hay TRES lectores de este fichero —el barrido
+    determinista, el parche de prensa y quien venga—, así que arreglarlo en
+    cada uno es el fallo de los dos traductores, que en este repositorio va por
+    la duodécima vez. Se normaliza una vez, al leer.
+
+    `html.unescape` es idempotente y total: sobre texto ya limpio no hace nada,
+    así que esto no puede divergir del parser.
+    """
+    import json
+    from pathlib import Path
+
+    datos = json.loads(Path(path).read_text(encoding="utf-8"))
+    for entrada in datos.get("entries") or []:
+        for campo in ("title", "summary"):
+            if isinstance(entrada.get(campo), str):
+                entrada[campo] = clean_text(entrada[campo])
+    return datos

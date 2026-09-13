@@ -23,7 +23,7 @@
 
 import { useMemo, useState } from "react";
 
-import { ImpactTag, Sources } from "../ui.jsx";
+import { IMPACT, ImpactTag, Sources } from "../ui.jsx";
 import { dateLabel } from "./dates.js";
 
 /** Fichas por tramo. Veinte es una sesión de lectura; sesenta es un muro. */
@@ -52,6 +52,7 @@ const EVIDENCE = {
   MODELO: { label: "Model", hint: "This is us, from our own numbers." },
 };
 
+const IMPACT_KEYS = new Set(Object.keys(IMPACT));
 const NO_DATE = "no date";
 const norm = (s) => String(s ?? "").toLowerCase();
 
@@ -65,13 +66,23 @@ const longDate = (iso) => formatDate(iso, { weekday: "long", month: "long", day:
 
 /** La ficha. Misma anatomía que la del servidor: una sola forma para una cosa. */
 function Brief({ item }) {
-  const confidence = CONFIDENCE[item.confidence] ?? CONFIDENCE.rumor;
+  /* UNA FICHA SIN JUICIO NO SE ETIQUETA CON EL JUICIO MÁS FLOJO.
+     `CONFIDENCE[...] ?? CONFIDENCE.rumor` afirmaba «Rumor» sobre cualquier
+     valor que el traductor no conociera, y el comentario de arriba cuenta que
+     ya pasó con los anuncios oficiales — se añadió la fila `oficial` y el
+     respaldo se quedó. Desde el barrido determinista hay fichas que a
+     PROPÓSITO no traen `confidence`, `impact` ni `kind`: un feed trae el
+     hecho y no lo que significa. Esas se marcan una vez como no clasificadas
+     en vez de llevar tres etiquetas que afirman tres cosas que nadie
+     comprobó. */
+  const confidence = CONFIDENCE[item.confidence] ?? null;
+  const clasificada = Boolean(confidence || IMPACT_KEYS.has(item.impact));
   // La fecha va SIEMPRE que exista. La primera versión la escondía tras un
   // interruptor de renderizado que nadie pasaba: el arreglo de «published» contra «seen»
   // estaba escrito y no llegaba a ninguna pantalla — lo cazó el crítico.
   const when = dateLabel(item);
   return (
-    <article className={`note note--${item.impact}`}>
+    <article className={item.impact ? `note note--${item.impact}` : "note"}>
       <h3>{item.headline}</h3>
       <p className="note-meta">
         {when ? (
@@ -81,12 +92,21 @@ function Brief({ item }) {
             {when.word} {formatDate(when.iso, { month: "short", day: "numeric" })}
           </span>
         ) : null}
-        <span className="chip">{item.team}</span>
-        <span className="tag">{KIND[item.kind] ?? KIND.otro}</span>
+        {item.team ? <span className="chip">{item.team}</span> : null}
+        {item.kind ? <span className="tag">{KIND[item.kind] ?? KIND.otro}</span> : null}
         <ImpactTag impact={item.impact} />
-        <span className={`tag tag--${item.confidence}`} title={confidence.hint}>
-          {confidence.label}
-        </span>
+        {confidence ? (
+          <span className={`tag tag--${item.confidence}`} title={confidence.hint}>
+            {confidence.label}
+          </span>
+        ) : null}
+        {clasificada ? null : (
+          <span className="tag" title={
+            "Read straight from the outlet's feed. Nobody judged what it means, "
+            + "so this card claims no impact, confidence or category."}>
+            not classified
+          </span>
+        )}
         {EVIDENCE[item.evidence_type] ? (
           <span className="prov" title={EVIDENCE[item.evidence_type].hint}>
             {EVIDENCE[item.evidence_type].label}

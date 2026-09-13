@@ -32,8 +32,29 @@ function formatDate(iso, options) {
  * cumple; esto enseña sólo lo que harías distinto, y cuanto más completo, peor.
  * Por eso puede salir vacío, y eso es correcto.
  */
-function TodaysIntelligence({ items }) {
+function TodaysIntelligence({ items, scored = null, total = 0 }) {
   if (!items || items.length === 0) {
+    /* DOS VACÍOS QUE NO SIGNIFICAN LO MISMO.
+       El filtro pregunta `fantasy_relevance >= 4`, y ese campo lo escribe el
+       barrido CON modelo. El determinista (`narrative/sweep.py`) no lo escribe
+       a propósito —un feed trae el hecho, no lo que significa— así que ninguna
+       de sus fichas puede pasar el filtro. Con el mensaje de siempre, una
+       mañana de jornada con sesenta noticias reales decía «nada de hoy cambia
+       una decisión»: una afirmación que el dato no sostiene, hecha porque
+       nadie llegó a preguntar. Es UNKNOWN presentado como respuesta. */
+    if (total > 0 && scored === 0) {
+      return (
+        <Aside title="Nothing was scored today">
+          <p>
+            {total} items came in, and <strong>none of them carries a relevance
+            score</strong>, so this filter had nothing to rank — that is not the same
+            as nothing mattering. Today&rsquo;s sweep read the outlets&rsquo; feeds
+            straight, without the pass that judges what an item means. The items are
+            below, newest first, unranked.
+          </p>
+        </Aside>
+      );
+    }
     return (
       <Aside title="Nothing today changes a decision">
         <p>
@@ -276,7 +297,11 @@ export default function Research() {
           Ordered by what you can do about it, not by when it was published. Once your leagues
           are synced, what affects your roster will rise above everything else.
         </p>
-        <TodaysIntelligence items={today} />
+        <TodaysIntelligence
+          items={today}
+          total={items.length}
+          scored={items.filter((i) => Number.isFinite(Number(i?.fantasy_relevance))).length}
+        />
       </section>
 
       {/* TODO EL ARCHIVO, EN UNA LISTA ACOTABLE.

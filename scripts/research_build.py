@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from oracle.config import paths as resolve_paths
-from oracle.narrative import archive, research
+from oracle.narrative import archive, feeds, research, sweep
 from oracle.narrative.client import NarrativeUnavailable, available, resolve_model
 
 # Días de titulares que se le enseñan al modelo para que no repita. Cinco es
@@ -78,9 +78,14 @@ def main(argv: list[str] | None = None) -> int:
             "  pip install -e '.[narrative]' y exporta la clave. En CI es un secret del repo.\n"
             "  La web se construye igual, sin esta sección."
         )
-        # Se refresca de todos modos por si hay archivo de días anteriores: la
-        # sección debe seguir viva aunque hoy no se pueda barrer.
-        ok = _publish(paths.root, paths.out, today, args.window)
+        # Y AUN ASÍ SE BARRE, con lo que no necesita clave. Antes esta rama
+        # sólo republicaba el archivo de días anteriores, así que sin secret la
+        # sección se congelaba en el último día con clave — nueve días, medido.
+        # Si el barrido determinista no puede hacerse, se cae a republicar lo
+        # que había, que es lo de antes.
+        ok = _deterministic(paths.root, paths.out, today, args.window)
+        if not ok:
+            ok = _publish(paths.root, paths.out, today, args.window)
         if args.require_key:
             # En CI barrer ES la única tarea del trabajo. Salir con 0 lo pintaba
             # verde y encima commiteaba «barrido del <fecha>»: un trabajo que no
@@ -186,6 +191,70 @@ def _ranking_players(root: Path, out: Path) -> list[dict]:
         # quien llama decide (y decide NO publicar, que es lo seguro).
         return []
     return (payload.get("fantasy_weekly") or {}).get("rankings", []) or []
+
+
+def _payload(root: Path) -> dict:
+    """El payload publicado, o `{}`. Versionado, así que existe también en CI."""
+    payload_file = root / "web" / "data" / "model.b64.js"
+    if not payload_file.exists():
+        return {}
+    try:
+        match = re.search(r'MODEL_B64\s*=\s*"([^"]*)"', payload_file.read_text(encoding="utf-8"))
+        if not match or not match.group(1):
+            return {}
+        return json.loads(gzip.decompress(base64.b64decode(match.group(1))).decode("utf-8"))
+    except Exception:
+        return {}
+
+
+def _board_players(root: Path) -> list[dict]:
+    """Las filas del BOARD, que son las que llevan `player_full_name`.
+
+    No sirve el ranking semanal: sus 256 filas NO traen el nombre completo, así
+    que `press.indice` sale vacío y el emparejamiento no encuentra a nadie.
+    Lo comprobé pasándole el semanal y salieron CERO menciones sobre 2.113
+    entradas — un cero que se lee igual que «hoy no hay noticias».
+    """
+    return (_payload(root).get("fantasy") or {}).get("board") or []
+
+
+def _deterministic(root: Path, out: Path, today: date, window: int) -> bool:
+    """El barrido SIN modelo, desde los feeds que ya se bajaron.
+
+        UN FICHERO QUE SE REFRESCA A DIARIO Y QUE NADIE LEE NO EXISTE.
+
+    `feed_fetch.py` publica `research/feeds_latest.json` todos los días sin
+    necesitar clave, y hasta el 13 de septiembre de 2026 **ninguna pantalla lo
+    leía**: la sección de Research sale del artefacto fechado, que sólo sabía
+    escribir el barrido con modelo. Medido ese día: la web llevaba NUEVE días
+    enseñando el barrido del 4 de septiembre con 1,8 MB de prensa de hoy en el
+    repositorio, sin fallar nada y sin que ningún test lo viera.
+
+    Lo que se publica aquí es más pobre que el barrido con modelo y lo DICE
+    (`method: DETERMINISTIC_FEEDS`, y las fichas no traen los campos de
+    juicio). Más pobre y de hoy es mejor que rico y de hace nueve días; lo que
+    no vale es que parezca lo mismo.
+    """
+    feeds_file = root / "research" / "feeds_latest.json"
+    if not feeds_file.exists():
+        print("  sin research/feeds_latest.json: no hay nada determinista que publicar.",
+              file=sys.stderr)
+        return False
+    datos = feeds.load_archive(feeds_file)
+    entradas = datos.get("entries") or []
+    board = _board_players(root)
+    items = sweep.from_feeds(entradas, today=today, rows=board)
+    if not items:
+        # Cero fichas con 2.000 entradas leídas es un fallo, no un día tranquilo.
+        # Publicar un artefacto vacío encima del anterior es la rotura que
+        # parece que funcionó.
+        print(f"  {len(entradas)} entradas y NINGUNA ficha del día: no se publica.",
+              file=sys.stderr)
+        return False
+    archive.save_day(root, today, items, meta=sweep.meta(items, datos.get("summary")))
+    print(f"  barrido determinista: {len(items)} fichas de {len(entradas)} entradas, "
+          f"{sum(1 for i in items if i['players'])} con jugador del board nombrado.")
+    return _publish(root, out, today, window)
 
 
 def _publish(root: Path, out: Path, today: date, window: int) -> bool:

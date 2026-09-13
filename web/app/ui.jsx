@@ -130,8 +130,20 @@ export function MachineWritten({ children, at }) {
  */
 export const IMPACT = { alza: "▲ Trending up", baja: "▼ Trending down", neutro: "= Neutral" };
 
+/** La marca de impacto, o NADA si la ficha no lo trae.
+ *
+ *     NO CLASIFICADO NO ES «NEUTRO».
+ *
+ * El `?? IMPACT.neutro` de antes convertía la ausencia en una afirmación: una
+ * ficha sin juicio se leía «= Neutral», que es alguien diciendo que la noticia
+ * no mueve nada. Desde que existe el barrido determinista
+ * (`narrative/sweep.py`) hay fichas REALES sin esos campos a propósito —un
+ * feed trae el hecho, no lo que significa— así que la ausencia dejó de ser
+ * teórica. Es el mismo fallo que el `?? rumor` de al lado, que ya hizo leer
+ * «Rumor» sobre anuncios oficiales. */
 export function ImpactTag({ impact }) {
-  return <span className={`tag tag--${impact}`}>{IMPACT[impact] ?? IMPACT.neutro}</span>;
+  if (!IMPACT[impact]) return null;
+  return <span className={`tag tag--${impact}`}>{IMPACT[impact]}</span>;
 }
 
 /**

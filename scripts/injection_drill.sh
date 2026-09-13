@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 72 fallos conocidos, 72 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 81 fallos conocidos, 81 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -9,6 +9,21 @@
 #     Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar.
 #
 cd "$(dirname "$0")/.." || exit 1
+
+# SIN BYTECODE EN CACHÉ. Python invalida un `.pyc` comparando (mtime, TAMAÑO)
+# del fuente, y este simulacro escribe y restaura el mismo fichero en
+# milisegundos. Cuando el reemplazo tiene EXACTAMENTE los mismos bytes que el
+# original —«        if raras:» y «        if False:» miden 17 los dos— y las
+# dos escrituras caen en el mismo segundo, el `.pyc` de la versión INYECTADA
+# sigue pareciendo válido para la restaurada: el guardián vuelve a fallar y el
+# informe escribe «SIGUE ROJO TRAS RESTAURAR» acusando al guardián de un fallo
+# que es del simulacro. Pasó dos veces, las dos en la inyección 63, que es la
+# única con reemplazo del mismo largo. No se reproduce a voluntad —hace falta
+# que las dos pasadas caigan en el mismo segundo— así que en vez de perseguir
+# la carrera se quita la caché entera, que es barato y no deja el modo de
+# fallo abierto.
+export PYTHONDONTWRITEBYTECODE=1
+
 BAK=$(mktemp)
 run() { # nombre | fichero | sed-expr | comando guardián
   local nombre="$1" f="$2" expr="$3" cmd="$4"
@@ -287,3 +302,32 @@ run "71 el ingreso contado como rendimiento del libro" web/app/betting/period.js
 run "72 la caída máxima tapada por un ingreso" web/app/betting/period.js \
   "    maxDrawdown: maxDrawdown(liquidadas, inicial),|||    maxDrawdown: maxDrawdown(liquidadas, inicial + cajaNeta),"  \
   "cd web && node --test tests/period.test.mjs"
+run "73 el barrido determinista inventando el juicio" src/oracle/narrative/sweep.py \
+  "            \"schema_version\": 2,|||            \"schema_version\": 2,
+            \"confidence\": \"rumor\",
+            \"impact\": \"neutro\"," \
+  "python -m pytest -q tests/test_sweep.py"
+run "74 la hora de descarga fechando la publicación" src/oracle/narrative/sweep.py \
+  "            \"published_at\": publicado,|||            \"published_at\": publicado or entry.get(\"first_seen_at\")," \
+  "python -m pytest -q tests/test_sweep.py"
+run "75 el barrido ordenando por DÍA y no por instante" src/oracle/narrative/sweep.py \
+  "        candidatas.append((bool(suyos), publicado or \"\", ficha))|||        candidatas.append((bool(suyos), dia or \"\", ficha))" \
+  "python -m pytest -q tests/test_sweep.py"
+run "76 un equipo atribuido con dos equipos nombrados" src/oracle/narrative/sweep.py \
+  "    derivado = {u: next(iter(t)) for u, t in equipos.items() if len(t) == 1}|||    derivado = {u: sorted(t)[0] for u, t in equipos.items()}" \
+  "python -m pytest -q tests/test_sweep.py"
+run "77 una ficha sin juicio publicada como «rumor»" web/app/research/Briefs.jsx \
+  "  const confidence = CONFIDENCE[item.confidence] ?? null;|||  const confidence = CONFIDENCE[item.confidence] ?? CONFIDENCE.rumor;" \
+  "cd web && node --test tests/briefs.test.mjs"
+run "78 un impacto ausente pintado como neutro" web/app/ui.jsx \
+  "  if (!IMPACT[impact]) return null;|||  if (false) return null;" \
+  "cd web && node --test tests/briefs.test.mjs"
+run "79 una ficha en español en una interfaz en inglés" src/oracle/narrative/sweep.py \
+  "        if looks_spanish(f'{ficha[\"headline\"]} {ficha[\"summary\"]}'):|||        if False:" \
+  "python -m pytest -q tests/test_sweep.py"
+run "80 las dos listas de español separándose" web/tools/audit-spanish.mjs \
+  "(el|la|los|las|un|||(el|la|los|un|" \
+  "python -m pytest -q tests/test_sweep.py"
+run "81 las entidades HTML pintadas crudas" src/oracle/narrative/feeds.py \
+    "    return clean_text(found.text)|||    return (found.text or \"\").strip()" \
+  "python -m pytest -q tests/test_feeds.py"

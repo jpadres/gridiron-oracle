@@ -329,6 +329,10 @@ const DATOS_PREFIJOS = [
   // La decisión del motor de apuestas y su motivo: códigos («BET», «NO_BET»,
   // «UNDER_MINIMUM») que la pantalla traduce. Se deciden en Python.
   ".markets[].decision", ".markets[].no_bet_reason", ".bets[].decision", ".bets[].no_bet_reason",
+  // Cómo se hizo el barrido: `DETERMINISTIC_FEEDS` o el nombre del modelo.
+  // Es un TOKEN de procedencia, no una frase — la interfaz lo traduce si algún
+  // día lo pinta.
+  ".research.items[].method",
   ".research.items[].team", ".research.items[].players[]",
   ".research.items[].player_ids[]", ".research.items[].date",
   ".research.items[].published", ".research.items[].beat",
