@@ -297,6 +297,46 @@ que ya existe, por lo mismo que `createMonth` se niega a hacerlo: una
 importación que machacara septiembre porque el fichero es más viejo es la peor
 forma de perder el libro, la que parece que funcionó.
 
+### 6f. Crecer no es ingresar, y la revisión no persigue
+
+    LA BANCA SUBE POR DOS MOTIVOS QUE NO SE PARECEN EN NADA.
+    UN NÚMERO QUE LOS SUMA NO MIDE NINGUNO DE LOS DOS.
+
+`plan.js` dimensiona hacia adelante (regla 6c). `period.js` mira hacia atrás
+cuatro JORNADAS y contesta otra pregunta: cuánto había, cuánto hay, y cuánto de
+la diferencia lo puso el libro frente a cuánto lo puso la cartera. Se publica
+como una identidad y no como un total, porque el total no se puede desmontar:
+
+    FINAL = INICIAL + CAJA NETA + RESULTADO LIQUIDADO
+
+Los movimientos de caja viven en su propia lista (`bankroll.js::addCash`), con
+`season` y `week` congelados por lo mismo que las apuestas: sin el CUÁNDO no se
+recorta un periodo sin inventarle una fecha a lo que ya pasó. Entran en la banca
+de HOY —un ingreso sí cambia lo que hay, y el plan dimensiona sobre eso— y **no**
+entran en `starting`, ni en el resultado, ni en la curva de caída: si un ingreso
+levantara la curva, un mes malo con una recarga encima se leería como plano.
+
+El periodo se mide en jornadas y no en días **porque el libro no sabe días**.
+Una apuesta sin jornada no se reparte a ojo: sale aparte como `sinJornada`.
+
+**Y la recomendación de dinero nuevo no mira si el periodo fue bueno o malo.**
+Eso no es una comprobación añadida, es la firma: `fundingAdvice` no recibe el
+resultado. No puede subir tras una racha mala porque no sabe que la hubo. Un
+plan de recuperación encima de una ventaja no demostrada son dos errores, y aquí
+no hay dónde escribir el primero — el guardián lo prueba pasándole
+`lastPeriodLoss` y exigiendo que la respuesta no se mueva, que es más fuerte que
+«no sube tras perder» (un multiplicador del 15% ya burló esa versión una vez).
+
+El techo del dueño es DURO y sin techo declarado no se recomienda nada. Y por
+encima del objetivo se puede sugerir RETIRAR, que es lo único que nunca sube el
+riesgo.
+
+Lo que hoy contesta, y por qué es la respuesta y no un hueco: **cero**.
+`BETTING_EDGE` está REJECTED en el registro de capacidades (E4), así que no hay
+motivo medido para poner más dinero detrás de estos números por muy abajo que
+esté la banca. La pantalla lo lee de `capabilityStatus`, no de una frase escrita
+a mano: el día que un experimento lo valide, cambia sola.
+
 ### 7. Sleeper es un adaptador, no el producto
 
     EL DRAFT ROOM CONSUME EVENTOS DE PICK CANÓNICOS.
@@ -377,6 +417,7 @@ src/oracle/
   backtest/              walk-forward y métricas
   betting/               de-vig (Shin), EV, Kelly fraccionado
   fantasy/               puntuación, proyecciones de draft, ranking semanal
+  fantasy/injuries.py    el parte OFICIAL de la liga: MARCA, no calcula
   narrative/             textos generados y barrido de prensa (opcional, con clave)
   narrative/status.py    suspensiones, exentos y listas: MARCA, no calcula
   freshness.py           ventanas por dominio: qué se puede afirmar como ACTUAL
@@ -396,6 +437,8 @@ web/                     Next.js 16, páginas estáticas, datos horneados
                           Leagues, explorador semanal — pero el modo draft sigue
                           siendo el ÚNICO que hace red: sondea Sleeper si lo
                           activas; el resto trabaja sólo con datos horneados)
+  app/betting/period.js  la revisión de 4 jornadas: qué ganó el libro y qué
+                         ingresaste TÚ, SEPARADO — y cuánto añadir (regla 6f)
 scripts/                 generación de artefactos y utilidades
 ```
 
@@ -664,7 +707,15 @@ comentario está para que no los reintroduzcas.
 | Las 320 filas del semanal marcadas FINAL, con un saque de 2025 | `export_web_data.py` | El mapa de estado se construía sobre `games.csv` ENTERO —7.548 partidos desde 1999— y `(visitante, local)` no es una clave única: ganaba el último de la historia. Trevor Lawrence salía con el saque del 28 de septiembre de **2025**. Y el primer guardián que escribí para esto pasó VERDE con el fallo puesto, porque en el fixture la fila buena era la ÚLTIMA: el «8 y 9 son los dos míos» del test del turno, por segunda vez. Los números se eligen a mano para que las dos respuestas caigan en filas distintas |
 | Un guardián de marca que pedía que el NOMBRE apareciera — otra vez | `tests/rosterMark.test.mjs` | La primera versión de la comprobación de `gameFinalMark` exigía que `gameFinalMark(` estuviera en el fichero. Al inyectar el fallo —cambiar la condición por `false`— siguió VERDE, porque las llamadas de DENTRO del bloque (`.className`, `.title`) siguen ahí. **Es literalmente el mismo fallo que ya costó dos versiones con `teamChangeMark`, en el mismo fichero, dos meses después.** Lo escribió el simulacro como «VERDE (NO ES GUARDIÁN)», no yo leyendo el código: la comprobación mira la CONDICIÓN del JSX, que es lo que decide si se pinta |
 | Dos motores de alineación, y el candado cableado en uno | `lineup.js`, `startSit.js` | `/fantasy/lineups` usa `bestLineup` y el analizador usa `lineupFrom`: dos motores para la misma decisión, y «Generate best lineup» seguía proponiendo sacar a un titular con el partido terminado. **Undécima vez.** La regla vive en `lockedSlots`, los dos la llaman, y el test cuenta las DEFINICIONES —tiene que haber exactamente una— además de exigir que el analizador le pase los titulares: una regla compartida no sirve de nada si el caller no le dice qué hay puesto |
+| Commiteé un FALLO INYECTADO por el simulacro | (proceso), `scripts/injection_drill.sh` | El simulacro MUTA el árbol de trabajo: mete el fallo, corre el guardián y restaura. Lo lancé en segundo plano y `git add -A && git commit` mientras corría, así que el commit se llevó la inyección 65 —`row["projected_points"] = 0.0` dentro de `attach()`, o sea la capa de lesiones tocando un número del board: **la regla 8 rota, escrita por la herramienta que existe para probar que no se rompe**—. Y el informe acusó a la 63 de «SIGUE ROJO TRAS RESTAURAR», que era el `git` de en medio y no el guardián. Se cazó porque `git diff` contra el commit recién hecho salía con una línea de MENOS. El simulacro no se comparte con nada: mientras corre, ni commits ni ediciones |
+| `pytest` en rojo por un `pytest` que no es el del proyecto | (proceso) | Segunda cara del mismo trapo. La lección anotada es «la puerta se comprueba con el comando que corre la puerta», y en este contenedor `which pytest` da `/root/.local/bin/pytest` —otra instalación, SIN numpy— mientras el intérprete es `/usr/local/bin/python`: `pytest -q` sale con **exit 4** y `python -m pytest -q` con 0, al revés que la vez anterior. En CI no pasa, porque `pip install -e ".[dev]"` los deja en el mismo entorno. Lo que hay que comprobar antes de dar por rojo un CI que no lo está es **qué binario se está ejecutando**, no sólo cuál es el comando |
+| Trece declaraciones de CSS que no hacían NADA | `globals.css`, `system.css` | `var(--text-small)`, `var(--weight-body)`, `var(--ink-secondary)`, `var(--text-h3)`, `var(--text-h2)`, `var(--text-caption)`, `var(--face-text)`, `var(--rule)`, `var(--radius)` — nombres de OTRA convención que nunca se declararon. Sin respaldo, `var(--x)` de un token inexistente es un valor INVÁLIDO: la propiedad no se aplica y el texto sale al tamaño heredado, que se lee como una decisión de diseño. Con respaldo es peor de otra forma: `var(--flag-ink, #a33b3b)` en treinta reglas y `var(--text-nano, 0.62rem)` en quince pintaban siempre el respaldo, o sea un color fuera del sistema, igual en claro que en oscuro y que no aparece buscando su nombre. `next build` compila las cuarenta y ocho. **Tercera vez** con esta forma —los 72 raíles grises, `.pick--mine` sin vestir— y la primera con guardián: `tests/css.test.mjs` exige que todo `var(--token)` esté definido, y distingue los dos modos porque no son igual de graves |
+| «Type your book's line» para un partido acabado tres días antes | `BettingShell.jsx` | La tabla de props filtraba SÓLO por posición: D.Maye salía con NE@SEA terminado 13-10 el jueves. La fila TRAÍA `game_final: true` y `game_kickoff_at` —los pone el exportador— y la tabla de mercados y el slip ya preguntaban `isOpen`. **Duodécima vez** que dos superficies del mismo hecho tienen distinta cobertura, y la más barata: la regla existía, compartida y probada, a dos líneas de distancia. Se excluyen y se DICE cuántos, porque filtrar en silencio es la otra mitad del fallo |
 | Una inyección que dejó de inyectar al mover la línea | `scripts/injection_drill.sh` | Al compartir el candado entre los dos motores de alineación, la línea de la inyección 54 se fue de `startSit.js` a `lineup.js`. El reemplazo no encontró nada, no cambió nada, el guardián pasó y el informe escribió «VERDE (NO ES GUARDIÁN)» **acusando al guardián de un fallo que era de la inyección**. Ya había pasado y se anotó; lo que faltaba era que el simulacro distinguiera las dos cosas. Ahora una inyección que no encuentra su línea sale como `INYECCIÓN ROTA` |
+| El parte de lesiones OFICIAL existía y el producto no lo leía | `fantasy/injuries.py` | La única capa de disponibilidad eran 47 fichas curadas a mano desde la prensa — insustituibles para lo que los datos no tienen (suspensiones, exentos, IR), pero no son el parte. nflverse republica el que los clubes entregan a la liga, con designación y participación en el entrenamiento, y basta un `GET`: 182 filas de la jornada 1, 32 equipos, 59 con designación. Se descubrió probando la red DESTINO POR DESTINO en vez de dar por hecho que «no hay internet»: la portada de releases da 403 y el fichero da 200 |
+| Un comentario que justificaba una aproximación con una carencia que ya no existía | `fantasy/weekly.py` | «El criterio es el volumen porque **no hay parte de lesiones en este proyecto**» — y ese mismo día lo hubo. La aproximación sigue siendo defendible por otra razón (el parte dice quién está DISPONIBLE, no quién tiene el ROL) pero la escrita era falsa. **Nada falla cuando la prosa miente**, y un comentario que explica un porqué caduca igual que una cifra |
+| El modelo no proyecta a Kamara, y el hueco no se veía | `fantasy/weekly.py`, `scripts/gameday_brief.py` | `_starters` toma los dos primeros por volumen en la ventana, así que en Nueva Orleans entraron Estimé (5 partidos en 2025) y Neal, y quedó fuera Alvin Kamara (11 partidos, QUESTIONABLE en el parte de esa jornada). Igual con Malik Nabers y Rome Odunze: 23 activos con designación que el semanal no tiene. No se arregla a ojo el domingo por la mañana —cambiar el modelo de rol sin medirlo es la regla 3— pero **un hueco del modelo no puede leerse como «este jugador no cuenta»**: el artefacto del día publica la lista |
+| El laboratorio eligió de recambio a alguien cuyo partido había ACABADO | `tools/lab/gameday.mjs` | Buscaba «uno de su posición que saque antes» y le tocó Puka Nacua, del jueves. El motor lo rechazó con razón y el laboratorio lo leyó como pantalla rota. Un doble que miente en un campo prueba otra cosa, por sexta vez. Y al arreglarlo salió lo de verdad interesante: **hoy no hay pareja** porque los dos dudosos de turno tardío son justo dos de los 23 que el modelo de rol no proyecta — el hueco del rol es TAMBIÉN lo que impide que el aviso pueda existir |
 | Un comentario JSX que borró en silencio la prosa de debajo | `tools/ui-numbers.mjs` | El limpiador quitaba `{/* … */}` con un patrón que exige cerrar en `*/}`. Un comentario que ABRE una expresión —`{/* … */` seguido del código y un `}` al final, que es JSX legal y lo escribí sin pensarlo— no casa, así que el patrón seguía hasta el SIGUIENTE `*/}` del fichero. Se llevó por delante el párrafo de «minimum edge 1.5 points» y el extractor **no dijo nada**: menos prosa vigilada, en silencio. Es el `<[^>]+>` cruzando saltos de línea, con otra cara. Se quita el comentario como COMENTARIO, antes de mirar las llaves |
 | El mismo predicado para dos preguntas con el «no sé» en lados opuestos | `gameClock.js` | Para APOSTAR, lo que no se puede confirmar abierto se cierra: cuesta un mercado que se deja de enseñar. Para una ALINEACIÓN es al revés — congelar un hueco por no saber la hora del partido congelaría la plantilla entera y la pantalla diría que no hay nada que cambiar. Un solo `isOpen` para las dos parecía economía; lo destaparon SIETE tests en rojo cuyos fixtures no llevan saque, que es exactamente el caso «no se sabe». Son `isOpen` y `hasStarted`, y la asimetría está escrita |
 | Dos inyecciones apuntando a líneas que un refactor había movido, y el simulacro lo DIJO | `scripts/injection_drill.sh` | El aviso `INYECCIÓN ROTA` se añadió esta misma sesión y en su primera pasada real cazó las dos: al compartir el candado con `hasStarted`, las líneas de las inyecciones 54 y 59 dejaron de existir. Antes habrían salido «VERDE (NO ES GUARDIÁN)», acusando al guardián. **La tercera, la 60, sí era un guardián flojo**: sustituir el `useState` dejaba intacto el `setNow(Date.now())` que la comprobación busca, así que el texto seguía ahí y pasaba en verde — el «el nombre sigue apareciendo» por tercera vez. La inyección quita ahora la LECTURA del reloj, que es lo que se quiere probar |
@@ -773,7 +824,7 @@ está construida:
 | `controles.mjs` | **Control por control, las trece páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete SESENTA Y DOS fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete SETENTA Y DOS fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -796,7 +847,10 @@ pantalla de mercados, un titular que ya jugó propuesto para el banquillo y el
 estado de un partido tomado de otra jornada, y el analizador —el OTRO motor de
 alineación— sin congelar nada, la pantalla de apuestas sin reloj, un mismo
 predicado para apostar y para congelar, y un comentario JSX tragándose la prosa
-de debajo— y exige 62 rojos y 62 verdes al
+de debajo, y desde la mañana del 13 de septiembre una designación de lesión
+nueva colada como «juega», un DOUBTFUL tratado como descartado, el parte
+tocando un número del board y la ventana de decisión calculada al revés— y
+exige 72 rojos y 72 verdes al
 restaurar.
 
 ## El skill de UI/UX

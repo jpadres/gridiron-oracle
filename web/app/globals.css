@@ -30,6 +30,12 @@
   --text-body:    1rem;       /* 16px — prosa, navegación, campos */
   --text-dense:   0.875rem;   /* 14px — tablas, pies, texto de apoyo */
   --text-micro:   0.75rem;    /* 12px — etiquetas, chips, metadatos */
+  /* 10px. Sólo las marcas de una o dos letras del Draft Room, que son cajas
+     antes que texto. Se usaba en quince reglas como `var(--text-nano, 0.62rem)`
+     —o sea que el token no existía y siempre pintaba el respaldo—. Declararlo
+     con ese mismo valor no cambia un píxel; lo que cambia es que ahora hay
+     un sitio donde tocarlo. */
+  --text-nano:    0.62rem;
 
   /* Los números son protagonistas y necesitan su propia escala: una cifra a
      1,5rem junto a texto de 1rem no es «texto grande», es un dato destacado. */
@@ -41,6 +47,12 @@
      versión de este bloque declaraba 400 y 500 —que no aparecen en ninguna
      regla— y omitía el 650 y el 700 que sí están por todas partes: una escala
      que no describe el diseño es decoración con nombre técnico. */
+  /* El trazo normal. Este bloque lo declaró, se retiró por «no aparece en
+     ninguna regla» —cierto entonces— y DESPUÉS se escribieron dos reglas que
+     lo usan: `.avail--superseded` y `.recon--ok`, las dos para quitar negrita.
+     Sin el token la declaración es inválida y el peso se hereda: las dos
+     salían igual de gruesas que lo que las rodea, sin fallar nada. */
+  --weight-body: 400;      /* prosa y lo que se DESENFATIZA a propósito */
   --weight-semibold: 600;  /* etiquetas, cabeceras de tabla, chips */
   --weight-numeric: 650;   /* cifras destacadas y nombres de jugador */
   --weight-bold: 700;      /* marca del sitio, posiciones, diferencias */
@@ -1169,7 +1181,7 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .wk-gaps > li, .wk-free-list > li {
   padding: var(--space-2) 0;
   border-top: 1px solid var(--line);
-  font-size: var(--text-small);
+  font-size: var(--text-dense);
   line-height: 1.5;
 }
 .wk-gap-num { font-variant-numeric: tabular-nums; color: var(--muted); }
@@ -1192,11 +1204,11 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .an-trades > li {
   padding: var(--space-2) 0;
   border-top: 1px solid var(--line);
-  font-size: var(--text-small);
+  font-size: var(--text-dense);
   line-height: 1.6;
 }
 .an-more { margin-top: var(--space-3); }
-.an-more summary { cursor: pointer; font-size: var(--text-small); color: var(--muted); }
+.an-more summary { cursor: pointer; font-size: var(--text-dense); color: var(--muted); }
 .an h4 { margin: var(--space-3) 0 0; font-size: var(--text-body); }
 
 /* La barra de liga: una cuenta y una liga activa, en todas las pantallas. */
@@ -1289,7 +1301,7 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
   display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-2);
   align-items: center; padding: var(--space-2) 0;
   border-top: 1px solid var(--line);
-  font-size: var(--text-small);
+  font-size: var(--text-dense);
 }
 .mu-cell { display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
 .mu-cell .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

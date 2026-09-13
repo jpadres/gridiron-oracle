@@ -10,7 +10,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import {
-  BET_STATUS, addBet, createMonth, decimalFromAmerican, exposure, limitWarnings,
+  BET_STATUS, addBet, addCash, createMonth, decimalFromAmerican, exposure, limitWarnings,
   loadMonth, loadMonths, placeBets, removeBet, saveMonth, settleBet, summary,
   updateBet,
 } from "../app/betting/bankroll.js";
@@ -198,4 +198,44 @@ test("el lean de prop exige una línea; sin línea no hay dirección", () => {
   assert.deepEqual(propLean(286.4, 267.5), { side: "OVER", gap: 18.9 });
   assert.deepEqual(propLean(5.8, 6.5), { side: "UNDER", gap: 0.7 });
   assert.deepEqual(propLean(7, 7), { side: "PUSH", gap: 0 });
+});
+
+test("la caja entra en la banca de hoy pero NUNCA en el resultado", () => {
+  /* Es §230 en una línea: crecer no es lo mismo que ingresar. Un libro que
+     sume el ingreso a `settledPL` enseña un ROI inventado, y la pantalla no
+     tiene forma de notarlo porque el número total sí cuadra. */
+  let r = createMonth("2026-09", 1000, memoryStorage());
+  r = addCash(r, { kind: "DEPOSIT", amount: 500, season: 2026, week: 2 });
+  const s = summary(r);
+  assert.equal(s.current, 1500, "la banca de hoy ignora el ingreso");
+  assert.equal(s.starting, 1000, "el ingreso ha reescrito la base del mes");
+  assert.equal(s.settledPL, 0, "el ingreso se ha colado como rendimiento");
+  assert.equal(s.roi, 0, "un ROI que sube por ingresar dinero");
+  assert.equal(s.netCash, 500);
+});
+
+test("una retirada baja la banca de hoy sin ser una pérdida", () => {
+  let r = createMonth("2026-09", 1000, memoryStorage());
+  r = addCash(r, { kind: "WITHDRAWAL", amount: 200, season: 2026, week: 3 });
+  const s = summary(r);
+  assert.equal(s.current, 800);
+  assert.equal(s.settledPL, 0, "la retirada se ha contado como pérdida");
+});
+
+test("un movimiento sin importe o sin tipo no se guarda", () => {
+  let r = createMonth("2026-09", 1000, memoryStorage());
+  for (const malo of [{ kind: "DEPOSIT", amount: 0 }, { kind: "DEPOSIT", amount: -5 },
+                      { kind: "DEPOSIT", amount: "" }, { kind: "REGALO", amount: 100 }]) {
+    r = addCash(r, { ...malo, season: 2026, week: 1 });
+  }
+  assert.equal((r.cash ?? []).length, 0);
+});
+
+test("un movimiento sin jornada se guarda como UNKNOWN, no como jornada 0", () => {
+  /* `Number(null)` vale CERO y es finito: es el fallo que ya costó una
+     iteración con las apuestas, y la lista de caja es nueva. */
+  let r = createMonth("2026-09", 1000, memoryStorage());
+  r = addCash(r, { kind: "DEPOSIT", amount: 100, season: null, week: "" });
+  assert.equal(r.cash[0].week, null);
+  assert.equal(r.cash[0].season, null);
 });

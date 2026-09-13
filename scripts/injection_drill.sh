@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 62 fallos conocidos, 62 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 72 fallos conocidos, 72 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -256,3 +256,34 @@ run "61 un mismo predicado para apostar y para congelar" web/app/gameClock.js \
 run "62 un comentario JSX que se traga la prosa de debajo" web/tools/ui-numbers.mjs \
   "    .replace(/\\/\\*[\\s\\S]*?\\*\\//g, \" \")|||    .replace(/\\{\\/\\*[\\s\\S]*?\\*\\/\\}/g, \" \")" \
   "cd web && node --test tests/uiNumbers.test.mjs"
+run "63 una designación de lesión nueva colada como «juega»" src/oracle/fantasy/injuries.py \
+  "        if raras:|||        if False:" \
+  "python -m pytest -q tests/test_injuries.py"
+run "64 un DOUBTFUL tratado como descartado" src/oracle/fantasy/injuries.py \
+  "        return self.designation == OUT|||        return self.designation in (OUT, DOUBTFUL)" \
+  "python -m pytest -q tests/test_injuries.py"
+run "65 el parte tocando un número del board" src/oracle/fantasy/injuries.py \
+  "        row[\"injury_designation\"] = entrada.designation|||        row[\"injury_designation\"] = entrada.designation
+        row[\"projected_points\"] = 0.0" \
+  "python -m pytest -q tests/test_injuries.py"
+run "66 la ventana de decisión calculada al revés" web/app/fantasy/lateRisk.js \
+  "      .filter((b) => b.kickoff !== null && b.kickoff < suyo)|||      .filter((b) => b.kickoff !== null && b.kickoff > suyo)" \
+  "cd web && node --test tests/lateRisk.test.mjs"
+run "67 el plazo en el MEJOR recambio y no en el primero" web/app/fantasy/lateRisk.js \
+  "    const cierre = Math.min(...recambios.map((r) => r.kickoff));|||    const cierre = recambios[0].kickoff;" \
+  "cd web && node --test tests/lateRisk.test.mjs"
+run "68 un token de CSS que no existe" web/app/system.css \
+  "  --flag-ink: #a33b3b;|||  --flag-ink-RENOMBRADO: #a33b3b;" \
+  "cd web && node --test tests/css.test.mjs"
+run "69 los props ofreciendo un partido terminado" web/app/betting/BettingShell.jsx \
+  "    const abiertos = delPuesto.filter((r) => isOpen(r, now));|||    const abiertos = delPuesto;" \
+  "cd web && node --test tests/noBet.test.mjs"
+run "70 un plan de recuperación tras perder" web/app/betting/period.js \
+  "  const hueco = min - banca;|||  const hueco = min - banca + Number(arguments[0].lastPeriodLoss || 0);" \
+  "cd web && node --test tests/period.test.mjs"
+run "71 el ingreso contado como rendimiento del libro" web/app/betting/period.js \
+  "  const resultado = liquidadas.reduce((s, b) => s + beneficio(b), 0);|||  const resultado = liquidadas.reduce((s, b) => s + beneficio(b), 0) + depositado;" \
+  "cd web && node --test tests/period.test.mjs tests/bankroll.test.mjs"
+run "72 la caída máxima tapada por un ingreso" web/app/betting/period.js \
+  "    maxDrawdown: maxDrawdown(liquidadas, inicial),|||    maxDrawdown: maxDrawdown(liquidadas, inicial + cajaNeta),"  \
+  "cd web && node --test tests/period.test.mjs"

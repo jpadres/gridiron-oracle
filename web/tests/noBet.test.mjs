@@ -100,3 +100,30 @@ test("la tarjeta de partido dice FINAL con el marcador de verdad", () => {
   assert.match(src, /FINAL</, "no se pinta la marca FINAL");
   assert.match(src, /game\.kickoff/, "no se dice cuándo se juega");
 });
+
+test("los props tampoco ofrecen un partido cerrado", () => {
+  /* DUODÉCIMA VEZ que dos superficies del mismo hecho tienen distinta
+     cobertura, y la más barata de todas: la tabla de mercados y el slip ya
+     preguntaban `isOpen`, y la de props filtraba SÓLO por posición. El 13 de
+     septiembre de 2026 pedía «type your book's line» para D.Maye con NE@SEA
+     terminado 13-10 tres días antes. La fila llevaba `game_final: true` y
+     `game_kickoff_at`; nadie se lo preguntaba.
+
+     Se mira el CUERPO del memo, no que la palabra aparezca en el fichero:
+     `isOpen` está importado arriba y se usa en otro sitio, así que buscarlo
+     suelto pasa VERDE con el fallo puesto — el «la palabra aparece cerca» que
+     ya costó dos versiones en `candidates.test.mjs` y otras dos en
+     `rosterMark.test.mjs`. */
+  const src = readFileSync(new URL("../app/betting/BettingShell.jsx", import.meta.url), "utf8");
+  const i = src.indexOf("const { propRows, propCerrados } = useMemo(");
+  assert.ok(i > 0, "la derivación de props cambió de forma: revisa este guardián "
+    + "antes de darlo por bueno — no encontrarla es ROJO, no verde en vacío");
+  const cuerpo = src.slice(i, src.indexOf("}, [weekly, category, now]);", i));
+  assert.match(cuerpo, /isOpen\(/,
+    "la tabla de props no pregunta si el partido sigue abierto");
+  assert.match(cuerpo, /now/,
+    "sin `now` sólo se ve el resultado publicado: un partido EN MARCHA saldría abierto");
+  // Y que el descarte se DIGA. Esconderlos en silencio es la otra mitad.
+  assert.match(src, /propCerrados > 0 &&/,
+    "los descartados no se cuentan en pantalla: filtrar en silencio es esconder");
+});

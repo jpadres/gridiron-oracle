@@ -57,6 +57,12 @@
   },
   {
    "file": "app/betting/BettingShell.jsx",
+   "value": "49.81%",
+   "source": "EXPERIMENT:E4",
+   "verified_by": "src/oracle/capabilities.py::BETTING_EDGE (metric «acierto ATS = 0.4981», n=3736)"
+  },
+  {
+   "file": "app/betting/BettingShell.jsx",
    "value": "50.9",
    "source": "EXPERIMENT:E4",
    "verified_by": "ninguna comprobación automática: acierto ATS por tramo de desacuerdo, medido en E4"
@@ -440,24 +446,6 @@
    "verified_by": "n_pairs del mismo artefacto: docs/evidence/rookie_scale_experiment.json"
   },
   {
-   "file": "app/fantasy/semanal/page.jsx",
-   "value": "26%",
-   "source": "UNVERIFIED",
-   "verified_by": null
-  },
-  {
-   "file": "app/fantasy/semanal/page.jsx",
-   "value": "28%",
-   "source": "UNVERIFIED",
-   "verified_by": null
-  },
-  {
-   "file": "app/fantasy/semanal/page.jsx",
-   "value": "45%",
-   "source": "UNVERIFIED",
-   "verified_by": null
-  },
-  {
    "file": "app/fantasy/semanal/WeeklyExplorer.jsx",
    "value": "0.044",
    "source": "UNVERIFIED",
@@ -492,6 +480,24 @@
    "value": "0.97",
    "source": "EXPERIMENT:E8c",
    "verified_by": "tests/test_kicker_bias.py cruza registro, pantalla y docs/evidence/kicker_falsify.json"
+  },
+  {
+   "file": "app/fantasy/semanal/page.jsx",
+   "value": "26%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/semanal/page.jsx",
+   "value": "28%",
+   "source": "UNVERIFIED",
+   "verified_by": null
+  },
+  {
+   "file": "app/fantasy/semanal/page.jsx",
+   "value": "45%",
+   "source": "UNVERIFIED",
+   "verified_by": null
   },
   {
    "file": "app/modelo/page.jsx",
@@ -549,13 +555,13 @@
   },
   {
    "file": "app/modelo/page.jsx",
-   "value": "2.7 points",
+   "value": "2%",
    "source": "UNVERIFIED",
    "verified_by": null
   },
   {
    "file": "app/modelo/page.jsx",
-   "value": "2%",
+   "value": "2.7 points",
    "source": "UNVERIFIED",
    "verified_by": null
   },

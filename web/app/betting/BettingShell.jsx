@@ -26,10 +26,10 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { num } from "../../data/model.js";
+import { capabilityOf, capabilityStatus, num } from "../../data/model.js";
 import { TeamMark } from "../sports.jsx";
 import {
-  BET_STATUS, addBet, createMonth, decimalFromAmerican, exportBook, exposure,
+  BET_STATUS, addCash, addBet, createMonth, decimalFromAmerican, exportBook, exposure,
   importBook, limitWarnings, loadMonth, loadMonths, placeBets, removeBet, saveMonth,
   settleBet, summary, updateBet,
 } from "./bankroll.js";
@@ -40,7 +40,8 @@ import {
 } from "./plan.js";
 import BankCurve from "./BankCurve.jsx";
 import { browserStorage } from "../fantasy/draftStorage.js";
-import { GAME, gameState } from "../gameClock.js";
+import { GAME, gameState, isOpen } from "../gameClock.js";
+import { CASH, FUNDING, PERIOD_WEEKS, fundingAdvice, periodBounds, review } from "./period.js";
 import { hasNumber } from "../numbers.js";
 
 const PROP_CATEGORIES = [
@@ -93,6 +94,13 @@ export default function BettingShell({ predictions, weekly, context, markets = [
     return () => clearInterval(t);
   }, []);
   const [career, setCareer] = useState(null);
+  /* Los ajustes del ciclo de revisión. Viven aparte del libro porque son una
+     PREFERENCIA del dueño, no un hecho registrado: el techo de dinero nuevo y
+     el rango objetivo. Sin declarar, no se recomienda nada — suponer un
+     presupuesto es exactamente lo que no puede hacer una pantalla que habla
+     de meter dinero. */
+  const [budget, setBudget] = useState({ ceiling: "", targetMin: "", targetMax: "" });
+  const [cashForm, setCashForm] = useState({ kind: CASH.DEPOSIT, amount: "" });
   const [propLines, setPropLines] = useState({});
   const [category, setCategory] = useState("proj_pass_yds");
   const [newMonth, setNewMonth] = useState({ month: currentMonthId(), starting: "" });
@@ -165,16 +173,55 @@ export default function BettingShell({ predictions, weekly, context, markets = [
     snapshot: { model: row.model, market: row.line, family: row.family },
   });
 
-  const propRows = useMemo(() => {
+  /* UN PARTIDO CON RESULTADO NO ES UN MERCADO — TAMPOCO EN PROPS.
+     La regla se cableó en la tabla de mercados y en el slip, y esta tabla se
+     quedó fuera: el 13 de septiembre ofrecía «type your book's line» para
+     D.Maye con NE@SEA terminado 13-10 tres días antes. La fila TRAÍA el dato
+     (`game_final: true`, `game_kickoff_at`); nadie se lo preguntaba. Duodécima
+     vez que dos superficies del mismo hecho tienen distinta cobertura, y aquí
+     el hecho es el mismo `isOpen` que ya decide arriba.
+     Se excluyen y se DICE cuántos: esconderlos en silencio es la otra mitad
+     del fallo. */
+  const { propRows, propCerrados } = useMemo(() => {
     const spec = PROP_CATEGORIES.find((c) => c.key === category);
-    if (!spec) return [];
-    return (weekly ?? [])
-      .filter((r) => spec.positions.includes(r.position) && hasNumber(r[category]))
-      .sort((a, b) => Number(b[category]) - Number(a[category]))
-      .slice(0, 24)
-      .map((r) => ({ ...r, projection: Number(r[category]) }));
-  }, [weekly, category]);
+    if (!spec) return { propRows: [], propCerrados: 0 };
+    const delPuesto = (weekly ?? [])
+      .filter((r) => spec.positions.includes(r.position) && hasNumber(r[category]));
+    const abiertos = delPuesto.filter((r) => isOpen(r, now));
+    return {
+      propCerrados: delPuesto.length - abiertos.length,
+      propRows: abiertos
+        .sort((a, b) => Number(b[category]) - Number(a[category]))
+        .slice(0, 24)
+        .map((r) => ({ ...r, projection: Number(r[category]) })),
+    };
+  }, [weekly, category, now]);
   const spec = PROP_CATEGORIES.find((c) => c.key === category);
+
+  /* LA REVISIÓN DE CUATRO JORNADAS. Sin `record` no hay libro que revisar, y
+     sin jornada en el payload no se recorta un periodo: `periodBounds` da
+     `null` y la sección entera no se pinta. Suponer que estamos en la 1
+     sería inventarse el CUÁNDO, que es lo que el campo existe para impedir. */
+  const bounds = periodBounds(context.season, context.week);
+  const revision = record && bounds ? review(record, bounds) : null;
+  const periodoLargo = revision ? revision.bounds.to - revision.bounds.from + 1 : 0;
+  const periodoCorto = periodoLargo < PERIOD_WEEKS;
+  /* El estado sale del REGISTRO DE CAPACIDADES, no de una frase escrita aquí:
+     si un experimento mueve `BETTING_EDGE`, la recomendación se mueve sola y
+     nadie tiene que acordarse de editar esta pantalla. Es lo que ya se hizo
+     con el pateador en el semanal. */
+  /* La ficha entera, para no reescribir a mano lo que el registro ya dice.
+     El texto de `evidence` va en español —es la lengua del registro— y la
+     interfaz está en inglés, así que se pintan los campos que no son prosa:
+     el id del experimento y el tamaño de muestra. La única cifra escrita a
+     mano queda anotada en `docs/evidence/ui_numbers.json` con su procedencia. */
+  const edgeCap = capabilityOf("BETTING_EDGE");
+  const consejo = fundingAdvice({
+    currentBankroll: revision ? revision.endingBankroll : 0,
+    target: { min: budget.targetMin, max: budget.targetMax },
+    budgetCeiling: budget.ceiling,
+    edgeStatus: capabilityStatus("BETTING_EDGE") ?? null,
+  });
 
   if (months === null) return <p className="caption">Reading your bankroll&hellip;</p>;
 
@@ -332,6 +379,145 @@ export default function BettingShell({ predictions, weekly, context, markets = [
         )}
       </section>
 
+      {/* ============ 2b. REVISIÓN DE CUATRO JORNADAS ===================== */}
+      {revision && (
+        <section aria-label="Four-week review" className="bk-review">
+          {/* «Last 1 weeks» en la jornada 1. Y peor que la concordancia: un
+              periodo de UNA jornada llamado «las últimas cuatro» afirma un
+              histórico que no existe. En septiembre el periodo está recortado
+              por el principio de temporada y eso se dice. */}
+          <h2 className="bk-h">
+            {periodoCorto
+              ? `First ${periodoLargo === 1 ? "" : `${periodoLargo} `}week${periodoLargo === 1 ? "" : "s"} of the season`
+              : `Last ${periodoLargo} weeks`}{" "}
+            <small>
+              week{periodoLargo === 1 ? "" : "s"} {revision.bounds.from}
+              {periodoLargo === 1 ? "" : `\u2013${revision.bounds.to}`}
+              {periodoCorto ? ` · not a full ${PERIOD_WEEKS}-week period yet` : ""}
+              {" · "}looking back, not sizing
+            </small>
+          </h2>
+          <dl className="bk-stats bk-review-stats">
+            <div><dt>Bankroll now</dt><dd>{money(revision.endingBankroll)}</dd></div>
+            <div><dt>At period start</dt><dd>{money(revision.startingBankroll)}</dd></div>
+            <div className={revision.netCash === 0 ? "" : "is-cash"}>
+              <dt>Money you moved</dt>
+              <dd>{revision.netCash === 0 ? "$0" : money(revision.netCash)}
+                <small>{money(revision.deposited)} in · {money(revision.withdrawn)} out</small></dd>
+            </div>
+            <div className={revision.realizedPL > 0 ? "is-up" : ""}>
+              <dt>The book made</dt>
+              <dd>{revision.realizedPL >= 0 ? "+" : "\u2212"}{money(Math.abs(revision.realizedPL))}
+                <small>{revision.settledBets} settled</small></dd>
+            </div>
+          </dl>
+          {/* LA IDENTIDAD, ESCRITA. Es la frase que impide leer un ingreso
+              como una racha, y se pinta con los mismos tres números de
+              arriba para que se pueda comprobar mirando. */}
+          <p className="bk-identity">
+            {money(revision.startingBankroll)} at the start
+            {" "}{revision.netCash >= 0 ? "+" : "\u2212"} {money(Math.abs(revision.netCash))} you moved
+            {" "}{revision.realizedPL >= 0 ? "+" : "\u2212"} {money(Math.abs(revision.realizedPL))} the book made
+            {" "}= {money(revision.endingBankroll)} now.
+            {" "}<strong>Growth is not money added</strong>, and this line keeps them apart.
+          </p>
+          <dl className="bk-stats bk-review-stats">
+            <div><dt>Max drawdown</dt>
+              <dd>{money(revision.maxDrawdown.amount)}
+                <small>{revision.maxDrawdown.amount > 0
+                  ? `${(revision.maxDrawdown.fraction * 100).toFixed(1)}% off peak`
+                  : "no settled losing run"}</small></dd></div>
+            <div><dt>Total wagered</dt><dd>{money(revision.totalWagered)}
+              <small>{revision.bets} bets</small></dd></div>
+            <div><dt>Average stake</dt><dd>{money(revision.averageStake)}</dd></div>
+            <div><dt>Return</dt>
+              <dd>{revision.yieldOnStaked === null ? "\u2014"
+                : `${(revision.yieldOnStaked * 100).toFixed(1)}%`}
+                <small>{revision.roiOnBank === null ? "on staked"
+                  : `on staked · ${(revision.roiOnBank * 100).toFixed(1)}% on bank`}</small></dd></div>
+          </dl>
+          {revision.sinJornada > 0 && (
+            <p className="caption">
+              {revision.sinJornada} older {revision.sinJornada === 1 ? "bet has" : "bets have"} no
+              week recorded, so {revision.sinJornada === 1 ? "it is" : "they are"} not in any
+              period. Splitting them by file date would be inventing a week for them.
+            </p>
+          )}
+
+          {/* --- CAJA: ingresar o retirar, con su jornada ------------------ */}
+          <div className="bk-cash">
+            <h3 className="bk-h3">Record a transfer</h3>
+            <div className="bk-cash-row">
+              <label className="field-label">Kind
+                <select value={cashForm.kind}
+                        onChange={(e) => setCashForm({ ...cashForm, kind: e.target.value })}>
+                  <option value={CASH.DEPOSIT}>Deposit</option>
+                  <option value={CASH.WITHDRAWAL}>Withdrawal</option>
+                </select>
+              </label>
+              <label className="field-label">Amount ($)
+                <input type="number" min="0" step="1" value={cashForm.amount}
+                       onChange={(e) => setCashForm({ ...cashForm, amount: e.target.value })} />
+              </label>
+              <button type="button" className="bk-primary"
+                      disabled={!(Number(cashForm.amount) > 0)}
+                      onClick={() => {
+                        const siguiente = addCash(record, {
+                          kind: cashForm.kind, amount: cashForm.amount,
+                          season: context.season, week: context.week,
+                        });
+                        if (siguiente !== record) { persist(siguiente); setCashForm({ ...cashForm, amount: "" }); }
+                      }}>Record</button>
+            </div>
+            <p className="caption">
+              Kept apart from bets on purpose: this is your money moving, not the book
+              performing. It changes the bank the plan sizes from, and it never touches
+              P/L, ROI or the drawdown curve.
+            </p>
+          </div>
+
+          {/* --- CUÁNTO PARA LAS PRÓXIMAS CUATRO --------------------------- */}
+          <div className="bk-funding">
+            <h3 className="bk-h3">Next {PERIOD_WEEKS} weeks</h3>
+            <div className="bk-cash-row">
+              <label className="field-label">Max new money / period ($)
+                <input type="number" min="0" step="1" value={budget.ceiling}
+                       onChange={(e) => setBudget({ ...budget, ceiling: e.target.value })} />
+              </label>
+              <label className="field-label">Target bank, low ($)
+                <input type="number" min="0" step="1" value={budget.targetMin}
+                       onChange={(e) => setBudget({ ...budget, targetMin: e.target.value })} />
+              </label>
+              <label className="field-label">Target bank, high ($)
+                <input type="number" min="0" step="1" value={budget.targetMax}
+                       onChange={(e) => setBudget({ ...budget, targetMax: e.target.value })} />
+              </label>
+            </div>
+            <p className={consejo.addMoney > 0 ? "bk-advice" : "bk-advice bk-advice--zero"}>
+              <strong>Add {money(consejo.addMoney)}</strong>
+              {consejo.withdraw > 0 && <> · consider taking out {money(consejo.withdraw)}</>}
+              <span> — {consejo.detail}.</span>
+            </p>
+            {consejo.reason === FUNDING.NO_VALIDATED_EDGE && (
+              <p className="callout">
+                This is the honest answer, not a placeholder. <code>BETTING_EDGE</code> is
+                REJECTED in the capability registry ({edgeCap?.experiment_id ?? "the measurement"}:
+                49.81% against the spread over {num(edgeCap?.sample_size ?? 0, 0)} games, against a
+                52.4% break-even), so there is no measured reason to put more
+                money behind these numbers — however far below target the bank is, and however
+                the last weeks went. If an experiment ever validates it, this box changes on
+                its own.
+              </p>
+            )}
+            <p className="caption">
+              Sizing never appears here and this box never reads your results: a recommendation
+              that moved after a losing run would be chasing with a respectable name. Your
+              ceiling is hard — nothing here can exceed it.
+            </p>
+          </div>
+        </section>
+      )}
+
       {/* ============ 3. QUÉ MIRAR HOY ==================================== */}
       <section aria-label="Top model leans">
         <h2 className="bk-h">Top model leans <small>week {context.week} · not edge — E4 measured that</small></h2>
@@ -378,6 +564,12 @@ export default function BettingShell({ predictions, weekly, context, markets = [
           <strong>type your book&rsquo;s line</strong> and the lean appears. No line, no
           lean.
         </p>
+        {propCerrados > 0 && (
+          <p className="caption">
+            {propCerrados} {propCerrados === 1 ? "player is" : "players are"} not listed:
+            their game has kicked off or is final, so there is no line to take.
+          </p>
+        )}
         <div className="table-wrap">
           <table className="rank-table bk-props">
             <thead>

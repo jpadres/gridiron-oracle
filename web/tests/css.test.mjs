@@ -21,7 +21,7 @@
  *      por el que la pegada dejó una regla mutilada en vez de sólo repetida.
  */
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 
 const RAIZ = new URL("../", import.meta.url);
@@ -105,4 +105,55 @@ test("la marca de MI pick en el ticker sigue cualificada", () => {
     assert.match(sel, /\.is-mine/,
       `«${sel}» pinta el color de identidad sin exigir que el pick sea MÍO`);
   }
+});
+
+/* ------------------------------------------------------------------------ */
+
+/** Todo token que se USA tiene que estar DEFINIDO.
+ *
+ * Tercera vez con esta forma en este repositorio, y las tres veces el
+ * síntoma fue el mismo: nada falla. Los 72 raíles de equipo del war room
+ * salían grises porque el puente que resuelve `--team` es una lista de
+ * selectores y las filas del Draft Room no estaban; `.pick--mine` prometía
+ * identidad y pintaba el botón por defecto del sistema operativo; y el panel
+ * NEEDS ACTION se escribió con `--flag-ink` y `--text-small`, que no existen
+ * en ninguna de las dos hojas.
+ *
+ * Los dos modos de fallo son distintos y los dos son invisibles:
+ *
+ *   CON RESPALDO   `var(--flag-ink, #a33b3b)` se pinta — con un color que no
+ *                  es del sistema y que no sigue el modo oscuro.
+ *   SIN RESPALDO   `font-size: var(--text-small)` es un valor inválido: la
+ *                  propiedad sencillamente NO SE APLICA. El texto sale al
+ *                  tamaño heredado y parece una decisión de diseño.
+ *
+ * `next build` compila las dos. El navegador tampoco avisa.
+ *
+ * ESTRECHO Y CIERTO, la lección de `no-undef.mjs`: se miran sólo los tokens
+ * del PROPIO proyecto (`--` seguido de letra) definidos en estas dos hojas, y
+ * se permiten los que el propio CSS declara sobre la marcha (`@property`) o
+ * que la interfaz inyecta en línea con `style=` desde el JSX — que existen y
+ * se comprueban leyendo el JSX, no la hoja.
+ */
+test("ningún var(--token) se usa sin estar definido", () => {
+  const css = HOJAS.map(leer).join("\n").replace(/\/\*[\s\S]*?\*\//g, " ");
+  const definidos = new Set([...css.matchAll(/(--[a-z][\w-]*)\s*:/g)].map((m) => m[1]));
+  // Los que llegan desde el JSX en un `style={{ "--x": … }}`: no los declara la
+  // hoja y NO son un fallo. Se leen del JSX para que la lista no sea a mano.
+  const dirApp = new URL("app/", RAIZ);
+  const jsx = readdirSync(dirApp, { recursive: true })
+    .filter((f) => String(f).endsWith(".jsx"))
+    .map((f) => readFileSync(new URL(String(f).replaceAll("\\", "/"), dirApp), "utf8"))
+    .join("\n");
+  for (const m of jsx.matchAll(/["'](--[a-z][\w-]*)["']\s*:/g)) definidos.add(m[1]);
+
+  const huerfanos = new Map();
+  for (const m of css.matchAll(/var\(\s*(--[a-z][\w-]*)\s*(,)?/g)) {
+    if (definidos.has(m[1])) continue;
+    // Con respaldo se pinta algo; sin respaldo la propiedad se cae entera.
+    huerfanos.set(m[1], m[2] ? "con respaldo" : "SIN respaldo: la propiedad no se aplica");
+  }
+  assert.deepEqual([...huerfanos], [],
+    "un token que no existe no da error: o pinta un color fuera del sistema, "
+    + "o hace que la propiedad no se aplique. Las dos cosas se leen como diseño.");
 });

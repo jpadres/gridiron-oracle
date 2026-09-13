@@ -91,7 +91,7 @@ export function saveMonth(record, storage) {
 export function createMonth(month, starting, storage) {
   if (!monthKey(month) || !(Number(starting) > 0)) return null;
   if (loadMonth(month, storage)) return null;
-  const record = { month, starting: Number(starting), unitIsPercent: true, unitValue: 1.0, limits: {}, bets: [] };
+  const record = { month, starting: Number(starting), unitIsPercent: true, unitValue: 1.0, limits: {}, bets: [], cash: [] };
   return saveMonth(record, storage) ? record : null;
 }
 
@@ -140,6 +140,38 @@ export function addBet(record, bet) {
     settledAt: null,
   };
   return { ...record, bets: [...record.bets, entry] };
+}
+
+/**
+ * INGRESAR O RETIRAR. No es una apuesta y no se mezcla con ellas.
+ *
+ *     LO QUE METE EL DUEÑO NO ES RENDIMIENTO DEL LIBRO.
+ *
+ * Sin esta lista, `current = starting + resultado` obliga a mentir de una de
+ * dos formas cuando entra dinero: o se sube `starting` —y entonces el ROI del
+ * mes se recalcula hacia atrás sobre una base que no era la de las apuestas ya
+ * hechas— o no se refleja y la banca de hoy es falsa. Es una serie aparte.
+ *
+ * Lleva `season` y `week` por lo mismo que las apuestas: sin el CUÁNDO
+ * congelado, un periodo de cuatro jornadas no se puede recortar sin
+ * inventarle una fecha a lo que ya pasó.
+ */
+export function addCash(record, { kind, amount, season, week, at = Date.now() }) {
+  const importe = Number(amount);
+  if (kind !== "DEPOSIT" && kind !== "WITHDRAWAL") return record;
+  if (!Number.isFinite(importe) || importe <= 0) return record;
+  const entry = {
+    id: `cash-${Date.now().toString(36)}-${(record.cash ?? []).length + 1}`,
+    kind, amount: importe, at,
+    season: intOrNull(season), week: intOrNull(week),
+  };
+  return { ...record, cash: [...(record.cash ?? []), entry] };
+}
+
+/** La caja neta del mes: ingresos menos retiradas. */
+export function netCash(record) {
+  return (record.cash ?? []).reduce(
+    (s, m) => s + (m.kind === "DEPOSIT" ? 1 : -1) * Number(m.amount || 0), 0);
 }
 
 export function updateBet(record, id, patch) {
@@ -209,13 +241,19 @@ export function summary(record) {
   const settled = record.bets.filter((b) => SETTLED.has(b.status));
   const openExposure = open.reduce((sum, b) => sum + b.stake, 0);
   const settledPL = settled.reduce((sum, b) => sum + profit(b), 0);
+  /* La caja entra en la banca de HOY —un ingreso sí cambia lo que hay— pero
+     NO en `starting`, que es la base con la que se compara el mes consigo
+     mismo, ni en `settledPL`, que es lo que hizo el libro. Los tres viajan
+     separados porque sumarlos es exactamente el error que hay que impedir. */
+  const caja = netCash(record);
   const unitDollars = record.unitIsPercent
     ? (record.starting * record.unitValue) / 100
     : record.unitValue;
   return {
     starting: record.starting,
-    current: record.starting + settledPL,
-    available: record.starting + settledPL - openExposure,
+    netCash: caja,
+    current: record.starting + caja + settledPL,
+    available: record.starting + caja + settledPL - openExposure,
     openExposure,
     settledPL,
     roi: record.starting > 0 ? settledPL / record.starting : 0,

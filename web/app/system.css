@@ -50,6 +50,10 @@
      truncado en un board de draft es un jugador que no reconoces. */
   --face-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --face-body: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  /* La única regla monoespaciada del sitio (el identificador de una apuesta en
+     el historial) la pedía como `var(--face-mono, monospace)` y el token no
+     existía: pintaba el respaldo. */
+  --face-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   --wdth-condensed: 78;
   --wdth-normal: 100;
 
@@ -292,6 +296,18 @@ h1, h2, .player-row .nm, .num-mega {
   --surface-1: var(--field-raised);
   --warn-bg: var(--live-field);
   --warn-line: var(--live);
+  /* El rojo de «no juega»: `.mark--out`, `EXEMPT LIST`, `NO NFL TEAM` y el
+     motivo en rojo de la tarjeta de recomendación. Estaba escrito treinta
+     veces como `var(--flag-ink)` y el token NO EXISTÍA en ninguna de
+     las dos hojas, así que las treinta pintaban el respaldo: un color fuera
+     del sistema, igual en claro que en oscuro, imposible de encontrar
+     buscando su nombre. Se declara con ESE MISMO valor —no cambia un píxel—
+     y los respaldos se retiran para que haya una sola fuente. Si algún día
+     necesita variante oscura, ahora hay dónde ponerla. */
+  --flag-ink: #a33b3b;
+  /* Y su pareja verde —«sube», «ganada», la banca por encima—, con el mismo
+     problema en cinco reglas. */
+  --turf-ink: #1c7a43;
 }
 
 /* =============================================================================
@@ -329,8 +345,8 @@ h1, h2, .player-row .nm, .num-mega {
 .matchup-state {
   grid-column: 1 / -1;
   margin: 0 0 var(--space-2);
-  font-size: var(--text-small);
-  color: var(--ink-secondary);
+  font-size: var(--text-dense);
+  color: var(--muted);
   display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;
 }
 .matchup-state .caption { margin: 0; }
@@ -1001,21 +1017,21 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   /* Marca de noticia: se VE y no pesa. Cualquier cosa que la hiciera parecer una
    nota numérica invitaría a leerla como una penalización que nadie ha medido. */
 .room-row-news {
-  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .08em;
-  color: var(--flag-ink, #a33b3b); border: 1px solid currentColor;
+  font-size: var(--text-nano); font-weight: 700; letter-spacing: .08em;
+  color: var(--flag-ink); border: 1px solid currentColor;
   border-radius: var(--radius-sm); padding: 0 3px; align-self: center;
 }
 .room-why-news { color: var(--chalk); }
 .room-why-fit { color: var(--chalk); font-weight: 600; }
-.room-why-fit--none { color: var(--flag-ink, #a33b3b); font-weight: 600; }
-.room-why-news b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
+.room-why-fit--none { color: var(--flag-ink); font-weight: 600; }
+.room-why-news b { color: var(--flag-ink); letter-spacing: .06em; }
 /* SIN EQUIPO: esto SÍ es una alarma. El número de al lado no vale. */
 .room-row-noteam {
-  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
-  color: #fff; background: var(--flag-ink, #a33b3b);
+  font-size: var(--text-nano); font-weight: 700; letter-spacing: .06em;
+  color: #fff; background: var(--flag-ink);
   border-radius: var(--radius-sm); padding: 0 4px; align-self: center; white-space: nowrap;
 }
-.room-why-noteam b { color: var(--flag-ink, #a33b3b); }
+.room-why-noteam b { color: var(--flag-ink); }
 /* Las mismas dos marcas en la tabla publicada. Comparten tinta con las del
    Draft Room a propósito: la misma cosa se pinta igual en las dos pantallas. */
 /* `.mark` es un CÍRCULO de 1rem para los glifos de una letra («?», «!»), y
@@ -1032,40 +1048,40 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
    desborde su propia caja, así que la cuarta se caza sola. */
 .mark--out, .mark--risk, .mark--prior {
   width: auto; height: auto; line-height: 1.35;
-  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
+  font-size: var(--text-nano); font-weight: 700; letter-spacing: .06em;
   border-radius: var(--radius-sm); white-space: nowrap; vertical-align: baseline;
 }
-.mark--out { color: #fff; background: var(--flag-ink, #a33b3b); padding: 0 4px; }
+.mark--out { color: #fff; background: var(--flag-ink); padding: 0 4px; }
 .mark--risk {
-  color: var(--flag-ink, #a33b3b); border: 1px solid currentColor; padding: 0 3px;
+  color: var(--flag-ink); border: 1px solid currentColor; padding: 0 3px;
 }
 /* NO VA A JUGAR: suspendido, exento, IR, PUP de temporada. Es la marca más
    fuerte de la fila —más que SIN EQUIPO— porque el jugador SÍ está en su
    plantilla y todo lo demás en pantalla dice que está disponible. */
 .room-row-out {
-  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
-  color: #fff; background: var(--flag-ink, #a33b3b);
+  font-size: var(--text-nano); font-weight: 700; letter-spacing: .06em;
+  color: #fff; background: var(--flag-ink);
   border-radius: var(--radius-sm); padding: 0 4px; align-self: center; white-space: nowrap;
 }
 /* DUDA: puede jugar y puede no jugar. Contorno, no relleno: la diferencia entre
    «no va a jugar» y «a lo mejor no juega» tiene que verse a un metro. */
 .room-row-risk {
-  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
-  color: var(--flag-ink, #a33b3b); border: 1px solid currentColor;
+  font-size: var(--text-nano); font-weight: 700; letter-spacing: .06em;
+  color: var(--flag-ink); border: 1px solid currentColor;
   border-radius: var(--radius-sm); padding: 0 3px; align-self: center; white-space: nowrap;
 }
-.room-why-out b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
-.room-why-risk b { color: var(--flag-ink, #a33b3b); letter-spacing: .06em; }
+.room-why-out b { color: var(--flag-ink); letter-spacing: .06em; }
+.room-why-risk b { color: var(--flag-ink); letter-spacing: .06em; }
 /* % PRIOR: de dónde sale el número. Ni alarma ni riesgo — procedencia. Por eso
    comparte la tinta discreta del ROOKIE y no el rojo de SIN EQUIPO. */
 .room-row-prior, .mark--prior {
-  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .04em;
+  font-size: var(--text-nano); font-weight: 700; letter-spacing: .04em;
   color: var(--chalk-dim); border: 1px dashed currentColor;
   border-radius: var(--radius-sm); padding: 0 3px; align-self: center; white-space: nowrap;
 }
 /* ROOKIE: informativo, no alarma. Tinta secundaria, sin rojo. */
 .room-row-rookie {
-  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .08em;
+  font-size: var(--text-nano); font-weight: 700; letter-spacing: .08em;
   color: var(--chalk-dim); border: 1px solid currentColor;
   border-radius: var(--radius-sm); padding: 0 3px; align-self: center;
 }
@@ -1568,7 +1584,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .cc-link .caption { margin-top: var(--space-2); }
 /* La frescura NUNCA dice LIVE aquí: CURRENT o STALE, y la hora al lado. */
 .cc-sync { font-size: var(--text-micro); color: var(--chalk-dim); letter-spacing: 0.03em; }
-.cc-sync--stale { color: var(--flag-ink, #a33b3b); font-weight: var(--weight-semibold); }
+.cc-sync--stale { color: var(--flag-ink); font-weight: var(--weight-semibold); }
 .cc-sync--unknown { color: var(--chalk-dim); }
 
 /* --- LOS PANELES: una liga, su configuración real y mi plantilla ----------- */
@@ -1599,7 +1615,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .cc-facts b { color: var(--chalk); }
 .cc-fact--yes { color: var(--chalk); }
 .cc-fact--no { color: var(--chalk-dim); font-style: italic; }
-.cc-fact--warn { color: var(--flag-ink, #a33b3b); }
+.cc-fact--warn { color: var(--flag-ink); }
 .cc-roster { margin-top: var(--space-3); }
 .cc-roster .caption { margin-bottom: var(--space-2); }
 .cc-roster-group { list-style: none; margin: 0 0 var(--space-2); padding: 0; }
@@ -1616,7 +1632,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   font-size: var(--text-micro); color: var(--chalk-dim);
 }
 .cc-player-vor { font-variant-numeric: tabular-nums; font-size: var(--text-dense); text-align: right; }
-.cc-player-vor small { display: block; font-size: var(--text-nano, 0.62rem); color: var(--chalk-dim); letter-spacing: 0.06em; }
+.cc-player-vor small { display: block; font-size: var(--text-nano); color: var(--chalk-dim); letter-spacing: 0.06em; }
 
 @media (max-width: 640px) {
   .cc-panel-head { grid-template-columns: minmax(0, 1fr) auto; }
@@ -1653,8 +1669,8 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .wk-context { margin-top: var(--space-2); }
 .wk-table .wk-proj { text-align: right; }
 .wk-table .wk-proj strong { font-size: var(--text-body); }
-.wk-up { color: var(--turf-ink, #1c7a43); }
-.wk-down { color: var(--flag-ink, #a33b3b); }
+.wk-up { color: var(--turf-ink); }
+.wk-down { color: var(--flag-ink); }
 .wk-panel { margin-top: var(--space-5); }
 .wk-panel h3 small {
   display: block; font-size: var(--text-micro); font-weight: normal;
@@ -1669,10 +1685,10 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
    sobre un número que no es del mercado, la fusión exacta que está prohibida. */
 .matchup .proj {
   font-family: var(--face-display); font-variation-settings: "wdth" 76;
-  font-size: var(--text-h3); font-weight: var(--weight-bold); color: var(--chalk);
+  font-size: var(--text-lead); font-weight: var(--weight-bold); color: var(--chalk);
 }
 .matchup .line--model small, .matchup .line--market small {
-  display: block; font-size: var(--text-nano, 0.62rem); color: var(--chalk-dim);
+  display: block; font-size: var(--text-nano); color: var(--chalk-dim);
   text-transform: uppercase; letter-spacing: 0.06em; font-weight: normal;
 }
 .matchup .line--model { color: var(--chalk); }
@@ -1736,12 +1752,12 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 }
 .bk-stats dd {
   margin: 0; font-family: var(--face-display); font-variation-settings: "wdth" 76;
-  font-size: var(--text-h2); font-weight: var(--weight-bold);
+  font-size: var(--text-title); font-weight: var(--weight-bold);
   font-variant-numeric: tabular-nums;
 }
-.bk-stats dd small { display: block; font-family: var(--face-text); font-size: var(--text-micro); color: var(--chalk-dim); font-weight: normal; }
-.bk-stats .is-up dd { color: var(--turf-ink, #1c7a43); }
-.bk-stats .is-down dd { color: var(--flag-ink, #a33b3b); }
+.bk-stats dd small { display: block; font-family: var(--face-body); font-size: var(--text-micro); color: var(--chalk-dim); font-weight: normal; }
+.bk-stats .is-up dd { color: var(--turf-ink); }
+.bk-stats .is-down dd { color: var(--flag-ink); }
 
 .bk-h { display: flex; align-items: baseline; gap: var(--space-3); margin-top: var(--space-5); }
 .bk-h small { font-size: var(--text-micro); color: var(--chalk-dim); font-weight: normal; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -1762,7 +1778,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .bk-lean-what small, .bk-slip-what small { color: var(--chalk-dim); font-size: var(--text-micro); }
 .bk-lean-nums { display: flex; gap: var(--space-4); font-variant-numeric: tabular-nums; }
 .bk-lean-nums small {
-  display: block; font-size: var(--text-nano, 0.62rem); color: var(--chalk-dim);
+  display: block; font-size: var(--text-nano); color: var(--chalk-dim);
   text-transform: uppercase; letter-spacing: 0.06em;
 }
 .bk-lean-nums em { font-style: normal; color: var(--chalk-dim); font-size: var(--text-micro); }
@@ -1780,7 +1796,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .bk-slip-what { flex: 1 1 16rem; display: flex; flex-direction: column; }
 .bk-slip-math { font-size: var(--text-dense); font-variant-numeric: tabular-nums; }
 .bk-slip-math small { display: block; color: var(--chalk-dim); }
-.bk-warn { flex-basis: 100%; color: var(--flag-ink, #a33b3b); font-size: var(--text-micro); }
+.bk-warn { flex-basis: 100%; color: var(--flag-ink); font-size: var(--text-micro); }
 .bk-x { border: none !important; color: var(--chalk-dim); font-size: 1.2rem; }
 .bk-slip-foot {
   display: flex; justify-content: space-between; align-items: center; gap: var(--space-3);
@@ -1793,8 +1809,8 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   padding: var(--space-1) 0; border-top: 1px solid var(--yard-line);
   font-size: var(--text-dense);
 }
-.bk-hist--won b { color: var(--turf-ink, #1c7a43); }
-.bk-hist--lost b { color: var(--flag-ink, #a33b3b); }
+.bk-hist--won b { color: var(--turf-ink); }
+.bk-hist--lost b { color: var(--flag-ink); }
 .bk-hist--push b, .bk-hist--void b { color: var(--chalk-dim); }
 .bk-newmonth { margin-top: var(--space-4); }
 
@@ -1814,8 +1830,8 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   border: 1px solid var(--yard-line); border-left-width: 3px;
   background: var(--surface-1, transparent);
 }
-.bk-plan--up { border-left-color: var(--turf-ink, #1c7a43); }
-.bk-plan--down { border-left-color: var(--flag-ink, #a33b3b); }
+.bk-plan--up { border-left-color: var(--turf-ink); }
+.bk-plan--down { border-left-color: var(--flag-ink); }
 .bk-plan--even { border-left-color: var(--yard-line); }
 .bk-plan-state { display: flex; flex-direction: column; gap: var(--space-0); }
 .bk-plan-tag {
@@ -1823,8 +1839,8 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   text-transform: uppercase; letter-spacing: 0.08em;
   padding: 0.1rem 0.45rem; border: 1px solid currentColor;
 }
-.bk-plan--up .bk-plan-tag { color: var(--turf-ink, #1c7a43); }
-.bk-plan--down .bk-plan-tag { color: var(--flag-ink, #a33b3b); }
+.bk-plan--up .bk-plan-tag { color: var(--turf-ink); }
+.bk-plan--down .bk-plan-tag { color: var(--flag-ink); }
 .bk-plan--even .bk-plan-tag { color: var(--chalk-dim); }
 .bk-plan-state b { font-size: var(--num-lead); font-variant-numeric: tabular-nums; }
 .bk-plan-state small { color: var(--chalk-dim); font-size: var(--text-micro); }
@@ -1846,7 +1862,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   display: block; font-size: var(--text-micro); font-weight: normal;
   color: var(--chalk-dim); font-variant-numeric: normal;
 }
-.bk-plan-nums .is-over dd { color: var(--flag-ink, #a33b3b); }
+.bk-plan-nums .is-over dd { color: var(--flag-ink); }
 .bk-plan-rule {
   justify-self: end; display: flex; flex-direction: column; gap: var(--space-0);
   font-size: var(--text-micro); text-transform: uppercase; letter-spacing: 0.05em;
@@ -1858,7 +1874,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   line-height: var(--leading-snug); color: var(--chalk-dim); max-width: 62ch;
 }
 .bk-plan-note b, .bk-plan-note strong { color: var(--chalk); }
-.bk-plan-note--brake { border-left: 3px solid var(--flag-ink, #a33b3b); padding-left: var(--space-3); }
+.bk-plan-note--brake { border-left: 3px solid var(--flag-ink); padding-left: var(--space-3); }
 
 /* --- EL LIBRO: curva, tabla por jornada y filas ---------------------------- */
 .bk-curve-fig { margin: var(--space-3) 0; }
@@ -1880,7 +1896,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .bk-backup-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-top: var(--space-2); }
 .bk-backup-text {
   width: 100%; max-width: 44rem; margin-top: var(--space-2);
-  font-family: var(--face-mono, monospace); font-size: var(--text-micro);
+  font-family: var(--face-mono); font-size: var(--text-micro);
 }
 
 @media (max-width: 30rem) {
@@ -1903,7 +1919,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
      aclaración se va abajo, que es su sitio. */
   .bk-h { flex-wrap: wrap; }
   .bk-h small { flex-basis: 100%; }
-  .bk-stats dd { font-size: var(--text-h3); }
+  .bk-stats dd { font-size: var(--text-lead); }
   .bk-lean-nums { flex-basis: 100%; }
 }
 
@@ -1986,7 +2002,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 }
 .room-link small { font-size: var(--text-micro); color: var(--chalk-dim); }
 .room-link--live b { border-color: var(--live); color: var(--live); }
-.room-link--stale b, .room-link--error b { border-color: var(--flag-ink, #a33b3b); color: var(--flag-ink, #a33b3b); }
+.room-link--stale b, .room-link--error b { border-color: var(--flag-ink); color: var(--flag-ink); }
 .room-link--manual b, .room-link--offline b { color: var(--chalk-dim); }
 
 /* El alcance de la sincronización: qué draft, y qué NO hace Gridiron. Va en la
@@ -2006,7 +2022,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-scope-k { text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
 .room-scope-link { color: var(--chalk); font-variant-numeric: tabular-nums; }
 .room-scope-note { flex: 1 1 12rem; }
-.room-scope-warn { flex-basis: 100%; color: var(--flag-ink, #a33b3b); font-weight: 700; }
+.room-scope-warn { flex-basis: 100%; color: var(--flag-ink); font-weight: 700; }
 
 .room-shortlist { margin-block: var(--space-3); }
 /* La calificación de profundidad va PEGADA al título de la lista: si vive
@@ -2017,7 +2033,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   font-size: var(--text-micro); font-weight: 700;
   letter-spacing: .06em;
   text-transform: uppercase;
-  color: var(--flag-ink, #a33b3b);
+  color: var(--flag-ink);
 }
 .room-depth-warn small {
   display: block;
@@ -2030,7 +2046,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 /* El mercado, al lado del número. Contexto, no aviso: en tinta secundaria. */
 .room-market {
   margin: calc(var(--space-1) * -1) 0 var(--space-2);
-  font-size: var(--text-small);
+  font-size: var(--text-dense);
   color: var(--chalk-dim);
 }
 
@@ -2042,15 +2058,15 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   align-items: baseline;
   margin: 0 0 var(--space-2);
   padding: var(--space-1) var(--space-2);
-  border-left: 3px solid var(--flag-ink, #a33b3b);
+  border-left: 3px solid var(--flag-ink);
   background: var(--surface-2, rgba(0, 0, 0, .04));
-  font-size: var(--text-small);
+  font-size: var(--text-dense);
 }
 .room-updated b {
   font-size: var(--text-micro);
   letter-spacing: .06em;
   text-transform: uppercase;
-  color: var(--flag-ink, #a33b3b);
+  color: var(--flag-ink);
 }
 .room-updated span { color: var(--chalk); }
 
@@ -2059,7 +2075,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
    `.room-depth-warn`: es contexto, y va en tinta secundaria. */
 .room-whynot {
   margin: calc(var(--space-1) * -1) 0 var(--space-2);
-  font-size: var(--text-small);
+  font-size: var(--text-dense);
   line-height: 1.4;
   color: var(--chalk-dim);
 }
@@ -2074,7 +2090,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 }
 .room-cand-rank {
   font-family: var(--face-display); font-variation-settings: "wdth" 76;
-  font-size: var(--text-h3); color: var(--chalk-dim); min-width: 2ch;
+  font-size: var(--text-lead); color: var(--chalk-dim); min-width: 2ch;
 }
 .room-cand-who { flex: 1 1 auto; min-width: 0; }
 .room-cand-who .nm { display: block; font-size: var(--text-body); font-weight: var(--weight-semibold); }
@@ -2088,15 +2104,15 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 }
 .room-cand-vor {
   font-family: var(--face-display); font-variation-settings: "wdth" 76;
-  font-size: var(--text-h3); font-variant-numeric: tabular-nums;
+  font-size: var(--text-lead); font-variant-numeric: tabular-nums;
 }
-.room-cand-vor small { display: block; font-size: var(--text-nano, 0.62rem); color: var(--chalk-dim); }
+.room-cand-vor small { display: block; font-size: var(--text-nano); color: var(--chalk-dim); }
 /* El VOR del board, debajo del ajustado. Va en `em` y no en otro `small`
    para que se distinga de la etiqueta de la cifra grande: son dos cosas
    —qué mide el número de arriba, y cuál es el número del board— y con la
    misma pinta se leerían como una sola. */
 .room-cand-vor em {
-  display: block; font-style: normal; font-size: var(--text-nano, 0.62rem);
+  display: block; font-style: normal; font-size: var(--text-nano);
   color: var(--chalk-dim); opacity: 0.75; white-space: nowrap;
 }
 
@@ -2107,7 +2123,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-grid-row { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: 2px; }
 .room-cell {
   min-height: 2.1rem; padding: 0.15rem 0.2rem; overflow: hidden;
-  background: var(--field-raised); font-size: var(--text-nano, 0.62rem); line-height: 1.15;
+  background: var(--field-raised); font-size: var(--text-nano); line-height: 1.15;
   display: flex; flex-direction: column; justify-content: center;
 }
 .room-cell b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -2153,7 +2169,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   color: var(--chalk); white-space: nowrap;
 }
 .room-timer small { font-size: var(--text-micro); font-weight: 400; color: var(--chalk-dim); letter-spacing: 0.03em; }
-.room-timer--low { color: var(--flag-ink, #a33b3b); }
+.room-timer--low { color: var(--flag-ink); }
 .room-timer--out { color: var(--chalk-dim); }
 .room-cell .hs { display: block; margin: 0 auto 2px; }
 .room-feed li .hs { margin-right: 6px; }
@@ -2168,7 +2184,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 /* --- PROPIEDAD EN LA LIGA ACTIVA: mío, agente libre, de otro --------------- */
 .own {
   display: inline-block; margin-left: 6px; padding: 0 4px; border-radius: var(--radius-sm);
-  font-size: var(--text-nano, 0.62rem); font-weight: 700; letter-spacing: .06em;
+  font-size: var(--text-nano); font-weight: 700; letter-spacing: .06em;
   vertical-align: middle; white-space: nowrap;
 }
 .own--mine { color: #fff; background: var(--live); }
@@ -2215,7 +2231,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 @media (max-width: 640px) { .bk-bets > li { grid-template-columns: minmax(0, 1fr); } }
 
 /* --- LOS QUE NO VAN A JUGAR, al pie: número intacto, orden de vista distinto --- */
-.tier-band--out td { color: var(--flag-ink, #a33b3b); border-top: 2px solid var(--flag-ink, #a33b3b); font-weight: 600; }
+.tier-band--out td { color: var(--flag-ink); border-top: 2px solid var(--flag-ink); font-weight: 600; }
 .rank-table tr.is-out td { opacity: 0.62; }
 .rank-table tr.is-out .mark--out { opacity: 1; }
 .room-list > li.is-out .room-row { opacity: 0.62; }
@@ -2224,7 +2240,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .picks .pick.is-out .room-row-out { opacity: 1; }
 .room-out-divider {
   list-style: none; margin: var(--space-2) 0 0; padding: var(--space-2) var(--space-3);
-  border-top: 2px solid var(--flag-ink, #a33b3b); color: var(--flag-ink, #a33b3b);
+  border-top: 2px solid var(--flag-ink); color: var(--flag-ink);
   font-size: var(--text-micro); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
 }
 
@@ -2238,7 +2254,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
    lo que se mira contra reloj. El board queda debajo, entero y sin tocar. */
 .room-pick {
   margin-top: var(--space-3); padding: var(--space-3);
-  border: 1px solid var(--team, var(--rule)); border-radius: var(--radius);
+  border: 1px solid var(--team, var(--line)); border-radius: var(--radius-md);
   background: var(--field-raised);
 }
 .room-pick-hero {
@@ -2248,7 +2264,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   color: inherit; font: inherit; text-align: left;
 }
 .room-pick-who { min-width: 0; }
-.room-pick-who b { display: block; font-size: var(--text-h3); line-height: 1.15; }
+.room-pick-who b { display: block; font-size: var(--text-lead); line-height: 1.15; }
 .room-pick-who .meta { display: flex; flex-wrap: wrap; gap: var(--space-1); align-items: center; }
 .room-why--pick li { font-size: var(--text-micro); }
 .room-why--pick li::before { content: "· "; color: var(--chalk-dim); }
@@ -2260,11 +2276,11 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   color: inherit; font: inherit; text-align: left;
 }
 .room-alts .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.room-alts .alt-why { font-size: var(--text-nano, 0.62rem); color: var(--chalk-dim); }
+.room-alts .alt-why { font-size: var(--text-nano); color: var(--chalk-dim); }
 .room-alts .alt-n { font-variant-numeric: tabular-nums; }
 .room-must {
   margin: var(--space-2) 0 0; padding: var(--space-2);
-  border-left: 3px solid var(--warn, var(--accent)); font-size: var(--text-micro);
+  border-left: 3px solid var(--warn-line); font-size: var(--text-micro);
 }
 .room-note--bench { margin-top: var(--space-3); }
 /* En el teléfono la fila del alternativo se parte: el motivo baja de renglón
@@ -2284,7 +2300,7 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   flex-wrap: wrap;
   gap: 0 0.75rem;
   margin: 0.15rem 0 0;
-  font-size: var(--text-caption);
+  font-size: var(--text-micro);
   color: var(--muted);
 }
 .room-asof span + span::before { content: "·"; margin-right: 0.75rem; }
@@ -2297,16 +2313,16 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .lu-warnings {
   list-style: none; margin: 0 0 var(--space-3); padding: 0;
   display: flex; flex-direction: column; gap: var(--space-1);
-  font-size: var(--text-small);
+  font-size: var(--text-dense);
 }
-.lu-warn { border-left: 3px solid var(--flag-ink, #a33b3b); padding-left: var(--space-2); }
+.lu-warn { border-left: 3px solid var(--flag-ink); padding-left: var(--space-2); }
 .lu-warn--no_projection, .lu-warn--unknown_id { border-left-color: var(--yard-line); color: var(--chalk-dim); }
 .lu-swaps { list-style: none; margin: 0 0 var(--space-3); padding: 0; }
 .lu-swaps > li {
   display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr) auto;
   gap: var(--space-2); align-items: center;
   padding: var(--space-2) 0; border-top: 1px solid var(--yard-line);
-  font-size: var(--text-small);
+  font-size: var(--text-dense);
 }
 .lu-swap-out, .lu-swap-in { min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); }
 .lu-swap-delta { font-variant-numeric: tabular-nums; text-align: right; }
@@ -2315,4 +2331,74 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 @media (max-width: 560px) {
   .lu-swaps > li { grid-template-columns: minmax(0, 1fr); }
   .lu-swap-delta { text-align: left; }
+}
+
+/* NEEDS ACTION: lo único de la pantalla que tiene reloj.
+   Va arriba y con el ámbar de `.callout` porque ese color se reserva —regla
+   del rediseño— para lo que CONTRADICE lo que el lector asumiría, y «tu
+   decisión vence antes de lo que crees» es exactamente eso. Se usan los
+   MISMOS tokens que `.callout` (`--warn-line`, `--warn-bg`) y no unos
+   propios: la primera versión inventó `--flag-ink` y `--text-small`, que no
+   existen en ninguna de las dos hojas. El primero traía un hex de respaldo
+   —o sea que se pintaba, con un color fuera del sistema— y el segundo no
+   traía ninguno, así que el tamaño de letra sencillamente no se aplicaba.
+   Los 72 raíles grises del war room otra vez: la promesa del token sin el
+   token. */
+.lu-act {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3);
+  border-left: 3px solid var(--warn-line);
+  background: var(--warn-bg);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+.lu-act-h { margin: 0 0 var(--space-2); font-size: var(--text-dense); font-weight: 600; }
+.lu-act-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
+.lu-act-list > li { display: grid; gap: var(--space-1); }
+.lu-act-why, .lu-act-when, .lu-act-alt { margin: 0; font-size: var(--text-dense); }
+.lu-act-when strong { color: var(--warn-line); }
+
+/* ============================================================================
+   REVISIÓN DE CUATRO JORNADAS
+   ----------------------------------------------------------------------------
+   La sección existe para separar tres cosas que un solo número junta: lo que
+   había, lo que movió el dueño y lo que hizo el libro. El diseño tiene que
+   sostener esa separación, así que la caja se pinta con su propio raíl y la
+   línea de la identidad va en su propia fila, no como pie de tabla.
+   ========================================================================== */
+.bk-review { border-top: 1px solid var(--line); padding-top: var(--space-5); margin-top: var(--space-6); }
+.bk-review-stats { margin-bottom: var(--space-3); }
+.bk-review-stats .is-cash dd { color: var(--muted); }
+.bk-identity {
+  margin: 0 0 var(--space-5);
+  padding: var(--space-3);
+  border-left: 3px solid var(--line);
+  background: var(--surface);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: var(--text-dense);
+}
+.bk-h3 { font-size: var(--text-dense); font-weight: var(--weight-bold);
+  letter-spacing: .04em; text-transform: uppercase; margin: 0 0 var(--space-2); }
+.bk-cash, .bk-funding { margin-top: var(--space-5); }
+/* Rejilla y no flex: cuatro campos en flex se parten 3+1 con medio panel
+   vacío al lado, que es el fallo ya cometido en el plan de la semana. */
+.bk-cash-row {
+  display: grid; gap: var(--space-3); align-items: end;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  margin-bottom: var(--space-3);
+}
+/* El campo llena SU columna. En la rejilla los tres huecos miden lo mismo,
+   pero un `input[type=number]` trae su ancho por defecto y un `select` se
+   estira: medido en 1440, la fila salía con el desplegable a 300 px y el
+   número a 170 dentro de columnas idénticas. Es «cuatro campos del mismo
+   ancho empezando en x distinta» con otra cara — y tampoco lo caza una
+   comprobación de geometría, porque nada desborda ni se pisa. */
+.bk-cash-row .field-label { margin-top: 0; }
+.bk-cash-row :where(input, select) { width: 100%; }
+.bk-advice { margin: 0 0 var(--space-3); font-size: var(--text-body); }
+/* Un CERO recomendado no es un error ni un aviso: es la respuesta. Se pinta
+   neutro a propósito — en rojo se leería como «algo va mal» y en verde como
+   «todo bien», y no es ninguna de las dos. */
+.bk-advice--zero strong { color: var(--muted); }
+@media (max-width: 47.99rem) {
+  .bk-cash-row { grid-template-columns: minmax(0, 1fr); }
 }
