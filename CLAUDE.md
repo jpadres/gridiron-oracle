@@ -653,6 +653,13 @@ comentario está para que no los reintroduzcas.
 | Un umbral global que sólo medía el ENCOGIMIENTO | `fantasy/track_record.py` | Al subirlo al MAE global la marca salía en nueve de los doce primeros —Bijan −176, Gibbs −181, Chase −149— porque el modelo encoge hacia la media y se queda corto con todo el que acaba siendo élite. **Un número que describe una propiedad global del modelo no es un hecho sobre ESE jugador.** El listón se mide ahora por banda de proyección desde los mismos boards: no queda constante que ajustar, y hay un test que falla si alguien vuelve a escribir una |
 | El historial se calculaba y NO llegaba al payload | `scripts/export_web_data.py` | El build decía «153 filas marcadas» y la web traía CERO: el exportador recorta el board a una lista blanca de columnas y `track_*` no estaba. Cuarta vez con esta forma —el dato computado que no llega a la pantalla— y la que más rápido se caza si se mira el payload en vez del log |
 | La marca del historial, invisible en la pantalla que se mira | `ui.jsx`, `tests/rosterMark.test.mjs` | Se cableó en `RowMarks`… y `RankTable` —la tabla principal de `/fantasy`— llama a `rosterMark` y `teamChangeMark` DIRECTAMENTE, sin pasar por ahí. El guardián leía sólo `RowMarks`, así que pasó VERDE con la marca sin pintarse en producción: es «un guardián sobre una función que ninguna pantalla llama», otra vez. **Novena vez** que dos superficies del mismo hecho divergen. Lo cazó un `grep` del HTML PUBLICADO, no la suite. La propiedad correcta no es «alguien la pinta» sino que la pinte QUIEN YA PINTA LAS DEMÁS, y así está escrito el test |
+| 8 de los 16 partidos con la línea MOVIDA, y la sección fechada con el fichero nuevo | `export_web_data.py` | `data_dates.markets` sale del mtime de `games.csv`, pero las líneas que se publican llegan por `features.parquet`, que es COMPILADO. Se refrescó el calendario, no se recompilaron las features, y el 13 de septiembre `/betting` calculaba EV y Kelly contra ARI@LAC 10.5 cuando el mercado decía 9.5 — sobre el dato que caduca en minutos. El remedio no es una fecha más fina: `_comprobar_lineas_publicadas` **levanta** si lo publicado no es lo que hay en el fichero |
+| NE@SEA, final 13-10, ofrecido como mercado abierto | `value.py`, `sports.jsx` | Nada en el camino miraba `played`: `/predicciones` pintaba «SEA 23,7 – NE 20,7» de un partido acabado cuatro días antes y `/betting` le ponía EV y fracción de Kelly. Dos de los dieciséis de la jornada, con el resultado en el MISMO fichero del que salían las líneas. Un partido con resultado no es un mercado barato: no es un mercado (`NO_BET_GAME_FINAL`), y la tarjeta enseña el marcador y por cuánto falló el modelo |
+| El mercado de moneyline NUNCA se evaluó en producción | `data/features.py` | `games.parquet` traía las dos moneylines y la lista de columnas de `build_features` no las copiaba: `_moneyline_candidates` recibía `None`, lo leía como «este partido no tiene línea» —la rama correcta cuando de verdad no la hay— y devolvía lista vacía en los dieciséis. Los 32 mercados publicados eran 16 × 2 lados de spread, y nadie echaba de menos los otros 32 porque ninguna pantalla los prometía por nombre. **Una columna que se cae no da error: da un mercado que no existe** |
+| Todo edge de spread medido contra un 50% FABRICADO | `betting/value.py`, `data/ingest.py` | `DEFAULT_SPREAD_ODDS` ponía -110 en los dos lados, y con precios simétricos el de-vig de Shin devuelve 0,5 EXACTO por construcción: `market_prob` valía 0,5 en los 32 mercados. El calendario publicaba -102/-118 en NE@SEA y `ingest.py` los descartaba. Un -118 implica 54,1%, así que el edge se sobreestimaba cuatro puntos en el lado caro. No se veía porque el número cuadraba consigo mismo. `price_source` viaja al payload: un relleno que no se distingue de una cotización es un dato inventado |
+| El board de draft se fue a proyectar 2027 el primer domingo | `scripts/fantasy_build.py` | `season = max(temporada con estadística) + 1` acierta en agosto y falla el día que empieza la temporada: en cuanto llegó la jornada 1 de 2026 el compilador saltó a 2027, con el dueño usando el board. Había TRES reglas para la misma pregunta —`_resolve_week` y el semanal usaban «el primer partido sin jugar», que es la correcta— y ésta era la tercera. **Décima vez** que dos traductores del mismo formato divergen, y esta vez sobre cuál es el AÑO. Una sola, `schedule.py::current_point` |
+| `fantasy: 2026-09-12` sobre un board que no puede contener nada de septiembre | `export_web_data.py` | `_mas_nuevo(raw, "player_stats_*.parquet")` devuelve el fichero de la temporada EN CURSO, y `project_season` se queda con `season < S`: el board de 2026 no lee ni una fila de 2026. Al refrescar, la fecha se movió al 12 de septiembre y el board recompilado salió **byte a byte idéntico** —movimiento medio de puesto CERO en los 300 primeros—: 26 días fabricados, cuarta vez con esta forma. Y lo que hay que anotar: el guardián de artefacto-contra-fuente **pasó en VERDE** sobre la mentira, porque el artefacto sí era más nuevo. **Un guardián que compara fechas no puede ver que la fuente no se lee**; la propiedad correcta es que la fecha salga de los ficheros que ENTRAN |
+| `INA`, una etiqueta de plantilla nueva | `fantasy/roster_status.py` | El roster semanal empezó a traer la lista de inactivos de la jornada y el exportador se negó a publicar — la puerta funcionando. Lo que decidió la traducción fue el fichero, no una suposición: las 25 filas eran EXACTAMENTE los cuatro equipos que ya habían jugado y las 25 llevaban `A01`, el mismo código fino que las 1.672 `ACT`. O sea que su situación de plantilla es Activo y lo que no hicieron fue jugar ESE partido. La segunda mitad **no** se publica como estado: un estado de aquí no lleva jornada, y «inactivo» leído en la jornada 5 desde una instantánea de la 1 es la regla 5 exacta |
 
 ---
 
@@ -700,9 +707,14 @@ no una tarea. Lo que sí queda:
 
 1. **Restaurar el secret `ANTHROPIC_API_KEY`** en GitHub Actions: sin él el
    barrido diario de prensa no puede correrse solo.
-   Y **`oracle refresh`**: el calendario de nflverse que trae `spread_line` es
-   del 29 de agosto. El sitio ya lo DICE —cada sección publica la fecha de su
-   fichero de origen— pero decirlo no lo arregla.
+
+   `oracle refresh` ya **no** está aquí: se corrió el 13 de septiembre de 2026 y
+   el calendario, las plantillas y el play-by-play son del 12-13. Lo que se
+   aprendió refrescando es que refrescar NO basta y por eso hay dos puertas
+   nuevas que fallan cerradas: las líneas publicadas tienen que ser las del
+   fichero que las fecha (`_comprobar_lineas_publicadas`) y ningún artefacto se
+   fecha con una fuente que no contiene (`_comprobar_artefactos_al_dia`). Lo que
+   sigue pendiente del dueño es lo de arriba y lo de abajo, no el refresco.
 2. **Rotar** las dos credenciales filtradas en una sesión anterior — rotar y no
    borrar, porque siguen vivas en el historial.
 
@@ -742,7 +754,7 @@ está construida:
 | `controles.mjs` | **Control por control, las trece páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CUARENTA Y CUATRO fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CINCUENTA Y TRES fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -755,7 +767,13 @@ el parche de fechas borrando la de la prensa, una mención pisando al parte
 médico, dos formas de emparejar mal un nombre y el cambio de equipo escondido en
 la lista del board, y desde el 7 de septiembre un OUT propuesto como titular de
 la semana y el board de temporada colándose bajo el índice semanal del
-analizador— y exige 44 rojos y 44 verdes al restaurar.
+analizador—, y desde el 13 de septiembre la línea publicada un build por detrás
+del fichero que la fecha, el precio del handicap cayendo al relleno de -110, un
+partido con resultado ofrecido como mercado, el precio del mercado cayéndose de
+las features, el board de draft yéndose a la temporada siguiente, la
+estadística de la temporada que el board NO lee usada para fecharlo, una
+etiqueta de plantilla nueva colada como activo y la moneyline fuera de la
+pantalla de mercados— y exige 53 rojos y 53 verdes al restaurar.
 
 ## El skill de UI/UX
 

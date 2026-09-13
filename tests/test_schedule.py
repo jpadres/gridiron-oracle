@@ -163,3 +163,53 @@ def test_el_calendario_real_da_32_descansos_de_32_equipos(season):
     assert sc.complete is True
     # Ningún descanso en la semana 1 ni en la última: la NFL no los pone ahí.
     assert all(2 <= w <= 15 for w in sc.bye_week.values()), sorted(set(sc.bye_week.values()))
+
+
+# --------------------------------------------------------------------------
+# EN QUÉ PUNTO DEL CALENDARIO ESTAMOS
+#
+# Había tres reglas para la misma pregunta y una estaba mal: el 13 de septiembre
+# de 2026, con la jornada 1 en marcha, `fantasy_build.py` mandó el board de
+# draft a proyectar 2027.
+# --------------------------------------------------------------------------
+
+
+def _calendario(filas):
+    return pd.DataFrame(
+        [{"season": s, "week": w, "played": p} for s, w, p in filas]
+    )
+
+
+def test_con_la_temporada_EMPEZADA_el_punto_sigue_siendo_esa_temporada():
+    """Dos partidos jugados de la jornada 1 no convierten 2026 en 2027.
+
+    Es el caso exacto que falló: `max(temporada con estadística) + 1` acierta en
+    agosto y se equivoca el primer domingo.
+    """
+    from oracle.fantasy.schedule import current_point
+
+    punto = current_point(_calendario([
+        (2026, 1, True), (2026, 1, True), (2026, 1, False), (2026, 2, False),
+    ]))
+    assert punto is not None
+    assert punto.season == 2026, "el board se iría un año al futuro"
+    assert punto.week == 1, "la jornada es la del primer partido SIN jugar"
+    assert punto.in_progress
+
+
+def test_con_la_temporada_CERRADA_el_punto_es_el_ultimo_partido():
+    """Y entonces sí toca sumar uno, pero lo decide quien proyecta."""
+    from oracle.fantasy.schedule import current_point
+
+    punto = current_point(_calendario([(2025, 17, True), (2025, 18, True)]))
+    assert punto is not None
+    assert (punto.season, punto.week) == (2025, 18)
+    assert not punto.in_progress
+
+
+def test_sin_columna_played_no_se_inventa_un_ano():
+    """Sin el dato no se supone: `None`, y quien llama dice que no lo sabe."""
+    from oracle.fantasy.schedule import current_point
+
+    assert current_point(pd.DataFrame([{"season": 2026, "week": 1}])) is None
+    assert current_point(pd.DataFrame()) is None

@@ -12,6 +12,7 @@ Este módulo separa lo que aquel booleano juntaba, con las categorías que el
 propio fichero declara en su columna `status` —no las inventa nadie aquí—:
 
     ACT  ACTIVE          en el 53 del equipo
+    INA  ACTIVE          en el 53, declarado inactivo PARA UN PARTIDO
     RES  RESERVE         en una lista de reserva: NO está en el 53
     DEV  PRACTICE_SQUAD  equipo de prácticas
     EXE  EXEMPT          lista de exentos
@@ -64,10 +65,29 @@ TEAM_UNIT = "TEAM_UNIT"
 #: Posiciones que son un equipo entero. `DST` y `DEF` conviven en las fuentes.
 TEAM_UNIT_POSITIONS = frozenset({"DST", "DEF", "D/ST", "DEFENSE"})
 
-#: Traducción de la columna `status` del roster. Sólo estas seis existen en el
-#: fichero; cualquier otra levanta en vez de colarse como «activo».
+#: Traducción de la columna `status` del roster. Sólo estas siete se conocen;
+#: cualquier otra levanta en vez de colarse como «activo».
 FROM_NFLVERSE = {
     "ACT": ACTIVE,
+    # `INA` NO ES UNA SITUACIÓN DE PLANTILLA: ES UNA LISTA DE UN PARTIDO.
+    #
+    # Apareció el 13 de septiembre de 2026, cuando el roster semanal empezó a
+    # traer la lista de inactivos de la jornada, y este módulo —bien— se negó a
+    # exportar: falló cerrado en vez de colar una etiqueta nueva como «activo».
+    #
+    # Lo que decidió la traducción es el propio fichero, no una suposición: las
+    # 25 filas `INA` son EXACTAMENTE los cuatro equipos que ya habían jugado
+    # (NE, SEA, SF, LA) y las 25 llevan `status_description_abbr` **A01**, el
+    # mismo código fino que las 1.672 filas `ACT`. O sea que nflverse afirma dos
+    # cosas a la vez: su situación de plantilla es Activo, y no jugó ESE
+    # partido. La pregunta que contesta este módulo es la primera.
+    #
+    # Y la segunda no se publica como estado a propósito. Un estado de aquí no
+    # lleva jornada, así que «inactivo» leído en la jornada 5 desde una
+    # instantánea de la 1 sería un dato real con fecha vieja presentado como
+    # actual: la regla 5 exacta. Si algún día se quiere publicar, hace falta una
+    # capa con jornada, no una etiqueta más en esta tabla.
+    "INA": ACTIVE,
     "RES": RESERVE,
     "DEV": PRACTICE_SQUAD,
     "EXE": EXEMPT,

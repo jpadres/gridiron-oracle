@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 44 fallos conocidos, 44 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 53 fallos conocidos, 53 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -189,3 +189,30 @@ run "43 un OUT propuesto como titular de la semana" web/app/fantasy/startSit.js 
 run "44 el board de TEMPORADA otra vez bajo el índice semanal del analizador" web/app/fantasy/analisis/AnalyzerShell.jsx \
   "    () => fullWeeklyIndex({ rankings: weekly, kickers: weeklyKickers, defenses: weeklyDefenses }),|||    () => { const m = new Map(index); for (const [k, v] of fullWeeklyIndex({ rankings: weekly, kickers: weeklyKickers, defenses: weeklyDefenses })) m.set(k, v); return m; }," \
   "cd web && node --test tests/analyzerIndex.test.mjs"
+run "45 la línea publicada un build por detrás" scripts/export_web_data.py \
+  "    if desacuerdos:|||    if False:" \
+  "python -m pytest -q tests/test_data_dates.py"
+run "46 el precio del handicap vuelve al relleno -110" src/oracle/betting/value.py \
+  "    if pd.notna(home_odds) and pd.notna(away_odds):|||    if False:" \
+  "python -m pytest -q tests/test_betting.py"
+run "47 un partido con resultado ofrecido como mercado" src/oracle/betting/value.py \
+  "        if bool(final):|||        if False:" \
+  "python -m pytest -q tests/test_betting.py"
+run "48 el precio del mercado se cae de las features" src/oracle/data/features.py \
+  "                \"home_moneyline\": game.get(\"home_moneyline\"),|||                # INYECCIÓN: la columna se queda en el camino" \
+  "python -m pytest -q tests/test_data.py"
+run "49 el board de draft se va a la temporada SIGUIENTE" src/oracle/fantasy/schedule.py \
+  "    return SeasonPoint(int(primero[\"season\"]), int(primero[\"week\"]), True)|||    return SeasonPoint(int(primero[\"season\"]) + 1, int(primero[\"week\"]), True)" \
+  "python -m pytest -q tests/test_schedule.py"
+run "50 fechar el board con la temporada que NO lee" scripts/export_web_data.py \
+  "    stats = _stats_que_lee_el_board(paths)|||    stats = _fecha_de(_mas_nuevo(paths.raw, \"player_stats_*.parquet\"))" \
+  "python -m pytest -q tests/test_data_dates.py"
+run "51 una etiqueta de plantilla nueva colada como activo" src/oracle/fantasy/roster_status.py \
+  "    if desconocidos:|||    if False:" \
+  "python -m pytest -q tests/test_roster_status.py"
+run "52 la moneyline fuera de la pantalla de mercados" web/app/betting/BettingShell.jsx \
+  "                  const sides = markets.filter((m) => m.game_id === game.game_id);|||                  const sides = markets.filter((m) => m.game_id === game.game_id && String(m.market).startsWith(\"spread\"));" \
+  "cd web && node --test tests/noBet.test.mjs"
+run "53 la tarjeta deja de decir que el partido acabó" web/app/sports.jsx \
+  "  const isFinal = game.final === true && finalScoreHome !== null && finalScoreAway !== null;|||  const isFinal = false;" \
+  "cd web && node --test tests/noBet.test.mjs"

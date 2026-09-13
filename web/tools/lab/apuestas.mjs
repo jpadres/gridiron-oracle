@@ -67,7 +67,23 @@ for (const width of [390, 1440]) {
   }
   console.log(`\n=== página a ${width} ===`);
   const rows = await page.locator(".bk-markets tbody tr").count();
-  check(`${width}: la tabla de mercados tiene una fila por lado`, rows === spreads.length, `${rows} vs ${spreads.length}`);
+  /* UNA FILA POR MERCADO PUBLICADO, NO POR SPREAD.
+     Esta comprobación decía `rows === spreads.length` y el filtro de la tabla
+     acotaba a spreads: los dos de acuerdo, y los dos ciegos a la moneyline —
+     que llevaba meses sin llegar al payload porque `features.parquet` se
+     comía sus columnas. El día que empezó a llegar, 32 filas nuevas se
+     habrían quedado fuera de la única pantalla que las enseña y esto seguía
+     verde. Se cuenta contra TODOS los mercados del payload. */
+  check(`${width}: la tabla de mercados tiene una fila por mercado publicado`,
+    rows === MARKETS.length, `${rows} vs ${MARKETS.length}`);
+  /* Y las familias tienen que estar las dos, nombradas: si mañana se vuelve a
+     filtrar por familia, el conteo de arriba baja y esto dice cuál falta. */
+  const familias = new Set(MARKETS.map((m) => String(m.market).split(" ")[0]));
+  const textoFilas = (await page.locator(".bk-markets tbody").innerText()).toLowerCase();
+  for (const f of familias) {
+    check(`${width}: la familia «${f}» llega a la pantalla`,
+      f === "moneyline" ? / ml\b/.test(textoFilas) : /[+-]\d+\.\d/.test(textoFilas));
+  }
   const texto = await page.locator(".bk-markets").innerText();
   check(`${width}: el moneyline justo se enseña por partido`, /[+-]\d{3}/.test(texto));
   const bets = model.bets ?? [];
@@ -79,12 +95,27 @@ for (const width of [390, 1440]) {
      sized» —el respaldo cuando el espejo no sabe— no puede aparecer nunca
      sobre el payload real. Se cuenta contra los mercados del payload, no
      contra lo pintado. */
-  const sinApuesta = (model.markets ?? []).filter((m) => !(m.stake_fraction > 0)).length;
+  /* Un partido ACABADO no es un mercado sin valor: no es un mercado, y se dice
+     FINAL. Antes salía «no bet · not sized», que se lee como que el precio no
+     daba — la clase de error que no falla nada. Así que la cuenta de NO BET se
+     hace sobre los mercados ABIERTOS, y los cerrados se cuentan aparte para
+     que ninguno de los dos pueda absorber al otro en silencio. */
+  const abiertos = (model.markets ?? []).filter((m) => !m.game_final);
+  const cerrados = (model.markets ?? []).filter((m) => m.game_final);
+  const sinApuesta = abiertos.filter((m) => !(m.stake_fraction > 0)).length;
   const celdas = await page.locator(".bk-markets tbody .bk-nomarket").allInnerTexts();
   const noBet = celdas.filter((t) => /^no bet · /i.test(t));
-  check(`${width}: cada lado sin apuesta dice NO BET y su motivo`,
+  check(`${width}: cada lado ABIERTO sin apuesta dice NO BET y su motivo`,
     noBet.length === sinApuesta && noBet.every((t) => /minimum|price/i.test(t)),
     `${noBet.length} pintados / ${sinApuesta} en el payload · ${[...new Set(noBet)].join(" | ")}`);
+  if (cerrados.length > 0) {
+    const finales = await page.locator(".bk-markets tbody .mark--out").allInnerTexts();
+    check(`${width}: cada mercado de un partido jugado dice FINAL`,
+      finales.filter((t) => /final/i.test(t)).length === cerrados.length,
+      `${finales.length} pintados / ${cerrados.length} cerrados`);
+    check(`${width}: y ninguno de ellos se ofrece como apuesta`,
+      cerrados.every((m) => !(m.stake_fraction > 0) && m.no_bet_reason === "GAME_FINAL"));
+  }
   check(`${width}: ninguno queda «not sized»`, !celdas.some((t) => /not sized/i.test(t)));
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
   check(`${width}: sin desbordamiento horizontal`, !overflow);

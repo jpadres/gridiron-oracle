@@ -431,6 +431,30 @@ def _publish_slice(board: pd.DataFrame) -> pd.DataFrame:
     return board[board["player_id"].isin(keep)].copy()
 
 
+def _temporada_a_proyectar(paths, players: pd.DataFrame) -> int:
+    """La temporada en curso según el calendario; la siguiente si ya acabó.
+
+    El calendario manda porque es el único que distingue «la temporada empezó»
+    de «hay estadística de la temporada». Sin calendario legible se cae a la
+    regla vieja —la siguiente a la última con estadística— y se DICE, porque en
+    pretemporada las dos coinciden y en octubre no.
+    """
+    from oracle.fantasy.schedule import current_point
+
+    ruta = paths.processed / "games.parquet"
+    if ruta.exists():
+        punto = current_point(pd.read_parquet(ruta, columns=["season", "week", "played"]))
+        if punto is not None:
+            if punto.in_progress:
+                return punto.season
+            return punto.season + 1
+    siguiente = int(players["season"].max()) + 1
+    print(f"  (aviso) sin calendario legible: se proyecta {siguiente} por la "
+          "estadística disponible, que sólo coincide con la temporada en curso "
+          "antes de que empiece.")
+    return siguiente
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Genera el board de draft.")
     parser.add_argument("--root", default=None)
@@ -470,7 +494,14 @@ def main(argv: list[str] | None = None) -> int:
     # la función que falla cerrada si el esquema cambia.
     players = regular_season(pd.read_parquet(paths.player_weeks))
 
-    season = args.season or int(players["season"].max()) + 1
+    # LA TEMPORADA EN CURSO, NO LA SIGUIENTE.
+    #
+    # Aquí decía `int(players["season"].max()) + 1`, que acierta en agosto y
+    # falla el día que empieza la temporada: en cuanto llegó la jornada 1 de
+    # 2026 el compilador se fue a proyectar 2027, el mismo domingo en que el
+    # board se estaba usando. La regla vive ahora en `fantasy/schedule.py` y la
+    # comparten los tres sitios que la preguntaban — ver `current_point`.
+    season = args.season or _temporada_a_proyectar(paths, players)
     if settings is None:
         settings = LeagueSettings(teams=args.teams)
 

@@ -279,3 +279,38 @@ def test_assert_measured_revienta_al_ampliar_la_ventana():
         assert_measured(frame, ["targets"], range(2000, 2010))
     # Y no molesta cuando la ventana no toca el hueco.
     assert_measured(frame, ["targets"], range(2013, 2026))
+
+
+def test_las_features_arrastran_el_precio_del_MERCADO(features):
+    """El precio no puede quedarse en el camino, porque nada falla si lo hace.
+
+        UNA COLUMNA QUE SE CAE NO DA ERROR: DA UN MERCADO QUE NO EXISTE.
+
+    `games.parquet` traía las dos moneylines y la lista de columnas de
+    `build_features` no las copiaba. `betting/value.py::_moneyline_candidates`
+    recibía `None`, lo leía como «este partido no tiene línea» —que es la rama
+    correcta cuando de verdad no la hay— y devolvía lista vacía en TODOS los
+    partidos. Resultado medido en el payload del 13 de septiembre de 2026: 32
+    mercados publicados, que son 16 partidos × 2 lados de spread, y cero
+    moneylines. El mercado, su de-vig de Shin y sus tests existían y no habían
+    corrido nunca sobre datos reales.
+
+    Y los dos precios del handicap no llegaban siquiera a `games.parquet`, así
+    que el motor rellenaba -110 en los dos lados: con precios simétricos el
+    de-vig es simétrico por construcción y el edge se medía contra un 50% que el
+    mercado no ofrecía.
+    """
+    for columna in (
+        "home_moneyline", "away_moneyline", "home_spread_odds", "away_spread_odds",
+    ):
+        assert columna in features.columns, (
+            f"{columna} no llega a features: el mercado que la usa queda vacío "
+            "sin que nada falle"
+        )
+        assert features[columna].notna().any(), f"{columna} llega entera a nulos"
+    # Y tienen que llegar con su ASIMETRÍA: dos precios iguales no se distinguen
+    # del relleno, y es la asimetría la que produce un de-vig que no sea 0,5.
+    assert (features["home_spread_odds"] != features["away_spread_odds"]).any(), (
+        "los dos lados llegan al mismo precio: el de-vig saldrá simétrico y el "
+        "edge se medirá contra un 50% fabricado"
+    )

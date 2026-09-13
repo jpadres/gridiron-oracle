@@ -425,7 +425,7 @@ export default function BettingShell({ predictions, weekly, context, markets = [
       {markets.length > 0 ? (
         <section aria-label="Markets">
           <h2 className="bk-h">
-            Markets <small>model probability vs the house without vig · every spread, both sides</small>
+            Markets <small>model probability vs the house without vig · every spread and moneyline, both sides</small>
           </h2>
           {/* Las apuestas que PASAN el umbral, con su stake a ESTE bankroll. Son
               pocas o ninguna a propósito: el modelo iguala al mercado, y la
@@ -446,7 +446,11 @@ export default function BettingShell({ predictions, weekly, context, markets = [
                     market: bet.market.startsWith("spread") ? "SPREAD" : "MONEYLINE",
                     label: `${bet.selection} ${bet.market}`, selection: bet.selection,
                     line: Number(String(bet.market).replace(/[^-+\d.]/g, "")) || null,
-                    odds: -110, stake: Math.round(bet.stake_fraction * record.starting),
+                    /* El precio del lado, no el -110 cableado: el mercado
+                       publica -102/-118 y registrar la apuesta al precio
+                       equivocado hace que el libro no cuadre con la realidad. */
+                    odds: hasNumber(bet.american_odds) ? Number(bet.american_odds) : -110,
+                    stake: Math.round(bet.stake_fraction * record.starting),
                     gameId: bet.game_id, team: bet.selection,
                     snapshot: { model: bet.model_prob, market: bet.market_prob, family: bet.market },
                   })}>Add to slip</button>
@@ -471,13 +475,20 @@ export default function BettingShell({ predictions, weekly, context, markets = [
                       cabecera literal es la afirmación en el sitio donde más se
                       lee. La columna no cambia — es la diferencia entre modelo
                       y mercado— y ahora se llama por lo que es. */}
-                  <th>Side</th><th>Cover</th><th>House</th><th>Model − market</th>
-                  <th>EV at −110</th><th>Stake</th><th>History</th>
+                  <th>Side</th><th>Price</th><th>Model</th><th>House</th><th>Model − market</th>
+                  <th>EV</th><th>Stake</th><th>History</th>
                 </tr>
               </thead>
               <tbody>
                 {predictions.map((game) => {
-                  const sides = markets.filter((m) => m.game_id === game.game_id && String(m.market).startsWith("spread"));
+                  /* TODOS los mercados del partido, no sólo los spreads.
+                     Este filtro decía `startsWith("spread")` y era correcto
+                     mientras la moneyline no llegaba nunca al payload: cuando
+                     empezó a llegar —32 filas nuevas el 13 de septiembre de
+                     2026— se habrían quedado fuera de la única pantalla que las
+                     enseña. Es el fallo del dato computado que no llega a la
+                     pantalla, adelantado. */
+                  const sides = markets.filter((m) => m.game_id === game.game_id);
                   const fairHome = fairAmerican(Number(game.home_win_prob));
                   const fairAway = fairAmerican(1 - Number(game.home_win_prob));
                   if (sides.length === 0) {
@@ -499,16 +510,30 @@ export default function BettingShell({ predictions, weekly, context, markets = [
                           <td rowSpan={sides.length}>{fairHome ? <>{game.home_team} {fairHome}<br />{game.away_team} {fairAway}</> : "—"}</td>
                         </>
                       ) : null}
-                      <td><b className="bk-side">{side.selection} {String(side.market).replace("spread ", "")}</b></td>
+                      <td><b className="bk-side">{side.selection} {String(side.market).replace("spread ", "")}</b>
+                        {side.market === "moneyline" ? <small> ML</small> : null}</td>
+                      {/* EL PRECIO, que hasta ahora era una convención cableada
+                          y ahora es el que publica el calendario. Se dice cuál
+                          de los dos es: un relleno que no se distingue de una
+                          cotización es un dato inventado. */}
+                      <td>{hasNumber(side.american_odds)
+                        ? <>{Number(side.american_odds) > 0 ? "+" : ""}{num(side.american_odds, 0)}
+                            {side.price_source === "MARKET" ? null : <small> default</small>}</>
+                        : "—"}</td>
                       <td>{pctOf(side.model_prob)}{side.push_prob > 0 ? <small> · push {pctOf(side.push_prob)}</small> : null}</td>
                       <td>{pctOf(side.market_prob)}</td>
                       <td className={side.edge >= 0 ? "wk-up" : "wk-down"}>{side.edge > 0 ? "+" : ""}{num(side.edge * 100, 1)}</td>
                       <td className={side.ev >= 0 ? "wk-up" : "wk-down"}>{side.ev > 0 ? "+" : ""}{num(side.ev * 100, 1)}%</td>
-                      <td>{side.stake_fraction > 0
-                        ? money(side.stake_fraction * record.starting)
-                        /* NO BET es la decisión más frecuente del motor, y un «0»
-                           se lee como celda vacía. Se dice, y se dice por qué. */
-                        : <span className="bk-nomarket">no bet · {noBetReason(side) ?? "not sized"}</span>}</td>
+                      <td>{side.game_final
+                        /* Un partido con resultado no es un mercado barato: no
+                           es un mercado. Antes salía «no bet · not sized», que
+                           se lee como que el precio no daba. */
+                        ? <span className="mark mark--out">FINAL</span>
+                        : side.stake_fraction > 0
+                          ? money(side.stake_fraction * record.starting)
+                          /* NO BET es la decisión más frecuente del motor, y un
+                             «0» se lee como celda vacía. Se dice, y por qué. */
+                          : <span className="bk-nomarket">no bet · {noBetReason(side) ?? "not sized"}</span>}</td>
                       <td><small>{side.evidence_label}{side.evidence_bets ? ` · ${num(side.evidence_win_rate * 100, 1)}%` : ""}</small></td>
                     </tr>
                   ));
@@ -518,9 +543,12 @@ export default function BettingShell({ predictions, weekly, context, markets = [
           </div>
           <p className="caption">
             Cover probabilities come from the model&rsquo;s margin distribution with key
-            numbers (3 and 7) and the push split out; the house is −110 both ways de-vigged
-            (Shin), so 50/50. Fair ML is the model&rsquo;s win probability turned into a
-            no-vig price — compare it with your book&rsquo;s. Stake is fractional Kelly with
+            numbers (3 and 7) and the push split out; the house column is the posted
+            price de-vigged (Shin) — for spreads that is now the real per-side price from
+            the schedule, not −110 both ways, so it is no longer 50/50 by construction.
+            A price marked <em>default</em> is the −110 fallback, used only when the
+            schedule publishes none. Fair ML is the model&rsquo;s win probability turned
+            into a no-vig price — compare it with your book&rsquo;s. Stake is fractional Kelly with
             the project&rsquo;s brakes (quarter Kelly, edge halved, 2% cap, a minimum edge of
             1.5 percentage points) at this month&rsquo;s starting bankroll. &ldquo;No bet&rdquo;
             names the brake that stopped it. &ldquo;History&rdquo; is the

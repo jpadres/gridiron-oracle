@@ -21,8 +21,8 @@ import pandas as pd
 
 from ..models.distribution import MarginDistribution
 from .devig import devig_shin
-from .kelly import KellyConfig, decide, expected_value
-from .odds import american_to_decimal
+from .kelly import NO_BET_GAME_FINAL, Decision, KellyConfig, decide, expected_value
+from .odds import american_to_decimal, decimal_to_american
 
 # Precio estándar de un spread cuando no hay cuota publicada. -110 en los dos
 # lados es la convención del mercado americano.
@@ -58,12 +58,7 @@ def value_bets(
     frame["ev"] = [
         expected_value(p, o) for p, o in zip(frame["model_prob"], frame["decimal_odds"], strict=True)
     ]
-    decisions = [
-        decide(p, o, m, config)
-        for p, o, m in zip(
-            frame["model_prob"], frame["decimal_odds"], frame["market_prob"], strict=True
-        )
-    ]
+    decisions = _decisions(frame, config)
     frame["stake_fraction"] = [d.stake_fraction for d in decisions]
     frame["decision"] = [d.decision for d in decisions]
     frame["no_bet_reason"] = [d.no_bet_reason for d in decisions]
@@ -103,18 +98,46 @@ def enumerate_markets(
     frame["ev"] = [
         expected_value(p, o) for p, o in zip(frame["model_prob"], frame["decimal_odds"], strict=True)
     ]
-    decisions = [
-        decide(p, o, m, config)
-        for p, o, m in zip(
-            frame["model_prob"], frame["decimal_odds"], frame["market_prob"], strict=True
-        )
-    ]
+    decisions = _decisions(frame, config)
     frame["stake_fraction"] = [d.stake_fraction for d in decisions]
     # La DECISIÓN viaja con el mercado: la web no la recalcula (y menos sobre
     # valores redondeados). Un solo sitio decide NO BET y por qué.
     frame["decision"] = [d.decision for d in decisions]
     frame["no_bet_reason"] = [d.no_bet_reason for d in decisions]
     return frame.sort_values(["game_id", "market", "selection"]).reset_index(drop=True)
+
+
+def _decisions(frame: pd.DataFrame, config: KellyConfig) -> list[Decision]:
+    """La decisión de cada fila, en un solo sitio para los dos enumeradores.
+
+        UN PARTIDO CON RESULTADO NO ES UN MERCADO BARATO: NO ES UN MERCADO.
+
+    `decide` sólo ve precio y probabilidad, así que no puede saberlo — y no debe:
+    es la única autoridad del TAMAÑO y meterle el calendario dentro la convierte
+    en dos cosas. Aquí, que es donde se ve el partido, un resultado final anula
+    la decisión con su propio motivo.
+
+    Hacía falta: el 13 de septiembre de 2026 el sitio publicaba NE@SEA (final
+    13-10) y SF@LA (27-7) como mercados abiertos con su EV y su fracción de
+    Kelly, porque nada en el camino miraba `played`. Dos de los dieciséis
+    partidos de la jornada, y los dos con el resultado ya en el mismo fichero
+    del que salían las líneas.
+
+    Las dos ramas se recorren siempre: `value_bets` filtra por `stake > 0` y un
+    mercado cerrado sale con cero, así que allí desaparece — que es lo correcto;
+    `enumerate_markets` lo conserva con el motivo, que es lo que la pantalla
+    necesita para decir FINAL en vez de callarse el partido.
+    """
+    salida: list[Decision] = []
+    for p, o, m, final in zip(
+        frame["model_prob"], frame["decimal_odds"], frame["market_prob"],
+        frame.get("game_final", pd.Series(False, index=frame.index)), strict=True,
+    ):
+        if bool(final):
+            salida.append(Decision(0.0, "NO_BET", NO_BET_GAME_FINAL))
+            continue
+        salida.append(decide(p, o, m, config))
+    return salida
 
 
 def _moneyline_candidates(game: pd.Series) -> list[dict]:
@@ -127,8 +150,10 @@ def _moneyline_candidates(game: pd.Series) -> list[dict]:
     home_prob = float(game["home_win_prob"])
 
     return [
-        _candidate(game, "moneyline", game["home_team"], home_prob, decimals[0], fair[0]),
-        _candidate(game, "moneyline", game["away_team"], 1.0 - home_prob, decimals[1], fair[1]),
+        _candidate(game, "moneyline", game["home_team"], home_prob, decimals[0], fair[0],
+                   price_source="MARKET"),
+        _candidate(game, "moneyline", game["away_team"], 1.0 - home_prob, decimals[1], fair[1],
+                   price_source="MARKET"),
     ]
 
 
@@ -147,8 +172,28 @@ def _spread_candidates(game: pd.Series, distribution: MarginDistribution) -> lis
         return []
     home_prob, away_prob = home / decided, away / decided
 
-    decimal = float(american_to_decimal(DEFAULT_SPREAD_ODDS))
-    fair = devig_shin(np.array([decimal, decimal]))
+    # EL PRECIO DEL LADO, CUANDO EL MERCADO LO PUBLICA.
+    #
+    # Hasta septiembre de 2026 esto era -110 en los dos lados siempre. Con dos
+    # precios iguales el de-vig de Shin es simétrico POR CONSTRUCCIÓN, así que
+    # `market_prob` salía 0,5 exacto en los dos lados de los 32 mercados
+    # publicados y el edge se medía contra un 50% que el mercado no ofrecía. Un
+    # -118 implica 54,1%: el edge se sobreestimaba en más de cuatro puntos en el
+    # lado caro y se subestimaba igual en el otro.
+    #
+    # `price_source` viaja al payload para que la pantalla pueda decir cuál de
+    # los dos está leyendo. Un precio por defecto que no se distingue de uno
+    # real es un dato inventado colado como dato.
+    home_odds = game.get("home_spread_odds")
+    away_odds = game.get("away_spread_odds")
+    if pd.notna(home_odds) and pd.notna(away_odds):
+        decimals = american_to_decimal(np.array([float(home_odds), float(away_odds)]))
+        price_source = "MARKET"
+    else:
+        uno = float(american_to_decimal(DEFAULT_SPREAD_ODDS))
+        decimals = np.array([uno, uno])
+        price_source = "DEFAULT_-110"
+    fair = devig_shin(decimals)
 
     # `spread_line` es el MARGEN esperado del local (positivo = local favorito,
     # convención de nflverse). El handicap de una casa lleva el signo CONTRARIO:
@@ -157,10 +202,10 @@ def _spread_candidates(game: pd.Series, distribution: MarginDistribution) -> lis
     # «MIA -3.5» para un MIA que recibía 3,5— con la probabilidad correcta al
     # lado, que es la clase de error que nadie ve porque el número cuadra.
     return [
-        _candidate(game, f"spread {_handicap(-line)}", game["home_team"], home_prob, decimal, fair[0],
-                   push=push),
-        _candidate(game, f"spread {_handicap(line)}", game["away_team"], away_prob, decimal, fair[1],
-                   push=push),
+        _candidate(game, f"spread {_handicap(-line)}", game["home_team"], home_prob,
+                   float(decimals[0]), fair[0], push=push, price_source=price_source),
+        _candidate(game, f"spread {_handicap(line)}", game["away_team"], away_prob,
+                   float(decimals[1]), fair[1], push=push, price_source=price_source),
     ]
 
 
@@ -184,6 +229,7 @@ def _candidate(
     decimal_odds: float,
     market_prob: float,
     push: float = 0.0,
+    price_source: str = "DEFAULT_-110",
 ) -> dict:
     return {
         "game_id": game.get("game_id"),
@@ -195,7 +241,19 @@ def _candidate(
         "model_prob": float(model_prob),
         "market_prob": float(market_prob),
         "decimal_odds": float(decimal_odds),
+        # El MISMO precio en la notación en la que lo escribe una casa. Se
+        # publica en vez de invertirlo en el navegador: la boleta lo necesita
+        # para registrar lo que se apostó, y hasta ahora cableaba -110 —el
+        # relleno— sobre un mercado que podía estar a -118.
+        "american_odds": round(decimal_to_american(float(decimal_odds)), 0),
         "push_prob": float(push),
+        # De dónde sale el precio: «MARKET» si lo publica el calendario,
+        # «DEFAULT_-110» si es la convención de relleno. Se publica para que la
+        # pantalla no tenga que suponerlo, y para que un relleno no pueda
+        # leerse como una cotización.
+        "price_source": price_source,
+        # Si el partido ya tiene resultado no hay mercado que apostar.
+        "game_final": bool(int(game.get("played", 0) or 0)),
     }
 
 
@@ -207,7 +265,8 @@ def _empty_frame() -> pd.DataFrame:
     """
     columns = [
         "game_id", "season", "week", "matchup", "market", "selection", "model_prob",
-        "market_prob", "decimal_odds", "push_prob", "edge", "ev", "stake_fraction", "stake",
-        "decision", "no_bet_reason",
+        "market_prob", "decimal_odds", "american_odds", "push_prob", "price_source",
+        "game_final",
+        "edge", "ev", "stake_fraction", "stake", "decision", "no_bet_reason",
     ]
     return pd.DataFrame(columns=columns)

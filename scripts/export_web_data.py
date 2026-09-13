@@ -39,8 +39,15 @@ from oracle.betting.value import enumerate_markets
 from oracle.config import DEFAULT_BACKTEST_START
 from oracle.config import paths as resolve_paths
 from oracle.data import identity
+from oracle.data.ingest import normalize_team
 from oracle.fantasy.components import COMPONENTS
-from oracle.fantasy.draft import PROJECTED_GAMES, SHRINK_PRIOR_GAMES, TD_PERSISTENCE
+from oracle.fantasy.draft import (
+    PROJECTED_GAMES,
+    SEASON_WEIGHTS,
+    SHRINK_PRIOR_GAMES,
+    TD_PERSISTENCE,
+)
+from oracle.fantasy.schedule import current_point
 from oracle.leagues.sleeper import rookies_2026, sleeper_id_map
 from oracle.pipeline import Oracle
 
@@ -235,6 +242,9 @@ def main(argv: list[str] | None = None) -> int:
     # Por sección y no una sola en la raíz porque sus edades NO son la misma:
     # `research_patch.py` refresca la prensa sin reentrenar el modelo, así que
     # una fecha única aplanaría el desacuerdo que hay que conservar.
+    # Antes de fechar nada: que cada artefacto publicado contenga la fuente con
+    # la que se le va a poner fecha. Ver `_comprobar_artefactos_al_dia`.
+    _comprobar_artefactos_al_dia(paths)
     payload["data_dates"] = _fechas_de_origen(paths)
     print(f"Publicando {season} semana {week}.")
 
@@ -257,6 +267,11 @@ def main(argv: list[str] | None = None) -> int:
             ]
         ]
     ).to_dict(orient="records")
+    # CUÁNDO se juega y CÓMO acabó, si ya acabó. Ver `_estado_de_los_partidos`.
+    _anotar_estado(payload["predictions"], paths)
+    # Antes de seguir: lo que se va a publicar tiene que ser lo que hay en el
+    # calendario que fecha la sección. Ver `_comprobar_lineas_publicadas`.
+    _comprobar_lineas_publicadas(payload["predictions"], paths)
     # «Why this number»: atribución REAL del miembro residual (coeficiente ×
     # feature estandarizada = puntos de separación respecto de la línea). Se
     # publican los cuatro mayores por magnitud; el resto es ruido de centésimas.
@@ -977,15 +992,19 @@ def _resolve_week(oracle: Oracle, season: int | None, week: int | None) -> tuple
 
     Es lo que quiere el workflow semanal: la jornada que viene, no la que acaba
     de terminar.
+
+    La regla vive en `fantasy/schedule.py::current_point` y la comparten este
+    exportador, `fantasy_weekly_build.py` y `fantasy_build.py`. Antes el tercero
+    tenía la SUYA —«la última temporada con estadística, más uno»— y el día que
+    empezó la temporada mandó el board de draft a 2027.
     """
     if season is not None and week is not None:
         return season, week
-    pending = oracle.features[~oracle.features["played"].astype(bool)]
-    if pending.empty:
+    punto = current_point(oracle.features)
+    if punto is None:
         last = oracle.features.iloc[-1]
         return int(last["season"]), int(last["week"])
-    first = pending.sort_values(["season", "week"]).iloc[0]
-    return int(first["season"]), int(first["week"])
+    return punto.season, punto.week
 
 
 def _round_frame(frame: pd.DataFrame, decimals: int = 4) -> pd.DataFrame:
@@ -1108,6 +1127,287 @@ def _mas_vieja(*fechas: str | None) -> str | None:
     return min(fechas)  # ISO-8601 ordena como texto
 
 
+class ArtefactoDesfasado(RuntimeError):
+    """Lo que se publica es más viejo que la fuente con la que se iba a fechar."""
+
+
+#: Qué artefacto publica cada sección y de qué ficheros descargados sale.
+#: `_fechas_de_origen` fecha las secciones con los ficheros de la derecha; esta
+#: tabla es la que permite comprobar que el de la izquierda los CONTIENE.
+ARTEFACTOS = (
+    ("fantasy", "out/fantasy_draft.json", ("player_stats_*.parquet", "roster_*.parquet")),
+    ("model", "processed/features.parquet", ("games.csv", "pbp_*.parquet")),
+)
+
+
+def _comprobar_artefactos_al_dia(paths) -> None:
+    """Fail-closed: no se fecha una sección con un fichero que no está dentro.
+
+        REFRESCAR LA FUENTE NO ACTUALIZA LO YA PUBLICADO.
+
+    Esta es la tercera cara del mismo fallo, y la peor de las tres porque
+    parece prudencia. `data_dates` toma el mtime del fichero descargado; el
+    board, en cambio, sale de `out/fantasy_draft.json`, que se compiló cuando se
+    compiló. Si se refresca la estadística y no se recompila el board, la fecha
+    se mueve y el dato no: el sitio afirma una frescura que sus filas no
+    sostienen.
+
+    Ya pasó dos veces con nombre propio. En septiembre de 2026 se publicó
+    `fantasy: 2026-09-05` con la estadística por jugador descargada el 17 de
+    agosto —diecinueve días fabricados— y se corrigió fechando por fichero
+    descargado. Y el 13 de septiembre volvió a pasar al revés: al refrescar,
+    `player_stats_2026.parquet` llegó con fecha del 12 y el board seguía siendo
+    el del 17 de agosto, byte a byte — medido, movimiento medio de puesto CERO
+    en los 250 primeros— mientras la sección se fechaba con el fichero nuevo.
+
+    El remedio no es una fecha más fina: es que no se pueda publicar. Si el
+    artefacto es más viejo que su fuente, esto LEVANTA y se arregla
+    recompilando. Si el artefacto no existe, no se comprueba nada: la sección no
+    se publica y `_fechas_de_origen` ya no le pone fecha.
+    """
+    problemas = []
+    for seccion, relativo, patrones in ARTEFACTOS:
+        artefacto = paths.root / relativo if not relativo.startswith("out/") else (
+            paths.out / relativo.split("/", 1)[1]
+        )
+        if relativo.startswith("processed/"):
+            artefacto = paths.processed / relativo.split("/", 1)[1]
+        if not artefacto.exists():
+            continue
+        compilado = artefacto.stat().st_mtime
+        for patron in patrones:
+            if "*" in patron:
+                fuente = _mas_nuevo(paths.raw, patron)
+            else:
+                candidato = paths.raw / patron
+                fuente = candidato if candidato.exists() else None
+            if fuente is None:
+                continue
+            if fuente.stat().st_mtime > compilado:
+                problemas.append(
+                    f"  sección «{seccion}»: {artefacto.name} se compiló el "
+                    f"{_fecha_de(artefacto)} y {fuente.name} es del "
+                    f"{_fecha_de(fuente)}"
+                )
+    if problemas:
+        raise ArtefactoDesfasado(
+            "hay secciones que se iban a fechar con un fichero que su artefacto "
+            "NO contiene:\n" + "\n".join(problemas)
+            + "\n\nRecompila lo que toque (`python scripts/fantasy_build.py`, "
+            "`oracle features`) y vuelve a exportar. No quites esta "
+            "comprobación: publicar la fecha nueva sobre el dato viejo es la "
+            "falsa actualidad que `data_dates` existe para impedir."
+        )
+
+
+def _estado_de_los_partidos(paths) -> dict:
+    """Saque y marcador final de cada partido, leídos del calendario.
+
+        UNA PREDICCIÓN SOBRE UN PARTIDO QUE YA ACABÓ NO ES UNA PREDICCIÓN.
+
+    El payload publicaba margen, total, probabilidad y marcador proyectado sin
+    un solo campo que dijera si el partido se había jugado. El 13 de septiembre
+    de 2026, con la jornada 1 a medias, `/predicciones` enseñaba «SEA 23,7 – NE
+    20,7» de un NE@SEA que había terminado 10-13 cuatro días antes, y `/betting`
+    lo ofrecía como mercado. La regla 5 aplicada al resultado: un dato cierto
+    presentado como si fuera de ahora.
+
+    Esto sale de `games.csv` y no de `features.parquet` a propósito. El marcador
+    es la ETIQUETA del partido, y la garantía anti-fuga se demuestra recalculando
+    features con el historial truncado: meter columnas de resultado ahí por
+    comodidad amplía justo la superficie que esa demostración vigila.
+
+    `kickoff` es fecha y hora tal y como las publica nflverse, con su zona
+    (Eastern). No se convierte a UTC ni se compara con el reloj de esta máquina:
+    lo único que se AFIRMA cerrado es lo que tiene marcador, que es un hecho del
+    fichero. Un partido en curso no lleva marcador todavía, así que aquí sale
+    como no jugado — y eso es lo que se dice, no «abierto».
+    """
+    calendario = paths.raw / "games.csv"
+    if not calendario.exists():
+        return {}
+    games = pd.read_csv(calendario, usecols=lambda c: c in {
+        "game_id", "gameday", "gametime", "home_team", "away_team",
+        "home_score", "away_score",
+    })
+    estado = {}
+    for r in games.itertuples():
+        clave = (normalize_team(r.away_team), normalize_team(r.home_team))
+        dia = str(getattr(r, "gameday", "") or "")
+        hora = str(getattr(r, "gametime", "") or "")
+        casa = getattr(r, "home_score", None)
+        fuera = getattr(r, "away_score", None)
+        final = (
+            casa is not None and fuera is not None
+            and not (isinstance(casa, float) and math.isnan(casa))
+            and not (isinstance(fuera, float) and math.isnan(fuera))
+        )
+        estado[clave] = {
+            "kickoff": f"{dia} {hora}".strip() or None,
+            "final": final,
+            "home_score": int(casa) if final else None,
+            "away_score": int(fuera) if final else None,
+        }
+    return estado
+
+
+def _anotar_estado(predictions: list[dict], paths) -> None:
+    """Cuelga `kickoff`, `final` y el marcador de cada predicción publicada."""
+    estado = _estado_de_los_partidos(paths)
+    for row in predictions:
+        info = estado.get(
+            (normalize_team(row.get("away_team")), normalize_team(row.get("home_team")))
+        )
+        # Sin fichero no se afirma nada: `final` queda en None y la pantalla
+        # escribe lo que sabe, que es que no lo sabe.
+        row["kickoff"] = (info or {}).get("kickoff")
+        row["final"] = (info or {}).get("final")
+        row["home_score"] = (info or {}).get("home_score")
+        row["away_score"] = (info or {}).get("away_score")
+
+
+class LineasDesfasadas(RuntimeError):
+    """Las líneas que se iban a publicar no son las del fichero que las fecha."""
+
+
+def _comprobar_lineas_publicadas(predictions: list[dict], paths) -> None:
+    """Fail-closed: lo publicado tiene que ser lo que hay en `games.csv`.
+
+        `data_dates` FECHA EL DATO PUBLICADO, NO EL FICHERO QUE HAY EN DISCO.
+
+    `data_dates.markets` sale del mtime de `games.csv`, pero las líneas que se
+    publican llegan por `features.parquet`, que es un artefacto COMPILADO. Si se
+    refresca el calendario y no se vuelven a compilar las features, el payload
+    sale con las líneas viejas y la fecha nueva: exactamente la falsa actualidad
+    de la regla 5, y encima sobre el dato que caduca en minutos.
+
+    No es hipotético. Medido el 13 de septiembre de 2026 en este repositorio:
+    **8 de los 16 partidos de la jornada 1** se publicaban con una línea que el
+    fichero ya no tenía (ARI@LAC 10.5 cuando el calendario decía 9.5, DEN@KC 3.0
+    contra 2.5, cuatro totales movidos) mientras la sección se fechaba con el
+    fichero NUEVO. La página de apuestas calculaba EV y Kelly contra un número
+    que el mercado había dejado atrás.
+
+    El remedio no es una fecha más fina: es que no se pueda publicar. Si hay
+    desacuerdo esto **levanta** con la lista, y se arregla recompilando
+    (`oracle features`) — no relajando la comprobación.
+
+    Se comparan los dos campos que se apuestan y ningún otro: el handicap y el
+    total. Los códigos de equipo pasan por `normalize_team` porque nflverse
+    escribe `LA` donde el board escribe `LAR` — el `AZ`/`ARI` de siempre.
+    """
+    calendario = paths.raw / "games.csv"
+    if not calendario.exists():
+        # Sin el fichero no hay nada que comprobar y tampoco hay fecha que
+        # publicar: `_fechas_de_origen` ya devuelve None y la web dice UNKNOWN.
+        return
+    games = pd.read_csv(calendario, usecols=[
+        "season", "week", "home_team", "away_team", "spread_line", "total_line",
+    ])
+
+    def clave(away: object, home: object) -> tuple:
+        return (normalize_team(away), normalize_team(home))
+
+    fichero = {
+        clave(r.away_team, r.home_team): (r.spread_line, r.total_line)
+        for r in games.itertuples()
+    }
+
+    def igual(publicado: object, origen: object) -> bool:
+        # NaN en el fichero y null en el payload son el MISMO hecho: no hay
+        # línea. `NaN == NaN` es False, así que hay que decirlo a mano.
+        falta_pub = publicado is None or (
+            isinstance(publicado, float) and not math.isfinite(publicado)
+        )
+        falta_org = origen is None or (
+            isinstance(origen, float) and not math.isfinite(origen)
+        )
+        if falta_pub or falta_org:
+            return falta_pub and falta_org
+        return abs(float(publicado) - float(origen)) < 1e-9
+
+    desacuerdos = []
+    for row in predictions:
+        k = clave(row.get("away_team"), row.get("home_team"))
+        origen = fichero.get(k)
+        if origen is None:
+            desacuerdos.append(
+                f"  {k[0]}@{k[1]}: publicado pero no está en games.csv"
+            )
+            continue
+        for campo, valor in (("spread_line", origen[0]), ("total_line", origen[1])):
+            if not igual(row.get(campo), valor):
+                desacuerdos.append(
+                    f"  {k[0]}@{k[1]} {campo}: se publica {row.get(campo)} "
+                    f"y el calendario dice {valor}"
+                )
+    if desacuerdos:
+        raise LineasDesfasadas(
+            "las líneas que se iban a publicar NO son las de "
+            f"{calendario} —el fichero con el que se fecha la sección—:\n"
+            + "\n".join(desacuerdos)
+            + "\n\nEl calendario se ha refrescado y las features no. "
+            "Corre `oracle features` y vuelve a exportar.\n"
+            "No relajes esta comprobación: publica EV y Kelly contra un "
+            "número que el mercado ya movió."
+        )
+
+
+def _stats_que_lee_el_board(paths) -> str | None:
+    """La fecha de la estadística que el board PUEDE haber leído, la más vieja.
+
+        EL BOARD NO LEE LA TEMPORADA QUE PROYECTA. NUNCA.
+
+    `project_season` se queda con `players[season < S]`: es la garantía
+    walk-forward, y significa que el board de 2026 no contiene ni una fila de
+    2026 por mucho que el fichero exista. Aquí estaba `_mas_nuevo(raw,
+    "player_stats_*.parquet")`, que devuelve el fichero de la temporada EN
+    CURSO.
+
+    Medido el 13 de septiembre de 2026: al refrescar llegó
+    `player_stats_2026.parquet` con fecha del 12, la sección pasó a decir
+    `fantasy: 2026-09-12`… y el board recompilado salió **byte a byte idéntico**
+    al anterior —movimiento medio de puesto CERO en los 300 primeros— porque sus
+    entradas son 2024 y 2025, cuyo fichero más nuevo es del 17 de agosto.
+    Veintiséis días fabricados sobre la sección que alimenta el board entero, y
+    la cuarta vez con esta forma.
+
+    Y lo que hay que anotar del arreglo: la comprobación de artefacto contra
+    fuente (`_comprobar_artefactos_al_dia`) PASÓ EN VERDE sobre esta mentira,
+    porque el artefacto sí era más nuevo que el fichero. Un guardián que compara
+    fechas no puede ver que la fuente no se lee. La propiedad correcta no es
+    «el artefacto es posterior» sino «la fecha sale de los ficheros que entran».
+
+    Se toma la más VIEJA de las tres temporadas que pesan en el board (los pesos
+    56/30/14), porque una sección es tan actual como su fuente más vieja.
+    """
+    import re as _re
+
+    temporada = None
+    artefacto = paths.out / "fantasy_draft.json"
+    if artefacto.exists():
+        try:
+            temporada = int(json.loads(artefacto.read_text(encoding="utf-8"))["season"])
+        except (ValueError, KeyError, TypeError):
+            temporada = None
+    ficheros = []
+    for ruta in paths.raw.glob("player_stats_*.parquet"):
+        m = _re.search(r"player_stats_(\d{4})\.parquet$", ruta.name)
+        if not m:
+            continue
+        ano = int(m.group(1))
+        # Sin temporada declarada no se filtra: no se puede saber cuáles entran,
+        # y quitar ficheros a ojo sería inventarse el recorte.
+        if temporada is not None and ano >= temporada:
+            continue
+        ficheros.append((ano, ruta))
+    if not ficheros:
+        return None
+    ficheros.sort(reverse=True)
+    usadas = [ruta for _, ruta in ficheros[:len(SEASON_WEIGHTS)]]
+    return _mas_vieja(*(_fecha_de(r) for r in usadas))
+
+
 def _fechas_de_origen(paths) -> dict:
     """La fecha de cada sección, tomada del fichero que de verdad la alimenta.
 
@@ -1135,7 +1435,7 @@ def _fechas_de_origen(paths) -> dict:
     """
     raw = paths.raw
     pbp = _mas_nuevo(raw, "pbp_*.parquet")
-    stats = _mas_nuevo(raw, "player_stats_*.parquet")
+    stats = _stats_que_lee_el_board(paths)
     rosters = _mas_nuevo(raw, "roster_*.parquet")
     return {
         # `spread_line` y `total_line` viajan en el calendario de nflverse.
@@ -1149,7 +1449,7 @@ def _fechas_de_origen(paths) -> dict:
         # El board sale de la estadística por jugador y de los rosters — que son
         # los que dicen quién sigue en un equipo NFL.
         "fantasy": _mas_vieja(
-            _fecha_de(stats) if stats else None,
+            stats,
             _fecha_de(rosters) if rosters else None,
         ),
         # Y las plantillas, POR SEPARADO. No es una redundancia de `fantasy`:

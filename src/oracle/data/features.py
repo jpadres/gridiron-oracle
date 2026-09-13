@@ -328,6 +328,28 @@ def build_features(
                 "margin": game.get("margin"),
                 "total": game.get("total"),
                 "played": int(game.get("played", 0)),
+                # LOS PRECIOS DEL MERCADO, QUE ANTES SE QUEDABAN AQUÍ.
+                #
+                # `games.parquet` traía las dos moneylines y esta lista no las
+                # copiaba, así que `betting/value.py::_moneyline_candidates`
+                # recibía `None`, lo leía como «no hay línea» y devolvía lista
+                # vacía en TODOS los partidos: el mercado de moneyline, su
+                # de-vig y sus tests existían y no se habían evaluado nunca
+                # sobre datos reales. Los 32 mercados publicados de la jornada 1
+                # eran 16 partidos × 2 lados de spread, y nadie echó de menos
+                # los otros 32 porque ninguna pantalla los prometía por nombre.
+                #
+                # No hay riesgo de fuga: son números publicados ANTES del saque,
+                # igual que `spread_line`, que ya viajaba por aquí.
+                "home_moneyline": game.get("home_moneyline"),
+                "away_moneyline": game.get("away_moneyline"),
+                "home_spread_odds": game.get("home_spread_odds"),
+                "away_spread_odds": game.get("away_spread_odds"),
+                # El marcador y la hora del saque NO entran aquí. El exportador
+                # ya lee `games.csv` para comprobar que las líneas publicadas
+                # son las del fichero, y de ahí los saca: ampliar la superficie
+                # de etiquetas de `features` por comodidad es exactamente lo que
+                # la garantía anti-fuga existe para no hacer.
             }
         )
         rows.append(features)

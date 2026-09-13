@@ -222,6 +222,14 @@ const DATOS = new Set([
   ".fantasy.adp_source.source", ".fantasy.adp_source.window_start",
   ".bets[].game_id", ".bets[].matchup", ".bets[].selection",
   ".markets[].game_id", ".markets[].matchup", ".markets[].selection",
+  // De dónde sale el precio del lado: «MARKET» o «DEFAULT_-110». Son CÓDIGOS,
+  // y la pantalla escribe «default» en inglés cuando toca. Existen porque un
+  // relleno que no se distingue de una cotización es un dato inventado.
+  ".bets[].price_source", ".markets[].price_source",
+  // Fecha y hora del saque tal y como las publica nflverse («2026-09-13
+  // 13:00», hora del Este). No se convierte ni se interpreta: la pantalla la
+  // rotula «Kickoff … ET».
+  ".predictions[].kickoff",
   ".dossier.ambiguous[][]", ".dossier.generated", ".dossier.sources_books[]",
   ".fantasy.board[].player_full_name", ".fantasy.board[].player_id",
   ".fantasy.board[].player_name", ".fantasy.board[].position",

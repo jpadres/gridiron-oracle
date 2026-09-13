@@ -12,6 +12,10 @@
 export const NO_BET = {
   UNDER_MINIMUM: "edge under the 1.5-point minimum",
   BELOW_PRICE: "halved edge does not beat the price",
+  /* No es un freno de tamaño: el partido acabó y no hay nada que apostar. Se
+     publicaba como mercado abierto con su EV hasta el 13 de septiembre de
+     2026 — dos de los dieciséis partidos de la jornada 1. */
+  GAME_FINAL: "game is final",
 };
 
 /** `null` cuando el motor apuesta; si no, el motivo que Python publicó. */

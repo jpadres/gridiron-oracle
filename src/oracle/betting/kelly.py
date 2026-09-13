@@ -68,6 +68,11 @@ def full_kelly(probability: float, decimal_odds: float) -> float:
 # exacto del umbral podía discrepar de Python. Una sola autoridad: ésta.
 NO_BET_UNDER_MINIMUM = "UNDER_MINIMUM"   # edge < min_edge
 NO_BET_BELOW_PRICE = "BELOW_PRICE"       # el edge encogido no bate el precio
+# El mercado ya no existe: el partido tiene resultado. No es una decisión de
+# tamaño —el edge puede ser enorme— sino que no hay nada que apostar. Lo decide
+# `betting/value.py`, que es quien ve el partido; `decide` sólo ve precio y
+# probabilidad y no tiene forma de saberlo.
+NO_BET_GAME_FINAL = "GAME_FINAL"
 
 
 @dataclass(frozen=True)

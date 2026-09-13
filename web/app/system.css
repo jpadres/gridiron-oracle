@@ -322,6 +322,24 @@ h1, h2, .player-row .nm, .num-mega {
   position: relative;
   overflow: hidden;
 }
+/* EL ESTADO DEL PARTIDO, A TODO EL ANCHO.
+   `.matchup` es una rejilla de tres columnas, así que un hijo suelto caería en
+   la primera y empujaría el equipo visitante a la del medio: la fila entera
+   descolocada por añadir una línea. Ocupa las tres. */
+.matchup-state {
+  grid-column: 1 / -1;
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-small);
+  color: var(--ink-secondary);
+  display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;
+}
+.matchup-state .caption { margin: 0; }
+/* Un partido acabado ya no es una predicción, y la tarjeta lo dice con el
+   fondo además de con la palabra: en un listado de dieciséis, una etiqueta
+   suelta se pierde. */
+.matchup--final { background: var(--field-sunken, var(--field-raised)); }
+.matchup--final .proj { opacity: 0.6; }
+
 /* Los dos colores de equipo entran por los cantos, no por el fondo: teñir la
    tarjeta entera de dos colores es el arcoíris que hay que evitar. */
 .matchup::before, .matchup::after {

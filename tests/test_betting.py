@@ -299,3 +299,117 @@ def test_spread_labels_follow_betting_convention_not_margin_sign():
     # Y el que cubre más a menudo con un margen esperado por debajo de la línea es el que recibe.
     probs = dict(zip(markets["selection"], markets["model_prob"], strict=True))
     assert probs["MIA"] > probs["LV"]
+
+
+# --------------------------------------------------------------------------
+# EL PRECIO REAL, EL MERCADO CERRADO Y LA MONEYLINE QUE NUNCA CORRIÓ
+#
+# Los tres fallos que estos tests vigilan se midieron el 13 de septiembre de
+# 2026 sobre el payload EN PRODUCCIÓN, no sobre un fixture.
+# --------------------------------------------------------------------------
+
+
+def _distribucion():
+    rng = np.random.default_rng(7)
+    return MarginDistribution().fit(np.round(rng.normal(1.5, 13, 20000)))
+
+
+def test_el_precio_del_handicap_sale_del_mercado_cuando_existe():
+    """Dos precios distintos NO pueden dar 0,5 a los dos lados.
+
+    Con -110/-110 el de-vig de Shin es simétrico por construcción, así que
+    `market_prob` valía 0,5 exacto en los 32 mercados publicados y el edge se
+    medía contra un 50% que el mercado no ofrecía. Un -118 implica 54,1%.
+    """
+    predictions = pd.DataFrame([{
+        "game_id": "2026_01_NE_SEA", "season": 2026, "week": 1,
+        "home_team": "SEA", "away_team": "NE",
+        "pred_margin": 3.2, "pred_total": 44.0, "home_win_prob": 0.61,
+        "spread_line": 3.0, "home_spread_odds": -118.0, "away_spread_odds": -102.0,
+    }])
+    markets = enumerate_markets(predictions, distribution=_distribucion())
+    spreads = markets[markets["market"].str.startswith("spread")]
+    assert len(spreads) == 2
+    assert set(spreads["price_source"]) == {"MARKET"}
+    casa = spreads[spreads["selection"] == "SEA"].iloc[0]
+    fuera = spreads[spreads["selection"] == "NE"].iloc[0]
+    # El lado caro tiene que llevar MÁS probabilidad de casa, no la misma.
+    assert casa["market_prob"] > fuera["market_prob"] + 0.01, (
+        "el precio de mercado no llega al de-vig: los dos lados salen a 0,5"
+    )
+    # Y la cuota publicada tiene que ser la del lado, no la convención.
+    assert casa["decimal_odds"] != fuera["decimal_odds"]
+    # Las dos probabilidades sin margen suman 1: es lo que hace Shin.
+    assert abs(casa["market_prob"] + fuera["market_prob"] - 1.0) < 1e-9
+
+
+def test_sin_precio_publicado_el_relleno_se_DICE():
+    """El -110 de relleno sigue existiendo, y se distingue de una cotización.
+
+    Un valor por defecto que no se puede distinguir de un dato real es el
+    `counts[pos] or DEFAULT` de siempre: invisible.
+    """
+    predictions = pd.DataFrame([{
+        "game_id": "g1", "season": 2026, "week": 1, "home_team": "KC", "away_team": "BUF",
+        "pred_margin": 0.5, "pred_total": 47.0, "home_win_prob": 0.52, "spread_line": 3.5,
+    }])
+    markets = enumerate_markets(predictions, distribution=_distribucion())
+    assert set(markets["price_source"]) == {"DEFAULT_-110"}
+
+
+def test_la_moneyline_se_evalua_cuando_el_calendario_la_trae():
+    """El mercado de moneyline no puede depender de que una columna sobreviva.
+
+    `features.parquet` no arrastraba `home_moneyline`, así que
+    `_moneyline_candidates` recibía None, lo leía como «no hay línea» y
+    devolvía lista vacía en los dieciséis partidos: los 32 mercados publicados
+    eran 16 × 2 lados de spread y nadie echaba de menos los otros 32.
+    """
+    predictions = pd.DataFrame([{
+        "game_id": "2026_01_MIA_LV", "season": 2026, "week": 1,
+        "home_team": "LV", "away_team": "MIA",
+        "pred_margin": -1.0, "pred_total": 41.0, "home_win_prob": 0.47,
+        "spread_line": 3.0, "home_moneyline": -170.0, "away_moneyline": 142.0,
+    }])
+    markets = enumerate_markets(predictions, distribution=_distribucion())
+    lineas = markets[markets["market"] == "moneyline"]
+    assert len(lineas) == 2, "el mercado de moneyline no se ha evaluado"
+    assert set(lineas["selection"]) == {"LV", "MIA"}
+    assert abs(lineas["market_prob"].sum() - 1.0) < 1e-9
+    assert set(lineas["price_source"]) == {"MARKET"}
+
+
+def test_un_partido_con_resultado_no_es_un_mercado():
+    """El 13-sep-2026 NE@SEA (final 13-10) salía con EV y fracción de Kelly.
+
+    No es una decisión de tamaño: no hay nada que apostar. Y el mercado tiene
+    que SEGUIR en la lista con su motivo, porque la pantalla necesita decir
+    FINAL en vez de callarse el partido.
+    """
+    base = {
+        "game_id": "2026_01_NE_SEA", "season": 2026, "week": 1,
+        "home_team": "SEA", "away_team": "NE",
+        "pred_margin": 3.2, "pred_total": 44.0,
+        # Una ventaja enorme a propósito: si el cierre dependiera del edge, este
+        # test pasaría por la razón equivocada.
+        "home_win_prob": 0.90, "spread_line": 3.0,
+        "home_moneyline": -166.0, "away_moneyline": 140.0,
+    }
+    abierto = enumerate_markets(pd.DataFrame([{**base, "played": 0}]),
+                                distribution=_distribucion())
+    cerrado = enumerate_markets(pd.DataFrame([{**base, "played": 1}]),
+                                distribution=_distribucion())
+    assert (abierto["decision"] == "BET").any(), (
+        "el fixture no produce ninguna apuesta con el partido abierto: "
+        "el test no podría distinguir las dos respuestas"
+    )
+    assert len(cerrado) == len(abierto), "un mercado cerrado no se esconde"
+    assert (cerrado["decision"] == "NO_BET").all()
+    assert set(cerrado["no_bet_reason"]) == {"GAME_FINAL"}
+    assert (cerrado["stake_fraction"] == 0).all()
+    assert cerrado["game_final"].all()
+    # Y en `value_bets`, que filtra por stake, desaparece.
+    assert value_bets(pd.DataFrame([{**base, "played": 1}]),
+                      distribution=_distribucion()).empty
+    assert not value_bets(pd.DataFrame([{**base, "played": 0}]),
+                          distribution=_distribucion()).empty

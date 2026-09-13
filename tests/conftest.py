@@ -85,6 +85,19 @@ def synthetic_data() -> tuple[pd.DataFrame, pd.DataFrame]:
                         "total_line": total_line,
                         "home_moneyline": -110.0,
                         "away_moneyline": -110.0,
+                        # EL PRECIO DEL HANDICAP, ASIMÉTRICO A PROPÓSITO.
+                        #
+                        # Un doble con -110 en los dos lados no se distingue del
+                        # relleno que el motor usaba cuando no había precio, así
+                        # que no podría probar que el precio real LLEGA. Un
+                        # doble que miente en un campo prueba otra cosa: ya
+                        # costó una iteración con `metadata.position` de Sleeper
+                        # y otra con los `starters` sin posición.
+                        #
+                        # La asimetría sigue al medio punto de la línea, que es
+                        # de dónde sale en el mercado de verdad.
+                        "home_spread_odds": -110.0 - 8.0 * ((game_number % 3) - 1),
+                        "away_spread_odds": -110.0 + 8.0 * ((game_number % 3) - 1),
                         "margin": float(home_score - away_score),
                         "total": float(home_score + away_score),
                         "neutral_site": 0,

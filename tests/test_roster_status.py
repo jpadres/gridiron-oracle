@@ -280,3 +280,48 @@ def test_un_OUT_que_el_registro_CONFIRMA_sigue_siendo_un_OUT():
     }]
     assert roster_status.reconcile(filas) == []
     assert "status_disputed" not in filas[0]
+
+
+def test_INA_es_la_lista_de_inactivos_de_un_partido_no_una_situacion(tmp_path):
+    """Un inactivo de jornada sigue en el 53, y el fichero lo dice con A01.
+
+    `INA` apareció el 13 de septiembre de 2026 y el módulo falló cerrado, que
+    es lo correcto. Lo que decide la traducción es el propio fichero: las 25
+    filas eran los cuatro equipos que ya habían jugado y las 25 llevaban el
+    MISMO código fino `A01` que las 1.672 filas `ACT`. Traducirlo a reserva
+    habría sacado del board a gente que sí tiene equipo.
+    """
+    ruta = tmp_path / "roster_2026.parquet"
+    pd.DataFrame([
+        {"gsis_id": "00-0000001", "status": "ACT", "team": "SEA",
+         "status_description_abbr": "A01", "season": 2026, "week": 1},
+        {"gsis_id": "00-0000002", "status": "INA", "team": "NE",
+         "status_description_abbr": "A01", "season": 2026, "week": 1},
+        {"gsis_id": "00-0000003", "status": "RES", "team": "SF",
+         "status_description_abbr": "R01", "season": 2026, "week": 1},
+    ]).to_parquet(ruta)
+
+    entries = roster_status.load(ruta)
+    inactivo = entries["00-0000002"]
+    assert inactivo.state == roster_status.ACTIVE
+    assert inactivo.on_active_roster, "un inactivo de jornada sigue en el 53"
+    assert inactivo.has_team
+    # Y no se confunde con quien de verdad está fuera del 53.
+    assert entries["00-0000003"].state == roster_status.RESERVE
+    assert not entries["00-0000003"].on_active_roster
+
+
+def test_una_etiqueta_de_plantilla_NUEVA_sigue_levantando(tmp_path):
+    """La puerta que cazó `INA` tiene que seguir cerrada para la siguiente.
+
+    Conocer siete códigos no es conocerlos todos: el fichero puede añadir otro
+    mañana igual que añadió éste, y traducirlo a «activo» por defecto es el
+    fallo que dejó 444 cortados y retirados leyéndose como jugadores normales.
+    """
+    ruta = tmp_path / "roster_2026.parquet"
+    pd.DataFrame([
+        {"gsis_id": "00-0000001", "status": "ZZZ", "team": "SEA",
+         "status_description_abbr": "A01", "season": 2026, "week": 1},
+    ]).to_parquet(ruta)
+    with pytest.raises(roster_status.RosterStageUnknown, match="ZZZ"):
+        roster_status.load(ruta)

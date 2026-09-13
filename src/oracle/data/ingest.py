@@ -340,6 +340,22 @@ def build_games(paths: Paths, first_season: int, last_season: int) -> pd.DataFra
             "total_line": pd.to_numeric(raw.get("total_line"), errors="coerce"),
             "home_moneyline": pd.to_numeric(raw.get("home_moneyline"), errors="coerce"),
             "away_moneyline": pd.to_numeric(raw.get("away_moneyline"), errors="coerce"),
+            # EL PRECIO DEL HANDICAP, QUE NO ES -110 EN LOS DOS LADOS.
+            #
+            # Se descartaban, y `betting/value.py` rellenaba con -110/-110. Eso
+            # no es un valor por defecto inocuo: con dos precios simétricos el
+            # de-vig de Shin devuelve 0,5 EXACTO para los dos lados, así que
+            # todo edge de spread del producto se medía contra un 50% que el
+            # mercado nunca ofreció. La jornada 1 de 2026 publica -102/-118 en
+            # NE@SEA y -108/-112 en cuatro partidos más: un -118 implica 54,1%,
+            # no 50%. El fallo no se veía porque el número cuadraba consigo
+            # mismo — el `AZ`/`ARI` del precio.
+            "home_spread_odds": pd.to_numeric(raw.get("home_spread_odds"), errors="coerce"),
+            "away_spread_odds": pd.to_numeric(raw.get("away_spread_odds"), errors="coerce"),
+            # La HORA del saque, no sólo el día. Sin ella no se puede distinguir
+            # el partido de la una del de las ocho y veinte del mismo domingo, y
+            # «este mercado ya está cerrado» se convierte en adivinar.
+            "gametime": raw.get("gametime"),
             "roof": raw.get("roof"),
             "surface": raw.get("surface"),
             "temp": pd.to_numeric(raw.get("temp"), errors="coerce"),

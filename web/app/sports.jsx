@@ -97,9 +97,44 @@ export function MatchupCard({ game, children, detailed = false }) {
   const hasScore =
     hasNumber(game.pred_home_points) && hasNumber(game.pred_away_points);
   const marketTotal = numberOrNull(game.total_line);
+  /* UNA PREDICCIÓN SOBRE UN PARTIDO QUE YA ACABÓ NO ES UNA PREDICCIÓN.
+     El 13 de septiembre de 2026 esta tarjeta enseñaba «SEA 23,7 – NE 20,7» de
+     un NE@SEA que había terminado 10-13 cuatro días antes, porque el payload no
+     traía ni el marcador ni un campo que dijera si se había jugado. El dato era
+     cierto; lo único falso era el tiempo, que es lo que no se ve.
+     `final` puede ser null (el exportador no encontró el calendario): entonces
+     no se afirma ninguna de las dos cosas. */
+  const finalScoreHome = numberOrNull(game.home_score);
+  const finalScoreAway = numberOrNull(game.away_score);
+  const isFinal = game.final === true && finalScoreHome !== null && finalScoreAway !== null;
+  /* Cuánto se equivocó el modelo, en el único sitio donde se puede saber. Es la
+     misma resta que la validación hace sobre 3.829 partidos, en uno. */
+  const realMargin = isFinal ? finalScoreHome - finalScoreAway : null;
+  const marginMiss = isFinal && hasNumber(game.pred_margin)
+    ? Math.abs(Number(game.pred_margin) - realMargin)
+    : null;
 
   return (
-    <article className="matchup" style={style}>
+    <article className={`matchup${isFinal ? " matchup--final" : ""}`} style={style}>
+      {/* El estado va PRIMERO: es lo que decide si lo de debajo es una
+          predicción o un registro, y se lee antes que los números. */}
+      <p className="matchup-state">
+        {isFinal ? (
+          <>
+            <span className="mark mark--out">FINAL</span>{" "}
+            {game.away_team} {finalScoreAway} – {finalScoreHome} {game.home_team}
+            {marginMiss !== null ? (
+              <span className="caption">
+                {" "}· model missed the margin by {marginMiss.toFixed(1)}
+              </span>
+            ) : null}
+          </>
+        ) : game.kickoff ? (
+          <span className="caption">Kickoff {game.kickoff} ET</span>
+        ) : (
+          <span className="caption">Kickoff unknown</span>
+        )}
+      </p>
       <div className="side">
         <span className="abbr">{game.away_team}</span>
         <span className="city">{away?.nickname ?? ""}</span>

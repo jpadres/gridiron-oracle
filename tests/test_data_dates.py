@@ -17,6 +17,8 @@ import os
 import sys
 from pathlib import Path
 
+import pytest
+
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ / "scripts"))
 
@@ -24,9 +26,12 @@ from export_web_data import _fecha_de, _fechas_de_origen  # noqa: E402
 
 
 class _Paths:
-    def __init__(self, raw: Path, processed: Path):
+    def __init__(self, raw: Path, processed: Path, out: Path | None = None):
         self.raw = raw
         self.processed = processed
+        # `out/` es donde vive el board compilado, y su `season` es lo que dice
+        # QUÉ estadística puede haber leído. Sin él no se filtra nada.
+        self.out = out if out is not None else raw.parent / "out"
 
 
 def _con_fecha(ruta: Path, cuando: dt.date) -> Path:
@@ -206,3 +211,157 @@ def test_el_parche_CONSERVA_las_claves_que_no_calcula():
         "el parche sustituye data_dates en vez de fundirlo: borra las claves "
         "que no calcula, y `research` es una de ellas"
     )
+
+
+# --------------------------------------------------------------------------
+# LA ESTADÍSTICA QUE EL BOARD *PUEDE* HABER LEÍDO
+# --------------------------------------------------------------------------
+
+
+def _board_de(out: Path, season: int) -> None:
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "fantasy_draft.json").write_text(
+        f'{{"season": {season}, "board": []}}', encoding="utf-8"
+    )
+
+
+def test_la_estadistica_de_la_temporada_PROYECTADA_no_fecha_el_board(tmp_path):
+    """El board de 2026 no contiene ni una fila de 2026: es walk-forward.
+
+    Medido el 13 de septiembre de 2026 en este repositorio. Al refrescar llegó
+    `player_stats_2026.parquet` con fecha del 12 y la sección pasó a decir
+    `fantasy: 2026-09-12`, mientras el board recompilado salía **byte a byte
+    idéntico** al anterior porque sus entradas son 2024 y 2025. Veintiséis días
+    fabricados sobre la sección que alimenta el board entero.
+    """
+    raw, proc, out = tmp_path / "raw", tmp_path / "processed", tmp_path / "out"
+    _con_fecha(raw / "games.csv", dt.date(2026, 9, 13))
+    _con_fecha(raw / "pbp_2026.parquet", dt.date(2026, 9, 12))
+    _con_fecha(raw / "roster_2026.parquet", dt.date(2026, 9, 12))
+    _con_fecha(raw / "player_stats_2024.parquet", dt.date(2026, 8, 17))
+    _con_fecha(raw / "player_stats_2025.parquet", dt.date(2026, 8, 17))
+    # La de la temporada en curso, recién publicada — y que el board NO lee.
+    _con_fecha(raw / "player_stats_2026.parquet", dt.date(2026, 9, 12))
+    _board_de(out, 2026)
+
+    fechas = _fechas_de_origen(_Paths(raw, proc, out))
+    assert fechas["fantasy"] == "2026-08-17", (
+        "la sección se fecha con un fichero que el board no puede haber leído"
+    )
+    # Y las plantillas SÍ son del 12: el board las lee de verdad, y aplanar las
+    # dos borraría el desacuerdo que decide un pick.
+    assert fechas["rosters"] == "2026-09-12"
+
+
+def test_sin_board_compilado_no_se_recorta_a_ojo(tmp_path):
+    """Sin `season` declarada no se sabe cuáles entran, y no se inventa.
+
+    Quitar ficheros por intuición sería fabricar el recorte. Se usa lo que hay y
+    la sección queda con la fecha de la serie, que es lo que se puede sostener.
+    """
+    raw, proc, out = tmp_path / "raw", tmp_path / "processed", tmp_path / "out"
+    _con_fecha(raw / "games.csv", dt.date(2026, 9, 13))
+    _con_fecha(raw / "roster_2026.parquet", dt.date(2026, 9, 12))
+    _con_fecha(raw / "player_stats_2025.parquet", dt.date(2026, 8, 17))
+    _con_fecha(raw / "player_stats_2026.parquet", dt.date(2026, 9, 12))
+    fechas = _fechas_de_origen(_Paths(raw, proc, out))
+    assert fechas["fantasy"] == "2026-08-17", (
+        "con dos temporadas dentro, manda la más VIEJA"
+    )
+
+
+# --------------------------------------------------------------------------
+# LO PUBLICADO TIENE QUE SER LO QUE HAY EN EL FICHERO QUE LO FECHA
+# --------------------------------------------------------------------------
+
+
+def _calendario_csv(raw: Path, filas) -> None:
+    raw.mkdir(parents=True, exist_ok=True)
+    cabecera = "season,week,home_team,away_team,spread_line,total_line,gameday,gametime,home_score,away_score"
+    cuerpo = "\n".join(",".join(str(c) for c in f) for f in filas)
+    (raw / "games.csv").write_text(f"{cabecera}\n{cuerpo}\n", encoding="utf-8")
+
+
+def test_una_linea_MOVIDA_no_se_puede_publicar(tmp_path):
+    """Fail-closed: el handicap publicado tiene que ser el del calendario.
+
+    Medido el 13 de septiembre de 2026: **8 de los 16 partidos** de la jornada 1
+    se publicaban con una línea que `games.csv` ya no tenía —ARI@LAC 10.5 contra
+    9.5, DEN@KC 3.0 contra 2.5— mientras `data_dates.markets` se fechaba con el
+    fichero NUEVO. La página de apuestas calculaba EV y Kelly contra un número
+    que el mercado había dejado atrás.
+    """
+    from export_web_data import LineasDesfasadas, _comprobar_lineas_publicadas
+
+    raw, proc = tmp_path / "raw", tmp_path / "processed"
+    _calendario_csv(raw, [(2026, 1, "LAC", "ARI", 9.5, 47.5, "2026-09-13", "16:25", "", "")])
+    paths = _Paths(raw, proc)
+
+    # Lo que el fichero dice: pasa.
+    _comprobar_lineas_publicadas(
+        [{"away_team": "ARI", "home_team": "LAC", "spread_line": 9.5, "total_line": 47.5}],
+        paths,
+    )
+    # Un punto de más: levanta, y dice cuál.
+    with pytest.raises(LineasDesfasadas, match="10.5"):
+        _comprobar_lineas_publicadas(
+            [{"away_team": "ARI", "home_team": "LAC", "spread_line": 10.5, "total_line": 47.5}],
+            paths,
+        )
+    # El total también se apuesta.
+    with pytest.raises(LineasDesfasadas, match="total_line"):
+        _comprobar_lineas_publicadas(
+            [{"away_team": "ARI", "home_team": "LAC", "spread_line": 9.5, "total_line": 46.5}],
+            paths,
+        )
+
+
+def test_un_hueco_en_los_dos_lados_es_el_MISMO_hecho(tmp_path):
+    """`NaN` en el fichero y `null` en el payload son «no hay línea», no un
+    desacuerdo. `NaN == NaN` es False, así que hay que decirlo a mano — y si no
+    se dijera, un partido sin mercado bloquearía el export entero."""
+    from export_web_data import _comprobar_lineas_publicadas
+
+    raw, proc = tmp_path / "raw", tmp_path / "processed"
+    _calendario_csv(raw, [(2026, 1, "LAC", "ARI", "", "", "2026-09-13", "16:25", "", "")])
+    _comprobar_lineas_publicadas(
+        [{"away_team": "ARI", "home_team": "LAC", "spread_line": None, "total_line": None}],
+        _Paths(raw, proc),
+    )
+
+
+def test_los_codigos_de_equipo_pasan_por_normalize_team(tmp_path):
+    """nflverse escribe «LA» donde el board escribe «LAR». Sin normalizar, los
+    Rams saldrían como «publicado pero no está en games.csv» — el `AZ`/`ARI` de
+    siempre, ahora bloqueando una publicación correcta."""
+    from export_web_data import _comprobar_lineas_publicadas
+
+    raw, proc = tmp_path / "raw", tmp_path / "processed"
+    _calendario_csv(raw, [(2026, 1, "LA", "SF", 3.5, 47.5, "2026-09-10", "20:35", 7, 27)])
+    _comprobar_lineas_publicadas(
+        [{"away_team": "SF", "home_team": "LAR", "spread_line": 3.5, "total_line": 47.5}],
+        _Paths(raw, proc),
+    )
+
+
+def test_el_estado_del_partido_sale_del_calendario(tmp_path):
+    """Saque y marcador final, y `final` sólo cuando hay marcador de verdad."""
+    from export_web_data import _anotar_estado
+
+    raw, proc = tmp_path / "raw", tmp_path / "processed"
+    _calendario_csv(raw, [
+        (2026, 1, "SEA", "NE", 3.0, 44.5, "2026-09-09", "20:20", 13, 10),
+        (2026, 1, "LAC", "ARI", 9.5, 47.5, "2026-09-13", "16:25", "", ""),
+    ])
+    filas = [
+        {"away_team": "NE", "home_team": "SEA"},
+        {"away_team": "ARI", "home_team": "LAC"},
+    ]
+    _anotar_estado(filas, _Paths(raw, proc))
+    assert filas[0]["final"] is True
+    assert (filas[0]["away_score"], filas[0]["home_score"]) == (10, 13)
+    assert filas[0]["kickoff"] == "2026-09-09 20:20"
+    # Y un partido que todavía no se ha jugado NO se afirma acabado.
+    assert filas[1]["final"] is False
+    assert filas[1]["home_score"] is None
+    assert filas[1]["kickoff"] == "2026-09-13 16:25"

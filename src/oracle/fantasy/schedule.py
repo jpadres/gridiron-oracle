@@ -60,6 +60,51 @@ class SeasonSchedule:
         return tuple(sorted(t for t, w in self.bye_week.items() if w == week))
 
 
+@dataclass(frozen=True)
+class SeasonPoint:
+    """En qué punto del calendario estamos, y por qué se dice eso."""
+
+    season: int
+    week: int
+    in_progress: bool
+    """¿Queda algún partido por jugar de esa temporada?"""
+
+
+def current_point(games: pd.DataFrame) -> SeasonPoint | None:
+    """La temporada y jornada del PRIMER partido sin jugar del calendario.
+
+        «LA TEMPORADA QUE VIENE» Y «LA TEMPORADA EN CURSO» NO SON LO MISMO,
+        Y LA DIFERENCIA APARECE EL DÍA QUE EMPIEZA LA TEMPORADA.
+
+    Esto existe porque había TRES reglas distintas para la misma pregunta y una
+    estaba mal. `export_web_data._resolve_week` y `fantasy_weekly_build` usaban
+    «el primer partido sin jugar» —correcto—; `fantasy_build.py` usaba
+    `max(temporada con estadística) + 1`, que es correcto SÓLO en agosto.
+
+    El 13 de septiembre de 2026, en cuanto `player_stats_2026.parquet` trajo la
+    primera jornada, esa tercera regla mandó al compilador a proyectar **2027**:
+    el board de draft se iba un año al futuro el mismo domingo en que el dueño
+    lo estaba usando. Es el fallo de los dos traductores del mismo formato, por
+    décima vez, y esta vez sobre cuál es el AÑO.
+
+    Devuelve `None` si el calendario está vacío o no trae `played`: sin él no se
+    sabe, y suponer un año es exactamente lo que no se puede hacer.
+    """
+    if games is None or len(games) == 0:
+        return None
+    if "played" not in games.columns:
+        return None
+    pendientes = games[~games["played"].astype(bool)]
+    if pendientes.empty:
+        # Temporada cerrada: el punto es el último partido jugado, y lo que
+        # viene después es otra temporada. Quien proyecte decide, con
+        # `in_progress=False` delante, si le toca sumar uno.
+        ultimo = games.sort_values(["season", "week"]).iloc[-1]
+        return SeasonPoint(int(ultimo["season"]), int(ultimo["week"]), False)
+    primero = pendientes.sort_values(["season", "week"]).iloc[0]
+    return SeasonPoint(int(primero["season"]), int(primero["week"]), True)
+
+
 def season_schedule(games: pd.DataFrame, season: int) -> SeasonSchedule:
     """Deriva el calendario y los descansos de una temporada.
 
