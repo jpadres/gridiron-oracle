@@ -32,6 +32,9 @@ capturas, y el simulacro `scripts/injection_drill.sh` (modifica ficheros).
 
 Medido el 2026-09-05 en el contenedor de desarrollo (ver
 `docs/evidence/ci_browser_budget.md` cuando exista la medición en CI): el
-runner requerido son cinco laboratorios sobre un `next start` ya construido.
+runner requerido son SEIS laboratorios sobre un `next start` ya construido
+(`reloj` entra el 2026-09-13 y cuesta 3 s: es el que cubre «un partido
+empezado no es un mercado», cobertura que hasta ese día daba `apuestas` sin
+quererlo y que dependía de la hora a la que corriera el job).
 Si el job de navegador supera los 25 minutos, se mueve `controles` al
 nocturno antes que relajar ninguna comprobación.

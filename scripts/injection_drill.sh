@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 87 fallos conocidos, 87 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 88 fallos conocidos, 88 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -349,3 +349,6 @@ run "86 la columna del modelo SIN mercado, fuera de la validación" web/app/mode
 run "87 la calibración ajustada contra la LÍNEA y no contra el resultado" src/oracle/models/predictor.py \
   "        self.calibration = _fit_calibration(raw_probs, (margin > 0).astype(float))|||        self.calibration = _fit_calibration(raw_probs, (line > 0).astype(float))" \
   "cd web && node --test tests/validation.test.mjs"
+run "88 un laboratorio rehaciendo la comparación del saque" web/tools/lab/reloj.mjs \
+  "  return PREDICTIONS.filter((g) => hasStarted(g, ms)).length;|||  return PREDICTIONS.filter((g) => ms >= Date.parse(g.kickoff_at ?? \"\")).length;" \
+  "cd web && node --test tests/gameClock.test.mjs"

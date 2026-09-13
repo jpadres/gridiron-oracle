@@ -20,6 +20,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
+import { kickoffMs } from "../../app/gameClock.js";
 import { crearLiga, montar, USERNAME } from "./sleeper-double.mjs";
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
@@ -38,7 +39,9 @@ const GSIS_A_SLEEPER = Object.fromEntries(
   Object.entries(model.fantasy?.sleeper_ids ?? {}).map(([sleeper, gsis]) => [gsis, sleeper])
 );
 const idDe = (r) => String(GSIS_A_SLEEPER[r.player_id] ?? "");
-const saque = (r) => Date.parse(r.game_kickoff_at ?? "");
+// El saque se lee con el mismo lector que la pantalla: `kickoffMs` ya sabe
+// que la fila de jugador lo trae como `game_kickoff_at`.
+const saque = (r) => kickoffMs(r) ?? NaN;
 
 /* El dudoso MÁS TARDÍO del payload, y un suplente de su posición que juegue
    antes. Se toman del dato real para que el laboratorio mida el producto y no

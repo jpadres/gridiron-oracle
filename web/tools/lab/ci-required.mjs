@@ -20,7 +20,7 @@ import { fileURLToPath } from "node:url";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 // `minChecks` es la MITAD de lo que cada laboratorio ejecuta cuando la página
-// carga (medido el 2026-09-05: 63 / 42 / 21 / 168 / 16). Por debajo de eso no es
+// carga (medido: 63 / 42 / 21 / 168 / 16 el 2026-09-05, y 10 para reloj el 13). Por debajo de eso no es
 // que haya menos que comprobar: es que algo no cargó, y eso es rojo.
 const REQUIRED = [
   // Draft Assistant (board + Draft Room con cuenta), fotos, marcas de estado
@@ -33,6 +33,15 @@ const REQUIRED = [
   { file: "movil.mjs", minChecks: 80 },
   // control por control, con y sin cuenta: nombres, 44 px, deshabilitados
   { file: "controles.mjs", minChecks: 8 },
+  /* EL RELOJ DEL PARTIDO, con el reloj FALSEADO. Entra aquí el 2026-09-13 y no
+     antes porque hasta hoy la cobertura de «un partido empezado no es un
+     mercado» la daba `apuestas.mjs` sin quererlo: contaba los abiertos con
+     `!game_final` y la pantalla con `gameState`, así que el mismo commit salía
+     verde por la mañana y rojo por la tarde. Eso no era cobertura, era una
+     bomba de relojería — y al quitarla había que poner la cobertura de verdad.
+     Éste sí es determinista: pisa `Date` en el contexto y mira tres momentos
+     del mismo domingo. Tarda 3 s (medido). */
+  { file: "reloj.mjs", minChecks: 5 },
 ];
 const only = (process.env.LABS ?? "").split(",").map((s) => s.trim()).filter(Boolean);
 

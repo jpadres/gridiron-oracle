@@ -6,10 +6,14 @@
  * empieza» degradado a «no ha empezado».
  */
 import assert from "node:assert/strict";
+import { readFileSync, readdirSync } from "node:fs";
+import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import { GAME, gameState, hasStarted, isOpen, kickoffMs, stateLabel } from "../app/gameClock.js";
 
+const AQUI = path.dirname(fileURLToPath(import.meta.url));
 const SAQUE = "2026-09-13T13:00:00-04:00";       // 17:00 UTC
 const ANTES = Date.parse("2026-09-13T16:00:00Z");
 const DESPUES = Date.parse("2026-09-13T18:00:00Z");
@@ -90,4 +94,45 @@ test("«no sé» cae a lados OPUESTOS según la pregunta", () => {
   const porJugar = { kickoff_at: SAQUE, final: false };
   assert.equal(isOpen(porJugar, ANTES), true);
   assert.equal(hasStarted(porJugar, ANTES), false);
+});
+
+test("nadie vuelve a comparar el saque por su cuenta", () => {
+  /* EL FALLO QUE ESCRIBIÓ ESTE GUARDIÁN, Y QUE ESTABA EN EL GUARDIÁN.
+     `apuestas.mjs` salió VERDE por la mañana y ROJO en CI seis horas después,
+     sobre el mismo commit: contaba los mercados abiertos con `!game_final` —lo
+     que cerró Python— mientras la pantalla usa `gameState` con el reloj del
+     navegador, que a la una ya había cerrado el slate de la una. Ninguno de los
+     dos estaba mal; medían momentos distintos. Y `reloj.mjs` —el laboratorio
+     del reloj— rehacía la comparación a mano, así que si las dos definiciones
+     se equivocaran igual saldría verde sobre el fallo.
+
+     La propiedad es estrecha a propósito (la lección de `no-undef.mjs`: estrecho
+     y cierto vale más que amplio y ruidoso): fuera de este módulo, nadie parsea
+     un campo de saque. Quien necesite el instante llama a `kickoffMs`; quien
+     necesite el estado, a `gameState` / `isOpen` / `hasStarted`.
+
+     Los comentarios se quitan ANTES de mirar: un guardián que casa con la prosa
+     que describe el fallo vigila la prosa, no el código — ya pasó una vez. */
+  const raiz = path.resolve(AQUI, "..");
+  const ficheros = [];
+  const recorrer = (dir) => {
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      if (e.name === "node_modules" || e.name === ".next" || e.name === "data") continue;
+      const ruta = path.join(dir, e.name);
+      if (e.isDirectory()) recorrer(ruta);
+      else if (/\.(js|jsx|mjs)$/.test(e.name)) ficheros.push(ruta);
+    }
+  };
+  for (const d of ["app", "tools", "tests"]) recorrer(path.join(raiz, d));
+
+  const culpables = [];
+  for (const ruta of ficheros) {
+    if (ruta.endsWith(path.join("app", "gameClock.js"))) continue;   // la definición
+    const codigo = readFileSync(ruta, "utf8")
+      .replace(/\/\*[\s\S]*?\*\//g, " ")
+      .replace(/(^|[^:])\/\/[^\n]*/g, "$1");
+    if (/Date\.parse\([^)]*kickoff/.test(codigo)) culpables.push(path.relative(raiz, ruta));
+  }
+  assert.deepEqual(culpables, [],
+    `parsean el saque a mano en vez de llamar a kickoffMs: ${culpables.join(", ")}`);
 });

@@ -735,6 +735,8 @@ comentario está para que no los reintroduzcas.
 | El laboratorio eligió de recambio a alguien cuyo partido había ACABADO | `tools/lab/gameday.mjs` | Buscaba «uno de su posición que saque antes» y le tocó Puka Nacua, del jueves. El motor lo rechazó con razón y el laboratorio lo leyó como pantalla rota. Un doble que miente en un campo prueba otra cosa, por sexta vez. Y al arreglarlo salió lo de verdad interesante: **hoy no hay pareja** porque los dos dudosos de turno tardío son justo dos de los 23 que el modelo de rol no proyecta — el hueco del rol es TAMBIÉN lo que impide que el aviso pueda existir |
 | Un comentario JSX que borró en silencio la prosa de debajo | `tools/ui-numbers.mjs` | El limpiador quitaba `{/* … */}` con un patrón que exige cerrar en `*/}`. Un comentario que ABRE una expresión —`{/* … */` seguido del código y un `}` al final, que es JSX legal y lo escribí sin pensarlo— no casa, así que el patrón seguía hasta el SIGUIENTE `*/}` del fichero. Se llevó por delante el párrafo de «minimum edge 1.5 points» y el extractor **no dijo nada**: menos prosa vigilada, en silencio. Es el `<[^>]+>` cruzando saltos de línea, con otra cara. Se quita el comentario como COMENTARIO, antes de mirar las llaves |
 | El mismo predicado para dos preguntas con el «no sé» en lados opuestos | `gameClock.js` | Para APOSTAR, lo que no se puede confirmar abierto se cierra: cuesta un mercado que se deja de enseñar. Para una ALINEACIÓN es al revés — congelar un hueco por no saber la hora del partido congelaría la plantilla entera y la pantalla diría que no hay nada que cambiar. Un solo `isOpen` para las dos parecía economía; lo destaparon SIETE tests en rojo cuyos fixtures no llevan saque, que es exactamente el caso «no se sabe». Son `isOpen` y `hasStarted`, y la asimetría está escrita |
+| VERDE por la mañana y ROJO en CI seis horas después, sobre el MISMO commit | `tools/lab/apuestas.mjs` | El laboratorio contaba los mercados abiertos con `!m.game_final` —sólo lo que cierra Python— y la pantalla usa `gameState` con el reloj del navegador: a las 17:07 UTC el slate de la una ya estaba cerrado, así que 20 pintados contra 50 esperados y 3 apuestas contra 5. **Ninguno de los dos estaba mal: medían momentos distintos.** Es la **decimocuarta** vez con dos copias del mismo hecho, y la primera DENTRO de un guardián — donde además no se lee como un fallo del guardián sino como un fallo del producto. Dos arreglos, no uno: la expectativa se le pregunta a `app/gameClock.js` (la definición de la pantalla) y el reloj se PISA a un instante fijo derivado del payload, porque **un guardián cuyo veredicto depende de la hora a la que corre no es un guardián**. Y al quitar esa cobertura accidental había que poner la de verdad: `reloj.mjs` —determinista, 3 s— entra en el job requerido |
+| Tres copias de «¿ha empezado el partido?» y el guardián en ninguna | `tools/lab/reloj.mjs`, `gameday.mjs` | El laboratorio del RELOJ rehacía `ms >= Date.parse(kickoff_at)` a mano: si las dos definiciones se equivocaran igual, saldría verde sobre el fallo que existe para cazar. El guardián nuevo es estrecho a propósito —fuera de `gameClock.js` nadie parsea un campo de saque— y quita los COMENTARIOS antes de mirar, porque una prosa que describe el fallo lo casa igual que el código y ya costó una versión en `Briefs.jsx` |
 | Dos inyecciones apuntando a líneas que un refactor había movido, y el simulacro lo DIJO | `scripts/injection_drill.sh` | El aviso `INYECCIÓN ROTA` se añadió esta misma sesión y en su primera pasada real cazó las dos: al compartir el candado con `hasStarted`, las líneas de las inyecciones 54 y 59 dejaron de existir. Antes habrían salido «VERDE (NO ES GUARDIÁN)», acusando al guardián. **La tercera, la 60, sí era un guardián flojo**: sustituir el `useState` dejaba intacto el `setNow(Date.now())` que la comprobación busca, así que el texto seguía ahí y pasaba en verde — el «el nombre sigue apareciendo» por tercera vez. La inyección quita ahora la LECTURA del reloj, que es lo que se quiere probar |
 
 ---
@@ -768,9 +770,10 @@ navegador. Lo que no puede pasar es que el navegador REABRA lo que Python cerró
 y por eso `FINAL` gana siempre. El «no sé» cae a lados OPUESTOS según para qué
 se pregunte: `isOpen` (apostar) lo cierra y `hasStarted` (congelar un hueco) no
 lo congela. **Desde el 5 de
-septiembre de 2026 cinco laboratorios de Playwright SÍ corren en CI** como job
+septiembre de 2026 los laboratorios de Playwright SÍ corren en CI** como job
 requerido (`tools/lab/ci-required.mjs`: headshot-shots, smoke, apuestas,
-movil, controles), y el resto de madrugada en `labs-nightly.yml`. Antes no
+movil, controles, y desde el 13 `reloj`), y el resto de madrugada en
+`labs-nightly.yml`. Antes no
 corría ninguno, y así estuvo `/fantasy` caída cuatro días en verde. Ver
 `docs/CI.md`.
 
@@ -841,7 +844,7 @@ está construida:
 | `controles.mjs` | **Control por control, las trece páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete OCHENTA Y SIETE fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete OCHENTA Y OCHO fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -866,8 +869,8 @@ alineación— sin congelar nada, la pantalla de apuestas sin reloj, un mismo
 predicado para apostar y para congelar, y un comentario JSX tragándose la prosa
 de debajo, y desde la mañana del 13 de septiembre una designación de lesión
 nueva colada como «juega», un DOUBTFUL tratado como descartado, el parte
-tocando un número del board y la ventana de decisión calculada al revés— y
-exige 87 rojos y 87 verdes al
+tocando un número del board y la ventana de decisión calculada al revés, y desde la tarde del 13 un laboratorio rehaciendo por su cuenta la comparación del saque— y
+exige 88 rojos y 88 verdes al
 restaurar.
 
 ## El skill de UI/UX

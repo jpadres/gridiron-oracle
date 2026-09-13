@@ -12,6 +12,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
+import { GAME, gameState, kickoffMs } from "../../app/gameClock.js";
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const PORT = Number(process.env.PORT ?? 4518);
@@ -20,6 +21,32 @@ const OUT = process.env.SHOTS ?? "/tmp/claude-0/-home-user-gridiron-oracle/2ba58
 const { model } = await import(path.join(WEB, "data/model.js"));
 const MARKETS = model.markets ?? [];
 const PREDICTIONS = model.predictions ?? [];
+
+/* EL RELOJ SE FIJA, Y LA EXPECTATIVA SALE DEL MISMO PREDICADO QUE LA PANTALLA.
+   Este laboratorio salió VERDE por la mañana y ROJO en CI seis horas después,
+   sobre el mismo commit: contaba los mercados abiertos con `!m.game_final` —o
+   sea, sólo lo que cerró Python— mientras la pantalla usa `gameState` con el
+   reloj del navegador, que a la una de la tarde ya había cerrado el slate de
+   la una. 20 pintados contra 50 esperados, y ninguno de los dos estaba mal:
+   estaban midiendo momentos distintos. Dos copias del mismo hecho con distinta
+   cobertura, esta vez en el guardián.
+
+   Así que dos cosas, no una: el estado se le pregunta a `app/gameClock.js`
+   —una sola definición, la de la pantalla— y el reloj se PISA a un instante
+   fijo, porque un guardián cuyo veredicto depende de la hora a la que corre no
+   es un guardián. El instante se deriva del propio payload (una hora antes del
+   primer saque por jugar) para que no caduque la semana que viene. `reloj.mjs`
+   es el laboratorio que mira el reloj MOVIÉNDOSE; éste mira un momento. */
+const SAQUES = PREDICTIONS
+  .filter((g) => g.final !== true)
+  .map((g) => kickoffMs(g))
+  .filter((ms) => Number.isFinite(ms));
+const AHORA = SAQUES.length ? Math.min(...SAQUES) - 3600e3 : Date.parse("2026-09-13T16:00:00Z");
+const SAQUE_DE = new Map(PREDICTIONS.map((g) => [g.game_id, g.kickoff_at ?? null]));
+/* La fila de mercado no lleva el saque: la pantalla lo toma del partido y aquí
+   se hace la MISMA unión, por `game_id`. */
+const estadoDe = (m, cuando = AHORA) =>
+  gameState({ ...m, kickoff_at: SAQUE_DE.get(m.game_id) ?? null }, cuando);
 
 if (!process.env.SKIP_BUILD) {
   await new Promise((r, j) => { const b = spawn("npx", ["next", "build"], { cwd: WEB, stdio: "ignore" }); b.on("exit", (c) => (c === 0 ? r() : j(new Error(`build ${c}`)))); });
@@ -55,6 +82,17 @@ check("los dos lados de un spread suman 1 de probabilidad decidida",
 /* === la página ========================================================== */
 for (const width of [390, 1440]) {
   const ctx = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: "reduce" });
+  // El reloj se pisa ANTES de cargar: React lo lee al montar. Mismo mecanismo
+  // que `reloj.mjs`.
+  await ctx.addInitScript(`{
+    const FIJO = ${AHORA};
+    const Real = Date;
+    Date = class extends Real {
+      constructor(...a) { return a.length ? new Real(...a) : new Real(FIJO); }
+      static now() { return FIJO; }
+    };
+    Date.parse = Real.parse; Date.UTC = Real.UTC;
+  }`);
   const page = await ctx.newPage();
   const errores = [];
   page.on("pageerror", (e) => errores.push(String(e)));
@@ -86,7 +124,10 @@ for (const width of [390, 1440]) {
   }
   const texto = await page.locator(".bk-markets").innerText();
   check(`${width}: el moneyline justo se enseña por partido`, /[+-]\d{3}/.test(texto));
-  const bets = model.bets ?? [];
+  /* Las apuestas OFRECIBLES, no todas las del payload: una sobre un partido
+     empezado no es que no valga, es que no se puede hacer, y la pantalla la
+     quita. Con el reloj fijo el número es el mismo corra a la hora que corra. */
+  const bets = (model.bets ?? []).filter((b) => estadoDe(b) === GAME.SCHEDULED);
   check(`${width}: las apuestas que pasan el umbral salen con stake a este bankroll`,
     (await page.locator(".bk-bets > li").count()) === bets.length
       && (bets.length === 0 || /\$\d/.test(await page.locator(".bk-bets").innerText())), `${bets.length}`);
@@ -100,8 +141,8 @@ for (const width of [390, 1440]) {
      daba — la clase de error que no falla nada. Así que la cuenta de NO BET se
      hace sobre los mercados ABIERTOS, y los cerrados se cuentan aparte para
      que ninguno de los dos pueda absorber al otro en silencio. */
-  const abiertos = (model.markets ?? []).filter((m) => !m.game_final);
-  const cerrados = (model.markets ?? []).filter((m) => m.game_final);
+  const abiertos = MARKETS.filter((m) => estadoDe(m) === GAME.SCHEDULED);
+  const cerrados = MARKETS.filter((m) => estadoDe(m) !== GAME.SCHEDULED);
   const sinApuesta = abiertos.filter((m) => !(m.stake_fraction > 0)).length;
   const celdas = await page.locator(".bk-markets tbody .bk-nomarket").allInnerTexts();
   const noBet = celdas.filter((t) => /^no bet · /i.test(t));
@@ -110,11 +151,15 @@ for (const width of [390, 1440]) {
     `${noBet.length} pintados / ${sinApuesta} en el payload · ${[...new Set(noBet)].join(" | ")}`);
   if (cerrados.length > 0) {
     const finales = await page.locator(".bk-markets tbody .mark--out").allInnerTexts();
-    check(`${width}: cada mercado de un partido jugado dice FINAL`,
-      finales.filter((t) => /final/i.test(t)).length === cerrados.length,
+    check(`${width}: cada mercado de un partido no jugable lleva su marca de estado`,
+      finales.filter((t) => /final|in progress|kickoff unknown/i.test(t)).length === cerrados.length,
       `${finales.length} pintados / ${cerrados.length} cerrados`);
-    check(`${width}: y ninguno de ellos se ofrece como apuesta`,
-      cerrados.every((m) => !(m.stake_fraction > 0) && m.no_bet_reason === "GAME_FINAL"));
+    /* Los que cerró PYTHON tienen que traer además el motivo en el payload: el
+       reloj del navegador cierra un mercado en la pantalla, pero no puede
+       escribir una decisión en el dato. */
+    check(`${width}: y ninguno de los que cerró el fichero se ofrece como apuesta`,
+      cerrados.filter((m) => m.game_final)
+        .every((m) => !(m.stake_fraction > 0) && m.no_bet_reason === "GAME_FINAL"));
   }
   check(`${width}: ninguno queda «not sized»`, !celdas.some((t) => /not sized/i.test(t)));
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);

@@ -20,6 +20,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
+import { hasStarted } from "../../app/gameClock.js";
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
 const WEB = path.resolve(AQUI, "..", "..");
@@ -31,26 +32,27 @@ const MARKETS = model.markets ?? [];
 let fallos = 0;
 const check = (n, ok, d = "") => { if (!ok) fallos += 1; console.log(`  ${ok ? "ok   " : "FALLA"} ${n}${d ? ` — ${d}` : ""}`); };
 
+/* La expectativa sale del MISMO módulo que la pantalla. Estas dos funciones
+   rehacían la comparación a mano (`ms >= Date.parse(kickoff_at)`), que es una
+   segunda definición de la regla que este laboratorio existe para comprobar: si
+   las dos se equivocan igual, el laboratorio sale verde sobre el fallo. */
+
 /** Cuántos partidos han empezado a una hora dada, según el propio payload. */
 function empezados(ms) {
-  return PREDICTIONS.filter((g) => {
-    if (g.final === true) return true;
-    const k = Date.parse(g.kickoff_at ?? "");
-    return Number.isFinite(k) && ms >= k;
-  }).length;
+  return PREDICTIONS.filter((g) => hasStarted(g, ms)).length;
 }
 
 /** Los mercados de esos partidos: es lo que la tabla tiene que cerrar. */
 function mercadosCerrados(ms) {
-  const cerrados = new Set(PREDICTIONS.filter((g) => {
-    if (g.final === true) return true;
-    const k = Date.parse(g.kickoff_at ?? "");
-    return Number.isFinite(k) && ms >= k;
-  }).map((g) => g.game_id));
+  const cerrados = new Set(PREDICTIONS.filter((g) => hasStarted(g, ms)).map((g) => g.game_id));
   return MARKETS.filter((m) => cerrados.has(m.game_id)).length;
 }
 
-const server = spawn("npx", ["next", "start", "-p", "4537"], { cwd: WEB, stdio: "ignore" });
+/* Detached + matar el GRUPO: `server.kill()` mata a `npx` y deja a `next`
+   escuchando, que en una segunda ejecución da «port in use». */
+const server = spawn("npx", ["next", "start", "-p", "4537"], { cwd: WEB, stdio: "ignore", detached: true });
+const stop = () => { try { process.kill(-server.pid); } catch { /* ya no está */ } };
+process.on("exit", stop);
 const browser = await launch();
 try {
   for (let i = 0; i < 60; i += 1) {
@@ -107,7 +109,7 @@ try {
     `${vistos[2]} de ${MARKETS.length}`);
 } finally {
   await browser.close();
-  server.kill();
+  stop();
 }
 console.log(fallos ? `\n${fallos} FALLOS` : "\nTODO VERDE");
 process.exit(fallos ? 1 : 0);
