@@ -14,7 +14,7 @@
  */
 
 import { availabilityMark } from "../availability.js";
-import { rosterMark, teamChangeMark, trackMark } from "./rosterMark.js";
+import { gameFinalMark, rosterMark, teamChangeMark, trackMark } from "./rosterMark.js";
 
 /**
  * Marcas de contexto de una fila: estado, nota del modelo, prensa, dossier.
@@ -38,8 +38,14 @@ export function RowMarks({ row, id, notes, news, availability, statusVerifiedAt 
   // Y cómo le ha ido a ESTE modelo con ESTE jugador. Va con los hechos y no
   // con la prensa: sale de reproyectar temporadas cerradas, no de una nota.
   const track = trackMark(row);
+  /* Va el PRIMERO de las marcas: decide si lo de al lado es una decisión o un
+     registro, y eso se lee antes que ninguna otra cosa de la fila. */
+  const jugado = gameFinalMark(row);
   return (
     <>
+      {jugado ? (
+        <span className={jugado.className} title={jugado.title}>{jugado.text}</span>
+      ) : null}
       {row?.status_label ? (
         /* UNA AFIRMACIÓN EN DISPUTA NO SE PINTA COMO UN HECHO. Cuando el
            registro de plantillas, posterior y oficial, contradice a la prensa,

@@ -8,7 +8,7 @@ import { Fragment } from "react";
 
 import { pct } from "../data/model.js";
 import { availabilityMark } from "./availability.js";
-import { rosterMark, teamChangeMark, trackMark } from "./fantasy/rosterMark.js";
+import { gameFinalMark, rosterMark, teamChangeMark, trackMark } from "./fantasy/rosterMark.js";
 import { Headshot } from "./headshot.jsx";
 
 export function Callout({ title, children }) {
@@ -299,6 +299,14 @@ export function RankTable({
                       {trackMark(row) ? (
                         <span className={trackMark(row).className}
                               title={trackMark(row).title}>{trackMark(row).text}</span>
+                      ) : null}
+                      {/* Y si su partido YA TERMINÓ. Va aquí por la misma razón
+                          que la de arriba: esta tabla no pasa por `RowMarks`, y
+                          una marca cableada sólo allí no llega a la pantalla que
+                          se mira. */}
+                      {gameFinalMark(row) ? (
+                        <span className={gameFinalMark(row).className}
+                              title={gameFinalMark(row).title}>{gameFinalMark(row).text}</span>
                       ) : null}
                       {/* Cuánto del número es el prior de la posición y no
                           el jugador. Se deriva de `wg`, que ya viaja: es la

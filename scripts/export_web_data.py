@@ -268,7 +268,7 @@ def main(argv: list[str] | None = None) -> int:
         ]
     ).to_dict(orient="records")
     # CUÁNDO se juega y CÓMO acabó, si ya acabó. Ver `_estado_de_los_partidos`.
-    _anotar_estado(payload["predictions"], paths)
+    _anotar_estado(payload["predictions"], paths, season, week)
     # Antes de seguir: lo que se va a publicar tiene que ser lo que hay en el
     # calendario que fecha la sección. Ver `_comprobar_lineas_publicadas`.
     _comprobar_lineas_publicadas(payload["predictions"], paths)
@@ -322,6 +322,8 @@ def main(argv: list[str] | None = None) -> int:
     payload["fantasy_weekly"] = _trim_records(
         payload["fantasy_weekly"], "defenses", DST_COLUMNS
     )
+    # Y el estado del partido de cada uno. Ver `_anotar_estado_semanal`.
+    _anotar_estado_semanal(payload, paths)
 
     # --- estado de disponibilidad (suspensiones, exentos, IR, PUP) ----------
     # Va DESPUÉS del recorte a propósito: no es una columna del board, es una
@@ -1200,7 +1202,7 @@ def _comprobar_artefactos_al_dia(paths) -> None:
         )
 
 
-def _estado_de_los_partidos(paths) -> dict:
+def _estado_de_los_partidos(paths, season: int, week: int) -> dict:
     """Saque y marcador final de cada partido, leídos del calendario.
 
         UNA PREDICCIÓN SOBRE UN PARTIDO QUE YA ACABÓ NO ES UNA PREDICCIÓN.
@@ -1227,9 +1229,18 @@ def _estado_de_los_partidos(paths) -> dict:
     if not calendario.exists():
         return {}
     games = pd.read_csv(calendario, usecols=lambda c: c in {
-        "game_id", "gameday", "gametime", "home_team", "away_team",
+        "season", "week", "game_id", "gameday", "gametime", "home_team", "away_team",
         "home_score", "away_score",
     })
+    # ACOTADO A LA JORNADA QUE SE PUBLICA, y no es un detalle de eficiencia.
+    #
+    # `games.csv` trae 7.548 partidos desde 1999, y un emparejamiento
+    # (visitante, local) se repite temporada tras temporada: sin este filtro el
+    # último NE@SEA del fichero gana, y el mapa por EQUIPO —que el semanal
+    # necesita— se queda con el último partido que jugó cada equipo en toda su
+    # historia. Se vio al primer intento: las 320 filas del semanal salieron
+    # «FINAL» y T. Lawrence llevaba de saque el 28 de septiembre de **2025**.
+    games = games[(games["season"] == season) & (games["week"] == week)]
     estado = {}
     for r in games.itertuples():
         clave = (normalize_team(r.away_team), normalize_team(r.home_team))
@@ -1251,9 +1262,9 @@ def _estado_de_los_partidos(paths) -> dict:
     return estado
 
 
-def _anotar_estado(predictions: list[dict], paths) -> None:
+def _anotar_estado(predictions: list[dict], paths, season: int, week: int) -> None:
     """Cuelga `kickoff`, `final` y el marcador de cada predicción publicada."""
-    estado = _estado_de_los_partidos(paths)
+    estado = _estado_de_los_partidos(paths, season, week)
     for row in predictions:
         info = estado.get(
             (normalize_team(row.get("away_team")), normalize_team(row.get("home_team")))
@@ -1406,6 +1417,67 @@ def _stats_que_lee_el_board(paths) -> str | None:
     ficheros.sort(reverse=True)
     usadas = [ruta for _, ruta in ficheros[:len(SEASON_WEIGHTS)]]
     return _mas_vieja(*(_fecha_de(r) for r in usadas))
+
+
+def _anotar_estado_semanal(payload: dict, paths) -> None:
+    """Cuelga el saque y el resultado del partido de cada fila del semanal.
+
+        NO SE ALINEA A QUIEN YA JUGÓ.
+
+    El semanal proyecta a los 256 jugadores de la jornada y no decía en ninguna
+    parte cuáles tenían el partido terminado. Medido el 13 de septiembre de
+    2026, con dos de los dieciséis partidos jugados: **40 filas** —32 jugadores,
+    4 pateadores y 4 defensas de NE, SEA, SF y LAR— seguían presentándose como
+    start/sit. `/fantasy/lineups` podía proponer meter a Drake Maye, que ya
+    había jugado, y sacar a otro por él.
+
+    Es peor que el caso de apuestas: una apuesta que no se puede hacer se queda
+    sin hacer, pero un cambio de alineación que no se puede hacer se lee como
+    que tu alineación está mal puesta.
+
+    El mapa sale de la MISMA `_estado_de_los_partidos` que fecha las
+    predicciones — un partido no puede estar acabado en una pantalla y abierto
+    en otra, que es el fallo de los dos traductores que este repositorio ya ha
+    cometido diez veces. Se indexa por EQUIPO porque una fila del semanal no
+    tiene `game_id`: lleva su equipo y su rival, y con los dos se encuentra el
+    partido en cualquiera de los dos sentidos.
+    """
+    weekly = payload.get("fantasy_weekly") or {}
+    if not weekly:
+        return
+    # La jornada del SEMANAL, que puede no ser la del bloque de predicciones si
+    # el artefacto viene de otra ejecución. Sin las dos no se afirma nada.
+    temporada = weekly.get("season")
+    jornada = weekly.get("week")
+    if temporada is None or jornada is None:
+        return
+    estado = _estado_de_los_partidos(paths, int(temporada), int(jornada))
+    por_equipo: dict[str, dict] = {}
+    for (fuera, casa), info in estado.items():
+        for equipo, marcador, contrario in (
+            (casa, info["home_score"], info["away_score"]),
+            (fuera, info["away_score"], info["home_score"]),
+        ):
+            if equipo:
+                por_equipo[equipo] = {
+                    "kickoff": info["kickoff"],
+                    "final": info["final"],
+                    "team_score": marcador,
+                    "opponent_score": contrario,
+                }
+    marcadas = 0
+    for clave in ("rankings", "kickers", "defenses"):
+        for row in weekly.get(clave) or []:
+            info = por_equipo.get(normalize_team(row.get("team")))
+            # Sin partido localizado no se afirma nada: `final` en None y la
+            # pantalla dice lo que sabe. Un equipo de descanso no tiene fila.
+            row["game_kickoff"] = (info or {}).get("kickoff")
+            row["game_final"] = (info or {}).get("final")
+            if info and info["final"]:
+                marcadas += 1
+    if marcadas:
+        print(f"  semanal: {marcadas} filas con el partido ya terminado; "
+              "la pantalla no las ofrece como cambio de alineación.")
 
 
 def _fechas_de_origen(paths) -> dict:

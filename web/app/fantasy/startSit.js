@@ -71,6 +71,14 @@ export const EXCLUDED = Object.freeze({
   BYE: "BYE",               // su equipo descansa esta semana
   RESERVE: "RESERVE",       // en IR / taxi de Sleeper: no puede alinearse
   NO_PROJECTION: "NO_PROJECTION", // sin fila semanal y sin ser defensa
+  /* Su partido YA TERMINÓ. No es que rinda poco: es que ya no se puede meter.
+     El semanal proyectaba a los 256 de la jornada sin decir en ninguna parte
+     cuáles habían jugado — 40 filas el 13 de septiembre de 2026, con dos de
+     los dieciséis partidos cerrados—, así que esta pantalla podía proponer
+     meter a un quarterback que ya había jugado y sentar a otro por él. Un
+     cambio que no se puede hacer se lee como que tu alineación está mal
+     puesta, que es peor que no decir nada. */
+  GAME_FINAL: "GAME_FINAL",
 });
 
 /**
@@ -127,6 +135,9 @@ function flagsFor({ row, byes, week }) {
   const bye = numberOrNull(byes?.[row.team]);
   if (bye !== null && week !== null && bye === Number(week)) flags.push("BYE");
   if (row.position !== "DEF" && numberOrNull(row.projected_points) === null) flags.push("NO_PROJECTION");
+  /* El partido acabado no descalifica al jugador: lo CONGELA donde esté. Va al
+     final para que se lea después de los motivos que sí hablan de él. */
+  if (row.game_final === true) flags.push("LOCKED");
   return flags;
 }
 
@@ -138,18 +149,38 @@ function flagsFor({ row, byes, week }) {
  * semana, y quien no tiene proyección semanal — salvo la defensa, que no la
  * tiene por diseño y sí ocupa su hueco.
  */
-export function bestLineup({ players, reserve = [], taxi = [], rosterPositions, index, byes = {}, week = null }) {
+export function bestLineup({
+  players, starters = null, reserve = [], taxi = [], rosterPositions, index,
+  byes = {}, week = null,
+}) {
   const slots = starterSlots(rosterPositions);
   const apartados = new Set([...(reserve ?? []), ...(taxi ?? [])].map(String));
+  /* HUECOS CONGELADOS: los que ya jugaron se quedan donde están.
+     A media jornada, un titular cuyo partido terminó no se puede sacar y un
+     suplente cuyo partido terminó no se puede meter. El optimizador reparte
+     sólo los huecos que QUEDAN entre los jugadores que todavía pueden jugar,
+     que es lo que se puede hacer de verdad en Sleeper a esa hora.
+     Sin `starters` no hay nada congelado: la pantalla que no sabe qué tienes
+     puesto sigue optimizando la plantilla entera, como antes. */
+  const puestos = Array.isArray(starters) ? starters.map((x) => String(x ?? "")) : [];
+  const congelados = new Map();  // índice de hueco -> sid
+  for (let i = 0; i < slots.length; i += 1) {
+    const sid = puestos[i] ?? "";
+    if (!sid || sid === "0") continue;
+    if (index.get(sid)?.game_final === true) congelados.set(i, sid);
+  }
+  const sidsCongelados = new Set(congelados.values());
   const elegibles = [];
   const excluded = [];
   for (const raw of players ?? []) {
     const sid = String(raw ?? "");
     if (!sid || sid === "0") continue;
     const row = index.get(sid) ?? null;
+    if (sidsCongelados.has(sid)) continue;   // ya tiene su hueco reservado
     if (apartados.has(sid)) { excluded.push({ sid, row, reason: EXCLUDED.RESERVE }); continue; }
     if (!row) { excluded.push({ sid, row: null, reason: EXCLUDED.NO_PROJECTION }); continue; }
     const flags = flagsFor({ row, byes, week });
+    if (flags.includes("LOCKED")) { excluded.push({ sid, row, reason: EXCLUDED.GAME_FINAL }); continue; }
     if (flags.includes("OUT")) { excluded.push({ sid, row, reason: EXCLUDED.OUT }); continue; }
     if (flags.includes("BYE")) { excluded.push({ sid, row, reason: EXCLUDED.BYE }); continue; }
     if (flags.includes("NO_PROJECTION")) { excluded.push({ sid, row, reason: EXCLUDED.NO_PROJECTION }); continue; }
@@ -160,15 +191,35 @@ export function bestLineup({ players, reserve = [], taxi = [], rosterPositions, 
     const p = numberOrNull(row.projected_points);
     elegibles.push({ ...row, sid, vor: p === null ? -Infinity : p, flags });
   }
-  const { slots: repartidos, unassigned } = assignSlots(elegibles, slots);
-  const rows = repartidos.map((s) => ({
-    slot: s.slot,
-    sid: s.player?.sid ?? null,
-    row: s.player ?? null,
-    points: numberOrNull(s.player?.projected_points),
-    empty: !s.player,
-    flags: s.player?.flags ?? ["EMPTY"],
-  }));
+  // Sólo se reparten los huecos que no están congelados; los congelados se
+  // vuelven a poner en SU sitio después, para que la alineación conserve el
+  // orden de huecos de la liga (el mismo que `currentLineup`).
+  const libres = slots.filter((_, i) => !congelados.has(i));
+  const { slots: repartidos, unassigned } = assignSlots(elegibles, libres);
+  const cola = [...repartidos];
+  const rows = slots.map((slot, i) => {
+    if (congelados.has(i)) {
+      const sid = congelados.get(i);
+      const row = index.get(sid) ?? null;
+      return {
+        slot, sid, row,
+        points: numberOrNull(row?.projected_points),
+        empty: false,
+        flags: flagsFor({ row, byes, week }),
+        locked: true,
+      };
+    }
+    const s = cola.shift() ?? { slot, player: null };
+    return {
+      slot,
+      sid: s.player?.sid ?? null,
+      row: s.player ?? null,
+      points: numberOrNull(s.player?.projected_points),
+      empty: !s.player,
+      flags: s.player?.flags ?? ["EMPTY"],
+      locked: false,
+    };
+  });
   let total = 0;
   let unknown = 0;
   for (const r of rows) {
@@ -176,7 +227,8 @@ export function bestLineup({ players, reserve = [], taxi = [], rosterPositions, 
     else if (r.row) unknown += 1;
   }
   return { rows, points: round1(total), unknown, empty: rows.filter((r) => r.empty).length,
-           bench: unassigned, excluded, slots, considered: elegibles.length };
+           bench: unassigned, excluded, slots, considered: elegibles.length,
+           locked: congelados.size };
 }
 
 /**
@@ -239,7 +291,11 @@ export function leagueStartSit({ league, index, byes = {}, week = null }) {
     starters: league?.starters ?? null, rosterPositions, index, byes, week,
   });
   const best = bestLineup({
-    players: league?.players ?? [], reserve: league?.reserve ?? [], taxi: league?.taxi ?? [],
+    players: league?.players ?? [],
+    // Lo PUESTO, para saber qué huecos están congelados: a media jornada, un
+    // titular cuyo partido terminó no se puede sacar.
+    starters: league?.starters ?? null,
+    reserve: league?.reserve ?? [], taxi: league?.taxi ?? [],
     rosterPositions, index, byes, week,
   });
   const swaps = slotSwaps(current, best);

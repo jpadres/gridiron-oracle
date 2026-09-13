@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 53 fallos conocidos, 53 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 57 fallos conocidos, 57 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -216,3 +216,15 @@ run "52 la moneyline fuera de la pantalla de mercados" web/app/betting/BettingSh
 run "53 la tarjeta deja de decir que el partido acabó" web/app/sports.jsx \
   "  const isFinal = game.final === true && finalScoreHome !== null && finalScoreAway !== null;|||  const isFinal = false;" \
   "cd web && node --test tests/noBet.test.mjs"
+run "54 un titular que ya jugó, propuesto para el banquillo" web/app/fantasy/startSit.js \
+  "    if (index.get(sid)?.game_final === true) congelados.set(i, sid);|||    if (false) congelados.set(i, sid);" \
+  "cd web && node --test tests/startSit.test.mjs"
+run "55 un suplente que ya jugó, propuesto como titular" web/app/fantasy/startSit.js \
+  "    if (flags.includes(\"LOCKED\")) { excluded.push({ sid, row, reason: EXCLUDED.GAME_FINAL }); continue; }|||    // INYECCIÓN: vuelve al reparto" \
+  "cd web && node --test tests/startSit.test.mjs"
+run "56 la marca del partido jugado, fuera de la tabla principal" web/app/ui.jsx \
+  "                      {gameFinalMark(row) ? (|||                      {false ? (" \
+  "cd web && node --test tests/rosterMark.test.mjs"
+run "57 el estado del partido tomado de OTRA jornada" scripts/export_web_data.py \
+  "    games = games[(games[\"season\"] == season) & (games[\"week\"] == week)]|||    pass  # INYECCIÓN" \
+  "python -m pytest -q tests/test_data_dates.py"

@@ -660,6 +660,9 @@ comentario está para que no los reintroduzcas.
 | El board de draft se fue a proyectar 2027 el primer domingo | `scripts/fantasy_build.py` | `season = max(temporada con estadística) + 1` acierta en agosto y falla el día que empieza la temporada: en cuanto llegó la jornada 1 de 2026 el compilador saltó a 2027, con el dueño usando el board. Había TRES reglas para la misma pregunta —`_resolve_week` y el semanal usaban «el primer partido sin jugar», que es la correcta— y ésta era la tercera. **Décima vez** que dos traductores del mismo formato divergen, y esta vez sobre cuál es el AÑO. Una sola, `schedule.py::current_point` |
 | `fantasy: 2026-09-12` sobre un board que no puede contener nada de septiembre | `export_web_data.py` | `_mas_nuevo(raw, "player_stats_*.parquet")` devuelve el fichero de la temporada EN CURSO, y `project_season` se queda con `season < S`: el board de 2026 no lee ni una fila de 2026. Al refrescar, la fecha se movió al 12 de septiembre y el board recompilado salió **byte a byte idéntico** —movimiento medio de puesto CERO en los 300 primeros—: 26 días fabricados, cuarta vez con esta forma. Y lo que hay que anotar: el guardián de artefacto-contra-fuente **pasó en VERDE** sobre la mentira, porque el artefacto sí era más nuevo. **Un guardián que compara fechas no puede ver que la fuente no se lee**; la propiedad correcta es que la fecha salga de los ficheros que ENTRAN |
 | `INA`, una etiqueta de plantilla nueva | `fantasy/roster_status.py` | El roster semanal empezó a traer la lista de inactivos de la jornada y el exportador se negó a publicar — la puerta funcionando. Lo que decidió la traducción fue el fichero, no una suposición: las 25 filas eran EXACTAMENTE los cuatro equipos que ya habían jugado y las 25 llevaban `A01`, el mismo código fino que las 1.672 `ACT`. O sea que su situación de plantilla es Activo y lo que no hicieron fue jugar ESE partido. La segunda mitad **no** se publica como estado: un estado de aquí no lleva jornada, y «inactivo» leído en la jornada 5 desde una instantánea de la 1 es la regla 5 exacta |
+| 40 filas del semanal ofrecidas como start/sit con el partido TERMINADO | `startSit.js`, `export_web_data.py` | El ranking semanal proyecta a los 256 de la jornada y no decía cuáles ya habían jugado: el 13 de septiembre, con dos de dieciséis partidos cerrados, Puka Nacua salía WR1 y Drake Maye QB2 de partidos acabados, y `/fantasy/lineups` podía proponer meterlos sentando a otro. Es peor que el caso de apuestas: una apuesta que no se puede hacer se queda sin hacer, pero **un cambio de alineación que no se puede hacer se lee como que tu alineación está mal puesta**. Un partido acabado no descalifica al jugador, lo CONGELA: el titular no se saca, el suplente no se mete, y el optimizador reparte sólo lo que queda |
+| Las 320 filas del semanal marcadas FINAL, con un saque de 2025 | `export_web_data.py` | El mapa de estado se construía sobre `games.csv` ENTERO —7.548 partidos desde 1999— y `(visitante, local)` no es una clave única: ganaba el último de la historia. Trevor Lawrence salía con el saque del 28 de septiembre de **2025**. Y el primer guardián que escribí para esto pasó VERDE con el fallo puesto, porque en el fixture la fila buena era la ÚLTIMA: el «8 y 9 son los dos míos» del test del turno, por segunda vez. Los números se eligen a mano para que las dos respuestas caigan en filas distintas |
+| Un guardián de marca que pedía que el NOMBRE apareciera — otra vez | `tests/rosterMark.test.mjs` | La primera versión de la comprobación de `gameFinalMark` exigía que `gameFinalMark(` estuviera en el fichero. Al inyectar el fallo —cambiar la condición por `false`— siguió VERDE, porque las llamadas de DENTRO del bloque (`.className`, `.title`) siguen ahí. **Es literalmente el mismo fallo que ya costó dos versiones con `teamChangeMark`, en el mismo fichero, dos meses después.** Lo escribió el simulacro como «VERDE (NO ES GUARDIÁN)», no yo leyendo el código: la comprobación mira la CONDICIÓN del JSX, que es lo que decide si se pinta |
 
 ---
 
@@ -754,7 +757,7 @@ está construida:
 | `controles.mjs` | **Control por control, las trece páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CINCUENTA Y TRES fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CINCUENTA Y SIETE fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -773,7 +776,9 @@ partido con resultado ofrecido como mercado, el precio del mercado cayéndose de
 las features, el board de draft yéndose a la temporada siguiente, la
 estadística de la temporada que el board NO lee usada para fecharlo, una
 etiqueta de plantilla nueva colada como activo y la moneyline fuera de la
-pantalla de mercados— y exige 53 rojos y 53 verdes al restaurar.
+pantalla de mercados, un titular que ya jugó propuesto para el banquillo y el
+estado de un partido tomado de otra jornada— y exige 57 rojos y 57 verdes al
+restaurar.
 
 ## El skill de UI/UX
 

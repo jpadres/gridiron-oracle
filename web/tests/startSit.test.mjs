@@ -205,3 +205,117 @@ test("la autoridad de un cambio sale del registro y no de la posición a mano", 
   assert.equal(swapAuthority("XX", statusOf), null);
   assert.equal(slotSwaps(null, null).length, 0);
 });
+
+// -------------------------------------------------------------------------
+// A MEDIA JORNADA: QUIEN YA JUGÓ NI ENTRA NI SALE
+//
+// El semanal proyecta a los 256 jugadores de la jornada. El 13 de septiembre de
+// 2026, con dos de los dieciséis partidos terminados, 40 de esas filas seguían
+// presentándose como start/sit sin una sola marca.
+// -------------------------------------------------------------------------
+
+function _indice(filas) {
+  return new Map(filas.map((f) => [f.sid, f]));
+}
+
+const LIGA_MEDIA = ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "BN", "BN"];
+
+test("un titular cuyo partido TERMINÓ no se puede sacar", () => {
+  const index = _indice([
+    // Puesto, ya jugó, y flojo: sin el candado el optimizador lo sentaría.
+    { sid: "qb_jugo", position: "QB", team: "NE", projected_points: 8, game_final: true },
+    // En el banquillo, no ha jugado y proyecta mucho más.
+    { sid: "qb_libre", position: "QB", team: "KC", projected_points: 24, game_final: false },
+    { sid: "rb1", position: "RB", team: "KC", projected_points: 15, game_final: false },
+    { sid: "rb2", position: "RB", team: "KC", projected_points: 14, game_final: false },
+    { sid: "wr1", position: "WR", team: "KC", projected_points: 13, game_final: false },
+    { sid: "wr2", position: "WR", team: "KC", projected_points: 12, game_final: false },
+    { sid: "te1", position: "TE", team: "KC", projected_points: 9, game_final: false },
+    { sid: "fx1", position: "WR", team: "KC", projected_points: 8, game_final: false },
+  ]);
+  const players = [...index.keys()];
+  const starters = ["qb_jugo", "rb1", "rb2", "wr1", "wr2", "te1", "fx1"];
+
+  // Control: SIN el estado del partido, el motor sí lo cambiaría — si no, este
+  // test pasaría por la razón equivocada.
+  const sinEstado = _indice([...index.values()].map((f) => ({ ...f, game_final: false })));
+  const libre = bestLineup({ players, starters, rosterPositions: LIGA_MEDIA, index: sinEstado });
+  assert.equal(libre.rows.find((r) => r.slot === "QB").sid, "qb_libre",
+    "el fixture no distingue las dos respuestas: sin candado tampoco cambiaba");
+
+  const best = bestLineup({ players, starters, rosterPositions: LIGA_MEDIA, index });
+  const qb = best.rows.find((r) => r.slot === "QB");
+  assert.equal(qb.sid, "qb_jugo", "propone sacar a alguien que ya jugó");
+  assert.equal(qb.locked, true);
+  assert.equal(best.locked, 1);
+  // Y el que estaba en el banquillo no se ofrece: su hueco ya no existe.
+  const fuera = best.excluded.find((e) => e.sid === "qb_libre");
+  assert.ok(fuera === undefined || fuera.reason !== EXCLUDED.GAME_FINAL);
+  // Sus puntos siguen contando: jugó, y esos puntos son tuyos.
+  assert.ok(best.points >= 8);
+});
+
+test("un suplente cuyo partido TERMINÓ no se puede meter", () => {
+  const index = _indice([
+    { sid: "qb1", position: "QB", team: "KC", projected_points: 18, game_final: false },
+    { sid: "rb1", position: "RB", team: "KC", projected_points: 10, game_final: false },
+    // En el banquillo, proyecta más que el titular… y su partido ya acabó.
+    { sid: "rb_jugo", position: "RB", team: "SF", projected_points: 22, game_final: true },
+    { sid: "rb2", position: "RB", team: "KC", projected_points: 9, game_final: false },
+    { sid: "wr1", position: "WR", team: "KC", projected_points: 13, game_final: false },
+    { sid: "wr2", position: "WR", team: "KC", projected_points: 12, game_final: false },
+    { sid: "te1", position: "TE", team: "KC", projected_points: 9, game_final: false },
+    { sid: "fx1", position: "WR", team: "KC", projected_points: 8, game_final: false },
+  ]);
+  const players = [...index.keys()];
+  const starters = ["qb1", "rb1", "rb2", "wr1", "wr2", "te1", "fx1"];
+  const best = bestLineup({ players, starters, rosterPositions: LIGA_MEDIA, index });
+  assert.ok(!best.rows.some((r) => r.sid === "rb_jugo"),
+    "propone meter a alguien cuyo partido ya terminó");
+  const motivo = best.excluded.find((e) => e.sid === "rb_jugo");
+  assert.ok(motivo, "se cae del reparto sin decir por qué");
+  assert.equal(motivo.reason, EXCLUDED.GAME_FINAL);
+});
+
+test("sin `starters` no se congela nada, y la plantilla entera se optimiza", () => {
+  /* La pantalla que no sabe qué tienes puesto no puede saber qué está
+     congelado. Suponer que el hueco N lo ocupa el jugador N sería inventarse
+     una alineación — y ése es el fallo que se retiró del board. */
+  const index = _indice([
+    { sid: "qb1", position: "QB", team: "KC", projected_points: 18, game_final: false },
+    { sid: "rb1", position: "RB", team: "KC", projected_points: 10, game_final: false },
+    { sid: "rb2", position: "RB", team: "KC", projected_points: 9, game_final: false },
+    { sid: "wr1", position: "WR", team: "KC", projected_points: 13, game_final: false },
+    { sid: "wr2", position: "WR", team: "KC", projected_points: 12, game_final: false },
+    { sid: "te1", position: "TE", team: "KC", projected_points: 9, game_final: false },
+    { sid: "fx1", position: "WR", team: "KC", projected_points: 8, game_final: false },
+  ]);
+  const best = bestLineup({
+    players: [...index.keys()], rosterPositions: LIGA_MEDIA, index,
+  });
+  assert.equal(best.locked, 0);
+  assert.ok(best.rows.every((r) => r.locked === false || r.locked === undefined));
+});
+
+test("los huecos conservan el ORDEN de la liga con candados de por medio", () => {
+  /* El repartidor sólo ve los huecos libres, así que hay que volver a colocar
+     los congelados en SU sitio: si no, `slotSwaps` —que es posicional— compara
+     el hueco 3 de una lista con el 4 de la otra y propone cambios inventados. */
+  const index = _indice([
+    { sid: "qb1", position: "QB", team: "KC", projected_points: 18, game_final: false },
+    { sid: "rb_jugo", position: "RB", team: "SF", projected_points: 12, game_final: true },
+    { sid: "rb2", position: "RB", team: "KC", projected_points: 9, game_final: false },
+    { sid: "wr1", position: "WR", team: "KC", projected_points: 13, game_final: false },
+    { sid: "wr2", position: "WR", team: "KC", projected_points: 12, game_final: false },
+    { sid: "te1", position: "TE", team: "KC", projected_points: 9, game_final: false },
+    { sid: "fx1", position: "WR", team: "KC", projected_points: 8, game_final: false },
+  ]);
+  const players = [...index.keys()];
+  const starters = ["qb1", "rb_jugo", "rb2", "wr1", "wr2", "te1", "fx1"];
+  const best = bestLineup({ players, starters, rosterPositions: LIGA_MEDIA, index });
+  assert.deepEqual(best.rows.map((r) => r.slot), ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX"]);
+  assert.equal(best.rows[1].sid, "rb_jugo");
+  // Y con la alineación ya óptima, cero cambios propuestos.
+  const current = currentLineup({ starters, rosterPositions: LIGA_MEDIA, index });
+  assert.deepEqual(slotSwaps(current, best), []);
+});

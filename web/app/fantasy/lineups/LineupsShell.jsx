@@ -220,7 +220,12 @@ function LeagueLineup({ league, index, byes, week, statuses, active }) {
                       </>
                     ) : <span className="attrib">not published</span>}
                   </span>
-                  <span className={`mu-slot ${slotClass(b.slot)}`}>{SLOT_LABEL(b.slot)}</span>
+                  <span className={`mu-slot ${slotClass(b.slot)}`}>{SLOT_LABEL(b.slot)}
+                    {/* UN HUECO CONGELADO NO ES UN HUECO QUE COINCIDE.
+                        Sin decirlo, la fila se lee como «aquí no hay nada que
+                        cambiar» cuando lo cierto es «aquí ya no se puede». */}
+                    {b.locked ? <small className="lu-locked" title="This game is over: the slot is locked">FINAL</small> : null}
+                  </span>
                   <span className="mu-cell mu-cell--theirs">
                     {b.row ? (
                       <>
@@ -263,6 +268,14 @@ function LeagueLineup({ league, index, byes, week, statuses, active }) {
           ) : null}
 
           {/* --- QUIÉN QUEDÓ FUERA Y POR QUÉ --------------------------------- */}
+          {out.best.locked > 0 ? (
+            <p className="caption">
+              {out.best.locked} slot{out.best.locked === 1 ? "" : "s"} locked: those games are
+              over, so those players can neither be moved out nor replaced. The change below is
+              only over what is still playable.
+            </p>
+          ) : null}
+
           {out.excluded.length > 0 ? (
             <details className="an-more">
               <summary>Not considered for a starting slot ({out.excluded.length})</summary>
@@ -271,10 +284,11 @@ function LeagueLineup({ league, index, byes, week, statuses, active }) {
                   <li key={e.sid}>
                     <strong>{e.row?.player_full_name ?? e.row?.player_name ?? `id ${e.sid}`}</strong>{" "}
                     <span className="attrib">
-                      {e.reason === EXCLUDED.OUT ? `${e.row?.status_label ?? "OUT"} — cannot play`
-                        : e.reason === EXCLUDED.BYE ? "on bye this week"
-                          : e.reason === EXCLUDED.RESERVE ? "on your IR / taxi squad in Sleeper"
-                            : "no weekly projection (not in this week's ranking)"}
+                      {e.reason === EXCLUDED.GAME_FINAL ? "his game is over — he can no longer be started"
+                        : e.reason === EXCLUDED.OUT ? `${e.row?.status_label ?? "OUT"} — cannot play`
+                          : e.reason === EXCLUDED.BYE ? "on bye this week"
+                            : e.reason === EXCLUDED.RESERVE ? "on your IR / taxi squad in Sleeper"
+                              : "no weekly projection (not in this week's ranking)"}
                     </span>
                   </li>
                 ))}

@@ -357,7 +357,7 @@ def test_el_estado_del_partido_sale_del_calendario(tmp_path):
         {"away_team": "NE", "home_team": "SEA"},
         {"away_team": "ARI", "home_team": "LAC"},
     ]
-    _anotar_estado(filas, _Paths(raw, proc))
+    _anotar_estado(filas, _Paths(raw, proc), 2026, 1)
     assert filas[0]["final"] is True
     assert (filas[0]["away_score"], filas[0]["home_score"]) == (10, 13)
     assert filas[0]["kickoff"] == "2026-09-09 20:20"
@@ -365,3 +365,30 @@ def test_el_estado_del_partido_sale_del_calendario(tmp_path):
     assert filas[1]["final"] is False
     assert filas[1]["home_score"] is None
     assert filas[1]["kickoff"] == "2026-09-13 16:25"
+
+
+def test_el_estado_se_acota_a_LA_JORNADA_que_se_publica(tmp_path):
+    """Un emparejamiento se repite temporada tras temporada.
+
+    `games.csv` trae 7.548 partidos desde 1999 y (visitante, local) no es una
+    clave única: sin acotar, el último NE@SEA del fichero gana. Al primer
+    intento las 320 filas del semanal salieron «FINAL» y un quarterback llevaba
+    de saque el 28 de septiembre de **2025**.
+    """
+    from export_web_data import _anotar_estado
+
+    raw, proc = tmp_path / "raw", tmp_path / "processed"
+    # EL QUE SE BUSCA VA PRIMERO, A PROPÓSITO. Sin el filtro gana el ÚLTIMO que
+    # coincide, así que ponerlo al final haría pasar el test con el fallo puesto
+    # — es el «8 y 9 son los dos míos» del test del turno, que ya costó una
+    # iteración en este repositorio. Con el orden invertido, las dos respuestas
+    # caen en filas distintas.
+    _calendario_csv(raw, [
+        (2026, 7, "SEA", "NE", 1.0, 45.5, "2026-10-25", "13:00", "", ""),
+        (2025, 4, "SEA", "NE", 2.5, 43.5, "2025-09-28", "16:05", 21, 17),
+        (2026, 1, "SEA", "NE", 3.0, 44.5, "2026-09-09", "20:20", 13, 10),
+    ])
+    filas = [{"away_team": "NE", "home_team": "SEA"}]
+    _anotar_estado(filas, _Paths(raw, proc), 2026, 7)
+    assert filas[0]["kickoff"] == "2026-10-25 13:00", "se cogió el partido de otra jornada"
+    assert filas[0]["final"] is False

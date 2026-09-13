@@ -9,7 +9,7 @@ import { strict as assert } from "node:assert";
 import test from "node:test";
 
 import {
-  rosterMark, changedSinceModel, teamChangeMark, trackMark, updatedSinceModel,
+  rosterMark, changedSinceModel, gameFinalMark, teamChangeMark, trackMark, updatedSinceModel,
 } from "../app/fantasy/rosterMark.js";
 import { readFileSync } from "node:fs";
 
@@ -345,5 +345,40 @@ test("TODA superficie que pinte rosterMark pinta también el historial", () => {
     // Y que se pinte de verdad, no que sólo esté importado: la condición del JSX.
     assert.match(src, /\{\s*(trackMark\(row\)|track)\s*\?\s*\(/,
                  `${ruta} importa trackMark pero no lo pinta`);
+  }
+});
+
+// -------------------------------------------------------------------------
+// EL PARTIDO QUE YA TERMINÓ
+// -------------------------------------------------------------------------
+
+test("una fila cuyo partido acabó lleva su marca, y sólo entonces", () => {
+  assert.equal(gameFinalMark({ game_final: true })?.text, "FINAL");
+  // El caso normal no produce marca: una que sale siempre no informa.
+  assert.equal(gameFinalMark({ game_final: false }), null);
+  // Y «no se sabe» tampoco se afirma: `null` cuando el exportador no encontró
+  // el calendario, que no es lo mismo que «todavía no ha jugado».
+  assert.equal(gameFinalMark({ game_final: null }), null);
+  assert.equal(gameFinalMark({}), null);
+  assert.equal(gameFinalMark(null), null);
+});
+
+test("la marca del partido jugado la pinta QUIEN YA PINTA LAS DEMÁS", () => {
+  /* Es la propiedad que se aprendió con `trackMark`: «alguien la pinta» no
+     basta, porque `RankTable` llama a las marcas directamente y `RowMarks` no
+     la cubre. Toda superficie que pinte `rosterMark` tiene que pintar ésta. */
+  const superficies = ["../app/fantasy/rowMarks.jsx", "../app/ui.jsx"];
+  for (const ruta of superficies) {
+    const src = readFileSync(new URL(ruta, import.meta.url), "utf8");
+    if (!/rosterMark\(/.test(src)) continue;
+    assert.match(src, /gameFinalMark\(/, `${ruta} pinta rosterMark y NO el partido jugado`);
+    /* Y la CONDICIÓN, no sólo el nombre. La primera versión de esto pedía que
+       `gameFinalMark(` apareciera en el fichero, y al inyectar el fallo
+       —cambiar la condición por `false`— siguió VERDE, porque las llamadas de
+       dentro del bloque (`.className`, `.title`) siguen ahí. El simulacro lo
+       escribió como «VERDE (NO ES GUARDIÁN)». Es el mismo fallo que ya costó
+       dos versiones con `teamChangeMark`: se mira lo que DECIDE si se pinta. */
+    assert.match(src, /\{\s*(gameFinalMark\(row\)|jugado)\s*\?\s*\(/,
+      `${ruta} llama a gameFinalMark pero su condición no decide nada`);
   }
 });

@@ -264,3 +264,31 @@ export function trackMark(row) {
       + "VOR and the rank are the same with this mark and without it.",
   };
 }
+
+/**
+ * SU PARTIDO YA TERMINÓ.
+ *
+ *     UNA PROYECCIÓN SOBRE UN PARTIDO JUGADO NO ES UNA PROYECCIÓN.
+ *
+ * El ranking semanal proyecta a los 256 jugadores de la jornada y no decía en
+ * ninguna parte cuáles ya habían jugado. Medido el 13 de septiembre de 2026,
+ * con dos de los dieciséis partidos cerrados: **40 filas** —32 jugadores, 4
+ * pateadores y 4 defensas de NE, SEA, SF y LAR— seguían leyéndose como
+ * start/sit, con Drake Maye de QB2 para un partido terminado.
+ *
+ * Marca, no calcula: la proyección de la fila es la misma con esta marca y sin
+ * ella. Lo que cambia es que se dice — igual que con los estados de plantilla.
+ *
+ * `null` cuando el partido no ha terminado (el caso normal: una marca que sale
+ * siempre no informa) y también cuando no se sabe, que es `game_final` en
+ * `null` porque el exportador no encontró el calendario.
+ */
+export function gameFinalMark(row) {
+  if (row?.game_final !== true) return null;
+  return {
+    text: "FINAL",
+    className: "mark mark--out",
+    title: "This game is already over. The projection is what the model said "
+      + "beforehand, not a forecast you can still act on.",
+  };
+}
