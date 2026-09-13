@@ -124,11 +124,38 @@ export function currentLineup({ starters, rosterPositions, index, byes = {}, wee
 }
 
 /** Los hechos de una fila que pesan en la decisión, sin inventar ninguno. */
+/** ¿Lo descarta el PARTE OFICIAL? Sólo un OUT.
+ *
+ *     UN DOUBTFUL PUEDE JUGAR, Y DECIDIRLO POR ÉL ES ADIVINAR EL INACTIVO.
+ *
+ * Es la misma regla que `fantasy/injuries.py::excludes_from_lineup`, y hay un
+ * test que lee el fichero de Python para que las dos no se separen.
+ */
+function reportOut(row) {
+  return String(row?.injury_designation ?? "") === "OUT";
+}
+function reportRisk(row) {
+  const d = String(row?.injury_designation ?? "");
+  return d === "DOUBTFUL" || d === "QUESTIONABLE";
+}
+
 function flagsFor({ row, byes, week, now = null }) {
   const flags = [];
   if (!row) { flags.push("NO_PROJECTION"); return flags; }
-  if (row.status_severity === "OUT" && row.status_disputed !== true) flags.push("OUT");
-  else if (row.status_severity === "RISK" || row.status_disputed === true) flags.push("RISK");
+  /* DOS CAPAS DE DISPONIBILIDAD, Y ESTA FUNCIÓN LEÍA UNA.
+     `status_severity` es la prensa curada —47 fichas, insustituible para
+     suspensiones y exentos— y `injury_designation` es el PARTE OFICIAL que los
+     clubes entregan a la liga, cableado el 13 de septiembre de 2026. Aquí sólo
+     se miraba la primera, así que Brock Bowers salía TE5 con 12,6 puntos y
+     `OUT` en el parte: el optimizador lo alineaba. Decimotercera vez que dos
+     superficies del mismo hecho tienen distinta cobertura, y la más cara —un
+     domingo, sobre la alineación.
+     El orden es el de la regla 5: lo OFICIAL primero. Un OUT del club no lo
+     discute una ficha de prensa; una disputa de la prensa sí degrada su propio
+     OUT a RISK, que es lo que ya hacía. */
+  if (reportOut(row)) flags.push("OUT");
+  else if (row.status_severity === "OUT" && row.status_disputed !== true) flags.push("OUT");
+  else if (reportRisk(row) || row.status_severity === "RISK" || row.status_disputed === true) flags.push("RISK");
   const bye = numberOrNull(byes?.[row.team]);
   if (bye !== null && week !== null && bye === Number(week)) flags.push("BYE");
   if (row.position !== "DEF" && numberOrNull(row.projected_points) === null) flags.push("NO_PROJECTION");

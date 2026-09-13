@@ -441,7 +441,9 @@ web/                     Next.js 16, páginas estáticas, datos horneados
                           siendo el ÚNICO que hace red: sondea Sleeper si lo
                           activas; el resto trabaja sólo con datos horneados)
   app/betting/period.js  la revisión de 4 jornadas: qué ganó el libro y qué
-                         ingresaste TÚ, SEPARADO — y cuánto añadir (regla 6f)
+                         ingresaste TÚ, SEPARADO — y cuánto añadir (regla 6f).
+                         Y `monthPlan`: el mes hacia adelante en porcentajes de
+                         la banca de cada domingo — una REGLA, no un pronóstico
 scripts/                 generación de artefactos y utilidades
 ```
 
@@ -721,6 +723,9 @@ comentario está para que no los reintroduzcas.
 | `Vikings&#39;` pintado tal cual, y un `<img>` partido desbordando la tarjeta | `narrative/feeds.py` | El parser nunca deshacía entidades ni quitaba marcado: 104 de 2.113 entradas traen `&#39;` y un `<description>` de RSS trae HTML. Mientras nadie pintaba texto de feed daba igual. Tres detalles que sólo se ven haciéndolo: **el orden** (desescapar ANTES de quitar etiquetas, o no hay ninguna que quitar), **la etiqueta partida** por el recorte a 600 caracteres —sin `>` no la ve ningún patrón, y la URL de la imagen no parte: 13 px de desbordamiento a 390 que puso `smoke` en rojo— y que hay **TRES lectores** del archivo, así que la limpieza va en `load_archive` y no en cada uno |
 | Un titular en español en una interfaz en inglés | `narrative/sweep.py` | El feed oficial de Las Vegas publica parte de sus notas en español y el barrido determinista pasa el titular del medio TAL CUAL: una de 2.113, suficiente para poner `audit-spanish` en rojo con razón. Traducir exige un modelo —lo que aquí no hay— e inventar la traducción es peor, así que se descarta. El detector se duplica en Python porque la puerta corre en Node, y para que no diverja en silencio hay un test que lee LOS DOS ficheros y exige la misma lista de palabras |
 | El simulacro acusando al guardián de su propia caché | `scripts/injection_drill.sh` | «SIGUE ROJO TRAS RESTAURAR» dos veces, las dos en la inyección 63 — la ÚNICA cuyo reemplazo mide exactamente lo mismo que el original (`if raras:` / `if False:`, 17 bytes). Python invalida un `.pyc` por (mtime, TAMAÑO), y este simulacro escribe y restaura en milisegundos: si las dos escrituras caen en el mismo segundo, el bytecode de la versión INYECTADA sigue pareciendo válido para la restaurada. No se reproduce a voluntad, así que en vez de perseguir la carrera se pone `PYTHONDONTWRITEBYTECODE=1` |
+| El optimizador de alineación no leía el parte OFICIAL | `startSit.js::flagsFor` | Cableé el parte de lesiones por la mañana y `flagsFor` seguía mirando SÓLO `status_severity`, que es la prensa curada. Medido el mismo domingo: **cuatro jugadores que la liga da OUT y la prensa no cubre entraban en «Generate best lineup»** — Brock Bowers el peor, TE8 con 12,6 puntos proyectados. **Decimotercera vez** que dos superficies del mismo hecho tienen distinta cobertura, y la más cara de todas: un domingo, sobre la alineación, con el dato ya en la fila. El orden es el de la regla 5 —lo OFICIAL primero— y un DOUBTFUL **no** se descarta: decidirlo por el club es adivinar el inactivo. La misma regla que `injuries.py::excludes_from_lineup`, con un test que lee el fichero de Python para que no se separen |
+| Nombré una clase que ya existía, otra vez | `BettingShell.jsx`, `system.css` | `.bk-month` era la cabecera del mes desde hacía meses y la usé para la sección nueva: la captura salió con «2026-09 · $1,000 starting» dentro del bloque nuevo. La regla estaba anotada de la vez de `.note` y es literal —«antes de nombrar una clase, `grep`»— y no la seguí. Ahora hay guardián: ninguna clase contenedora puede vestir un `<section>` y un `<div>` a la vez |
+| `git checkout` para deshacer una inyección de prueba | (proceso) | Escribí `git checkout <fichero> \|\| <respaldo>` para restaurar tras probar un guardián a mano. `checkout` funcionó, así que se llevó por delante TODO lo no commiteado de ese fichero — la sección de las cuatro semanas entera, sus dos derivaciones y el import. Lo cazó un `grep` que devolvió 0 coincidencias. El simulacro lleva desde siempre restaurando con `cp` de una copia, que es lo correcto: **para deshacer una prueba se usa una copia, nunca el control de versiones sobre trabajo sin commitear** |
 | Una inyección que dejó de inyectar al mover la línea | `scripts/injection_drill.sh` | Al compartir el candado entre los dos motores de alineación, la línea de la inyección 54 se fue de `startSit.js` a `lineup.js`. El reemplazo no encontró nada, no cambió nada, el guardián pasó y el informe escribió «VERDE (NO ES GUARDIÁN)» **acusando al guardián de un fallo que era de la inyección**. Ya había pasado y se anotó; lo que faltaba era que el simulacro distinguiera las dos cosas. Ahora una inyección que no encuentra su línea sale como `INYECCIÓN ROTA` |
 | El parte de lesiones OFICIAL existía y el producto no lo leía | `fantasy/injuries.py` | La única capa de disponibilidad eran 47 fichas curadas a mano desde la prensa — insustituibles para lo que los datos no tienen (suspensiones, exentos, IR), pero no son el parte. nflverse republica el que los clubes entregan a la liga, con designación y participación en el entrenamiento, y basta un `GET`: 182 filas de la jornada 1, 32 equipos, 59 con designación. Se descubrió probando la red DESTINO POR DESTINO en vez de dar por hecho que «no hay internet»: la portada de releases da 403 y el fichero da 200 |
 | Un comentario que justificaba una aproximación con una carencia que ya no existía | `fantasy/weekly.py` | «El criterio es el volumen porque **no hay parte de lesiones en este proyecto**» — y ese mismo día lo hubo. La aproximación sigue siendo defendible por otra razón (el parte dice quién está DISPONIBLE, no quién tiene el ROL) pero la escrita era falsa. **Nada falla cuando la prosa miente**, y un comentario que explica un porqué caduca igual que una cifra |
@@ -834,7 +839,7 @@ está construida:
 | `controles.mjs` | **Control por control, las trece páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete OCHENTA Y UN fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete OCHENTA Y CINCO fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -860,7 +865,7 @@ predicado para apostar y para congelar, y un comentario JSX tragándose la prosa
 de debajo, y desde la mañana del 13 de septiembre una designación de lesión
 nueva colada como «juega», un DOUBTFUL tratado como descartado, el parte
 tocando un número del board y la ventana de decisión calculada al revés— y
-exige 81 rojos y 81 verdes al
+exige 85 rojos y 85 verdes al
 restaurar.
 
 ## El skill de UI/UX

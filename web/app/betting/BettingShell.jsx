@@ -41,7 +41,9 @@ import {
 import BankCurve from "./BankCurve.jsx";
 import { browserStorage } from "../fantasy/draftStorage.js";
 import { GAME, gameState, isOpen } from "../gameClock.js";
-import { CASH, FUNDING, PERIOD_WEEKS, fundingAdvice, periodBounds, review } from "./period.js";
+import {
+  CASH, FUNDING, PERIOD_WEEKS, SIZEABLE, fundingAdvice, monthPlan, periodBounds, review,
+} from "./period.js";
 import { hasNumber } from "../numbers.js";
 
 const PROP_CATEGORIES = [
@@ -204,6 +206,29 @@ export default function BettingShell({ predictions, weekly, context, markets = [
      sería inventarse el CUÁNDO, que es lo que el campo existe para impedir. */
   const bounds = periodBounds(context.season, context.week);
   const revision = record && bounds ? review(record, bounds) : null;
+  /* El calendario sale de la banca de HOY —inicial + caja + liquidado— y no de
+     la inicial del mes: la regla se aplica sobre lo que tengas, que es lo que
+     la hace automática y lo que hace que no haya nada que recordar. */
+  const calendario = record
+    ? monthPlan({
+        startingBank: summary(record).current,
+        weekPct: plan?.weekPct ?? undefined,
+        unitPct: plan?.unitPct ?? undefined,
+      })
+    : null;
+  /* Cuánto de los mercados de PARTIDO ha sabido dimensionar el motor esta
+     jornada. Sale de `bets`, que trae la decisión ya tomada en Python: el JS
+     no repite la aritmética (ver `betting/noBet.js`). */
+  const sized = useMemo(() => {
+    const sizeables = (markets ?? []).filter(
+      (m) => SIZEABLE[String(m.market ?? "").split(" ")[0]] === true);
+    const conTamano = (bets ?? []).filter((b) => b.decision === "BET");
+    return {
+      total: sizeables.length,
+      count: conTamano.length,
+      fraction: conTamano.reduce((sum, b) => sum + (Number(b.stake_fraction) || 0), 0),
+    };
+  }, [markets, bets]);
   const periodoLargo = revision ? revision.bounds.to - revision.bounds.from + 1 : 0;
   const periodoCorto = periodoLargo < PERIOD_WEEKS;
   /* El estado sale del REGISTRO DE CAPACIDADES, no de una frase escrita aquí:
@@ -378,6 +403,84 @@ export default function BettingShell({ predictions, weekly, context, markets = [
           </p>
         )}
       </section>
+
+      {/* ============ 2a. EL MES, HACIA ADELANTE ========================= */}
+      {calendario && (
+        <section aria-label="Four-week staking plan" className="bk-ahead">
+          <h2 className="bk-h">
+            The next {calendario.weeks} weeks{" "}
+            <small>sizes only — a rule, not a forecast</small>
+          </h2>
+          <div className="table-wrap">
+            <table className="rank-table bk-ahead-table">
+              <thead>
+                <tr>
+                  <th>Week</th><th>Budget</th><th>Per bet</th>
+                  <th>Max bets</th><th>How it is set</th>
+                </tr>
+              </thead>
+              <tbody>
+                {calendario.schedule.map((w) => (
+                  <tr key={w.week}>
+                    <td><strong>{w.week === 1 ? `Week ${context.week}` : `+${w.week - 1}`}</strong></td>
+                    <td>{w.known ? money(w.weekBudget) : <span className="muted">{calendario.weekPct}%</span>}</td>
+                    <td>{w.known ? money(w.perBet) : <span className="muted">{calendario.unitPct}%</span>}</td>
+                    <td>{w.known ? w.maxBets : <span className="muted">{calendario.schedule[0].maxBets}</span>}</td>
+                    <td className="bk-ahead-rule">{w.rule}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="caption">
+            Only the first row carries numbers. The other three are the same rule, and
+            filling them in would mean assuming a result — there is no demonstrated edge
+            here that would justify projecting one. At most{" "}
+            <strong>{calendario.monthCeilingPct}% of the bank</strong> is exposed across
+            the four weeks, and only if every week is spent in full.
+          </p>
+          <dl className="bk-scenarios">
+            {calendario.scenarios.map((sc) => (
+              <div key={sc.label} className={sc.braking ? "bk-scen bk-scen--brake" : "bk-scen"}>
+                <dt>{sc.label}</dt>
+                <dd>{money(sc.perBet)} <small>per bet · {money(sc.weekBudget)} that week</small></dd>
+                {sc.braking ? <p className="bk-scen-why">drawdown brake: halved</p> : null}
+              </div>
+            ))}
+          </dl>
+          <p className="caption">
+            The same arithmetic on three different banks — not three predictions. Going
+            down cuts the size on its own, because the percentage is of a smaller bank,
+            and below {calendario.drawdownAt}% the brake halves it again. Nothing here
+            ever raises the <em>fraction</em> after a loss: that is chasing, and with the
+            same edge a bigger fraction only raises the chance of ruin.
+          </p>
+
+          <h3 className="bk-h3">Games and props are not the same question</h3>
+          <ul className="bk-split">
+            <li>
+              <strong>Spreads and moneylines — sizeable.</strong> Both sides arrive with a
+              price, so the de-vig gives a market probability, and from that come an EV
+              and a Kelly fraction. Every number above applies to these.
+            </li>
+            <li>
+              <strong>Props — not sizeable here.</strong> Prop lines do not travel in this
+              site&rsquo;s data; you type your book&rsquo;s. Without a price there is no
+              market probability, so there is no fraction to compute:{" "}
+              <strong>the model can show you a lean and cannot tell you how much</strong>.
+              Giving props a fixed slice of the budget would be inventing the measurement,
+              so it does not happen. If you bet them, they come out of the same weekly
+              budget and the sizing is yours.
+            </li>
+          </ul>
+          <p className="caption">
+            This week the engine sized {sized.count} of {sized.total} game markets
+            {sized.count > 0
+              ? `, ${(sized.fraction * 100).toFixed(2)}% of bank in total.`
+              : ". None passed the thresholds, which is the common outcome."}
+          </p>
+        </section>
+      )}
 
       {/* ============ 2b. REVISIÓN DE CUATRO JORNADAS ===================== */}
       {revision && (

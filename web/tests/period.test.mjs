@@ -14,7 +14,9 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { CASH, FUNDING, fundingAdvice, maxDrawdown, periodBounds, review } from "../app/betting/period.js";
+import {
+  CASH, FUNDING, SIZEABLE, fundingAdvice, maxDrawdown, monthPlan, periodBounds, review,
+} from "../app/betting/period.js";
 
 const gana = (w, stake, dec, at) => ({ status: "WON", stake, odds: { decimal: dec }, season: 2026, week: w, settledAt: at });
 const pierde = (w, stake, at) => ({ status: "LOST", stake, season: 2026, week: w, settledAt: at });
@@ -169,4 +171,57 @@ test("el estado del registro es uno de los declarados", async () => {
   // no para impedirlo, sino para que no pase sin que nadie lo note.
   assert.equal(estado, "REJECTED",
     "BETTING_EDGE ha cambiado de estado: revisa que el experimento lo sostenga");
+});
+
+/* ---------------- EL CALENDARIO DE CUATRO JORNADAS ------------------------ */
+
+test("todo es la MISMA fracción de la banca, arriba y abajo", () => {
+  /* La propiedad de 6c, aplicada al mes entero. No se comprueba «baja cuando
+     vas abajo» —que un multiplicador de recuperación del 15% ya burló una vez
+     en el libro— sino que la FRACCIÓN no se mueva. */
+  const a = monthPlan({ startingBank: 1000, weekPct: 5, unitPct: 1 });
+  const b = monthPlan({ startingBank: 2000, weekPct: 5, unitPct: 1 });
+  assert.equal(a.schedule[0].weekBudget / 1000, b.schedule[0].weekBudget / 2000);
+  assert.equal(a.schedule[0].perBet / 1000, b.schedule[0].perBet / 2000);
+  // Y el número de apuestas que caben NO depende del tamaño de la banca.
+  assert.equal(a.schedule[0].maxBets, b.schedule[0].maxBets);
+});
+
+test("el freno RECORTA y nunca amplía", () => {
+  const p = monthPlan({ startingBank: 1000, weekPct: 5, unitPct: 1 });
+  const plano = p.scenarios.find((s) => s.label === "flat");
+  const abajo = p.scenarios.find((s) => s.label.startsWith("down"));
+  const arriba = p.scenarios.find((s) => s.label.startsWith("up"));
+  assert.ok(abajo.braking, "por debajo del umbral no está frenando");
+  assert.ok(abajo.perBet < plano.perBet * 0.8,
+    "abajo tiene que cortar MÁS que la propia caída de la banca");
+  assert.ok(!arriba.braking, "una racha buena no puede activar el freno");
+  // Arriba NO hay factor de ampliación: es la fracción de siempre.
+  assert.equal(arriba.perBet / arriba.bank, plano.perBet / plano.bank);
+});
+
+test("el techo del mes es el tope semanal por las semanas, y nada más", () => {
+  const p = monthPlan({ startingBank: 500, weekPct: 5, unitPct: 1, weeks: 4 });
+  assert.equal(p.monthCeilingPct, 20);
+  assert.equal(p.schedule.length, 4);
+  // Sólo la primera trae números: las otras tres son la REGLA, porque la banca
+  // de la jornada 3 exigiría suponer un resultado.
+  assert.equal(p.schedule[0].known, true);
+  assert.ok(p.schedule.slice(1).every((s) => !s.known && s.weekBudget === undefined),
+    "se está proyectando una banca futura: eso es un pronóstico, no una regla");
+});
+
+test("una banca que no existe no produce plan", () => {
+  for (const malo of [0, -100, null, undefined, "", NaN, "abc"]) {
+    assert.equal(monthPlan({ startingBank: malo }), null);
+  }
+});
+
+test("los props NO son dimensionables, y eso es un hecho de los datos", () => {
+  /* Sin cuota no hay probabilidad de mercado, y sin ella no hay Kelly. Las
+     líneas de props no viajan en este payload: la pantalla te pide la de tu
+     casa. Darles una fracción fija sería inventarse la medición. */
+  assert.equal(SIZEABLE.prop, false);
+  assert.equal(SIZEABLE.spread, true);
+  assert.equal(SIZEABLE.moneyline, true);
 });

@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 81 fallos conocidos, 81 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 85 fallos conocidos, 85 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -331,3 +331,15 @@ run "80 las dos listas de español separándose" web/tools/audit-spanish.mjs \
 run "81 las entidades HTML pintadas crudas" src/oracle/narrative/feeds.py \
     "    return clean_text(found.text)|||    return (found.text or \"\").strip()" \
   "python -m pytest -q tests/test_feeds.py"
+run "82 el optimizador ignorando el parte oficial" web/app/fantasy/startSit.js \
+  "  if (reportOut(row)) flags.push(\"OUT\");|||  if (false) flags.push(\"OUT\");" \
+  "cd web && node --test tests/startSit.test.mjs"
+run "83 un DOUBTFUL descartado de la alineación" web/app/fantasy/startSit.js \
+  "  return String(row?.injury_designation ?? \"\") === \"OUT\";|||  return [\"OUT\", \"DOUBTFUL\"].includes(String(row?.injury_designation ?? \"\"));" \
+  "cd web && node --test tests/startSit.test.mjs"
+run "84 una clase nueva pisando a una que ya existía" web/app/betting/BettingShell.jsx \
+  "className=\"bk-ahead\">|||className=\"bk-month\">" \
+  "cd web && node --test tests/css.test.mjs"
+run "85 el plan del mes ampliando la fracción tras perder" web/app/betting/period.js \
+  "    const f = frenado ? brakeFactor : 1;|||    const f = frenado ? 1.15 : 1;" \
+  "cd web && node --test tests/period.test.mjs"

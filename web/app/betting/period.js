@@ -154,6 +154,105 @@ export function review(record, bounds) {
   };
 }
 
+/* ========================================================================
+   EL CALENDARIO DE CUATRO JORNADAS, HACIA ADELANTE
+   ======================================================================== */
+
+/** Qué mercados puede DIMENSIONAR el modelo, y cuáles no.
+ *
+ *     SIN PRECIO NO HAY PROBABILIDAD DE MERCADO, Y SIN ELLA NO HAY TAMAÑO.
+ *
+ * El spread y la moneyline llegan con su cuota por lado, así que el de-vig de
+ * Shin da una probabilidad de mercado, `decide` calcula EV y sale una fracción
+ * de Kelly. Los PROPS no: las líneas de props no viajan en los datos de este
+ * sitio —la pantalla te pide que teclees la de tu casa— y sin cuota no hay
+ * nada que descontar. Se puede enseñar la media del modelo al lado de tu
+ * línea, que es un LEAN, y no se puede convertir en un tamaño.
+ *
+ * Por eso el reparto entre juegos y props no es una preferencia: es que uno de
+ * los dos no tiene con qué calcularse. Inventarle una fracción fija sería
+ * exactamente la convención de medición disfrazada que este proyecto persigue.
+ */
+export const SIZEABLE = Object.freeze({
+  spread: true, moneyline: true, total: false, prop: false,
+});
+
+/**
+ * EL MES ENTERO, en porcentajes de la banca que tengas ESE domingo.
+ *
+ *     ES UNA REGLA, NO UN PRONÓSTICO.
+ *
+ * No se proyecta cuánto tendrás en la jornada 3, porque eso exige suponer un
+ * resultado y aquí no hay ventaja demostrada que lo justifique (`BETTING_EDGE`
+ * REJECTED, E4). Lo que se publica es la aritmética que se aplicará el día que
+ * llegues: el tope de la semana y el tamaño por apuesta, los dos como
+ * fracción de la banca de ESE momento.
+ *
+ * De ahí sale la propiedad que hace que esto no necesite disciplina: si vas
+ * abajo, el 5% es de menos dinero y el tamaño baja solo; si vas arriba, sube
+ * solo. Nadie tiene que acordarse de nada, y no hay ninguna regla que suba la
+ * FRACCIÓN después de perder — eso es perseguir, y con la misma ventaja sube
+ * la probabilidad de ruina.
+ *
+ * `scenarios` existe para poder MIRAR eso mismo sin creerse una predicción:
+ * son la misma regla evaluada sobre tres bancas distintas, etiquetadas como lo
+ * que son.
+ */
+export function monthPlan({
+  startingBank,
+  weeks = PERIOD_WEEKS,
+  weekPct = 5,
+  unitPct = 1,
+  drawdownAt = 20,
+  brakeFactor = 0.5,
+} = {}) {
+  const banca = Number(startingBank);
+  if (!Number.isFinite(banca) || banca <= 0) return null;
+  const semana = Math.max(0, Number(weekPct) || 0);
+  const unidad = Math.max(0, Number(unitPct) || 0);
+
+  const deBanca = (b, frenado) => {
+    const f = frenado ? brakeFactor : 1;
+    const tope = (b * semana * f) / 100;
+    const porApuesta = (b * unidad * f) / 100;
+    return {
+      bank: b,
+      braking: frenado,
+      weekBudget: tope,
+      perBet: porApuesta,
+      // Cuántas apuestas del tamaño de una unidad caben en el tope. No es un
+      // objetivo: es el techo. Menos siempre está bien; más no cabe.
+      maxBets: porApuesta > 0 ? Math.floor(tope / porApuesta) : 0,
+    };
+  };
+
+  return {
+    weeks,
+    weekPct: semana,
+    unitPct: unidad,
+    startingBank: banca,
+    // La misma regla, semana a semana. El `bank` de cada una es el que
+    // TENDRÁS, y por eso sólo la primera trae número: las demás son la regla.
+    schedule: Array.from({ length: weeks }, (_, i) => ({
+      week: i + 1,
+      rule: `${semana}% of your bank that Sunday, in bets of ${unidad}%`,
+      known: i === 0,
+      ...(i === 0 ? deBanca(banca, false) : {}),
+    })),
+    // El techo del MES si se gastara entero el tope todas las semanas y la
+    // banca no se moviera. Es una cota superior, no un plan de gasto.
+    monthCeilingPct: semana * weeks,
+    drawdownAt,
+    brakeFactor,
+    scenarios: [
+      { label: "flat", bank: banca, ...deBanca(banca, false) },
+      { label: `down ${drawdownAt}%`, bank: banca * (1 - drawdownAt / 100),
+        ...deBanca(banca * (1 - drawdownAt / 100), true) },
+      { label: "up 20%", bank: banca * 1.2, ...deBanca(banca * 1.2, false) },
+    ],
+  };
+}
+
 export const FUNDING = Object.freeze({
   NO_VALIDATED_EDGE: "NO_VALIDATED_EDGE",
   NO_BUDGET_SET: "NO_BUDGET_SET",

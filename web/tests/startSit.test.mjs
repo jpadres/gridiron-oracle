@@ -11,6 +11,7 @@
  *   - una resta inventada con un cero cuando falta la proyección.
  */
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { test } from "node:test";
 
 import {
@@ -318,4 +319,51 @@ test("los huecos conservan el ORDEN de la liga con candados de por medio", () =>
   // Y con la alineación ya óptima, cero cambios propuestos.
   const current = currentLineup({ starters, rosterPositions: LIGA_MEDIA, index });
   assert.deepEqual(slotSwaps(current, best), []);
+});
+
+test("el parte OFICIAL saca a un OUT de la alineación", () => {
+  /* Brock Bowers, 13 de septiembre de 2026: TE5 del semanal con 12,6 puntos
+     proyectados y OUT en el parte que los Raiders entregan a la liga. La
+     prensa curada no le cubría, así que `status_severity` venía vacío y el
+     optimizador lo alineaba. DECIMOTERCERA vez que dos superficies del mismo
+     hecho tienen distinta cobertura. */
+  const fuera = { player_id: "1", position: "TE", team: "LV", projected_points: 12.6,
+    injury_designation: "OUT" };
+  const sano = { player_id: "2", position: "TE", team: "KC", projected_points: 9.0 };
+  const index = new Map([["1", fuera], ["2", sano]]);
+  const res = bestLineup({
+    players: ["1", "2"], rosterPositions: ["TE"], index, byes: {}, week: 1,
+  });
+  assert.equal(res.excluded.find((e) => e.sid === "1")?.reason, EXCLUDED.OUT,
+    "un OUT del parte oficial sigue entrando en la alineación");
+  assert.ok(res.rows.some((s) => s.sid === "2"), "el suplente sano no ha entrado");
+});
+
+test("un DOUBTFUL del parte NO se descarta: puede jugar", () => {
+  /* §182: QUESTIONABLE sigue siendo QUESTIONABLE. Decidir el inactivo por el
+     club es exactamente lo que no se hace. Se marca RISK y se alinea. */
+  const dudoso = { player_id: "1", position: "TE", team: "LV", projected_points: 12.6,
+    injury_designation: "DOUBTFUL" };
+  const peor = { player_id: "2", position: "TE", team: "KC", projected_points: 4.0 };
+  const index = new Map([["1", dudoso], ["2", peor]]);
+  const res = bestLineup({
+    players: ["1", "2"], rosterPositions: ["TE"], index, byes: {}, week: 1,
+  });
+  assert.ok(res.rows.some((s) => s.sid === "1"),
+    "se está descartando a un DOUBTFUL: eso es adivinar el inactivo");
+  assert.ok(!res.excluded.some((e) => e.sid === "1"));
+});
+
+test("la regla de exclusión es la MISMA que la de Python", () => {
+  /* `injuries.py::excludes_from_lineup` devuelve True sólo para OUT. Si
+     alguien la amplía allí y no aquí —o al revés— el optimizador y el
+     exportador dejan de decir lo mismo sin que falle nada. */
+  const py = readFileSync(new URL("../../src/oracle/fantasy/injuries.py", import.meta.url), "utf8");
+  const cuerpo = py.slice(py.indexOf("def excludes_from_lineup"));
+  const fin = cuerpo.indexOf("\n    @") >= 0 ? cuerpo.indexOf("\n    @") : cuerpo.indexOf("\n\ndef ");
+  assert.match(cuerpo.slice(0, fin > 0 ? fin : 600), /return self\.designation == OUT/,
+    "Python ha cambiado qué designación excluye: revisa `flagsFor` en este fichero");
+  const js = readFileSync(new URL("../app/fantasy/startSit.js", import.meta.url), "utf8");
+  assert.match(js, /function reportOut\(row\)[\s\S]{0,160}=== "OUT"/,
+    "el JS ya no excluye exactamente por OUT");
 });

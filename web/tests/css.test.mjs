@@ -157,3 +157,42 @@ test("ningún var(--token) se usa sin estar definido", () => {
     "un token que no existe no da error: o pinta un color fuera del sistema, "
     + "o hace que la propiedad no se aplique. Las dos cosas se leen como diseño.");
 });
+
+/** Una clase nueva no puede robarle el nombre a una que ya existe.
+ *
+ *     ANTES DE NOMBRAR UNA CLASE, `grep`. Y SI NO LO HACES, ESTO.
+ *
+ * Ya ha pasado dos veces: `.note` era la ficha de prensa desde hacía meses
+ * cuando se creó como «apunte neutro», y `.bk-month` era la cabecera del mes
+ * cuando se creó como «el mes hacia adelante» — la sección nueva se comió la
+ * cabecera y sólo se vio en una captura.
+ *
+ * Lo que se comprueba es ESTRECHO y cierto: una clase que el JSX usa como
+ * contenedor de sección en DOS sitios que no se parecen. No se puede detectar
+ * «propósitos distintos» leyendo CSS, así que se mira lo que sí es objetivo:
+ * que ningún `className="X"` literal de una SECCIÓN o de un DIV contenedor
+ * aparezca en dos componentes distintos del mismo fichero con jerarquías
+ * distintas. En la práctica, que no haya dos `className="bk-…"` idénticos
+ * entre un `<section>` y un `<div>`.
+ */
+test("ninguna clase contenedora se usa para dos cosas distintas", () => {
+  const jsx = readdirSync(new URL("../app/", import.meta.url), { recursive: true })
+    .filter((f) => String(f).endsWith(".jsx"));
+  const problemas = [];
+  for (const f of jsx) {
+    const src = readFileSync(new URL(`../app/${String(f).replaceAll("\\", "/")}`, import.meta.url), "utf8");
+    // Clase única y literal en un contenedor: `<section className="x">` o
+    // `<div className="x">`. Las compuestas y las interpoladas se quedan fuera
+    // a propósito — ahí el nombre no es la identidad del bloque.
+    const usos = new Map();
+    for (const m of src.matchAll(/<(section|div)[^>]*className="([a-z][\w-]*)"/g)) {
+      usos.set(m[2], (usos.get(m[2]) ?? new Set()).add(m[1]));
+    }
+    for (const [clase, etiquetas] of usos) {
+      if (etiquetas.size > 1) problemas.push(`${f}: .${clase} en <${[...etiquetas].join("> y <")}>`);
+    }
+  }
+  assert.deepEqual(problemas, [],
+    "la misma clase viste dos bloques de jerarquía distinta: uno de los dos "
+    + "heredará estilos que no son suyos, y no falla nada");
+});

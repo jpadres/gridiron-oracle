@@ -2402,3 +2402,40 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 @media (max-width: 47.99rem) {
   .bk-cash-row { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* ============================================================================
+   EL MES HACIA ADELANTE
+   ----------------------------------------------------------------------------
+   Tres filas de la tabla salen en gris a propósito: son la REGLA, no una
+   banca proyectada. Si se pintaran igual que la primera se leerían como un
+   pronóstico, que es justo lo que no son.
+   ========================================================================== */
+/* `.bk-ahead` y no `.bk-month`: esa YA existía para la cabecera del mes
+   —«2026-09 · $1,000 starting»— desde hace meses. La primera versión de esta
+   sección se la pisó y la captura salió con la cabecera dentro. Es «dos cosas
+   distintas llamadas .note» otra vez, y la regla anotada es literal: antes de
+   nombrar una clase, `grep`. No lo hice. */
+.bk-ahead { border-top: 1px solid var(--line); padding-top: var(--space-5); margin-top: var(--space-6); }
+.bk-ahead-table .muted { color: var(--muted); }
+.bk-ahead-rule { color: var(--muted); font-size: var(--text-dense); }
+.bk-scenarios {
+  display: grid; gap: var(--space-3); margin: var(--space-4) 0;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+.bk-scen {
+  padding: var(--space-3); border-left: 3px solid var(--line);
+  background: var(--surface); border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+.bk-scen dt { font-size: var(--text-micro); text-transform: uppercase;
+  letter-spacing: .06em; color: var(--muted); }
+.bk-scen dd { margin: var(--space-1) 0 0; font-size: var(--num-lead);
+  font-weight: var(--weight-numeric); }
+.bk-scen dd small { display: block; font-size: var(--text-micro);
+  font-weight: var(--weight-body); color: var(--muted); }
+/* El escenario con freno lleva el ámbar porque CONTRADICE lo que el lector
+   asumiría: que bajar un 20% baja el tamaño un 20%. Lo baja un 60%. */
+.bk-scen--brake { border-left-color: var(--warn-line); background: var(--warn-bg); }
+.bk-scen-why { margin: var(--space-1) 0 0; font-size: var(--text-micro);
+  color: var(--warn-line); font-weight: var(--weight-semibold); }
+.bk-split { margin: 0 0 var(--space-3); padding-left: var(--space-4); }
+.bk-split > li { margin-bottom: var(--space-2); font-size: var(--text-dense); }
