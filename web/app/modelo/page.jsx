@@ -160,28 +160,69 @@ export default function Modelo() {
         <div className="table-wrap">
           <table>
             <thead>
+              {/* TRES COLUMNAS Y NO DOS.
+                  La pregunta más afilada que se le puede hacer a este modelo es
+                  «si se entrenó contra la línea, ¿cuánto vale sin ella?», y la
+                  respuesta estaba MEDIDA sobre estos mismos 3.831 partidos
+                  —`free_brier`, `free_margin_mae`— y no se pintaba en la página
+                  que existe para presentar la validación. La leía sólo
+                  `/survivor`, que habla de otro producto. El dato computado que
+                  no llega a la pantalla, otra vez — y justo el que contesta la
+                  objeción que más importa. */}
               <tr>
                 <th>Metric</th>
                 <th>Model</th>
                 <th>Market (close)</th>
+                <th>Model without the line</th>
               </tr>
             </thead>
             <tbody>
               <tr><td>Brier</td><td>{num(overall.brier, 4)}</td>
-                  <td>{num(overall.market_brier, 4)}</td></tr>
-              <tr><td>Log-loss</td><td>{num(overall.log_loss, 4)}</td><td>—</td></tr>
-              <tr><td>Calibration error (ECE)</td><td>{num(overall.ece, 4)}</td><td>—</td></tr>
+                  <td>{num(overall.market_brier, 4)}</td>
+                  <td>{num(overall.free_brier, 4)}</td></tr>
+              <tr><td>Log-loss</td><td>{num(overall.log_loss, 4)}</td><td>&mdash;</td><td>&mdash;</td></tr>
+              <tr><td>Calibration error (ECE)</td><td>{num(overall.ece, 4)}</td><td>&mdash;</td><td>&mdash;</td></tr>
               <tr><td>Margin MAE</td><td>{num(overall.margin_mae)}</td>
-                  <td>{num(overall.market_margin_mae)}</td></tr>
+                  <td>{num(overall.market_margin_mae)}</td>
+                  <td>{num(overall.free_margin_mae)}</td></tr>
               {/* El total que publica el modelo ES la línea desde el 3 de
                   septiembre de 2026, así que las dos columnas son la misma cifra
                   a propósito — y eso es lo que hay que ver. */}
               <tr><td>Total MAE</td><td>{num(overall.total_mae)}</td>
-                  <td>{num(overall.total_mae)}</td></tr>
-              <tr><td>Straight-up accuracy</td><td>{pct(overall.accuracy)}</td><td>—</td></tr>
+                  <td>{num(overall.total_mae)}</td><td>&mdash;</td></tr>
+              <tr><td>Straight-up accuracy</td><td>{pct(overall.accuracy)}</td>
+                  <td>&mdash;</td><td>&mdash;</td></tr>
             </tbody>
           </table>
         </div>
+
+        <Callout title="What the model is worth without the line">
+          <p>
+            The margin model fits a <strong>residual on top of the closing line</strong>:
+            the prediction is the line plus a correction. So the obvious objection is the
+            right one — if it was trained to resemble the market, a one-point disagreement
+            sits well inside its own error. The third column is that objection measured,
+            on the same {num(overall.games, 0)} out-of-sample games: a variant that never
+            sees the line at all.
+          </p>
+          <p>
+            It is <strong>worse than the line on its own</strong> by{" "}
+            {num(overall.free_brier - overall.market_brier, 4)} of Brier and{" "}
+            {num(overall.free_margin_mae - overall.market_margin_mae)} points of MAE. That
+            is the honest ranking: market first, model-with-market second, model-without-market
+            third. The line is the strongest thing on this page and the model does not beat it.
+          </p>
+          <p>
+            The calibration is fitted against <strong>realised outcomes</strong>, not against
+            lines — the target is whether the home side actually won, and the margin
+            distribution comes from margins that actually happened. That is why the
+            probabilities above can be read as probabilities. What it does not buy is an
+            edge: with a margin MAE of {num(overall.margin_mae)} points, a one-point
+            disagreement is a tenth of the typical error, and{" "}
+            <a href="/betting">the ATS record</a> shows accuracy does not rise with the size
+            of the disagreement.
+          </p>
+        </Callout>
 
         <Callout title="The totals model was retired, and here is the measurement">
           <p>

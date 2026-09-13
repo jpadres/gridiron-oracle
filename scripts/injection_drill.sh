@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 85 fallos conocidos, 85 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 87 fallos conocidos, 87 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -343,3 +343,9 @@ run "84 una clase nueva pisando a una que ya existía" web/app/betting/BettingSh
 run "85 el plan del mes ampliando la fracción tras perder" web/app/betting/period.js \
   "    const f = frenado ? brakeFactor : 1;|||    const f = frenado ? 1.15 : 1;" \
   "cd web && node --test tests/period.test.mjs"
+run "86 la columna del modelo SIN mercado, fuera de la validación" web/app/modelo/page.jsx \
+  "                  <td>{num(overall.free_brier, 4)}</td></tr>|||                  </tr>" \
+  "cd web && node --test tests/validation.test.mjs"
+run "87 la calibración ajustada contra la LÍNEA y no contra el resultado" src/oracle/models/predictor.py \
+  "        self.calibration = _fit_calibration(raw_probs, (margin > 0).astype(float))|||        self.calibration = _fit_calibration(raw_probs, (line > 0).astype(float))" \
+  "cd web && node --test tests/validation.test.mjs"
