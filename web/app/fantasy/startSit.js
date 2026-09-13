@@ -35,6 +35,7 @@ import { assignSlots, SLOT_ELIGIBILITY } from "./leagueValue.js";
 import { normalizeTeam } from "./rosterMark.js";
 import { weeklyIndex } from "./leagueWeek.js";
 import { lockedSlots, starterSlots } from "./lineup.js";
+import { hasStarted } from "../gameClock.js";
 
 const round1 = (x) => (Number.isFinite(x) ? Math.round(x * 10) / 10 : null);
 
@@ -100,7 +101,7 @@ function slotAdmits(slot, position) {
  * OTRA colocación y dos pantallas enseñaban «tu alineación actual» con dos
  * mapas de huecos distintos.
  */
-export function currentLineup({ starters, rosterPositions, index, byes = {}, week = null }) {
+export function currentLineup({ starters, rosterPositions, index, byes = {}, week = null, now = null }) {
   const slots = starterSlots(rosterPositions);
   const ids = Array.isArray(starters) ? starters.map((x) => String(x ?? "")) : null;
   if (!ids) return null;
@@ -109,7 +110,7 @@ export function currentLineup({ starters, rosterPositions, index, byes = {}, wee
     if (!sid || sid === "0") return { slot, sid: null, row: null, points: null, empty: true, flags: ["EMPTY"] };
     const row = index.get(sid) ?? null;
     const points = numberOrNull(row?.projected_points);
-    return { slot, sid, row, points, empty: false, flags: flagsFor({ row, byes, week }) };
+    return { slot, sid, row, points, empty: false, flags: flagsFor({ row, byes, week, now }) };
   });
   let total = 0;
   let unknown = 0;
@@ -123,7 +124,7 @@ export function currentLineup({ starters, rosterPositions, index, byes = {}, wee
 }
 
 /** Los hechos de una fila que pesan en la decisión, sin inventar ninguno. */
-function flagsFor({ row, byes, week }) {
+function flagsFor({ row, byes, week, now = null }) {
   const flags = [];
   if (!row) { flags.push("NO_PROJECTION"); return flags; }
   if (row.status_severity === "OUT" && row.status_disputed !== true) flags.push("OUT");
@@ -131,9 +132,11 @@ function flagsFor({ row, byes, week }) {
   const bye = numberOrNull(byes?.[row.team]);
   if (bye !== null && week !== null && bye === Number(week)) flags.push("BYE");
   if (row.position !== "DEF" && numberOrNull(row.projected_points) === null) flags.push("NO_PROJECTION");
-  /* El partido acabado no descalifica al jugador: lo CONGELA donde esté. Va al
-     final para que se lea después de los motivos que sí hablan de él. */
-  if (row.game_final === true) flags.push("LOCKED");
+  /* El partido acabado —o en marcha— no descalifica al jugador: lo CONGELA
+     donde esté. Va al final para que se lea después de los motivos que sí
+     hablan de él. `now` nulo (render del servidor) sólo cierra los que ya
+     tienen marcador: nunca se afirma con la hora del build. */
+  if (hasStarted(row, now)) flags.push("LOCKED");
   return flags;
 }
 
@@ -147,7 +150,7 @@ function flagsFor({ row, byes, week }) {
  */
 export function bestLineup({
   players, starters = null, reserve = [], taxi = [], rosterPositions, index,
-  byes = {}, week = null,
+  byes = {}, week = null, now = null,
 }) {
   const slots = starterSlots(rosterPositions);
   const apartados = new Set([...(reserve ?? []), ...(taxi ?? [])].map(String));
@@ -162,7 +165,7 @@ export function bestLineup({
   // alineación de este proyecto — el analizador usa `lineupFrom`, esta pantalla
   // usa `bestLineup`, y un candado cableado sólo aquí habría dejado «Generate
   // best lineup» proponiendo sacar a alguien que ya jugó.
-  const congelados = lockedSlots({ starters, slots, index });
+  const congelados = lockedSlots({ starters, slots, index, now });
   const sidsCongelados = new Set(congelados.values());
   const elegibles = [];
   const excluded = [];
@@ -173,7 +176,7 @@ export function bestLineup({
     if (sidsCongelados.has(sid)) continue;   // ya tiene su hueco reservado
     if (apartados.has(sid)) { excluded.push({ sid, row, reason: EXCLUDED.RESERVE }); continue; }
     if (!row) { excluded.push({ sid, row: null, reason: EXCLUDED.NO_PROJECTION }); continue; }
-    const flags = flagsFor({ row, byes, week });
+    const flags = flagsFor({ row, byes, week, now });
     if (flags.includes("LOCKED")) { excluded.push({ sid, row, reason: EXCLUDED.GAME_FINAL }); continue; }
     if (flags.includes("OUT")) { excluded.push({ sid, row, reason: EXCLUDED.OUT }); continue; }
     if (flags.includes("BYE")) { excluded.push({ sid, row, reason: EXCLUDED.BYE }); continue; }
@@ -199,7 +202,7 @@ export function bestLineup({
         slot, sid, row,
         points: numberOrNull(row?.projected_points),
         empty: false,
-        flags: flagsFor({ row, byes, week }),
+        flags: flagsFor({ row, byes, week, now }),
         locked: true,
       };
     }
@@ -278,11 +281,11 @@ export function closestCalls(best) {
  * Todo lo de una liga para una semana, en un objeto que la pantalla pinta.
  * `null` si la liga no declara huecos: sin estructura no hay alineación.
  */
-export function leagueStartSit({ league, index, byes = {}, week = null }) {
+export function leagueStartSit({ league, index, byes = {}, week = null, now = null }) {
   const rosterPositions = league?.config?.roster ?? null;
   if (!Array.isArray(rosterPositions) || starterSlots(rosterPositions).length === 0) return null;
   const current = currentLineup({
-    starters: league?.starters ?? null, rosterPositions, index, byes, week,
+    starters: league?.starters ?? null, rosterPositions, index, byes, week, now,
   });
   const best = bestLineup({
     players: league?.players ?? [],
@@ -290,7 +293,7 @@ export function leagueStartSit({ league, index, byes = {}, week = null }) {
     // titular cuyo partido terminó no se puede sacar.
     starters: league?.starters ?? null,
     reserve: league?.reserve ?? [], taxi: league?.taxi ?? [],
-    rosterPositions, index, byes, week,
+    rosterPositions, index, byes, week, now,
   });
   const swaps = slotSwaps(current, best);
   const gain = current && current.points !== null && best.points !== null

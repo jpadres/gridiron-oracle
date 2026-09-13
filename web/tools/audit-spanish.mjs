@@ -230,6 +230,10 @@ const DATOS = new Set([
   // 13:00», hora del Este). No se convierte ni se interpreta: la pantalla la
   // rotula «Kickoff … ET».
   ".predictions[].kickoff",
+  // El mismo saque como INSTANTE ISO-8601 con su zona resuelta
+  // («2026-09-13T16:25:00-04:00»). Es lo que el reloj del navegador compara
+  // para saber si el partido ya empezó; no se pinta nunca.
+  ".predictions[].kickoff_at",
   ".dossier.ambiguous[][]", ".dossier.generated", ".dossier.sources_books[]",
   ".fantasy.board[].player_full_name", ".fantasy.board[].player_id",
   ".fantasy.board[].player_name", ".fantasy.board[].position",

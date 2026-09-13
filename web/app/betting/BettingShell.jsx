@@ -40,6 +40,7 @@ import {
 } from "./plan.js";
 import BankCurve from "./BankCurve.jsx";
 import { browserStorage } from "../fantasy/draftStorage.js";
+import { GAME, gameState } from "../gameClock.js";
 import { hasNumber } from "../numbers.js";
 
 const PROP_CATEGORIES = [
@@ -77,6 +78,20 @@ export default function BettingShell({ predictions, weekly, context, markets = [
   const [months, setMonths] = useState(null);
   const [active, setActive] = useState(null);
   const [record, setRecord] = useState(null);
+  /* EL RELOJ, y sólo después de montar.
+     Un partido que ya empezó no es un mercado, pero «ahora» no existe en el
+     build: leerlo durante el render del servidor pintaría la hora de la
+     COMPILACIÓN, que es la falsa actualidad que este proyecto persigue en los
+     datos, aplicada al reloj. Con `null` no se afirma que nada haya empezado y
+     el primer pintado coincide con el del servidor; en cuanto monta, el estado
+     real. Se refresca cada minuto porque una pestaña abierta durante un
+     domingo cruza tres saques. */
+  const [now, setNow] = useState(null);
+  useEffect(() => {
+    setNow(Date.now());
+    const t = setInterval(() => setNow(Date.now()), 60_000);
+    return () => clearInterval(t);
+  }, []);
   const [career, setCareer] = useState(null);
   const [propLines, setPropLines] = useState({});
   const [category, setCategory] = useState("proj_pass_yds");
@@ -432,7 +447,13 @@ export default function BettingShell({ predictions, weekly, context, markets = [
               ficha histórica de su clase suele decir «below breakeven». */}
           {bets.length > 0 ? (
             <ol className="bk-bets">
-              {bets.map((bet) => (
+              {/* Una apuesta sobre un partido que ya empezó no se ofrece: no es
+                  que no valga, es que no se puede hacer. El partido se busca en
+                  `predictions` porque el bloque de apuestas no lleva el saque. */
+              bets.filter((bet) => {
+                const juego = predictions.find((g) => g.game_id === bet.game_id);
+                return gameState({ ...bet, kickoff_at: juego?.kickoff_at }, now) === GAME.SCHEDULED;
+              }).map((bet) => (
                 <li key={`${bet.game_id}:${bet.market}:${bet.selection}`}>
                   <span className="bk-lean-what">
                     <b>{bet.selection} {bet.market}</b>
@@ -524,11 +545,18 @@ export default function BettingShell({ predictions, weekly, context, markets = [
                       <td>{pctOf(side.market_prob)}</td>
                       <td className={side.edge >= 0 ? "wk-up" : "wk-down"}>{side.edge > 0 ? "+" : ""}{num(side.edge * 100, 1)}</td>
                       <td className={side.ev >= 0 ? "wk-up" : "wk-down"}>{side.ev > 0 ? "+" : ""}{num(side.ev * 100, 1)}%</td>
-                      <td>{side.game_final
+                      <td>{gameState({ ...side, kickoff_at: game.kickoff_at }, now) !== GAME.SCHEDULED
                         /* Un partido con resultado no es un mercado barato: no
-                           es un mercado. Antes salía «no bet · not sized», que
-                           se lee como que el precio no daba. */
-                        ? <span className="mark mark--out">FINAL</span>
+                           es un mercado. Y uno EMPEZADO tampoco — eso lo decide
+                           el reloj del que mira, no el build. Antes salía «no
+                           bet · not sized», que se lee como que el precio no
+                           daba. */
+                        ? <span className="mark mark--out">
+                            {gameState({ ...side, kickoff_at: game.kickoff_at }, now) === GAME.FINAL
+                              ? "FINAL"
+                              : gameState({ ...side, kickoff_at: game.kickoff_at }, now) === GAME.IN_PROGRESS
+                                ? "IN PROGRESS" : "KICKOFF UNKNOWN"}
+                          </span>
                         : side.stake_fraction > 0
                           ? money(side.stake_fraction * record.starting)
                           /* NO BET es la decisión más frecuente del motor, y un

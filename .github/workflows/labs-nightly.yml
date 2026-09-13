@@ -10,7 +10,7 @@ on:
 
 jobs:
   deep:
-    name: live-assistant, cuenta, conectar, storage-blocked, matrix
+    name: live-assistant, cuenta, conectar, storage-blocked, matrix, reloj
     runs-on: ubuntu-latest
     timeout-minutes: 60
     defaults:
@@ -34,7 +34,7 @@ jobs:
       - name: Laboratorios profundos
         run: |
           set -e
-          for lab in live-assistant cuenta conectar storage-blocked live-assistant-matrix replay roster-isolation; do
+          for lab in live-assistant cuenta conectar storage-blocked live-assistant-matrix replay roster-isolation reloj; do
             echo "=== $lab"
             SKIP_BUILD=1 node tools/lab/$lab.mjs
           done

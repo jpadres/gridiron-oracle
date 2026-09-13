@@ -51,3 +51,17 @@ test("un tamaño de muestra escrito a mano también necesita libro", () => {
   assert.ok(libro.has("app/fantasy/page.jsx|n=123"));
   assert.ok(libro.has("app/fantasy/page.jsx|129 points"));
 });
+
+test("un comentario que ABRE una expresión no se traga la prosa de abajo", () => {
+  /* `{/* … *\/}` y `{/* … *\/ expr}` son los dos JSX legal, y el primer patrón
+     de limpieza sólo casaba el primero: con el segundo seguía buscando hasta el
+     SIGUIENTE `*\/}` del fichero y borraba todo lo de en medio.
+
+     Pasó de verdad el 13 de septiembre de 2026 al añadir un comentario delante
+     de un `bets.filter(...)`: se llevó por delante el párrafo de «minimum edge
+     1.5 points» y el extractor no dijo nada — menos prosa vigilada, en
+     silencio. Es el `<[^>]+>` cruzando saltos de línea, con otra cara. */
+  const hay = new Set(found().map((e) => `${e.file}|${e.value}`));
+  assert.ok(hay.has("app/betting/BettingShell.jsx|1.5 points"),
+    "el extractor volvió a quedarse ciego a partir de un comentario");
+});

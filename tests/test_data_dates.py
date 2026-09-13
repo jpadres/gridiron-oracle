@@ -392,3 +392,44 @@ def test_el_estado_se_acota_a_LA_JORNADA_que_se_publica(tmp_path):
     _anotar_estado(filas, _Paths(raw, proc), 2026, 7)
     assert filas[0]["kickoff"] == "2026-10-25 13:00", "se cogió el partido de otra jornada"
     assert filas[0]["final"] is False
+
+
+def test_el_saque_se_publica_como_INSTANTE_con_su_zona(tmp_path):
+    """«2026-09-13 13:00» no es un momento hasta que lleva zona.
+
+    Sin ella el navegador lo lee como hora LOCAL del que mira: en Madrid, un
+    partido de la una de la tarde en Nueva York habría «empezado» seis horas
+    antes, y la pantalla cerraría un mercado que sigue abierto.
+
+    La zona se resuelve con `zoneinfo` y no con un `-04:00` escrito a mano: en
+    la jornada 10 la costa este ya está en EST y un desfase cableado se
+    equivocaría en una hora justo en noviembre.
+    """
+    from export_web_data import _anotar_estado
+
+    raw, proc = tmp_path / "raw", tmp_path / "processed"
+    _calendario_csv(raw, [
+        (2026, 1, "LAC", "ARI", 9.5, 47.5, "2026-09-13", "16:25", "", ""),
+        # Noviembre: la misma hora del reloj, OTRO desfase.
+        (2026, 1, "KC", "DEN", 2.5, 43.5, "2026-11-15", "16:25", "", ""),
+    ])
+    filas = [
+        {"away_team": "ARI", "home_team": "LAC"},
+        {"away_team": "DEN", "home_team": "KC"},
+    ]
+    _anotar_estado(filas, _Paths(raw, proc), 2026, 1)
+    assert filas[0]["kickoff_at"] == "2026-09-13T16:25:00-04:00"
+    assert filas[1]["kickoff_at"] == "2026-11-15T16:25:00-05:00", (
+        "el desfase está cableado: en noviembre la costa este es EST"
+    )
+
+
+def test_sin_hora_publicada_no_se_inventa_un_instante(tmp_path):
+    """Un partido sin hora no se puede situar en el tiempo. `None`, y se dice."""
+    from export_web_data import _anotar_estado
+
+    raw, proc = tmp_path / "raw", tmp_path / "processed"
+    _calendario_csv(raw, [(2026, 1, "LAC", "ARI", 9.5, 47.5, "2026-09-13", "", "", "")])
+    filas = [{"away_team": "ARI", "home_team": "LAC"}]
+    _anotar_estado(filas, _Paths(raw, proc), 2026, 1)
+    assert filas[0]["kickoff_at"] is None

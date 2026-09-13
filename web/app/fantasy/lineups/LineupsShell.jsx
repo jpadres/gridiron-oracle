@@ -14,13 +14,14 @@
  * mientras el registro diga NOT_READY.
  */
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { num } from "../../../data/model.js";
 import { Headshot } from "../../headshot.jsx";
 import { TeamMark } from "../../sports.jsx";
 import LeagueBar from "../LeagueBar.jsx";
 import { EXCLUDED, fullWeeklyIndex, leagueStartSit, swapAuthority } from "../startSit.js";
+import { stateLabel } from "../../gameClock.js";
 
 /* «Un par de puntos está dentro del ruido semanal»: la convención declarada en
    docs/evidence/ui_numbers.json («2 points», acierto por desacuerdo). Vive
@@ -80,8 +81,11 @@ function Authority({ position, statuses }) {
   return <span className="mark mark--risk" title={`${a.id}: ${a.status} in the capability registry`}>{text}</span>;
 }
 
-function LeagueLineup({ league, index, byes, week, statuses, active }) {
-  const out = useMemo(() => leagueStartSit({ league, index, byes, week }), [league, index, byes, week]);
+function LeagueLineup({ league, index, byes, week, statuses, active, now }) {
+  const out = useMemo(
+    () => leagueStartSit({ league, index, byes, week, now }),
+    [league, index, byes, week, now]
+  );
   const config = league?.config ?? null;
   const name = league?.name || `League ${league?.leagueId ?? ""}`;
   const sleeperHref = league?.leagueId && !String(league.leagueId).startsWith("draft-")
@@ -224,7 +228,12 @@ function LeagueLineup({ league, index, byes, week, statuses, active }) {
                     {/* UN HUECO CONGELADO NO ES UN HUECO QUE COINCIDE.
                         Sin decirlo, la fila se lee como «aquí no hay nada que
                         cambiar» cuando lo cierto es «aquí ya no se puede». */}
-                    {b.locked ? <small className="lu-locked" title="This game is over: the slot is locked">FINAL</small> : null}
+                    {b.locked ? (
+                      <small className="lu-locked"
+                             title="This game has started: Sleeper no longer accepts a change in this slot">
+                        {stateLabel(b.row, now) ?? "LOCKED"}
+                      </small>
+                    ) : null}
                   </span>
                   <span className="mu-cell mu-cell--theirs">
                     {b.row ? (
@@ -270,9 +279,9 @@ function LeagueLineup({ league, index, byes, week, statuses, active }) {
           {/* --- QUIÉN QUEDÓ FUERA Y POR QUÉ --------------------------------- */}
           {out.best.locked > 0 ? (
             <p className="caption">
-              {out.best.locked} slot{out.best.locked === 1 ? "" : "s"} locked: those games are
-              over, so those players can neither be moved out nor replaced. The change below is
-              only over what is still playable.
+              {out.best.locked} slot{out.best.locked === 1 ? "" : "s"} locked: those games have
+              kicked off, so Sleeper no longer accepts a change there. The swap below is only
+              over what is still playable.
             </p>
           ) : null}
 
@@ -284,7 +293,7 @@ function LeagueLineup({ league, index, byes, week, statuses, active }) {
                   <li key={e.sid}>
                     <strong>{e.row?.player_full_name ?? e.row?.player_name ?? `id ${e.sid}`}</strong>{" "}
                     <span className="attrib">
-                      {e.reason === EXCLUDED.GAME_FINAL ? "his game is over — he can no longer be started"
+                      {e.reason === EXCLUDED.GAME_FINAL ? "his game has started — he can no longer be started"
                         : e.reason === EXCLUDED.OUT ? `${e.row?.status_label ?? "OUT"} — cannot play`
                           : e.reason === EXCLUDED.BYE ? "on bye this week"
                             : e.reason === EXCLUDED.RESERVE ? "on your IR / taxi squad in Sleeper"
@@ -302,6 +311,16 @@ function LeagueLineup({ league, index, byes, week, statuses, active }) {
 }
 
 export default function LineupsShell({ rankings, kickers, defenses, byes, week, season, statuses }) {
+  /* EL RELOJ, y sólo después de montar. Un titular cuyo partido ya empezó no se
+     puede sacar en Sleeper, pero «ahora» no existe en el build: leerlo en el
+     render del servidor pintaría la hora de la COMPILACIÓN. Con `null` sólo se
+     congela lo que ya tiene marcador; en cuanto monta, también lo empezado. */
+  const [now, setNow] = useState(null);
+  useEffect(() => {
+    setNow(Date.now());
+    const t = setInterval(() => setNow(Date.now()), 60_000);
+    return () => clearInterval(t);
+  }, []);
   const [account, setAccount] = useState(null);
   const [activeId, setActiveId] = useState("");
   const index = useMemo(
@@ -342,7 +361,8 @@ export default function LineupsShell({ rankings, kickers, defenses, byes, week, 
           </p>
           {leagues.map((league) => (
             <LeagueLineup key={league.leagueId} league={league} index={index} byes={byes}
-                          week={week} statuses={statuses} active={league.leagueId === activeId} />
+                          week={week} statuses={statuses} active={league.leagueId === activeId}
+                          now={now} />
           ))}
         </>
       )}

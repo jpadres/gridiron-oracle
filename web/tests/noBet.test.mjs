@@ -58,8 +58,27 @@ test("la tabla de mercados NO filtra a spreads: la moneyline llega a la pantalla
 
 test("la pantalla PINTA el cierre por resultado y el precio publicado", () => {
   const src = readFileSync(new URL("../app/betting/BettingShell.jsx", import.meta.url), "utf8");
-  assert.match(src, /side\.game_final/,
-    "nadie lee game_final: un partido acabado saldría como mercado abierto");
+  /* El estado del partido lo decide `gameClock.js`: `game_final` es la mitad
+     que sabe Python —hay marcador— y el saque pasado es la que sólo sabe el
+     reloj del que mira. La pantalla tiene que preguntar por las DOS, y por eso
+     lo que se exige es la llamada compartida y no el campo suelto. */
+  assert.match(src, /gameState\(/,
+    "nadie mira el estado del partido: uno acabado o en marcha saldría abierto");
+  assert.match(src, /GAME\.SCHEDULED/,
+    "no se distingue «abierto» de los otros tres estados");
+  /* EL RELOJ SE LEE AL MONTAR, no sólo cada minuto.
+     La primera versión de esto pedía `setNow(Date.now())` en el fichero y
+     seguía VERDE al quitar la lectura inicial, porque la MISMA cadena está
+     dentro del `setInterval`. Es «el nombre sigue apareciendo» por tercera vez
+     en esta sesión. Lo que importa es el PRIMER pintado: sin lectura al montar,
+     el que abre la página a las dos de la tarde ve el partido de la una
+     abierto durante un minuto entero. Se quita el intervalo del cuerpo del
+     efecto y se exige que la lectura siga estando. */
+  const efecto = src.slice(src.indexOf("useEffect(() => {"), src.indexOf("}, []);"));
+  assert.ok(efecto.length > 0, "no hay efecto de montaje que leer");
+  const sinIntervalo = efecto.replace(/setInterval\([\s\S]*?\);/g, " ");
+  assert.match(sinIntervalo, /setNow\(Date\.now\(\)\)/,
+    "el reloj sólo se lee en el intervalo: el primer pintado va sin él");
   assert.match(src, /side\.american_odds/,
     "el precio publicado no se pinta: la columna seguiría siendo la convención");
   assert.match(src, /side\.price_source/,

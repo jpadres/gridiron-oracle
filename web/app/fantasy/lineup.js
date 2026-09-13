@@ -27,6 +27,7 @@
  */
 
 import { assignSlots } from "./leagueValue.js";
+import { hasStarted } from "../gameClock.js";
 
 const round1 = (x) => (Number.isFinite(x) ? Math.round(x * 10) / 10 : null);
 
@@ -78,13 +79,18 @@ export function rowsOf(ids, index) {
  * no puede saber qué está bloqueado, y suponer que el hueco N lo ocupa el
  * jugador N sería inventarse una alineación.
  */
-export function lockedSlots({ starters, slots, index }) {
+export function lockedSlots({ starters, slots, index, now = null }) {
   const congelados = new Map();
   if (!Array.isArray(starters) || !Array.isArray(slots)) return congelados;
   for (let i = 0; i < slots.length; i += 1) {
     const sid = String(starters[i] ?? "");
     if (!sid || sid === "0") continue;
-    if (index?.get?.(sid)?.game_final === true) congelados.set(i, sid);
+    // `isOpen` es la MISMA regla que cierra un mercado en /betting: sin ella,
+    // un partido en marcha cerraba la apuesta y dejaba el hueco suelto — el
+    // mismo hecho con dos respuestas según la pantalla, que es el fallo que
+    // este repositorio ha cometido once veces.
+    const row = index?.get?.(sid);
+    if (row && hasStarted(row, now)) congelados.set(i, sid);
   }
   return congelados;
 }
@@ -100,13 +106,13 @@ export function lockedSlots({ starters, slots, index }) {
  * su hueco y **no suma**, y se cuenta aparte. Contarlo como cero hundiría a
  * quien tiene defensa titular, que es todo el mundo.
  */
-export function lineupFrom({ ids, index, rosterPositions, starters = null }) {
+export function lineupFrom({ ids, index, rosterPositions, starters = null, now = null }) {
   // SIN BANQUILLO: `starters` de Sleeper viene alineado con esta lista, así que
   // contar los BN aquí desplazaría el candado al hueco de otro.
   const huecos = starterSlots(rosterPositions);
   const { rows, missing } = rowsOf(ids, index);
   // Los huecos cuyo partido acabó no se reparten: se devuelven donde estaban.
-  const congelados = lockedSlots({ starters, slots: huecos, index });
+  const congelados = lockedSlots({ starters, slots: huecos, index, now });
   const fijos = new Set(congelados.values());
   const paraRepartir = rows
     .filter((r) => !fijos.has(String(r.sid)))

@@ -26,6 +26,7 @@ import gzip
 import json
 import math
 import sys
+import zoneinfo
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
@@ -1202,6 +1203,29 @@ def _comprobar_artefactos_al_dia(paths) -> None:
         )
 
 
+#: La zona del calendario de nflverse: `gametime` viene en hora del Este.
+HUSO_NFL = "America/New_York"
+
+
+def _instante_del_saque(dia: str, hora: str) -> str | None:
+    """`2026-09-13` + `13:00` -> `2026-09-13T13:00:00-04:00`.
+
+    Devuelve `None` cuando falta cualquiera de los dos o no se pueden leer: un
+    partido sin hora publicada no se puede situar en el tiempo, y suponerle una
+    es exactamente lo que la regla 5 prohíbe. La pantalla dirá que no sabe.
+    """
+    if not dia or not hora:
+        return None
+    try:
+        naive = dt.datetime.strptime(f"{dia} {hora}", "%Y-%m-%d %H:%M")
+    except ValueError:
+        return None
+    try:
+        return naive.replace(tzinfo=zoneinfo.ZoneInfo(HUSO_NFL)).isoformat()
+    except Exception:  # noqa: BLE001 — sin base de husos no se inventa una
+        return None
+
+
 def _estado_de_los_partidos(paths, season: int, week: int) -> dict:
     """Saque y marcador final de cada partido, leídos del calendario.
 
@@ -1255,6 +1279,15 @@ def _estado_de_los_partidos(paths, season: int, week: int) -> dict:
         )
         estado[clave] = {
             "kickoff": f"{dia} {hora}".strip() or None,
+            # EL MISMO SAQUE, COMO INSTANTE, PARA QUE UN RELOJ PUEDA COMPARARLO.
+            #
+            # «2026-09-13 13:00» no es un momento: sin zona, el navegador lo lee
+            # como hora LOCAL del que mira, así que en Madrid un partido de la
+            # una de la tarde en Nueva York habría «empezado» seis horas antes.
+            # La zona se resuelve con `zoneinfo`, no con un -04:00 escrito a
+            # mano: en la jornada 10 la costa este ya está en EST y un desfase
+            # cableado se equivocaría en una hora justo en noviembre.
+            "kickoff_at": _instante_del_saque(dia, hora),
             "final": final,
             "home_score": int(casa) if final else None,
             "away_score": int(fuera) if final else None,
@@ -1272,6 +1305,7 @@ def _anotar_estado(predictions: list[dict], paths, season: int, week: int) -> No
         # Sin fichero no se afirma nada: `final` queda en None y la pantalla
         # escribe lo que sabe, que es que no lo sabe.
         row["kickoff"] = (info or {}).get("kickoff")
+        row["kickoff_at"] = (info or {}).get("kickoff_at")
         row["final"] = (info or {}).get("final")
         row["home_score"] = (info or {}).get("home_score")
         row["away_score"] = (info or {}).get("away_score")
@@ -1461,6 +1495,7 @@ def _anotar_estado_semanal(payload: dict, paths) -> None:
             if equipo:
                 por_equipo[equipo] = {
                     "kickoff": info["kickoff"],
+                    "kickoff_at": info["kickoff_at"],
                     "final": info["final"],
                     "team_score": marcador,
                     "opponent_score": contrario,
@@ -1472,6 +1507,7 @@ def _anotar_estado_semanal(payload: dict, paths) -> None:
             # Sin partido localizado no se afirma nada: `final` en None y la
             # pantalla dice lo que sabe. Un equipo de descanso no tiene fila.
             row["game_kickoff"] = (info or {}).get("kickoff")
+            row["game_kickoff_at"] = (info or {}).get("kickoff_at")
             row["game_final"] = (info or {}).get("final")
             if info and info["final"]:
                 marcadas += 1

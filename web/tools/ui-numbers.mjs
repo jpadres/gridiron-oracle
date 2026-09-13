@@ -61,8 +61,20 @@ function* jsxFiles(dir) {
  * `>` y no puede contener ni `<` ni llaves.
  */
 function proseOf(src) {
+  // EL COMENTARIO SE QUITA COMO COMENTARIO, NO COMO `{/* … */}`.
+  //
+  // El primer patrón era `\{\/\*[\s\S]*?\*\/\}` y exigía que el bloque
+  // cerrara con `*/}`. Un comentario que ABRE una expresión —`{/* … */`
+  // seguido del código y un `}` al final, que es JSX legal y lo escribí sin
+  // pensarlo— no casa, así que el patrón seguía buscando hasta el SIGUIENTE
+  // `*/}` del fichero y se tragaba todo lo de en medio. Se llevó por delante
+  // el párrafo de «minimum edge 1.5 points», y el extractor no dijo nada:
+  // menos prosa vigilada, en silencio. Es el `<[^>]+>` cruzando saltos de
+  // línea otra vez, con otra cara.
+  //
+  // Quitando primero el comentario genérico, `{/* … */}` queda en `{ }` —
+  // inofensivo— y `{/* … */ expr}` queda en `{ expr}`, que es lo que era.
   const limpio = src
-    .replace(/\{\/\*[\s\S]*?\*\/\}/g, " ")
     .replace(/\/\*[\s\S]*?\*\//g, " ")
     .replace(/^\s*\/\/.*$/gm, " ");
   // Un tramo de texto empieza donde acaba una etiqueta o una expresión (`>`

@@ -665,6 +665,9 @@ comentario está para que no los reintroduzcas.
 | Un guardián de marca que pedía que el NOMBRE apareciera — otra vez | `tests/rosterMark.test.mjs` | La primera versión de la comprobación de `gameFinalMark` exigía que `gameFinalMark(` estuviera en el fichero. Al inyectar el fallo —cambiar la condición por `false`— siguió VERDE, porque las llamadas de DENTRO del bloque (`.className`, `.title`) siguen ahí. **Es literalmente el mismo fallo que ya costó dos versiones con `teamChangeMark`, en el mismo fichero, dos meses después.** Lo escribió el simulacro como «VERDE (NO ES GUARDIÁN)», no yo leyendo el código: la comprobación mira la CONDICIÓN del JSX, que es lo que decide si se pinta |
 | Dos motores de alineación, y el candado cableado en uno | `lineup.js`, `startSit.js` | `/fantasy/lineups` usa `bestLineup` y el analizador usa `lineupFrom`: dos motores para la misma decisión, y «Generate best lineup» seguía proponiendo sacar a un titular con el partido terminado. **Undécima vez.** La regla vive en `lockedSlots`, los dos la llaman, y el test cuenta las DEFINICIONES —tiene que haber exactamente una— además de exigir que el analizador le pase los titulares: una regla compartida no sirve de nada si el caller no le dice qué hay puesto |
 | Una inyección que dejó de inyectar al mover la línea | `scripts/injection_drill.sh` | Al compartir el candado entre los dos motores de alineación, la línea de la inyección 54 se fue de `startSit.js` a `lineup.js`. El reemplazo no encontró nada, no cambió nada, el guardián pasó y el informe escribió «VERDE (NO ES GUARDIÁN)» **acusando al guardián de un fallo que era de la inyección**. Ya había pasado y se anotó; lo que faltaba era que el simulacro distinguiera las dos cosas. Ahora una inyección que no encuentra su línea sale como `INYECCIÓN ROTA` |
+| Un comentario JSX que borró en silencio la prosa de debajo | `tools/ui-numbers.mjs` | El limpiador quitaba `{/* … */}` con un patrón que exige cerrar en `*/}`. Un comentario que ABRE una expresión —`{/* … */` seguido del código y un `}` al final, que es JSX legal y lo escribí sin pensarlo— no casa, así que el patrón seguía hasta el SIGUIENTE `*/}` del fichero. Se llevó por delante el párrafo de «minimum edge 1.5 points» y el extractor **no dijo nada**: menos prosa vigilada, en silencio. Es el `<[^>]+>` cruzando saltos de línea, con otra cara. Se quita el comentario como COMENTARIO, antes de mirar las llaves |
+| El mismo predicado para dos preguntas con el «no sé» en lados opuestos | `gameClock.js` | Para APOSTAR, lo que no se puede confirmar abierto se cierra: cuesta un mercado que se deja de enseñar. Para una ALINEACIÓN es al revés — congelar un hueco por no saber la hora del partido congelaría la plantilla entera y la pantalla diría que no hay nada que cambiar. Un solo `isOpen` para las dos parecía economía; lo destaparon SIETE tests en rojo cuyos fixtures no llevan saque, que es exactamente el caso «no se sabe». Son `isOpen` y `hasStarted`, y la asimetría está escrita |
+| Dos inyecciones apuntando a líneas que un refactor había movido, y el simulacro lo DIJO | `scripts/injection_drill.sh` | El aviso `INYECCIÓN ROTA` se añadió esta misma sesión y en su primera pasada real cazó las dos: al compartir el candado con `hasStarted`, las líneas de las inyecciones 54 y 59 dejaron de existir. Antes habrían salido «VERDE (NO ES GUARDIÁN)», acusando al guardián. **La tercera, la 60, sí era un guardián flojo**: sustituir el `useState` dejaba intacto el `setNow(Date.now())` que la comprobación busca, así que el texto seguía ahí y pasaba en verde — el «el nombre sigue apareciendo» por tercera vez. La inyección quita ahora la LECTURA del reloj, que es lo que se quiere probar |
 
 ---
 
@@ -686,7 +689,17 @@ identificadores huérfanos de `tools/no-undef.mjs`, la simulación de draft, que
 ninguna pantalla le preste al dato la hora del build y que **cada sección del
 payload que trae fecha la pinte alguien** (`tests/dataDate.test.mjs`), y que
 nadie vuelva a preguntar «¿hay dato?» con un idioma que dice que sí sobre un
-hueco (`tests/numbers.test.mjs`). **Desde el 5 de
+hueco (`tests/numbers.test.mjs`).
+
+**El reloj del partido** (`app/gameClock.js`) parte la pregunta en dos mitades
+con dueños distintos, y conviene tenerlo claro antes de tocarlo: «¿ha
+terminado?» es un hecho del FICHERO —hay marcador— y lo decide Python, que es la
+única autoridad de lo que se calcula; «¿ha empezado?» no se puede saber en el
+build porque depende de cuándo se MIRA, así que lo decide el reloj del
+navegador. Lo que no puede pasar es que el navegador REABRA lo que Python cerró,
+y por eso `FINAL` gana siempre. El «no sé» cae a lados OPUESTOS según para qué
+se pregunte: `isOpen` (apostar) lo cierra y `hasStarted` (congelar un hueco) no
+lo congela. **Desde el 5 de
 septiembre de 2026 cinco laboratorios de Playwright SÍ corren en CI** como job
 requerido (`tools/lab/ci-required.mjs`: headshot-shots, smoke, apuestas,
 movil, controles), y el resto de madrugada en `labs-nightly.yml`. Antes no
@@ -755,11 +768,12 @@ está construida:
 | `draft-quality.mjs` | **La medición de E23**: 7 temporadas × 12 puestos drafteadas dos veces —siguiendo la recomendación y siguiendo el board— y puntuadas con lo REALIZADO. Necesita `out/draft_quality_boards.json` (`python scripts/draft_quality_export.py`), que sale de `data/processed` y por eso NO puede correr en CI. Incluye el control que separa la ventaja real de los huecos que el baseline se deja sin llenar |
 | `draft-sim.mjs` | Un draft ENTERO sin navegador en tres ligas —normal de 12, superflex y la de 32 con tres flexibles— siguiendo la recomendación: sin repetidos, sin repartos imposibles, ninguna posición saturada encabezando, el segundo QB encabezando SÓLO en superflex, el aviso de pateador/defensa antes del final y la alineación titular completada |
 | `draft-torture.mjs` | La matriz entera SIN navegador: 780 drafts completos de 8 a 32 equipos, nueve formatos, snake y lineal, y diez estrategias de rival —incluidas escasez, zero-RB y ADP con ruido desde el 5 de septiembre—, con 11.700 turnos míos evaluados. Encontró el hueco titular que se quedaba vacío para siempre. No entra en `ci.yml` por tamaño, pero corre en `.github/workflows/draft-torture.yml`: de madrugada y en cada push que toque el motor de decisión o el board |
+| `reloj.mjs` | **El reloj del partido, con el reloj FALSEADO.** No se puede comprobar esperando —los trece partidos de la tarde arrancan a lo largo de siete horas—, así que se pisa `Date` en el contexto antes de cargar y se mira la misma página en tres momentos del mismo domingo. La propiedad que lo distingue de un test en vacío es que los tres den respuestas CRECIENTES: medido 8 → 40 → 64 mercados cerrados, y 8 → 8 → 8 al quitar el reloj |
 | `apuestas.mjs` | Los mercados partido a partido, el signo del handicap y el plan de la semana: que la apuesta sugerida sea la MISMA fracción de la banca esté arriba o abajo |
 | `controles.mjs` | **Control por control, las trece páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CINCUENTA Y NUEVE fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete SESENTA Y DOS fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -780,7 +794,9 @@ estadística de la temporada que el board NO lee usada para fecharlo, una
 etiqueta de plantilla nueva colada como activo y la moneyline fuera de la
 pantalla de mercados, un titular que ya jugó propuesto para el banquillo y el
 estado de un partido tomado de otra jornada, y el analizador —el OTRO motor de
-alineación— sin congelar nada— y exige 59 rojos y 59 verdes al
+alineación— sin congelar nada, la pantalla de apuestas sin reloj, un mismo
+predicado para apostar y para congelar, y un comentario JSX tragándose la prosa
+de debajo— y exige 62 rojos y 62 verdes al
 restaurar.
 
 ## El skill de UI/UX

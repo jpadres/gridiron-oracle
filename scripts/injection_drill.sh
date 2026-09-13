@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 59 fallos conocidos, 59 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 62 fallos conocidos, 62 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -230,7 +230,7 @@ run "53 la tarjeta deja de decir que el partido acabó" web/app/sports.jsx \
   "  const isFinal = game.final === true && finalScoreHome !== null && finalScoreAway !== null;|||  const isFinal = false;" \
   "cd web && node --test tests/noBet.test.mjs"
 run "54 un titular que ya jugó, propuesto para el banquillo" web/app/fantasy/lineup.js \
-  "    if (index?.get?.(sid)?.game_final === true) congelados.set(i, sid);|||    if (false) congelados.set(i, sid);" \
+  "    if (row && hasStarted(row, now)) congelados.set(i, sid);|||    if (false) congelados.set(i, sid);" \
   "cd web && node --test tests/startSit.test.mjs"
 run "55 un suplente que ya jugó, propuesto como titular" web/app/fantasy/startSit.js \
   "    if (flags.includes(\"LOCKED\")) { excluded.push({ sid, row, reason: EXCLUDED.GAME_FINAL }); continue; }|||    // INYECCIÓN: vuelve al reparto" \
@@ -245,5 +245,14 @@ run "58 el analizador no dice qué tiene puesto" web/app/fantasy/analisis/Analyz
   "      starters: misTitulares,|||      // INYECCIÓN" \
   "cd web && node --test tests/lineup.test.mjs"
 run "59 el OTRO motor de alineación deja de congelar" web/app/fantasy/lineup.js \
-  "  const congelados = lockedSlots({ starters, slots: huecos, index });|||  const congelados = new Map();" \
+  "  const congelados = lockedSlots({ starters, slots: huecos, index, now });|||  const congelados = new Map();" \
   "cd web && node --test tests/lineup.test.mjs"
+run "60 la pantalla de apuestas sin reloj" web/app/betting/BettingShell.jsx \
+  "    setNow(Date.now());|||    // INYECCIÓN: la pantalla se queda sin reloj" \
+  "cd web && node --test tests/noBet.test.mjs"
+run "61 un mismo predicado para apostar y para congelar" web/app/gameClock.js \
+  "  return estado === GAME.FINAL || estado === GAME.IN_PROGRESS;|||  return gameState(row, now) !== GAME.SCHEDULED;" \
+  "cd web && node --test tests/startSit.test.mjs tests/gameClock.test.mjs"
+run "62 un comentario JSX que se traga la prosa de debajo" web/tools/ui-numbers.mjs \
+  "    .replace(/\\/\\*[\\s\\S]*?\\*\\//g, \" \")|||    .replace(/\\{\\/\\*[\\s\\S]*?\\*\\/\\}/g, \" \")" \
+  "cd web && node --test tests/uiNumbers.test.mjs"
