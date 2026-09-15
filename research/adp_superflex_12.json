@@ -2,7 +2,7 @@
  "source": "fantasyfootballcalculator",
  "scoring": "superflex",
  "league_size": 12,
- "fetched_at": "2026-09-15T11:48:29Z",
+ "fetched_at": "2026-09-15T21:24:27Z",
  "sample_size": 5708,
  "window": "2026-08-16",
  "entries": [
@@ -871,7 +871,7 @@
    "adp": 132.8
   },
   {
-   "name": "KC Concepcion",
+   "name": "KC Concepcion Jr.",
    "position": "WR",
    "team": "CLE",
    "adp": 133.1
