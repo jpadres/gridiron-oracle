@@ -1,0 +1,161 @@
+# REFRESCO DIARIO DE LA JORNADA — datos a diario, modelos NO.
+#
+#     UN REFRESCO DE DATOS NO ES UN REENTRENAMIENTO.
+#     LO QUE CAMBIA A DIARIO ES LO QUE SE SABE, NO EL MODELO.
+#
+# Este job baja lo que se reescribe cada día —parte OFICIAL de lesiones, depth
+# charts, plantillas, snaps— y escribe un artefacto FECHADO de la jornada. No
+# toca los pesos de nada: los modelos se mueven por su ciclo de validación, y
+# recalcular una proyección porque salió un artículo es justo lo que la regla 8
+# prohíbe.
+#
+# Y no pisa el artefacto de ayer: `research/weekly/<temporada>-W<jornada>/` se
+# llena por días, que es lo que permite auditar qué cambió y cuándo.
+name: Refresco diario de la jornada
+
+on:
+  schedule:
+    # 11:10 UTC (7:10 ET) todos los días: los clubes entregan el parte de
+    # entrenamiento por la tarde, así que a esta hora se recoge el del día
+    # anterior ya consolidado.
+    - cron: "10 11 * * *"
+    # Y tres pasadas más los domingos, alrededor de las ventanas que de verdad
+    # mueven una decisión: 90 minutos antes de la primera bola (los inactivos
+    # oficiales salen a esa hora), antes del turno de las 16:25 y antes del
+    # nocturno. Las horas son las del calendario real de 2026, no una suposición.
+    - cron: "30 15 * * 0"
+    - cron: "45 19 * * 0"
+    - cron: "30 23 * * 0"
+  workflow_dispatch:
+
+concurrency:
+  group: weekly-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e .
+
+      - name: Bajar lo que se reescribe cada día
+        # SIN `|| true`. Si nflverse no contesta, este paso tiene que poner el
+        # job en ROJO: «no pude bajar» no es «no hay novedades», y un artefacto
+        # con la fecha de hoy y el contenido de ayer es la rotura que parece que
+        # funcionó.
+        #
+        # Lo que NO se baja aquí: el play-by-play y las 27 temporadas de
+        # estadística. Son 480 MB que no cambian a diario, y bajarlos cuatro
+        # veces los domingos sería gastar la red en lo único que no se mueve.
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from oracle.config import Paths
+          from oracle.data.ingest import (
+              download_current_context, download_schedules, download_season,
+          )
+          paths = Paths(Path(".")).ensure()
+          temporada = 2026
+          hechos = {}
+          hechos["schedule"] = download_schedules(paths, force=True)
+          hechos.update(download_season(temporada, paths, force=True,
+                                        current_season=temporada + 1))
+          hechos.update(download_current_context(temporada, paths, force=True))
+          for nombre, ruta in hechos.items():
+              print(f"  {nombre}: {'OK ' + str(ruta) if ruta else 'NO PUBLICADO'}")
+          # El calendario y las plantillas son imprescindibles: sin ellos no se
+          # puede ni resolver la jornada. Los demás pueden faltar legítimamente.
+          if not hechos.get("schedule"):
+              raise SystemExit("el calendario no se pudo bajar: nada que refrescar")
+          PY
+
+      - name: Barrer la jornada y escribir el artefacto del día
+        # El barrido se apoya en `data/processed/games.parquet`, que no está en
+        # un clon limpio: se reconstruye sólo el calendario, que es rápido, en
+        # vez de las tablas de 27 temporadas.
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from oracle.config import Paths
+          from oracle.data.ingest import build_games
+          paths = Paths(Path(".")).ensure()
+          juegos = build_games(paths, 2026, 2026)
+          juegos.to_parquet(paths.games, index=False)
+          print(f"{len(juegos)} partidos de 2026 en el calendario procesado")
+          PY
+          python scripts/weekly_research.py
+
+      - name: Resumen legible
+        # OBSERVABLE SIN ABRIR EL LOG, como en el barrido de feeds: el estado del
+        # parte de lesiones y los desconocidos del día son justo lo que hay que
+        # poder leer de un vistazo.
+        if: always()
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, pathlib
+          carpeta = sorted(pathlib.Path("research/weekly").glob("*"))
+          if not carpeta:
+              print("### Refresco diario\n\nNo se escribió ningún artefacto.")
+              raise SystemExit(0)
+          artefactos = sorted(carpeta[-1].glob("*.json"))
+          d = json.loads(artefactos[-1].read_text())
+          print(f"### Jornada {d['season']} W{d['week']} — {artefactos[-1].name}\n")
+          print(f"- Calendario: {d['schedule']['games']} partidos, "
+                f"{d['schedule']['from']} a {d['schedule']['to']}, "
+                f"{d['schedule']['played']} jugados")
+          ir = d["injury_report"]
+          print(f"- Parte OFICIAL: **{ir['status']}**"
+                + (f" · {ir.get('with_designation')} designaciones, {ir.get('teams')} equipos"
+                   if ir["status"] == "PUBLISHED"
+                   else f" · última publicada: jornada {ir.get('last_published_week')}"))
+          print(f"- Pateadores de registro: {d['jobs'].get('teams')} equipos, "
+                f"instantánea {d['jobs'].get('effective_at')}")
+          print(f"- Uso/rol: {d['usage']['status']}, "
+                f"{len(d['usage'].get('changes') or [])} jugadores")
+          dif = d.get("diff") or {}
+          print(f"- Contra {dif.get('against') or 'nada (primer artefacto)'}: "
+                f"{len(dif.get('new') or [])} nuevo, {len(dif.get('changed') or [])} cambiado, "
+                f"{len(dif.get('removed') or [])} fuera, {dif.get('unchanged', 0)} igual")
+          print("\n**Fuentes**\n")
+          for f in d.get("sources") or []:
+              print(f"- `{f['source']}` — {f['status']}"
+                    + (f" ({f['rows']} filas)" if f.get("rows") else ""))
+          if d.get("unknowns"):
+              print("\n**No se sabe**\n")
+              for u in d["unknowns"]:
+                  print(f"- {u}")
+          if dif.get("changed"):
+              print("\n**Cambios respecto a ayer**\n")
+              for c in dif["changed"][:20]:
+                  print(f"- `{c['key']}`: {c['was']} → {c['now']}")
+          PY
+
+      - name: Publicar el artefacto del día
+        # Se añade al índice ANTES de comparar: `git diff --quiet` no ve un
+        # fichero nuevo, y el artefacto de cada día ES nuevo por definición. Ese
+        # fallo dejó un barrido en verde sin publicar nada en su primera pasada
+        # real.
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- research/weekly
+          if git diff --cached --quiet -- research/weekly; then
+            echo "Sin cambios en el artefacto de la jornada."
+            exit 0
+          fi
+          git commit -m "research: refresco diario de la jornada"
+          for intento in 1 2 3; do
+            git pull --rebase --autostash origin "$GITHUB_REF_NAME" && git push && exit 0
+            echo "push rechazado (intento $intento), reintentando..."
+            sleep $((intento * 5))
+          done
+          echo "no se pudo publicar tras tres intentos" >&2
+          exit 1

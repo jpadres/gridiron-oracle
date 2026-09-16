@@ -86,6 +86,14 @@ function esEspanol(texto) {
 // que en esta pasada sólo puede dar falsos positivos. Lo audita de verdad la
 // segunda pasada, que lo descomprime y clasifica ruta por ruta.
 const ARCHIVOS = globSync("app/**/*.jsx", { cwd: WEB })
+  /* LOS MÓDULOS DE LÓGICA TAMBIÉN ESCRIBEN TEXTO QUE SE PINTA, Y NO SE AUDITABAN.
+     Auditar sólo `.jsx` dejaba fuera `candidates.js`, `waivers.js`,
+     `startSit.js`… donde viven los MOTIVOS y las etiquetas que la pantalla
+     renderiza tal cual. El 16 de septiembre de 2026 «tienes el hueco de RB
+     VACÍO» llegó a `/fantasy/waivers` con esta auditoría en VERDE: la frase la
+     construye un `.js`, no un `.jsx`. Es la cobertura incompleta de siempre, en
+     el control que existe para impedir exactamente esto. */
+  .concat(globSync("app/**/*.js", { cwd: WEB }))
   .concat(globSync("data/*.js", { cwd: WEB }).filter((f) => !f.endsWith("model.b64.js")));
 if (ARCHIVOS.length === 0) {
   // Sin ficheros no hay auditoría: reventar es la única respuesta honesta.
@@ -109,6 +117,17 @@ for (const rel of ARCHIVOS) {
     if (enComentario && (limpia.includes("*/}") || limpia.includes("*/"))) enComentario = false;
     if (eraComentario || limpia.startsWith("*") || limpia.startsWith("//")) return;
     if (limpia.startsWith("import ") || limpia.startsWith("export const metadata")) return;
+
+    /* UN COMENTARIO AL FINAL DE UNA LÍNEA DE CÓDIGO SIGUE SIENDO UN COMENTARIO.
+       Al extender la auditoría a los `.js` salieron siete falsos positivos, los
+       siete de `providers.js`, y los siete eran prosa española en comentarios
+       colgados detrás del código — `draftState: true,   // el registro canónico`.
+       Exactamente lo que el proyecto QUIERE en español. Un auditor que grita
+       por lo correcto acaba desactivado, y entonces no guarda nada.
+
+       Se corta en el primer `//` precedido de espacio que no sea el de un
+       `://`, que es el único caso realista de `//` dentro de una cadena aquí. */
+    linea = linea.replace(/(^|[^:])\/\/.*$/, "$1");
 
     // Sólo el texto que puede acabar en pantalla: contenido entre etiquetas,
     // cadenas literales y atributos que se leen (title, aria-label, alt...).
@@ -203,6 +222,16 @@ const COPY = new Set([
   ".fantasy.status_catalog.label",
   // La nota que dice de dónde sale el consenso y con qué fecha. Prosa nuestra.
   ".dossier.consensus_note",
+
+  // EL BARRIDO DE LA JORNADA. Estas cuatro SÍ se pintan y las escribimos
+  // nosotros, así que tienen que estar en inglés — y la auditoría las cazó en
+  // español el primer día: los `unknowns` se renderizan tal cual en
+  // `/fantasy/waivers`, que es una interfaz en inglés. Es exactamente la vía por
+  // la que el español llega a la pantalla con todo lo demás en verde.
+  ".weekly_research.unknowns[]",
+  ".weekly_research.injury_report.note",
+  ".weekly_research.sources[].note",
+  ".weekly_research.usage.note",
 ]);
 
 // Datos: nombres propios, códigos, fechas, y la prosa ajena que se cita con su
@@ -255,6 +284,26 @@ const DATOS = new Set([
 ]);
 // Los prefijos que son datos enteros, para no listar campo por campo.
 const DATOS_PREFIJOS = [
+  // EL BARRIDO DE LA JORNADA, lo que NO es prosa: instantes ISO, nombres de
+  // fichero, códigos de estado (`NOT_PUBLISHED_YET`, `BLOCKED_FROM_DEV_ENV`),
+  // horas de saque y nombres de dataset. La frase que los enmarca la escribe la
+  // interfaz, en inglés. Las cuatro rutas de PROSA de esta sección están
+  // declaradas arriba como COPY, no aquí.
+  ".weekly_research.clocks.",
+  ".weekly_research.schedule.",
+  ".weekly_research.jobs.",
+  ".weekly_research.diff.",
+  ".weekly_research.snapshots",
+  ".weekly_research.as_of_file",
+  ".weekly_research.generated_at",
+  ".weekly_research.injury_report.status",
+  ".weekly_research.usage.status",
+  ".weekly_research.usage.baseline",
+  ".weekly_research.sources[].source",
+  ".weekly_research.sources[].kind",
+  ".weekly_research.sources[].status",
+  ".weekly_research.sources[].retrieved_at",
+
   // El informe previo al draft: nombres propios, códigos de equipo, códigos de
   // nflverse ("R01") y fechas ISO. La prosa que lo enmarca la escribe la
   // interfaz, en inglés; aquí no hay una frase que traducir.

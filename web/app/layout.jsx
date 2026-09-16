@@ -46,6 +46,7 @@ const PAGES = [
   { href: "/fantasy/draft", label: "Draft Assistant" },
   { href: "/fantasy/semanal", label: "Weekly" },
   { href: "/fantasy/lineups", label: "Lineups" },
+  { href: "/fantasy/waivers", label: "Waivers" },
   { href: "/fantasy/resto", label: "Rest of Season" },
   { href: "/fantasy/analisis", label: "Analyzer" },
   { href: "/survivor", label: "Survivor" },

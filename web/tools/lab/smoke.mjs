@@ -28,7 +28,7 @@ const OUT = process.env.SHOTS
 const PAGINAS = [
   "/", "/modelo", "/predicciones", "/betting",
   "/fantasy", "/fantasy/draft", "/fantasy/leagues", "/fantasy/semanal", "/fantasy/lineups",
-  "/fantasy/resto", "/fantasy/analisis", "/survivor", "/research",
+  "/fantasy/waivers", "/fantasy/resto", "/fantasy/analisis", "/survivor", "/research",
 ];
 
 if (!process.env.SKIP_BUILD) {
@@ -102,7 +102,17 @@ for (const width of [390, 768, 1440]) {
     await page.goto(`${BASE}/`, { waitUntil: "domcontentloaded" });
     const enMenu = await page.evaluate(() =>
       [...document.querySelectorAll("nav.top .top-links a")].map((a) => new URL(a.href).pathname));
-    check("el menú lleva a doce secciones", enMenu.length === 12, `${enMenu.length}`);
+    /* EL CONTEO DEL MENÚ, CONTRA LO QUE EL LABORATORIO RECORRE.
+       Era un 12 escrito a mano y se quedó viejo el día que entró `/fantasy/waivers`:
+       el guardián se puso rojo por un cambio deliberado, que es su trabajo, pero
+       obliga a tocar dos sitios para añadir una sección. Ahora sale de `PAGINAS`
+       menos las que están fuera del menú a propósito —`/fantasy/leagues` la
+       enlaza la barra de liga— así que añadir una ruta al recorrido ya la exige
+       en el menú, y quitarla del menú sin quitarla de aquí sigue siendo rojo. */
+    const FUERA_DEL_MENU = new Set(["/fantasy/leagues"]);
+    const esperadas = PAGINAS.filter((p) => !FUERA_DEL_MENU.has(p)).length;
+    check(`el menú lleva a las ${esperadas} secciones del recorrido`,
+      enMenu.length === esperadas, `${enMenu.length} en el menú, ${esperadas} esperadas`);
 
 /* EL MENÚ DEL TELÉFONO ES OTRO ELEMENTO, Y POR ESO SE COMPRUEBA APARTE.
    En 390 px la fila de secciones no cabe y se pinta un desplegable: los dos

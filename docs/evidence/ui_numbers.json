@@ -690,6 +690,18 @@
       "value": "33.4%",
       "source": "EXPERIMENT:E27",
       "verified_by": "límite inferior del IC corregido de ese 66,67%: no es un hallazgo débil, es ausencia de información — docs/PREREGISTRO_edge_subconjuntos.md, out/edge_subsets.json"
+    },
+    {
+      "file": "app/fantasy/waivers/WaiversShell.jsx",
+      "value": "0.388",
+      "source": "EXPERIMENT:E24",
+      "verified_by": "correlación del total implícito del rival con los puntos permitidos por una defensa (r 0,388 frente a r 0,060 de sus propios puntos del partido anterior). Es lo que sostiene el ORDEN de la tabla de defensas y lo que impide llamarla ranking: DST_STREAMING está DESIGN_ONLY"
+    },
+    {
+      "file": "app/fantasy/waivers/WaiversShell.jsx",
+      "value": "0.26",
+      "source": "EXPERIMENT:E8b",
+      "verified_by": "separación medida entre K1-K6 y K7-K12: 0,26 puntos por partido con IC95% [-0,36, +0,87], que cruza el cero. Es por qué KICKER_ORDINAL_RANKING está REJECTED y la pantalla no afirma K1 > K2"
     }
   ]
 }

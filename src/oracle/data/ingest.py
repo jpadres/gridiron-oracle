@@ -43,6 +43,28 @@ PLAYER_STATS_URL = NFLVERSE + "/stats_player/stats_player_week_{season}.parquet"
 # mientras que la URL directa pasa sin problema. Sin redirección hay menos
 # cosas que puedan fallar.
 SCHEDULE_URL = "https://raw.githubusercontent.com/nflverse/nfldata/master/data/games.csv"
+
+# DOS FUENTES DE LA TEMPORADA EN CURSO, Y NINGUNA ES HISTÓRICA.
+#
+# `snap_counts` y `depth_charts` no entran en el bucle de 1999-2026 porque no se
+# usan para entrenar nada: contestan dos preguntas del PRESENTE que el resto del
+# pipeline no sabía contestar.
+#
+#   - snap_counts: el % de jugadas ofensivas de cada jugador, por partido. Es la
+#     señal de ROL que faltaba: `player_stats` dice cuántos objetivos tuvo, no
+#     cuánto estuvo en el campo, y son cosas distintas cuando un suplente entra
+#     por una lesión a mitad de partido.
+#   - depth_charts: el ORDEN declarado por el club, con su marca de tiempo (`dt`).
+#     Es la única fuente que contesta «¿este tío TIENE el trabajo?» sin
+#     adivinarlo del volumen del año pasado. El 15 de septiembre de 2026 el
+#     board publicaba NUEVE de 32 pateadores que no eran el pateador de registro
+#     de su equipo —Zane Gonzalez por ATL cuando es Nick Folk— porque los
+#     especialistas salían de quién más pateó la temporada PASADA.
+#
+# Los dos traen `week`/`dt`, así que su frescura es comprobable y no se toma del
+# mtime del fichero, que es la hora de descarga (regla 5).
+SNAP_COUNTS_URL = NFLVERSE + "/snap_counts/snap_counts_{season}.parquet"
+DEPTH_CHARTS_URL = NFLVERSE + "/depth_charts/depth_charts_{season}.parquet"
 #: EL PARTE DE LESIONES OFICIAL, republicado por nflverse tal y como lo entregan
 #: los clubes a la liga: designación de partido y participación en el
 #: entrenamiento. Es evidencia PRIMARIA —no una agregación de prensa— y hasta el
@@ -285,6 +307,29 @@ def download_schedules(paths: Paths, force: bool = False) -> Path:
     return _download(SCHEDULE_URL, paths.raw / "games.csv", force)
 
 
+def download_current_context(
+    season: int, paths: Paths, force: bool = True
+) -> dict[str, Path | None]:
+    """Uso y orden declarado de la temporada EN CURSO.
+
+    `optional=True` en los dos: en agosto no existe ni un snap de la temporada,
+    y eso no es un fallo — es que no se ha jugado. Quien los lea tiene que saber
+    tratar el None, igual que con el resto.
+
+    `force` por defecto porque los dos se reescriben: el depth chart varias veces
+    por semana (179 instantáneas entre marzo y septiembre de 2026) y los snaps
+    después de cada jornada. Una caché los dejaría en la semana 1.
+    """
+    fuentes = {
+        "snap_counts": (SNAP_COUNTS_URL, f"snap_counts_{season}.parquet"),
+        "depth_charts": (DEPTH_CHARTS_URL, f"depth_charts_{season}.parquet"),
+    }
+    return {
+        nombre: _download(url.format(season=season), paths.raw / fichero, force, optional=True)
+        for nombre, (url, fichero) in fuentes.items()
+    }
+
+
 def refresh(
     paths: Paths,
     first_season: int = FIRST_PBP_SEASON,
@@ -307,6 +352,10 @@ def refresh(
     # para la temporada que viene: entre febrero y septiembre trae ya sus
     # partidos con líneas, mucho antes de que exista un solo play-by-play.
     download_schedules(paths, force=True)
+
+    # El uso y el orden declarado de la temporada en curso: no se usan para
+    # entrenar, se usan para saber quién tiene el trabajo HOY.
+    download_current_context(last_season, paths, force=True)
 
     games = build_games(paths, first_season, last_season)
     games.to_parquet(paths.games, index=False)

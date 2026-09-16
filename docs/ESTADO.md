@@ -9,7 +9,8 @@
 Esta base de código se escribió desde cero para reconstruir la arquitectura que
 el `README.md` describe, en un entorno donde `data/raw` estaba vacío. **Eso ya
 no es el estado.** El payload publicado (`web/data/model.b64.js`) trae un
-backtest walk-forward sobre 3.829 partidos de 2012-2025 con desglose por
+backtest walk-forward sobre 3.845 partidos de 2012-2026 (la jornada 1 de 2026 ya
+puntuada) con desglose por
 temporada: para producirlo hubo que ingerir nflverse de verdad.
 
 Qué salió, y contra qué se compara — de los tres desenlaces que esta sección
@@ -19,7 +20,7 @@ anticipaba, el que ocurrió es **el primero**:
 |---|---|---|---|
 | Brier | 0.2127 | 0.2119 | 0.2118 / 0.2113 |
 | MAE del margen | 10.04 | 9.97 | 10.00 / 9.97 |
-| Partidos | 3.829 | | 3.829 |
+| Partidos | 3.845 | | 3.845 |
 
 Dos implementaciones independientes sobre los mismos datos aterrizan en el mismo
 sitio, que es la mejor señal de que ninguna tiene una fuga. Pero la diferencia
@@ -40,7 +41,7 @@ Corregido, y con guardián: `scripts/check_headline_metrics.py`, en CI.
 | Anti-fuga temporal (pasada cronológica única) | **Verificada** (`test_features_have_no_future_information`) |
 | Walk-forward sin validación cruzada aleatoria | **Verificado** (`test_walk_forward_never_trains_on_the_future`) |
 | Brier / MAE del modelo de partidos | **Medido** sobre datos reales (arriba) |
-| `pred_margin_free` (MAE 10.28, Brier 0.2186) | **Medido** desde 2026-09-05: el backtest lo saca al payload (`validation.overall.free_brier`) y la página de survivor lo lee de ahí. Las del proyecto original eran 10.24 / 0.2187 |
+| `pred_margin_free` (MAE 10.28, Brier 0.2185) | **Medido** desde 2026-09-05: el backtest lo saca al payload (`validation.overall.free_brier`) y la página de survivor lo lee de ahí. Las del proyecto original eran 10.24 / 0.2187 |
 | Capacidades de fantasy, una por una | Ver `src/oracle/capabilities.py`: cada una lleva su experimento, su métrica y su muestra, y el test del registro no deja subir de BLOCKED sin ellos |
 | Calibración del QB = 0.812 y demás constantes | **Heredadas del documento**, no reajustadas aquí |
 

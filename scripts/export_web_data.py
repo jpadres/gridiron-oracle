@@ -41,7 +41,7 @@ from oracle.config import DEFAULT_BACKTEST_START
 from oracle.config import paths as resolve_paths
 from oracle.data import identity
 from oracle.data.ingest import normalize_team
-from oracle.fantasy import injuries
+from oracle.fantasy import dst, injuries, jobs
 from oracle.fantasy.components import COMPONENTS
 from oracle.fantasy.draft import (
     PROJECTED_GAMES,
@@ -142,6 +142,10 @@ KICKER_COLUMNS = (
 DST_COLUMNS = (
     "team", "opponent", "is_home", "opponent_implied",
     "points_allowed_recent", "sacks_recent", "takeaways_recent", "recent_games",
+    # El contexto del rival lo escribe `_attach_dst_context` DESPUÉS del recorte,
+    # así que no necesita estar aquí — pero `opponent_implied` sí, y es lo que
+    # ordena la tabla. Si alguien lo quita, la pantalla se queda sin el único
+    # criterio medido de este bloque.
 )
 
 
@@ -336,6 +340,12 @@ def main(argv: list[str] | None = None) -> int:
     _attach_injuries(payload, paths)
     # Y la situación de plantilla en el RANKING SEMANAL, que no la tenía.
     _attach_roster_al_semanal(payload, paths, season)
+    # El puesto del pateador y el contexto del rival de cada defensa: los dos
+    # DESPUÉS del recorte de columnas, los dos con su propio prefijo y ninguno
+    # tocando un número.
+    _attach_jobs(payload, paths)
+    _attach_dst_context(payload, paths)
+    _attach_weekly_research(payload, Path(args.root or "."))
     # Y cuando las DOS capas se contradicen, quién vio después. Va aquí porque
     # necesita las dos ya colgadas: la de prensa (`_attach_status`) y la de
     # plantilla (`fantasy_build`). Ver `roster_status.reconcile`.
@@ -518,6 +528,119 @@ def _attach_injuries(payload: dict, paths) -> None:
     print(f"  parte de lesiones: {len(entradas)} filas de la jornada "
           f"{int(jornada)}, {designados} con designación; "
           f"{marcadas} filas del semanal marcadas.")
+
+
+def _attach_weekly_research(payload: dict, root: Path) -> None:
+    """Los RELOJES y los desconocidos del barrido del día, en el payload.
+
+        «UPDATED TODAY» NO ES UN RELOJ: ES UNA PROMESA SIN FECHA.
+
+    La pantalla no puede decir «actualizado hoy» y quedarse tan ancha — este
+    proyecto ya se atribuyó 6,5 horas de frescura que no tenía prestándole a las
+    cuotas la hora del BUILD. Aquí viaja, por sección, lo que se sabe y cuándo:
+    el parte de lesiones con su estado real (`NOT_PUBLISHED_YET` incluido), la
+    instantánea del depth chart, y la lista de huecos declarados.
+
+    Se lee el artefacto MÁS RECIENTE de la jornada en curso y no se recalcula
+    nada: el barrido es la autoridad de lo que barrió, y recalcularlo aquí serían
+    dos traductores del mismo hecho.
+    """
+    weekly = payload.get("fantasy_weekly") or {}
+    temporada, jornada = weekly.get("season"), weekly.get("week")
+    if temporada is None or jornada is None:
+        return
+    carpeta = root / "research" / "weekly" / f"{int(temporada)}-W{int(jornada):02d}"
+    artefactos = sorted(carpeta.glob("*.json")) if carpeta.exists() else []
+    if not artefactos:
+        # Sin barrido no se inventa un reloj: la pantalla escribirá UNKNOWN, que
+        # es la respuesta correcta y no un hueco.
+        print("  (aviso) sin barrido de la jornada: los relojes saldrán UNKNOWN.")
+        return
+    ultimo = json.loads(artefactos[-1].read_text())
+    payload["weekly_research"] = {
+        "as_of_file": artefactos[-1].name,
+        "generated_at": ultimo.get("generated_at"),
+        "season": ultimo.get("season"),
+        "week": ultimo.get("week"),
+        "schedule": ultimo.get("schedule"),
+        "clocks": ultimo.get("clocks"),
+        # El parte viaja SIN las filas: la designación por jugador ya está en cada
+        # fila del semanal vía `injury_`. Aquí sólo el ESTADO, que es lo que la
+        # pantalla necesita para no afirmar lo que no hay.
+        "injury_report": {
+            k: v for k, v in (ultimo.get("injury_report") or {}).items() if k != "rows"
+        },
+        "jobs": {
+            "status": (ultimo.get("jobs") or {}).get("status"),
+            "effective_at": (ultimo.get("jobs") or {}).get("effective_at"),
+            "teams": (ultimo.get("jobs") or {}).get("teams"),
+        },
+        "usage": {
+            k: v for k, v in (ultimo.get("usage") or {}).items() if k != "changes"
+        },
+        "sources": ultimo.get("sources"),
+        "unknowns": ultimo.get("unknowns"),
+        "diff": ultimo.get("diff"),
+        "snapshots": [a.name for a in artefactos],
+    }
+    print(f"  barrido de la jornada: {artefactos[-1].name} · parte "
+          f"{payload['weekly_research']['injury_report'].get('status')} · "
+          f"{len(payload['weekly_research'].get('unknowns') or [])} desconocidos · "
+          f"{len(artefactos)} instantánea(s)")
+
+
+def _attach_jobs(payload: dict, paths) -> None:
+    """¿Tiene este pateador el puesto? Marca con prefijo `job_`, sin tocar números.
+
+    Va DESPUÉS del recorte de columnas, igual que `injury_` y `status_`.
+
+    Hacía falta porque los especialistas del board salen de quién más pateó la
+    temporada PASADA: medido el 15 de septiembre de 2026, NUEVE de los 32
+    pateadores publicados no eran el pateador de registro de su equipo. La capa
+    de plantilla marcaba a varios, pero marcar «éste no está» no es saber quién
+    SÍ está, y la fila seguía publicándose bajo el equipo equivocado.
+    """
+    weekly = payload.get("fantasy_weekly") or {}
+    temporada = weekly.get("season")
+    if not weekly or temporada is None:
+        return
+    ruta = paths.raw / f"depth_charts_{int(temporada)}.parquet"
+    if not ruta.exists():
+        print("  (aviso) sin depth chart: el puesto del pateador queda UNKNOWN, "
+              "que es lo que hay — no se afirma que lo tenga.")
+        return
+    try:
+        registro = jobs.jobs_of_record(pd.read_parquet(ruta), "PK")
+    except jobs.DepthChartUnavailable as exc:
+        print(f"  (aviso) depth chart ilegible: {exc}")
+        return
+    pateadores = weekly.get("kickers") or []
+    jobs.attach(pateadores, registro)
+    con_puesto = sum(1 for k in pateadores if k.get("job_status") == jobs.HAS_JOB)
+    sin_puesto = sum(1 for k in pateadores if k.get("job_status") == jobs.NOT_THE_JOB)
+    disputados = sum(1 for k in pateadores if k.get("job_contested"))
+    instante = next(iter(registro.values())).effective_at if registro else None
+    print(f"  puesto de pateador: {con_puesto} con el puesto, {sin_puesto} NO son el "
+          f"pateador de su equipo, {disputados} disputado(s) · instantánea {instante}")
+
+
+def _attach_dst_context(payload: dict, paths) -> None:
+    """A qué quarterback se enfrenta cada defensa, y en qué estado lo da el club.
+
+    Contexto, no ranking: la autoridad del bloque no cambia por esto. La
+    derivación vive en `fantasy/dst.py` y la comparte con el barrido diario.
+    """
+    weekly = payload.get("fantasy_weekly") or {}
+    temporada, jornada = weekly.get("season"), weekly.get("week")
+    if not weekly or temporada is None or jornada is None:
+        return
+    filas_parte = dst.load_injury_rows(
+        paths.raw / f"injuries_{int(temporada)}.parquet", int(temporada), int(jornada)
+    )
+    con_qb = dst.attach(weekly.get("defenses") or [], weekly.get("rankings") or [], filas_parte)
+    total = len(weekly.get("defenses") or [])
+    print(f"  contexto DST: {con_qb} de {total} defensas con quarterback rival "
+          f"identificado; designaciones oficiales disponibles: {len(filas_parte)}")
 
 
 def _attach_status(payload: dict, paths) -> None:

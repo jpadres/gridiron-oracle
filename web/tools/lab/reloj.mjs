@@ -21,7 +21,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
 import { startServer } from "./server.mjs";
-import { hasStarted } from "../../app/gameClock.js";
+import { hasStarted, kickoffMs } from "../../app/gameClock.js";
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
 const WEB = path.resolve(AQUI, "..", "..");
@@ -58,10 +58,35 @@ const browser = await launch();
 try {
   // Los tres momentos, en hora del Este: antes del primer saque, entre el de la
   // una y el de las 16:25, y después del último.
+  /* LOS TRES MOMENTOS SALEN DEL PAYLOAD, NO DEL CALENDARIO DE QUIEN ESCRIBIÓ ESTO.
+     Estaban clavados al 13 de septiembre de 2026 —el domingo de la jornada 1— y
+     se quedaron viejos en cuanto el payload pasó a la jornada 2: los tres
+     instantes caían ANTES del primer saque, así que los tres cerraban cero
+     mercados, la propiedad de «respuestas crecientes» fallaba y el laboratorio
+     acusaba al producto de no leer el reloj cuando lo leía perfectamente.
+
+     Ahora se derivan de los saques que el propio payload publica: una hora antes
+     del primero, entre el primero y el último, y una hora después del último. Es
+     la misma corrección que ya se le hizo a `apuestas.mjs`, por la misma razón:
+     un laboratorio con la fecha escrita a mano caduca solo. */
+  /* El saque se lee con `kickoffMs`, no con `Date.parse` a mano: fuera de
+     `gameClock.js` nadie parsea un campo de saque, y el guardián de esa regla
+     —escrito el 13 de septiembre— cazó esta misma línea al escribirla. Segunda
+     copia evitada en el fichero que existe para probar el reloj. */
+  const saques = PREDICTIONS
+    .map((g) => kickoffMs(g))
+    .filter((ms) => Number.isFinite(ms))
+    .sort((a, b) => a - b);
+  if (saques.length < 2) throw new Error("el payload no trae saques con los que fijar el reloj");
+  const primero = saques[0];
+  const ultimo = saques[saques.length - 1];
+  // El de en medio: el primer saque ESTRICTAMENTE posterior al primero, para que
+  // el momento intermedio cierre unos partidos y no todos.
+  const intermedio = saques.find((ms) => ms > primero) ?? ultimo;
   const MOMENTOS = [
-    ["antes de la una", Date.parse("2026-09-13T16:00:00Z")],
-    ["tras la una", Date.parse("2026-09-13T18:00:00Z")],
-    ["tras el lunes por la noche", Date.parse("2026-09-15T06:00:00Z")],
+    ["antes del primer saque", primero - 3600e3],
+    ["tras el primer saque", intermedio - 60e3],
+    ["tras el último", ultimo + 3600e3],
   ];
   const vistos = [];
   for (const [nombre, ms] of MOMENTOS) {

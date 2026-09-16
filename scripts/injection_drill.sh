@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 92 fallos conocidos, 92 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 99 fallos conocidos, 99 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -364,3 +364,24 @@ run "91 el no favorito de E27, con el signo al revés" scripts/edge_subsets_expe
 run "92 una cifra de E27 que el preregistro no sostiene" web/app/betting/BettingShell.jsx \
   "big lines went 45.44%|||big lines went 41.00%" \
   "cd web && node --test tests/validation.test.mjs"
+run "93 el pateador de una instantánea VIEJA del depth chart" src/oracle/fantasy/jobs.py \
+  "    instante = str(depth_charts[\"dt\"].max())|||    instante = str(depth_charts[\"dt\"].min())" \
+  "python -m pytest -q tests/test_jobs.py"
+run "94 el puesto del pateador comparado con el equipo en CRUDO" src/oracle/fantasy/jobs.py \
+  "    filas[\"team\"] = filas[\"team\"].map(normalize_team)|||    filas[\"team\"] = filas[\"team\"]" \
+  "python -m pytest -q tests/test_jobs.py"
+run "95 la capa de puesto tocando un número del board" src/oracle/fantasy/jobs.py \
+  "        row[\"job_holder\"] = registro.player_name|||        row[\"job_holder\"] = registro.player_name\n        row[\"projected_points\"] = 0.0" \
+  "python -m pytest -q tests/test_jobs.py"
+run "96 un titular OUT llenando su hueco en waivers" web/app/fantasy/waivers.js \
+  "  const disponibles = (roster ?? []).filter((x) => !estaFuera(x));|||  const disponibles = (roster ?? []);" \
+  "cd web && node --test tests/waivers.test.mjs"
+run "97 un DOUBTFUL descartado por el motor de waivers" web/app/fantasy/waivers.js \
+  "  if (String(row?.injury_designation ?? \"\") === \"OUT\") return true;|||  if ([\"OUT\", \"DOUBTFUL\"].includes(String(row?.injury_designation ?? \"\"))) return true;" \
+  "cd web && node --test tests/waivers.test.mjs"
+run "98 una puja de FAAB inventada sin presupuesto declarado" web/app/fantasy/waivers.js \
+  "    return { status: \"NO_BUDGET_DECLARED\",|||    return { status: \"HEURISTIC_RANGE\", basis: \"CONVENTION\", pct: [17, 17], of: 100," \
+  "cd web && node --test tests/waivers.test.mjs"
+run "99 español llegando a la pantalla por un módulo .js" web/app/fantasy/waivers.js \
+  'label: "spend nothing: does not improve your lineup"|||label: "no gastar: no mejora tu alineación"' \
+  "cd web && node tools/audit-spanish.mjs"
