@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T00:20:45Z",
+  "generated_at": "2026-09-16T15:24:24Z",
   "season": 2026,
   "week": 2,
   "schedule": {
@@ -16,21 +16,121 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-09-16T00:20:45Z",
-    "injuries_as_of": "NOT_PUBLISHED_YET",
-    "roster_as_of": "2026-09-15T12:40:49Z",
-    "schedule_as_of": "2026-09-15T23:58:47Z"
+    "research_as_of": "2026-09-16T15:24:24Z",
+    "injuries_as_of": "week 2",
+    "roster_as_of": "2026-09-16T12:35:57Z",
+    "schedule_as_of": "2026-09-16T14:45:13Z"
   },
   "injury_report": {
-    "status": "NOT_PUBLISHED_YET",
+    "status": "PUBLISHED",
     "week": 2,
-    "rows": [],
-    "last_published_week": 1,
-    "note": "clubs file the week's report from Wednesday on; the previous week's designation is NOT carried forward as if it were this week's"
+    "rows": [
+      {
+        "team": "BUF",
+        "gsis_id": "00-0034832",
+        "full_name": "Bradley Chubb",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "BUF",
+        "gsis_id": "00-0035537",
+        "full_name": "Ty Johnson",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "BUF",
+        "gsis_id": "00-0037254",
+        "full_name": "Terrel Bernard",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "BUF",
+        "gsis_id": "00-0039872",
+        "full_name": "Cole Bishop",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "BUF",
+        "gsis_id": "00-0040192",
+        "full_name": "Jordan Hancock",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "BUF",
+        "gsis_id": "00-0040724",
+        "full_name": "T.J. Sanders",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "DET",
+        "gsis_id": "00-0034384",
+        "full_name": "D.J. Reed",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "DET",
+        "gsis_id": "00-0038820",
+        "full_name": "Christian Izien",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "DET",
+        "gsis_id": "00-0038936",
+        "full_name": "Juice Scruggs",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "DET",
+        "gsis_id": "00-0039408",
+        "full_name": "Christian Mahogany",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "DET",
+        "gsis_id": "00-0041439",
+        "full_name": "Blake Miller",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      }
+    ],
+    "teams": 2,
+    "with_designation": 0
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-09-15T12:39:14Z",
+    "effective_at": "2026-09-16T12:34:22Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -15158,439 +15258,22 @@
   },
   "dst_context": {
     "ordering": "OPPONENT_IMPLIED_TOTAL_ASC",
-    "rows": [
-      {
-        "team": "PHI",
-        "opponent": "TEN",
-        "is_home": 0,
-        "opponent_implied": 15.476,
-        "opposing_qb": "C.Ward",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 16.5,
-        "sacks_recent": 2.167,
-        "takeaways_recent": 1.167,
-        "recent_games": 6
-      },
-      {
-        "team": "SF",
-        "opponent": "MIA",
-        "is_home": 1,
-        "opponent_implied": 16.346,
-        "opposing_qb": "Q.Ewers",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 24.167,
-        "sacks_recent": 1.167,
-        "takeaways_recent": 0.5,
-        "recent_games": 6
-      },
-      {
-        "team": "TB",
-        "opponent": "CLE",
-        "is_home": 1,
-        "opponent_implied": 16.468,
-        "opposing_qb": "S.Sanders",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 23.833,
-        "sacks_recent": 1.5,
-        "takeaways_recent": 1.0,
-        "recent_games": 6
-      },
-      {
-        "team": "NE",
-        "opponent": "PIT",
-        "is_home": 1,
-        "opponent_implied": 18.037,
-        "opposing_qb": "A.Rodgers",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 13.0,
-        "sacks_recent": 3.167,
-        "takeaways_recent": 1.667,
-        "recent_games": 6
-      },
-      {
-        "team": "SEA",
-        "opponent": "ARI",
-        "is_home": 0,
-        "opponent_implied": 18.078,
-        "opposing_qb": "J.Brissett",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 11.5,
-        "sacks_recent": 2.833,
-        "takeaways_recent": 2.0,
-        "recent_games": 6
-      },
-      {
-        "team": "LAC",
-        "opponent": "LV",
-        "is_home": 1,
-        "opponent_implied": 18.618,
-        "opposing_qb": "K.Cousins",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 18.5,
-        "sacks_recent": 2.667,
-        "takeaways_recent": 1.167,
-        "recent_games": 6
-      },
-      {
-        "team": "BAL",
-        "opponent": "NO",
-        "is_home": 1,
-        "opponent_implied": 19.067,
-        "opposing_qb": "T.Shough",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 21.333,
-        "sacks_recent": 2.167,
-        "takeaways_recent": 1.333,
-        "recent_games": 6
-      },
-      {
-        "team": "GB",
-        "opponent": "NYJ",
-        "is_home": 0,
-        "opponent_implied": 19.607,
-        "opposing_qb": "B.Cook",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 30.5,
-        "sacks_recent": 1.167,
-        "takeaways_recent": 0.833,
-        "recent_games": 6
-      },
-      {
-        "team": "KC",
-        "opponent": "IND",
-        "is_home": 1,
-        "opponent_implied": 19.982,
-        "opposing_qb": "P.Rivers",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 17.667,
-        "sacks_recent": 2.833,
-        "takeaways_recent": 0.833,
-        "recent_games": 6
-      },
-      {
-        "team": "LAR",
-        "opponent": "NYG",
-        "is_home": 1,
-        "opponent_implied": 20.645,
-        "opposing_qb": "J.Dart",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 25.5,
-        "sacks_recent": 1.833,
-        "takeaways_recent": 1.167,
-        "recent_games": 6
-      },
-      {
-        "team": "CAR",
-        "opponent": "ATL",
-        "is_home": 0,
-        "opponent_implied": 20.994,
-        "opposing_qb": "C.Rush",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 29.333,
-        "sacks_recent": 2.5,
-        "takeaways_recent": 1.0,
-        "recent_games": 6
-      },
-      {
-        "team": "CHI",
-        "opponent": "MIN",
-        "is_home": 1,
-        "opponent_implied": 21.965,
-        "opposing_qb": "J.McCarthy",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 26.833,
-        "sacks_recent": 2.167,
-        "takeaways_recent": 0.833,
-        "recent_games": 6
-      },
-      {
-        "team": "DEN",
-        "opponent": "JAX",
-        "is_home": 1,
-        "opponent_implied": 22.134,
-        "opposing_qb": "T.Lawrence",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 20.167,
-        "sacks_recent": 3.333,
-        "takeaways_recent": 1.333,
-        "recent_games": 6
-      },
-      {
-        "team": "HOU",
-        "opponent": "CIN",
-        "is_home": 1,
-        "opponent_implied": 22.344,
-        "opposing_qb": "J.Burrow",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 22.833,
-        "sacks_recent": 3.333,
-        "takeaways_recent": 1.667,
-        "recent_games": 6
-      },
-      {
-        "team": "ARI",
-        "opponent": "SEA",
-        "is_home": 1,
-        "opponent_implied": 22.422,
-        "opposing_qb": "S.Darnold",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 33.167,
-        "sacks_recent": 1.5,
-        "takeaways_recent": 0.667,
-        "recent_games": 6
-      },
-      {
-        "team": "ATL",
-        "opponent": "CAR",
-        "is_home": 1,
-        "opponent_implied": 22.506,
-        "opposing_qb": "B.Young",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 24.167,
-        "sacks_recent": 3.0,
-        "takeaways_recent": 1.5,
-        "recent_games": 6
-      },
-      {
-        "team": "DAL",
-        "opponent": "WAS",
-        "is_home": 1,
-        "opponent_implied": 23.305,
-        "opposing_qb": "J.Johnson",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 32.833,
-        "sacks_recent": 1.5,
-        "takeaways_recent": 0.5,
-        "recent_games": 6
-      },
-      {
-        "team": "JAX",
-        "opponent": "DEN",
-        "is_home": 0,
-        "opponent_implied": 23.366,
-        "opposing_qb": "B.Nix",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 16.833,
-        "sacks_recent": 2.167,
-        "takeaways_recent": 1.667,
-        "recent_games": 6
-      },
-      {
-        "team": "PIT",
-        "opponent": "NE",
-        "is_home": 0,
-        "opponent_implied": 23.463,
-        "opposing_qb": "D.Maye",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 19.833,
-        "sacks_recent": 3.167,
-        "takeaways_recent": 1.5,
-        "recent_games": 6
-      },
-      {
-        "team": "TEN",
-        "opponent": "PHI",
-        "is_home": 1,
-        "opponent_implied": 24.024,
-        "opposing_qb": "J.Hurts",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 28.833,
-        "sacks_recent": 2.0,
-        "takeaways_recent": 0.667,
-        "recent_games": 6
-      },
-      {
-        "team": "CIN",
-        "opponent": "HOU",
-        "is_home": 0,
-        "opponent_implied": 24.156,
-        "opposing_qb": "C.Stroud",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 24.167,
-        "sacks_recent": 3.5,
-        "takeaways_recent": 1.667,
-        "recent_games": 6
-      },
-      {
-        "team": "BUF",
-        "opponent": "DET",
-        "is_home": 1,
-        "opponent_implied": 24.603,
-        "opposing_qb": "J.Goff",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 21.5,
-        "sacks_recent": 1.5,
-        "takeaways_recent": 1.167,
-        "recent_games": 6
-      },
-      {
-        "team": "LV",
-        "opponent": "LAC",
-        "is_home": 0,
-        "opponent_implied": 24.882,
-        "opposing_qb": "J.Herbert",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 22.833,
-        "sacks_recent": 3.167,
-        "takeaways_recent": 0.667,
-        "recent_games": 6
-      },
-      {
-        "team": "NYJ",
-        "opponent": "GB",
-        "is_home": 1,
-        "opponent_implied": 24.893,
-        "opposing_qb": "J.Love",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 33.0,
-        "sacks_recent": 1.333,
-        "takeaways_recent": 0.333,
-        "recent_games": 6
-      },
-      {
-        "team": "CLE",
-        "opponent": "TB",
-        "is_home": 0,
-        "opponent_implied": 25.032,
-        "opposing_qb": "B.Mayfield",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 23.833,
-        "sacks_recent": 1.833,
-        "takeaways_recent": 0.5,
-        "recent_games": 6
-      },
-      {
-        "team": "IND",
-        "opponent": "KC",
-        "is_home": 0,
-        "opponent_implied": 26.518,
-        "opposing_qb": "P.Mahomes",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 34.0,
-        "sacks_recent": 1.0,
-        "takeaways_recent": 0.833,
-        "recent_games": 6
-      },
-      {
-        "team": "MIN",
-        "opponent": "CHI",
-        "is_home": 0,
-        "opponent_implied": 26.535,
-        "opposing_qb": "C.Williams",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 12.333,
-        "sacks_recent": 3.667,
-        "takeaways_recent": 2.0,
-        "recent_games": 6
-      },
-      {
-        "team": "WAS",
-        "opponent": "DAL",
-        "is_home": 0,
-        "opponent_implied": 27.195,
-        "opposing_qb": "D.Prescott",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 25.333,
-        "sacks_recent": 3.167,
-        "takeaways_recent": 0.333,
-        "recent_games": 6
-      },
-      {
-        "team": "NYG",
-        "opponent": "LAR",
-        "is_home": 0,
-        "opponent_implied": 27.855,
-        "opposing_qb": "M.Stafford",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 20.833,
-        "sacks_recent": 2.167,
-        "takeaways_recent": 1.5,
-        "recent_games": 6
-      },
-      {
-        "team": "NO",
-        "opponent": "BAL",
-        "is_home": 0,
-        "opponent_implied": 28.433,
-        "opposing_qb": "L.Jackson",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 19.833,
-        "sacks_recent": 3.0,
-        "takeaways_recent": 1.167,
-        "recent_games": 6
-      },
-      {
-        "team": "DET",
-        "opponent": "BUF",
-        "is_home": 0,
-        "opponent_implied": 28.897,
-        "opposing_qb": "J.Allen",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 28.167,
-        "sacks_recent": 3.667,
-        "takeaways_recent": 1.5,
-        "recent_games": 6
-      },
-      {
-        "team": "MIA",
-        "opponent": "SF",
-        "is_home": 0,
-        "opponent_implied": 29.154,
-        "opposing_qb": "B.Purdy",
-        "opposing_qb_basis": "MODEL_PROJECTED_STARTER",
-        "opposing_qb_designation": null,
-        "points_allowed_recent": 27.5,
-        "sacks_recent": 2.333,
-        "takeaways_recent": 1.333,
-        "recent_games": 6
-      }
-    ]
+    "rows": []
   },
   "sources": [
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-09-15T12:38:18Z",
+      "retrieved_at": "2026-09-16T12:34:58Z",
       "status": "OK",
-      "rows": 182
+      "rows": 193
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-09-15T12:39:19Z",
+      "retrieved_at": "2026-09-16T12:34:27Z",
       "status": "OK",
-      "rows": 520792
+      "rows": 522982
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -15609,7 +15292,6 @@
     }
   ],
   "unknowns": [
-    "official injury report for week 2: NOT_PUBLISHED_YET",
     "route participation: nflverse does not publish per-player routes in this dataset, so role is measured by snap share and targets, not routes",
     "press, unofficial depth charts and transactions: SOURCE UNAVAILABLE from this environment"
   ],
