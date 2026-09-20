@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-09-20T18:16:47Z",
+  "generated_at": "2026-09-20T21:52:13Z",
   "season": 2026,
   "week": 2,
   "schedule": {
     "games": 16,
     "from": "2026-09-17",
     "to": "2026-09-21",
-    "played": 1,
+    "played": 8,
     "kickoffs": [
       "13:00",
       "16:05",
@@ -16,10 +16,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-09-20T18:16:47Z",
+    "research_as_of": "2026-09-20T21:52:13Z",
     "injuries_as_of": "week 2",
     "roster_as_of": "2026-09-20T12:19:21Z",
-    "schedule_as_of": "2026-09-20T17:15:13Z"
+    "schedule_as_of": "2026-09-20T20:45:14Z"
   },
   "injury_report": {
     "status": "PUBLISHED",
