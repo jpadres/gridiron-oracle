@@ -51,10 +51,25 @@ jobs:
           args=""
           if [ -n "${{ inputs.beats }}" ]; then args="--beats ${{ inputs.beats }}"; fi
           if [ -n "${{ inputs.effort }}" ]; then args="$args --effort ${{ inputs.effort }}"; fi
-          # --require-key: aquí barrer es la ÚNICA tarea del trabajo. Sin clave
-          # salía verde, no barría nada y encima commiteaba «barrido del
-          # <fecha>» — el 30 y el 31 de agosto de 2026 pasó exactamente eso.
-          python scripts/research_build.py --require-key $args
+          # SIN --require-key AQUÍ, Y ROJO AL FINAL DEL TRABAJO.
+          #
+          # El fallo por falta de clave se movió al ÚLTIMO paso, y no es un
+          # detalle de orden: `research_build.py` BARRE con lo que no necesita
+          # clave (`method: DETERMINISTIC_FEEDS`) y DESPUÉS devolvía 1, así que
+          # el `--require-key` de aquí tumbaba el trabajo antes de publicar y
+          # las fichas deterministas se escribían en el runner y se tiraban.
+          #
+          # Medido el 23 de septiembre de 2026: el archivo llevaba congelado
+          # desde el 13 —DIEZ días— con 2.112 entradas de feeds frescas en el
+          # repositorio y la sección de Research VACÍA en la web, que es el
+          # «dato computado que no llega a la pantalla» otra vez. El arreglo de
+          # la rama sin clave estaba escrito y este paso impedía que corriera.
+          #
+          # Las dos propiedades se conservan y no se estorban: se publica lo que
+          # sí se pudo barrer, y el trabajo acaba en ROJO para que la clave que
+          # falta se vea. Lo que no puede volver a pasar es salir VERDE sin
+          # clave, que es lo que pasó el 30 y el 31 de agosto de 2026.
+          python scripts/research_build.py $args
 
       # El payload de la web se regenera SIN reentrenar el modelo: el barrido no
       # toca los números, sólo añade la sección de prensa. Reentrenar aquí a
@@ -92,3 +107,29 @@ jobs:
             git commit -m "research: reconsolidar el archivo ($hoy, sin fichas nuevas)"
           fi
           git push
+
+      # EL ROJO VA AQUÍ, DESPUÉS DE PUBLICAR.
+      #
+      # Sin clave el barrido es determinista: trae el hecho de los feeds y no el
+      # juicio (`kind`, `impact`, `confidence`, `fantasy_relevance` no se
+      # escriben). Eso es MENOS de lo que este trabajo existe para hacer, así
+      # que el trabajo no puede decir que salió bien — pero lo que sí barrió ya
+      # está publicado dos pasos más arriba.
+      - name: Exigir la clave (después de haber publicado lo que sí se pudo)
+        # El contexto `secrets` NO está disponible en un `if:` de paso, así que
+        # la comprobación se hace en el shell con la variable de entorno. El
+        # VALOR nunca se imprime —sólo si está vacía—, que es la misma regla que
+        # sigue el resto del repositorio con esta clave.
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "$ANTHROPIC_API_KEY" ]; then
+            echo "Clave presente: el barrido de arriba fue el completo."
+            exit 0
+          fi
+          echo "MISSING_SECRET: ANTHROPIC_API_KEY" >&2
+          echo "El barrido corrió en modo DETERMINISTIC_FEEDS y lo que pudo leer está" >&2
+          echo "publicado, pero sin clave no hay clasificación: las fichas salen sin" >&2
+          echo "kind, impact, confidence ni fantasy_relevance, y «Today's Intelligence»" >&2
+          echo "—que filtra por relevancia >= 4— se queda vacío." >&2
+          exit 1
