@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 99 fallos conocidos, 99 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 102 fallos conocidos, 102 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -385,3 +385,12 @@ run "98 una puja de FAAB inventada sin presupuesto declarado" web/app/fantasy/wa
 run "99 español llegando a la pantalla por un módulo .js" web/app/fantasy/waivers.js \
   'label: "spend nothing: does not improve your lineup"|||label: "no gastar: no mejora tu alineación"' \
   "cd web && node tools/audit-spanish.mjs"
+run "100 un parte a medias publicado como el parte de la jornada" scripts/weekly_research.py \
+  '        "status": "PARTIALLY_FILED" if pendientes else "PUBLISHED",|||        "status": "PUBLISHED",' \
+  "python -m pytest -q tests/test_injury_coverage.py"
+run "101 el aviso de cobertura del parte, retirado de /fantasy/lineups" web/app/fantasy/lineups/page.jsx \
+  '      {avisoParte ? (|||      {false ? (' \
+  "cd web && node --test tests/injuryReport.test.mjs"
+run "102 la ausencia de designación leída como salud" web/app/fantasy/injuryReport.js \
+  '  if (c.partial) {|||  if (false) {' \
+  "cd web && node --test tests/injuryReport.test.mjs"

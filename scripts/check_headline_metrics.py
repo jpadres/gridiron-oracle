@@ -59,8 +59,8 @@ COMPROBACIONES = [
     (
         "README.md",
         "bloque de Estado de la cabecera",
-        r"mercado \(([\d.]+)\) del proyecto original, con Brier \*\*([\d.]+)\*\* frente al ([\d.]+) del\s+>?\s*mercado y MAE \*\*([\d.]+)\*\*",
-        [("market_margin_mae", 2), ("brier", 4), ("market_brier", 4), ("margin_mae", 2)],
+        r"hoy son \*\*[\d.]+\*\*\s*>?\s*partidos con Brier \*\*([\d.]+)\*\*\s+>?\s*frente al ([\d.]+) del mercado y MAE \*\*([\d.]+)\*\* frente a \*\*([\d.]+)\*\*",
+        [("brier", 4), ("market_brier", 4), ("margin_mae", 2), ("market_margin_mae", 2)],
     ),
     (
         "README.md",
@@ -98,6 +98,21 @@ COMPROBACIONES = [
     ),
 ]
 
+#: EL RECUENTO DE LA MUESTRA TAMBIÉN ES UNA CIFRA DE PORTADA, Y ADEMÁS SE MUEVE.
+#:
+#: Las cuatro métricas cambian en el tercer decimal; el número de partidos sube
+#: CADA JORNADA según se juega la temporada en curso y entra en la ventana
+#: evaluable. O sea que es la cifra escrita a mano con más probabilidad de
+#: quedarse vieja, y la que nadie vuelve a mirar: el 23 de septiembre de 2026
+#: los documentos decían 3.845 y el payload medía 3.861.
+#:
+#: Va con separador de millar español (`3.861`), así que se compara quitándolo.
+RECUENTOS = [
+    ("README.md", "recuento del bloque de Estado", r"hoy son \*\*([\d.]+)\*\*\s*>?\s*partidos"),
+    ("README.md", "recuento del resultado honesto", r"En ([\d.]+) partidos fuera de"),
+    ("CLAUDE.md", "recuento de las cifras de portada", r"en ([\d.]+) partidos fuera de"),
+]
+
 
 def main() -> int:
     overall = payload().get("validation", {}).get("overall")
@@ -120,6 +135,22 @@ def main() -> int:
                 fallos.append(
                     f"{fichero} ({que}): dice {clave} = {escrito}, el payload mide {real:.{decimales}f}"
                 )
+
+    juegos = overall.get("games")
+    for fichero, que, patron in RECUENTOS:
+        texto = (RAIZ / fichero).read_text(encoding="utf-8")
+        m = re.search(patron, texto)
+        if not m:
+            fallos.append(f"{fichero}: no encuentro el {que}. Si has reescrito la frase, actualiza el patrón.")
+            continue
+        if juegos is None:
+            fallos.append("el payload no trae validation.overall.games: no hay contra qué comprobar el recuento")
+            break
+        escrito = int(m.group(1).replace(".", ""))
+        if escrito != int(juegos):
+            fallos.append(
+                f"{fichero} ({que}): dice {escrito} partidos, el payload mide {int(juegos)}"
+            )
 
     if fallos:
         print("Las cifras de portada no son las del payload:\n")

@@ -2,9 +2,10 @@
 
 > **Estado.** Esta base de código es una reconstrucción desde cero de la
 > arquitectura descrita aquí, y **ya se ha ejecutado contra los datos reales de
-> nflverse**. El backtest reproduce el recuento de partidos (3.829) y el MAE del
-> mercado (9.98) del proyecto original, con Brier **0.2127** frente al 0.2119 del
-> mercado y MAE **10.04**. Las diferencias en el tercer decimal son de
+> nflverse**. El backtest reprodujo en su día el recuento de partidos y el MAE
+> del mercado del proyecto original (3.829 y 9.98); la muestra CRECE cada
+> jornada según se juega 2026, y hoy son **3.861** partidos con Brier **0.2127**
+> frente al 0.2119 del mercado y MAE **10.05** frente a **9.99**. Las diferencias en el tercer decimal son de
 > implementación, no de método: dos implementaciones independientes sobre los
 > mismos datos aterrizan en el mismo sitio, que es la mejor señal de que ninguna
 > tiene una fuga. Las tablas de abajo publican ya las cifras MEDIDAS AQUÍ, con
@@ -25,9 +26,9 @@ gratuitos de GitHub y Vercel — coste total del proyecto: 0.
 
 ## Resultado honesto en una línea
 
-**El modelo iguala a la línea de cierre del mercado.** En 3.845 partidos fuera de
-muestra (2012-2025) obtiene un Brier de **0.2127** frente al **0.2119** de las
-casas de apuestas, y un MAE de margen de **10.04** frente a **9.98**.
+**El modelo iguala a la línea de cierre del mercado.** En 3.861 partidos fuera de
+muestra obtiene un Brier de **0.2127** frente al **0.2119** de las
+casas de apuestas, y un MAE de margen de **10.05** frente a **9.99**.
 
 Esas cifras son las que produce ESTE código y las que publica la web: salen de
 `validation.overall` del payload, no de una tabla escrita a mano. Las del
@@ -48,7 +49,7 @@ Lo que sí aporta este modelo:
 | Brier (prob. de victoria) | 0.2127 | 0.2119 | 0.2118 / 0.2113 |
 | Log-loss | 0.6135 | — | 0.6113 |
 | Error de calibración (ECE) | **0.0162** | — | 0.0172 |
-| MAE del margen | 10.04 | 9.98 | 10.00 / 9.98 |
+| MAE del margen | 10.05 | 9.99 | 10.00 / 9.98 |
 | MAE del total | *no hay modelo* | 10.51 | 10.53 / 10.51 |
 | Acierto directo (ganador) | **66.4%** | — | 66.5% |
 
@@ -60,8 +61,8 @@ a sí misma. Publicar un «10.53 del modelo» era anunciar una capacidad que ya 
 existe.
 
 Y sin usar la línea en absoluto (`pred_margin_free`, sólo señal deportiva):
-Brier **0.2185** frente a **0.2127**, MAE **10.28** frente a **10.04** — un
-modelo autónomo a 0,30 puntos de la línea de Las Vegas con datos gratuitos.
+Brier **0.2186** frente a **0.2127**, MAE **10.29** frente a **10.05** — un
+modelo autónomo a 0,31 puntos de la línea de Las Vegas con datos gratuitos.
 
 Desde el 5 de septiembre de 2026 **estas cifras están medidas en esta
 implementación**, sobre los mismos 3.829 partidos y por el mismo camino que la

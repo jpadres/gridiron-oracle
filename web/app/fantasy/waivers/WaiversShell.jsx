@@ -20,6 +20,8 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { capabilityStatus, num } from "../../../data/model.js";
+import { Callout } from "../../ui.jsx";
+import { coverageWarning, injuryClockLabel } from "../injuryReport.js";
 import LeagueBar from "../LeagueBar.jsx";
 import { RowMarks } from "../rowMarks.jsx";
 import { ownershipLabel, ownershipOf } from "../sleeperAccount.js";
@@ -44,17 +46,6 @@ function Clock({ label, value }) {
   );
 }
 
-/** El estado del parte, dicho como es. `NOT_PUBLISHED_YET` no es un error. */
-function injuryClock(report) {
-  if (!report) return "UNKNOWN";
-  if (report.status === "PUBLISHED") {
-    return `week ${report.week} · ${report.with_designation ?? 0} designations`;
-  }
-  if (report.status === "NOT_PUBLISHED_YET") {
-    return `week ${report.week} not filed yet (last: week ${report.last_published_week ?? "?"})`;
-  }
-  return report.status;
-}
 
 export default function WaiversShell({ weekly, research, byes }) {
   const [league, setLeague] = useState(null);
@@ -109,6 +100,7 @@ export default function WaiversShell({ weekly, research, byes }) {
   const dstStream = capabilityStatus("DST_STREAMING");
 
   const jobInstante = research?.jobs?.effective_at ?? null;
+  const avisoParte = coverageWarning(research?.injury_report);
 
   return (
     <>
@@ -121,10 +113,19 @@ export default function WaiversShell({ weekly, research, byes }) {
         <h2 className="bk-h">As of <small>each row dates its own source</small></h2>
         <div className="bk-plan-nums">
           <Clock label="Rankings" value={research?.clocks?.research_as_of ?? null} />
-          <Clock label="Injury report" value={injuryClock(research?.injury_report)} />
+          <Clock label="Injury report" value={injuryClockLabel(research?.injury_report)} />
           <Clock label="Rosters" value={research?.clocks?.roster_as_of ?? null} />
           <Clock label="Kicker jobs" value={jobInstante} />
         </div>
+        {/* Un parte a medias no se puede leer como un parte. Sale SÓLO cuando
+            falta algún club: un aviso que aparece siempre es decoración.
+            Va en ámbar porque CONTRADICE lo que el lector asume al no ver
+            ninguna designación, que es para lo único que sirve el ámbar. */}
+        {avisoParte ? (
+          <Callout title="The report does not cover every club yet">
+            <p>{avisoParte}</p>
+          </Callout>
+        ) : null}
         {research?.snapshots?.length ? (
           <p className="caption">
             {research.snapshots.length} daily snapshot(s) kept for this week:{" "}

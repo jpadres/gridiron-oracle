@@ -77,12 +77,43 @@ def _leer(paths: Paths, nombre: str, registro: list[dict]) -> pd.DataFrame | Non
     return df
 
 
-def parte_de_lesiones(inj: pd.DataFrame | None, season: int, week: int) -> dict:
+def _reloj_del_parte(parte: dict) -> str:
+    """Qué se puede AFIRMAR del parte, en una línea.
+
+    Un parte a medias no puede fecharse como el de la jornada a secas: el lector
+    necesita saber que la ausencia de designación no le cubre a todos.
+    """
+    if parte["status"] == "PUBLISHED":
+        return f"week {parte['week']}"
+    if parte["status"] == "PARTIALLY_FILED":
+        return (f"week {parte['week']} PARTIAL · {parte['teams']} of "
+                f"{parte['teams_expected']} clubs filed")
+    return parte["status"]
+
+
+def parte_de_lesiones(inj: pd.DataFrame | None, season: int, week: int,
+                      equipos: set[str] | None = None) -> dict:
     """El parte OFICIAL de la jornada EN CURSO, o la razón de que no lo haya.
 
     Devuelve las filas tal como las entrega el club: designación
     (`report_status`) y participación en el entrenamiento (`practice_status`).
     Sin traducir a probabilidades.
+
+        QUE NO HAYA PARTE DE UN CLUB NO ES QUE SUS JUGADORES ESTÉN SANOS.
+
+    Y por eso `PUBLISHED` no puede ser todo lo que no sea «vacío». El martes de
+    la jornada 3 de 2026 habían entregado DOS clubes de treinta y dos —los del
+    partido del jueves, que reportan antes—, y la pantalla escribía «week 3 · 0
+    designations»: una frase cierta palabra por palabra que se lee como «el
+    parte está y no hay nadie tocado». Es la regla 5 con el signo cambiado —una
+    AUSENCIA presentada como afirmación— y encima en la pantalla con la que se
+    alinea.
+
+    `equipos` son los que JUEGAN esa jornada, derivados del calendario. No se
+    supone 32: una jornada con descansos tiene menos, y un valor por defecto
+    colado como configuración real es el `counts[pos] or DEFAULT` de siempre.
+    Sin ese dato no se puede decir que falte nadie, así que `teams_expected`
+    queda en `None` y el estado no se degrada por una cuenta que no se tiene.
     """
     if inj is None:
         return {"status": "SOURCE_UNAVAILABLE", "week": week, "rows": [],
@@ -113,9 +144,24 @@ def parte_de_lesiones(inj: pd.DataFrame | None, season: int, week: int) -> dict:
         fila["team"] = normalize_team(str(fila["team"] or ""))
         filas.append(fila)
     con_designacion = [f for f in filas if f.get("report_status")]
-    return {"status": "PUBLISHED", "week": week, "rows": filas,
-            "teams": len({f["team"] for f in filas}),
-            "with_designation": len(con_designacion)}
+    entregado = {f["team"] for f in filas}
+    esperados = {normalize_team(str(t)) for t in (equipos or set())} or None
+    pendientes = sorted(esperados - entregado) if esperados else []
+    return {
+        # Parcial y completo no son el mismo hecho: con clubes sin entregar, la
+        # falta de designación de un jugador no dice nada sobre ese jugador.
+        "status": "PARTIALLY_FILED" if pendientes else "PUBLISHED",
+        "week": week,
+        "rows": filas,
+        "teams": len(entregado),
+        # Quién SÍ ha entregado, para poder nombrar la lista MÁS CORTA de las
+        # dos: un martes faltan treinta de treinta y dos y escupir esos treinta
+        # códigos en un teléfono es un muro que nadie lee.
+        "teams_filed": sorted(entregado),
+        "teams_expected": (len(esperados) if esperados else None),
+        "teams_pending": pendientes,
+        "with_designation": len(con_designacion),
+    }
 
 
 def trabajos(dc: pd.DataFrame | None) -> dict:
@@ -224,7 +270,15 @@ def main(argv: list[str] | None = None) -> int:
     if weekly.get("week") not in (None, week):
         print(f"AVISO: {args.weekly} es de la jornada {weekly.get('week')} y la actual es {week}")
 
-    parte = parte_de_lesiones(inj, season, week)
+    # Los equipos que JUEGAN esta jornada salen del calendario, nunca de un 32
+    # escrito a mano: con descansos son menos, y ese número es lo que decide si
+    # el parte está completo o sólo lo han entregado algunos.
+    equipos_jornada = {
+        normalize_team(str(t))
+        for col in ("away_team", "home_team")
+        for t in sem.get(col, pd.Series(dtype=str)).dropna()
+    }
+    parte = parte_de_lesiones(inj, season, week, equipos_jornada or None)
     artefacto = {
         "generated_at": _ahora(),
         "season": season,
@@ -238,8 +292,7 @@ def main(argv: list[str] | None = None) -> int:
         },
         "clocks": {
             "research_as_of": _ahora(),
-            "injuries_as_of": (f"week {parte['week']}" if parte["status"] == "PUBLISHED"
-                               else parte["status"]),
+            "injuries_as_of": _reloj_del_parte(parte),
             "roster_as_of": _mtime(paths.raw / f"roster_{season}.parquet"),
             "schedule_as_of": _mtime(paths.raw / "games.csv"),
         },
@@ -252,7 +305,13 @@ def main(argv: list[str] | None = None) -> int:
     }
     # Los desconocidos se derivan del propio artefacto, no se escriben a mano:
     # una lista de huecos mantenida a mano se queda vieja sin que nada falle.
-    if parte["status"] != "PUBLISHED":
+    if parte["status"] == "PARTIALLY_FILED":
+        artefacto["unknowns"].append(
+            f"official injury report for week {week}: {len(parte['teams_pending'])} of "
+            f"{parte['teams_expected']} clubs have not filed yet "
+            f"({', '.join(parte['teams_pending'])}) — no designation for their players "
+            f"means NOT REPORTED, not healthy")
+    elif parte["status"] != "PUBLISHED":
         artefacto["unknowns"].append(
             f"official injury report for week {week}: {parte['status']}")
     if artefacto["usage"]["status"] != "PUBLISHED":
@@ -281,7 +340,8 @@ def main(argv: list[str] | None = None) -> int:
           f"({artefacto['schedule']['from']} a {artefacto['schedule']['to']})")
     print(f"  parte de lesiones : {parte['status']}"
           + (f" · {parte.get('with_designation')} con designación, "
-             f"{parte.get('teams')} equipos" if parte["status"] == "PUBLISHED"
+             f"{parte.get('teams')}/{parte.get('teams_expected')} equipos"
+             if parte["status"] in ("PUBLISHED", "PARTIALLY_FILED")
              else f" · última publicada: jornada {parte.get('last_published_week')}"))
     print(f"  pateadores        : {artefacto['jobs']['status']} · "
           f"{artefacto['jobs'].get('teams')} equipos, instantánea "

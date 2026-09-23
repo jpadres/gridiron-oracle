@@ -252,7 +252,17 @@ export default function Research() {
       </Callout>
 
       <div className="grid">
-        <Stat label="Items" value={items.length} hint={`${research.window_days}-day window`} />
+        {/* SIN VENTANA NO SE INVENTA UNA VENTANA.
+            `consolidate` devuelve null cuando NADA cae dentro de los 10 días, y
+            eso es lo correcto: publicar prensa de hace dos semanas como la de
+            hoy es la regla 5 exacta. Lo que no puede es tumbar la página —
+            `research.window_days` sobre un null rompía el PRERENDER de /research
+            y con él `next build` entero, y sólo se disparaba con el archivo
+            caducado y el dossier lleno, que es justo el estado de la jornada 3
+            de 2026. El hueco se DICE; no se rellena con el número de la
+            ventana que nadie llegó a mirar. */}
+        <Stat label="Items" value={items.length}
+              hint={research ? `${research.window_days}-day window` : "no item inside the window"} />
         <Stat label="Move a lineup" value={today.length + destacadas.length}
               hint="Relevance 4 or 5" />
         <Stat label="Linked to a player" value={linked} hint="From the weekly rankings" />

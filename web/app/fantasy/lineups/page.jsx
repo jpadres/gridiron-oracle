@@ -1,5 +1,6 @@
 import { capabilityStatus, dataDate, model } from "../../../data/model.js";
-import { Note, NoDataYet } from "../../ui.jsx";
+import { coverageWarning } from "../injuryReport.js";
+import { Callout, Note, NoDataYet } from "../../ui.jsx";
 import LineupsShell from "./LineupsShell.jsx";
 
 export const metadata = {
@@ -23,6 +24,7 @@ export const metadata = {
  */
 export default function LineupsPage() {
   const weekly = model.fantasy_weekly;
+  const avisoParte = coverageWarning(model.weekly_research?.injury_report);
   if (!weekly?.rankings?.length) {
     return (
       <>
@@ -50,6 +52,15 @@ export default function LineupsPage() {
           no projection here by design: it holds its slot and adds nothing.
         </p>
       </Note>
+      {/* EL MISMO HECHO QUE EN /fantasy/waivers, por la MISMA función.
+          Aquí pesa más: la frase de arriba dice que un OUT nunca se propone de
+          titular —cierto— y con treinta clubes sin entregar no hay ningún OUT
+          que conocer, así que tranquiliza sin cubrir. Ver `injuryReport.js`. */}
+      {avisoParte ? (
+        <Callout title="The report does not cover every club yet">
+          <p>{avisoParte}</p>
+        </Callout>
+      ) : null}
       <LineupsShell
         rankings={weekly.rankings ?? []}
         kickers={weekly.kickers ?? []}

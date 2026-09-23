@@ -116,8 +116,34 @@ def test_ninguna_fila_pierde_un_campo_del_contrato(payload, path):
         assert not faltan, f"`{path}[{index}]` no trae {faltan}"
 
 
+#: Secciones que el exportador puede dejar en `null` LEGÍTIMAMENTE, y por qué.
+#:
+#: `research` es la única hasta ahora: `archive.consolidate` devuelve None
+#: cuando ninguna ficha cae dentro de la ventana de 10 días, que es lo correcto
+#: —publicar prensa de hace dos semanas como la de hoy es la regla 5 exacta— y
+#: pasó de verdad el 23 de septiembre de 2026.
+#:
+#: Declararlas aquí NO es relajar el contrato: lo que se comprueba deja de ser
+#: «el campo está» y pasa a ser «o la sección entera está ausente, o trae sus
+#: campos con su tipo». Lo que NO puede es faltar a medias. Y que la web
+#: sobreviva a la ausencia lo vigila `web/tests/researchOptional.test.mjs`,
+#: porque el fallo real no fue el tipo: fue un TypeError que tumbó `next build`.
+OPCIONALES: dict[str, str] = {
+    "research": "sin fichas dentro de la ventana no hay sección, y no se rellena "
+                "con prensa de fuera de la ventana",
+}
+
+
+def _seccion_ausente(payload: dict, path: str) -> bool:
+    """¿La sección raíz de `path` está declarada opcional y ausente?"""
+    raiz = path.split(".")[0]
+    return raiz in OPCIONALES and payload.get(raiz) is None
+
+
 @pytest.mark.parametrize("path,tipo", sorted(SCALARS.items()))
 def test_los_escalares_tienen_el_tipo_esperado(payload, path, tipo):
+    if _seccion_ausente(payload, path):
+        pytest.skip(f"`{path.split('.')[0]}` ausente: {OPCIONALES[path.split('.')[0]]}")
     value = _dig(payload, path)
     if tipo is float:
         # Un entero es un float utilizable; al revés no.

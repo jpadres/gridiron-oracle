@@ -297,6 +297,11 @@ const DATOS_PREFIJOS = [
   ".weekly_research.as_of_file",
   ".weekly_research.generated_at",
   ".weekly_research.injury_report.status",
+  // Códigos de equipo de los clubes que aún no han entregado el parte
+  // («ARI», «BAL», …). La frase que los enmarca —«Still to file: …»— la
+  // escribe `injuryReport.js` en inglés.
+  ".weekly_research.injury_report.teams_pending",
+  ".weekly_research.injury_report.teams_filed",
   ".weekly_research.usage.status",
   ".weekly_research.usage.baseline",
   ".weekly_research.sources[].source",

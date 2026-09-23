@@ -10,8 +10,8 @@ dueño del repo). Sin cuentas, sin base de datos, sin backend.
 ## Lo primero que hay que entender
 
 **El modelo iguala a la línea de cierre del mercado; no la bate.** Brier **0.2127**
-frente a **0.2119**, MAE **10.04** frente a **9.98**, en 3.845 partidos fuera de
-muestra (2012-2025).
+frente a **0.2119**, MAE **10.05** frente a **9.99**, en 3.861 partidos fuera de
+muestra.
 
 Esas cifras salen de `validation.overall` del payload —lo que este código midió y
 lo que la web publica—, no de una tabla escrita a mano. Durante meses aquí ponía
@@ -749,6 +749,9 @@ comentario está para que no los reintroduzcas.
 | Dos formatos de la misma jornada en dos pantallas | `fantasy/waivers/page.jsx` | `/predicciones` decía «Sep 9–14» y la pantalla nueva «2026-09-17 TO 2026-09-21». Las dos ciertas, y juntas son dos respuestas a la misma pregunta. Se llama a `weekWindow`/`windowLabel`, que ya existían. Lo vio el QA en el navegador, no un test |
 | El laboratorio del reloj, clavado al domingo de la jornada 1 | `tools/lab/reloj.mjs` | Sus tres instantes eran fechas escritas a mano del 13 de septiembre. Al pasar el payload a la jornada 2 los tres caían ANTES del primer saque: cerraban cero mercados, la propiedad de «respuestas crecientes» fallaba y el informe **acusaba al producto de no leer el reloj** cuando lo leía perfectamente. Se derivan del payload, como ya se había hecho con `apuestas.mjs`. Y al derivarlos escribí `Date.parse(g.kickoff_at)` a mano: **el guardián de «nadie parsea el saque fuera de gameClock», escrito tres días antes, lo cazó en el acto** |
 | Dos inyecciones apuntando a líneas que un refactor había movido, y el simulacro lo DIJO | `scripts/injection_drill.sh` | El aviso `INYECCIÓN ROTA` se añadió esta misma sesión y en su primera pasada real cazó las dos: al compartir el candado con `hasStarted`, las líneas de las inyecciones 54 y 59 dejaron de existir. Antes habrían salido «VERDE (NO ES GUARDIÁN)», acusando al guardián. **La tercera, la 60, sí era un guardián flojo**: sustituir el `useState` dejaba intacto el `setNow(Date.now())` que la comprobación busca, así que el texto seguía ahí y pasaba en verde — el «el nombre sigue apareciendo» por tercera vez. La inyección quita ahora la LECTURA del reloj, que es lo que se quiere probar |
+| «week 3 · 0 designations» con DOS clubes de treinta y dos | `weekly_research.py`, `injuryReport.js` | El estado del parte era binario —vacío o `PUBLISHED`— y el martes de la jornada 3 sólo habían entregado ATL y GB, los del jueves, que reportan antes. La frase era cierta palabra por palabra y se lee como «el parte está y no hay nadie tocado»: **la regla 5 con el signo cambiado, una AUSENCIA presentada como afirmación**, en la pantalla con la que se alinea. Y encima la designación (`report_status`) sólo se asigna en el parte FINAL, así que «0 designaciones» era el estado normal de un martes. Ahora hay un tercer estado, `PARTIALLY_FILED`, y los clubes esperados salen del CALENDARIO — nunca de un 32 escrito a mano, que con descansos son menos. Lo pintan las DOS pantallas por la MISMA función, porque cablearlo sólo en waivers habría sido la decimoquinta vez |
+| La prensa caducó y se llevó por delante `next build` | `research/page.jsx` | `archive.consolidate` devuelve `null` cuando NADA cae dentro de la ventana de 10 días —correcto: publicar prensa de hace dos semanas como la de hoy es la regla 5— y el 23 de septiembre pasó por primera vez, con la ficha más nueva del 13 y los dominios bloqueados desde este contenedor. `/research` hacía `research.window_days` sobre ese null: **TypeError en el prerender y `next build` ENTERO a rojo**. Sólo se disparaba con el archivo caducado Y el dossier lleno, porque la rama de vacío exige las dos listas vacías: latente desde siempre, invisible mientras hubiera prensa reciente. Lo cazó el contrato de esquema de Python, no la web. Y el contrato NO se relajó — se declaró `research` como sección que puede faltar ENTERA, que es distinto de faltar a medias |
+| La muestra del backtest crece cada jornada y la portada la tenía congelada | `README.md`, `CLAUDE.md` | Los documentos decían 3.845 partidos y el payload medía 3.861, porque 2026 entra en la ventana evaluable según se juega. Las cuatro métricas ya estaban vigiladas; **el recuento no**, y es justo la cifra que se mueve sola todas las semanas. El guardián lo comprueba ahora contra `validation.overall.games`. El mismo refresco movió MAE 10.04 → 10.05 y 9.98 → 9.99: el payload manda, la prosa se corrige |
 
 ---
 
@@ -860,7 +863,7 @@ está construida:
 | `controles.mjs` | **Control por control, las trece páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete NOVENTA Y NUEVE fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CIENTO DOS fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -885,8 +888,8 @@ alineación— sin congelar nada, la pantalla de apuestas sin reloj, un mismo
 predicado para apostar y para congelar, y un comentario JSX tragándose la prosa
 de debajo, y desde la mañana del 13 de septiembre una designación de lesión
 nueva colada como «juega», un DOUBTFUL tratado como descartado, el parte
-tocando un número del board y la ventana de decisión calculada al revés, y desde la tarde del 13 un laboratorio rehaciendo por su cuenta la comparación del saque, la fecha de la jornada leída en UTC, el cruce de número clave dejando de ser estricto, el no favorito de E27 con el signo al revés y una cifra de E27 que el preregistro no sostiene— y
-exige 99 rojos y 99 verdes al
+tocando un número del board y la ventana de decisión calculada al revés, y desde la tarde del 13 un laboratorio rehaciendo por su cuenta la comparación del saque, la fecha de la jornada leída en UTC, el cruce de número clave dejando de ser estricto, el no favorito de E27 con el signo al revés y una cifra de E27 que el preregistro no sostiene, y desde la jornada 3 un parte de lesiones a medias publicado como el parte de la jornada y sus dos pantallas dejando de avisarlo— y
+exige 102 rojos y 102 verdes al
 restaurar.
 
 ## El skill de UI/UX
