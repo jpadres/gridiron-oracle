@@ -863,7 +863,7 @@ está construida:
 | `controles.mjs` | **Control por control, las trece páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CIENTO DOS fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CIENTO CUATRO fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -888,8 +888,8 @@ alineación— sin congelar nada, la pantalla de apuestas sin reloj, un mismo
 predicado para apostar y para congelar, y un comentario JSX tragándose la prosa
 de debajo, y desde la mañana del 13 de septiembre una designación de lesión
 nueva colada como «juega», un DOUBTFUL tratado como descartado, el parte
-tocando un número del board y la ventana de decisión calculada al revés, y desde la tarde del 13 un laboratorio rehaciendo por su cuenta la comparación del saque, la fecha de la jornada leída en UTC, el cruce de número clave dejando de ser estricto, el no favorito de E27 con el signo al revés y una cifra de E27 que el preregistro no sostiene, y desde la jornada 3 un parte de lesiones a medias publicado como el parte de la jornada y sus dos pantallas dejando de avisarlo— y
-exige 102 rojos y 102 verdes al
+tocando un número del board y la ventana de decisión calculada al revés, y desde la tarde del 13 un laboratorio rehaciendo por su cuenta la comparación del saque, la fecha de la jornada leída en UTC, el cruce de número clave dejando de ser estricto, el no favorito de E27 con el signo al revés y una cifra de E27 que el preregistro no sostiene, y desde la jornada 3 un parte de lesiones a medias publicado como el parte de la jornada, sus dos pantallas dejando de avisarlo, el informe previo leyendo el payload que `.gitignore` borra en CI y `/research` desreferenciando una ventana vacía— y
+exige 104 rojos y 104 verdes al
 restaurar.
 
 ## El skill de UI/UX

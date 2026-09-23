@@ -46,10 +46,50 @@ from oracle.fantasy import roster_status  # noqa: E402
 DETALLE_HASTA = 200
 
 
-def _board(payload_path: Path) -> tuple[list[dict], dict]:
-    payload = json.loads(payload_path.read_text(encoding="utf-8"))
-    fantasy = payload.get("fantasy") or {}
-    return list(fantasy.get("board") or []), payload.get("data_dates") or {}
+def _fechas_del_export(paths) -> dict:
+    """La fecha de las secciones, pedida a QUIEN LA DEFINE.
+
+    `_fechas_de_origen` vive en el exportador y tiene reglas que costaron cuatro
+    iteraciones —sólo ficheros DESCARGADOS, nunca compilados; la sección es tan
+    actual como su fuente más VIEJA; el board no lee la temporada que proyecta—.
+    Reescribirlas aquí serían dos traductores del mismo hecho, que es el fallo
+    que este repositorio lleva quince veces cometiendo. Se importa por RUTA, que
+    es como cargan los scripts los tests: no depende de cómo se invoque Python.
+    """
+    import importlib.util
+
+    ruta = Path(__file__).resolve().parent / "export_web_data.py"
+    spec = importlib.util.spec_from_file_location("export_web_data", ruta)
+    modulo = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(modulo)
+    return modulo._fechas_de_origen(paths)
+
+
+def _board(paths) -> tuple[list[dict], dict]:
+    """El board sale de SU compilador, no del payload ya publicado.
+
+        `web/data/model.json` ESTÁ EN .gitignore: EN CI NO EXISTE NUNCA.
+
+    Esto leía el payload, y en el runner de `weekly-predictions.yml` ese fichero
+    no está —lo escribe el paso SIGUIENTE—, así que el job «Regenerar y
+    publicar» moría con `FileNotFoundError` antes de exportar nada. En local
+    funcionaba porque quedaba el payload de la vez anterior, que es lo que lo
+    hacía invisible. Es el mismo fallo que ya costó una iteración en
+    `research_build.py` con `out/fantasy_weekly.json`.
+
+    La fuente correcta es `out/fantasy_draft.json`, que acaba de escribir
+    `fantasy_build.py` dos pasos más arriba en el mismo job — y además trae el
+    board ENTERO, no el recortado que publica el exportador.
+    """
+    ruta = paths.out / "fantasy_draft.json"
+    if not ruta.exists():
+        # Sin board no hay informe, y publicarlo vacío diría que no cambió nada.
+        raise SystemExit(
+            f"FALLO: falta {ruta}. Lo escribe `python scripts/fantasy_build.py`, "
+            "que tiene que correr ANTES que este informe."
+        )
+    artefacto = json.loads(ruta.read_text(encoding="utf-8"))
+    return list(artefacto.get("board") or []), _fechas_del_export(paths)
 
 
 def _fila(row: dict, extra: dict | None = None) -> dict:
@@ -95,7 +135,7 @@ def kickers_por_equipo(roster_path: Path) -> dict:
 
 
 def construir(paths, season: int) -> dict:
-    board, fechas = _board(paths.root / "web" / "data" / "model.json")
+    board, fechas = _board(paths)
     roster_path = paths.raw / f"roster_{season}.parquet"
     entries = roster_status.load(roster_path)
     if not entries:

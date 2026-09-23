@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 102 fallos conocidos, 102 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 104 fallos conocidos, 104 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -394,3 +394,9 @@ run "101 el aviso de cobertura del parte, retirado de /fantasy/lineups" web/app/
 run "102 la ausencia de designación leída como salud" web/app/fantasy/injuryReport.js \
   '  if (c.partial) {|||  if (false) {' \
   "cd web && node --test tests/injuryReport.test.mjs"
+run "103 predraft leyendo el payload que .gitignore borra en CI" scripts/predraft_brief.py \
+  '    ruta = paths.out / "fantasy_draft.json"|||    ruta = paths.root / "web" / "data" / "model.json"' \
+  "python -m pytest -q tests/test_ci_artifacts.py"
+run "104 /research desreferenciando una ventana vacía" web/app/research/page.jsx \
+  'hint={research ? `${research.window_days}-day window` : "no item inside the window"} />|||hint={`${research.window_days}-day window`} />' \
+  "cd web && node --test tests/researchOptional.test.mjs"
