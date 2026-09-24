@@ -2,9 +2,9 @@
  "source": "fantasyfootballcalculator",
  "scoring": "ppr",
  "league_size": 12,
- "fetched_at": "2026-09-23T21:33:50Z",
- "sample_size": 114,
- "window": "2026-09-16",
+ "fetched_at": "2026-09-24T11:50:50Z",
+ "sample_size": 111,
+ "window": "2026-09-17",
  "entries": [
   {
    "name": "Jahmyr Gibbs",
@@ -22,13 +22,13 @@
    "name": "Ja'Marr Chase",
    "position": "WR",
    "team": "CIN",
-   "adp": 4.1
+   "adp": 4.2
   },
   {
    "name": "Jaxon Smith-Njigba",
    "position": "WR",
    "team": "SEA",
-   "adp": 5.1
+   "adp": 6.0
   },
   {
    "name": "Amon-Ra St. Brown",
@@ -43,52 +43,46 @@
    "adp": 8.4
   },
   {
+   "name": "CeeDee Lamb",
+   "position": "WR",
+   "team": "DAL",
+   "adp": 9.6
+  },
+  {
    "name": "Derrick Henry",
    "position": "RB",
    "team": "BAL",
-   "adp": 13.1
+   "adp": 13.3
   },
   {
    "name": "James Cook III",
    "position": "RB",
    "team": "BUF",
-   "adp": 15.4
+   "adp": 15.7
   },
   {
    "name": "Ashton Jeanty",
    "position": "RB",
    "team": "LV",
-   "adp": 18.7
-  },
-  {
-   "name": "Nico Collins",
-   "position": "WR",
-   "team": "HOU",
-   "adp": 19.2
-  },
-  {
-   "name": "Kenneth Walker",
-   "position": "RB",
-   "team": "KC",
-   "adp": 21.3
+   "adp": 18.6
   },
   {
    "name": "Omarion Hampton",
    "position": "RB",
    "team": "LAC",
-   "adp": 21.3
+   "adp": 21.1
+  },
+  {
+   "name": "Kenneth Walker",
+   "position": "RB",
+   "team": "KC",
+   "adp": 21.5
   },
   {
    "name": "Josh Allen",
    "position": "QB",
    "team": "BUF",
-   "adp": 24.0
-  },
-  {
-   "name": "Malik Nabers",
-   "position": "WR",
-   "team": "NYG",
-   "adp": 26.1
+   "adp": 24.1
   },
   {
    "name": "Jeremiyah Love",
@@ -106,25 +100,19 @@
    "name": "Trey McBride",
    "position": "TE",
    "team": "ARI",
-   "adp": 29.8
+   "adp": 31.9
   },
   {
    "name": "Kyren Williams",
    "position": "RB",
    "team": "LAR",
-   "adp": 34.6
-  },
-  {
-   "name": "Ladd McConkey",
-   "position": "WR",
-   "team": "LAC",
-   "adp": 41.0
+   "adp": 34.8
   },
   {
    "name": "D'Andre Swift",
    "position": "RB",
    "team": "CHI",
-   "adp": 42.9
+   "adp": 42.3
   },
   {
    "name": "DJ Moore",
@@ -133,16 +121,16 @@
    "adp": 47.9
   },
   {
+   "name": "Christian Watson",
+   "position": "WR",
+   "team": "GB",
+   "adp": 49.8
+  },
+  {
    "name": "Jaylen Waddle",
    "position": "WR",
    "team": "DEN",
    "adp": 50.0
-  },
-  {
-   "name": "Christian Watson",
-   "position": "WR",
-   "team": "GB",
-   "adp": 51.1
   },
   {
    "name": "Mike Evans",
@@ -160,25 +148,37 @@
    "name": "Parker Washington",
    "position": "WR",
    "team": "JAX",
-   "adp": 57.8
+   "adp": 57.9
   },
   {
    "name": "Jadarian Price",
    "position": "RB",
    "team": "SEA",
-   "adp": 65.3
+   "adp": 67.3
+  },
+  {
+   "name": "TreVeyon Henderson",
+   "position": "RB",
+   "team": "NE",
+   "adp": 67.4
   },
   {
    "name": "Chuba Hubbard",
    "position": "RB",
    "team": "CAR",
-   "adp": 70.1
+   "adp": 68.2
   },
   {
    "name": "Caleb Williams",
    "position": "QB",
    "team": "CHI",
-   "adp": 77.2
+   "adp": 79.6
+  },
+  {
+   "name": "Seattle Defense",
+   "position": "DEF",
+   "team": "SEA",
+   "adp": 80.8
   },
   {
    "name": "Brian Thomas Jr.",
@@ -190,7 +190,13 @@
    "name": "Stefon Diggs",
    "position": "WR",
    "team": "WAS",
-   "adp": 86.3
+   "adp": 88.1
+  },
+  {
+   "name": "Jalen Coker",
+   "position": "WR",
+   "team": "CAR",
+   "adp": 93.3
   },
   {
    "name": "Josh Jacobs",
@@ -202,13 +208,7 @@
    "name": "Patrick Mahomes",
    "position": "QB",
    "team": "KC",
-   "adp": 99.3
-  },
-  {
-   "name": "Jalen Coker",
-   "position": "WR",
-   "team": "CAR",
-   "adp": 99.6
+   "adp": 108.2
   },
   {
    "name": "Deebo Samuel Sr.",
@@ -223,16 +223,16 @@
    "adp": 111.8
   },
   {
-   "name": "Brandon Aubrey",
-   "position": "PK",
-   "team": "DAL",
-   "adp": 116.3
-  },
-  {
    "name": "Isaiah Likely",
    "position": "TE",
    "team": "NYG",
-   "adp": 120.8
+   "adp": 112.9
+  },
+  {
+   "name": "Brandon Aubrey",
+   "position": "PK",
+   "team": "DAL",
+   "adp": 118.4
   },
   {
    "name": "Dalton Kincaid",
