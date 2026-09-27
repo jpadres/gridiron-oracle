@@ -1,0 +1,1344 @@
+{
+ "date": "2026-09-27",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Brock Bowers"
+   ],
+   "headline": "Is Brock Bowers Playing Today? Latest Injury Update for Raiders TE Ahead of Week 3 Clash vs. Saints",
+   "summary": "",
+   "published": "2026-09-27T12:14:00Z",
+   "published_at": "2026-09-27T12:14:00Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "Is Brock Bowers Playing Today? Latest Injury Update for Raiders TE Ahead of Week 3 Clash vs. Saints",
+     "url": "https://www.profootballnetwork.com/is-brock-bowers-playing-today-latest-injury-update-raiders-week-3-saints"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Aaron Jones"
+   ],
+   "headline": "Is Aaron Jones Sr. Playing Today? Latest Injury Update for Vikings RB Ahead of Week 3 Clash vs. Buccaneers",
+   "summary": "",
+   "published": "2026-09-27T12:12:53Z",
+   "published_at": "2026-09-27T12:12:53Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "Is Aaron Jones Sr. Playing Today? Latest Injury Update for Vikings RB Ahead of Week 3 Clash vs. Buccaneers",
+     "url": "https://www.profootballnetwork.com/is-aaron-jones-sr-playing-today-latest-injury-update-vikings-week-3-buccaneers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "Is Mike Evans Playing Today? Latest Injury Update for 49ers WR Ahead of Week 3 Clash vs. Cardinals",
+   "summary": "",
+   "published": "2026-09-27T12:11:01Z",
+   "published_at": "2026-09-27T12:11:01Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "Is Mike Evans Playing Today? Latest Injury Update for 49ers WR Ahead of Week 3 Clash vs. Cardinals",
+     "url": "https://www.profootballnetwork.com/is-mike-evans-playing-today-latest-injury-update-49ers-week-3-cardinals"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "Michael Pittman"
+   ],
+   "headline": "Steelers WR Michael Pittman Jr. (foot) is expected to play",
+   "summary": "The Steelers need a lift on offense.",
+   "published": "2026-09-27T12:10:32Z",
+   "published_at": "2026-09-27T12:10:32Z",
+   "first_seen_at": "2026-09-27T12:23:52+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Steelers WR Michael Pittman Jr. (foot) is expected to play",
+     "url": "https://sports.yahoo.com/articles/steelers-wr-michael-pittman-jr-121032379.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Zay Flowers"
+   ],
+   "headline": "Is Zay Flowers Playing Today? Latest Injury Update for Ravens WR Ahead of Week 3 Clash vs. Cowboys",
+   "summary": "",
+   "published": "2026-09-27T12:04:44Z",
+   "published_at": "2026-09-27T12:04:44Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "Is Zay Flowers Playing Today? Latest Injury Update for Ravens WR Ahead of Week 3 Clash vs. Cowboys",
+     "url": "https://www.profootballnetwork.com/is-zay-flowers-playing-today-latest-injury-update-ravens-week-3-cowboys"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Lamar Jackson",
+    "Dak Prescott"
+   ],
+   "headline": "How to watch Cowboys vs. Ravens in Brazil: Lamar Jackson, Dak Prescott headline first Rio de Janeiro NFL game",
+   "summary": "There should be plenty of fireworks at Maracanã Stadium",
+   "published": "2026-09-27T12:01:33Z",
+   "published_at": "2026-09-27T12:01:33Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "How to watch Cowboys vs. Ravens in Brazil: Lamar Jackson, Dak Prescott headline first Rio de Janeiro NFL game",
+     "url": "https://www.cbssports.com/nfl/news/how-to-watch-cowboys-vs-ravens-storylines-prediction"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Trevor Lawrence",
+    "Drake Maye"
+   ],
+   "headline": "Patriots vs. Jaguars in NFL Week 3: How to watch Drake Maye vs. Trevor Lawrence, plus score prediction",
+   "summary": "New England and Jacksonville will duke it out from EverBank Stadium with both AFC clubs looking to advance to 2-1 on the season",
+   "published": "2026-09-27T12:01:31Z",
+   "published_at": "2026-09-27T12:01:31Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Patriots vs. Jaguars in NFL Week 3: How to watch Drake Maye vs. Trevor Lawrence, plus score prediction",
+     "url": "https://www.cbssports.com/nfl/news/patriots-vs-jaguars-how-to-watch-score-prediction"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Bijan Robinson"
+   ],
+   "headline": "Falcons Draft 2027: Falcons Draft Needs After Blowout Win vs. Packers",
+   "summary": "The Atlanta Falcons have done some crazy stuff during my fandom, but coming back from how the first two weeks looked and lighting a spark underneath the fanbase like they did on Thursday may be some of the craziest. The Falcons’ blowout win against the Green Bay Packers shocked the NFL world, as Bijan Robinson […]",
+   "published": "2026-09-27T12:00:00Z",
+   "published_at": "2026-09-27T12:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "Falcons Draft 2027: Falcons Draft Needs After Blowout Win vs. Packers",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-draft/96637/falcons-draft-2027-falcons-draft-needs-after-blowout-win-vs-packers-dj-mckinney-jordan-seaton"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Jonathon Brooks"
+   ],
+   "headline": "For Panthers running backs AJ Dillon and Tre Tyus, today's another step",
+   "summary": "The backup backs will have bigger roles today after the injury to Jonathon Brooks, but they also fit right into a running backs room built on intentionality and preparation.",
+   "published": "2026-09-27T11:56:25Z",
+   "published_at": "2026-09-27T11:56:25Z",
+   "first_seen_at": "2026-09-27T12:23:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "For Panthers running backs AJ Dillon and Tre Tyus, today's another step",
+     "url": "https://www.panthers.com/news/for-panthers-running-backs-aj-dillon-and-tre-tyus-today-s-another-step"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "Bills debut unpopular 'Nickel City' uniforms defended by Josh Allen",
+   "summary": "The Bills new unis are a bold departure from the franchise's traditional look and one meant to celebrate its hometown. Take a look.",
+   "published": "2026-09-27T11:30:58Z",
+   "published_at": "2026-09-27T11:30:58Z",
+   "first_seen_at": "2026-09-27T12:23:52+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Bills debut unpopular 'Nickel City' uniforms defended by Josh Allen",
+     "url": "https://sports.yahoo.com/articles/bills-debut-unpopular-nickel-city-113058198.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels",
+    "Marcus Mariota"
+   ],
+   "headline": "How to watch Seahawks vs. Commanders, Week 3: TV network, live stream, kickoff time",
+   "summary": "The Seattle Seahawks (2-0) wrap up their opening month of the 2026 regular season with a road game against a team in desperate need of something positive to happen. If the Seahawks are flying, the Washington Commanders (0-2) are sinking fast. Jayden Daniels is out injured again, so Marcus Mariota will be playing Seattle for […]",
+   "published": "2026-09-27T11:00:00Z",
+   "published_at": "2026-09-27T11:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:55+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "How to watch Seahawks vs. Commanders, Week 3: TV network, live stream, kickoff time",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-information/175765/how-to-watch-seahawks-vs-commanders-week-3-tv-network-live-stream-kickoff-time"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "Bills news: What to know ahead of Week 3 vs. Chargers",
+   "summary": "Everything you need to know as Josh Allen and the Bills look to start the season 3-0 for the third straight year.",
+   "published": "2026-09-27T10:49:05Z",
+   "published_at": "2026-09-27T10:49:05Z",
+   "first_seen_at": "2026-09-27T12:23:52+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Bills news: What to know ahead of Week 3 vs. Chargers",
+     "url": "https://sports.yahoo.com/articles/bills-news-know-ahead-week-104905436.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Lamar Jackson",
+    "Dak Prescott"
+   ],
+   "headline": "Cowboys vs. Ravens odds, picks, prediction: NFL Week 3 matchup start time, preview, best bets for Brazil game",
+   "summary": "Here's everything bettors need to know for when Dak Prescott and the Cowboys take on Lamar Jackson and the Ravens in Rio de Janeiro",
+   "published": "2026-09-27T10:01:15Z",
+   "published_at": "2026-09-27T10:01:15Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Cowboys vs. Ravens odds, picks, prediction: NFL Week 3 matchup start time, preview, best bets for Brazil game",
+     "url": "https://www.cbssports.com/betting/news/cowboys-vs-ravens-odds-picks-prediction-nfl-week-3-matchup-start-time-preview-best-bets-for-brazil-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Sunday Patriots Notes: Emphasis on fast start in Jacksonville",
+   "summary": "Notes and thoughts on the Jaguars roster, their home field advantage, Drake Maye, and more.",
+   "published": "2026-09-27T10:00:00Z",
+   "published_at": "2026-09-27T10:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:52+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Sunday Patriots Notes: Emphasis on fast start in Jacksonville",
+     "url": "https://sports.yahoo.com/articles/sunday-patriots-notes-emphasis-fast-100000218.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jameis Winston"
+   ],
+   "headline": "Tennessee Titans vs. NY Giants: Game time, TV channel, streaming, odds",
+   "summary": "The 1-1 New York Giants are back at home to face the 0-2 Tennessee Titans with Jameis Winston under center. Can the Giants bounce back after their loss against the Los Angeles Rams? Below, everything you need to watch, listen, stream, and wager on the game. How to watch, stream, wager What: Titans vs. GiantsWhen: Sunday, Sept. […]",
+   "published": "2026-09-27T10:00:00Z",
+   "published_at": "2026-09-27T10:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:54+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "Tennessee Titans vs. NY Giants: Game time, TV channel, streaming, odds",
+     "url": "https://www.bigblueview.com/new-york-giants-game-information/172622/tennessee-titans-vs-ny-giants-game-time-tv-channel-streaming-odds"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "Justin Herbert could pass to his brother as Chargers elevate tight end Patrick Herbert",
+   "summary": "The younger Herbert brother will be active for the Chargers for the first time today.",
+   "published": "2026-09-27T09:02:45Z",
+   "published_at": "2026-09-27T09:02:45Z",
+   "first_seen_at": "2026-09-27T12:23:52+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Justin Herbert could pass to his brother as Chargers elevate tight end Patrick Herbert",
+     "url": "https://sports.yahoo.com/articles/justin-herbert-could-pass-brother-090245033.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Last-minute best bets for NFL Week 3: Seahawks cruise in Sam Darnold's return, Raiders suffer first loss",
+   "summary": "Need some last-second help filling your bets for Week 3? We've got you covered",
+   "published": "2026-09-27T02:00:57Z",
+   "published_at": "2026-09-27T02:00:57Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Last-minute best bets for NFL Week 3: Seahawks cruise in Sam Darnold's return, Raiders suffer first loss",
+     "url": "https://www.cbssports.com/nfl/news/last-minute-best-bets-for-nfl-week-3-seahawks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jadarian Price"
+   ],
+   "headline": "NFL Week 3 player props: Our favorite picks to score, including Seahawks rookie RB Jadarian Price",
+   "summary": "These five players could capitalize on their matchups and find the end zone during Sunday's NFL action",
+   "published": "2026-09-27T01:00:54Z",
+   "published_at": "2026-09-27T01:00:54Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "NFL Week 3 player props: Our favorite picks to score, including Seahawks rookie RB Jadarian Price",
+     "url": "https://www.cbssports.com/nfl/news/nfl-week-3-player-props-seahawks-jadarian-price"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "How to watch Commanders vs Seahawks: TV, radio, streaming, injury report",
+   "summary": "The Washington Commanders are home for their first regular season game at Northwest Stadium this season. They are hosting the Seattle Seahawks and they’re big underdogs with QB Jayden Daniels sidelined with an elbow injury. The Commanders offense showed some signs of life last week with Daniels using his legs to take advantage of the […]",
+   "published": "2026-09-27T00:00:00Z",
+   "published_at": "2026-09-27T00:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:54+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "How to watch Commanders vs Seahawks: TV, radio, streaming, injury report",
+     "url": "https://www.hogshaven.com/washington-commanders-game-information/442769/how-to-watch-commanders-vs-seahawks-tv-radio-streaming-injury-report"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Michael Penix Jr."
+   ],
+   "headline": "The Falcoholic Reacts: Vindication in Lambeau",
+   "summary": "There is no more pondering about whether the Falcons can finally win a game. They produced a definitive performance that could set the blueprint for success. With two of their top stars at their best and a measured quarterback performance following a shaky start, the offense looked rejuvenated with Michael Penix Jr. under center. They […]",
+   "published": "2026-09-26T22:00:00Z",
+   "published_at": "2026-09-26T22:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "The Falcoholic Reacts: Vindication in Lambeau",
+     "url": "https://www.thefalcoholic.com/nfl-reacts-survey/96642/the-falcoholic-reacts-vindication-in-lambeau"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jaxson Dart"
+   ],
+   "headline": "NY Giants add backup QB to roster ahead of game vs. Tennessee Titans",
+   "summary": "The New York Giants have signed veteran quarterback Jake Haener from their practice squad. Haener fills the 53-man roster spot vacated when Jaxson Dart was placed on injured reserve. The Giants also elevated wide receiver/kick returner Braxton Berrios and linebacker Malik Harrison from the practice squad for Sunday’s game against the Tennessee Titans. That is […]",
+   "published": "2026-09-26T21:15:09Z",
+   "published_at": "2026-09-26T21:15:09Z",
+   "first_seen_at": "2026-09-27T12:23:54+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "NY Giants add backup QB to roster ahead of game vs. Tennessee Titans",
+     "url": "https://www.bigblueview.com/new-york-giants-roster/172932/backup-qb-jake-haener-added-to-roster-ahead-of-game-vs-tennessee-titans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Mason Taylor"
+   ],
+   "headline": "Notebook | TE Mason Taylor, S Minkah Fitzpatrick and LB Kiko Mauigoa Won't Play vs. Lions",
+   "summary": "Jets Head Coach: ‘This is Probably One of the Most Explosive Groups We’ll Go Against’",
+   "published": "2026-09-26T20:57:00Z",
+   "published_at": "2026-09-26T20:57:00Z",
+   "first_seen_at": "2026-09-27T12:23:51+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Notebook | TE Mason Taylor, S Minkah Fitzpatrick and LB Kiko Mauigoa Won't Play vs. Lions",
+     "url": "https://www.newyorkjets.com/news/notebook-aaron-glenn-explains-the-challenge-of-the-detroit-lions-injury-updates-mason-taylor-minkah-fitzpatrick-09-25-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Garrett Wilson"
+   ],
+   "headline": "Garrett Wilson Looks Forward to Battling Former Jets Teammate, DJ Reed, in Week 3",
+   "summary": "Jets Pass Catcher: ‘We’re Going to Have to be At the Top of Our Game’ Against Lions",
+   "published": "2026-09-26T20:51:00Z",
+   "published_at": "2026-09-26T20:51:00Z",
+   "first_seen_at": "2026-09-27T12:23:51+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Garrett Wilson Looks Forward to Battling Former Jets Teammate, DJ Reed, in Week 3",
+     "url": "https://www.newyorkjets.com/news/garrett-wilson-looking-foward-to-dj-reed-lions-matchup-in-week-3-09-25-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Tetairoa McMillan"
+   ],
+   "headline": "Tetairoa McMillan's tight window acrobatic catches open up passing game",
+   "summary": "As the Panthers find their groove in the deep passing game, it's McMillan's big catch radius that makes all the difference in tight windows.",
+   "published": "2026-09-26T20:45:45Z",
+   "published_at": "2026-09-26T20:45:45Z",
+   "first_seen_at": "2026-09-27T12:23:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Tetairoa McMillan's tight window acrobatic catches open up passing game",
+     "url": "https://www.panthers.com/news/tetairoa-mcmillan-s-tight-window-acrobatic-catches-open-up-passing-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams",
+    "Case Keenum"
+   ],
+   "headline": "Injury Update: Bears rule out Caleb Williams, will start Tyson Bagent or Case Keenum vs. Eagles",
+   "summary": "The Bears ruled Caleb Williams out of Monday night’s game against the Eagles with a hamstring injury, but they have not yet announced whether Tyson Bagent or Case Keenum will replace him.",
+   "published": "2026-09-26T20:05:46Z",
+   "published_at": "2026-09-26T20:05:46Z",
+   "first_seen_at": "2026-09-27T12:23:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "Injury Update: Bears rule out Caleb Williams, will start Tyson Bagent or Case Keenum vs. Eagles",
+     "url": "https://www.chicagobears.com/news/injury-update-bears-rule-out-caleb-williams-will-start-tyson-bagent-or-case-keenum-vs-eagles"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Eli Raridon"
+   ],
+   "headline": "Roster Analysis: TE Eli Raridon and S Craig Woodson make the trip, Patriots elevate two players for Sunday's Game vs. the Jaguars",
+   "summary": "Raridon (thigh) and Woodson (shoulder) are both questionable for Week 3 in Jacksonville.",
+   "published": "2026-09-26T20:00:52Z",
+   "published_at": "2026-09-26T20:00:52Z",
+   "first_seen_at": "2026-09-27T12:23:50+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "Roster Analysis: TE Eli Raridon and S Craig Woodson make the trip, Patriots elevate two players for Sunday's Game vs. the Jaguars",
+     "url": "https://www.patriots.com/news/roster-analysis-te-eli-raridon-and-s-craig-woodson-make-the-trip-patriots-elevate-two-players-for-sunday-s-game-vs-the-jaguars"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "Eagles at Bears Injury Report",
+   "summary": "The Bears ruled out quarterback Caleb Williams, but Tyson Bagent returned to practice on Saturday.",
+   "published": "2026-09-26T20:00:00Z",
+   "published_at": "2026-09-26T20:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:51+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PHI official",
+     "title": "Eagles at Bears Injury Report",
+     "url": "https://www.philadelphiaeagles.com/news/eagles-at-bears-injury-report-2026-nfl-week-3-monday-night-football-caleb-williams-saquon-barkley"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Why it doesn’t make sense for the Seahawks to trade Drew Lock",
+   "summary": "With Seattle Seahawks quarterback Sam Darnold returning to the starting lineup this week against the Washington Commanders, Drew Lock recedes back to his backup position. With Lock performing very well in his limited time as a starter, as well as the flurry of injuries to starting quarterbacks this season, some have began to wonder if […]",
+   "published": "2026-09-26T19:45:26Z",
+   "published_at": "2026-09-26T19:45:26Z",
+   "first_seen_at": "2026-09-27T12:23:55+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Why it doesn’t make sense for the Seahawks to trade Drew Lock",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-analysis/175730/why-it-doesnt-make-sense-seahawks-trade-drew-lock"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Case Keenum"
+   ],
+   "headline": "Tyson Bagent returns to practice opening door for Bears QB to possibly start vs. Eagles in Week 3",
+   "summary": "If Bagent can't go, Case Keenum would be Chicago's starter",
+   "published": "2026-09-26T19:04:14Z",
+   "published_at": "2026-09-26T19:04:14Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Tyson Bagent returns to practice opening door for Bears QB to possibly start vs. Eagles in Week 3",
+     "url": "https://www.cbssports.com/nfl/news/tyson-bagent-practice-bears-qb-week-3-vs-eagles"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Tyler Shough",
+    "Ashton Jeanty"
+   ],
+   "headline": "Keys to the Game: How the Raiders can slow down the Saints' high-powered offense",
+   "summary": "The Raiders must control the action and limit Tyler Shough's opportunities by keeping him on the sidelines while Ashton Jeanty and Co. chew up yardage and clock.",
+   "published": "2026-09-26T19:02:39Z",
+   "published_at": "2026-09-26T19:02:39Z",
+   "first_seen_at": "2026-09-27T12:23:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "Keys to the Game: How the Raiders can slow down the Saints' high-powered offense",
+     "url": "https://www.raiders.com/news/keys-to-the-game-how-the-raiders-can-slow-down-the-saints-high-powered-offense"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Davante Adams"
+   ],
+   "headline": "Don’t expect a repeat performance from Davante Adams",
+   "summary": "Davante Adams gashed the New York Giants last week with eight catches, 195 yards, and two scores. The Los Angeles Rams travel to face the Denver Broncos on Sunday Night Football. Fans and fantasy football owners are likely still riding the high from Adams’ big night; however, we should not expect a repeat performance. The […]",
+   "published": "2026-09-26T17:00:00Z",
+   "published_at": "2026-09-26T17:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Don’t expect a repeat performance from Davante Adams",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-analysis/149883/davante-adams-fantasy-sit-start-rams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Former NFL QB says ‘nobody is playing the way Brock Purdy is right now’",
+   "summary": "San Francisco 49ers quarterback Brock Purdy is enjoying arguably the best start to a season of his NFL career. Through two games, Purdy has thrown for 492 yards, five touchdowns, and an interception, while completing a league-high 80.8 percent of his passes and averaging 8.8 yards per attempt. Purdy has been very sharp with his […]",
+   "published": "2026-09-26T16:21:28Z",
+   "published_at": "2026-09-26T16:21:28Z",
+   "first_seen_at": "2026-09-27T12:23:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Former NFL QB says ‘nobody is playing the way Brock Purdy is right now’",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/163261/san-francisco-49ers-news-former-nfl-qb-dan-orlovsky-nobody-playing-like-brock-purdy-espn-mvp-race"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Zay Flowers"
+   ],
+   "headline": "Is Zay Flowers playing vs. Cowboys in Week 3? Ravens WR could be on pitch count if he suits up, per report",
+   "summary": "Flowers is officially listed as questionable due to a hamstring injury",
+   "published": "2026-09-26T15:57:50Z",
+   "published_at": "2026-09-26T15:57:50Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Is Zay Flowers playing vs. Cowboys in Week 3? Ravens WR could be on pitch count if he suits up, per report",
+     "url": "https://www.cbssports.com/nfl/news/zay-flowers-cowboys-week-3-ravens-wr-status"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Alec Pierce"
+   ],
+   "headline": "Colts sign WR Anthony Gould to 53-man roster from practice squad, place WR Alec Pierce on injured reserve, elevate WR Nick Westbrook-Ikhine to active roster from practice squad",
+   "summary": "The Colts made the roster move on Saturday.",
+   "published": "2026-09-26T15:44:09Z",
+   "published_at": "2026-09-26T15:44:09Z",
+   "first_seen_at": "2026-09-27T12:23:48+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "IND official",
+     "title": "Colts sign WR Anthony Gould to 53-man roster from practice squad, place WR Alec Pierce on injured reserve, elevate WR Nick Westbrook-Ikhine to active roster from practice squad",
+     "url": "https://www.colts.com/news/colts-sign-wr-anthony-gould-to-53-man-roster-from-practice-squad-place-wr-alec-pierce-on-injured-reserve-elevate-wr-nick-westbrook-ikhine-to-active-roster-from-practice-squad"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jaxson Dart"
+   ],
+   "headline": "Giants quarterback trade rumors: New York has made calls this week with a move possibly imminent",
+   "summary": "Jaxson Dart underwent season-ending knee surgery this week",
+   "published": "2026-09-26T15:03:23Z",
+   "published_at": "2026-09-26T15:03:23Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Giants quarterback trade rumors: New York has made calls this week with a move possibly imminent",
+     "url": "https://www.cbssports.com/nfl/news/giants-qb-trade-rumors"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jaxson Dart"
+   ],
+   "headline": "College football Week 4: 2027 NFL Draft prospects for the NY Giants",
+   "summary": "Good morning New York Giants fans! Happy Saturday and welcome to Week 4 of the 2026 College Football season! The Giants had their season turned upside down on Tuesday when it was revealed that quarterback Jaxson Dart would be lost for the season. That doesn’t change our focus for the Giants as we use the […]",
+   "published": "2026-09-26T15:00:00Z",
+   "published_at": "2026-09-26T15:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:54+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "College football Week 4: 2027 NFL Draft prospects for the NY Giants",
+     "url": "https://www.bigblueview.com/new-york-giants-discussion/172740/college-football-week-4-2027-nfl-draft-prospects-for-the-ny-giants"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Jayden Daniels",
+    "Sam Darnold",
+    "Marcus Mariota"
+   ],
+   "headline": "Seahawks vs. Commanders, Week 3 preview: Another Seahawks blowout win in Landover?",
+   "summary": "The Seattle Seahawks head to Washington on Sunday with Sam Darnold back and a chance to move to 3-0 for the second time under Mike Macdonald. The Washington Commanders, meanwhile, are 0-2 and will turn to Marcus Mariota after Jayden Daniels suffered an elbow injury against Dallas. On paper, this is a game Seattle should […]",
+   "published": "2026-09-26T15:00:00Z",
+   "published_at": "2026-09-26T15:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:55+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks vs. Commanders, Week 3 preview: Another Seahawks blowout win in Landover?",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-analysis/175662/nfl-week-3-preview-seattle-seahawks-at-washington-commanders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Commanders: Could Washington home opener be a ‘trap game’ for Seahawks?",
+   "summary": "The Daily Slop – 26 September 2026 Editor’s note: Each day, Hogs Haven compiles a collection of articles, podcasts & tweets from around the web to keep you in touch with the Commanders, the NFC East, the NFL and sports in general, with a sprinkling of other stuff. Enjoy! Commanders links Articles Jayden Daniels braces […]",
+   "published": "2026-09-26T14:00:00Z",
+   "published_at": "2026-09-26T14:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:54+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders: Could Washington home opener be a ‘trap game’ for Seahawks?",
+     "url": "https://www.hogshaven.com/washington-commanders-news/443471/could-washington-home-opener-be-a-trap-game-for-seahawks-marcus-mariota"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "Jaylen Warren"
+   ],
+   "headline": "Four-Down Territory: Navigating the North",
+   "summary": "Plus the Steelers welcome Joe Burrow to town, Jaylen Warren keeps trucking and a special teammate reunion in Pittsburgh",
+   "published": "2026-09-26T13:00:06Z",
+   "published_at": "2026-09-26T13:00:06Z",
+   "first_seen_at": "2026-09-27T12:23:51+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PIT official",
+     "title": "Four-Down Territory: Navigating the North",
+     "url": "https://www.steelers.com/news/four-down-territory-navigating-the-north"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jameis Winston"
+   ],
+   "headline": "New York Giants mailbag: It’s all quarterback all the time",
+   "summary": "Ed Helinski asks: What’s the Giants Plan C if Jameis Winston isn’t the answer for whatever reason? Ed says: Ed, how many times actually have a realistic Plan C at quarterback? The reality is that if you are down to your third quarterback, things are not going to go well. There are 32 NFL teams. […]",
+   "published": "2026-09-26T12:00:00Z",
+   "published_at": "2026-09-26T12:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:54+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "New York Giants mailbag: It’s all quarterback all the time",
+     "url": "https://www.bigblueview.com/new-york-giants-discussion/172529/new-york-giants-mailbag-its-all-quarterback-all-the-time"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jaxson Dart"
+   ],
+   "headline": "NY Giants news: Andrew Thomas to play, Jaxson Dart surgery, more",
+   "summary": "Good morning, New York Giants fans! Here are the stories you need as the Giants get ready to take on the Tennessee Titans tomorrow at 1 p.m. Giants’ season hinges on John Harbaugh after Jaxson Dart injury | The Athletic We’re going to learn a lot about the New York Giants over the next few […]",
+   "published": "2026-09-26T10:00:00Z",
+   "published_at": "2026-09-26T10:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:54+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "NY Giants news: Andrew Thomas to play, Jaxson Dart surgery, more",
+     "url": "https://www.bigblueview.com/new-york-giants-news/172873/andrew-thomas-to-play-jaxson-dart-surgery-more"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Orlando Brown Jr. believes the 2026 Bengals are a Super Bowl team",
+   "summary": "The expectations and pressure were at an all-time high for the Cincinnati Bengals entering the 2026 season after missing the playoffs for three straight years. Although it is still incredibly early, the Bengals’ revamped roster has shown up and executed at a winning level. The Bengals are 2-0 with a healthy Joe Burrow for the […]",
+   "published": "2026-09-26T09:45:00Z",
+   "published_at": "2026-09-26T09:45:00Z",
+   "first_seen_at": "2026-09-27T12:23:55+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Orlando Brown Jr. believes the 2026 Bengals are a Super Bowl team",
+     "url": "https://www.cincyjungle.com/200238/orlando-brown-jr-2026-bengals-super-bowl-team"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Commanders fans split on Jayden Daniels return – poll results",
+   "summary": "Most weeks of the year, and every week of the season for several years now, Hogs Haven runs Reacts surveys, and I write an article breaking down the results. Because I’m writing about what Hogs Haven readers have said in a collective sense, I rely heavily on the comments section to inform what I write. […]",
+   "published": "2026-09-26T09:00:00Z",
+   "published_at": "2026-09-26T09:00:00Z",
+   "first_seen_at": "2026-09-27T12:23:54+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders fans split on Jayden Daniels return – poll results",
+     "url": "https://www.hogshaven.com/washington-commanders-discussion/443058/commanders-fans-split-on-jayden-daniels-return-poll-results"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Rams vs. Broncos predictions: Will SNF be a defensive slugfest?",
+   "summary": "The Los Angeles Rams will travel to Mile High Stadium to face the Denver Broncos on Sunday Night Football. So that means it’s time for another round of bold predictions! Last week, I hit on 1 of 5 predictions; Matthew Stafford’s four touchdown passes being the winning prediction. I had predicted that Puka Nacua would […]",
+   "published": "2026-09-26T02:06:00Z",
+   "published_at": "2026-09-26T02:06:00Z",
+   "first_seen_at": "2026-09-27T12:23:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Rams vs. Broncos predictions: Will SNF be a defensive slugfest?",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-odds/149709/rams-vs-broncos-predictions-week-3-picks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Tee Higgins"
+   ],
+   "headline": "Tee Higgins speaks out on celebration fine from NFL",
+   "summary": "The Cincinnati Bengals are off to a red-hot 2-0 start and will look to add a third win on Sunday against the Pittsburgh Steelers. The defense has been lights out for the Bengals, but the offense has been slow to get fully going. Despite the offense not being up to par, the unit has done […]",
+   "published": "2026-09-26T00:31:23Z",
+   "published_at": "2026-09-26T00:31:23Z",
+   "first_seen_at": "2026-09-27T12:23:55+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Tee Higgins speaks out on celebration fine from NFL",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/200213/tee-higgins-celebration-fine-nfl-chase-texans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Zay Flowers"
+   ],
+   "headline": "Zay Flowers Has a 'Real Opportunity' to Play vs. Cowboys; Nnamdi Madubuike Poised for Debut",
+   "summary": "Ronnie Stanley (toe) has been ruled out after not practicing all week.",
+   "published": "2026-09-25T23:42:00Z",
+   "published_at": "2026-09-25T23:42:00Z",
+   "first_seen_at": "2026-09-27T12:23:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Zay Flowers Has a 'Real Opportunity' to Play vs. Cowboys; Nnamdi Madubuike Poised for Debut",
+     "url": "https://www.baltimoreravens.com/news/injury-report-ravens-cowboys-zay-flowers-ronnie-stanley-brazil-rio-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "Game Preview: Bo Nix, Broncos set for home prime-time showdown vs. Matthew Stafford, Rams",
+   "summary": "\"You just know it’s a big deal, you know it’s a big game,” quarterback Bo Nix said. \"You know two good teams are playing against each other. For us — we say it all the time — we know we’ll play in bigger games. But right now, this is the next-biggest one.”",
+   "published": "2026-09-25T23:22:06Z",
+   "published_at": "2026-09-25T23:22:06Z",
+   "first_seen_at": "2026-09-27T12:23:48+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DEN official",
+     "title": "Game Preview: Bo Nix, Broncos set for home prime-time showdown vs. Matthew Stafford, Rams",
+     "url": "https://www.denverbroncos.com/news/game-preview-bo-nix-broncos-set-for-home-prime-time-showdown-vs-matthew-stafford-rams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "Nick Bosa OUT vs. Cardinals; Mike Evans Questionable Ahead of #AZvsSF",
+   "summary": "The San Francisco 49ers released their latest injury updates headed into their contest against the Arizona Cardinals.",
+   "published": "2026-09-25T22:51:13Z",
+   "published_at": "2026-09-25T22:51:13Z",
+   "first_seen_at": "2026-09-27T12:23:51+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SF official",
+     "title": "Nick Bosa OUT vs. Cardinals; Mike Evans Questionable Ahead of #AZvsSF",
+     "url": "https://www.49ers.com/news/nick-bosa-out-vs-cardinals-mike-evans-questionable-ahead-of-azvssf"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "News & Notes: Ravens Feel Good After Long Flight to Brazil",
+   "summary": "The Ravens spent time in the pool to help their legs recover. Will Lamar Jackson test the Cowboys’ defense by running more? Baltimore feels ready to adjust to the field conditions at Maracanã Stadium. The Ravens are excited to see how fans react to NFL football on Sunday.",
+   "published": "2026-09-25T22:16:14Z",
+   "published_at": "2026-09-25T22:16:14Z",
+   "first_seen_at": "2026-09-27T12:23:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "News & Notes: Ravens Feel Good After Long Flight to Brazil",
+     "url": "https://www.baltimoreravens.com/news/ravens-feel-good-after-brazil-trip-lamar-jackson-could-run-more-against-cowboys-news-notes-ravens-cowboys-week-3"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Jaylen Waddle"
+   ],
+   "headline": "Is Sean Payton overrated?",
+   "summary": "The Denver Broncos gave up a first-round and a third-round pick for Jaylen Waddle in the offseason to spark one of the most functionally-limited passing offenses in the NFL in 2025, but the early returns have Sean Payton’s offense stuck in third gear with a slow start in 2026. Although Payton relinquished play calling duties […]",
+   "published": "2026-09-25T22:07:00Z",
+   "published_at": "2026-09-25T22:07:00Z",
+   "first_seen_at": "2026-09-27T12:23:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Is Sean Payton overrated?",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-analysis/149799/is-sean-payton-overrated"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Puka Nacua doubtful for Week 3, but expected back soon",
+   "summary": "Puka Nacua missed the L.A. Rams’ Week 2 win over the New York Giants and is expected to be held out again on Sunday against the Denver Broncos, but Sean McVay believes that the star receiver will return in Week 4. Nacua is going to be listed as doubtful for the Broncos game, an injury […]",
+   "published": "2026-09-25T22:00:44Z",
+   "published_at": "2026-09-25T22:00:44Z",
+   "first_seen_at": "2026-09-27T12:23:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Puka Nacua doubtful for Week 3, but expected back soon",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-injuries/149819/puka-nacua-doubtful-rams-broncos"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Jeremiyah Love"
+   ],
+   "headline": "Jeremiyah Love As 'CMC', Tight End Stars, And Friday Before The 49ers",
+   "summary": "",
+   "published": "2026-09-25T21:57:52Z",
+   "published_at": "2026-09-25T21:57:52Z",
+   "first_seen_at": "2026-09-27T12:23:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "Jeremiyah Love As 'CMC', Tight End Stars, And Friday Before The 49ers",
+     "url": "https://www.azcardinals.com/news/jeremiyah-love-as-cmc-tight-end-stars-and-friday-before-the-49ers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "Kyle Shanahan shares how Nick Bosa got hurt; calls 49ers injuries ‘unusual’",
+   "summary": "Mike Evans practiced Friday for the San Francisco 49ers. That’s a good sign for his availability in Week 3 against the Arizona Cardinals. However, rookie pass rusher Romello Height missed Friday’s session. Height had hand surgery earlier in the week after breaking it, and his status for Sunday was always in question. He was ruled […]",
+   "published": "2026-09-25T21:28:33Z",
+   "published_at": "2026-09-25T21:28:33Z",
+   "first_seen_at": "2026-09-27T12:23:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Kyle Shanahan shares how Nick Bosa got hurt; calls 49ers injuries ‘unusual’",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/163252/kyle-shanahan-shares-how-nick-bosa-got-hurt-calls-49ers-injuries-unusual"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks QB Sam Darnold 'Ready To Go'; S Julian Love Ruled Out",
+   "summary": "Injury updates from Seahawks coach Mike Macdonald ahead of his team’s trip to Washington.",
+   "published": "2026-09-25T21:15:47Z",
+   "published_at": "2026-09-25T21:15:47Z",
+   "first_seen_at": "2026-09-27T12:23:51+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Seahawks QB Sam Darnold 'Ready To Go'; S Julian Love Ruled Out",
+     "url": "https://www.seahawks.com/news/seahawks-qb-sam-darnold-ready-to-go-s-julian-love-ruled-out"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Rams Injury Report, Week 3 at Broncos: Puka Nacua and Kam Kinchens doubtful for Sunday Night Football",
+   "summary": "The final injury report for Week 3's Sunday Night Football matchup between the Rams and the Broncos at Empower Field at Mile High.",
+   "published": "2026-09-25T21:12:15Z",
+   "published_at": "2026-09-25T21:12:15Z",
+   "first_seen_at": "2026-09-27T12:23:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Rams Injury Report, Week 3 at Broncos: Puka Nacua and Kam Kinchens doubtful for Sunday Night Football",
+     "url": "https://www.therams.com/news/rams-injury-report-week-3-at-broncos-puka-nacua-and-kam-kinchens-doubtful-for-sunday-night-football-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Commanders vs. Seahawks Friday injury report: Sam Cosmi among five ruled out",
+   "summary": "The Commanders ruled safety Nick Cross (internal/illness) and quarterback Jayden Daniels (elbow) out of Sunday’s game against the Seattle Seahawks almost a week ago now. There was at least some hope that more key players could recover in time to face the Super Bowl champs. It’s now official that linebacker Frankie Luvu (groin), tight end […]",
+   "published": "2026-09-25T21:06:54Z",
+   "published_at": "2026-09-25T21:06:54Z",
+   "first_seen_at": "2026-09-27T12:23:54+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders vs. Seahawks Friday injury report: Sam Cosmi among five ruled out",
+     "url": "https://www.hogshaven.com/washington-commanders-injuries/443424/commanders-seahawks-injury-report-frankie-luvu-chig-okonkwo-sam-cosmi-jayden-daniels-nick-cross"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott, Cowboys want to 'be the aggressors' vs. Ravens in Rio",
+   "summary": "Heading into the first international game of his career, Cowboys QB Dak Prescott talked about the opportunity to play in Brazil, and why it's important Dallas is \"the aggressors\" against the Ravens on Sunday.",
+   "published": "2026-09-25T20:41:34Z",
+   "published_at": "2026-09-25T20:41:34Z",
+   "first_seen_at": "2026-09-27T12:23:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Dak Prescott, Cowboys want to 'be the aggressors' vs. Ravens in Rio",
+     "url": "https://www.dallascowboys.com/news/dak-prescott-cowboys-want-to-be-the-aggressors-vs-ravens-in-rio"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks-Commanders game designations: Sam Darnold will play, Julian Love ruled out",
+   "summary": "The Seattle Seahawks will have Sam Darnold back in the lineup, but they’ll be down both of their starting safeties against the Washington Commanders. Mike Macdonald confirmed on Friday that Darnold is not on the final injury report and will start on Sunday. He missed almost all of the Week 1 opener against the New […]",
+   "published": "2026-09-25T20:39:12Z",
+   "published_at": "2026-09-25T20:39:12Z",
+   "first_seen_at": "2026-09-27T12:23:55+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks-Commanders game designations: Sam Darnold will play, Julian Love ruled out",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-injury-report/175696/seahawks-commanders-injury-designations-sam-darnold-returns-julian-love-ruled-out"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "RJ Harvey",
+    "J.K. Dobbins",
+    "Jonah Coleman"
+   ],
+   "headline": "Injury Report: RBs RJ Harvey and J.K. Dobbins not assigned game statuses, RB Jonah Coleman ruled out for Week 3 game vs. Rams",
+   "summary": "The Broncos are set to regain a key player on offense.",
+   "published": "2026-09-25T20:29:55Z",
+   "published_at": "2026-09-25T20:29:55Z",
+   "first_seen_at": "2026-09-27T12:23:48+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DEN official",
+     "title": "Injury Report: RBs RJ Harvey and J.K. Dobbins not assigned game statuses, RB Jonah Coleman ruled out for Week 3 game vs. Rams",
+     "url": "https://www.denverbroncos.com/news/injuryreport/injury-report-rbs-rj-harvey-and-j-k-dobbins-not-assigned-game-statuses-rb-jonah-coleman-ruled-out-for-week-3-game-vs-rams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Why Patriots QB coach uses chicken wings to motivate Drake Maye",
+   "summary": "There are apparently a lot of similarities between playing QB and eating a chicken wing",
+   "published": "2026-09-25T20:15:01Z",
+   "published_at": "2026-09-25T20:15:01Z",
+   "first_seen_at": "2026-09-27T12:23:53+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Why Patriots QB coach uses chicken wings to motivate Drake Maye",
+     "url": "https://www.cbssports.com/nfl/news/patriots-qb-coach-uses-chicken-wings-motivate-drake-maye"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 25,
+ "feeds_generated_at": "2026-09-27T12:23:44+00:00"
+}
