@@ -1,0 +1,1344 @@
+{
+ "date": "2026-09-28",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "‘You Had More Than Enough Time’ — NFL Legend Delivers Reality Check to Joe Burrow as Bengals QB Plays Blame Game After Losing to Steelers",
+   "summary": "",
+   "published": "2026-09-28T14:10:46Z",
+   "published_at": "2026-09-28T14:10:46Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘You Had More Than Enough Time’ — NFL Legend Delivers Reality Check to Joe Burrow as Bengals QB Plays Blame Game After Losing to Steelers",
+     "url": "https://www.profootballnetwork.com/nfl-legend-reality-check-joe-burrow-bengals-blame-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "PFF grades: The short-handed Rams really need someone to step up",
+   "summary": "Matthew Stafford is PFF’s 27th-ranked QB through three weeks. Can he improve?",
+   "published": "2026-09-28T14:05:13Z",
+   "published_at": "2026-09-28T14:05:13Z",
+   "first_seen_at": "2026-09-28T14:24:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "PFF grades: The short-handed Rams really need someone to step up",
+     "url": "https://sports.yahoo.com/articles/pff-grades-short-handed-rams-140513411.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks vs. Chargers odds: Opening lines for Week 4 matchup",
+   "summary": "Despite a shocking 33-31 upset loss to the shorthanded Washington Commanders on Sunday, the Seattle Seahawks still open up as heavy favourites against the winless Los Angeles Chargers in Week 4. Seattle opened the season 2-0 and even after dropping an extremely winnable game, Sam Darnold and the offense strung together 437 total yards, leaving […]",
+   "published": "2026-09-28T14:00:00Z",
+   "published_at": "2026-09-28T14:00:00Z",
+   "first_seen_at": "2026-09-28T14:24:50+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks vs. Chargers odds: Opening lines for Week 4 matchup",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-betting-odds-spreads-picks/175805/seahawks-vs-chargers-odds-week-4-opening-lines-point-spread-total"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Davante Adams"
+   ],
+   "headline": "‘It’s Nothing to Freak Out About’ — Davante Adams Refuses to Panic as Rams Slip to 1-2 Despite Super Bowl Favorites Tag",
+   "summary": "",
+   "published": "2026-09-28T13:57:25Z",
+   "published_at": "2026-09-28T13:57:25Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘It’s Nothing to Freak Out About’ — Davante Adams Refuses to Panic as Rams Slip to 1-2 Despite Super Bowl Favorites Tag",
+     "url": "https://www.profootballnetwork.com/davante-adams-refuses-panic-rams-slip"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Javonte Williams"
+   ],
+   "headline": "Javonte Williams with a Good Week 3",
+   "summary": "Dallas Cowboys RB Javonte Williams rushed 19 times for 98 yards and a touchdown and also caught two balls for five yards in the 34-31 loss to the Baltimore Ravens Sunday.",
+   "published": "2026-09-28T13:47:45Z",
+   "published_at": "2026-09-28T13:47:45Z",
+   "first_seen_at": "2026-09-28T14:24:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Javonte Williams with a Good Week 3",
+     "url": "https://sports.yahoo.com/articles/javonte-williams-good-week-3-134745229.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott solid in Week 3 loss",
+   "summary": "Dallas Cowboys QB Dak Prescott went 25-for-40 for 276 yards, one touchdown and no interceptions in the 34-31 loss to the Baltimore Ravens Sunday,",
+   "published": "2026-09-28T13:36:56Z",
+   "published_at": "2026-09-28T13:36:56Z",
+   "first_seen_at": "2026-09-28T14:24:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Dak Prescott solid in Week 3 loss",
+     "url": "https://sports.yahoo.com/articles/dak-prescott-solid-week-3-133656690.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "NFL Monday Night Football preview: Bears, without QB Caleb Williams, try to beat undefeated Eagles",
+   "summary": "The Eagles are 2-0 after two very close wins to start the season.",
+   "published": "2026-09-28T13:07:13Z",
+   "published_at": "2026-09-28T13:07:13Z",
+   "first_seen_at": "2026-09-28T14:24:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "NFL Monday Night Football preview: Bears, without QB Caleb Williams, try to beat undefeated Eagles",
+     "url": "https://sports.yahoo.com/nfl/article/nfl-monday-night-football-preview-bears-without-qb-caleb-williams-try-to-beat-undefeated-eagles-130713364.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Cover 32: Chargers 0-3 start inches toward full reset, plus game balls, biggest gaffes from Week 3",
+   "summary": "Tyler Sullivan dives into all the biggest items from Week 3 in the NFL, including the Chargers' egregious start, Marcus Mariota shining, and the Patriots' Drake Maye problem",
+   "published": "2026-09-28T13:01:11Z",
+   "published_at": "2026-09-28T13:01:11Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Cover 32: Chargers 0-3 start inches toward full reset, plus game balls, biggest gaffes from Week 3",
+     "url": "https://www.cbssports.com/nfl/news/nfl-cover-32-week-3-chargers-game-balls-biggest-gaffes"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Tyler Shough"
+   ],
+   "headline": "Morning Break: Tyler Shough throws four touchdown passes in Saints home opener",
+   "summary": "A collection of headlines and news about the Saints and the NFL for Monday, September 28",
+   "published": "2026-09-28T13:00:16Z",
+   "published_at": "2026-09-28T13:00:16Z",
+   "first_seen_at": "2026-09-28T14:24:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NO official",
+     "title": "Morning Break: Tyler Shough throws four touchdown passes in Saints home opener",
+     "url": "https://www.neworleanssaints.com/news/morning-break-tyler-shough-throws-four-touchdown-passes-in-saints-home-opener-new-orleans-news-headlines-9-28-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Steelers Overcome Joe Burrow's Darts And Dexter Lawrence's Sacks In AFC North Thriller",
+   "summary": "A look at Sunday's game in Pittsburgh.",
+   "published": "2026-09-28T12:56:46Z",
+   "published_at": "2026-09-28T12:56:46Z",
+   "first_seen_at": "2026-09-28T14:24:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Steelers Overcome Joe Burrow's Darts And Dexter Lawrence's Sacks In AFC North Thriller",
+     "url": "https://www.bengals.com/news/steelers-overcome-joe-burrow-s-darts-and-dexter-lawrence-s-sacks-in-afc-north-thriller"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott: We've got to put the game away",
+   "summary": "A pass interference penalty on Ravens cornerback Nate Wiggins set the Cowboys up on the Baltimore 2-yard-line with 23 seconds left in Sunday's game against the Ravens.",
+   "published": "2026-09-28T12:54:04Z",
+   "published_at": "2026-09-28T12:54:04Z",
+   "first_seen_at": "2026-09-28T14:24:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Dak Prescott: We've got to put the game away",
+     "url": "https://sports.yahoo.com/articles/dak-prescott-weve-got-put-125404825.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams",
+    "Case Keenum"
+   ],
+   "headline": "Case Keenum reportedly expected to start for Bears with Caleb Williams out and Tyson Bagent recovering from concussion",
+   "summary": "Case Keenum hasn't started an NFL game since 2023.",
+   "published": "2026-09-28T12:39:14Z",
+   "published_at": "2026-09-28T12:39:14Z",
+   "first_seen_at": "2026-09-28T14:24:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Case Keenum reportedly expected to start for Bears with Caleb Williams out and Tyson Bagent recovering from concussion",
+     "url": "https://sports.yahoo.com/nfl/article/case-keenum-reportedly-expected-to-start-for-bears-with-caleb-williams-out-and-tyson-bagent-recovering-from-concussion-123914380.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "Browns Week 3: 2025 winning carried over, team win but new star, Deshaun Watson enough",
+   "summary": "The Cleveland Browns are 2-1 after a big Week 3 win. Mason Graham is a star, Deshaun Watson is doing enough, and more",
+   "published": "2026-09-28T12:18:58Z",
+   "published_at": "2026-09-28T12:18:58Z",
+   "first_seen_at": "2026-09-28T14:24:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Browns Week 3: 2025 winning carried over, team win but new star, Deshaun Watson enough",
+     "url": "https://sports.yahoo.com/articles/browns-week-3-2025-winning-121858068.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Case Keenum"
+   ],
+   "headline": "Bears expected to start Case Keenum vs. Eagles despite Tyson Bagent clearing concussion protocol",
+   "summary": "This will be Keenum's first start since Christmas Eve 2023",
+   "published": "2026-09-28T12:12:17Z",
+   "published_at": "2026-09-28T12:12:17Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Bears expected to start Case Keenum vs. Eagles despite Tyson Bagent clearing concussion protocol",
+     "url": "https://www.cbssports.com/nfl/news/bears-expected-to-start-case-keenum-vs-eagles"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "Four down territory: Rams must dig out of 1-2 start",
+   "summary": "The Los Angeles Rams are 1-2 after blowing a 16-0 halftime lead in a 30-26 loss to the Denver Broncos on Sunday Night Football. The Rams controlled much of the first half before Denver rallied behind Bo Nix in the second half. Matthew Stafford threw two interceptions, including one returned for a touchdown, while costly […]",
+   "published": "2026-09-28T12:04:00Z",
+   "published_at": "2026-09-28T12:04:00Z",
+   "first_seen_at": "2026-09-28T14:24:51+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Four down territory: Rams must dig out of 1-2 start",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-analysis/149997/rams-team-week-3-reflections"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Michael Penix Jr."
+   ],
+   "headline": "Falcons Week 3, 3 up and 3 down: The offense shows signs of life",
+   "summary": "The Atlanta Falcons got their first win of the season, and did so in dominant fashion. Michael Penix Jr. returned, and so did the offensive production. On the other side of the ball, CJ Henderson and company stepped up as the team managed multiple injuries. Here’s the Week 3, 3 up and 3 down. 3 […]",
+   "published": "2026-09-28T12:00:00Z",
+   "published_at": "2026-09-28T12:00:00Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "Falcons Week 3, 3 up and 3 down: The offense shows signs of life",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-analysis/96688/falcons-week-3-3-up-and-3-down-the-offense-shows-signs-of-life-mike-hughes-michael-penix"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "Bears vs. Eagles preview: Philadelphia looks to remain unbeaten against Caleb Williams-less Chicago",
+   "summary": "Plus, how to watch the game and a prediction for the Monday night matchup",
+   "published": "2026-09-28T11:42:55Z",
+   "published_at": "2026-09-28T11:42:55Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Bears vs. Eagles preview: Philadelphia looks to remain unbeaten against Caleb Williams-less Chicago",
+     "url": "https://www.cbssports.com/nfl/news/bears-vs-eagles-preview-pick-prediction-how-to-watch"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Marcus Mariota"
+   ],
+   "headline": "Commanders news: Marcus Mariota puts up important numbers vs. Seahawks",
+   "summary": "The Daily Slop – 28 September 2026 Editor’s note: Each day, Hogs Haven compiles a collection of articles, podcasts & tweets from around the web to keep you in touch with the Commanders, the NFC East, the NFL and sports in general, with a sprinkling of other stuff. Enjoy! Commanders links Articles ESPN Marcus Mariota, […]",
+   "published": "2026-09-28T11:29:00Z",
+   "published_at": "2026-09-28T11:29:00Z",
+   "first_seen_at": "2026-09-28T14:24:50+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders news: Marcus Mariota puts up important numbers vs. Seahawks",
+     "url": "https://www.hogshaven.com/washington-commanders-news/443914/commanders-news-daily-links-marcus-mariota-seahawks-nfl-articles-podcasts-videos"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow",
+    "Tee Higgins"
+   ],
+   "headline": "Tee Higgins defends Joe Burrow after late fumble seals Bengals’ first loss of the season to Steelers",
+   "summary": "One of the worst things to come out of Sunday’s loss at Pittsburgh is that the conversation about Joe Burrow not being clutch is likely going to be reignited. With a chance to lead a game-winning drive, or at the very least a game-tying drive, Joe Burrow fumbled with less than a minute remaining, with […]",
+   "published": "2026-09-28T11:05:00Z",
+   "published_at": "2026-09-28T11:05:00Z",
+   "first_seen_at": "2026-09-28T14:24:50+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Tee Higgins defends Joe Burrow after late fumble seals Bengals’ first loss of the season to Steelers",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/200492/tee-higgins-joe-burrow-fumble"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "Michael Pittman"
+   ],
+   "headline": "‘(Aaron) Rodgers Absolutely Hates (Michael) Pittman,’ ‘Never His Fault’ — NFL Fans Turn to Lip-Reading as Steelers QB Loses His Cool vs. Bengals",
+   "summary": "",
+   "published": "2026-09-28T06:46:27Z",
+   "published_at": "2026-09-28T06:46:27Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘(Aaron) Rodgers Absolutely Hates (Michael) Pittman,’ ‘Never His Fault’ — NFL Fans Turn to Lip-Reading as Steelers QB Loses His Cool vs. Bengals",
+     "url": "https://www.profootballnetwork.com/aaron-rodgers-michael-pittman-nfl-fans-lip-reading-steelers-bengals"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "From the Podium: Sean McVay, Matthew Stafford and Josh Wallace recap Rams narrow loss to Broncos on Sunday Night Football",
+   "summary": "Rams head coach Sean McVay, quarterback Matthew Stafford and cornerback Josh Wallace gave their thoughts on the Rams' 30-26 loss to the Broncos on Sunday Night Football.",
+   "published": "2026-09-28T05:28:30Z",
+   "published_at": "2026-09-28T05:28:30Z",
+   "first_seen_at": "2026-09-28T14:24:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "From the Podium: Sean McVay, Matthew Stafford and Josh Wallace recap Rams narrow loss to Broncos on Sunday Night Football",
+     "url": "https://www.therams.com/news/from-the-podium-head-coach-sean-mcvay-quarterback-matthew-stafford-cornerback-josh-wallace-recap-rams-narrow-loss-to-broncos-on-sunday-night-football-press-conference-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "‘Substation Must Be Stopped,’ ‘Niners Are Cursed’ — NFL Fans React to Trent Williams, Mike Evans Getting Carted Off As 49ers’ Injuries Pile Up",
+   "summary": "",
+   "published": "2026-09-28T04:56:11Z",
+   "published_at": "2026-09-28T04:56:11Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Substation Must Be Stopped,’ ‘Niners Are Cursed’ — NFL Fans React to Trent Williams, Mike Evans Getting Carted Off As 49ers’ Injuries Pile Up",
+     "url": "https://www.profootballnetwork.com/substation-cursed-nfl-fans-trent-williams-mike-evans-injury-49ers-news"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "Matthew Stafford becomes first player in NFL history to throw for 20,000-plus career passing yards with two different teams",
+   "summary": "Rams quarterback Matthew Stafford owns a piece of NFL history to himself.",
+   "published": "2026-09-28T04:35:00Z",
+   "published_at": "2026-09-28T04:35:00Z",
+   "first_seen_at": "2026-09-28T14:24:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Matthew Stafford becomes first player in NFL history to throw for 20,000-plus career passing yards with two different teams",
+     "url": "https://www.therams.com/news/quarterback-matthew-stafford-becomes-first-player-in-nfl-history-throw-for-20000-plus-career-passing-yards-two-different-teams-rams-lions"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Zay Flowers",
+    "Lamar Jackson"
+   ],
+   "headline": "Ravens Break Down Last-Second Pass Play That Set Up Game-Winning Field Goal Against Cowboys",
+   "summary": "Lamar Jackson and Zay Flowers connected on a 27-yard pass that set up Tyler Loop’s eventual game-winning field goal.",
+   "published": "2026-09-28T03:52:48Z",
+   "published_at": "2026-09-28T03:52:48Z",
+   "first_seen_at": "2026-09-28T14:24:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Ravens Break Down Last-Second Pass Play That Set Up Game-Winning Field Goal Against Cowboys",
+     "url": "https://www.baltimoreravens.com/news/lamar-jackson-zay-flowers-last-second-play-ravens-cowboys-week-3"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Javonte Williams"
+   ],
+   "headline": "Javonte Williams, Cowboys find success in run game, now need to 'get back on track'",
+   "summary": "Javonte Williams and the Cowboys offense were able to finally find a spark in the run game. Still, he knows they need to do more in order to \"get back on track\"",
+   "published": "2026-09-28T03:46:21Z",
+   "published_at": "2026-09-28T03:46:21Z",
+   "first_seen_at": "2026-09-28T14:24:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Javonte Williams, Cowboys find success in run game, now need to 'get back on track'",
+     "url": "https://www.dallascowboys.com/news/javonte-williams-cowboys-find-success-in-run-game-now-need-to-get-back-on-track"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson",
+    "Shedeur Sanders"
+   ],
+   "headline": "‘Picked the Right Guy’ — NFL Analyst Commends Todd Monken’s Choice of Deshaun Watson Over Shedeur Sanders As Browns’ QB1",
+   "summary": "",
+   "published": "2026-09-28T03:31:10Z",
+   "published_at": "2026-09-28T03:31:10Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Picked the Right Guy’ — NFL Analyst Commends Todd Monken’s Choice of Deshaun Watson Over Shedeur Sanders As Browns’ QB1",
+     "url": "https://www.profootballnetwork.com/nfl-analyst-todd-monken-choice-deshaun-watson-over-shedeur-sanders-browns-week-3"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "‘I Hate To Say Terrible’ — Cowboys Star Dak Prescott Gets Brutally Honest About Brazilian Fans’ Gesture",
+   "summary": "",
+   "published": "2026-09-28T03:26:37Z",
+   "published_at": "2026-09-28T03:26:37Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I Hate To Say Terrible’ — Cowboys Star Dak Prescott Gets Brutally Honest About Brazilian Fans’ Gesture",
+     "url": "https://www.profootballnetwork.com/dak-prescott-criticizes-brazilian-fans-gesture"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Tyler Shough"
+   ],
+   "headline": "Postgame Quotes: New Orleans Saints, Las Vegas Raiders | 2026 NFL Week 3",
+   "summary": "Quotes from Kellen Moore, S Justin Reid, QB Tyler Shough",
+   "published": "2026-09-28T03:05:00Z",
+   "published_at": "2026-09-28T03:05:00Z",
+   "first_seen_at": "2026-09-28T14:24:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NO official",
+     "title": "Postgame Quotes: New Orleans Saints, Las Vegas Raiders | 2026 NFL Week 3",
+     "url": "https://www.neworleanssaints.com/news/2026-nfl-week-3-las-vegas-raiders-vs-new-orleans-saints-game-quotes"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Tyler Shough",
+    "Derek Carr"
+   ],
+   "headline": "Game Notes: New Orleans Saints, Las Vegas Raiders | 2026 NFL Week 3",
+   "summary": "Tyler Shough threw a career-high four touchdown passes against the Raiders, becoming the first Saints quarterback to reach that mark since Derek Carr on Jan. 7, 2024, against Atlanta.",
+   "published": "2026-09-28T03:00:00Z",
+   "published_at": "2026-09-28T03:00:00Z",
+   "first_seen_at": "2026-09-28T14:24:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NO official",
+     "title": "Game Notes: New Orleans Saints, Las Vegas Raiders | 2026 NFL Week 3",
+     "url": "https://www.neworleanssaints.com/news/2026-nfl-week-3-las-vegas-raiders-vs-new-orleans-saints-game-notes"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "The Breakdown: A Trip to Rio Becomes Remarkable for Ravens",
+   "summary": "Tyler Loop has his best moment in Brazil. Lamar Jackson puts on an international show. The injuries at center have become a major concern.",
+   "published": "2026-09-28T02:52:07Z",
+   "published_at": "2026-09-28T02:52:07Z",
+   "first_seen_at": "2026-09-28T14:24:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "The Breakdown: A Trip to Rio Becomes Remarkable for Ravens",
+     "url": "https://www.baltimoreravens.com/news/tyler-loop-kick-ends-remarkable-rio-trip-lamar-jackson-stars-defense-still-needs-work-week-3-brazil-ravens-cowboys"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Lamar Jackson, Tyler Loop help Ravens exorcise demons, earn most important regular-season win in recent memory",
+   "summary": "Loop's 56-yard game-winner to beat the Cowboys in Brazil was a stark contrast to his Week 18 miss against the Steelers",
+   "published": "2026-09-28T02:40:47Z",
+   "published_at": "2026-09-28T02:40:47Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Lamar Jackson, Tyler Loop help Ravens exorcise demons, earn most important regular-season win in recent memory",
+     "url": "https://www.cbssports.com/nfl/news/ravens-exorcise-demons-beat-cowboys-in-brazil"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "‘Playing Like He’s the Best QB in the NFL’ — NFL World Crowns Brock Purdy As ‘The Early MVP Favorite’ After 49ers’ Win vs. Cardinals",
+   "summary": "",
+   "published": "2026-09-28T02:33:26Z",
+   "published_at": "2026-09-28T02:33:26Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Playing Like He’s the Best QB in the NFL’ — NFL World Crowns Brock Purdy As ‘The Early MVP Favorite’ After 49ers’ Win vs. Cardinals",
+     "url": "https://www.profootballnetwork.com/nfl-world-crowns-brock-purdy-early-mvp-favorite-49ers-win-cardinals"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Bucs Drop to 0-3 with Vikings Defeat, Lose Baker Mayfield to Thumb Injury",
+   "summary": "The Buccaneers' 23-16 loss to visiting Minnesota on Sunday was punctuated by a late-game injury to starting QB Baker Mayfield, ending an evening of offensive frustration for both teams",
+   "published": "2026-09-28T02:30:00Z",
+   "published_at": "2026-09-28T02:30:00Z",
+   "first_seen_at": "2026-09-28T14:24:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Bucs Drop to 0-3 with Vikings Defeat, Lose Baker Mayfield to Thumb Injury",
+     "url": "https://www.buccaneers.com/news/vikings-bucs-week-3-recap-postgame-report-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jadarian Price"
+   ],
+   "headline": "Jadarian Price has a fumbling problem until he doesn’t",
+   "summary": "The Seattle Seahawks have been blessed with tremendous ball security from their main running backs over the past few seasons. Kenneth Walker III never lost a fumble with the Seahawks and only had one career fumble on an actual run play, while Zach Charbonnet’s next fumble will be his first. Walker is on another team […]",
+   "published": "2026-09-28T02:01:30Z",
+   "published_at": "2026-09-28T02:01:30Z",
+   "first_seen_at": "2026-09-28T14:24:50+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Jadarian Price has a fumbling problem until he doesn’t",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-analysis/175859/seahawks-jadarian-price-fumbling-problem-until-he-doesnt-statistics"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels",
+    "Marcus Mariota"
+   ],
+   "headline": "Commanders vs. Colts odds: Opening lines for Week 4 matchup",
+   "summary": "The Washington Commanders are 1-2 after their upset win over the Seattle Seahawks. They were led by new team captain Marcus Mariota who took over for Jayden Daniels last week when he re-injured his left elbow. Mariota took advantage of Washington’s defense forcing multiple turnovers, including a Kain Medrano pick-6, to lead the Commanders to […]",
+   "published": "2026-09-28T02:00:00Z",
+   "published_at": "2026-09-28T02:00:00Z",
+   "first_seen_at": "2026-09-28T14:24:50+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders vs. Colts odds: Opening lines for Week 4 matchup",
+     "url": "https://www.hogshaven.com/washington-commanders-odds/443833/commanders-vs-colts-odds-week-4-opening-lines-point-spread-total"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "‘Drew Lock Should’ve Started,’ ‘Bench Sam Darnold’ — NFL Fans Call Out Seahawks for Controversial QB Decision Resulting in Loss vs. Commanders",
+   "summary": "",
+   "published": "2026-09-28T01:59:09Z",
+   "published_at": "2026-09-28T01:59:09Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Drew Lock Should’ve Started,’ ‘Bench Sam Darnold’ — NFL Fans Call Out Seahawks for Controversial QB Decision Resulting in Loss vs. Commanders",
+     "url": "https://www.profootballnetwork.com/nfl-fans-call-out-seahawks-qb-decision-drew-lock-sam-darnold-commanders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Justin Jefferson",
+    "Jordan Addison"
+   ],
+   "headline": "Jordan Addison's Long Catch and Longer TD Help Vikings After Justin Jefferson Departs at Bucs",
+   "summary": "",
+   "published": "2026-09-28T01:54:31Z",
+   "published_at": "2026-09-28T01:54:31Z",
+   "first_seen_at": "2026-09-28T14:24:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "MIN official",
+     "title": "Jordan Addison's Long Catch and Longer TD Help Vikings After Justin Jefferson Departs at Bucs",
+     "url": "https://www.vikings.com/news/jordan-addison-touchdown-catch-week-3-buccaneers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott frustrated by loss to Ravens: 'We've got to put the game away'",
+   "summary": "Cowboys QB Dak Prescott used the words \"frustrated\" and \"embarrassed\" to describe his feelings after Dallas' 34-31 loss to the Ravens in Rio, and said the offense got in their own way on multiple occasions Sunday night.",
+   "published": "2026-09-28T01:30:44Z",
+   "published_at": "2026-09-28T01:30:44Z",
+   "first_seen_at": "2026-09-28T14:24:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Dak Prescott frustrated by loss to Ravens: 'We've got to put the game away'",
+     "url": "https://www.dallascowboys.com/news/dak-prescott-frustrated-by-loss-to-ravens-we-ve-got-to-put-the-game-away"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Sam Darnold Throws For Career-High 379 Yards In Return, Laments Turnovers In Loss To Commanders",
+   "summary": "Sam Darnold put up career-high numbers in his first full game of the 2026 season, but a pair of second-half turnovers ultimately led to the Seahawks' first loss of the 2026 season.",
+   "published": "2026-09-28T01:27:01Z",
+   "published_at": "2026-09-28T01:27:01Z",
+   "first_seen_at": "2026-09-28T14:24:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Sam Darnold Throws For Career-High 379 Yards In Return, Laments Turnovers In Loss To Commanders",
+     "url": "https://www.seahawks.com/news/sam-darnold-throws-for-career-high-379-yards-in-return-laments-turnovers-in-loss-to-commanders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jaxon Smith-Njigba"
+   ],
+   "headline": "Jaxon Smith-Njigba Notches A Handful Of Historical Milestones On Sunday",
+   "summary": "Jaxon Smith-Njigba put himself alongside rare company on Sunday after his 128 receiving-yard and two-touchdown performance.",
+   "published": "2026-09-28T01:08:20Z",
+   "published_at": "2026-09-28T01:08:20Z",
+   "first_seen_at": "2026-09-28T14:24:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Jaxon Smith-Njigba Notches A Handful Of Historical Milestones On Sunday",
+     "url": "https://www.seahawks.com/news/jaxon-smith-njigba-notches-a-handful-of-historical-milestones-on-sunday"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Jeremiyah Love"
+   ],
+   "headline": "Leaning On Jeremiyah Love, And 49ers Aftermath",
+   "summary": "",
+   "published": "2026-09-28T01:06:28Z",
+   "published_at": "2026-09-28T01:06:28Z",
+   "first_seen_at": "2026-09-28T14:24:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "Leaning On Jeremiyah Love, And 49ers Aftermath",
+     "url": "https://www.azcardinals.com/news/leaning-on-jeremiyah-love-and-49ers-aftermath"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Commanders report card: Team grades in NFL Week 3 win vs. Seahawks",
+   "summary": "What a freaking win. And what a turnaround from a week ago, when our Week 2 Commanders report card started with: “What an absolute disaster.” The Commanders went from a devastating loss to Dallas where Jayden Daniels got hurt to beating the Super Bowl champion Seattle Seahawks 33-31 seven days later. What a turn. […]",
+   "published": "2026-09-28T00:48:37Z",
+   "published_at": "2026-09-28T00:48:37Z",
+   "first_seen_at": "2026-09-28T14:24:50+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders report card: Team grades in NFL Week 3 win vs. Seahawks",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/444032/commanders-report-card-grades-seahawks-marcus-mariota-terry-mclaurin-mike-sainristil-jaxon-smith-njigba"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "3 quick takeaways from 49ers narrow win over Cardinals: Health is becoming a problem",
+   "summary": "The San Francisco 49ers looked like they were cruising to victory after a touchdown on the opening drive of the second half, but things were much closer than expected in their 36-30 victory over the Arizona Cardinals on Sunday afternoon. The 49ers compiled 437 yards of offense, as Brock Purdy completed 15 of 27 passes […]",
+   "published": "2026-09-28T00:30:01Z",
+   "published_at": "2026-09-28T00:30:01Z",
+   "first_seen_at": "2026-09-28T14:24:51+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "3 quick takeaways from 49ers narrow win over Cardinals: Health is becoming a problem",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/163317/san-francisco-49ers-news-3-quick-takeaways-win-arizona-cardinals-injury-updates-brock-purdy"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "NFL Week 3 winners, losers: Commanders spring season's biggest upset, Baker Mayfield becomes latest injured QB",
+   "summary": "Plus, Deshaun Watson might have earned himself a longer leash as the Browns' starting quarterback",
+   "published": "2026-09-28T00:17:52Z",
+   "published_at": "2026-09-28T00:17:52Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "NFL Week 3 winners, losers: Commanders spring season's biggest upset, Baker Mayfield becomes latest injured QB",
+     "url": "https://www.cbssports.com/nfl/news/nfl-week-3-winners-losers-commanders-upset-seahawks-drake-maye-struggles"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Baker Mayfield dislocates thumb on throwing hand during Buccaneers' loss to Vikings",
+   "summary": "Mayfield was in serious pain following a fourth-quarter interception",
+   "published": "2026-09-28T00:10:10Z",
+   "published_at": "2026-09-28T00:10:10Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Baker Mayfield dislocates thumb on throwing hand during Buccaneers' loss to Vikings",
+     "url": "https://www.cbssports.com/nfl/news/baker-mayfield-injury-buccaneers-vikings-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans",
+    "Brock Purdy"
+   ],
+   "headline": "Brock Purdy bails out the 49ers’ defense in a shootout win over the Cardinals",
+   "summary": "The San Francisco 49ers are quickly becoming synonymous with fireworks, the way they’ve been lighting up the scoreboard. The offense didn’t take long to get going. Deebo Samuel opened the scoring on a hook-and-ladder from Mike Evans. That would’ve been the fastest clocked time by a 49ers ball carrier in 2025. After the defense recorded […]",
+   "published": "2026-09-27T23:17:34Z",
+   "published_at": "2026-09-27T23:17:34Z",
+   "first_seen_at": "2026-09-28T14:24:51+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Brock Purdy bails out the 49ers’ defense in a shootout win over the Cardinals",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-scores-results/163308/brock-purdy-bails-out-the-49ers-defense-in-a-shootout-win-over-the-cardinals"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Puka Nacua and Tutu Atwell among Rams' inactives for Sunday Night Football at Broncos in Week 3",
+   "summary": "Inactives for Rams-Broncos at Empower Field at Mile High in Week 3.",
+   "published": "2026-09-27T23:13:23Z",
+   "published_at": "2026-09-27T23:13:23Z",
+   "first_seen_at": "2026-09-28T14:24:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Puka Nacua and Tutu Atwell among Rams' inactives for Sunday Night Football at Broncos in Week 3",
+     "url": "https://www.therams.com/news/puka-nacua-and-tutu-atwell-among-rams-inactives-for-sunday-night-football-at-broncos-in-week-3-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Bryce Young",
+    "Harold Fannin Jr."
+   ],
+   "headline": "Harold Fannin Jr. helps lead Browns past Panthers with 2 touchdowns | By the Numbers",
+   "summary": "The Browns’ defense sacked QB Bryce Young three times in 21-18 win",
+   "published": "2026-09-27T23:05:28Z",
+   "published_at": "2026-09-27T23:05:28Z",
+   "first_seen_at": "2026-09-28T14:24:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Harold Fannin Jr. helps lead Browns past Panthers with 2 touchdowns | By the Numbers",
+     "url": "https://www.clevelandbrowns.com/news/harold-fannin-jr-helps-lead-browns-past-panthers-with-2-touchdowns-by-the-numbers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Zac Taylor has an insanely bad record when trailing after 3 quarters",
+   "summary": "After starting the 2026 season 2-0, the Cincinnati Bengals fell to the Pittsburgh Steelers in frustrating fashion this afternoon. The Bengals had multiple chances to not only break the game open but to also win it late in the 4th quarter. Special teams was disastrous, shifting momentum not once but twice, and Joe Burrow fumbled […]",
+   "published": "2026-09-27T23:01:05Z",
+   "published_at": "2026-09-27T23:01:05Z",
+   "first_seen_at": "2026-09-28T14:24:50+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Zac Taylor has an insanely bad record when trailing after 3 quarters",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-history/200441/zac-taylor-record-when-trailing-after-3-quarters-nfl-head-coach"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Kenyon Sadiq",
+    "Garrett Wilson"
+   ],
+   "headline": "Jets-Lions Game Recap | After Valiant Comeback, Green & White Fall to Lions, 31-24",
+   "summary": "WR Garrett Wilson and TE Kenyon Sadiq Each Have Over 100 Receiving Yards in Nail-Biter",
+   "published": "2026-09-27T23:00:00Z",
+   "published_at": "2026-09-27T23:00:00Z",
+   "first_seen_at": "2026-09-28T14:24:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets-Lions Game Recap | After Valiant Comeback, Green & White Fall to Lions, 31-24",
+     "url": "https://www.newyorkjets.com/news/jets-lions-game-recap-week-3-09-27-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Kenyon Sadiq"
+   ],
+   "headline": "Kenyon Sadiq and TEs Step Up in Jets Offense Against Lions",
+   "summary": "Green & White Use Multiple TEs on 31.1% of Plays",
+   "published": "2026-09-27T22:58:00Z",
+   "published_at": "2026-09-27T22:58:00Z",
+   "first_seen_at": "2026-09-28T14:24:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Kenyon Sadiq and TEs Step Up in Jets Offense Against Lions",
+     "url": "https://www.newyorkjets.com/news/kenyon-sadiq-and-tight-ends-step-up-in-jets-offense-against-lions-09-27-2027"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Garrett Wilson"
+   ],
+   "headline": "Garrett Wilson Puts Elite Talent on Display for Jets in Detroit",
+   "summary": "No. 5 Snagged Team Leading 10 Passes for 107 Yards and a TD",
+   "published": "2026-09-27T22:57:00Z",
+   "published_at": "2026-09-27T22:57:00Z",
+   "first_seen_at": "2026-09-28T14:24:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Garrett Wilson Puts Elite Talent on Display for Jets in Detroit",
+     "url": "https://www.newyorkjets.com/news/garrett-wilson-puts-elite-talent-on-display-with-touchdown-107-yards-vs-detroit-09-27-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jameis Winston"
+   ],
+   "headline": "Is Giants’ QB Jameis Winston about to lose his job? Harbaugh says no, but…",
+   "summary": "The New York Giants signed quarterback Jameis Winston to a two-year, $13 million contract extension the week before the 2026 season started. The Giants obviously believed in Winston. He’s emerged as a leader in the locker room, is charismatic, and is a former first overall pick. The Giants had confidence that Winston was the best […]",
+   "published": "2026-09-27T22:47:16Z",
+   "published_at": "2026-09-27T22:47:16Z",
+   "first_seen_at": "2026-09-28T14:24:50+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "Is Giants’ QB Jameis Winston about to lose his job? Harbaugh says no, but…",
+     "url": "https://www.bigblueview.com/new-york-giants-rumors/173317/is-giants-qb-jameis-winston-about-to-lose-his-job-jimmy-garoppolo-justin-fields-rumors"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers' Mike Evans ruled out with injury after taking a hit against Cardinals",
+   "summary": "Evans was carted off the field after suffering a rib injury during the second quarter",
+   "published": "2026-09-27T22:35:28Z",
+   "published_at": "2026-09-27T22:35:28Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "49ers' Mike Evans ruled out with injury after taking a hit against Cardinals",
+     "url": "https://www.cbssports.com/nfl/news/49ers-mike-evans-suffers-injury-vs-cardinals"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Justin Jefferson"
+   ],
+   "headline": "Justin Jefferson Ruled Out of Vikings vs. Buccaneers Game with Ankle Injury",
+   "summary": "",
+   "published": "2026-09-27T22:15:07Z",
+   "published_at": "2026-09-27T22:15:07Z",
+   "first_seen_at": "2026-09-28T14:24:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "MIN official",
+     "title": "Justin Jefferson Ruled Out of Vikings vs. Buccaneers Game with Ankle Injury",
+     "url": "https://www.vikings.com/news/justin-jefferson-ankle-injury-ruled-out-buccaneers-week-3"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Justin Jefferson"
+   ],
+   "headline": "Vikings' Justin Jefferson ruled out vs. Buccaneers with a knee injury",
+   "summary": "Jefferson went into the blue medical tent in the first quarter and left the field midway through the second quarter",
+   "published": "2026-09-27T22:13:24Z",
+   "published_at": "2026-09-27T22:13:24Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Vikings' Justin Jefferson ruled out vs. Buccaneers with a knee injury",
+     "url": "https://www.cbssports.com/nfl/news/vikings-justin-jefferson-questionable-to-return-vs-buccaneers-with-a-knee-injury"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "Jaylen Warren"
+   ],
+   "headline": "Twitter reactions to Bengals’ brutal loss vs. Steelers",
+   "summary": "After Week 2, the Cincinnati Bengals were looking on the upswing with their defense, but that came back down to earth with their divisional game against the Pittsburgh Steelers. The pass rush was not getting home, Jaylen Warren was regularly gashing the Bengals on the ground, and the Bengals could not tackle, especially against Darnell […]",
+   "published": "2026-09-27T22:10:00Z",
+   "published_at": "2026-09-27T22:10:00Z",
+   "first_seen_at": "2026-09-28T14:24:50+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Twitter reactions to Bengals’ brutal loss vs. Steelers",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/200452/twitter-reactions-steelers-social-media"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Everything Zac Taylor and Joe Burrow Said After Week 3 Against the Steelers",
+   "summary": "Read everything the Bengals said after Week 3 against the Steelers.",
+   "published": "2026-09-27T22:00:00Z",
+   "published_at": "2026-09-27T22:00:00Z",
+   "first_seen_at": "2026-09-28T14:24:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Everything Zac Taylor and Joe Burrow Said After Week 3 Against the Steelers",
+     "url": "https://www.bengals.com/news/bengals-steelers-postgame-quotes-week-3-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Jalen Coker"
+   ],
+   "headline": "Panthers monitoring a number of injuries after loss to Browns",
+   "summary": "They were without both starting cornerbacks and wide receiver Jalen Coker by the end of the game, with other players in and out of the medical tent.",
+   "published": "2026-09-27T21:48:32Z",
+   "published_at": "2026-09-27T21:48:32Z",
+   "first_seen_at": "2026-09-28T14:24:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Panthers monitoring a number of injuries after loss to Browns",
+     "url": "https://www.panthers.com/news/panthers-monitoring-a-number-of-injuries-after-loss-to-browns-jaycee-horn-mike-jackson-jalen-coker-bryce-young"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "JAX",
+   "players": [
+    "Trevor Lawrence"
+   ],
+   "headline": "Jaguars' Trevor Lawrence explains why he took knee at 1-yard line instead of scoring a touchdown",
+   "summary": "Anytime touchdown bettors for Lawrence may want to look away",
+   "published": "2026-09-27T21:37:28Z",
+   "published_at": "2026-09-27T21:37:28Z",
+   "first_seen_at": "2026-09-28T14:24:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Jaguars' Trevor Lawrence explains why he took knee at 1-yard line instead of scoring a touchdown",
+     "url": "https://www.cbssports.com/nfl/news/jaguars-trevor-lawrence-explains-why-he-took-knee-1-yard-line"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 22,
+ "feeds_generated_at": "2026-09-28T14:24:41+00:00"
+}
