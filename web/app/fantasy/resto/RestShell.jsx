@@ -177,8 +177,7 @@ export default function RestShell({
                       {row.player_name}
                       <OwnMark own={own} owners={ownersByRoster} />
                       <RowMarks row={row} id={row.player_id} notes={notes} news={news}
-                                availability={availability}
-                                statusVerifiedAt={row.status_verified_at} />
+                                availability={availability} />
                     </span>
                     <span className="meta">
                       <span className={`ptag ptag--${row.position.toLowerCase()}`}>

@@ -15,6 +15,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  coverageTitle,
   coverageWarning,
   injuryClockLabel,
   reportCoverage,
@@ -100,6 +101,30 @@ test("sin parte legible tampoco se afirma salud", () => {
   assert.match(coverageWarning({ status: "SOURCE_UNAVAILABLE" }), /not healthy/i);
 });
 
+test("el rótulo no es más suave que el cuerpo que lleva debajo", () => {
+  // La jornada 4 de 2026: NINGÚN club había entregado, el cuerpo decía «no club
+  // has filed» y el rótulo escrito a mano hablaba de cobertura parcial. Cero
+  // clubes tampoco son «todos», así que no era falso — era MÁS FLOJO, y el
+  // rótulo es lo que se lee primero.
+  const nada = { status: "NOT_PUBLISHED_YET", week: 4, last_published_week: 3 };
+  assert.match(coverageTitle(nada), /No club has filed/i);
+  assert.ok(!/every club/i.test(coverageTitle(nada)),
+    "con cero clubes entregados el rótulo no puede hablar de cobertura parcial");
+  assert.match(coverageTitle(PARCIAL), /does not cover every club/i);
+  assert.match(coverageTitle({ status: "SOURCE_UNAVAILABLE" }), /no injury report was read/i);
+});
+
+test("rótulo y cuerpo aparecen y desaparecen JUNTOS", () => {
+  // Dos respuestas sobre el mismo hecho no pueden desincronizarse: un rótulo sin
+  // cuerpo sería una alarma sin motivo, y un cuerpo sin rótulo pierde el sitio
+  // que más se lee.
+  for (const r of [COMPLETO, PARCIAL, { status: "NOT_PUBLISHED_YET", week: 4 }, null,
+                   { status: "SOURCE_UNAVAILABLE" }]) {
+    assert.equal(coverageTitle(r) === null, coverageWarning(r) === null,
+      `${JSON.stringify(r)}: uno de los dos sale y el otro no`);
+  }
+});
+
 /* ------------------------------------------------------------------ *
  * Y ahora lo que de verdad falla si nadie mira: que lo PINTEN las dos.
  * ------------------------------------------------------------------ */
@@ -122,6 +147,10 @@ test("las DOS pantallas de disponibilidad pintan el aviso de cobertura", () => {
       `${ruta}: el aviso no está condicionado y pintado en el JSX`);
     assert.match(sinComentarios, /<Callout/,
       `${ruta}: el aviso tiene que contradecir lo asumido, que es para lo que existe el ámbar`);
+    // El rótulo se DERIVA: un título literal vuelve a poder quedarse más flojo
+    // que el cuerpo, que es el fallo de la jornada 4.
+    assert.match(sinComentarios, /<Callout\s+title=\{coverageTitle\(/,
+      `${ruta}: el rótulo del aviso está escrito a mano en vez de salir del estado`);
   }
 });
 

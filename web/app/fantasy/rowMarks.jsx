@@ -26,8 +26,8 @@ import { gameFinalMark, rosterMark, teamChangeMark, trackMark } from "./rosterMa
  * afirmación vieja y se callaba la de hoy. El fallo de las dos superficies con
  * distinta cobertura, esta vez sobre quién puede jugar.
  */
-export function RowMarks({ row, id, notes, news, availability, statusVerifiedAt }) {
-  const health = availabilityMark(availability?.[id], statusVerifiedAt, row?.status_label);
+export function RowMarks({ row, id, notes, news, availability }) {
+  const health = availabilityMark(availability?.[id], row);
   // La situación de PLANTILLA va con el estado y antes que la nota: que alguien
   // no esté en el 53 de su equipo pesa más que por qué el modelo lo sube.
   const roster = rosterMark(row);

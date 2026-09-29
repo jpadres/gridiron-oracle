@@ -65,6 +65,28 @@ export function injuryClockLabel(report) {
 }
 
 /**
+ * EL RÓTULO SALE DEL MISMO ESTADO QUE EL CUERPO.
+ *
+ * Estaba escrito a mano —«The report does not cover every club yet»— y la
+ * jornada 4 destapó por qué eso no vale: el martes NINGÚN club había entregado,
+ * el cuerpo decía «no club has filed» y el rótulo seguía hablando de cobertura
+ * parcial. No es falso (cero clubes tampoco son todos) pero es MÁS SUAVE que lo
+ * que dice debajo, y el rótulo es lo que se lee primero — el «enseñaba 12
+ * equipos y dibujaba 10» aplicado a un encabezado.
+ *
+ * Devuelve `null` cuando no hay nada que avisar, igual que `coverageWarning`,
+ * para que las dos respuestas no puedan desincronizarse.
+ */
+export function coverageTitle(report) {
+  if (coverageWarning(report) === null) return null;
+  const c = reportCoverage(report);
+  if (c.partial) return "The report does not cover every club yet";
+  if (!c.known || c.status === "SOURCE_UNAVAILABLE") return "No injury report was read this week";
+  return "No club has filed this week's injury report yet";
+}
+
+
+/**
  * La frase que impide leer un hueco como una afirmación.
  *
  * Devuelve `null` cuando el parte SÍ cubre a todos: un aviso que sale siempre

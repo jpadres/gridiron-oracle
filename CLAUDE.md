@@ -9,8 +9,8 @@ dueño del repo). Sin cuentas, sin base de datos, sin backend.
 
 ## Lo primero que hay que entender
 
-**El modelo iguala a la línea de cierre del mercado; no la bate.** Brier **0.2127**
-frente a **0.2119**, MAE **10.05** frente a **9.99**, en 3.861 partidos fuera de
+**El modelo iguala a la línea de cierre del mercado; no la bate.** Brier **0.2129**
+frente a **0.2121**, MAE **10.05** frente a **9.98**, en 3.877 partidos fuera de
 muestra.
 
 Esas cifras salen de `validation.overall` del payload —lo que este código midió y
@@ -18,7 +18,7 @@ lo que la web publica—, no de una tabla escrita a mano. Durante meses aquí po
 0.2118 / 0.2113 y 10.00 / 9.97, que son las del **proyecto original** del autor y
 nunca se reconciliaron con esta implementación. La corrección va en la dirección
 incómoda: la distancia real al mercado es algo MAYOR que la publicada —0,0008 de
-Brier en vez de 0,0005; 0,065 de MAE en vez de 0,03—. Si vuelves a ver cuatro
+Brier en vez de 0,0005; 0,066 de MAE en vez de 0,03—. Si vuelves a ver cuatro
 cifras de portada que no cuadran con el payload, **el payload manda**.
 
 Ese resultado es correcto y está bien medido. La línea de cierre de la NFL agrega
@@ -752,6 +752,9 @@ comentario está para que no los reintroduzcas.
 | «week 3 · 0 designations» con DOS clubes de treinta y dos | `weekly_research.py`, `injuryReport.js` | El estado del parte era binario —vacío o `PUBLISHED`— y el martes de la jornada 3 sólo habían entregado ATL y GB, los del jueves, que reportan antes. La frase era cierta palabra por palabra y se lee como «el parte está y no hay nadie tocado»: **la regla 5 con el signo cambiado, una AUSENCIA presentada como afirmación**, en la pantalla con la que se alinea. Y encima la designación (`report_status`) sólo se asigna en el parte FINAL, así que «0 designaciones» era el estado normal de un martes. Ahora hay un tercer estado, `PARTIALLY_FILED`, y los clubes esperados salen del CALENDARIO — nunca de un 32 escrito a mano, que con descansos son menos. Lo pintan las DOS pantallas por la MISMA función, porque cablearlo sólo en waivers habría sido la decimoquinta vez |
 | La prensa caducó y se llevó por delante `next build` | `research/page.jsx` | `archive.consolidate` devuelve `null` cuando NADA cae dentro de la ventana de 10 días —correcto: publicar prensa de hace dos semanas como la de hoy es la regla 5— y el 23 de septiembre pasó por primera vez, con la ficha más nueva del 13 y los dominios bloqueados desde este contenedor. `/research` hacía `research.window_days` sobre ese null: **TypeError en el prerender y `next build` ENTERO a rojo**. Sólo se disparaba con el archivo caducado Y el dossier lleno, porque la rama de vacío exige las dos listas vacías: latente desde siempre, invisible mientras hubiera prensa reciente. Lo cazó el contrato de esquema de Python, no la web. Y el contrato NO se relajó — se declaró `research` como sección que puede faltar ENTERA, que es distinto de faltar a medias |
 | La muestra del backtest crece cada jornada y la portada la tenía congelada | `README.md`, `CLAUDE.md` | Los documentos decían 3.845 partidos y el payload medía 3.861, porque 2026 entra en la ventana evaluable según se juega. Las cuatro métricas ya estaban vigiladas; **el recuento no**, y es justo la cifra que se mueve sola todas las semanas. El guardián lo comprueba ahora contra `validation.overall.games`. El mismo refresco movió MAE 10.04 → 10.05 y 9.98 → 9.99: el payload manda, la prosa se corrige |
+| Un rótulo más flojo que el cuerpo que llevaba debajo | `injuryReport.js` | El aviso del parte de lesiones tenía el título escrito a mano —«The report does not cover every club yet»— y el cuerpo derivado del estado. La jornada 4 los separó: el martes NINGÚN club había entregado, el cuerpo decía «no club has filed» y el rótulo seguía hablando de cobertura parcial. Cero clubes tampoco son «todos», así que no era falso — era MÁS SUAVE, y el rótulo es lo que se lee primero. Es el «enseñaba 12 equipos y dibujaba 10» aplicado a un encabezado. `coverageTitle` sale del MISMO estado, y el guardián exige además que rótulo y cuerpo aparezcan y desaparezcan JUNTOS |
+| La brecha al mercado, derivada y sin vigilar | `check_headline_metrics.py` | El preámbulo sostiene que la distancia real al mercado es MAYOR que la que se publicaba antes, y lo cuantifica: «0,0008 de Brier … 0,065 de MAE». Esa resta cambia cada vez que cambia cualquiera de las cuatro cifras vigiladas —o sea todas las semanas— y **no la miraba nadie**: el 29 de septiembre medía 0,066. La deriva de las cifras de portada un nivel más abajo, en la frase que existe para sostener el argumento incómodo. Se comprueba contra la RESTA del payload, no contra un número escrito |
+| Dos afirmaciones de disponibilidad con el mismo peso, y una sin fecha | `availability.js` | De disponibilidad hablan TRES capas —el dossier curado de agosto, la prensa (`status_*`) y el registro de PLANTILLAS (`roster_*`)— y la subordinación sólo miraba la prensa. Medido en la jornada 4: Alec Pierce, puesto 76, con «RESERVE LIST» del registro del 29 de septiembre y al lado un «UNDATED OUT» del dossier SIN subordinar, o sea lo que no se puede fechar compitiendo de igual a igual con lo de hoy. **Tercera capa del mismo fallo.** Lo cazó `headshot-shots` al refrescar las plantillas, no un test: antes Pierce no estaba en reserva y esa fila no existía. La fecha se toma de la capa MÁS NUEVA, y la de plantilla cuenta sólo si `rosterMark` de verdad pinta algo — subordinar contra una marca invisible señalaría un hueco. Y la firma pasa a recibir la FILA: los cinco sitios pasaban `row` y además `row.status_verified_at`, el mismo dato dos veces, que es cómo el arreglo acaba en un lado de la llamada y el fallo en el otro |
 
 ---
 
@@ -863,7 +866,7 @@ está construida:
 | `controles.mjs` | **Control por control, las trece páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CIENTO CUATRO fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CIENTO NUEVE fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -888,8 +891,8 @@ alineación— sin congelar nada, la pantalla de apuestas sin reloj, un mismo
 predicado para apostar y para congelar, y un comentario JSX tragándose la prosa
 de debajo, y desde la mañana del 13 de septiembre una designación de lesión
 nueva colada como «juega», un DOUBTFUL tratado como descartado, el parte
-tocando un número del board y la ventana de decisión calculada al revés, y desde la tarde del 13 un laboratorio rehaciendo por su cuenta la comparación del saque, la fecha de la jornada leída en UTC, el cruce de número clave dejando de ser estricto, el no favorito de E27 con el signo al revés y una cifra de E27 que el preregistro no sostiene, y desde la jornada 3 un parte de lesiones a medias publicado como el parte de la jornada, sus dos pantallas dejando de avisarlo, el informe previo leyendo el payload que `.gitignore` borra en CI y `/research` desreferenciando una ventana vacía— y
-exige 104 rojos y 104 verdes al
+tocando un número del board y la ventana de decisión calculada al revés, y desde la tarde del 13 un laboratorio rehaciendo por su cuenta la comparación del saque, la fecha de la jornada leída en UTC, el cruce de número clave dejando de ser estricto, el no favorito de E27 con el signo al revés y una cifra de E27 que el preregistro no sostiene, y desde la jornada 3 un parte de lesiones a medias publicado como el parte de la jornada, sus dos pantallas dejando de avisarlo, el informe previo leyendo el payload que `.gitignore` borra en CI, `/research` desreferenciando una ventana vacía, y desde la jornada 4 el rótulo del aviso escrito a mano, la brecha al mercado del preámbulo a la deriva y la ficha del dossier compitiendo de igual a igual con el registro de plantillas de hoy— y
+exige 109 rojos y 109 verdes al
 restaurar.
 
 ## El skill de UI/UX

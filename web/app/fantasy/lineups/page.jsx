@@ -1,5 +1,5 @@
 import { capabilityStatus, dataDate, model } from "../../../data/model.js";
-import { coverageWarning } from "../injuryReport.js";
+import { coverageTitle, coverageWarning } from "../injuryReport.js";
 import { Callout, Note, NoDataYet } from "../../ui.jsx";
 import LineupsShell from "./LineupsShell.jsx";
 
@@ -57,7 +57,7 @@ export default function LineupsPage() {
           titular —cierto— y con treinta clubes sin entregar no hay ningún OUT
           que conocer, así que tranquiliza sin cubrir. Ver `injuryReport.js`. */}
       {avisoParte ? (
-        <Callout title="The report does not cover every club yet">
+        <Callout title={coverageTitle(model.weekly_research?.injury_report)}>
           <p>{avisoParte}</p>
         </Callout>
       ) : null}

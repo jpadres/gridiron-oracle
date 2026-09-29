@@ -223,8 +223,7 @@ export default function WeeklyExplorer({
                       {row.player_name}
                       <OwnMark own={ownOf(row.sid)} owners={ownersByRoster} />
                       <RowMarks row={row} id={row.player_id} notes={notes} news={news}
-                                availability={availability}
-                                statusVerifiedAt={row.status_verified_at} />
+                                availability={availability} />
                     </span>
                     <span className="meta">
                       <span className={`ptag ptag--${row.position.toLowerCase()}`}>
@@ -310,8 +309,7 @@ export default function WeeklyExplorer({
                         {k.player_full_name ?? k.player_name}
                         <OwnMark own={ownOf(k.sid)} owners={ownersByRoster} />
                         <RowMarks row={k} id={k.player_id} notes={notes} news={news}
-                                  availability={availability}
-                                  statusVerifiedAt={k.status_verified_at} />
+                                  availability={availability} />
                       </span>
                       <span className="meta">
                         <span className="ptag ptag--k">K</span>

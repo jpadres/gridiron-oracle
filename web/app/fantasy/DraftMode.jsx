@@ -659,8 +659,7 @@ export default function DraftMode({ board, positionFilter = "ALL", context = {} 
                   más caro sale. Se reutiliza `RowMarks`, que es la misma que
                   usan el board y el semanal: una implementación. */}
               <RowMarks row={forMe.primary.row} id={forMe.primary.row.player_id}
-                        news={context.briefs} availability={context.availability}
-                        statusVerifiedAt={forMe.primary.row.status_verified_at} />
+                        news={context.briefs} availability={context.availability} />
               <span className="meta">
                 <TeamMark abbr={forMe.primary.row.team} />
                 <span className={`ptag ptag--${forMe.primary.row.position.toLowerCase()}`}>

@@ -21,7 +21,7 @@ import { useCallback, useMemo, useState } from "react";
 
 import { capabilityStatus, num } from "../../../data/model.js";
 import { Callout } from "../../ui.jsx";
-import { coverageWarning, injuryClockLabel } from "../injuryReport.js";
+import { coverageTitle, coverageWarning, injuryClockLabel } from "../injuryReport.js";
 import LeagueBar from "../LeagueBar.jsx";
 import { RowMarks } from "../rowMarks.jsx";
 import { ownershipLabel, ownershipOf } from "../sleeperAccount.js";
@@ -122,7 +122,7 @@ export default function WaiversShell({ weekly, research, byes }) {
             Va en ámbar porque CONTRADICE lo que el lector asume al no ver
             ninguna designación, que es para lo único que sirve el ámbar. */}
         {avisoParte ? (
-          <Callout title="The report does not cover every club yet">
+          <Callout title={coverageTitle(research?.injury_report)}>
             <p>{avisoParte}</p>
           </Callout>
         ) : null}

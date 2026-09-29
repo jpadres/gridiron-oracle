@@ -114,6 +114,24 @@ RECUENTOS = [
 ]
 
 
+#: LAS BRECHAS TAMBIÉN SON CIFRAS, Y SE DERIVAN DE LAS CUATRO DE ARRIBA.
+#:
+#: El preámbulo de CLAUDE.md dice cuánta distancia hay al mercado —«0,0008 de
+#: Brier … 0,066 de MAE»— y ese número CAMBIA cada vez que cambia cualquiera de
+#: las cuatro vigiladas, o sea todas las semanas. No lo miraba nadie: el 29 de
+#: septiembre de 2026 decía 0,065 con la medición en 0,066.
+#:
+#: Es la misma deriva de las cifras de portada, un nivel más abajo — y en la
+#: frase que existe para sostener que la distancia real es MAYOR que la que se
+#: publicaba antes. Se comprueba contra la RESTA, no contra un valor escrito.
+BRECHAS = [
+    ("CLAUDE.md", "brecha de Brier del preámbulo",
+     r"—([\d,]+) de\s+Brier en vez de", "brier", "market_brier", 4),
+    ("CLAUDE.md", "brecha de MAE del preámbulo",
+     r"([\d,]+) de MAE en vez de", "margin_mae", "market_margin_mae", 3),
+]
+
+
 def main() -> int:
     overall = payload().get("validation", {}).get("overall")
     if not overall:
@@ -135,6 +153,21 @@ def main() -> int:
                 fallos.append(
                     f"{fichero} ({que}): dice {clave} = {escrito}, el payload mide {real:.{decimales}f}"
                 )
+
+    for fichero, que, patron, clave_a, clave_b, decimales in BRECHAS:
+        texto = (RAIZ / fichero).read_text(encoding="utf-8")
+        m = re.search(patron, texto)
+        if not m:
+            fallos.append(f"{fichero}: no encuentro la {que}. Si has reescrito la frase, actualiza el patrón.")
+            continue
+        # La prosa española escribe la coma decimal; el payload, el punto.
+        escrito = float(m.group(1).replace(",", "."))
+        real = round(float(overall[clave_a]) - float(overall[clave_b]), decimales)
+        if round(escrito, decimales) != real:
+            fallos.append(
+                f"{fichero} ({que}): dice {m.group(1)}, la resta del payload da "
+                f"{real:.{decimales}f}"
+            )
 
     juegos = overall.get("games")
     for fichero, que, patron in RECUENTOS:

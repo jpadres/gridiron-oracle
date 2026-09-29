@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 104 fallos conocidos, 104 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 109 fallos conocidos, 109 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -69,8 +69,14 @@ run "3 cupo de plantilla filtrando a quien mejora" web/app/fantasy/candidates.js
 run "4 fecha de descarga como publicación" web/app/research/dates.js \
   'word: "seen"|||word: "published"' \
   "cd web && node --test tests/researchDate.test.mjs"
+# El ancla NO puede ser la cifra: se mueve cada jornada según entran partidos en
+# la ventana evaluable, y entonces esta inyección deja de encontrar su línea y el
+# simulacro escribe INYECCIÓN ROTA sin que nada esté mal. Pasó el 29 de
+# septiembre de 2026 con el 0.2127 que había escrito aquí. Se ancla en el texto
+# de la fila, que es estable, y se estropea el ENTERO — cualquier dígito que
+# venga detrás sale mal.
 run "5 Brier de portada a mano" README.md \
-  "0.2127|||0.2118" \
+  "(prob. de victoria) | 0.|||(prob. de victoria) | 9." \
   "python scripts/check_headline_metrics.py"
 run "6 cuota americana negativa mal convertida" web/app/betting/bankroll.js \
   "return n > 0 ? 1 + n / 100 : 1 + 100 / Math.abs(n);|||return 1 + Math.abs(n) / 100;" \
@@ -400,3 +406,18 @@ run "103 predraft leyendo el payload que .gitignore borra en CI" scripts/predraf
 run "104 /research desreferenciando una ventana vacía" web/app/research/page.jsx \
   'hint={research ? `${research.window_days}-day window` : "no item inside the window"} />|||hint={`${research.window_days}-day window`} />' \
   "cd web && node --test tests/researchOptional.test.mjs"
+run "105 el rótulo del aviso escrito a mano en /fantasy/lineups" web/app/fantasy/lineups/page.jsx \
+  '<Callout title={coverageTitle(model.weekly_research?.injury_report)}>|||<Callout title="The report does not cover every club yet">' \
+  "cd web && node --test tests/injuryReport.test.mjs"
+run "106 el rótulo más suave que el cuerpo con CERO clubes entregados" web/app/fantasy/injuryReport.js \
+  '  return "No club has filed this week'"'"'s injury report yet";|||  return "The report does not cover every club yet";' \
+  "cd web && node --test tests/injuryReport.test.mjs"
+run "107 la brecha al mercado del preámbulo, a la deriva" CLAUDE.md \
+  '0,066 de MAE en vez de|||0,065 de MAE en vez de' \
+  "python scripts/check_headline_metrics.py"
+run "108 la ficha vieja compitiendo con el registro de plantillas de hoy" web/app/availability.js \
+  '  if (row.roster_source_as_of && rosterMark(row)) fechas.push(String(row.roster_source_as_of));|||' \
+  "cd web && node --test tests/availability.test.mjs"
+run "109 subordinar contra una marca de plantilla que nadie ve" web/app/availability.js \
+  '  if (row.roster_source_as_of && rosterMark(row)) fechas.push(String(row.roster_source_as_of));|||  if (row.roster_source_as_of) fechas.push(String(row.roster_source_as_of));' \
+  "cd web && node --test tests/availability.test.mjs"
