@@ -300,6 +300,54 @@ export function faabRange({ net, remaining }) {
 }
 
 /**
+ * LA VENTANA NO PUEDE EXCLUIR UNA POSICIÓN ENTERA.
+ *
+ *     EL SEMANAL LLEGA ORDENADO POR POSICIÓN, NO POR VALOR.
+ *
+ * `fantasy_weekly.rankings` agrupa: QB 0–31, RB 32–95, TE 96–127, WR 128–255, y
+ * la pantalla pasa ese orden tal cual (`rankings.filter(...)` lo conserva). Con
+ * un `slice(0, 60)` el pool de candidatos quedaba en **32 quarterbacks y los 28
+ * primeros corredores**: los 32 alas cerradas y los 128 receptores no entraban
+ * NUNCA. Medido en la jornada 4 con el hueco de TE vacío y 32 TE libres, el
+ * motor ofrecía nueve quarterbacks de banquillo y ni un ala cerrada — y un
+ * fichaje de receptor era imposible en cualquier liga.
+ *
+ * El comentario de `WAIVER_WINDOW` ya prometía la invariante que el código no
+ * cumplía —«la ventana acota cuánto se ORDENA, no si existe alguien elegible»—,
+ * que es la prosa mintiendo sobre su propio guardián.
+ *
+ * Se reparte la ventana POR POSICIÓN y no se ordena por puntos brutos: eso es la
+ * regla 6b —los quarterbacks suman más y volverían a copar la lista—. Dentro de
+ * una misma posición los puntos SÍ comparan, así que se cogen los mejores de
+ * cada una y la comparación entre posiciones la hace `net`, que es la métrica
+ * del motor y existe justo para eso.
+ */
+export function ventanaPorPosicion(available, window = WAIVER_WINDOW) {
+  const lista = Array.isArray(available) ? available : [];
+  const porPos = new Map();
+  for (const row of lista) {
+    const pos = String(row?.position ?? "").toUpperCase() || "?";
+    if (!porPos.has(pos)) porPos.set(pos, []);
+    porPos.get(pos).push(row);
+  }
+  // Sin posiciones no hay reparto que hacer: se respeta el orden de entrada.
+  if (porPos.size <= 1) return lista.slice(0, window);
+  // El cupo se reparte a partes iguales, con al menos uno por posición: una
+  // división que dejara a cero a la posición menos numerosa reintroduciría la
+  // exclusión estructural por la puerta de atrás.
+  const cupo = Math.max(1, Math.floor(window / porPos.size));
+  const salida = [];
+  for (const [, filas] of porPos) {
+    const mejores = [...filas].sort(
+      (a, b) => (num(b?.projected_points) ?? -Infinity) - (num(a?.projected_points) ?? -Infinity),
+    );
+    salida.push(...mejores.slice(0, cupo));
+  }
+  return salida;
+}
+
+
+/**
  * LOS MOVIMIENTOS DE WAIVERS DE TU LIGA.
  *
  * Devuelve `null` cuando no hay estructura de plantilla declarada: sin huecos no
@@ -335,7 +383,7 @@ export function waiverMoves({
     ? (roster ?? []).length >= num(rosterLimit)
     : null;
 
-  const candidatos = (available ?? []).slice(0, window);
+  const candidatos = ventanaPorPosicion(available, window);
   const salida = [];
   for (const candidate of candidatos) {
     const corte = mejorCorte({
@@ -378,6 +426,16 @@ export function waiverMoves({
     evaluated: candidatos.length,
     poolSize: (available ?? []).length,
     emptyStarterSlots: antes.empty,
+    /* QUÉ POSICIONES TRAE ESTE POOL, PARA NO PROMETER LO QUE NO PUEDE DAR.
+       `fantasy_weekly.rankings` sólo lleva QB, RB, WR y TE: los pateadores y las
+       defensas viajan en sus propias listas y se atienden en sus propias
+       secciones. Sin esto la cabecera enumeraba «empty starting slots: TE, DEF,
+       K» y la tabla ofrecía doce alas cerradas — una promesa que la pantalla no
+       cumple, que es peor que no prometer nada. Se publica el hecho en vez de
+       escribir «K y DEF» a mano en la vista. */
+    poolPositions: [...new Set((available ?? [])
+      .map((r) => String(r?.position ?? "").toUpperCase())
+      .filter(Boolean))].sort(),
     rosterFull: plantillaLlena,
     // Si NADIE mejora tu alineación se dice, en vez de enseñar los cuatro menos
     // malos con un +0 debajo de un rótulo que promete mejora.

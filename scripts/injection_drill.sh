@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 109 fallos conocidos, 109 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 112 fallos conocidos, 112 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -421,3 +421,12 @@ run "108 la ficha vieja compitiendo con el registro de plantillas de hoy" web/ap
 run "109 subordinar contra una marca de plantilla que nadie ve" web/app/availability.js \
   '  if (row.roster_source_as_of && rosterMark(row)) fechas.push(String(row.roster_source_as_of));|||  if (row.roster_source_as_of) fechas.push(String(row.roster_source_as_of));' \
   "cd web && node --test tests/availability.test.mjs"
+run "110 la ventana de waivers excluyendo TE y WR entéros" web/app/fantasy/waivers.js \
+  '  const candidatos = ventanaPorPosicion(available, window);|||  const candidatos = (available ?? []).slice(0, window);' \
+  "cd web && node --test tests/waiverWindow.test.mjs"
+run "111 el cupo por posición cayendo a cero" web/app/fantasy/waivers.js \
+  '  const cupo = Math.max(1, Math.floor(window / porPos.size));|||  const cupo = Math.floor(window / porPos.size) - 15;' \
+  "cd web && node --test tests/waiverWindow.test.mjs"
+run "112 la cabecera de waivers prometiendo huecos que su pool no sirve" web/app/fantasy/waivers/WaiversShell.jsx \
+  '              {fueraDelPool.length|||              {false && fueraDelPool.length' \
+  "cd web && node --test tests/waiverWindow.test.mjs"

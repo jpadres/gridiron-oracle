@@ -95,6 +95,13 @@ export default function WaiversShell({ weekly, research, byes }) {
     });
   }, [league, libres, mias, week, byes]);
 
+  // Los huecos vacíos que este pool no puede servir. Se derivan de lo que el
+  // motor DICE que trae, no de una lista escrita a mano.
+  const fueraDelPool = useMemo(() => {
+    const trae = new Set(movimientos?.poolPositions ?? []);
+    return (movimientos?.emptyStarterSlots ?? []).filter((pos) => !trae.has(pos));
+  }, [movimientos]);
+
   const kOrdinal = capabilityStatus("KICKER_ORDINAL_RANKING");
   const kProj = capabilityStatus("KICKER_PROJECTION");
   const dstStream = capabilityStatus("DST_STREAMING");
@@ -163,6 +170,14 @@ export default function WaiversShell({ weekly, research, byes }) {
               {movimientos.emptyStarterSlots.length
                 ? ` · empty starting slots: ${movimientos.emptyStarterSlots.join(", ")}`
                 : " · every starting slot is filled"}
+              {/* Y los que esta tabla NO puede llenar se dicen, con su sitio.
+                  El pool del semanal es QB/RB/WR/TE; pateador y defensa van en
+                  sus propias secciones, así que enumerarlos aquí y ofrecer doce
+                  alas cerradas era prometer lo que esta tabla no da. */}
+              {fueraDelPool.length
+                ? ` · ${fueraDelPool.join(" and ")} cannot be filled from this pool —`
+                  + " see the sections below"
+                : ""}
               {movimientos.rosterFull === true ? " · roster is full, so every move cuts someone" : ""}
             </p>
             {!movimientos.anyImproves ? (
