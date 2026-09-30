@@ -1,0 +1,1346 @@
+{
+ "date": "2026-09-30",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "For the Colts to win, Daniel Jones must be better",
+   "summary": "The Colts’ success depends on Jones taking care of the ball.",
+   "published": "2026-09-30T12:37:00Z",
+   "published_at": "2026-09-30T12:37:00Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "For the Colts to win, Daniel Jones must be better",
+     "url": "https://sports.yahoo.com/articles/colts-win-daniel-jones-must-123700899.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Jalen Coker"
+   ],
+   "headline": "Fantasy football injury report: Latest Week 4 updates on key players",
+   "summary": "Panthers WR Jalen Coker has been one of fantasy's most pleasant surprises, but he's dealing with a quad strain. Get updates on his and others' injuries here.",
+   "published": "2026-09-30T12:19:46Z",
+   "published_at": "2026-09-30T12:19:46Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Fantasy football injury report: Latest Week 4 updates on key players",
+     "url": "https://sports.yahoo.com/articles/fantasy-football-injury-report-latest-121946180.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Jordan Love"
+   ],
+   "headline": "Packers-Buccaneers: Top Storylines & Key Matchups in Week Four",
+   "summary": "Jalon Daniel's first career start is the biggest story to follow for the Buccaneers in Week Four, but their secondary will also face a significant challenge in Jordan Love and company and Tristan Wirfs will face another red-hot pass-rusher",
+   "published": "2026-09-30T12:00:00Z",
+   "published_at": "2026-09-30T12:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Packers-Buccaneers: Top Storylines & Key Matchups in Week Four",
+     "url": "https://www.buccaneers.com/news/packers-buccaneers-top-storylines-key-matchups-in-week-four"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Case Keenum"
+   ],
+   "headline": "Bears Question of the Day: Should Bagent or Keenum start vs. the Jets?",
+   "summary": "Tyson Bagent has been QB2, but Case Keenum was lights out on Monday night. Who should start against the Jets? Tell us!",
+   "published": "2026-09-30T12:00:00Z",
+   "published_at": "2026-09-30T12:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Bears Question of the Day: Should Bagent or Keenum start vs. the Jets?",
+     "url": "https://sports.yahoo.com/articles/bears-day-bagent-keenum-start-120000846.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Jake Ferguson"
+   ],
+   "headline": "‘I Just Don’t Like Their Fans,’ ‘I Despise Northwestern’ — Cowboys Pro Bowler Jake Ferguson Names the Big Ten Teams He Can’t Stand",
+   "summary": "",
+   "published": "2026-09-30T11:50:54Z",
+   "published_at": "2026-09-30T11:50:54Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I Just Don’t Like Their Fans,’ ‘I Despise Northwestern’ — Cowboys Pro Bowler Jake Ferguson Names the Big Ten Teams He Can’t Stand",
+     "url": "https://www.profootballnetwork.com/cfb/despise-northwestern-jake-ferguson-names-big-ten-rivals"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "Greg Rousseau is first player since 1998 with 2+ sacks in first three games of a season",
+   "summary": "While Bills quarterback Josh Allen is the leading candidate to be league MVP, his teammate linebacker Greg Rousseau is making an early case for Defensive Player of the Year.",
+   "published": "2026-09-30T11:43:15Z",
+   "published_at": "2026-09-30T11:43:15Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Greg Rousseau is first player since 1998 with 2+ sacks in first three games of a season",
+     "url": "https://sports.yahoo.com/articles/greg-rousseau-first-player-since-114315480.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "We finally learned what makes Jalen Hurts really mad",
+   "summary": "The Eagles QB is notoriously composed, but on Monday night, he couldn’t hide his anger.",
+   "published": "2026-09-30T11:32:05Z",
+   "published_at": "2026-09-30T11:32:05Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "We finally learned what makes Jalen Hurts really mad",
+     "url": "https://sports.yahoo.com/articles/finally-learned-makes-jalen-hurts-113205235.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Tee Higgins"
+   ],
+   "headline": "Tee Higgins has been elite at catching passes and blocking",
+   "summary": "Higgins has been crucial to the Bengals’ 2-1 start in 2026.",
+   "published": "2026-09-30T11:30:00Z",
+   "published_at": "2026-09-30T11:30:00Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Tee Higgins has been elite at catching passes and blocking",
+     "url": "https://sports.yahoo.com/articles/tee-higgins-elite-catching-passes-113000311.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "New York Jets News: Geno Smith is Having a Historic 2nd Act",
+   "summary": "Your daily links to the New York Jets",
+   "published": "2026-09-30T11:00:00Z",
+   "published_at": "2026-09-30T11:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "New York Jets News: Geno Smith is Having a Historic 2nd Act",
+     "url": "https://sports.yahoo.com/articles/york-jets-news-geno-smith-110000583.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Jalon Daniels"
+   ],
+   "headline": "Tampa Bay Buccaneers news: What’s next at QB for the Bucs?",
+   "summary": "The Tampa Bay Buccaneers are starting undrafted rookie Jalon Daniels against the Green Bay Packers in Week 4.",
+   "published": "2026-09-30T11:00:00Z",
+   "published_at": "2026-09-30T11:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Tampa Bay Buccaneers news: What’s next at QB for the Bucs?",
+     "url": "https://sports.yahoo.com/articles/tampa-bay-buccaneers-news-next-110000657.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Case Keenum"
+   ],
+   "headline": "The Bear’s Den: Case Keenum Mania hits but does he start next week?",
+   "summary": "The 2-1 Chicago Bears will look to move to 3-1 against the New York Jets this Sunday. Will Case Keenum be the starter?",
+   "published": "2026-09-30T10:00:00Z",
+   "published_at": "2026-09-30T10:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "The Bear’s Den: Case Keenum Mania hits but does he start next week?",
+     "url": "https://sports.yahoo.com/articles/bear-den-case-keenum-mania-100000636.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "George Pickens"
+   ],
+   "headline": "13 NFL players who could be trade targets, including T.J. Watt and George Pickens",
+   "summary": "The deadline to deal players is still six weeks away, and this could be a tough year to make swaps. But here's why Steelers OLB T.J. Watt and Cowboys WR George Pickens could be on the move.",
+   "published": "2026-09-30T09:55:16Z",
+   "published_at": "2026-09-30T09:55:16Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "13 NFL players who could be trade targets, including T.J. Watt and George Pickens",
+     "url": "https://sports.yahoo.com/articles/13-nfl-players-could-trade-095516851.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "‘It Was Mind-Blowing,’ ‘They’re Not The Bengals, They’re The Bungles’ — Steelers Legend Ben Roethlisberger Shows Joe Burrow and Co. No Mercy",
+   "summary": "",
+   "published": "2026-09-30T09:45:05Z",
+   "published_at": "2026-09-30T09:45:05Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘It Was Mind-Blowing,’ ‘They’re Not The Bengals, They’re The Bungles’ — Steelers Legend Ben Roethlisberger Shows Joe Burrow and Co. No Mercy",
+     "url": "https://www.profootballnetwork.com/ben-roethlisberger-rips-joe-burrow-bengals-week-3-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Through three games, Brock Purdy still hasn't been sacked",
+   "summary": "The 49ers are the fourth team since 1990 to allow zero sacks in their first three games.",
+   "published": "2026-09-30T08:42:41Z",
+   "published_at": "2026-09-30T08:42:41Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Through three games, Brock Purdy still hasn't been sacked",
+     "url": "https://sports.yahoo.com/articles/three-games-brock-purdy-still-084241964.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "49ers News: We’re on to Denver",
+   "summary": "Brock Purdy has already earned my immense respect, and any accomplishment from here on out is gravy. Of all the things he has left to do before truly having a legacy… Super Bowl win, league MVP, other statistical accomplishments… he would become an actually immortal legend if he’s able to turn Dante Pettis into an […]",
+   "published": "2026-09-30T08:40:00Z",
+   "published_at": "2026-09-30T08:40:00Z",
+   "first_seen_at": "2026-09-30T12:57:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers News: We’re on to Denver",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/163476/49ers-news-regular-season-week-4-denver-broncos-dante-pettis-brock-purdy"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Makai Lemon"
+   ],
+   "headline": "Here's this week's Roob's Eagles Stats: Proceed at your own risk",
+   "summary": "From zero takeaways through three weeks to Makai Lemon's negative yardage, here's another installment of Roob Stats.",
+   "published": "2026-09-30T07:00:00Z",
+   "published_at": "2026-09-30T07:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Here's this week's Roob's Eagles Stats: Proceed at your own risk",
+     "url": "https://sports.yahoo.com/articles/heres-weeks-roobs-eagles-stats-070000198.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jameis Winston",
+    "Russell Wilson"
+   ],
+   "headline": "‘He’s Not Gonna Care’ — Russell Wilson Makes Opinion Clear as Giants Shake Up QB Room, Make Jameis Winston Watch His Back With J.J. McCarthy Trade",
+   "summary": "",
+   "published": "2026-09-30T05:18:10Z",
+   "published_at": "2026-09-30T05:18:10Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He’s Not Gonna Care’ — Russell Wilson Makes Opinion Clear as Giants Shake Up QB Room, Make Jameis Winston Watch His Back With J.J. McCarthy Trade",
+     "url": "https://www.profootballnetwork.com/russell-wilson-opinion-giants-jameis-winston-j-j-mccarthy-trade"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Eli Raridon"
+   ],
+   "headline": "Patriots rookie TE Eli Raridon announces death of newborn son after fatal birth defect diagnosis",
+   "summary": "Eli Raridon and his wife, Anna, announced that their son had been diagnosed with anencephaly.",
+   "published": "2026-09-30T04:53:00Z",
+   "published_at": "2026-09-30T04:53:00Z",
+   "first_seen_at": "2026-09-30T12:57:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Patriots rookie TE Eli Raridon announces death of newborn son after fatal birth defect diagnosis",
+     "url": "https://sports.yahoo.com/nfl/article/patriots-rookie-te-eli-raridon-announces-death-of-newborn-son-after-fatal-birth-defect-diagnosis-045300606.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Schefter: Expect offseason surgery for Jayden Daniels – All aTwitter",
+   "summary": "All aTwitter – We follow Twitter so you don’t have to The goal of All aTwitter is to give readers a detailed or quirky look, through the unique lens of Twitter, at the Commanders, the NFL, and sports in general, along with a smattering of other things. Click here for Washington Commanders Beat Writers Twitter […]",
+   "published": "2026-09-30T04:00:00Z",
+   "published_at": "2026-09-30T04:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Schefter: Expect offseason surgery for Jayden Daniels – All aTwitter",
+     "url": "https://www.hogshaven.com/washington-commanders-discussion/443755/schefter-expect-offseason-surgery-for-jayden-daniels-all-atwitter"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "‘We Can’t Keep Giving Him Excuses,’ ‘He’s in Year 7’ — Ex-NFL MVP Loses Patience With Justin Herbert After Chargers’ 0-3 Disaster",
+   "summary": "",
+   "published": "2026-09-30T03:50:41Z",
+   "published_at": "2026-09-30T03:50:41Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘We Can’t Keep Giving Him Excuses,’ ‘He’s in Year 7’ — Ex-NFL MVP Loses Patience With Justin Herbert After Chargers’ 0-3 Disaster",
+     "url": "https://www.profootballnetwork.com/cam-newton-criticizes-justin-herbert-2026-week-3"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts",
+    "Makai Lemon"
+   ],
+   "headline": "‘Playing a Man Down’ — Ex-Eagles LB Bluntly Claims Jalen Hurts ‘Doesn’t Trust’ First-Round Pick Makai Lemon",
+   "summary": "",
+   "published": "2026-09-30T01:53:05Z",
+   "published_at": "2026-09-30T01:53:05Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Playing a Man Down’ — Ex-Eagles LB Bluntly Claims Jalen Hurts ‘Doesn’t Trust’ First-Round Pick Makai Lemon",
+     "url": "https://www.profootballnetwork.com/eagles-emmanuel-acho-jalen-hurts-trust-makai-lemon"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "J.J. McCarthy"
+   ],
+   "headline": "‘Kevin O’Connell Couldn’t Fix Him’ — Colin Cowherd Raises Major Red Flag About J.J. McCarthy After Vikings-Giants Trade",
+   "summary": "",
+   "published": "2026-09-30T00:29:48Z",
+   "published_at": "2026-09-30T00:29:48Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Kevin O’Connell Couldn’t Fix Him’ — Colin Cowherd Raises Major Red Flag About J.J. McCarthy After Vikings-Giants Trade",
+     "url": "https://www.profootballnetwork.com/colin-cowherd-raises-major-red-flag-about-jj-mccarthy-vikings-giants"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Mark Duffner's Nickname For Joe Burrow And Other Bengals-Jags Tidbits",
+   "summary": "Catching up with an old friend in the Bengals-Jaguars rivalry.",
+   "published": "2026-09-29T23:20:25Z",
+   "published_at": "2026-09-29T23:20:25Z",
+   "first_seen_at": "2026-09-30T12:57:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Mark Duffner's Nickname For Joe Burrow And Other Bengals-Jags Tidbits",
+     "url": "https://www.bengals.com/news/bengals-jaguars-mark-duffner-joe-burrow"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jaxon Smith-Njigba"
+   ],
+   "headline": "Seahawks Mailbag: Jaxon Smith-Njigba Repeat OPOY? Responding To A Loss & More",
+   "summary": "You had Seahawks questions; we have answers.",
+   "published": "2026-09-29T23:06:33Z",
+   "published_at": "2026-09-29T23:06:33Z",
+   "first_seen_at": "2026-09-30T12:57:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Seahawks Mailbag: Jaxon Smith-Njigba Repeat OPOY? Responding To A Loss & More",
+     "url": "https://www.seahawks.com/news/seahawks-mailbag-jaxon-smith-njigba-repeat-opoy-responding-to-a-loss-more"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jaxson Dart"
+   ],
+   "headline": "Survey – When will we see J.J. McCarthy at quarterback for the Giants?",
+   "summary": "It was widely expected that the New York Giants would make a move for a quarterback once it became known that starter Jaxson Dart would need season-ending knee surgery. What wasn’t expected was that the Giants would make a trade for a quarterback, and it was very unexpected that they’d make a trade with the […]",
+   "published": "2026-09-29T23:00:00Z",
+   "published_at": "2026-09-29T23:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "Survey – When will we see J.J. McCarthy at quarterback for the Giants?",
+     "url": "https://www.bigblueview.com/nfl-reacts-survey/173614/survey-when-will-we-see-j-j-mccarthy-at-quarterback-for-the-giants"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers set to reunite with Dante Pettis following tryout",
+   "summary": "The 49ers are set to reunite with Dante Pettis. San Francisco’s second-round pick in the 2018 draft was one of a host of wide receivers who tried out for the team on Tuesday following a rib injury to Mike Evans. And the Niners are giving Pettis a second chance with the team, with Jordan Schultz […]",
+   "published": "2026-09-29T22:34:33Z",
+   "published_at": "2026-09-29T22:34:33Z",
+   "first_seen_at": "2026-09-30T12:57:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers set to reunite with Dante Pettis following tryout",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/163470/49ers-set-to-reunite-dante-pettis-following-tryout"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Damon Bankston"
+   ],
+   "headline": "Packers announce roster moves | Sept. 29, 2026",
+   "summary": "Green Bay releases RB Damon Bankston and G Cordell Volson from practice squad",
+   "published": "2026-09-29T20:16:06Z",
+   "published_at": "2026-09-29T20:16:06Z",
+   "first_seen_at": "2026-09-30T12:57:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Packers announce roster moves | Sept. 29, 2026",
+     "url": "https://www.packers.com/news/packers-announce-roster-moves-sept-29-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Bijan Robinson",
+    "Drake London",
+    "Michael Penix Jr."
+   ],
+   "headline": "Falcons hope is kindled after Week 3 victory: Tuesday Takes with Tre’Shon",
+   "summary": "The Falcons received a spark of life with the return of Michael Penix Jr., upsetting the Packers in Week 3 and rekindling the hope of the fanbase. Kevin Knight and Tre’Shon Diaz discuss the dominant offensive showing with Bijan Robinson and Drake London, the outstanding play of the defense, and special teams improvements. Fellow Falcoholics, […]",
+   "published": "2026-09-29T20:05:19Z",
+   "published_at": "2026-09-29T20:05:19Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "Falcons hope is kindled after Week 3 victory: Tuesday Takes with Tre’Shon",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-analysis/96774/falcons-hope-is-kindled-after-week-3-victory-tuesday-takes-with-treshon"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Terry McLaurin",
+    "Stefon Diggs"
+   ],
+   "headline": "Washington Commanders can be scary when WR Terry McLaurin goes off",
+   "summary": "Commanders offensive coordinator David Blough made a bold proclamation back in the spring, that Terry McLaurin should get 10 targets per game. If course, that was in a pre-Stefon Diggs world, when the Commanders’ clear No. 1 receiver was even more front-and-center. Blough’s intent was clear in that early statement and again in […]",
+   "published": "2026-09-29T19:47:43Z",
+   "published_at": "2026-09-29T19:47:43Z",
+   "first_seen_at": "2026-09-30T12:57:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Washington Commanders can be scary when WR Terry McLaurin goes off",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/444800/washington-commanders-terry-mclaurin-advanced-stats-seahawks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Christian Watson"
+   ],
+   "headline": "Packers WR Christian Watson has 'a different hunger'",
+   "summary": "Key comments from Green Bay’s coordinators",
+   "published": "2026-09-29T19:47:41Z",
+   "published_at": "2026-09-29T19:47:41Z",
+   "first_seen_at": "2026-09-30T12:57:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Packers WR Christian Watson has 'a different hunger'",
+     "url": "https://www.packers.com/news/packers-wr-christian-watson-has-a-different-hunger-sept-29-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Case Keenum",
+    "Caleb Williams"
+   ],
+   "headline": "Case Keenum's performance vs. Eagles shows Bears shouldn't rush Caleb Williams' return from injury",
+   "summary": "Keenum surprised everyone with his primetime performance, and he should give Chicago time to get Williams back to full strength",
+   "published": "2026-09-29T19:10:19Z",
+   "published_at": "2026-09-29T19:10:19Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Case Keenum's performance vs. Eagles shows Bears shouldn't rush Caleb Williams' return from injury",
+     "url": "https://www.cbssports.com/nfl/news/case-keenums-performance-vs-eagles-bears-dont-rush-caleb-williams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy",
+    "Mike Evans"
+   ],
+   "headline": "49ers work out former Jaguars wide receiver with Mike Evans banged up",
+   "summary": "On Monday, San Francisco 49ers head coach Kyle Shanahan provided a few injury updates. Mike Evans’ rib injury “shouldn’t be long-term,” as the team evaluated him throughout the week. It’s unlikely that we’ll see Evans in Week 4, which means Brock Purdy and the offense will be missing the 6’5″ wideout who was objectively the […]",
+   "published": "2026-09-29T19:01:00Z",
+   "published_at": "2026-09-29T19:01:00Z",
+   "first_seen_at": "2026-09-30T12:57:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers work out former Jaguars wide receiver with Mike Evans banged up",
+     "url": "https://www.ninersnation.com/san-francisco-roster/163445/49ers-work-out-former-jaguars-wide-receiver-with-mike-evans-banged-up"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Commanders' Jayden Daniels opting against elbow surgery until after season, per report",
+   "summary": "Washington's star quarterback is reportedly delaying a procedure on his dislocated left elbow until the offseason",
+   "published": "2026-09-29T18:40:31Z",
+   "published_at": "2026-09-29T18:40:31Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Commanders' Jayden Daniels opting against elbow surgery until after season, per report",
+     "url": "https://www.cbssports.com/nfl/news/commanders-jayden-daniels-elbow-surgery-later-date"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Trey McBride"
+   ],
+   "headline": "Trey McBride Nasty Stiff-Arm Gains Him Another Angry Runs Nod",
+   "summary": "Tight end wins 'GMFB' honor for a second time",
+   "published": "2026-09-29T17:50:34Z",
+   "published_at": "2026-09-29T17:50:34Z",
+   "first_seen_at": "2026-09-30T12:57:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "Trey McBride Nasty Stiff-Arm Gains Him Another Angry Runs Nod",
+     "url": "https://www.azcardinals.com/news/trey-mcbride-nasty-stiff-arm-gains-him-another-angry-runs-nod"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Brock Purdy, the NFL’s most underappreciated player",
+   "summary": "After three weeks, San Francisco 49ers quarterback Brock Purdy is second in MVP odds on FanDuel Sportsbook. Obviously, a lot can change between now and the end of the season, but Purdy gaining recognition after only one national spotlight game where he wasn’t asked to do much is a good sign. Kyle Shanahan said Purdy […]",
+   "published": "2026-09-29T17:01:00Z",
+   "published_at": "2026-09-29T17:01:00Z",
+   "first_seen_at": "2026-09-30T12:57:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Brock Purdy, the NFL’s most underappreciated player",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/163432/brock-purdy-the-nfls-most-underappreciated-player"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Marcus Mariota"
+   ],
+   "headline": "NFL Power Rankings: Commanders rise after big win over Seahawks",
+   "summary": "The Washington Commanders are 1-2 after pulling off the 33-31 upset win against the Seattle Seahawks in their home opener. Marcus Mariota led the team, and took full advantage of the three turnovers the defense forced against last season’s Super Bowl champions. Sunday’s win had an odd effect on this week’s power rankings. Everyone but […]",
+   "published": "2026-09-29T17:00:17Z",
+   "published_at": "2026-09-29T17:00:17Z",
+   "first_seen_at": "2026-09-30T12:57:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "NFL Power Rankings: Commanders rise after big win over Seahawks",
+     "url": "https://www.hogshaven.com/washington-commanders-power-rankings/442723/nfl-power-rankings-commanders-rise-after-big-win-over-seahawks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "JAX",
+   "players": [
+    "Josh Cameron"
+   ],
+   "headline": "Jaguars Tuesday: \"Blessed\" Cameron Producing in Versatile Way",
+   "summary": "Rookie WR Josh Cameron as the Jaguars prepare to play the Cincinnati Bengals at Paycor Stadium in Cincinnati, Ohio, Sunday: “I am just going to continue to stack and make the most of my opportunities for sure …”",
+   "published": "2026-09-29T16:47:11Z",
+   "published_at": "2026-09-29T16:47:11Z",
+   "first_seen_at": "2026-09-30T12:57:39+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "JAX official",
+     "title": "Jaguars Tuesday: \"Blessed\" Cameron Producing in Versatile Way",
+     "url": "https://www.jaguars.com/news/jaguars-tuesday-blessed-cameron-producing-in-versatile-way"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "Jim Harbaugh tells Justin Herbert to 'be better' amid Chargers' offensive struggles",
+   "summary": "Harbaugh knows his team's current situation starts with getting more out of the quarterback position",
+   "published": "2026-09-29T16:45:41Z",
+   "published_at": "2026-09-29T16:45:41Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Jim Harbaugh tells Justin Herbert to 'be better' amid Chargers' offensive struggles",
+     "url": "https://www.cbssports.com/nfl/news/jim-harbaugh-tells-justin-herbert-to-be-better-chargers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Dohnte Meyers",
+    "Colbie Young"
+   ],
+   "headline": "Bengals signing Mitchell Tinsley off Texans practice squad",
+   "summary": "The Cincinnati Bengals are dealing with a lack of depth in their wide receiver room for the first time in a long time. Rookie Colbie Young is out for at least this week with a knee injury, while Andrei Iosivas is on injured reserve with a thumb injury. Dohnte Meyers got a lot of the […]",
+   "published": "2026-09-29T16:06:05Z",
+   "published_at": "2026-09-29T16:06:05Z",
+   "first_seen_at": "2026-09-30T12:57:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Bengals signing Mitchell Tinsley off Texans practice squad",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/200729/mitchell-tinsley-texans-practice-squad"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Jared Goff"
+   ],
+   "headline": "NFL Week 4 power rankings: Confidence in Jared Goff has Detroit Lions on the rise",
+   "summary": "In Week 3, the Detroit Lions (2-1) took on a New York Jets team that was sporting one of the best defenses in the NFL to start the 2026 season. After landing near the top of most defensive statistical categories, the Jets looked like a much bigger challenge than the Lions had faced. Yet, when […]",
+   "published": "2026-09-29T16:00:02Z",
+   "published_at": "2026-09-29T16:00:02Z",
+   "first_seen_at": "2026-09-30T12:57:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "NFL Week 4 power rankings: Confidence in Jared Goff has Detroit Lions on the rise",
+     "url": "https://www.prideofdetroit.com/detroit-lions-news/174942/nfl-week-4-power-rankings-detroit-lions-rise-jared-goff"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "The 49ers’ injuries aren’t sustainable, but Brock Purdy might make them survivable",
+   "summary": "The 49ers dodged several bullets with their injuries in their Week 3 win over the Arizona Cardinals. Having lost defensive end Nick Bosa to a calf injury last week week — with the star pass rusher likely looking at around a month on the sideline — the 49ers saw several other key players go down […]",
+   "published": "2026-09-29T15:30:00Z",
+   "published_at": "2026-09-29T15:30:00Z",
+   "first_seen_at": "2026-09-30T12:57:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "The 49ers’ injuries aren’t sustainable, but Brock Purdy might make them survivable",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-analysis/163356/49ers-injuries-sustainable-brock-purdy-survivable"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "Who's to blame for Eagles' embarrassing loss to Bears? Jalen Hurts bears big responsibility but not all",
+   "summary": "Let's play the Eagles blame game after a disastrous loss in Chicago",
+   "published": "2026-09-29T15:16:58Z",
+   "published_at": "2026-09-29T15:16:58Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Who's to blame for Eagles' embarrassing loss to Bears? Jalen Hurts bears big responsibility but not all",
+     "url": "https://www.cbssports.com/nfl/news/whos-to-blame-for-eagles-embarrassing-loss-to-bears"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy",
+    "George Kittle"
+   ],
+   "headline": "Why didn’t George Kittle take a knee? Kyle Shanahan didn’t tell him to",
+   "summary": "The San Francisco 49ers beat the Arizona Cardinals Sunday 36-30 and as the Cardinals went to their onside kick in an attempt to win the game, one question entered my mind: What was George Kittle doing running that final touchdown into the end zone? The touchdown is nice. Especially when Brock Purdy scored one two […]",
+   "published": "2026-09-29T13:50:00Z",
+   "published_at": "2026-09-29T13:50:00Z",
+   "first_seen_at": "2026-09-30T12:57:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Why didn’t George Kittle take a knee? Kyle Shanahan didn’t tell him to",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-scores-results/163387/why-didnt-george-kittle-take-a-knee-kyle-shanahan-didnt-tell-him-to"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Late for Work: Jeff Zrebiec Identifies 'Intriguing' Potential Trade Option at Center",
+   "summary": "Lamar Jackson is named an early MVP front-runner. A pundit says the thriller in Rio was the Ravens’ ‘best win in a very, very long time.’",
+   "published": "2026-09-29T13:45:50Z",
+   "published_at": "2026-09-29T13:45:50Z",
+   "first_seen_at": "2026-09-30T12:57:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Late for Work: Jeff Zrebiec Identifies 'Intriguing' Potential Trade Option at Center",
+     "url": "https://www.baltimoreravens.com/news/ravens-trade-option-center-garrett-bradbury-bears-lamar-jackson-mvp-front-runner-best-win-rio"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Marcus Mariota"
+   ],
+   "headline": "Sonny Styles, Marcus Mariota among best Commanders from Week 3",
+   "summary": "Every victory deserves some serious love in this league, and the players who deliver standout performances deserve to be recognized. After two disheartening weeks, our squad bounced back with a massive, hard-fought 33-31 win over the Seattle Seahawks on Sunday at Northwest Stadium. To celebrate, I wanted to create a space for us fans […]",
+   "published": "2026-09-29T13:42:05Z",
+   "published_at": "2026-09-29T13:42:05Z",
+   "first_seen_at": "2026-09-30T12:57:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Sonny Styles, Marcus Mariota among best Commanders from Week 3",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/444629/commanders-mvp-marcus-mariota-sonny-styles-terry-mclaurin-seattle-seahawks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Jacoby Brissett"
+   ],
+   "headline": "Kyle Shanahan explains why he was impressed with 49ers’ depleted D-Line in Week 3",
+   "summary": "It’s no secret that the 49ers are extremely thin on the defensive line, and the pressure numbers from their Week 3 win over the Arizona Cardinals reflect that. Per Pro Football Focus, the 49ers managed only 12 pressures of Cardinals quarterback Jacoby Brissett, getting home on two as Ogbo Okoronkwo and Keion White recorded sacks. […]",
+   "published": "2026-09-29T13:30:00Z",
+   "published_at": "2026-09-29T13:30:00Z",
+   "first_seen_at": "2026-09-30T12:57:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Kyle Shanahan explains why he was impressed with 49ers’ depleted D-Line in Week 3",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/163425/kyle-shanahan-explains-impressed-49ers-depleted-d-line-week-3"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jameis Winston"
+   ],
+   "headline": "When will J.J. McCarthy start for Giants? Why John Harbaugh could make QB change sooner than expected",
+   "summary": "McCarthy must learn a new offense and prove he can protect the football, but Jameis Winston's uneven play could speed things up",
+   "published": "2026-09-29T13:27:30Z",
+   "published_at": "2026-09-29T13:27:30Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "When will J.J. McCarthy start for Giants? Why John Harbaugh could make QB change sooner than expected",
+     "url": "https://www.cbssports.com/nfl/news/j-j-mccarthy-trade-giants-starting-qb-jameis-winston"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Case Keenum"
+   ],
+   "headline": "'This is special': Case Keenum delivers impressive performance in Bears' primetime victory",
+   "summary": "The opportunity to make his first start in 1,009 days already made Monday night special for veteran quarterback Case Keenum, but leading the Bears to a 27-7 win over Philadelphia in front of his family and the lively Soldier Field crowd created memories that will last a lifetime.",
+   "published": "2026-09-29T13:15:13Z",
+   "published_at": "2026-09-29T13:15:13Z",
+   "first_seen_at": "2026-09-30T12:57:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "'This is special': Case Keenum delivers impressive performance in Bears' primetime victory",
+     "url": "https://www.chicagobears.com/news/this-is-special-case-keenum-delivers-impressive-performance-in-bears-primetime-victory"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "Eagles coach Nick Sirianni expresses remorse for shouting expletive at Bears player for hit on Jalen Hurts",
+   "summary": "Sirianni said he let the emotions get the best of him",
+   "published": "2026-09-29T13:06:56Z",
+   "published_at": "2026-09-29T13:06:56Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Eagles coach Nick Sirianni expresses remorse for shouting expletive at Bears player for hit on Jalen Hurts",
+     "url": "https://www.cbssports.com/nfl/news/nick-sirianni-remorse-for-expletive-at-bear-jalen-hurts"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Kenyon Sadiq"
+   ],
+   "headline": "3 Stats to Know | One More Facet to TE Kenyon Sadiq's Diamond Day in Detroit",
+   "summary": "Jets Rookie's Multilayered Achievement vs. Lions, No INTs Through 3 Games, Another Double for Demario Davis",
+   "published": "2026-09-29T13:00:00Z",
+   "published_at": "2026-09-29T13:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "3 Stats to Know | One More Facet to TE Kenyon Sadiq's Diamond Day in Detroit",
+     "url": "https://www.newyorkjets.com/news/3-stats-to-know-kenyon-sadiqs-diamond-day-in-detroit-09-29-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jadarian Price"
+   ],
+   "headline": "Seahawks News: Are you worried about Jadarian Price?",
+   "summary": "Fumbles are a tricky thing. Players like Jadarian Price can have issues in college, then go without them for years in the pros. Sometimes tho, the reputation for coughing it up can follow you to your new team. Price is going to have to work to shake off the rep, as he’s fumbled twice now […]",
+   "published": "2026-09-29T13:00:00Z",
+   "published_at": "2026-09-29T13:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks News: Are you worried about Jadarian Price?",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/175986/seahawks-news-are-you-worried-about-jadarian-price"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "J.J. McCarthy",
+    "Case Keenum"
+   ],
+   "headline": "Case Keenum, Bears score 'MNF' win over Eagles; MLB Wild Card preview; WNBA awards top rookie",
+   "summary": "Plus, the Giants acquire J.J. McCarthy from the Vikings",
+   "published": "2026-09-29T12:45:22Z",
+   "published_at": "2026-09-29T12:45:22Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Case Keenum, Bears score 'MNF' win over Eagles; MLB Wild Card preview; WNBA awards top rookie",
+     "url": "https://www.cbssports.com/nfl/news/case-keenum-bears-mnf-eagles-mlb-wild-card-wnba-rookie"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Raiders' surprising 3-0 start: Will Las Vegas see Fernando Mendoza at all this season?",
+   "summary": "Kirk Cousins has fended off the No. 1 overall pick through three weeks",
+   "published": "2026-09-29T12:04:33Z",
+   "published_at": "2026-09-29T12:04:33Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Raiders' surprising 3-0 start: Will Las Vegas see Fernando Mendoza at all this season?",
+     "url": "https://www.cbssports.com/nfl/news/raiders-3-0-start-fernando-mendoza-likelihood-to-play-in-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "It’s all up to Michael Penix Jr. now",
+   "summary": "Opportunities in the NFL rarely are clean and easy. Jalen Hurts needed Carson Wentz to get hurt to get his shot at being the Eagles’ franchise quarterback, and had to be terrific to seize ahold of that job. Tom Brady needed Drew Bledsoe to get hurt to find his way on to the field and […]",
+   "published": "2026-09-29T12:00:00Z",
+   "published_at": "2026-09-29T12:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "It’s all up to Michael Penix Jr. now",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-analysis/96552/its-all-up-to-michael-penix-jr-now"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Jahmyr Gibbs"
+   ],
+   "headline": "Know Your Foe: Week 4, Detroit Lions",
+   "summary": "From the dynamic Jahmyr Gibbs to a growing defense, get to know the Panthers next opponent, the Detroit Lions .",
+   "published": "2026-09-29T11:47:37Z",
+   "published_at": "2026-09-29T11:47:37Z",
+   "first_seen_at": "2026-09-30T12:57:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Know Your Foe: Week 4, Detroit Lions",
+     "url": "https://www.panthers.com/news/know-your-foe-week-4-detroit-lions"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Bengals News: Amarius Mims adds to elite start this season",
+   "summary": "The Cincinnati Bengals have had a revolving door of right tackles in the Joe Burrow era. One year rentals, bandaids and some struggles all lead them to Amarius Mims. After being forced into action earlier than expected his rookie year, Mims hasn’t looked back. Now, in his third season, Mims is taking his All Pro […]",
+   "published": "2026-09-29T10:00:00Z",
+   "published_at": "2026-09-29T10:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Bengals News: Amarius Mims adds to elite start this season",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/200693/bengals-news-amarius-mims-adds-to-elite-start-this-season"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "J.J. McCarthy"
+   ],
+   "headline": "Giants acquire QB J.J. McCarthy from Vikings in exchange for 2027 draft pick",
+   "summary": "The New York Giants have acquired quarterback J.J. McCarthy from the Minnesota Vikings in exchange for a 2027 fifth-round draft choice, pending a physical.",
+   "published": "2026-09-29T09:55:00Z",
+   "published_at": "2026-09-29T09:55:00Z",
+   "first_seen_at": "2026-09-30T12:57:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYG official",
+     "title": "Giants acquire QB J.J. McCarthy from Vikings in exchange for 2027 draft pick",
+     "url": "https://www.giants.com/news/j-j-mccarthy-trade-details-minnesota-vikings-quarterback-2027-nfl-draft-michigan-wolverines"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "De'Von Achane",
+    "Justin Herbert"
+   ],
+   "headline": "Fantasy Football Waiver Wire Week 4: 5 to add, drop, buy low, sell high",
+   "summary": "Miami Dolphins receiver Malik Washington could see more volume due to De'Von Achane's injury, while Los Angeles Chargers quarterback Justin Herbert has yet to deliver through three weeks.",
+   "published": "2026-09-29T09:00:00Z",
+   "published_at": "2026-09-29T09:00:00Z",
+   "first_seen_at": "2026-09-30T12:57:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Fantasy Football Waiver Wire Week 4: 5 to add, drop, buy low, sell high",
+     "url": "https://www.pff.com/news/fantasy-football-waiver-wire-week-4-5-to-add-drop-buy-low-sell-high-2"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Case Keenum"
+   ],
+   "headline": "Game Recap: Case Keenum, defense lead Bears to dominant victory over Eagles",
+   "summary": "Stellar performances by third-string quarterback Case Keenum and a stifling defense led the Bears to an impressive 27-7 win over the Eagles Monday night at Soldier Field.",
+   "published": "2026-09-29T04:13:00Z",
+   "published_at": "2026-09-29T04:13:00Z",
+   "first_seen_at": "2026-09-30T12:57:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "Game Recap: Case Keenum, defense lead Bears to dominant victory over Eagles",
+     "url": "https://www.chicagobears.com/news/game-recap-case-keenum-defense-lead-bears-to-dominant-victory-over-eagles"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels",
+    "Marcus Mariota"
+   ],
+   "headline": "You can vote for Marcus Mariota as FedEx Air & Ground Player of the Week",
+   "summary": "When Jayden Daniels was ruled out ahead of Sunday’s matchup against the Seattle Seahawks, I was personally confident in Mariota and the Commanders offense despite the fact that, usually, facing an opportunistic defense with a backup quarterback under center can be a recipe for white-knuckle football in Washington. As it turned out, I was right […]",
+   "published": "2026-09-29T03:47:29Z",
+   "published_at": "2026-09-29T03:47:29Z",
+   "first_seen_at": "2026-09-30T12:57:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "You can vote for Marcus Mariota as FedEx Air & Ground Player of the Week",
+     "url": "https://www.hogshaven.com/washington-commanders-news/444532/you-can-vote-for-marcus-mariota-as-fedex-air-ground-player-of-the-week"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 22,
+ "feeds_generated_at": "2026-09-30T12:57:35+00:00"
+}
