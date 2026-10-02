@@ -1,0 +1,1344 @@
+{
+ "date": "2026-10-02",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Aaron Donald not practicing for Rams",
+   "summary": "The Los Angeles Rams are gearing up for Week 4 against the Philadelphia Eagles, and they may have Puka Nacua back, but they may be without Aaron Donald and others. The start to the season has been shaky for Los Angeles with flat performances, injuries and some unlucky calls. At times, the Rams have looked […]",
+   "published": "2026-10-02T13:01:00Z",
+   "published_at": "2026-10-02T13:01:00Z",
+   "first_seen_at": "2026-10-02T13:06:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Aaron Donald not practicing for Rams",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-news/150415/rams-donald-nacua-eagles-week-4"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Kyler Murray"
+   ],
+   "headline": "Week 4 NFL bold predictions: Raiders upset Chiefs, Kyler Murray sets Vikings' single-game record",
+   "summary": "Plus, the Jets finally intercept the Bears, and the Patriots have an running back that breaks free",
+   "published": "2026-10-02T12:35:13Z",
+   "published_at": "2026-10-02T12:35:13Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Week 4 NFL bold predictions: Raiders upset Chiefs, Kyler Murray sets Vikings' single-game record",
+     "url": "https://www.cbssports.com/nfl/news/week-4-nfl-bold-predictions-raiders-chiefs-kyler-murray-vikings"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels",
+    "Chig Okonkwo"
+   ],
+   "headline": "Stats and Snaps – 2026 Week 3, Commanders vs Seahawks",
+   "summary": "The Commanders took the field in their home opener against the Seahawks, reeling from the Week 2 loss of their starting quarterback Jayden Daniels, adding to the injury attrition of key starters including LT Laremy Tunsil, RG Sam Cosmi, S Nick Cross, LB Frankie Luvu and TE Chig Okonkwo. The injury concerns were further compounded […]",
+   "published": "2026-10-02T12:30:00Z",
+   "published_at": "2026-10-02T12:30:00Z",
+   "first_seen_at": "2026-10-02T13:06:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Stats and Snaps – 2026 Week 3, Commanders vs Seahawks",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/445680/stats-snaps-2026-week-3-commanders-vs-seahawks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Breece Hall"
+   ],
+   "headline": "A Year After Injury, RB Braelon Allen Has Come a Long Way",
+   "summary": "Agent 0 Is Ready to Go If Quad Injury Sidelines Bellcow Breece Hall",
+   "published": "2026-10-02T12:10:00Z",
+   "published_at": "2026-10-02T12:10:00Z",
+   "first_seen_at": "2026-10-02T13:06:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "A Year After Injury, RB Braelon Allen Has Come a Long Way",
+     "url": "https://www.newyorkjets.com/news/braelon-allen-prepared-to-play-in-breece-hall-absence-10-02-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Jalon Daniels"
+   ],
+   "headline": "Pass Protection and a Rookie QB | Packers-Bucs Tale of the Tape",
+   "summary": "The 0-3 Buccaneers and 1-2 Packers will meet on Sunday with both teams urgently trying to get their seasons on track, and how well the Bucs' handle Green Bay's pass rush in front of new QB Jalon Daniels will be critical to the outcome",
+   "published": "2026-10-02T12:00:00Z",
+   "published_at": "2026-10-02T12:00:00Z",
+   "first_seen_at": "2026-10-02T13:06:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Pass Protection and a Rookie QB | Packers-Bucs Tale of the Tape",
+     "url": "https://www.buccaneers.com/news/pass-protection-and-rookie-qb-packers-bucs-tale-of-the-tape"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "NFL Predictions: Buccaneers vs. Packers Week 4 Picks and Scores",
+   "summary": "The Tampa Bay Buccaneers are still searching for their first win of the season as they prepare to host the Green Bay Packers Sunday afternoon at Raymond James Stadium. Tampa Bay enters Week 4 at 0-3 following last week’s 23-16 loss to the Minnesota Vikings. The Buccaneers will also be without starting quarterback Baker Mayfield, […]",
+   "published": "2026-10-02T12:00:00Z",
+   "published_at": "2026-10-02T12:00:00Z",
+   "first_seen_at": "2026-10-02T13:06:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "NFL Predictions: Buccaneers vs. Packers Week 4 Picks and Scores",
+     "url": "https://sports.yahoo.com/articles/nfl-predictions-buccaneers-vs-packers-120000436.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "C.J. Stroud",
+    "Nico Collins"
+   ],
+   "headline": "Nico Collins Back at Practice as Texans Prepare for Cowboys",
+   "summary": "DeMeco Ryans and C.J. Stroud explain what the explosive wide receiver means to the offense, and why G Ed Ingram's return matters heading into Sunday.",
+   "published": "2026-10-02T11:55:24Z",
+   "published_at": "2026-10-02T11:55:24Z",
+   "first_seen_at": "2026-10-02T13:06:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "HOU official",
+     "title": "Nico Collins Back at Practice as Texans Prepare for Cowboys",
+     "url": "https://www.houstontexans.com/news/nico-collins-back-at-practice-as-texans-prepare-for-cowboys"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "JAX",
+   "players": [
+    "Parker Washington"
+   ],
+   "headline": "4 key matchups to watch in Bengals vs. Jaguars",
+   "summary": "As the Cincinnati Bengals get set to host the Jacksonville Jaguars, here are four key matchups to watch for on Sunday at Paycor Stadium. Parker Washington vs. Dax Hill Parker Washington has been the top receiver for the Jaguars through the first few weeks of the season. He comes into this game with 221 receiving […]",
+   "published": "2026-10-02T11:05:00Z",
+   "published_at": "2026-10-02T11:05:00Z",
+   "first_seen_at": "2026-10-02T13:06:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "4 key matchups to watch in Bengals vs. Jaguars",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-analysis/200722/4-key-matchup-jaguars"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "#PostPulpit mailbag: What’s wrong with the Patriots run game?",
+   "summary": "The latest edition of our Patriots mailbag answers questions about the run game, Drake Maye, and more.",
+   "published": "2026-10-02T11:00:00Z",
+   "published_at": "2026-10-02T11:00:00Z",
+   "first_seen_at": "2026-10-02T13:06:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "#PostPulpit mailbag: What’s wrong with the Patriots run game?",
+     "url": "https://sports.yahoo.com/articles/postpulpit-mailbag-wrong-patriots-run-110000263.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Bryce Young"
+   ],
+   "headline": "Panthers vs Lions: Round table predictions, odds, and what’s left of Carolina’s two-deep.",
+   "summary": "Injuries and rain make for a frightening return home for the Panthers and Bryce Young",
+   "published": "2026-10-02T11:00:00Z",
+   "published_at": "2026-10-02T11:00:00Z",
+   "first_seen_at": "2026-10-02T13:06:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Panthers vs Lions: Round table predictions, odds, and what’s left of Carolina’s two-deep.",
+     "url": "https://sports.yahoo.com/articles/panthers-vs-lions-round-table-110000427.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Derrick Henry"
+   ],
+   "headline": "Tennessee Titans news: Week 4 vs. Ravens is a must-win game",
+   "summary": "The Tennessee Titans are facing off against Derrick Henry and the Baltimore Ravens.",
+   "published": "2026-10-02T11:00:00Z",
+   "published_at": "2026-10-02T11:00:00Z",
+   "first_seen_at": "2026-10-02T13:06:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Tennessee Titans news: Week 4 vs. Ravens is a must-win game",
+     "url": "https://sports.yahoo.com/articles/tennessee-titans-news-week-4-110000388.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "Deshaun Watson: Momentum shifts are part of the NFL, you have to ride the waves",
+   "summary": "When Thursday night's game got to halftime, it looked like the Browns might roll over the Steelers for an easy win.",
+   "published": "2026-10-02T10:57:46Z",
+   "published_at": "2026-10-02T10:57:46Z",
+   "first_seen_at": "2026-10-02T13:06:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Deshaun Watson: Momentum shifts are part of the NFL, you have to ride the waves",
+     "url": "https://sports.yahoo.com/articles/deshaun-watson-momentum-shifts-part-105746161.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Garrett Wilson",
+    "Matthew Stafford"
+   ],
+   "headline": "NFL Week 4 Bets: Matchups to target",
+   "summary": "PFF’s data-backed NFL bets for Week 4 identify passing-game opportunities for the Rams and Jets based on coverage tendencies. Matthew Stafford faces an Eagles defense that ranks around league average in perfect coverage, while Los Angeles has consistently forced coverage mistakes. Garrett Wilson draws a Bears defense that plays man coverage at the NFL’s second-highest rate.",
+   "published": "2026-10-02T10:30:00Z",
+   "published_at": "2026-10-02T10:30:00Z",
+   "first_seen_at": "2026-10-02T13:06:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "NFL Week 4 Bets: Matchups to target",
+     "url": "https://www.pff.com/news/bet-nfl-week-4-bets-matchups-to-target"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Dalton Kincaid"
+   ],
+   "headline": "‘Dynamic’ Dalton Kincaid a focal point for Patriots defense this week",
+   "summary": "The Bills tight end is in the middle of a productive season.",
+   "published": "2026-10-02T10:00:00Z",
+   "published_at": "2026-10-02T10:00:00Z",
+   "first_seen_at": "2026-10-02T13:06:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "‘Dynamic’ Dalton Kincaid a focal point for Patriots defense this week",
+     "url": "https://sports.yahoo.com/articles/dynamic-dalton-kincaid-focal-point-100000101.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Mike Gesicki",
+    "Joe Burrow"
+   ],
+   "headline": "Bengals News: Why Andrew Whitworth is irritated with the Bengals",
+   "summary": "The Cincinnati Bengals have long had an issue of seemingly calling off any sort of aggression despite having Joe Burrow and this offense at its disposal. There are examples of it working out. One was even in this game where Burrow tossed a touchdown to Mike Gesicki on 4th-and-1 just outside of the red zone. […]",
+   "published": "2026-10-02T10:00:00Z",
+   "published_at": "2026-10-02T10:00:00Z",
+   "first_seen_at": "2026-10-02T13:06:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Bengals News: Why Andrew Whitworth is irritated with the Bengals",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/201062/bengals-news-why-andrew-whitworth-is-irritated-with-the-bengals"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "CeeDee Lamb"
+   ],
+   "headline": "The 10 best NFL player matchups to watch in Week 4",
+   "summary": "Cowboys receiver CeeDee Lamb vs. Texans corner Derek Stingley Jr. is among the top NFL player duels that will occur in Week 4.",
+   "published": "2026-10-02T09:45:00Z",
+   "published_at": "2026-10-02T09:45:00Z",
+   "first_seen_at": "2026-10-02T13:06:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "The 10 best NFL player matchups to watch in Week 4",
+     "url": "https://www.pff.com/news/the-10-best-nfl-player-matchups-to-watch-in-week-4-2"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jaxson Dart"
+   ],
+   "headline": "Giants' John Harbaugh gets candid on 'shock sandwich' in first season | Exclusive",
+   "summary": "The Giants traded for QB J.J McCarthy after Jaxson Dart's season-ending injury. Coach John Harbaugh addressed the possibility of McCarthy starting.",
+   "published": "2026-10-02T09:31:33Z",
+   "published_at": "2026-10-02T09:31:33Z",
+   "first_seen_at": "2026-10-02T13:06:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Giants' John Harbaugh gets candid on 'shock sandwich' in first season | Exclusive",
+     "url": "https://sports.yahoo.com/articles/giants-john-harbaugh-gets-candid-093133995.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "JAX",
+   "players": [
+    "Josh Cameron"
+   ],
+   "headline": "Fantasy Football Week 4: 3 players to flex",
+   "summary": "Jaguars rookie receiver Josh Cameron is among the fringe fantasy football starters worth promoting as flexes in Week 4.",
+   "published": "2026-10-02T09:30:00Z",
+   "published_at": "2026-10-02T09:30:00Z",
+   "first_seen_at": "2026-10-02T13:06:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Fantasy Football Week 4: 3 players to flex",
+     "url": "https://www.pff.com/news/fantasy-football-week-4-3-players-to-flex"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "‘I’m Impressed’ — 2-Time Super Bowl Champion Gives Deshaun Watson a Shout-Out As Browns Cruise to First 3–1 Start Since 2021",
+   "summary": "",
+   "published": "2026-10-02T09:16:17Z",
+   "published_at": "2026-10-02T09:16:17Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I’m Impressed’ — 2-Time Super Bowl Champion Gives Deshaun Watson a Shout-Out As Browns Cruise to First 3–1 Start Since 2021",
+     "url": "https://www.profootballnetwork.com/super-bowl-lesean-mccoy-deshaun-watson-shout-out-browns-steelers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Josh Downs"
+   ],
+   "headline": "Fantasy Football Week 4: 3 WR/CB matchups to target and avoid",
+   "summary": "Colts receiver Josh Downs is among the wideouts to start in fantasy football lineups for Week 4 of the NFL season.",
+   "published": "2026-10-02T09:15:00Z",
+   "published_at": "2026-10-02T09:15:00Z",
+   "first_seen_at": "2026-10-02T13:06:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Fantasy Football Week 4: 3 WR/CB matchups to target and avoid",
+     "url": "https://www.pff.com/news/fantasy-football-week-4-3-wr-cb-matchups-to-target-and-avoid"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Shedeur Sanders"
+   ],
+   "headline": "‘Absolutely Miserable,’ ‘You Can See the Pain’ — NFL Fans Take Notice of Shedeur Sanders’ Sideline Reaction During Steelers vs. Browns Showdown",
+   "summary": "",
+   "published": "2026-10-02T07:16:46Z",
+   "published_at": "2026-10-02T07:16:46Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Absolutely Miserable,’ ‘You Can See the Pain’ — NFL Fans Take Notice of Shedeur Sanders’ Sideline Reaction During Steelers vs. Browns Showdown",
+     "url": "https://www.profootballnetwork.com/nfl-fans-notice-shedeur-sanders-reaction-tnf-steelers-browns"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "Deshaun Watson throws for 268 yards in win over Steelers | By the Numbers",
+   "summary": "The Browns’ defense recorded a season-high five sacks and two turnovers",
+   "published": "2026-10-02T06:54:47Z",
+   "published_at": "2026-10-02T06:54:47Z",
+   "first_seen_at": "2026-10-02T13:06:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Deshaun Watson throws for 268 yards in win over Steelers | By the Numbers",
+     "url": "https://www.clevelandbrowns.com/news/deshaun-watson-throws-for-268-yards-in-win-over-steelers-by-the-numbers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Patriots QB Drake Maye Breaks Silence on Rumored Tension With Mike Vrabel After Disastrous Start To Season",
+   "summary": "",
+   "published": "2026-10-02T06:28:25Z",
+   "published_at": "2026-10-02T06:28:25Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "Patriots QB Drake Maye Breaks Silence on Rumored Tension With Mike Vrabel After Disastrous Start To Season",
+     "url": "https://www.profootballnetwork.com/patriots-qb-drake-maye-breaks-silence-on-rumored-tension-with-mike-vrabel"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "‘Top-10 QB Right Now,’ ‘Browns Fans Aren’t Booing Deshaun Watson Anymore’ — NFL World Takes Notice of Cleveland QB’s Turnaround in Win vs. Steelers",
+   "summary": "",
+   "published": "2026-10-02T05:55:04Z",
+   "published_at": "2026-10-02T05:55:04Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Top-10 QB Right Now,’ ‘Browns Fans Aren’t Booing Deshaun Watson Anymore’ — NFL World Takes Notice of Cleveland QB’s Turnaround in Win vs. Steelers",
+     "url": "https://www.profootballnetwork.com/browns-fans-arent-booing-deshaun-watson-nfl-world-turnaround-win-steelers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LA",
+   "players": [
+    "Max Klare"
+   ],
+   "headline": "Rams Week 4 injury report: Terrance Ferguson expected to miss Sunday’s game",
+   "summary": "Terrance Ferguson sustained a medial ankle sprain during Week 3 against the Denver Broncos and is expected to miss the upcoming game against the Philadelphia Eagles, according to Sean McVay. While it is a setback for the second-year tight end, it opens the door for rookie Max Klare. With injuries at the position, does it […]",
+   "published": "2026-10-02T05:50:42Z",
+   "published_at": "2026-10-02T05:50:42Z",
+   "first_seen_at": "2026-10-02T13:06:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Rams Week 4 injury report: Terrance Ferguson expected to miss Sunday’s game",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-injuries/150404/rams-week-4-injury-report-terrance-ferguson-expected-to-miss-sundays-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Stop piling on Drake Maye. A deep dive look at his struggles, what's failing around him and why Patriots should believe he'll bounce back",
+   "summary": "Maye and the rest of the Patriots organization have to start rebuilding the floor before it starts sinking even further.",
+   "published": "2026-10-02T05:23:55Z",
+   "published_at": "2026-10-02T05:23:55Z",
+   "first_seen_at": "2026-10-02T13:06:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Stop piling on Drake Maye. A deep dive look at his struggles, what's failing around him and why Patriots should believe he'll bounce back",
+     "url": "https://sports.yahoo.com/nfl/article/stop-piling-on-drake-maye-a-deep-dive-look-at-his-struggles-whats-failing-around-him-and-why-patriots-should-believe-hell-bounce-back-052355810.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson",
+    "Shedeur Sanders"
+   ],
+   "headline": "‘I Didn’t Agree With It’ — Deshaun Watson Makes Feelings Clear on His ‘Character’ Impacting Browns’ QB1 Battle With Shedeur Sanders",
+   "summary": "",
+   "published": "2026-10-02T04:51:54Z",
+   "published_at": "2026-10-02T04:51:54Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I Didn’t Agree With It’ — Deshaun Watson Makes Feelings Clear on His ‘Character’ Impacting Browns’ QB1 Battle With Shedeur Sanders",
+     "url": "https://www.profootballnetwork.com/deshaun-watson-feelings-character-browns-qb1-shedeur-sanders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jadarian Price"
+   ],
+   "headline": "Seahawks injury report: Ty Okada back at practice, but Jadarian Price sits out Thursday",
+   "summary": "The Thursday injury report entering Week 4 against the Los Angeles Chargers has come out. There are some major updates with this report. Let’s start with the good news. Starting safety Ty Okada is finally back at practice in a limited manner. This is the first time Okada has practiced all season. It will be […]",
+   "published": "2026-10-02T02:25:34Z",
+   "published_at": "2026-10-02T02:25:34Z",
+   "first_seen_at": "2026-10-02T13:06:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks injury report: Ty Okada back at practice, but Jadarian Price sits out Thursday",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-injury-report/176262/seahawks-week-4-injury-report-ty-okada-back-practice-jadarian-price-sits-out"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "A September to Remember: Brock Purdy Named NFC Offensive Player of the Month",
+   "summary": "San Francisco 49ers quarterback Brock Purdy NFC Offensive Player of the Month in September after helping lead the 49ers to a 3-0 start.",
+   "published": "2026-10-02T02:04:57Z",
+   "published_at": "2026-10-02T02:04:57Z",
+   "first_seen_at": "2026-10-02T13:06:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SF official",
+     "title": "A September to Remember: Brock Purdy Named NFC Offensive Player of the Month",
+     "url": "https://www.49ers.com/news/a-september-to-remember-brock-purdy-named-nfc-offensive-player-of-the-month"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "‘Life Isn’t Fair’ — Deshaun Watson Gets Honest About Browns Fans ‘Disrespecting’ Him With Boos",
+   "summary": "",
+   "published": "2026-10-02T01:14:08Z",
+   "published_at": "2026-10-02T01:14:08Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Life Isn’t Fair’ — Deshaun Watson Gets Honest About Browns Fans ‘Disrespecting’ Him With Boos",
+     "url": "https://www.profootballnetwork.com/deshaun-watson-honest-browns-fans-disrespecting"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "‘I Was Dealing With a Lot,’ ‘It Was Hard’ — Browns QB Deshaun Watson Opens Up About Bouncing Back From Mental Health Struggles",
+   "summary": "",
+   "published": "2026-10-02T01:05:44Z",
+   "published_at": "2026-10-02T01:05:44Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I Was Dealing With a Lot,’ ‘It Was Hard’ — Browns QB Deshaun Watson Opens Up About Bouncing Back From Mental Health Struggles",
+     "url": "https://www.profootballnetwork.com/deshaun-watson-opens-up-mental-health-struggles"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jaxon Smith-Njigba"
+   ],
+   "headline": "Seahawks receiver Jaxon Smith-Njigba Is A 'Natural, True Ballplayer'",
+   "summary": "Seahawks receiver Jaxon Smith-Njigba is off to a productive start so far this season, leading the NFL in receiving yards and touchdowns going into Week 4.",
+   "published": "2026-10-02T00:28:45Z",
+   "published_at": "2026-10-02T00:28:45Z",
+   "first_seen_at": "2026-10-02T13:06:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Seahawks receiver Jaxon Smith-Njigba Is A 'Natural, True Ballplayer'",
+     "url": "https://www.seahawks.com/news/seahawks-receiver-jaxon-smith-njigba-is-a-natural-true-ball-player"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Kyren Williams"
+   ],
+   "headline": "Kyren Williams' impact felt in all three phases for Rams, but taking a step up in receiving a product of offseason work",
+   "summary": "Rams running back Kyren Williams worked on receiving in the offseason, led to impacting both the run and pass game against Denver",
+   "published": "2026-10-01T23:26:00Z",
+   "published_at": "2026-10-01T23:26:00Z",
+   "first_seen_at": "2026-10-02T13:06:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Kyren Williams' impact felt in all three phases for Rams, but taking a step up in receiving a product of offseason work",
+     "url": "https://www.therams.com/news/kyren-williams-impact-felt-in-all-three-phases-for-rams-but-taking-a-step-up-in-receiving-a-product-of-offseason-work"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Dylan Sampson"
+   ],
+   "headline": "What Happened to Dylan Sampson? Latest Update on the Browns RB’s Injury and Why He’s Out for Week 4 vs. Steelers",
+   "summary": "",
+   "published": "2026-10-01T23:15:05Z",
+   "published_at": "2026-10-01T23:15:05Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "What Happened to Dylan Sampson? Latest Update on the Browns RB’s Injury and Why He’s Out for Week 4 vs. Steelers",
+     "url": "https://www.profootballnetwork.com/dylan-sampson-injury-update-browns-vs-steelers-week-4-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Jerry Jeudy",
+    "KC Concepcion",
+    "Denzel Boston"
+   ],
+   "headline": "Jerry Jeudy has disappeared from Browns offense: Five teams that could trade for WR",
+   "summary": "Jeudy looks like the odd man out in a wide receiver group that features KC Concepcion and Denzel Boston",
+   "published": "2026-10-01T23:13:13Z",
+   "published_at": "2026-10-01T23:13:13Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Jerry Jeudy has disappeared from Browns offense: Five teams that could trade for WR",
+     "url": "https://www.cbssports.com/nfl/news/browns-trade-jerry-jeudy-2026-destinations"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "‘Could Use a Couple of Weapons Around Him’ — Super Bowl Champion HC Defends Drake Maye, Urges Patriots QB To Not Be ‘Superman’",
+   "summary": "",
+   "published": "2026-10-01T23:12:44Z",
+   "published_at": "2026-10-01T23:12:44Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Could Use a Couple of Weapons Around Him’ — Super Bowl Champion HC Defends Drake Maye, Urges Patriots QB To Not Be ‘Superman’",
+     "url": "https://www.profootballnetwork.com/super-bowl-champion-hc-drake-maye-not-superman-patriots"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "J.J. McCarthy",
+    "Malik Nabers"
+   ],
+   "headline": "Giants Star Malik Nabers Sends 2-Word Message Highlighting What’s Stood Out About J.J. McCarthy Since Surprise Vikings Trade",
+   "summary": "",
+   "published": "2026-10-01T22:55:16Z",
+   "published_at": "2026-10-01T22:55:16Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "Giants Star Malik Nabers Sends 2-Word Message Highlighting What’s Stood Out About J.J. McCarthy Since Surprise Vikings Trade",
+     "url": "https://www.profootballnetwork.com/giants-malik-nabers-jj-mccarthy-vikings-trade"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "Jaylen Warren",
+    "DK Metcalf"
+   ],
+   "headline": "Steelers vs. Browns odds, picks, prediction: Best bets, top player props for Thursday Night Football in Week 4",
+   "summary": "First place in the AFC North is up for grabs in a low-scoring divisional battle, creating prime value on the under alongside top props for Jaylen Warren and DK Metcalf",
+   "published": "2026-10-01T22:45:45Z",
+   "published_at": "2026-10-01T22:45:45Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Steelers vs. Browns odds, picks, prediction: Best bets, top player props for Thursday Night Football in Week 4",
+     "url": "https://www.cbssports.com/betting/news/steelers-vs-browns-odds-picks-prediction-best-bets-top-player-props-for-thursday-night-football-in-week-4"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "Deshaun Watson rallies Browns to a field goal in final seconds to beat the Steelers",
+   "summary": "The Steelers rallied after a bad first half against the Browns.",
+   "published": "2026-10-01T22:30:00Z",
+   "published_at": "2026-10-01T22:30:00Z",
+   "first_seen_at": "2026-10-02T13:06:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Deshaun Watson rallies Browns to a field goal in final seconds to beat the Steelers",
+     "url": "https://sports.yahoo.com/nfl/live/deshaun-watson-rallies-browns-to-a-field-goal-in-final-seconds-to-beat-the-steelers-223000412.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Ladd McConkey"
+   ],
+   "headline": "Chargers vs. Seahawks Injury Report: Ladd McConkey Doesn't Practice, Donte Jackson Limited Ahead of Week 4",
+   "summary": "Take a look at the Chargers Injury Report ahead of Week 4 against the Seahawks",
+   "published": "2026-10-01T21:55:00Z",
+   "published_at": "2026-10-01T21:55:00Z",
+   "first_seen_at": "2026-10-02T13:06:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAC official",
+     "title": "Chargers vs. Seahawks Injury Report: Ladd McConkey Doesn't Practice, Donte Jackson Limited Ahead of Week 4",
+     "url": "https://www.chargers.com/news/seahawks-injury-report-week-4"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Cowboys players, coaches react to Joey Porter Jr. trade",
+   "summary": "Hear from Cowboys coach Brian Schottenheimer, QB Dak Prescott and more players and coaches on their reaction to the Joey Porter Jr. trade and how he fits in with Dallas.",
+   "published": "2026-10-01T21:44:41Z",
+   "published_at": "2026-10-01T21:44:41Z",
+   "first_seen_at": "2026-10-02T13:06:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Cowboys players, coaches react to Joey Porter Jr. trade",
+     "url": "https://www.dallascowboys.com/news/cowboys-players-coaches-react-to-joey-porter-jr-trade"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Zay Flowers"
+   ],
+   "headline": "News & Notes: Zay Flowers Feels His Hamstring Injury Is Behind Him",
+   "summary": "The Ravens are looking for more defensive ‘connectivity.’ How Baltimore plans to help Vega Ioane. Declan Doyle shares his outlook on the quarterback sneak.",
+   "published": "2026-10-01T21:23:59Z",
+   "published_at": "2026-10-01T21:23:59Z",
+   "first_seen_at": "2026-10-02T13:06:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "News & Notes: Zay Flowers Feels His Hamstring Injury Is Behind Him",
+     "url": "https://www.baltimoreravens.com/news/zay-flowers-hamstring-injury-productivity-marlon-humphrey-defensive-connectivity-kyle-hamilton-vega-ioane-help-quarterback-sneak"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Travis Etienne",
+    "Alvin Kamara"
+   ],
+   "headline": "Saints RB Travis Etienne Jr. headed to IR, opening door for Alvin Kamara",
+   "summary": "Etienne's hamstring injury could create an opportunity for Kamara to reclaim his former role",
+   "published": "2026-10-01T21:20:31Z",
+   "published_at": "2026-10-01T21:20:31Z",
+   "first_seen_at": "2026-10-02T13:06:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Saints RB Travis Etienne Jr. headed to IR, opening door for Alvin Kamara",
+     "url": "https://www.cbssports.com/nfl/news/travis-etienne-ir-saints-alvin-kamara-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "James Conner"
+   ],
+   "headline": "Not On Field Yet, James Conner Still Makes His Impact",
+   "summary": "Running back remains on IR with eligibility approaching",
+   "published": "2026-10-01T20:45:00Z",
+   "published_at": "2026-10-01T20:45:00Z",
+   "first_seen_at": "2026-10-02T13:06:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "Not On Field Yet, James Conner Still Makes His Impact",
+     "url": "https://www.azcardinals.com/news/not-on-field-yet-james-conner-still-makes-his-impact"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Chig Okonkwo"
+   ],
+   "headline": "Commanders vs. Colts Thursday injury report: Chig Okonkwo nearing return",
+   "summary": "A pair of key Commanders are inching ever closer to a return to action after Week 1 injuries. Tight end Chig Okonkwo (hamstring) and linebacker Frankie Luvu (groin) were limited for a second straight day on Thursday, which was also set to be the most physical session of the week. That would be huge in […]",
+   "published": "2026-10-01T20:05:53Z",
+   "published_at": "2026-10-01T20:05:53Z",
+   "first_seen_at": "2026-10-02T13:06:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders vs. Colts Thursday injury report: Chig Okonkwo nearing return",
+     "url": "https://www.hogshaven.com/washington-commanders-injuries/445274/commanders-vs-colts-thursday-injury-report-chig-okonkwo-frankie-luvu-rachaad-white"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Tyrone Tracy Jr."
+   ],
+   "headline": "Giants vs. Cardinals Week 4 Injury Report: Andrew Thomas DNP, Tyrone Tracy Jr. LP",
+   "summary": "View the injury report for the Week 4 matchup between the New York Giants (2-1) and Arizona Cardinals (1-2) at MetLife Stadium.",
+   "published": "2026-10-01T20:00:00Z",
+   "published_at": "2026-10-01T20:00:00Z",
+   "first_seen_at": "2026-10-02T13:06:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYG official",
+     "title": "Giants vs. Cardinals Week 4 Injury Report: Andrew Thomas DNP, Tyrone Tracy Jr. LP",
+     "url": "https://www.giants.com/news/giants-vs-cardinals-week-4-injury-report-andrew-thomas-tyrone-tracy-jr-deonte-banks-tyler-nubin"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Xavier Legette"
+   ],
+   "headline": "Week 4 Thursday Injury Report: Still missing some key pieces",
+   "summary": "The Panthers were without left guard Damien Lewis and wide receiver Xavier Legette on Thursday, but everyone else was at least a limited participant.",
+   "published": "2026-10-01T19:28:52Z",
+   "published_at": "2026-10-01T19:28:52Z",
+   "first_seen_at": "2026-10-02T13:06:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Week 4 Thursday Injury Report: Still missing some key pieces",
+     "url": "https://www.panthers.com/news/week-4-thursday-injury-report-still-missing-some-key-pieces-damien-lewis-xavier-legette-jalen-coker-limited"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "5Qs, 5As with Bleeding Green Nation: How is Jalen Hurts faring with yet another new OC?",
+   "summary": "The Los Angeles Rams take on the Philadelphia Eagles in Week 4 for the fourth straight season. Los Angeles is searching not only for its first win over the Eagles since the 2020 campaign, but also for its first win over Philly with Nick Sirianni at the helm. Ahead of an important matchup between NFC […]",
+   "published": "2026-10-01T19:00:00Z",
+   "published_at": "2026-10-01T19:00:00Z",
+   "first_seen_at": "2026-10-02T13:06:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "5Qs, 5As with Bleeding Green Nation: How is Jalen Hurts faring with yet another new OC?",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-schedule/150235/rams-eagles-week-4-preview-jalen-hurts-mannion-fangio"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Bryce Young"
+   ],
+   "headline": "The Panthers have learned that Bryce Young \"thrives\" when things get complicated",
+   "summary": "Young is being pressured as much as any quarterback in the league He's also succeeding while being pressured, which points back to his unique ability to find calm in chaotic moments.",
+   "published": "2026-10-01T18:36:37Z",
+   "published_at": "2026-10-01T18:36:37Z",
+   "first_seen_at": "2026-10-02T13:06:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "The Panthers have learned that Bryce Young \"thrives\" when things get complicated",
+     "url": "https://www.panthers.com/news/the-panthers-have-learned-that-bryce-young-thrives-when-things-get-complicated"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Lamar Jackson Returns to Full Practice Participation",
+   "summary": "Left tackle Ronnie Stanley (toe) was limited for a second straight day.",
+   "published": "2026-10-01T17:44:14Z",
+   "published_at": "2026-10-01T17:44:14Z",
+   "first_seen_at": "2026-10-02T13:06:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Lamar Jackson Returns to Full Practice Participation",
+     "url": "https://www.baltimoreravens.com/news/lamar-jackson-injury-report-practicing-back-limited-ravens-titans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Zach Charbonnet"
+   ],
+   "headline": "Zach Charbonnet injury update: Seahawks running back set to return to practice",
+   "summary": "After being sidelined for the past eight months while recovering from a torn ACL he suffered in the 2026 Divisional Round, Seattle Seahawks running back Zach Charbonnet is one step closer to returning to game action. The Seahawks designated Charbonnet to return to practice on Thursday morning, meaning they’ll have a 21-day window to activate […]",
+   "published": "2026-10-01T17:29:05Z",
+   "published_at": "2026-10-01T17:29:05Z",
+   "first_seen_at": "2026-10-02T13:06:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Zach Charbonnet injury update: Seahawks running back set to return to practice",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-injury-report/176240/seahawks-injury-update-zach-charbonnet-designated-return-practice-nfl-news"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "What Commanders QB Jayden Daniels said about quick return from elbow injury",
+   "summary": "Jayden Daniels has been practicing this week with a large brace on his left arm, something he’ll wear all season to avoid yet another elbow dislocation that he suffered last year and again in a Week 2 loss at Dallas. His return to practice and eventually play has been faster than it was last […]",
+   "published": "2026-10-01T16:54:48Z",
+   "published_at": "2026-10-01T16:54:48Z",
+   "first_seen_at": "2026-10-02T13:06:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "What Commanders QB Jayden Daniels said about quick return from elbow injury",
+     "url": "https://www.hogshaven.com/washington-commanders-news/445482/commanders-qb-jayden-daniels-elbow-injury-update-colts-week-4-london"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Zach Charbonnet"
+   ],
+   "headline": "Seahawks RB Zach Charbonnet Designated To Return To Practice",
+   "summary": "Seahawks running back Zach Charbonnet will return to practice on Thursday.",
+   "published": "2026-10-01T16:29:33Z",
+   "published_at": "2026-10-01T16:29:33Z",
+   "first_seen_at": "2026-10-02T13:06:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Seahawks RB Zach Charbonnet Designated To Return To Practice",
+     "url": "https://www.seahawks.com/news/seahawks-rb-zach-charbonnet-designated-to-return-to-practice"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "The Rams have a right-side problem",
+   "summary": "It’s a good thing that Matthew Stafford isn’t left-handed, because the right side of the L.A. Rams offensive line has had the worst pass protection duo in the league through three weeks. Kevin Dotson’s name has been the first one proposed as having a pass protection issue this season, and by some accounts he had […]",
+   "published": "2026-10-01T16:25:58Z",
+   "published_at": "2026-10-01T16:25:58Z",
+   "first_seen_at": "2026-10-02T13:06:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "The Rams have a right-side problem",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-depth-chart/150388/rams-offensive-line-dotson-mcclendon"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "John Lynch on Mike Evans: ‘Mike’s going to make every attempt to try to play’",
+   "summary": "When the San Francisco 49ers lost Mike Evans during their Week 3 win over the Arizona Cardinals, the visible pain Evans was in looked like a player who would be out for longer than seven days. During a Thursday morning interview on KNBR, Lynch spoke about his star wide receiver’s toughness: “I will tell you […]",
+   "published": "2026-10-01T16:12:42Z",
+   "published_at": "2026-10-01T16:12:42Z",
+   "first_seen_at": "2026-10-02T13:06:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "John Lynch on Mike Evans: ‘Mike’s going to make every attempt to try to play’",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/163534/john-lynch-on-mike-evans-mikes-going-to-make-every-attempt-to-try-to-play"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Kenyon Sadiq"
+   ],
+   "headline": "Jets TE Kenyon Sadiq Voted Pepsi NFL Rookie of the Week",
+   "summary": "TE Against the Lions Posted 7 Receptions, 105 Yards, 1 TD",
+   "published": "2026-10-01T15:05:19Z",
+   "published_at": "2026-10-01T15:05:19Z",
+   "first_seen_at": "2026-10-02T13:06:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets TE Kenyon Sadiq Voted Pepsi NFL Rookie of the Week",
+     "url": "https://www.newyorkjets.com/news/kenyon-sadiq-pepsi-nfl-rookie-of-the-week-10-01-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Ann Michael Maye helps families facing food insecurity, presents donation to pantry on behalf of MayeDay Family Foundation",
+   "summary": "Ann Michael Maye, wife of New England Patriots quarterback Drake Maye, volunteered at Family Food Connections on Tuesday, distributing groceries to families facing food insecurity. The visit coincided with a $100,000 donation from the MayeDay Family Foundation to support the food pantry’s mission.",
+   "published": "2026-10-01T14:45:58Z",
+   "published_at": "2026-10-01T14:45:58Z",
+   "first_seen_at": "2026-10-02T13:06:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "Ann Michael Maye helps families facing food insecurity, presents donation to pantry on behalf of MayeDay Family Foundation",
+     "url": "https://www.patriots.com/news/ann-michael-maye-helps-families-facing-food-insecurity-presents-donation-to-pantry-on-behalf-of-mayeday-family-foundation"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Christian McCaffrey"
+   ],
+   "headline": "Christian McCaffrey has chance to surpass Hall of Famer on Sunday",
+   "summary": "Christian McCaffrey is regularly compared to Marshall Faulk because of his remarkable dual-threat ability as a running back. Before McCaffrey’s emergence, Faulk and 49ers legend Roger Craig were held up as the gold standard for backs who could do significant damage as a receiver as well as with their running ability. McCaffrey’s exceptional production on […]",
+   "published": "2026-10-01T14:30:00Z",
+   "published_at": "2026-10-01T14:30:00Z",
+   "first_seen_at": "2026-10-02T13:06:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Christian McCaffrey has chance to surpass Hall of Famer on Sunday",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/163522/christian-mccaffrey-chance-surpass-hall-of-famer"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Mike Gesicki"
+   ],
+   "headline": "The Conversation | The Great Gesicki On His Roles As The Next Option, New Dad And Jersey Guy",
+   "summary": "Bengals.com senior writer Geoff Hobson sits down with TE Mike Gesicki to talk football and life ahead of Week 4 against the Jaguars.",
+   "published": "2026-10-01T14:22:59Z",
+   "published_at": "2026-10-01T14:22:59Z",
+   "first_seen_at": "2026-10-02T13:06:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "The Conversation | The Great Gesicki On His Roles As The Next Option, New Dad And Jersey Guy",
+     "url": "https://www.bengals.com/news/the-conversation-mike-gesicki-bengals-jaguars-week-4-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Kyle Shanahan downplays Broncos play caller change, calls talk ‘overrated’",
+   "summary": "Off to a 3-0 start, the San Francisco 49ers are heading back home in Week 4, as they’ll face the Denver Broncos at Levi’s Stadium on Sunday in one of their early tests of the season. San Francisco’s offense has been humming early, despite a bevy of injuries, as Brock Purdy has played at an […]",
+   "published": "2026-10-01T13:44:30Z",
+   "published_at": "2026-10-01T13:44:30Z",
+   "first_seen_at": "2026-10-02T13:06:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Kyle Shanahan downplays Broncos play caller change, calls talk ‘overrated’",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/163527/san-francisco-49ers-news-kyle-shanahan-denver-broncos-oc-davis-webb-playcaller-sean-payton-week-5"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 24,
+ "feeds_generated_at": "2026-10-02T13:06:04+00:00"
+}
