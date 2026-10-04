@@ -1,0 +1,1352 @@
+{
+ "date": "2026-10-04",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Alec Pierce"
+   ],
+   "headline": "What Happened to Alec Pierce? Latest Update on the Colts WR’s Injury and Why He’s Out for Week 4 vs. Commanders",
+   "summary": "",
+   "published": "2026-10-04T12:30:19Z",
+   "published_at": "2026-10-04T12:30:19Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "What Happened to Alec Pierce? Latest Update on the Colts WR’s Injury and Why He’s Out for Week 4 vs. Commanders",
+     "url": "https://www.profootballnetwork.com/alec-pierce-injury-update-colts-vs-commanders-week-4-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Joe Burrow",
+    "Trevor Lawrence"
+   ],
+   "headline": "Bengals vs. Jaguars prediction: Joe Burrow, Trevor Lawrence duel in battle of AFC contenders",
+   "summary": "Everything you need to know to tune into the AFC showdown",
+   "published": "2026-10-04T12:24:31Z",
+   "published_at": "2026-10-04T12:24:31Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Bengals vs. Jaguars prediction: Joe Burrow, Trevor Lawrence duel in battle of AFC contenders",
+     "url": "https://www.cbssports.com/nfl/news/bengals-vs-jaguars-where-to-watch-pick-odds-prediction"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Terry McLaurin"
+   ],
+   "headline": "Washington Commanders vs Indianapolis Colts Inactives: Terry McLaurin out for London game",
+   "summary": "Who’s out today?",
+   "published": "2026-10-04T12:07:00Z",
+   "published_at": "2026-10-04T12:07:00Z",
+   "first_seen_at": "2026-10-04T12:49:18+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Washington Commanders vs Indianapolis Colts Inactives: Terry McLaurin out for London game",
+     "url": "https://sports.yahoo.com/articles/washington-commanders-vs-indianapolis-colts-120700327.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels",
+    "Terry McLaurin"
+   ],
+   "headline": "Colts vs. Commanders live updates, inactives, where to watch: Jayden Daniels, Terry McLaurin out for Week 4",
+   "summary": "The NFL's back in London, innit?",
+   "published": "2026-10-04T12:05:49Z",
+   "published_at": "2026-10-04T12:05:49Z",
+   "first_seen_at": "2026-10-04T12:49:18+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Colts vs. Commanders live updates, inactives, where to watch: Jayden Daniels, Terry McLaurin out for Week 4",
+     "url": "https://sports.yahoo.com/nfl/live/colts-commanders-score-live-updates-london-inactives-highlights-stats-where-to-watch-week-4-jayden-daniels-ruled-out-120549288.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Keenan Allen"
+   ],
+   "headline": "Colts announce 6 inactive players for Week 4 game vs. Commanders",
+   "summary": "The Colts previously ruled out wide receiver Keenan Allen (groin).",
+   "published": "2026-10-04T12:02:05Z",
+   "published_at": "2026-10-04T12:02:05Z",
+   "first_seen_at": "2026-10-04T12:49:15+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "IND official",
+     "title": "Colts announce 6 inactive players for Week 4 game vs. Commanders",
+     "url": "https://www.colts.com/news/colts-announce-6-inactive-players-for-week-4-game-vs-commanders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "Bills news: What to know ahead of Week 4 vs. Patriots",
+   "summary": "Everything you need to know as Josh Allen and the Bills look to start the season 4-0 for the second straight season.",
+   "published": "2026-10-04T12:00:00Z",
+   "published_at": "2026-10-04T12:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:18+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Bills news: What to know ahead of Week 4 vs. Patriots",
+     "url": "https://sports.yahoo.com/articles/bills-news-know-ahead-week-120000778.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Sam LaPorta"
+   ],
+   "headline": "Detroit Lions, Sam LaPorta cut extension talks with no new contract",
+   "summary": "The Detroit Lions and TE Sam LaPorta have reportedly cut off contract extension talks with no new deal.",
+   "published": "2026-10-04T11:53:43Z",
+   "published_at": "2026-10-04T11:53:43Z",
+   "first_seen_at": "2026-10-04T12:49:18+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Detroit Lions, Sam LaPorta cut extension talks with no new contract",
+     "url": "https://sports.yahoo.com/articles/detroit-lions-sam-laporta-cut-115343840.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Jalen Coker"
+   ],
+   "headline": "Report: Panthers likely without top WR vs. Lions",
+   "summary": "The Carolina Panthers will likely be without their top receiver Jalen Coker against the Detroit Lions on Sunday night.",
+   "published": "2026-10-04T11:28:35Z",
+   "published_at": "2026-10-04T11:28:35Z",
+   "first_seen_at": "2026-10-04T12:49:18+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Report: Panthers likely without top WR vs. Lions",
+     "url": "https://sports.yahoo.com/articles/report-panthers-likely-without-top-112835878.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Jayden Daniels injury update: Latest on Commanders QB's status for today's game",
+   "summary": "Jayden Daniels is working his way back from a dislocated elbow. Will he play for the Commanders in Week 4 against the Colts in London?",
+   "published": "2026-10-04T11:03:04Z",
+   "published_at": "2026-10-04T11:03:04Z",
+   "first_seen_at": null,
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Jayden Daniels injury update: Latest on Commanders QB's status for today's game",
+     "url": "https://sports.yahoo.com/articles/jayden-daniels-injury-latest-commanders-110304107.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Jonathan Taylor",
+    "Marcus Mariota"
+   ],
+   "headline": "Commanders vs. Colts: Jonathan Taylor, Marcus Mariota lead teams into London",
+   "summary": "Both teams head to London after earning their first wins, but two of the NFL's worst defenses could allow this matchup to turn into a high-scoring battle",
+   "published": "2026-10-04T11:00:53Z",
+   "published_at": "2026-10-04T11:00:53Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Commanders vs. Colts: Jonathan Taylor, Marcus Mariota lead teams into London",
+     "url": "https://www.cbssports.com/nfl/news/commanders-vs-colts-where-to-watch-pick-odds-prediction"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Case Keenum"
+   ],
+   "headline": "New York Jets Flight Connections 10/04/26",
+   "summary": "Happy game day, Jets fans! The Jets look to improve their record to 2-2 today. Their opponent is the Chicago Bears. The Bears are coming off a big Monday night win over the Philadelphia Eagles with third string quarterback Case Keenum. However, reports suggest that Keenum will not make the start for the Bears. Instead, […]",
+   "published": "2026-10-04T11:00:00Z",
+   "published_at": "2026-10-04T11:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:18+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "New York Jets Flight Connections 10/04/26",
+     "url": "https://sports.yahoo.com/articles/york-jets-flight-connections-10-110000282.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Garrett Wilson",
+    "D'Andre Swift"
+   ],
+   "headline": "Jets vs. Bears odds, picks, prediction, spread, line: NFL Week 4 start time, preview, best bets",
+   "summary": "Here's everything bettors need to know for when Garrett Wilson and the Jets clash with D'Andre Swift's Bears in Chicago",
+   "published": "2026-10-04T10:01:08Z",
+   "published_at": "2026-10-04T10:01:08Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Jets vs. Bears odds, picks, prediction, spread, line: NFL Week 4 start time, preview, best bets",
+     "url": "https://www.cbssports.com/betting/news/jets-vs-bears-odds-picks-prediction-spread-line-nfl-week-4-start-time-preview-best-bets"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Josh Downs",
+    "Daniel Jones",
+    "Marcus Mariota",
+    "Stefon Diggs",
+    "Tyler Warren",
+    "Jacory Croskey-Merritt"
+   ],
+   "headline": "Colts vs. Commanders Start 'Em, Sit 'Em: London International Game - Daniel Jones, Marcus Mariota, Jacory Croskey-Merritt, Josh Downs, Stefon Diggs, Tyler Warren, and more",
+   "summary": "",
+   "published": "2026-10-04T02:10:30Z",
+   "published_at": "2026-10-04T02:10:30Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Colts vs. Commanders Start 'Em, Sit 'Em: London International Game - Daniel Jones, Marcus Mariota, Jacory Croskey-Merritt, Josh Downs, Stefon Diggs, Tyler Warren, and more",
+     "url": "https://www.rotoballer.com/fantasy-football-start-em-sit-em-london-game-colts-vs-commanders-week-4-2026/1957204"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Brock Bowers"
+   ],
+   "headline": "NFL Week 4 player prop bets: Raiders' Brock Bowers among best anytime TD bets",
+   "summary": "These five players could capitalize on their matchups and find the end zone during Sunday's NFL action",
+   "published": "2026-10-03T23:01:01Z",
+   "published_at": "2026-10-03T23:01:01Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "NFL Week 4 player prop bets: Raiders' Brock Bowers among best anytime TD bets",
+     "url": "https://www.cbssports.com/nfl/news/nfl-week-4-player-prop-bets"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "Jets-Bears Game Preview | Quarterback Certainty and Intrigue in Chicago",
+   "summary": "Geno Smith Off to a Hot Start; HC Ben Johnson Keeping Starter Close to the Vest",
+   "published": "2026-10-03T21:00:00Z",
+   "published_at": "2026-10-03T21:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets-Bears Game Preview | Quarterback Certainty and Intrigue in Chicago",
+     "url": "https://www.newyorkjets.com/news/jets-at-bears-week-4-2026-game-preview-aaron-glenn-ben-johnson-10-04-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "D'Andre Swift",
+    "Kyle Monangai"
+   ],
+   "headline": "Jets Notebook | Demario Davis Breaks Down Bears' Rushing Tandem of D'Andre Swift and Kyle Monangai",
+   "summary": "HC Aaron Glenn Details How the Jets are Preparing for Chicago's QB Options",
+   "published": "2026-10-03T20:58:00Z",
+   "published_at": "2026-10-03T20:58:00Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Notebook | Demario Davis Breaks Down Bears' Rushing Tandem of D'Andre Swift and Kyle Monangai",
+     "url": "https://www.newyorkjets.com/news/jets-notebook-demario-davis-breaks-down-bears-rushing-game-dandre-swift-kyle-monangai-10-02-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Garrett Wilson"
+   ],
+   "headline": "What Advantage Should the Jets Have Against the Bears?",
+   "summary": "WR Garrett Wilson & Jets' Playmakers Look to Pick Up Where They Left Off in Detroit",
+   "published": "2026-10-03T20:57:00Z",
+   "published_at": "2026-10-03T20:57:00Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "What Advantage Should the Jets Have Against the Bears?",
+     "url": "https://www.newyorkjets.com/news/what-advantages-should-the-jets-have-against-the-bears-10-02-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jadarian Price"
+   ],
+   "headline": "Seahawks place rookie Jadarian Price on injured reserve",
+   "summary": "The rookie aggravated a chest injury and will miss at least four games, leaving Emanuel Wilson and George Holani to shoulder backfield duties during a grueling stretch",
+   "published": "2026-10-03T20:55:14Z",
+   "published_at": "2026-10-03T20:55:14Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Seahawks place rookie Jadarian Price on injured reserve",
+     "url": "https://www.cbssports.com/nfl/news/seahawks-place-rookie-jadarian-price-injured-reserve"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Breece Hall"
+   ],
+   "headline": "A Year After Injury, RB Braelon Allen Has Come a Long Way",
+   "summary": "Agent 0 Is Ready to Go If Quad Injury Sidelines Bellcow Breece Hall",
+   "published": "2026-10-03T20:52:00Z",
+   "published_at": "2026-10-03T20:52:00Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "A Year After Injury, RB Braelon Allen Has Come a Long Way",
+     "url": "https://www.newyorkjets.com/news/braelon-allen-prepared-to-play-in-breece-hall-absence-10-02-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jadarian Price",
+    "Zach Charbonnet"
+   ],
+   "headline": "Jadarian Price out until November after landing on injured reserve",
+   "summary": "The Seattle Seahawks had a big hole to fill at running back in the offseason. First, on the way to winning Super Bowl LX in memorable fashion by thumping the New England Patriots 29-13, 2023 second round pick Zach Charbonnet was lost to a torn ACL. Then, in the offseason, 2022 second round pick Kenneth […]",
+   "published": "2026-10-03T20:20:04Z",
+   "published_at": "2026-10-03T20:20:04Z",
+   "first_seen_at": "2026-10-04T12:49:21+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Jadarian Price out until November after landing on injured reserve",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/176351/jadarian-price-out-until-november-after-landing-on-injured-reserve"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Xavier Legette"
+   ],
+   "headline": "Panthers place wide receiver Xavier Legette on injured reserve",
+   "summary": "The Panthers will be without Legette for at least the next four weeks. Plus practice squad elevations to create depth for Sunday night's game against the Lions.",
+   "published": "2026-10-03T20:00:04Z",
+   "published_at": "2026-10-03T20:00:04Z",
+   "first_seen_at": "2026-10-04T12:49:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Panthers place wide receiver Xavier Legette on injured reserve",
+     "url": "https://www.panthers.com/news/panthers-place-wide-receiver-xavier-legette-on-injured-reserve-lions-sunday-night-football-jalen-coker-status"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Marcus Mariota"
+   ],
+   "headline": "Five Washington Commanders players vital to beating Colts in London",
+   "summary": "The Commanders are battling to even their early-season record after the first four weeks, needing to do so in a home game across the Atlantic Ocean and while starting a backup quarterback. That’s not quite as bad as it sounds, considering what has been a solid Commanders travel plan and the fact Marcus Mariota […]",
+   "published": "2026-10-03T20:00:00Z",
+   "published_at": "2026-10-03T20:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Five Washington Commanders players vital to beating Colts in London",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/445980/washington-commanders-colts-london-croskey-merritt-stefon-diggs-frankie-luvu"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Jalon Daniels"
+   ],
+   "headline": "Bucs Elevate QB Easton Stick, LB Caden Fordham for Packers Game",
+   "summary": "Easton Stick will serve as the backup to first-team QB starter Jalon Daniels on Sunday against Green Bay, and Caden Fordham was a standout on special teams during the preseason",
+   "published": "2026-10-03T19:59:19Z",
+   "published_at": "2026-10-03T19:59:19Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Bucs Elevate QB Easton Stick, LB Caden Fordham for Packers Game",
+     "url": "https://www.buccaneers.com/news/bucs-elevate-qb-easton-stick-lb-caden-fordham-for-packers-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield",
+    "Jalon Daniels"
+   ],
+   "headline": "Who is Jalon Daniels? Buccaneers rookie quarterback went from undrafted to starting",
+   "summary": "The undrafted Kansas product makes franchise history as he steps in for an injured Baker Mayfield with Tampa Bay searching for its first win",
+   "published": "2026-10-03T17:38:35Z",
+   "published_at": "2026-10-03T17:38:35Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Who is Jalon Daniels? Buccaneers rookie quarterback went from undrafted to starting",
+     "url": "https://www.cbssports.com/nfl/news/who-is-jalon-daniels-buccaneers-rookie-quarterback"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jaxson Dart"
+   ],
+   "headline": "Survey results: NY Giants fans think they’ll see J.J. McCarthy soon",
+   "summary": "It wasn’t a surprise that the New York Giants brought in another quarterback once it was confirmed that Jaxson Dart was lost for the season. No disrespect to Jake Haener, but the Giants couldn’t go through a season with him as their primary backup quarterback — nor go through a season with just two quarterbacks […]",
+   "published": "2026-10-03T17:00:00Z",
+   "published_at": "2026-10-03T17:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:21+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "Survey results: NY Giants fans think they’ll see J.J. McCarthy soon",
+     "url": "https://www.bigblueview.com/nfl-reacts-survey/173956/survey-results-ny-giants-fans-think-theyll-see-j-j-mccarthy-soon"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "5Qs and 5As, Seahawks vs. Chargers preview: What’s wrong with Jim Harbaugh’s team?",
+   "summary": "The Seattle Seahawks and Los Angeles Chargers looked like a fascinating game when the schedule was released in May. You have the reigning Super Bowl champions going against a Jim Harbaugh team led by quarterback Justin Herbert. Former Miami Dolphins head coach Mike McDaniel was brought in to elevate Herbert and the offense to top-tier […]",
+   "published": "2026-10-03T17:00:00Z",
+   "published_at": "2026-10-03T17:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:21+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "5Qs and 5As, Seahawks vs. Chargers preview: What’s wrong with Jim Harbaugh’s team?",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-analysis/176309/seahawks-vs-chargers-preview-whats-wrong-with-jim-harbaugh-team-justin-herbert"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Case Keenum"
+   ],
+   "headline": "Bears make starting QB decision for Week 4 matchup vs. Jets",
+   "summary": "Ben Johnson turns back to his primary backup over veteran Case Keenum, who threw two touchdowns in a shocking upset over the Eagles on Monday night",
+   "published": "2026-10-03T16:17:57Z",
+   "published_at": "2026-10-03T16:17:57Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Bears make starting QB decision for Week 4 matchup vs. Jets",
+     "url": "https://www.cbssports.com/nfl/news/bears-make-starting-qb-decision-week-4-matchup-jets"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "49ers vs. Broncos prediction: MVP favorite Brock Purdy and San Francisco look to stay undef",
+   "summary": "What you need to know ahead of these teams facing off on Sunday",
+   "published": "2026-10-03T15:48:15Z",
+   "published_at": "2026-10-03T15:48:15Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "49ers vs. Broncos prediction: MVP favorite Brock Purdy and San Francisco look to stay undef",
+     "url": "https://www.cbssports.com/nfl/news/49ers-vs-broncos-where-to-watch-pick-odds-prediction"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Terry McLaurin"
+   ],
+   "headline": "Commanders injury update: Terry McLaurin reportedly unlikely to play vs. Colts",
+   "summary": "The Washington Commanders could be without their WR1 on Sunday versus Indianapolis, as Terry McLaurin deals with a new hamstring injury. He showed up on the injury report Friday, and was listed as questionable for the game after being limited in practice. Commanders beat writer Ben Standig reported on Saturday that the injury happened during […]",
+   "published": "2026-10-03T15:21:21Z",
+   "published_at": "2026-10-03T15:21:21Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders injury update: Terry McLaurin reportedly unlikely to play vs. Colts",
+     "url": "https://www.hogshaven.com/washington-commanders-injuries/445984/commanders-injury-update-terry-mclaurin-unlikely-to-play-vs-colts"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Tyler Warren"
+   ],
+   "headline": "Commanders News – Keeping Colts TE Tyler Warren from wrecking the game",
+   "summary": "The Daily Slop – 3 October 2026 Editor’s note: Each day, Hogs Haven compiles a collection of articles, podcasts & tweets from around the web to keep you in touch with the Commanders, the NFC East, the NFL and sports in general, with a sprinkling of other stuff. Enjoy! Commanders links Articles Commanders.com Hail Mail: […]",
+   "published": "2026-10-03T15:19:35Z",
+   "published_at": "2026-10-03T15:19:35Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders News – Keeping Colts TE Tyler Warren from wrecking the game",
+     "url": "https://www.hogshaven.com/washington-commanders-news/445875/keeping-colts-te-tyler-warren-from-wrecking-the-game-in-london"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "Buffalo Bills become first NFL team to win Cannes Corporate Media & TV Award with Josh Allen MVP reaction video",
+   "summary": "Buffalo’s Video Production team won a Gold Award for their behind-the-scenes video of quarterback Josh Allen reacting to messages from patients and families at Oishei Children's Hospital",
+   "published": "2026-10-03T14:00:49Z",
+   "published_at": "2026-10-03T14:00:49Z",
+   "first_seen_at": "2026-10-04T12:49:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BUF official",
+     "title": "Buffalo Bills become first NFL team to win Cannes Corporate Media & TV Award with Josh Allen MVP reaction video",
+     "url": "https://www.buffalobills.com/news/buffalo-bills-become-first-nfl-team-to-win-cannes-corporate-media-tv-award-with-josh-allen-mvp-reaction-video"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith",
+    "Makai Lemon"
+   ],
+   "headline": "Makai Lemon is ready to face his hometown team",
+   "summary": "With DeVonta Smith officially ruled out against the Rams, rookie Makai Lemon’s role in the offense is expected to grow.",
+   "published": "2026-10-03T14:00:49Z",
+   "published_at": "2026-10-03T14:00:49Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PHI official",
+     "title": "Makai Lemon is ready to face his hometown team",
+     "url": "https://www.philadelphiaeagles.com/news/makai-lemon-is-ready-to-face-his-hometown-team"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "Jaylen Warren"
+   ],
+   "headline": "Four-Down Territory: 'He just does it the right way'",
+   "summary": "Jaylen Warren moving into rare air, T.J. Watt's already been there (while not going anywhere) and more",
+   "published": "2026-10-03T14:00:35Z",
+   "published_at": "2026-10-03T14:00:35Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PIT official",
+     "title": "Four-Down Territory: 'He just does it the right way'",
+     "url": "https://www.steelers.com/news/four-down-territory-he-just-does-it-the-right-way"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Cooper Kupp"
+   ],
+   "headline": "Seahawks name game captains vs. Los Angeles Chargers, including ex-Charger Uchenna Nwosu",
+   "summary": "The Seattle Seahawks will need veteran leadership to right their ship in Week 4 after a loss to the Washington Commanders, at least according to the team’s captains, which were announced on Friday. Seattle announced that Cooper Kupp, Mike Morris, Nehemiah Pritchett and former Los Angeles Charger Uchenna Nwosu will have the honors of being […]",
+   "published": "2026-10-03T14:00:00Z",
+   "published_at": "2026-10-03T14:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:21+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks name game captains vs. Los Angeles Chargers, including ex-Charger Uchenna Nwosu",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/176318/seahawks-game-captains-vs-los-angeles-chargers-ex-charger-uchenna-nwosu"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Inside Drake Maye's alarming 2026 slump one year after Patriots QB was MVP runner-up",
+   "summary": "New England's franchise quarterback has six interceptions and an NFL-worst 58.6 passer rating as opposing evaluators question his confidence and pocket poise",
+   "published": "2026-10-03T13:30:14Z",
+   "published_at": "2026-10-03T13:30:14Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Inside Drake Maye's alarming 2026 slump one year after Patriots QB was MVP runner-up",
+     "url": "https://www.cbssports.com/nfl/news/inside-drake-mayes-alarming-slump-after-patriots-stars-mvp-runner-up-year"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Zay Flowers",
+    "Lamar Jackson"
+   ],
+   "headline": "50 Words or Less: Ravens Must Focus on Winning No Matter Who's Missing",
+   "summary": "No matter who starts on the offensive line, Lamar Jackson will find a way to make plays. Zay Flowers is feeling healthy and could be the X-factor on Sunday.",
+   "published": "2026-10-03T13:00:14Z",
+   "published_at": "2026-10-03T13:00:14Z",
+   "first_seen_at": "2026-10-04T12:49:13+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "50 Words or Less: Ravens Must Focus on Winning No Matter Who's Missing",
+     "url": "https://www.baltimoreravens.com/news/ravens-must-find-way-to-win-against-titans-without-trey-hendrickson-injuries-vega-ioane-first-start-at-center"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Puka Nacua expected back Sunday for Rams, Aaron Donald out",
+   "summary": "The Los Angeles Rams are expected to have Puka Nacua back in the fold, but just as they perhaps get Nacua back, Aaron Donald is out. The Rams will have to find a way to overcome with or without Donald, and they still won’t have Myles Garrett. It’s another example of this team not playing […]",
+   "published": "2026-10-03T13:00:00Z",
+   "published_at": "2026-10-03T13:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:22+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Puka Nacua expected back Sunday for Rams, Aaron Donald out",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-news/150587/rams-eagles-nacua-donald-week-4"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Malik Nabers"
+   ],
+   "headline": "NY Giants news: Malik Nabers, J.J. McCarthy, more",
+   "summary": "Good morning, New York Giants fans! Here are the stories you need to know about as the Giants look to stay atop the NFC East with a win this Sunday. NFL Week 4 preview | ESPN.com The Giants seem to know they’re not facing the Titans’ offense again this week. It was mentioned several times […]",
+   "published": "2026-10-03T10:00:00Z",
+   "published_at": "2026-10-03T10:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:21+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "NY Giants news: Malik Nabers, J.J. McCarthy, more",
+     "url": "https://www.bigblueview.com/new-york-giants-news/173936/malik-nabers-jj-mccarthy-jihaw-ward-more"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "Three Players Ruled Out vs. Broncos in Week 4; Mike Evans Questionable Ahead of #DENvsSF",
+   "summary": "The San Francisco 49ers released their latest injury updates headed into their contest against the Denver Broncos.",
+   "published": "2026-10-02T23:44:05Z",
+   "published_at": "2026-10-02T23:44:05Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SF official",
+     "title": "Three Players Ruled Out vs. Broncos in Week 4; Mike Evans Questionable Ahead of #DENvsSF",
+     "url": "https://www.49ers.com/news/three-players-ruled-out-vs-broncos-in-week-4-mike-evans-questionable-ahead-of-denvssf"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jadarian Price"
+   ],
+   "headline": "Jadarian Price Out After Aggravating Chest Injury & Other Seahawks Injury Updates",
+   "summary": "Injury updates from Seahawks coach Mike Macdonald ahead of his team’s Week 4 game against the Chargers.",
+   "published": "2026-10-02T22:45:49Z",
+   "published_at": "2026-10-02T22:45:49Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Jadarian Price Out After Aggravating Chest Injury & Other Seahawks Injury Updates",
+     "url": "https://www.seahawks.com/news/jadarian-price-out-after-aggravating-chest-injury-other-seahawks-injury-updates"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "Rams place Terrance Ferguson on IR",
+   "summary": "The Los Angeles Rams entered the season with a plethora of offensive weapons for Matthew Stafford, but now another one of those options is injured: The Rams placed tight end Terrance Ferguson on injured reserve on Friday. Ferguson left Week 3’s loss to the Denver Broncos with an ankle injury. He is third on the […]",
+   "published": "2026-10-02T22:01:10Z",
+   "published_at": "2026-10-02T22:01:10Z",
+   "first_seen_at": "2026-10-04T12:49:22+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Rams place Terrance Ferguson on IR",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-injuries/150580/rams-place-terrance-ferguson-on-ir"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jaxon Smith-Njigba"
+   ],
+   "headline": "What To Watch In Seahawks' Week 4 Game vs. Chargers: Do Jaxon Smith-Njigba, Leonard Williams continue hot starts?",
+   "summary": "Players, matchups and storylines to watch when the Seahawks host the Chargers on Sunday.",
+   "published": "2026-10-02T21:44:00Z",
+   "published_at": "2026-10-02T21:44:00Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "What To Watch In Seahawks' Week 4 Game vs. Chargers: Do Jaxon Smith-Njigba, Leonard Williams continue hot starts?",
+     "url": "https://www.seahawks.com/news/what-to-watch-in-seahawks-week-4-game-vs-chargers-do-jaxon-smith-njigba-leonard-williams-continue-hot-starts"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua",
+    "Colby Parkinson"
+   ],
+   "headline": "Injury Report, Week 4 at Eagles: Puka Nacua and Kamren Kinchens good to go; Colby Parkinson questionable; Terrance Ferguson, Jaylen Watson and Aaron Donald ruled out",
+   "summary": "The final injury report for Sunday's Week 4 regular season game between the Rams and the Eagles at Lincoln Financial Field in Philadelphia.",
+   "published": "2026-10-02T21:26:29Z",
+   "published_at": "2026-10-02T21:26:29Z",
+   "first_seen_at": "2026-10-04T12:49:16+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Injury Report, Week 4 at Eagles: Puka Nacua and Kamren Kinchens good to go; Colby Parkinson questionable; Terrance Ferguson, Jaylen Watson and Aaron Donald ruled out",
+     "url": "https://www.therams.com/news/rams-injury-report-week-4-2026-at-eagles-puka-nacua-good-to-go-colby-parkinson-questionable-terrance-ferguson-jaylen-watson-and-aaron-donald-ruled-out"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "'I can't think of anything else but smiling': Puka Nacua back in action for Rams in Week 4 at Eagles",
+   "summary": "Wide receiver Puka Nacua is set to return to action for the Rams on Sunday against the Eagles after missing the previous two games against the Broncos and the Giants.",
+   "published": "2026-10-02T21:21:50Z",
+   "published_at": "2026-10-02T21:21:50Z",
+   "first_seen_at": "2026-10-04T12:49:16+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "'I can't think of anything else but smiling': Puka Nacua back in action for Rams in Week 4 at Eagles",
+     "url": "https://www.therams.com/news/i-can-t-think-of-anything-else-but-smiling-puka-nacua-back-in-action-for-rams-in-week-4-at-eagles"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Cam Skattebo"
+   ],
+   "headline": "Taking On Cam Skattebo, Sweat's Status, And Friday Before The Giants",
+   "summary": "",
+   "published": "2026-10-02T21:09:53Z",
+   "published_at": "2026-10-02T21:09:53Z",
+   "first_seen_at": "2026-10-04T12:49:13+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "Taking On Cam Skattebo, Sweat's Status, And Friday Before The Giants",
+     "url": "https://www.azcardinals.com/news/taking-on-cam-skattebo-sweat-s-status-and-friday-before-the-giants"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jadarian Price"
+   ],
+   "headline": "Seahawks-Chargers game designations: Jadarian Price ruled out after re-aggravating injury",
+   "summary": "The Seattle Seahawks will be without their rookie running back against the Los Angeles Chargers. Head coach Mike Macdonald told reporters on Friday that Jadarian Price, who suffered a chest injury in Week 2 against the Arizona Cardinals and played through the injury in the Week 3 loss against the Washington Commanders, re-aggravated his injury […]",
+   "published": "2026-10-02T20:44:44Z",
+   "published_at": "2026-10-02T20:44:44Z",
+   "first_seen_at": "2026-10-04T12:49:21+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks-Chargers game designations: Jadarian Price ruled out after re-aggravating injury",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-injury-report/176300/seahawks-chargers-game-designations-jadarian-price-ruled-out-chest-injury-nfl-news"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "KC Concepcion",
+    "Denzel Boston"
+   ],
+   "headline": "Denzel Boston and KC Concepcion Jr. developing into key contributors in the pass game | News & Notes",
+   "summary": "P Corey Bojorquez’s impact in the punt game has played pivotal role through first four weeks",
+   "published": "2026-10-02T20:36:19Z",
+   "published_at": "2026-10-02T20:36:19Z",
+   "first_seen_at": "2026-10-04T12:49:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Denzel Boston and KC Concepcion Jr. developing into key contributors in the pass game | News & Notes",
+     "url": "https://www.clevelandbrowns.com/news/denzel-boston-and-kc-concepcion-jr-developing-into-key-contributors-in-the-pass-game-news-notes"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Ladd McConkey"
+   ],
+   "headline": "Chargers vs. Seahawks Injury Report: Derwin James & Ladd McConkey Among 5 Questionable in Week 4",
+   "summary": "Take a look at the Chargers Injury Report ahead of Week 4 against the Seahawks",
+   "published": "2026-10-02T20:30:00Z",
+   "published_at": "2026-10-02T20:30:00Z",
+   "first_seen_at": "2026-10-04T12:49:16+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAC official",
+     "title": "Chargers vs. Seahawks Injury Report: Derwin James & Ladd McConkey Among 5 Questionable in Week 4",
+     "url": "https://www.chargers.com/news/seahawks-injury-report-week-4"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams",
+    "Case Keenum"
+   ],
+   "headline": "Injury Update: Caleb Williams officially ruled out for Sunday's game vs. Jets",
+   "summary": "Either Tyson Bagent or Case Keenum will start at quarterback for the Bears Sunday against the Jets in place of Caleb Williams, who will miss his second straight game with a hamstring injury.",
+   "published": "2026-10-02T20:13:47Z",
+   "published_at": "2026-10-02T20:13:47Z",
+   "first_seen_at": "2026-10-04T12:49:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "Injury Update: Caleb Williams officially ruled out for Sunday's game vs. Jets",
+     "url": "https://www.chicagobears.com/news/injury-update-caleb-williams-officially-ruled-out-for-sunday-s-game-vs-jets"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Quick Hits | Joe Burrow Pace Mirroring Career Year; At safety, Jordan Battle Go With Bryan Cook Questionable",
+   "summary": "Joe Burrow looks to be heating up with pretty much the exact same numbers in his first three games that yielded his career year of 2024, when he led the NFL in touchdown passes, yards, and yards per game.",
+   "published": "2026-10-02T20:12:04Z",
+   "published_at": "2026-10-02T20:12:04Z",
+   "first_seen_at": "2026-10-04T12:49:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Quick Hits | Joe Burrow Pace Mirroring Career Year; At safety, Jordan Battle Go With Bryan Cook Questionable",
+     "url": "https://www.bengals.com/news/quick-hits-joe-burrow-pace-mirroring-career-year-at-safety-jordan-battle-go-with-bryan-cook-questionable"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Rams' Aaron Donald to miss Week 4 game vs. Eagles, Puka Nacua's status updated",
+   "summary": "Donald will miss his second game of the season, but the Rams received some good news on Friday",
+   "published": "2026-10-02T20:09:13Z",
+   "published_at": "2026-10-02T20:09:13Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Rams' Aaron Donald to miss Week 4 game vs. Eagles, Puka Nacua's status updated",
+     "url": "https://www.cbssports.com/nfl/news/los-angeles-rams-injury-aaron-donald-out-puka-nacua"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "Rams vs. Eagles Injury Report",
+   "summary": "The Rams will not have defensive tackle Aaron Donald on Sunday. Get the latest on Eagles linebacker Zack Baun and wide receiver DeVonta Smith.",
+   "published": "2026-10-02T20:09:00Z",
+   "published_at": "2026-10-02T20:09:00Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PHI official",
+     "title": "Rams vs. Eagles Injury Report",
+     "url": "https://www.philadelphiaeagles.com/news/rams-vs-eagles-injury-report-2026-nfl-week-4-devonta-smith-puka-nacua"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Tyrone Tracy Jr."
+   ],
+   "headline": "Giants vs. Cardinals Week 4 Injury Report: Andrew Thomas DNP, Tyrone Tracy Jr. LP",
+   "summary": "View the injury report for the Week 4 matchup between the New York Giants (2-1) and Arizona Cardinals (1-2) at MetLife Stadium.",
+   "published": "2026-10-02T20:00:00Z",
+   "published_at": "2026-10-02T20:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYG official",
+     "title": "Giants vs. Cardinals Week 4 Injury Report: Andrew Thomas DNP, Tyrone Tracy Jr. LP",
+     "url": "https://www.giants.com/news/giants-vs-cardinals-week-4-injury-report-andrew-thomas-tyrone-tracy-jr-deonte-banks-tyler-nubin"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Kenyon Sadiq"
+   ],
+   "headline": "Jets Injury Report | Week 4 vs. Bears - Friday",
+   "summary": "Edge Kingsley Enagbare (Knee) & TE Kenyon Sadiq (Back) Questionable for Sunday",
+   "published": "2026-10-02T20:00:00Z",
+   "published_at": "2026-10-02T20:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:17+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Injury Report | Week 4 vs. Bears - Friday",
+     "url": "https://www.newyorkjets.com/news/jets-injury-report-week-4-vs-bears-friday-10-02-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Commanders Q+A: Can Washington win second straight without Jayden Daniels?",
+   "summary": "It’s crazy how much different this week fells now that the Commanders have a win. Doom and gloom dominated last week’s narrative, with Washington reeling after a second straight NFC East loss and Jayden Daniels dislocated his elbow. Beating the reigning Super Bowl champs will put some pep in your step. Doing so with […]",
+   "published": "2026-10-02T20:00:00Z",
+   "published_at": "2026-10-02T20:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders Q+A: Can Washington win second straight without Jayden Daniels?",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/445830/commanders-washington-colts-jonathan-taylor-marcus-mariota-jayden-daniels-croskey-merritt"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Tyler Shough"
+   ],
+   "headline": "Can Atlanta take control in New Orleans? Falcons vs Saints Week 4 preview ft. Erin Summers",
+   "summary": "The Falcons face the Saints on Monday Night Football in Week 4. Can Atlanta take control of the division in New Orleans? Kevin Knight is joined by Erin Summers (Bleav in Saints) to discuss the rise of Tyler Shough, the Saints struggles with the run game, the latest injury reports, and keys to victory for […]",
+   "published": "2026-10-02T19:11:10Z",
+   "published_at": "2026-10-02T19:11:10Z",
+   "first_seen_at": "2026-10-04T12:49:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "Can Atlanta take control in New Orleans? Falcons vs Saints Week 4 preview ft. Erin Summers",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-analysis/96880/falcons-saints-nfl-week-4-preview-bijan-robinson-tyler-shough-michael-penix-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "Browns' offense leans on preparation from practice during game-winning drive",
+   "summary": "Deshaun Watson led the Browns 36 yards to set up the game-winning field goal against the Steelers",
+   "published": "2026-10-02T19:00:00Z",
+   "published_at": "2026-10-02T19:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Browns' offense leans on preparation from practice during game-winning drive",
+     "url": "https://www.clevelandbrowns.com/news/browns-offense-leans-on-preparation-from-practice-during-game-winning-drive"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Aaron Donald ruled out for Week 4 against Eagles",
+   "summary": "The Los Angeles Rams have ruled out defensive tackle Aaron Donald for Week 4’s game against the Philadelphia Eagles with a back injury, but they do believe that Puka Nacua will return. Unfortunately, the super duo of Myles Garrett and Donald has yet to actually play together this season and now they won’t have either […]",
+   "published": "2026-10-02T18:43:06Z",
+   "published_at": "2026-10-02T18:43:06Z",
+   "first_seen_at": "2026-10-04T12:49:22+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Aaron Donald ruled out for Week 4 against Eagles",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-injuries/150538/aaron-donald-ruled-out-eagles-injury"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Justin Jefferson"
+   ],
+   "headline": "Final Vikings vs. Dolphins Injury Report for Week 4 of 2026: Justin Jefferson Ruled Out",
+   "summary": "",
+   "published": "2026-10-02T18:30:00Z",
+   "published_at": "2026-10-02T18:30:00Z",
+   "first_seen_at": "2026-10-04T12:49:16+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "MIN official",
+     "title": "Final Vikings vs. Dolphins Injury Report for Week 4 of 2026: Justin Jefferson Ruled Out",
+     "url": "https://www.vikings.com/news/dolphins-injury-report-week-4-2026-nfl-season"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Matthew Stafford",
+    "Case Keenum"
+   ],
+   "headline": "Case Keenum beat the Eagles, why not Matthew Stafford?",
+   "summary": "Bears third-stringer Case Keenum had a standout game against the Eagles on Monday, so there’s reason to believe LA Rams quarterback Matthew Stafford can do the same in Week 4. Keenum, who was on the verge of retirement entering this season, started his first game in three years in a 27-7 win on Monday Night […]",
+   "published": "2026-10-02T18:00:00Z",
+   "published_at": "2026-10-02T18:00:00Z",
+   "first_seen_at": "2026-10-04T12:49:22+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Case Keenum beat the Eagles, why not Matthew Stafford?",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-analysis/150360/matthew-stafford-eagles-week-4-keenum"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 27,
+ "feeds_generated_at": "2026-10-04T12:49:12+00:00"
+}
