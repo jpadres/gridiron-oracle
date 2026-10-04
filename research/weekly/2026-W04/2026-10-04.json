@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-04T15:46:15Z",
+  "generated_at": "2026-10-04T18:44:34Z",
   "season": 2026,
   "week": 4,
   "schedule": {
     "games": 16,
     "from": "2026-10-01",
     "to": "2026-10-05",
-    "played": 1,
+    "played": 2,
     "kickoffs": [
       "09:30",
       "13:00",
@@ -17,10 +17,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-04T15:46:15Z",
+    "research_as_of": "2026-10-04T18:44:34Z",
     "injuries_as_of": "week 4",
     "roster_as_of": "2026-10-04T13:11:23Z",
-    "schedule_as_of": "2026-10-04T15:45:14Z"
+    "schedule_as_of": "2026-10-04T18:05:16Z"
   },
   "injury_report": {
     "status": "PUBLISHED",
