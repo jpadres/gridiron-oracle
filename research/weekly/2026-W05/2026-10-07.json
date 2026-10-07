@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T07:18:48Z",
+  "generated_at": "2026-10-07T15:44:41Z",
   "season": 2026,
   "week": 5,
   "schedule": {
@@ -17,21 +17,228 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-07T07:18:48Z",
-    "injuries_as_of": "NOT_PUBLISHED_YET",
-    "roster_as_of": "2026-10-06T14:11:26Z",
-    "schedule_as_of": "2026-10-07T05:59:53Z"
+    "research_as_of": "2026-10-07T15:44:41Z",
+    "injuries_as_of": "week 5 PARTIAL · 2 of 30 clubs filed",
+    "roster_as_of": "2026-10-07T14:29:10Z",
+    "schedule_as_of": "2026-10-07T15:35:14Z"
   },
   "injury_report": {
-    "status": "NOT_PUBLISHED_YET",
+    "status": "PARTIALLY_FILED",
     "week": 5,
-    "rows": [],
-    "last_published_week": 4,
-    "note": "clubs file the week's report from Wednesday on; the previous week's designation is NOT carried forward as if it were this week's"
+    "rows": [
+      {
+        "team": "DAL",
+        "gsis_id": "00-0033877",
+        "full_name": "Malik Hooker",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "DAL",
+        "gsis_id": "00-0036358",
+        "full_name": "CeeDee Lamb",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "DAL",
+        "gsis_id": "00-0037120",
+        "full_name": "Tyler Goodson",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "DAL",
+        "gsis_id": "00-0037243",
+        "full_name": "Tyler Smith",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "DAL",
+        "gsis_id": "00-0037310",
+        "full_name": "James Houston",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "DAL",
+        "gsis_id": "00-0037839",
+        "full_name": "Cobie Durant",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "DAL",
+        "gsis_id": "00-0038556",
+        "full_name": "DeMarvion Overshown",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "DAL",
+        "gsis_id": "00-0039167",
+        "full_name": "Joey Porter Jr.",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "DAL",
+        "gsis_id": "00-0040045",
+        "full_name": "Alijah Clark",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "DAL",
+        "gsis_id": "00-0040874",
+        "full_name": "Drew Shelton",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "TB",
+        "gsis_id": "00-0034855",
+        "full_name": "Baker Mayfield",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "TB",
+        "gsis_id": "00-0035254",
+        "full_name": "Anthony Nelson",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "TB",
+        "gsis_id": "00-0035358",
+        "full_name": "Chase McLaughlin",
+        "position": "K",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "TB",
+        "gsis_id": "00-0036411",
+        "full_name": "Antoine Winfield Jr.",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "TB",
+        "gsis_id": "00-0037311",
+        "full_name": "Ko Kieft",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "TB",
+        "gsis_id": "00-0039049",
+        "full_name": "SirVocea Dennis",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "TB",
+        "gsis_id": "00-0040747",
+        "full_name": "Benjamin Morrison",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "TB",
+        "gsis_id": "00-0041031",
+        "full_name": "Rueben Bain Jr.",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "TB",
+        "gsis_id": "00-0041502",
+        "full_name": "Josiah Trotter",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      }
+    ],
+    "teams": 2,
+    "teams_filed": [
+      "DAL",
+      "TB"
+    ],
+    "teams_expected": 30,
+    "teams_pending": [
+      "ARI",
+      "ATL",
+      "BAL",
+      "BUF",
+      "CHI",
+      "CIN",
+      "CLE",
+      "DEN",
+      "DET",
+      "GB",
+      "HOU",
+      "IND",
+      "JAX",
+      "LAC",
+      "LAR",
+      "LV",
+      "MIA",
+      "MIN",
+      "NE",
+      "NO",
+      "NYG",
+      "NYJ",
+      "PHI",
+      "PIT",
+      "SEA",
+      "SF",
+      "TEN",
+      "WAS"
+    ],
+    "with_designation": 0
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-10-06T14:08:49Z",
+    "effective_at": "2026-10-07T14:25:15Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -15057,533 +15264,22 @@
   },
   "dst_context": {
     "ordering": "OPPONENT_IMPLIED_TOTAL_ASC",
-    "rows": [
-      {
-        "team": "HOU",
-        "opponent": "TEN",
-        "is_home": 0,
-        "opponent_implied": 15.019,
-        "opposing_qb": "Cam Ward",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Cam Ward",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 23.833,
-        "sacks_recent": 3.833,
-        "takeaways_recent": 1.333,
-        "recent_games": 6
-      },
-      {
-        "team": "CIN",
-        "opponent": "MIA",
-        "is_home": 0,
-        "opponent_implied": 17.675,
-        "opposing_qb": "Malik Willis",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Malik Willis",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 19.833,
-        "sacks_recent": 4.0,
-        "takeaways_recent": 1.0,
-        "recent_games": 6
-      },
-      {
-        "team": "JAX",
-        "opponent": "PHI",
-        "is_home": 1,
-        "opponent_implied": 18.165,
-        "opposing_qb": "Jalen Hurts",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Jalen Hurts",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 14.5,
-        "sacks_recent": 2.0,
-        "takeaways_recent": 1.5,
-        "recent_games": 6
-      },
-      {
-        "team": "NYJ",
-        "opponent": "CLE",
-        "is_home": 1,
-        "opponent_implied": 18.755,
-        "opposing_qb": "Deshaun Watson",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Deshaun Watson",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 26.833,
-        "sacks_recent": 1.667,
-        "takeaways_recent": 0.5,
-        "recent_games": 6
-      },
-      {
-        "team": "DEN",
-        "opponent": "LAC",
-        "is_home": 0,
-        "opponent_implied": 19.638,
-        "opposing_qb": "Justin Herbert",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Justin Herbert",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 22.333,
-        "sacks_recent": 2.667,
-        "takeaways_recent": 1.5,
-        "recent_games": 6
-      },
-      {
-        "team": "MIN",
-        "opponent": "NO",
-        "is_home": 0,
-        "opponent_implied": 19.825,
-        "opposing_qb": "Tyler Shough",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Tyler Shough",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 10.667,
-        "sacks_recent": 4.167,
-        "takeaways_recent": 2.167,
-        "recent_games": 6
-      },
-      {
-        "team": "WAS",
-        "opponent": "NYG",
-        "is_home": 1,
-        "opponent_implied": 20.081,
-        "opposing_qb": "Jameis Winston",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Jameis Winston",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 28.167,
-        "sacks_recent": 2.667,
-        "takeaways_recent": 1.0,
-        "recent_games": 6
-      },
-      {
-        "team": "DAL",
-        "opponent": "TB",
-        "is_home": 1,
-        "opponent_implied": 20.282,
-        "opposing_qb": "Baker Mayfield",
-        "opposing_qb_basis": "DISPUTED",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Baker Mayfield",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": "Jalon Daniels",
-        "opposing_qb_note": "the club lists Baker Mayfield; Jalon Daniels took the snaps in week 4",
-        "points_allowed_recent": 28.167,
-        "sacks_recent": 1.667,
-        "takeaways_recent": 0.5,
-        "recent_games": 6
-      },
-      {
-        "team": "NE",
-        "opponent": "LV",
-        "is_home": 1,
-        "opponent_implied": 20.671,
-        "opposing_qb": "Kirk Cousins",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Kirk Cousins",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 18.833,
-        "sacks_recent": 2.0,
-        "takeaways_recent": 1.167,
-        "recent_games": 6
-      },
-      {
-        "team": "CLE",
-        "opponent": "NYJ",
-        "is_home": 0,
-        "opponent_implied": 20.745,
-        "opposing_qb": "Geno Smith",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Geno Smith",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 19.833,
-        "sacks_recent": 2.667,
-        "takeaways_recent": 1.0,
-        "recent_games": 6
-      },
-      {
-        "team": "ATL",
-        "opponent": "BAL",
-        "is_home": 1,
-        "opponent_implied": 21.018,
-        "opposing_qb": "Lamar Jackson",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Lamar Jackson",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 22.167,
-        "sacks_recent": 2.333,
-        "takeaways_recent": 1.333,
-        "recent_games": 6
-      },
-      {
-        "team": "PIT",
-        "opponent": "IND",
-        "is_home": 1,
-        "opponent_implied": 21.213,
-        "opposing_qb": "Daniel Jones",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Daniel Jones",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 23.5,
-        "sacks_recent": 2.667,
-        "takeaways_recent": 1.833,
-        "recent_games": 6
-      },
-      {
-        "team": "CHI",
-        "opponent": "GB",
-        "is_home": 0,
-        "opponent_implied": 21.487,
-        "opposing_qb": "Jordan Love",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Jordan Love",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 18.667,
-        "sacks_recent": 2.5,
-        "takeaways_recent": 0.833,
-        "recent_games": 6
-      },
-      {
-        "team": "SEA",
-        "opponent": "SF",
-        "is_home": 1,
-        "opponent_implied": 22.387,
-        "opposing_qb": "Brock Purdy",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Brock Purdy",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 18.833,
-        "sacks_recent": 3.0,
-        "takeaways_recent": 1.667,
-        "recent_games": 6
-      },
-      {
-        "team": "TEN",
-        "opponent": "HOU",
-        "is_home": 1,
-        "opponent_implied": 22.481,
-        "opposing_qb": "C.J. Stroud",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "C.J. Stroud",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 26.333,
-        "sacks_recent": 2.0,
-        "takeaways_recent": 0.5,
-        "recent_games": 6
-      },
-      {
-        "team": "BAL",
-        "opponent": "ATL",
-        "is_home": 0,
-        "opponent_implied": 22.482,
-        "opposing_qb": "Michael Penix Jr.",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Michael Penix Jr.",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 24.333,
-        "sacks_recent": 1.833,
-        "takeaways_recent": 1.167,
-        "recent_games": 6
-      },
-      {
-        "team": "NO",
-        "opponent": "MIN",
-        "is_home": 1,
-        "opponent_implied": 22.675,
-        "opposing_qb": "Kyler Murray",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Kyler Murray",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 28.833,
-        "sacks_recent": 2.667,
-        "takeaways_recent": 0.667,
-        "recent_games": 6
-      },
-      {
-        "team": "LAC",
-        "opponent": "DEN",
-        "is_home": 1,
-        "opponent_implied": 22.862,
-        "opposing_qb": "Bo Nix",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Bo Nix",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 23.5,
-        "sacks_recent": 3.167,
-        "takeaways_recent": 1.5,
-        "recent_games": 6
-      },
-      {
-        "team": "IND",
-        "opponent": "PIT",
-        "is_home": 0,
-        "opponent_implied": 23.287,
-        "opposing_qb": "Aaron Rodgers",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Aaron Rodgers",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 27.5,
-        "sacks_recent": 1.833,
-        "takeaways_recent": 0.667,
-        "recent_games": 6
-      },
-      {
-        "team": "NYG",
-        "opponent": "WAS",
-        "is_home": 0,
-        "opponent_implied": 23.419,
-        "opposing_qb": "Jayden Daniels",
-        "opposing_qb_basis": "DISPUTED",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Jayden Daniels",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": "Athan Kaliakmanis",
-        "opposing_qb_note": "the club lists Jayden Daniels; Athan Kaliakmanis took the snaps in week 4",
-        "points_allowed_recent": 17.667,
-        "sacks_recent": 1.167,
-        "takeaways_recent": 1.833,
-        "recent_games": 6
-      },
-      {
-        "team": "GB",
-        "opponent": "CHI",
-        "is_home": 1,
-        "opponent_implied": 24.013,
-        "opposing_qb": "Caleb Williams",
-        "opposing_qb_basis": "DISPUTED",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Caleb Williams",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": "Tyson Bagent",
-        "opposing_qb_note": "the club lists Caleb Williams; Tyson Bagent took the snaps in week 4",
-        "points_allowed_recent": 25.333,
-        "sacks_recent": 2.167,
-        "takeaways_recent": 1.167,
-        "recent_games": 6
-      },
-      {
-        "team": "SF",
-        "opponent": "SEA",
-        "is_home": 0,
-        "opponent_implied": 24.113,
-        "opposing_qb": "Sam Darnold",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Sam Darnold",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 20.667,
-        "sacks_recent": 1.5,
-        "takeaways_recent": 0.333,
-        "recent_games": 6
-      },
-      {
-        "team": "PHI",
-        "opponent": "JAX",
-        "is_home": 0,
-        "opponent_implied": 24.335,
-        "opposing_qb": "Trevor Lawrence",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Trevor Lawrence",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 23.333,
-        "sacks_recent": 0.833,
-        "takeaways_recent": 1.0,
-        "recent_games": 6
-      },
-      {
-        "team": "DET",
-        "opponent": "ARI",
-        "is_home": 0,
-        "opponent_implied": 24.643,
-        "opposing_qb": "Jacoby Brissett",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Jacoby Brissett",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 27.667,
-        "sacks_recent": 3.833,
-        "takeaways_recent": 0.833,
-        "recent_games": 6
-      },
-      {
-        "team": "MIA",
-        "opponent": "CIN",
-        "is_home": 1,
-        "opponent_implied": 24.825,
-        "opposing_qb": "Joe Burrow",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Joe Burrow",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 26.0,
-        "sacks_recent": 1.167,
-        "takeaways_recent": 1.0,
-        "recent_games": 6
-      },
-      {
-        "team": "LV",
-        "opponent": "NE",
-        "is_home": 0,
-        "opponent_implied": 24.829,
-        "opposing_qb": "Drake Maye",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Drake Maye",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 21.667,
-        "sacks_recent": 3.667,
-        "takeaways_recent": 1.833,
-        "recent_games": 6
-      },
-      {
-        "team": "LAR",
-        "opponent": "BUF",
-        "is_home": 1,
-        "opponent_implied": 26.43,
-        "opposing_qb": "Josh Allen",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Josh Allen",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 21.833,
-        "sacks_recent": 1.667,
-        "takeaways_recent": 1.0,
-        "recent_games": 6
-      },
-      {
-        "team": "TB",
-        "opponent": "DAL",
-        "is_home": 0,
-        "opponent_implied": 27.218,
-        "opposing_qb": "Dak Prescott",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Dak Prescott",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 21.667,
-        "sacks_recent": 1.333,
-        "takeaways_recent": 1.167,
-        "recent_games": 6
-      },
-      {
-        "team": "BUF",
-        "opponent": "LAR",
-        "is_home": 0,
-        "opponent_implied": 28.07,
-        "opposing_qb": "Matthew Stafford",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Matthew Stafford",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 27.333,
-        "sacks_recent": 1.833,
-        "takeaways_recent": 1.333,
-        "recent_games": 6
-      },
-      {
-        "team": "ARI",
-        "opponent": "DET",
-        "is_home": 1,
-        "opponent_implied": 29.857,
-        "opposing_qb": "Jared Goff",
-        "opposing_qb_basis": "DEPTH_CHART_OF_RECORD",
-        "opposing_qb_designation": null,
-        "opposing_qb_declared": "Jared Goff",
-        "opposing_qb_declared_as_of": "2026-10-06T14:08:49Z",
-        "opposing_qb_last_played": null,
-        "opposing_qb_note": null,
-        "points_allowed_recent": 31.833,
-        "sacks_recent": 2.0,
-        "takeaways_recent": 1.0,
-        "recent_games": 6
-      }
-    ]
+    "rows": []
   },
   "sources": [
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-06T14:08:18Z",
+      "retrieved_at": "2026-10-07T14:25:29Z",
       "status": "OK",
-      "rows": 1052
+      "rows": 1071
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-06T14:08:58Z",
+      "retrieved_at": "2026-10-07T14:25:22Z",
       "status": "OK",
-      "rows": 613196
+      "rows": 617763
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -15602,13 +15298,90 @@
     }
   ],
   "unknowns": [
-    "official injury report for week 5: NOT_PUBLISHED_YET",
+    "official injury report for week 5: 28 of 30 clubs have not filed yet (ARI, ATL, BAL, BUF, CHI, CIN, CLE, DEN, DET, GB, HOU, IND, JAX, LAC, LAR, LV, MIA, MIN, NE, NO, NYG, NYJ, PHI, PIT, SEA, SF, TEN, WAS) — no designation for their players means NOT REPORTED, not healthy",
     "route participation: nflverse does not publish per-player routes in this dataset, so role is measured by snap share and targets, not routes",
     "press, unofficial depth charts and transactions: SOURCE UNAVAILABLE from this environment"
   ],
   "diff": {
     "against": "2026-10-06.json",
-    "new": [],
+    "new": [
+      {
+        "key": "DAL:Malik Hooker",
+        "now": "None"
+      },
+      {
+        "key": "DAL:CeeDee Lamb",
+        "now": "None"
+      },
+      {
+        "key": "DAL:Tyler Goodson",
+        "now": "None"
+      },
+      {
+        "key": "DAL:Tyler Smith",
+        "now": "None"
+      },
+      {
+        "key": "DAL:James Houston",
+        "now": "None"
+      },
+      {
+        "key": "DAL:Cobie Durant",
+        "now": "None"
+      },
+      {
+        "key": "DAL:DeMarvion Overshown",
+        "now": "None"
+      },
+      {
+        "key": "DAL:Joey Porter Jr.",
+        "now": "None"
+      },
+      {
+        "key": "DAL:Alijah Clark",
+        "now": "None"
+      },
+      {
+        "key": "DAL:Drew Shelton",
+        "now": "None"
+      },
+      {
+        "key": "TB:Baker Mayfield",
+        "now": "None"
+      },
+      {
+        "key": "TB:Anthony Nelson",
+        "now": "None"
+      },
+      {
+        "key": "TB:Chase McLaughlin",
+        "now": "None"
+      },
+      {
+        "key": "TB:Antoine Winfield Jr.",
+        "now": "None"
+      },
+      {
+        "key": "TB:Ko Kieft",
+        "now": "None"
+      },
+      {
+        "key": "TB:SirVocea Dennis",
+        "now": "None"
+      },
+      {
+        "key": "TB:Benjamin Morrison",
+        "now": "None"
+      },
+      {
+        "key": "TB:Rueben Bain Jr.",
+        "now": "None"
+      },
+      {
+        "key": "TB:Josiah Trotter",
+        "now": "None"
+      }
+    ],
     "changed": [],
     "removed": [],
     "unchanged": 32
