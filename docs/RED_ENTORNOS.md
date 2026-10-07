@@ -21,6 +21,22 @@ Salida por un proxy con lista blanca. Lo que contesta, comprobado a mano:
 | `api.sleeper.app` | ligas, plantillas, picks | **CONNECT 403** |
 | `espn.com`, `nfl.com`, `rotoballer.com`, … | prensa | **CONNECT 403**, los 101 dominios |
 
+**Añadido el 2026-10-07**, midiendo otros dos destinos que hacían falta:
+
+| Destino | Qué es | Resultado |
+|---|---|---|
+| `gridiron-oracle-five.vercel.app` | la web PUBLICADA | **CONNECT 403** — no se puede comprobar el despliegue desde aquí |
+| `api.vercel.com` (equipo PeopleCloud) | estado de los despliegues | **403 Not authorized** — la sesión no tiene ese alcance |
+
+Consecuencia que importa y conviene no olvidar: **desde este contenedor no se
+puede verificar que lo desplegado sea lo que se empujó.** Lo que sí se puede
+comprobar es el commit (CI lo construye y corre los seis laboratorios
+requeridos) y el HTML que genera `next build` en local. Afirmar que producción
+sirve algo sin haberlo leído sería exactamente la clase de afirmación que este
+repositorio persigue: cierta en el commit, no comprobada en la pantalla. Si hace
+falta la comprobación de verdad, la hace el dueño abriendo la URL — o un paso de
+CI, que sí tiene salida.
+
 Consecuencias, sin adornos:
 
 - **nflverse se puede refrescar desde aquí.** Es lo que hace que el board de
