@@ -194,6 +194,14 @@ if (hallazgos.length === 0) {
 
 // Copy que escribimos nosotros y se pinta tal cual. Tiene que estar en inglés.
 const COPY = new Set([
+  // LA PÁGINA DE SALUD. `name`, `feeds` y `reason` son PROSA NUESTRA —«last
+  // published 3d 4h ago; the INJURY_REPORT window is 168 h»— así que van en
+  // inglés como el resto de la interfaz. `origin` nombra ficheros y rutas, y
+  // la nota del contraste de jornada explica un desacuerdo: las dos se leen.
+  ".health.sources[].name", ".health.sources[].feeds",
+  ".health.sources[].reason", ".health.sources[].origin",
+  ".health.week_agreement.note",
+
   ".bets[].evidence_label", ".bets[].evidence_verdict", ".bets[].market",
   // `.markets[]`: los mismos campos que `.bets[]`, del mismo motor, sin el filtro de stake.
   ".markets[].evidence_label", ".markets[].evidence_verdict", ".markets[].market",
@@ -240,6 +248,30 @@ const COPY = new Set([
 // genera en inglés (`narrative/research.py`), así que esto se vacía solo según
 // vayan entrando fichas nuevas; reescribir las viejas sería inventar una cita.
 const DATOS = new Set([
+  // LA PÁGINA DE SALUD, la mitad que son CÓDIGOS y FECHAS. `label` es
+  // FRESH/STALE/BROKEN, `freshness` es la clasificación precisa de
+  // `freshness.py` (LIVE/CURRENT/RECENT/STALE/HISTORICAL/UNKNOWN), `coverage`
+  // es CURRENT_WEEK/BEHIND/NOT_WEEKLY, `domain` es el dominio que decide la
+  // ventana y `basis` dice en qué marca se apoya la etiqueta. Se pintan tal
+  // cual a propósito: son el vocabulario del payload, y traducirlos los
+  // separaría de los nombres que se leen en el código.
+  ".health.sources[].label", ".health.sources[].freshness",
+  ".health.sources[].coverage", ".health.sources[].domain",
+  ".health.sources[].basis", ".health.sources[].as_of",
+  ".health.sources[].extra.stats_basis",
+  ".health.generated_at",
+  ".health.week_agreement.status", ".health.week_agreement.retrieved_at",
+  // La fecha de la sección del semanal, como las otras cinco de `data_dates`.
+  ".data_dates.fantasy_weekly",
+  // De dónde sale la jornada hasta la que llega la estadística del semanal:
+  // `PLAYER_WEEKS_ROWS`, o sea MEDIDA sobre las filas y no derivada de una
+  // resta. Es un código, y existe para que la cifra sea discutible.
+  ".fantasy_weekly.stats_through.basis",
+  // LOS MARCADORES FINALES: identificador del partido y los dos códigos de
+  // equipo, normalizados. El libro del navegador los cruza para liquidar; la
+  // frase que los envuelve la escribe la interfaz en inglés.
+  ".results[].game_id", ".results[].home_team", ".results[].away_team",
+
   // Fechas ISO de cuándo se descargó cada sección (`2026-08-29`). Son DATOS y
   // no copy: la interfaz las pinta dentro de una frase que sí está en inglés.
   ".data_dates.fantasy", ".data_dates.markets", ".data_dates.model",

@@ -22,6 +22,7 @@ from oracle.config import paths as resolve_paths
 from oracle.fantasy.scoring import rules_from_name
 from oracle.fantasy.weekly import (
     WeeklyCalibration,
+    stats_window,
     weekly_defenses,
     weekly_kickers,
     weekly_rankings,
@@ -62,6 +63,18 @@ def main(argv: list[str] | None = None) -> int:
     rankings = weekly_rankings(
         players, predictions, args.season, args.week, rules, calibration
     )
+    # Hasta qué jornada llega la estadística que de verdad entró. Se publica
+    # porque un número de jornada a secas no se puede comprobar desde la
+    # pantalla, y porque `data_dates.fantasy` fecha el BOARD DE DRAFT, que por
+    # diseño no lee la temporada en curso: una sola fecha para los dos
+    # aplanaría el desacuerdo.
+    window = stats_window(players, args.season, args.week)
+    if window is None:
+        print("  (aviso) la proyección no pudo leer ninguna jornada: stats UNKNOWN")
+    else:
+        print(
+            f"  estadística hasta: {window['season']} semana {window['week']}"
+        )
 
     for position in ("QB", "RB", "WR", "TE"):
         group = rankings[rankings["position"] == position].head(args.top)
@@ -92,6 +105,7 @@ def main(argv: list[str] | None = None) -> int:
                 "season": args.season,
                 "week": args.week,
                 "scoring": args.scoring,
+                "stats_through": window,
                 "rankings": rankings.round(3).to_dict(orient="records"),
                 "kickers": kickers.round(3).to_dict(orient="records"),
                 "defenses": defenses.round(3).to_dict(orient="records"),

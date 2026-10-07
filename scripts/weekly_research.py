@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -36,6 +37,7 @@ from oracle.data.ingest import normalize_team
 from oracle.fantasy import dst
 from oracle.fantasy.jobs import DepthChartUnavailable, jobs_of_record
 from oracle.fantasy.schedule import current_point
+from oracle.ingest_guard import IngestFailed, require_rows
 
 # Los dominios de prensa no se intentan desde aquí: están medidos y bloqueados
 # (docs/RED_ENTORNOS.md, CONNECT 403 a los 101). Se declara el hecho del ENTORNO
@@ -70,6 +72,15 @@ def _leer(paths: Paths, nombre: str, registro: list[dict]) -> pd.DataFrame | Non
         df = pd.read_parquet(ruta)
     except Exception as exc:                                  # noqa: BLE001
         entrada.update(status="UNREADABLE", rows=0, note=str(exc)[:200])
+        registro.append(entrada)
+        return None
+    try:
+        # Un fichero que existe y está VACÍO es el caso que parece que funcionó:
+        # el artefacto sale con sus secciones a cero y nada se pone rojo. Se
+        # anota `EMPTY`, que no es lo mismo que `MISSING` ni que `OK`.
+        require_rows(nombre, df)
+    except IngestFailed as error:
+        entrada.update(status="EMPTY", rows=0, note=str(error)[:200])
         registro.append(entrada)
         return None
     entrada.update(status="OK", rows=int(len(df)))
@@ -225,7 +236,8 @@ def uso(snaps: pd.DataFrame | None, season: int, week: int) -> dict:
             "changes": cambios}
 
 
-def contexto_dst(weekly: dict, parte: dict) -> dict:
+def contexto_dst(weekly: dict, parte: dict, depth: dict | None = None,
+                 last_played: dict | None = None) -> dict:
     """Contexto por matchup, derivado en `fantasy/dst.py`.
 
     La derivación NO vive aquí: la necesitan el barrido y el exportador, y dos
@@ -233,7 +245,8 @@ def contexto_dst(weekly: dict, parte: dict) -> dict:
     repositorio. Esto sólo la llama y envuelve su resultado.
     """
     filas = dst.context_rows(
-        weekly.get("defenses") or [], weekly.get("rankings") or [], parte.get("rows") or []
+        weekly.get("defenses") or [], weekly.get("rankings") or [], parte.get("rows") or [],
+        depth=depth, last_played=last_played,
     )
     return {"ordering": dst.ORDERING, "rows": filas}
 
@@ -244,6 +257,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--weekly", default="out/fantasy_weekly.json")
     ap.add_argument("--out-dir", default="research/weekly")
     ap.add_argument("--date", default=None, help="fecha del artefacto (por defecto, hoy UTC)")
+    ap.add_argument(
+        "--require-current", action="store_true",
+        help=("falla si alguna fuente obligatoria falta, está vacía o no cubre la "
+              "jornada actual. En CI este barrido es la ÚNICA tarea del job, así "
+              "que salir con 0 sin haber barrido es una mentira verde."),
+    )
     args = ap.parse_args(argv)
 
     paths = Paths(Path(args.root))
@@ -268,7 +287,17 @@ def main(argv: list[str] | None = None) -> int:
 
     weekly = json.loads(Path(args.weekly).read_text()) if Path(args.weekly).exists() else {}
     if weekly.get("week") not in (None, week):
-        print(f"AVISO: {args.weekly} es de la jornada {weekly.get('week')} y la actual es {week}")
+        # ERROR y no AVISO con `--require-current`: un artefacto del día que
+        # cuelga el ranking de la jornada PASADA de la cabecera de la actual es
+        # una jornada vieja presentada como la de hoy, que es la regla 5 exacta.
+        # En local se sigue avisando —el ranking puede no estar recompilado— y
+        # en CI, donde esto es la única tarea del job, se exige.
+        aviso = (f"{args.weekly} es de la jornada {weekly.get('week')} "
+                 f"y la actual es {week}")
+        if args.require_current:
+            print(f"FALLO: {aviso}", file=sys.stderr)
+            return 1
+        print(f"AVISO: {aviso}")
 
     # Los equipos que JUEGAN esta jornada salen del calendario, nunca de un 32
     # escrito a mano: con descansos son menos, y ese número es lo que decide si
@@ -278,7 +307,39 @@ def main(argv: list[str] | None = None) -> int:
         for col in ("away_team", "home_team")
         for t in sem.get(col, pd.Series(dtype=str)).dropna()
     }
+    # LAS FUENTES SIN LAS QUE ESTE ARTEFACTO NO DICE NADA.
+    #
+    # El parte de lesiones y el depth chart son las dos que contestan «¿puede
+    # jugar?» y «¿tiene el puesto?», que es para lo que existe el barrido. Sin
+    # ellas el artefacto sale con las secciones vacías y el job en verde — el
+    # fallo del barrido diario que salía VERDE sin barrer nada, otra vez.
+    if args.require_current:
+        faltan = [
+            f["source"] for f in fuentes
+            if f["kind"] == "NFLVERSE_FILE" and f["status"] != "OK"
+        ]
+        if faltan:
+            print(
+                f"FALLO: fuentes obligatorias sin leer: {', '.join(faltan)}. "
+                f"No se publica un barrido con sus secciones vacías.",
+                file=sys.stderr,
+            )
+            return 1
+
     parte = parte_de_lesiones(inj, season, week, equipos_jornada or None)
+    # LOS TRES TESTIGOS DEL QB TITULAR. El modelo de rol contesta otra pregunta
+    # —quién acumuló volumen— así que el titular sale del depth chart y se
+    # contrasta con quién tomó los snaps en la última jornada JUGADA. Cuando
+    # discrepan se publica la disputa, no un desempate inventado.
+    # LOS DOS TESTIGOS, CONSTRUIDOS UNA VEZ (`dst.witnesses`).
+    #
+    # Este bloque los armaba a mano y el exportador los armaba a su manera, que
+    # es cómo el artefacto del día llegó a publicar `DEPTH_CHART_OF_RECORD`
+    # mientras el payload seguía en `MODEL_PROJECTED_STARTER`. Dos traductores
+    # del mismo hecho, y ésta la introduje yo arreglando el hecho.
+    qb_declarado, qb_jugaron = dst.witnesses(dc, snaps)
+    if dc is not None and not qb_declarado:
+        print("AVISO: sin QB de registro (el depth chart no da titular)")
     artefacto = {
         "generated_at": _ahora(),
         "season": season,
@@ -299,7 +360,7 @@ def main(argv: list[str] | None = None) -> int:
         "injury_report": parte,
         "jobs": trabajos(dc),
         "usage": uso(snaps, season, week),
-        "dst_context": contexto_dst(weekly, parte),
+        "dst_context": contexto_dst(weekly, parte, qb_declarado, qb_jugaron),
         "sources": fuentes,
         "unknowns": [],
     }

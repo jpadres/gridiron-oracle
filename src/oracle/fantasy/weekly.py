@@ -143,6 +143,43 @@ class WeeklyCalibration:
         return self.blend_to_baseline.get(position, 0.0)
 
 
+def history_before(player_weeks: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
+    """Las filas de temporada regular ANTERIORES a (season, week).
+
+    Existe para que `stats_window` no vuelva a calcular el recorte por su
+    cuenta: la jornada que se PUBLICA como «stats hasta» tiene que salir de las
+    mismas filas que entran en la proyección, no de una resta (`week - 1`
+    miente con un descanso, con un fichero a medio refrescar o con una jornada
+    que aún no se ha jugado). Dos traductores del mismo recorte son el fallo
+    que más veces ha costado una iteración en este repositorio.
+    """
+    rows = regular_season(player_weeks)
+    return rows[
+        (rows["season"] < season)
+        | ((rows["season"] == season) & (rows["week"] < week))
+    ].copy()
+
+
+def stats_window(player_weeks: pd.DataFrame, season: int, week: int) -> dict | None:
+    """Hasta qué jornada llega la estadística que entra en la proyección.
+
+    Se MIDE sobre las filas, no se deriva del calendario: si la estadística de
+    la jornada 4 no se ha descargado, esto dice 3 y la pantalla lo dice también.
+    `None` cuando no entra ninguna fila — que es UNKNOWN, no «hasta la 0».
+    """
+    history = history_before(player_weeks, season, week)
+    if history.empty:
+        return None
+    ultima = history[["season", "week"]].astype(int)
+    temporada = int(ultima["season"].max())
+    jornada = int(ultima[ultima["season"] == temporada]["week"].max())
+    return {
+        "season": temporada,
+        "week": jornada,
+        "basis": "PLAYER_WEEKS_ROWS",
+    }
+
+
 def weekly_rankings(
     player_weeks: pd.DataFrame,
     predictions: pd.DataFrame,
@@ -160,11 +197,7 @@ def weekly_rankings(
     calibration = calibration or WeeklyCalibration()
 
     # Sólo temporada regular (ver `regular_season`) y anterior a (season, week).
-    player_weeks = regular_season(player_weeks)
-    history = player_weeks[
-        (player_weeks["season"] < season)
-        | ((player_weeks["season"] == season) & (player_weeks["week"] < week))
-    ].copy()
+    history = history_before(player_weeks, season, week)
     if history.empty:
         raise ValueError(f"No hay historial anterior a {season} semana {week}.")
 
@@ -702,11 +735,11 @@ def weekly_kickers(
     `team_games`). Sólo se usa historial anterior a (season, week).
     """
     scoring = scoring or KickerScoring()
-    player_weeks = regular_season(player_weeks)
-    before = (player_weeks["season"] < season) | (
-        (player_weeks["season"] == season) & (player_weeks["week"] < week)
-    )
-    kickers = player_weeks[before & (player_weeks["position"] == "K")].copy()
+    # El MISMO recorte que el ranking: si los dos lo escriben a mano, la jornada
+    # que se publica como «stats hasta» puede dejar de describir a uno de ellos
+    # sin que falle nada.
+    antes = history_before(player_weeks, season, week)
+    kickers = antes[antes["position"] == "K"].copy()
     columns = ["player_id", "player_name", "player_full_name", "team", "opponent",
                "is_home", "team_points", "projected_points"]
     if kickers.empty:

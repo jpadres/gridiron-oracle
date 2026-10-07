@@ -51,6 +51,12 @@ const PAGES = [
   { href: "/fantasy/analisis", label: "Analyzer" },
   { href: "/survivor", label: "Survivor" },
   { href: "/research", label: "Research" },
+  // La salud va la ÚLTIMA porque no es un producto: es la pantalla que
+  // permite no creerse las otras. Y va en el MISMO array que las demás
+  // porque los dos menús —escritorio y desplegable del teléfono— se
+  // pintan de aquí, y «salen del mismo array» es una promesa del código
+  // que `smoke.mjs` comprueba.
+  { href: "/salud", label: "Source health" },
 ];
 
 /**

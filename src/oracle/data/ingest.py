@@ -341,6 +341,8 @@ def refresh(
     `force_last` fuerza la redescarga de las N últimas temporadas: la temporada
     en curso cambia cada semana y la caché la dejaría congelada en la semana 1.
     """
+    from ..ingest_guard import require_rows
+
     paths.ensure()
     current_season = _current_season()
     last_season = last_season or current_season
@@ -357,11 +359,23 @@ def refresh(
     # entrenar, se usan para saber quién tiene el trabajo HOY.
     download_current_context(last_season, paths, force=True)
 
+    # CADA TABLA SE COMPRUEBA ANTES DE ESCRIBIRSE.
+    #
+    # Un `to_parquet` de un frame vacío no da error: deja un fichero válido,
+    # con la fecha de hoy y sin filas, y todo lo que lo lee después se queda
+    # callado o publica ceros. Es el artefacto vacío con fecha de hoy — la
+    # rotura que parece que funcionó— y ocurre en cuanto nflverse cambia un
+    # nombre de columna o un release sale a medias. `require_rows` levanta, así
+    # que el fichero ANTERIOR se conserva: viejo y cierto antes que nuevo y
+    # vacío.
     games = build_games(paths, first_season, last_season)
+    require_rows("games", games)
     games.to_parquet(paths.games, index=False)
     team_games = build_team_games(paths, first_season, last_season, games)
+    require_rows("team_games", team_games)
     team_games.to_parquet(paths.team_games, index=False)
     player_weeks = build_player_weeks(paths, first_season, last_season)
+    require_rows("player_weeks", player_weeks)
     player_weeks.to_parquet(paths.player_weeks, index=False)
 
 

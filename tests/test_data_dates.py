@@ -53,19 +53,29 @@ def test_un_fichero_que_no_esta_da_UNKNOWN_y_no_una_fecha_prestada(tmp_path):
     assert _fecha_de(tmp_path / "no-existe.csv") is None
 
 
-def _descargas(raw: Path, calendario, pbp, stats, rosters) -> None:
-    """Los ficheros que `oracle refresh` baja, con su fecha de descarga."""
+def _descargas(raw: Path, calendario, pbp, stats, rosters, stats_curso=None) -> None:
+    """Los ficheros que `oracle refresh` baja, con su fecha de descarga.
+
+    `stats_curso` es la estadística de la temporada EN CURSO, que el semanal SÍ
+    lee y el board de draft NO (garantía walk-forward). Va con una fecha
+    distinta a propósito: con las dos iguales, un test no puede distinguir
+    `fantasy` de `fantasy_weekly` y pasaría con las dos leyendo el mismo
+    fichero — el «8 y 9 son los dos míos» del test del turno.
+    """
     _con_fecha(raw / "games.csv", calendario)
     _con_fecha(raw / "pbp_2025.parquet", pbp)
     _con_fecha(raw / "player_stats_2025.parquet", stats)
     _con_fecha(raw / "roster_2026.parquet", rosters)
+    if stats_curso is not None:
+        _con_fecha(raw / "player_stats_2026.parquet", stats_curso)
 
 
 def test_las_secciones_conservan_su_desacuerdo(tmp_path):
     """Tres orígenes con tres edades dan TRES fechas, no una aplanada."""
     raw, proc = tmp_path / "raw", tmp_path / "processed"
     _descargas(raw, dt.date(2026, 8, 29), dt.date(2026, 8, 20),
-               dt.date(2026, 8, 17), dt.date(2026, 9, 4))
+               dt.date(2026, 8, 17), dt.date(2026, 9, 4),
+               stats_curso=dt.date(2026, 10, 6))
 
     fechas = _fechas_de_origen(_Paths(raw, proc))
     assert fechas == {
@@ -76,9 +86,35 @@ def test_las_secciones_conservan_su_desacuerdo(tmp_path):
         # taparía que el registro de quién está cortado o en reserva es de
         # dieciocho días después. Es justo el desacuerdo que decide un pick.
         "rosters": "2026-09-04",
+        # El ranking SEMANAL, APARTE de `fantasy` y por la misma razón al
+        # revés: el board no lee la temporada en curso (garantía
+        # walk-forward) así que su estadística es de agosto POR DISEÑO,
+        # mientras el semanal se construye con la de la jornada pasada.
+        # `/fantasy/semanal` citaba la fecha de `fantasy` sobre sus
+        # proyecciones: 54 días de más, en la dirección que hace parecer el
+        # dato más viejo de lo que es.
+        "fantasy_weekly": "2026-09-04",
     }
-    # La propiedad, no los literales: si un día se aplanan en una sola, esto cae.
-    assert len(set(fechas.values())) == 4
+
+
+def test_el_semanal_y_el_board_NO_se_fechan_con_el_mismo_fichero(tmp_path):
+    """La prueba de que son dos secciones y no un alias.
+
+    Con la estadística de la temporada en curso MÁS NUEVA que todo lo demás,
+    las dos fechas tienen que separarse: la del board se queda en la
+    estadística vieja que es la única que lee, y la del semanal sube.
+    """
+    raw, proc = tmp_path / "raw", tmp_path / "processed"
+    _descargas(raw, dt.date(2026, 10, 6), dt.date(2026, 10, 6),
+               dt.date(2026, 8, 13), dt.date(2026, 10, 6),
+               stats_curso=dt.date(2026, 10, 6))
+    fechas = _fechas_de_origen(_Paths(raw, proc))
+    assert fechas["fantasy"] == "2026-08-13"
+    assert fechas["fantasy_weekly"] == "2026-10-06"
+    assert fechas["fantasy"] != fechas["fantasy_weekly"], (
+        "si las dos leyeran el mismo fichero, la pantalla del semanal volvería a "
+        "citar la fecha del board sobre sus proyecciones"
+    )
     # Y la que más importa la víspera de un draft: las plantillas NO pueden
     # heredar la fecha de la estadística.
     assert fechas["rosters"] != fechas["fantasy"]

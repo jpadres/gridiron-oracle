@@ -1794,6 +1794,11 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
   padding: var(--space-2) 0; border-top: 1px solid var(--yard-line);
 }
 .bk-slip-what { flex: 1 1 16rem; display: flex; flex-direction: column; }
+/* El veredicto del marcador dentro de una apuesta abierta. Hereda el tamaño y
+   el color apagado de `.bk-slip-what small` —es metadato, no la apuesta— y sólo
+   el resultado sube a tinta plena: lo que se lee de un barrido es «won/lost»,
+   y el marcador que lo sostiene va detrás para poder discutirlo. */
+.bk-graded b { color: var(--chalk); text-transform: uppercase; letter-spacing: 0.04em; }
 .bk-slip-math { font-size: var(--text-dense); font-variant-numeric: tabular-nums; }
 .bk-slip-math small { display: block; color: var(--chalk-dim); }
 .bk-warn { flex-basis: 100%; color: var(--flag-ink); font-size: var(--text-micro); }

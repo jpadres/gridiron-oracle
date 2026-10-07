@@ -275,6 +275,9 @@ def main(argv: list[str] | None = None) -> int:
     ).to_dict(orient="records")
     # CUÁNDO se juega y CÓMO acabó, si ya acabó. Ver `_estado_de_los_partidos`.
     _anotar_estado(payload["predictions"], paths, season, week)
+    # Los marcadores de la temporada ENTERA: con esto el libro del navegador
+    # puede liquidar una apuesta de cualquier jornada sin pedir nada por red.
+    payload["results"] = _resultados_de_la_temporada(paths, season)
     # Antes de seguir: lo que se va a publicar tiene que ser lo que hay en el
     # calendario que fecha la sección. Ver `_comprobar_lineas_publicadas`.
     _comprobar_lineas_publicadas(payload["predictions"], paths)
@@ -350,6 +353,8 @@ def main(argv: list[str] | None = None) -> int:
     # necesita las dos ya colgadas: la de prensa (`_attach_status`) y la de
     # plantilla (`fantasy_build`). Ver `roster_status.reconcile`.
     _reconciliar_estado(payload)
+    # Y quien NO PUEDE jugar deja de llevar un número de esta jornada.
+    _withhold_unavailable(payload)
     # El ADP público: CONDUCTA del mercado, al lado y nunca dentro.
     _attach_adp(payload, paths)
 
@@ -384,6 +389,12 @@ def main(argv: list[str] | None = None) -> int:
     # --- textos generados ---------------------------------------------------
     if args.with_narrative:
         payload["narrative"] = _narrative(payload)
+
+    # LA SALUD, AL FINAL. Tiene que ver el payload TERMINADO: la primera versión
+    # corría antes de colgar la prensa y publicaba `research: BROKEN` con fichas
+    # del día en el repositorio — el dato computado que no llega a la pantalla,
+    # al revés.
+    _attach_health(payload, paths, season, week)
 
     write_payload(paths.web_data, payload)
     return 0
@@ -589,6 +600,273 @@ def _attach_weekly_research(payload: dict, root: Path) -> None:
           f"{len(artefactos)} instantánea(s)")
 
 
+def _withhold_unavailable(payload: dict) -> None:
+    """QUIEN NO PUEDE JUGAR NO LLEVA PROYECCIÓN DE ESTA JORNADA.
+
+        «11,4 PUNTOS ESTA SEMANA» DE ALGUIEN EN IR NO ES UNA PROYECCIÓN FLOJA:
+        ES UNA AFIRMACIÓN FALSA SOBRE ESTA SEMANA.
+
+    Medido el 7 de octubre de 2026 en el payload de producción: De'Von Achane
+    salía RB24 con 11,4 puntos y `roster_state: RESERVE`; Josh Jacobs, 152,2 en
+    el puesto 38 del board con `EXEMPT`; Jaxson Dart en reserva **y** publicado
+    como QB titular de NYG. Las tres filas llevaban su marca —la capa de
+    plantilla sí los veía— y el número salía intacto al lado, que es la forma de
+    estar roto que no falla.
+
+    ## Dos cosas que NO se hacen aquí, y por qué
+
+    1. **No se escala un DOUBTFUL.** Un dudoso puede jugar, y multiplicar su
+       proyección por un 0,25 inventado es exactamente el `VOR × 0,35` que se
+       retiró de este producto: una convención de medición disfrazada de dato.
+       `injuries.excludes_from_lineup` ya decide sólo sobre OUT por la misma
+       razón, y aquí se respeta. Los inciertos se MARCAN, no se tocan.
+
+    2. **No decide la prensa.** La regla 8 dice que la capa curada marca y no
+       calcula, así que `status_severity` NO entra en esta decisión por mucho
+       que diga OUT. Sólo mandan dos fuentes OFICIALES y fechadas: el parte que
+       los clubes entregan a la liga (`injury_designation`) y el registro de
+       plantillas de nflverse (`roster_state`, `rostered`). Jacobs queda cubierto
+       igual porque el registro lo da `EXEMPT` — no hizo falta la prensa.
+
+    El número no se borra: se mueve a `projected_points_if_available`, que deja
+    la retención auditable y permite enseñar «lo que valdría si jugara». Lo que
+    desaparece es la pretensión de que eso es su proyección de ESTA jornada.
+    """
+    weekly = payload.get("fantasy_weekly") or {}
+    filas = weekly.get("rankings") or []
+    if not filas:
+        return
+
+    # Estados de PLANTILLA que significan «no está disponible para jugar». Son
+    # los del registro de nflverse, no una lista propia: `roster_status.py` ya
+    # los traduce y cualquier etiqueta nueva hace que el exportador se niegue a
+    # publicar, que es la puerta funcionando.
+    FUERA_POR_PLANTILLA = {"RESERVE", "EXEMPT", "PRACTICE_SQUAD", "NOT_ON_ROSTER"}
+
+    retenidos = []
+    for row in filas:
+        motivos = []
+        if str(row.get("injury_designation") or "").upper() == "OUT":
+            motivos.append(("OFFICIAL_INJURY_REPORT", "ruled OUT on the official report",
+                            row.get("injury_source_as_of")))
+        estado = str(row.get("roster_state") or "").upper()
+        if estado in FUERA_POR_PLANTILLA:
+            motivos.append(("ROSTER_REGISTRY",
+                            f"roster status {row.get('roster_label') or estado}",
+                            row.get("roster_source_as_of")))
+        elif row.get("rostered") is False:
+            motivos.append(("ROSTER_REGISTRY", "no NFL team",
+                            row.get("roster_source_as_of")))
+        if not motivos:
+            continue
+        fuente, texto, fecha = motivos[0]
+        proy = row.get("projected_points")
+        if proy is not None:
+            row["projected_points_if_available"] = proy
+        # `None` y NO cero: un cero se lee como «juega y no suma», y este
+        # repositorio ya tiene anotado que un hueco vacío no rinde el nivel de
+        # reemplazo ni cero indistintamente. `app/numbers.js::num` existe justo
+        # para que un hueco presente-y-nulo no se cuele como dato.
+        row["projected_points"] = None
+        row["unavailable"] = {
+            "basis": fuente,
+            "reason": texto,
+            "as_of": fecha,
+            # Las DOS si las hay: el desacuerdo entre el parte y el registro es
+            # información, y quedarse con una sola borra lo que decide una
+            # alineación (regla 5).
+            "all_reasons": [{"basis": b, "reason": t, "as_of": f} for b, t, f in motivos],
+        }
+        retenidos.append(row.get("player_name"))
+
+    # Y dejan de ocupar un puesto entre los alineables: que Achane saliera RB24
+    # empujaba al RB25 real fuera de la ventana que se mira.
+    disponibles = [r for r in filas if r.get("unavailable") is None]
+    por_pos: dict[str, int] = {}
+    for row in sorted(disponibles, key=lambda r: -(r.get("projected_points") or 0)):
+        pos = str(row.get("position") or "")
+        por_pos[pos] = por_pos.get(pos, 0) + 1
+        row["position_rank"] = por_pos[pos]
+    for row in filas:
+        if row.get("unavailable") is not None:
+            row["position_rank"] = None
+
+    if retenidos:
+        print(f"  retenidos por no poder jugar: {len(retenidos)} "
+              f"({', '.join(str(x) for x in retenidos[:6])}"
+              f"{'…' if len(retenidos) > 6 else ''})")
+
+
+def _attach_health(payload: dict, paths, season: int, week: int) -> None:
+    """LA SALUD DE CADA FUENTE, con su instante y la jornada que cubre.
+
+        UNA PANTALLA QUE NO DICE LA EDAD DE SUS DATOS NO SE PUEDE AUDITAR.
+
+    El 7 de octubre de 2026 producción servía la jornada 4 estando en la 5, con
+    el modelo y las líneas del 29 de septiembre — ocho días— porque
+    `weekly-predictions.yml` había fallado sus cuatro ejecuciones programadas,
+    todas en el PUSH y ninguna calculando. Nadie lo vio porque ninguna pantalla
+    decía de cuándo era lo que enseñaba.
+
+    Los umbrales NO se escriben aquí: salen de `freshness.WINDOWS`, que ya los
+    declara por dominio. Y sólo se fechan ficheros DESCARGADOS — el mtime de un
+    artefacto que compila este repositorio es «cuándo corrí el pipeline», y esa
+    confusión ya costó tres iteraciones.
+    """
+    from oracle import health as salud
+    from oracle.freshness import Domain
+
+    raw = paths.raw
+    fuentes: list = []
+
+    def f(nombre, alimenta, dominio, fichero, *, cubre=None, timeless=False, extra=None):
+        ruta = raw / fichero
+        fuentes.append(salud.assess(
+            name=nombre, feeds=alimenta, domain=dominio,
+            origin=f"nflverse · {fichero}",
+            published_at=salud.file_published_at(ruta),
+            covers_season=season, covers_week=cubre, current_week=week,
+            timeless=timeless,
+            missing_reason=f"{fichero} is missing from data/raw (did `oracle refresh` run?)",
+            extra=extra,
+        ))
+
+    # --- lo que se DESCARGA -------------------------------------------------
+    # El calendario y las cuotas viajan en el MISMO fichero y no caducan igual:
+    # las fechas están puestas meses antes y una línea se mueve en minutos. Dos
+    # filas del mismo origen, cada una con su ventana, porque aplanarlas en una
+    # borraría justo el desacuerdo que importa en /betting.
+    f("Schedule", "current week, final scores, /predicciones", Domain.SCHEDULE,
+      "games.csv", cubre=week)
+    f("Odds (spread/total)", "/betting, EV and Kelly", Domain.ODDS,
+      "games.csv", cubre=week)
+    f("Rosters", "who has an NFL team, IR/PUP/exempt", Domain.ROSTER,
+      "roster_2026.parquet", cubre=week)
+    f("Injury report", "OUT/DOUBTFUL/QUESTIONABLE designations", Domain.INJURY_REPORT,
+      "injuries_2026.parquet", cubre=week)
+    f("Depth charts", "who holds the job (QB, kicker)", Domain.DEPTH_CHART,
+      "depth_charts_2026.parquet", cubre=week)
+    f("Weekly player stats", "weekly projections", Domain.SEASON_STATS,
+      "player_stats_2026.parquet", cubre=week)
+    f("Snap counts", "role and usage", Domain.SEASON_STATS,
+      "snap_counts_2026.parquet", cubre=week)
+
+    # --- lo que se COMPILA, fechado por su fuente más VIEJA ------------------
+    # El board no lee la temporada que proyecta (garantía walk-forward), así que
+    # su estadística es vieja POR DISEÑO y sale HISTORICAL, no STALE.
+    stats_board = _stats_que_lee_el_board(paths)
+    fuentes.append(salud.assess(
+        name="Draft board", feeds="/fantasy, season-long value",
+        domain=Domain.CAREER_STATS,
+        origin="compiled from player_stats of seasons < S",
+        published_at=_dt_de_fecha(stats_board), covers_season=season, covers_week=None,
+        timeless=True,
+        missing_reason="could not date the stats that feed the board",
+    ))
+
+    # La proyección semanal es una fila APARTE de la estadística que la
+    # alimenta: el fichero puede estar al día y el artefacto publicado ser de la
+    # jornada pasada, que es exactamente el síntoma que se reportó. Se fecha por
+    # su fuente —`player_stats_2026.parquet`— porque un artefacto que compila
+    # este repositorio se fecharía con «cuándo corrí el pipeline».
+    weekly = payload.get("fantasy_weekly") or {}
+    ventana = weekly.get("stats_through") or {}
+    fuentes.append(salud.assess(
+        name="Weekly projections", feeds="/semanal, /fantasy/lineups, /fantasy/waivers",
+        domain=Domain.SEASON_STATS,
+        origin="compiled from player_weeks (stats strictly before the published week)",
+        published_at=salud.file_published_at(raw / "player_stats_2026.parquet"),
+        covers_season=weekly.get("season"), covers_week=weekly.get("week"),
+        current_week=week,
+        missing_reason="out/fantasy_weekly.json is missing (`python scripts/fantasy_weekly_build.py`)",
+        extra={"stats_through_week": ventana.get("week"),
+               "stats_through_season": ventana.get("season"),
+               "stats_basis": ventana.get("basis")} if ventana else None,
+    ))
+
+    # --- prensa y artefactos versionados ------------------------------------
+    fuentes.append(salud.assess(
+        name="Research (press)", feeds="/research, news marks",
+        domain=Domain.NEWS, origin="research/<fecha>.json",
+        published_at=_dt_de_fecha(payload.get("data_dates", {}).get("research")),
+        covers_season=season, covers_week=None,
+        missing_reason="no item inside the 10-day window",
+        extra=_cobertura_del_research(payload),
+    ))
+    surv = payload.get("survivor") or {}
+    fuentes.append(salud.assess(
+        name="Survivor", feeds="/survivor", domain=Domain.SCHEDULE,
+        origin="out/survivor.json (compilado)",
+        published_at=salud.file_published_at(paths.out / "survivor.json"),
+        # `from_week` y no `week`: el plan de survivor publica la jornada DESDE
+        # la que asigna. Leer una clave que esa sección no escribe daba
+        # `covers_week: None`, o sea NOT_WEEKLY — la pregunta se quedaba sin
+        # contestar y parecía contestada.
+        covers_season=surv.get("season"), covers_week=surv.get("from_week"),
+        current_week=week,
+        missing_reason="out/survivor.json is missing (`python scripts/survivor_build.py`)",
+    ))
+    mercados = payload.get("markets") or []
+    fuentes.append(salud.assess(
+        name="Published markets", feeds="/betting", domain=Domain.ODDS,
+        origin="derived from features.parquet + games.csv",
+        published_at=salud.file_published_at(raw / "games.csv"),
+        covers_season=season, covers_week=week, current_week=week,
+        extra={"markets": len(mercados),
+               "graded": sum(1 for m in mercados if m.get("settled") is not None)},
+    ))
+
+    # --- el contraste de la jornada ----------------------------------------
+    estado_sleeper = salud.load_sleeper_state(paths.root / "research" / "sleeper_state.json")
+    acuerdo = salud.week_agreement((season, week), estado_sleeper)
+
+    payload["health"] = {
+        "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+        "season": season,
+        "week": week,
+        "week_agreement": acuerdo,
+        "sources": [s.as_dict() for s in fuentes],
+        "counts": {
+            etiqueta: sum(1 for s in fuentes if s.label == etiqueta)
+            for etiqueta in (salud.FRESH, salud.STALE, salud.BROKEN)
+        },
+    }
+    c = payload["health"]["counts"]
+    print(f"  salud: {c['FRESH']} FRESH · {c['STALE']} STALE · {c['BROKEN']} BROKEN "
+          f"· jornada {week} ({acuerdo['status']} con Sleeper)")
+
+
+def _dt_de_fecha(fecha: str | None):
+    """`2026-10-06` -> instante a mediodía UTC, o `None`.
+
+    Mediodía y no medianoche a propósito: la fecha de un fichero no trae hora, y
+    poner las 00:00 le regala hasta doce horas de frescura que no se midieron.
+    """
+    if not isinstance(fecha, str) or not fecha.strip():
+        return None
+    try:
+        d = dt.date.fromisoformat(fecha.strip()[:10])
+    except ValueError:
+        return None
+    return dt.datetime(d.year, d.month, d.day, 12, tzinfo=dt.timezone.utc)
+
+
+def _cobertura_del_research(payload: dict) -> dict | None:
+    """Cuántos clubes nombra la prensa publicada, LEÍDO de la sección.
+
+    No se vuelve a contar aquí. `archive.consolidate` ya publica `teams_covered`
+    y `teams_in_window` —es quien decide el recorte, así que es quien sabe lo
+    que entró— y recontarlo sería un segundo traductor del mismo hecho, que es
+    el fallo que más veces ha costado una iteración en este repositorio. Si la
+    sección no los trae (payload viejo), no se afirma ninguno.
+    """
+    research = payload.get("research") or {}
+    cubiertos = research.get("teams_covered")
+    if cubiertos is None:
+        return None
+    return {"teams_covered": cubiertos, "teams_in_window": research.get("teams_in_window")}
+
+
 def _attach_jobs(payload: dict, paths) -> None:
     """¿Tiene este pateador el puesto? Marca con prefijo `job_`, sin tocar números.
 
@@ -624,6 +902,19 @@ def _attach_jobs(payload: dict, paths) -> None:
           f"pateador de su equipo, {disputados} disputado(s) · instantánea {instante}")
 
 
+def _parquet_opcional(ruta):
+    """Un parquet que puede faltar legítimamente, o `None`.
+
+    `None` y no un frame vacío: «no tengo el fichero» y «el fichero no dice
+    nada» son respuestas distintas, y la segunda borraría un testigo sin decir
+    por qué.
+    """
+    try:
+        return pd.read_parquet(ruta)
+    except (OSError, ValueError):
+        return None
+
+
 def _attach_dst_context(payload: dict, paths) -> None:
     """A qué quarterback se enfrenta cada defensa, y en qué estado lo da el club.
 
@@ -637,10 +928,21 @@ def _attach_dst_context(payload: dict, paths) -> None:
     filas_parte = dst.load_injury_rows(
         paths.raw / f"injuries_{int(temporada)}.parquet", int(temporada), int(jornada)
     )
-    con_qb = dst.attach(weekly.get("defenses") or [], weekly.get("rankings") or [], filas_parte)
+    # LOS MISMOS TESTIGOS QUE EL BARRIDO. Sin esto el artefacto del día decía
+    # `DEPTH_CHART_OF_RECORD` y el payload seguía en `MODEL_PROJECTED_STARTER`:
+    # dos traductores del mismo hecho con distinta cobertura.
+    declarado, jugaron = dst.witnesses(
+        _parquet_opcional(paths.raw / f"depth_charts_{int(temporada)}.parquet"),
+        _parquet_opcional(paths.raw / f"snap_counts_{int(temporada)}.parquet"),
+    )
+    con_qb = dst.attach(weekly.get("defenses") or [], weekly.get("rankings") or [],
+                        filas_parte, depth=declarado, last_played=jugaron)
+    disputados = sum(1 for d in (weekly.get("defenses") or [])
+                     if d.get("opposing_qb_basis") == dst.QB_BASIS_DISPUTED)
     total = len(weekly.get("defenses") or [])
     print(f"  contexto DST: {con_qb} de {total} defensas con quarterback rival "
-          f"identificado; designaciones oficiales disponibles: {len(filas_parte)}")
+          f"identificado ({disputados} en disputa entre el club y quién jugó); "
+          f"designaciones oficiales disponibles: {len(filas_parte)}")
 
 
 def _attach_status(payload: dict, paths) -> None:
@@ -1462,6 +1764,59 @@ def _estado_de_los_partidos(paths, season: int, week: int) -> dict:
     return estado
 
 
+def _resultados_de_la_temporada(paths, season: int) -> list[dict]:
+    """LOS MARCADORES FINALES DE LA TEMPORADA, por `game_id`.
+
+        UNA APUESTA SE LIQUIDA CON EL MARCADOR, Y EL MARCADOR ES UN HECHO.
+
+    El libro vive en el navegador (no hay cuentas ni servidor, regla 4), así que
+    Python no puede liquidar una apuesta que nunca ve. Lo que sí puede —y es lo
+    único que hace falta— es publicar el HECHO: qué partido terminó y en qué
+    marcador. La regla de liquidación la aplica `betting/grade.js` sobre la
+    línea que el dueño APUNTÓ, que puede no ser la publicada («Type your book's
+    line»), y por eso no se puede decidir aquí.
+
+    No es el mismo mapa que `_estado_de_los_partidos`, que está acotado a la
+    jornada que se publica por una razón medida: un emparejamiento
+    (visitante, local) se repite cada temporada y sin acotar ganaba el último de
+    la historia. Aquí la clave es `game_id` —única por construcción— así que la
+    temporada entera entra sin ese riesgo, y hace falta entera: una apuesta de
+    la jornada 2 se sigue liquidando en la 5.
+
+    Sólo lo que TIENE marcador. Un partido en curso no sale como 0-0: no sale.
+    """
+    calendario = paths.raw / "games.csv"
+    if not calendario.exists():
+        return []
+    games = pd.read_csv(calendario, usecols=lambda c: c in {
+        "season", "week", "game_id", "home_team", "away_team",
+        "home_score", "away_score",
+    })
+    games = games[games["season"] == season]
+    filas = []
+    for r in games.itertuples():
+        casa, fuera = getattr(r, "home_score", None), getattr(r, "away_score", None)
+        if casa is None or fuera is None:
+            continue
+        if (isinstance(casa, float) and math.isnan(casa)) or (
+            isinstance(fuera, float) and math.isnan(fuera)
+        ):
+            continue
+        filas.append({
+            "game_id": str(r.game_id),
+            "season": int(r.season),
+            "week": int(r.week),
+            # Normalizados por lo de siempre: `LA`/`LAR` y `AZ`/`ARI` no son el
+            # mismo código entre datasets de nflverse, y una apuesta guardada
+            # con el código del board no emparejaría con el del calendario.
+            "home_team": normalize_team(r.home_team),
+            "away_team": normalize_team(r.away_team),
+            "home_score": int(casa),
+            "away_score": int(fuera),
+        })
+    return filas
+
+
 def _anotar_estado(predictions: list[dict], paths, season: int, week: int) -> None:
     """Cuelga `kickoff`, `final` y el marcador de cada predicción publicada."""
     estado = _estado_de_los_partidos(paths, season, week)
@@ -1712,6 +2067,9 @@ def _fechas_de_origen(paths) -> dict:
     pbp = _mas_nuevo(raw, "pbp_*.parquet")
     stats = _stats_que_lee_el_board(paths)
     rosters = _mas_nuevo(raw, "roster_*.parquet")
+    # La estadística de la temporada EN CURSO, que es la que lee el semanal
+    # (y la que el board NO lee: ver `_stats_que_lee_el_board`).
+    stats_semanal = _mas_nuevo(raw, "player_stats_2*.parquet")
     return {
         # `spread_line` y `total_line` viajan en el calendario de nflverse.
         "markets": _fecha_de(raw / "games.csv"),
@@ -1734,6 +2092,20 @@ def _fechas_de_origen(paths) -> dict:
         # tres semanas después. Aplanar las dos en una fecha borra justo el
         # desacuerdo que decide un pick la víspera de un draft.
         "rosters": _fecha_de(rosters) if rosters else None,
+        # El ranking SEMANAL, aparte de `fantasy`. No es una redundancia: el
+        # board de draft no lee la temporada que proyecta (garantía
+        # walk-forward) y por eso su estadística es de agosto POR DISEÑO,
+        # mientras el semanal se construye con la estadística de la jornada
+        # pasada. `/fantasy/semanal` citaba la fecha de `fantasy` sobre sus
+        # proyecciones —54 días de más— que es el fallo de una sola fecha para
+        # dos cosas, en la dirección que hace parecer el dato más viejo de lo
+        # que es. Y la jornada hasta la que llega esa estadística se publica
+        # aparte, en `fantasy_weekly.stats_through`, porque una fecha no dice
+        # qué jornada entró.
+        "fantasy_weekly": _mas_vieja(
+            _fecha_de(stats_semanal) if stats_semanal else None,
+            _fecha_de(rosters) if rosters else None,
+        ),
     }
 
 

@@ -16,7 +16,6 @@
  * el reloj no se estuviera leyendo, el segundo y el tercero darían lo mismo que
  * el primero.
  */
-import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";

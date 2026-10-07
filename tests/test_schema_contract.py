@@ -25,12 +25,8 @@ falla si alguien quita un campo, lo renombra, o cambia su tipo.
 
 from __future__ import annotations
 
-import json
-from pathlib import Path
-
+import payload_source
 import pytest
-
-PAYLOAD = Path(__file__).resolve().parents[1] / "web" / "data" / "model.json"
 
 # Campos que la web lee de cada colección. Sacados de leer los `.jsx`, no
 # adivinados. Si añades un campo a una página, añádelo aquí: es la única forma
@@ -88,12 +84,21 @@ def _dig(payload: dict, path: str):
 
 @pytest.fixture(scope="module")
 def payload() -> dict:
-    if not PAYLOAD.exists():
+    """El payload PUBLICADO, del crudo si está y del comprimido si no.
+
+    `web/data/model.json` está en `.gitignore`, así que en CI no existe nunca y
+    este contrato entero se saltaba en silencio — justo donde se quería que
+    corriera. Lo que sí se versiona es `model.b64.js`, que es el mismo payload y
+    el que la web descomprime en build time: comprobar el contrato contra él es
+    comprobarlo contra lo que se publica. Ver `tests/payload_source.py`.
+    """
+    datos = payload_source.load()
+    if datos is None:
         pytest.skip(
-            "No hay web/data/model.json. Se genera con "
-            "`python scripts/export_web_data.py`; en un clon recién hecho no existe."
+            "No hay payload: ni web/data/model.json ni web/data/model.b64.js. "
+            "Se generan con `python scripts/export_web_data.py`."
         )
-    return json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    return datos
 
 
 @pytest.mark.parametrize("path", sorted(CONTRACT))
@@ -167,10 +172,30 @@ def test_la_mezcla_semanal_compone_en_el_payload_publicado(payload):
     proyección 15,2, y quien intentara la aritmética evidente obtenía otra cosa.
     Este test es lo que impide que vuelva a pasar sin que nadie se entere.
     """
+    retenidas = 0
     for row in _dig(payload, "fantasy_weekly.rankings"):
         weight = row["blend_weight"]
         esperado = weight * row["baseline_points"] + (1 - weight) * row["model_points"]
-        assert abs(row["projected_points"] - esperado) < TOLERANCIA_REDONDEO, row["player_name"]
+        # A quien la liga da OUT, o el registro de plantillas pone en reserva,
+        # se le RETIENE la proyección: `projected_points` es `None` —y no cero,
+        # que se leería como «juega y no suma»— y la mezcla viaja en
+        # `projected_points_if_available`. La aritmética se exige IGUAL sobre
+        # ella: retener el número publicado no es excusa para dejar de
+        # comprobar que el número compone.
+        publicada = row["projected_points"]
+        if publicada is None:
+            assert row.get("unavailable"), (
+                f"{row['player_name']}: proyección retenida sin decir por qué"
+            )
+            retenidas += 1
+            publicada = row["projected_points_if_available"]
+        assert abs(publicada - esperado) < TOLERANCIA_REDONDEO, row["player_name"]
+    # El `conAjuste.length > 0` de siempre: sin una sola fila retenida, la rama
+    # de arriba se cumpliría en vacío y este test no probaría la mitad nueva.
+    assert retenidas > 0, (
+        "ninguna fila lleva la proyección retenida: o la capa de disponibilidad "
+        "no está llegando al payload, o este test ya no comprueba lo que dice"
+    )
 
 
 def test_el_registro_de_capacidades_viaja_al_payload(payload):

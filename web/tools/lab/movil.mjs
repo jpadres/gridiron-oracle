@@ -23,6 +23,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
+import { startServer } from "./server.mjs";
 
 import { USERNAME, crearLiga, crearMock, emitir, montar, slotOf } from "./sleeper-double.mjs";
 
@@ -45,13 +46,14 @@ if (!process.env.SKIP_BUILD) {
     b.on("exit", (c) => (c === 0 ? r() : j(new Error(`build ${c}`))));
   });
 }
-const server = spawn("npx", ["next", "start", "-p", String(PORT)], { cwd: WEB, stdio: "ignore", detached: true });
-const stop = () => { try { process.kill(-server.pid); } catch { /* ya no está */ } };
-process.on("exit", stop);
-for (let i = 0; i < 60; i += 1) {
-  try { if ((await fetch(BASE)).ok) break; } catch { /* aún no */ }
-  await new Promise((r) => setTimeout(r, 400));
-}
+/* EL ARRANQUE, COMPARTIDO. `startServer` se NIEGA a lanzar si el puerto ya
+   contesta: un `next start` huérfano de otra ejecución responde al primer
+   intento y este laboratorio mediría un BUILD QUE NO ES EL SUYO — y la lectura
+   equivocada culpa al producto, no al laboratorio. Se escribió el 13 de
+   septiembre de 2026 y llegó sólo a `apuestas` y `reloj`: el 7 de octubre esa
+   cobertura a medias produjo un rojo de `headshot-shots` que no existía. Dos
+   superficies del mismo arreglo con distinta cobertura, otra vez. */
+const { stop } = await startServer({ port: PORT, cwd: WEB });
 
 const browser = await launch();
 let fallos = 0;
@@ -214,7 +216,12 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
   await page.waitForSelector(".cc-panel", { timeout: 10000 });
 
   for (const url of ["/fantasy", "/fantasy/semanal", "/fantasy/resto", "/fantasy/analisis",
-                     "/fantasy/lineups", "/fantasy/draft", "/fantasy/leagues", "/betting"]) {
+                     "/fantasy/lineups", "/fantasy/draft", "/fantasy/leagues", "/betting",
+                     // `/salud` es una tabla de siete columnas con insignias y
+                     // metadatos por fila: exactamente la forma que ya se salió
+                     // de su caja en el board y en el Draft Room. Una pantalla
+                     // nueva con tabla densa entra aquí el mismo día.
+                     "/salud"]) {
     await page.goto(`${BASE}${url}`, { waitUntil: "domcontentloaded" });
     await page.waitForSelector("table, .room-row, .pick, .cc-panel, .lu-panel, .bk-plan-grid", { timeout: 10000 }).catch(() => {});
     await page.waitForFunction(() => !document.querySelector(".skeleton"), null, { timeout: 8000 }).catch(() => {});
@@ -232,6 +239,9 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
       // Con la cuenta enlazada tiene que haber un panel por liga y sus filas.
       "/fantasy/lineups": [".lu-panel", ".lu-rows > li"],
       "/fantasy": ["table"],
+      // La tabla de salud, con sus filas: una comprobación de geometría sobre
+      // el estado vacío de esta página saldría verde sin medir nada.
+      "/salud": [".rank-table tbody tr", ".bk-plan-nums .stat"],
     }[url] ?? [];
     for (const sel of EXIGIDO) {
       check(`${etiqueta}: ${url} — trae lo que se quiere medir (${sel})`,

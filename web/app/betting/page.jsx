@@ -26,6 +26,10 @@ export default function BettingPage() {
       // (build anterior a septiembre) la página sigue con las líneas de siempre.
       markets={model.markets ?? []}
       bets={model.bets ?? []}
+      // LOS MARCADORES FINALES de la temporada, para que el libro pueda
+      // liquidarse solo. Sin esta clave (build anterior) la liquidación
+      // sigue siendo a mano y la pantalla lo dice.
+      results={model.results ?? []}
       weekly={model.fantasy_weekly?.rankings ?? []}
       context={{
         season: model.week?.season ?? null,

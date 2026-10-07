@@ -25,6 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from oracle.config import paths as resolve_paths  # noqa: E402
 from oracle.fantasy import adp_fetch  # noqa: E402
+from oracle.ingest_guard import IngestFailed, require_rows  # noqa: E402
 
 
 def main() -> int:
@@ -43,6 +44,14 @@ def main() -> int:
         # NO se escribe nada. Un fichero vacío con la fecha de hoy es peor que
         # el de ayer: parece actual y no lo es.
         print(f"FALLO: {error}. No se toca el artefacto anterior.", file=sys.stderr)
+        return 1
+
+    # Una respuesta 200 con cero jugadores no es un ADP. `AdpUnavailable` cubre
+    # el fallo de red; esto cubre el otro, que es el que parece que funcionó.
+    try:
+        require_rows("ADP", snapshot.entries)
+    except IngestFailed as error:
+        print(f"FALLO: {error}", file=sys.stderr)
         return 1
 
     destino = Path(args.out) if args.out else (

@@ -26,6 +26,17 @@ on:
     - cron: "30 15 * * 0"
     - cron: "45 19 * * 0"
     - cron: "30 23 * * 0"
+    # CADA DOS HORAS DE JUEVES A DOMINGO. El parte se mueve de verdad en esa
+    # ventana: el jueves juega alguien, el viernes salen las designaciones
+    # finales y el domingo los inactivos. Fuera de ella, la pasada diaria basta.
+    - cron: "15 */2 * * 4,5,6,0"
+    # CADA HORA, el resto de la semana. Parece mucho y no lo es: `ingest.py` NO
+    # reescribe un fichero cuyo contenido no cambió —conserva su mtime a
+    # propósito, que es de donde sale la fecha del dato— así que una pasada sin
+    # novedades no produce commit. Cuesta una ejecución de Actions y cero peso
+    # en el historial, y es lo que cierra la ventana de ocho días con la que
+    # esto se descubrió.
+    - cron: "40 * * * 1,2,3"
   workflow_dispatch:
 
 concurrency:
@@ -77,6 +88,19 @@ jobs:
               raise SystemExit("el calendario no se pudo bajar: nada que refrescar")
           PY
 
+      - name: La jornada que dice Sleeper (segundo testigo)
+        # NO sustituye al calendario: lo CONTRASTA. La jornada del producto sale
+        # de `schedule.py::current_point` y ésa es la autoridad única desde que
+        # tres reglas contestaban la misma pregunta y una estaba mal. Este paso
+        # existe para cazar el caso que de verdad duele —el sitio publicando la
+        # jornada 4 mientras el mundo va por la 5— y `/salud` lo pinta.
+        #
+        # `--require-ok` porque AQUÍ sí hay salida general: si Sleeper no
+        # contesta desde CI, eso es una novedad y tiene que verse en rojo. Desde
+        # el contenedor de desarrollo da CONNECT 403 y el artefacto sale
+        # UNREACHABLE, que es correcto y NO se disfraza de acuerdo.
+        run: python scripts/sleeper_state.py --require-ok
+
       - name: Barrer la jornada y escribir el artefacto del día
         # El barrido se apoya en `data/processed/games.parquet`, que no está en
         # un clon limpio: se reconstruye sólo el calendario, que es rápido, en
@@ -91,7 +115,12 @@ jobs:
           juegos.to_parquet(paths.games, index=False)
           print(f"{len(juegos)} partidos de 2026 en el calendario procesado")
           PY
-          python scripts/weekly_research.py
+          # `--require-current` por lo mismo que `--require-key` en el
+          # barrido de prensa: aquí barrer es la ÚNICA tarea del job, así
+          # que publicar un artefacto con las secciones vacías —o colgando
+          # el ranking de la jornada pasada de la cabecera de la actual—
+          # saldría VERDE sin haber barrido.
+          python scripts/weekly_research.py --require-current
 
       - name: Resumen legible
         # OBSERVABLE SIN ABRIR EL LOG, como en el barrido de feeds: el estado del
@@ -144,18 +173,4 @@ jobs:
         # fallo dejó un barrido en verde sin publicar nada en su primera pasada
         # real.
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- research/weekly
-          if git diff --cached --quiet -- research/weekly; then
-            echo "Sin cambios en el artefacto de la jornada."
-            exit 0
-          fi
-          git commit -m "research: refresco diario de la jornada"
-          for intento in 1 2 3; do
-            git pull --rebase --autostash origin "$GITHUB_REF_NAME" && git push && exit 0
-            echo "push rechazado (intento $intento), reintentando..."
-            sleep $((intento * 5))
-          done
-          echo "no se pudo publicar tras tres intentos" >&2
-          exit 1
+          scripts/ci_publish.sh "research: refresco diario de la jornada" research/weekly research/sleeper_state.json

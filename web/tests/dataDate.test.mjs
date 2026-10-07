@@ -89,7 +89,13 @@ test("el pie promete que CADA sección fecha lo suyo, y las cuatro lo hacen", ()
   const consumidores = {
     markets: ["app/betting/page.jsx", "app/predicciones/page.jsx"],
     model: ["app/modelo/page.jsx"],
-    fantasy: ["app/fantasy/page.jsx", "app/fantasy/semanal/page.jsx"],
+    // `fantasy` es el BOARD DE DRAFT, que por la garantía walk-forward no lee
+    // la temporada que proyecta: su estadística es de agosto por diseño. El
+    // semanal tiene su propia clave porque se construye con la jornada pasada,
+    // y mientras compartieron una el semanal citaba la del board sobre sus
+    // proyecciones — 54 días de más.
+    fantasy: ["app/fantasy/page.jsx"],
+    fantasy_weekly: ["app/fantasy/semanal/page.jsx"],
     rosters: ["app/fantasy/page.jsx", "app/fantasy/semanal/page.jsx"],
     research: ["app/research/page.jsx"],
   };

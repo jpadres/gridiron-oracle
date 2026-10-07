@@ -263,6 +263,28 @@ export default function Research() {
             ventana que nadie llegó a mirar. */}
         <Stat label="Items" value={items.length}
               hint={research ? `${research.window_days}-day window` : "no item inside the window"} />
+        {/* LOS CLUBES QUE NOMBRA, que es la cobertura de verdad: la ingesta
+            cubría 32 de 32 y la sección publicada nombraba 23, y nada lo
+            decía. Los dos números cuando no coinciden, porque «23 de 32» es
+            información y un «23» a secas no se puede interpretar. Se LEEN de
+            la sección —quien hace el recorte es quien sabe lo que entró— y sin
+            ellos no se afirma ninguna cobertura. */}
+        {research?.teams_covered != null ? (
+          <Stat
+            label="Clubs named"
+            value={
+              research.teams_in_window != null
+                ? `${research.teams_covered} of ${research.teams_in_window}`
+                : research.teams_covered
+            }
+            hint={
+              research.teams_in_window != null
+              && research.teams_covered < research.teams_in_window
+                ? "some clubs in the window are not in the published list"
+                : "every club the window names"
+            }
+          />
+        ) : null}
         <Stat label="Move a lineup" value={today.length + destacadas.length}
               hint="Relevance 4 or 5" />
         <Stat label="Linked to a player" value={linked} hint="From the weekly rankings" />

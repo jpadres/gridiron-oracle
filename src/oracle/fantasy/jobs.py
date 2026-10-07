@@ -47,7 +47,22 @@ from ..data.ingest import normalize_team
 #: Las posiciones del depth chart que este módulo sabe leer, por su `pos_abb`.
 #: `PK` es el pateador ("Place kicker"). Se acota a propósito: una posición que
 #: no está aquí devuelve vacío en vez de una respuesta inventada.
-PUESTOS = {"PK": "KICKER"}
+PUESTOS = {
+    "PK": "KICKER",
+    # EL QB TAMBIÉN ES UN PUESTO, Y SE PREGUNTABA ADIVINANDO.
+    #
+    # `dst.projected_starting_qbs` cogía al quarterback con MÁS puntos
+    # proyectados de cada equipo, que contesta otra pregunta: el modelo de rol
+    # toma los dos primeros por volumen en la ventana, así que un titular que
+    # acaba de perder el puesto sigue arrastrando el volumen de las jornadas que
+    # sí jugó. Medido el 29 de septiembre de 2026 contra el depth chart de
+    # registro: cuatro de treinta y dos mal, y el 7 de octubre seguían
+    # publicándose Mayfield, Caleb Williams y Dart — Dart además **en reserva**.
+    #
+    # Es la MISMA pregunta que la del pateador, que ya se arregló por este lado:
+    # marcar «éste no está» no es saber quién SÍ está.
+    "QB": "QUARTERBACK",
+}
 
 
 class DepthChartUnavailable(RuntimeError):

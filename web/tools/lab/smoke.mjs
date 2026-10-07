@@ -18,6 +18,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
+import { startServer } from "./server.mjs";
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const PORT = Number(process.env.PORT ?? 4521);
@@ -29,6 +30,10 @@ const PAGINAS = [
   "/", "/modelo", "/predicciones", "/betting",
   "/fantasy", "/fantasy/draft", "/fantasy/leagues", "/fantasy/semanal", "/fantasy/lineups",
   "/fantasy/waivers", "/fantasy/resto", "/fantasy/analisis", "/survivor", "/research",
+  // `/salud` dice la edad y la jornada de cada fuente. Entra en el recorrido
+  // como una sección más: si la página que existe para auditar las demás no se
+  // puede abrir, nadie se enteraría.
+  "/salud",
 ];
 
 if (!process.env.SKIP_BUILD) {
@@ -37,13 +42,14 @@ if (!process.env.SKIP_BUILD) {
     b.on("exit", (c) => (c === 0 ? r() : j(new Error(`build ${c}`))));
   });
 }
-const server = spawn("npx", ["next", "start", "-p", String(PORT)], { cwd: WEB, stdio: "ignore", detached: true });
-const stop = () => { try { process.kill(-server.pid); } catch { /* ya no está */ } };
-process.on("exit", stop);
-for (let i = 0; i < 60; i += 1) {
-  try { if ((await fetch(BASE)).ok) break; } catch { /* aún no */ }
-  await new Promise((r) => setTimeout(r, 400));
-}
+/* EL ARRANQUE, COMPARTIDO. `startServer` se NIEGA a lanzar si el puerto ya
+   contesta: un `next start` huérfano de otra ejecución responde al primer
+   intento y este laboratorio mediría un BUILD QUE NO ES EL SUYO — y la lectura
+   equivocada culpa al producto, no al laboratorio. Se escribió el 13 de
+   septiembre de 2026 y llegó sólo a `apuestas` y `reloj`: el 7 de octubre esa
+   cobertura a medias produjo un rojo de `headshot-shots` que no existía. Dos
+   superficies del mismo arreglo con distinta cobertura, otra vez. */
+const { stop } = await startServer({ port: PORT, cwd: WEB });
 
 const browser = await launch();
 let fallos = 0;

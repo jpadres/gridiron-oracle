@@ -4,8 +4,8 @@
 > arquitectura descrita aquí, y **ya se ha ejecutado contra los datos reales de
 > nflverse**. El backtest reprodujo en su día el recuento de partidos y el MAE
 > del mercado del proyecto original (3.829 y 9.98); la muestra CRECE cada
-> jornada según se juega 2026, y hoy son **3.877** partidos con Brier **0.2129**
-> frente al 0.2121 del mercado y MAE **10.05** frente a **9.98**. Las diferencias en el tercer decimal son de
+> jornada según se juega 2026, y hoy son **3.893** partidos con Brier **0.2129**
+> frente al 0.2121 del mercado y MAE **10.03** frente a **9.97**. Las diferencias en el tercer decimal son de
 > implementación, no de método: dos implementaciones independientes sobre los
 > mismos datos aterrizan en el mismo sitio, que es la mejor señal de que ninguna
 > tiene una fuga. Las tablas de abajo publican ya las cifras MEDIDAS AQUÍ, con
@@ -26,15 +26,15 @@ gratuitos de GitHub y Vercel — coste total del proyecto: 0.
 
 ## Resultado honesto en una línea
 
-**El modelo iguala a la línea de cierre del mercado.** En 3.877 partidos fuera de
+**El modelo iguala a la línea de cierre del mercado.** En 3.893 partidos fuera de
 muestra obtiene un Brier de **0.2129** frente al **0.2121** de las
-casas de apuestas, y un MAE de margen de **10.05** frente a **9.98**.
+casas de apuestas, y un MAE de margen de **10.03** frente a **9.97**.
 
 Esas cifras son las que produce ESTE código y las que publica la web: salen de
 `validation.overall` del payload, no de una tabla escrita a mano. Las del
 proyecto original van al lado, etiquetadas, porque la diferencia cae del lado
 incómodo: **la distancia real al mercado es algo MAYOR que la que se venía
-publicando** —0,0008 de Brier en vez de 0,0005, y 0,065 de MAE en vez de 0,03—.
+publicando** —0,0008 de Brier en vez de 0,0005, y 0,066 de MAE en vez de 0,03—.
 La tesis no cambia por eso; se refuerza.
 
 Esto es exactamente lo que debe pasar y es la mejor noticia posible: la línea de
@@ -49,7 +49,7 @@ Lo que sí aporta este modelo:
 | Brier (prob. de victoria) | 0.2129 | 0.2121 | 0.2118 / 0.2113 |
 | Log-loss | 0.6139 | — | 0.6113 |
 | Error de calibración (ECE) | **0.0162** | — | 0.0172 |
-| MAE del margen | 10.05 | 9.98 | 10.00 / 9.98 |
+| MAE del margen | 10.03 | 9.97 | 10.00 / 9.98 |
 | MAE del total | *no hay modelo* | 10.52 | 10.53 / 10.51 |
 | Acierto directo (ganador) | **66.4%** | — | 66.5% |
 
@@ -61,7 +61,7 @@ a sí misma. Publicar un «10.53 del modelo» era anunciar una capacidad que ya 
 existe.
 
 Y sin usar la línea en absoluto (`pred_margin_free`, sólo señal deportiva):
-Brier **0.2187** frente a **0.2129**, MAE **10.29** frente a **10.05** — un
+Brier **0.2186** frente a **0.2129**, MAE **10.27** frente a **10.03** — un
 modelo autónomo a 0,31 puntos de la línea de Las Vegas con datos gratuitos.
 
 Desde el 5 de septiembre de 2026 **estas cifras están medidas en esta
@@ -440,7 +440,7 @@ llamativa sobre el jugador equivocado.
 
 La superficie de ataque de este proyecto es deliberadamente diminuta, y eso vale
 más que cualquier lista de mitigaciones: **0 endpoints de API, 0 subidas de
-archivos, 0 cookies, 0 sesiones, 0 base de datos.** El sitio son trece páginas
+archivos, 0 cookies, 0 sesiones, 0 base de datos.** El sitio son catorce páginas
 estáticas con los datos horneados en el build. No hay login que forzar, ni
 consultas que inyectar, ni registros ajenos que leer, porque no hay usuarios ni
 registros.

@@ -71,6 +71,22 @@ const nextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: SECURITY_HEADERS }];
   },
+  // LOS NOMBRES EN INGLÉS QUE NUNCA EXISTIERON.
+  //
+  // Las rutas son `/fantasy`, `/modelo` y `/predicciones`, y las etiquetas del
+  // menú que las nombran son «Board», «Model» y «Predictions». O sea que el
+  // sitio invita a escribir en la barra tres direcciones que dan 404 — y un 404
+  // no se lee como «esa ruta no es», se lee como «el sitio está roto».
+  //
+  // Permanentes (308) porque la ruta canónica no va a cambiar; el método se
+  // conserva, que es la diferencia con el 301.
+  async redirects() {
+    return [
+      { source: "/board", destination: "/fantasy", permanent: true },
+      { source: "/model", destination: "/modelo", permanent: true },
+      { source: "/predictions", destination: "/predicciones", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

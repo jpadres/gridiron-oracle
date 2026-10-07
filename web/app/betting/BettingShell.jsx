@@ -34,6 +34,7 @@ import {
   settleBet, summary, updateBet,
 } from "./bankroll.js";
 import { gameLeans, propLean, rankedLeans } from "./leans.js";
+import { GRADE, UNDECIDED_REASON, gradeBet, resultsIndex } from "./grade.js";
 import { noBetReason } from "./noBet.js";
 import {
   DEFAULT_WEEK_PCT, bankPath, betProfit, careerSummary, weekLedger, weekPlan,
@@ -78,7 +79,7 @@ function fairAmerican(p) {
 }
 const pctOf = (p) => `${num(p * 100, 1)}%`;
 
-export default function BettingShell({ predictions, weekly, context, markets = [], bets = [] }) {
+export default function BettingShell({ predictions, weekly, context, markets = [], bets = [], results = [] }) {
   const [months, setMonths] = useState(null);
   const [active, setActive] = useState(null);
   const [record, setRecord] = useState(null);
@@ -153,6 +154,24 @@ export default function BettingShell({ predictions, weekly, context, markets = [
   const s = record ? summary(record) : null;
   const slip = record ? record.bets.filter((b) => b.status === BET_STATUS.CONSIDERING) : [];
   const open = record ? record.bets.filter((b) => b.status === BET_STATUS.PLACED) : [];
+  /* EL MARCADOR LIQUIDA, Y SE DICE QUIÉN LO DIJO.
+     `grade.js` aplica la regla sobre la línea que TÚ apuntaste; aquí sólo se
+     empareja. No se escribe en el libro por su cuenta: una apuesta liquidada
+     es un hecho del dueño y sobrescribirla desde un marcador le quitaría el
+     último voto sobre su propio dinero (una cancelación, una línea distinta a
+     la que le dieron, un VOID de la casa). Se PROPONE, con un botón, y el que
+     no se puede decidir dice por qué en vez de quedarse callado. */
+  const resultados = useMemo(() => resultsIndex(results), [results]);
+  const veredictos = useMemo(
+    () => new Map(open.map((bet) => [bet.id, gradeBet(bet, resultados)])),
+    // `open` se re-deriva en cada render; la clave estable es el libro.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [record, resultados],
+  );
+  const liquidables = open.filter(
+    (bet) => veredictos.get(bet.id)?.grade
+      && veredictos.get(bet.id).grade !== GRADE.UNDECIDED,
+  );
   const settled = record
     ? record.bets.filter((b) => ![BET_STATUS.CONSIDERING, BET_STATUS.PLACED].includes(b.status))
     : [];
@@ -1048,12 +1067,50 @@ export default function BettingShell({ predictions, weekly, context, markets = [
       {open.length > 0 ? (
         <section aria-label="Open bets">
           <h2 className="bk-h">Open bets <small>{money(s.openExposure)} exposed</small></h2>
+          {liquidables.length > 0 ? (
+            <div className="bk-slip-foot">
+              <span>
+                <b>{liquidables.length}</b> of these {liquidables.length === 1 ? "has" : "have"}
+                {" "}a final score. Settling writes the result the score implies.
+              </span>
+              <button type="button" className="bk-primary"
+                      onClick={() => persist(liquidables.reduce(
+                        (libro, bet) => settleBet(libro, bet.id, BET_STATUS[veredictos.get(bet.id).grade]),
+                        record,
+                      ))}>
+                Settle {liquidables.length} from the score
+              </button>
+            </div>
+          ) : null}
           <ul className="bk-open">
-            {open.map((bet) => (
+            {open.map((bet) => {
+              const veredicto = veredictos.get(bet.id);
+              const decidida = veredicto && veredicto.grade !== GRADE.UNDECIDED;
+              return (
               <li key={bet.id}>
                 <span className="bk-slip-what">
                   <b>{bet.label}</b>
                   <small>{money(bet.stake)} at {bet.odds} · model {num(bet.snapshot?.model, 1)} vs {num(bet.snapshot?.market, 1)}</small>
+                  {/* El veredicto del marcador, con el marcador DELANTE: un
+                      «lost» sin el resultado al lado no se puede discutir. Y
+                      lo que no se puede decidir dice el motivo — un prop no se
+                      liquida con el marcador y callarlo lo haría parecer una
+                      apuesta olvidada. */}
+                  {decidida ? (
+                    <small className="bk-graded">
+                      Score says <b>{veredicto.grade.toLowerCase()}</b> · {veredicto.basis}
+                    </small>
+                  ) : veredicto?.reason === UNDECIDED_REASON.NOT_FINAL
+                    || veredicto?.reason === UNDECIDED_REASON.NO_RESULT ? null : (
+                    <small className="bk-graded">
+                      Not settled from the score:{" "}
+                      {veredicto?.reason === UNDECIDED_REASON.NO_SETTLEMENT_SOURCE
+                        ? "a final score does not contain a player stat"
+                        : veredicto?.reason === UNDECIDED_REASON.NO_LINE
+                          ? "this bet has no line recorded"
+                          : "the side recorded does not match either team"}
+                    </small>
+                  )}
                 </span>
                 <span className="bk-settle" role="group" aria-label={`Settle ${bet.label}`}>
                   {["WON", "LOST", "PUSH", "VOID"].map((result) => (
@@ -1064,7 +1121,8 @@ export default function BettingShell({ predictions, weekly, context, markets = [
                   ))}
                 </span>
               </li>
-            ))}
+              );
+            })}
           </ul>
           {grouped ? (
             <p className="caption bk-exposure">

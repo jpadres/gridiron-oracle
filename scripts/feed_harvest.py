@@ -36,6 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from oracle.config import paths as resolve_paths  # noqa: E402
+from oracle.ingest_guard import IngestFailed, require_rows
 from oracle.narrative import feed_fetch, sources  # noqa: E402
 from oracle.narrative.feeds import Feed  # noqa: E402
 
@@ -152,6 +153,15 @@ def main() -> int:
     print(f"Equipos con alguna entrada: {len(resumen['teams_covered'])}")
 
     destino = Path(args.out) if args.out else destino_por_defecto
+    # El mismo control que las demás ingestas, por el mismo sitio: `publishable`
+    # ya decidía bien, y pasar por `require_rows` es lo que hace que el control
+    # sea COMPROBABLE desde fuera — un test puede exigir que toda ingesta lo
+    # llame, y no puede exigir que cada una se defienda a su manera.
+    try:
+        require_rows("feeds", recogido.entries)
+    except IngestFailed as error:
+        print(f"FALLO: {error}", file=sys.stderr)
+        return 1
     if not feed_fetch.publishable(recogido):
         # NO se pisa lo anterior. Un artefacto vacío con fecha de hoy es peor
         # que uno viejo: parece actual y no lo es.

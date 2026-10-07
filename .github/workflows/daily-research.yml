@@ -88,25 +88,21 @@ jobs:
           npm run build
 
       - name: Publicar
+        # El MENSAJE se queda aquí porque describe lo que PASÓ, no lo que se
+        # pretendía: si el barrido no dejó fichero del día, esto no fue un
+        # barrido sino una reconsolidación del archivo, y decir otra cosa
+        # convierte el historial de git en un registro falso de actividad
+        # diaria. El rebase y el reintento los pone `ci_publish.sh`, que es la
+        # única definición de «publicar» de los cinco workflows de esta rama.
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research web/data/model.b64.js
-          if git diff --cached --quiet; then
-            echo "Sin novedades hoy; no hay nada que publicar."
-            exit 0
-          fi
-          # El mensaje describe lo que PASÓ, no lo que se pretendía. Si el
-          # barrido no dejó fichero del día, esto no fue un barrido: fue una
-          # reconsolidación del archivo, y decir otra cosa convierte el
-          # historial de git en un registro falso de actividad diaria.
+          git add -- research web/data/model.b64.js
           hoy="$(date -u +%Y-%m-%d)"
           if git diff --cached --name-only | grep -q "^research/$hoy.json"; then
-            git commit -m "research: barrido del $hoy"
+            msg="research: barrido del $hoy"
           else
-            git commit -m "research: reconsolidar el archivo ($hoy, sin fichas nuevas)"
+            msg="research: reconsolidar el archivo ($hoy, sin fichas nuevas)"
           fi
-          git push
+          scripts/ci_publish.sh "$msg" research web/data/model.b64.js
 
       # EL ROJO VA AQUÍ, DESPUÉS DE PUBLICAR.
       #

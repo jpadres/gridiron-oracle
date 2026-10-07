@@ -121,16 +121,30 @@ export default function Semanal() {
       <h1>
         Weekly Rankings — {weekly.season}, week {weekly.week}
       </h1>
-      {/* LA FECHA DE ESTA SECCIÓN. El pie promete que cada una fecha lo suyo y
-          ésta no fechaba nada: 256 filas de alineación construidas con la
-          estadística por jugador de una fecha que la pantalla no decía. Las dos
-          por separado, porque no son la misma cosa — los números salen de la
-          estadística y las marcas de plantilla del registro. */}
+      {/* LA FECHA DE ESTA SECCIÓN, y la JORNADA hasta la que llega. Son dos
+          hechos distintos y hacen falta los dos: una fecha no dice qué jornada
+          entró, y un número de jornada no se puede comprobar sin su fecha.
+          Antes esto citaba `data_dates.fantasy`, que fecha el BOARD DE DRAFT
+          —que por diseño no lee la temporada en curso— sobre proyecciones
+          construidas con la jornada pasada: 54 días de más, en la dirección
+          que hace parecer el dato más viejo de lo que es. Las de plantilla van
+          por separado porque no son la misma cosa. */}
       <p className="caption">
         Projections come from player stats retrieved{" "}
-        <strong>{dataDate("fantasy") ?? "on an unknown date"}</strong>; roster facts beside
-        them — who was cut, who is on a reserve list, who changed team — come from rosters
-        retrieved <strong>{dataDate("rosters") ?? "on an unknown date"}</strong>.
+        <strong>{dataDate("fantasy_weekly") ?? "on an unknown date"}</strong>
+        {weekly.stats_through?.week != null ? (
+          <>
+            , covering play through{" "}
+            <strong>
+              week {weekly.stats_through.week} of {weekly.stats_through.season}
+            </strong>
+          </>
+        ) : (
+          <> (the week they cover is UNKNOWN)</>
+        )}
+        ; roster facts beside them — who was cut, who is on a reserve list, who changed team
+        — come from rosters retrieved{" "}
+        <strong>{dataDate("rosters") ?? "on an unknown date"}</strong>.
       </p>
       <p className="lede">
         The bridge to the game model is game script: projected margin and total decide how

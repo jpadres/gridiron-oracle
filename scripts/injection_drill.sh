@@ -1,5 +1,5 @@
 #!/bin/bash
-# SIMULACRO DE INYECCIÓN: 112 fallos conocidos, 112 guardianes que TIENEN
+# SIMULACRO DE INYECCIÓN: 143 fallos conocidos, 143 guardianes que TIENEN
 # que ponerse rojos. Se corre en local con el árbol limpio —modifica ficheros y
 # los restaura—, y cada línea dice dos cosas: si el guardián se puso ROJO con
 # el fallo puesto, y si volvió a VERDE al quitarlo. «VERDE (NO ES GUARDIÁN)»
@@ -430,3 +430,96 @@ run "111 el cupo por posición cayendo a cero" web/app/fantasy/waivers.js \
 run "112 la cabecera de waivers prometiendo huecos que su pool no sirve" web/app/fantasy/waivers/WaiversShell.jsx \
   '              {fueraDelPool.length|||              {false && fueraDelPool.length' \
   "cd web && node --test tests/waiverWindow.test.mjs"
+run "113 la jornada vieja presentada como la de hoy" src/oracle/health.py \
+  "    if cobertura == BEHIND:|||    if False:" \
+  "python -m pytest -q tests/test_week_coverage.py"
+run "114 la ventana de estadística derivada de una RESTA" src/oracle/fantasy/weekly.py \
+  "    ultima = history[[\"season\", \"week\"]].astype(int)|||    return {\"season\": int(season), \"week\": int(week) - 1, \"basis\": \"PLAYER_WEEKS_ROWS\"}\n    ultima = history[[\"season\", \"week\"]].astype(int)" \
+  "python -m pytest -q tests/test_week_coverage.py"
+run "115 el ranking recortando el historial por su cuenta" src/oracle/fantasy/weekly.py \
+  "    history = history_before(player_weeks, season, week)|||    player_weeks = regular_season(player_weeks)\n    history = player_weeks[\n        (player_weeks[\"season\"] < season)\n        | ((player_weeks[\"season\"] == season) & (player_weeks[\"week\"] < week))\n    ].copy()" \
+  "python -m pytest -q tests/test_week_coverage.py"
+run "116 el semanal citando la fecha del BOARD sobre sus proyecciones" scripts/export_web_data.py \
+  "        \"fantasy_weekly\": _mas_vieja(|||        \"fantasy\": _mas_vieja(stats, stats),\n        \"fantasy_weekly\": _mas_vieja(" \
+  "python -m pytest -q tests/test_data_dates.py"
+run "117 el handicap EXACTO cobrando como victoria" web/app/betting/grade.js \
+  "    if (ajustado === 0) return decided(GRADE.PUSH, \`\${marcador} · margin \${margen}\`);|||    if (false) return decided(GRADE.PUSH, \`\${marcador} · margin \${margen}\`);" \
+  "cd web && node --test tests/grade.test.mjs"
+run "118 el handicap RESTADO al margen en vez de sumado" web/app/betting/grade.js \
+  "    const ajustado = margen + linea;|||    const ajustado = margen - linea;" \
+  "cd web && node --test tests/grade.test.mjs"
+run "119 un partido sin marcador liquidado como 0-0" web/app/betting/grade.js \
+  "  if (casa === null || fuera === null) return undecided(UNDECIDED_REASON.NOT_FINAL);|||  if (false) return undecided(UNDECIDED_REASON.NOT_FINAL);" \
+  "cd web && node --test tests/grade.test.mjs"
+run "120 un prop liquidado con el MARCADOR del partido" web/app/betting/grade.js \
+  "    return undecided(UNDECIDED_REASON.NO_SETTLEMENT_SOURCE);|||    return decided(GRADE.LOST, \"prop\");" \
+  "cd web && node --test tests/grade.test.mjs"
+run "121 la pantalla de apuestas sin liquidar desde el marcador" web/app/betting/BettingShell.jsx \
+  "Settle {liquidables.length} from the score|||Settle these" \
+  "cd web && node --test tests/grade.test.mjs"
+run "122 la prensa publicada dejándose nueve clubes fuera" src/oracle/narrative/archive.py \
+  "    publicados, cobertura = _con_cobertura_por_equipo(items, limit)|||    publicados, cobertura = (items[:limit], {\"publicados\": set(), \"ventana\": set()})" \
+  "python -m pytest -q tests/test_research_coverage.py"
+run "123 LA y LAR contados como dos clubes distintos" src/oracle/narrative/archive.py \
+  "        normalize_team(x) for x in crudos|||        x for x in crudos" \
+  "python -m pytest -q tests/test_research_coverage.py"
+run "124 del club que falta se publica la ficha VIEJA" src/oracle/narrative/archive.py \
+  "    for item in items[limit:]:|||    for item in reversed(items[limit:]):" \
+  "python -m pytest -q tests/test_research_coverage.py"
+run "125 una ingesta vacía dada por buena" src/oracle/ingest_guard.py \
+  "    if cuantas < minimum:|||    if False:" \
+  "python -m pytest -q tests/test_ingest_guards.py"
+run "126 una fuente VIEJA dada por actual" src/oracle/ingest_guard.py \
+  "    if estado not in aceptable:|||    if False:" \
+  "python -m pytest -q tests/test_ingest_guards.py"
+run "127 una fuente SIN fecha dada por actual" src/oracle/ingest_guard.py \
+  "    if published_at is None:|||    if False and published_at is None:" \
+  "python -m pytest -q tests/test_ingest_guards.py"
+run "128 refresh escribiendo un player_weeks VACÍO" src/oracle/data/ingest.py \
+  "    require_rows(\"player_weeks\", player_weeks)|||    pass" \
+  "python -m pytest -q tests/test_ingest_guards.py"
+run "129 el barrido de la jornada sin poder exigirla" scripts/weekly_research.py \
+  "        if args.require_current:|||        if False:" \
+  "python -m pytest -q tests/test_ingest_guards.py"
+run "130 un EV de combinada publicado sin medir" web/app/betting/grade.js \
+  "export const GRADE = {|||export const PARLAY_NOTE = \"multi-leg EV\";\nexport const GRADE = {" \
+  "cd web && node --test tests/grade.test.mjs"
+run "131 la disputa del QB resuelta en silencio" src/oracle/fantasy/dst.py \
+  "    if nombre_d and nombre_j and _apellido(nombre_d) != _apellido(nombre_j):|||    if False:" \
+  "python -m pytest -q tests/test_withhold_and_qb.py"
+run "132 un sufijo tratado como apellido distinto" src/oracle/fantasy/dst.py \
+  "        partes = [x for x in partes if x.lower().strip(\".\") not in {s.strip(\".\") for s in SUFIJOS}]|||        pass" \
+  "python -m pytest -q tests/test_withhold_and_qb.py"
+run "133 el barrido construyendo los testigos del QB por su cuenta" scripts/weekly_research.py \
+  "    qb_declarado, qb_jugaron = dst.witnesses(dc, snaps)|||    qb_declarado, qb_jugaron = {}, {}" \
+  "python -m pytest -q tests/test_withhold_and_qb.py"
+run "134 un jugador en reserva con proyección completa" scripts/export_web_data.py \
+  "        row[\"projected_points\"] = None|||        row[\"projected_points\"] = proy" \
+  "python -m pytest -q tests/test_withhold_and_qb.py"
+run "135 la proyección retenida puesta a CERO" scripts/export_web_data.py \
+  "        row[\"projected_points\"] = None|||        row[\"projected_points\"] = 0.0" \
+  "python -m pytest -q tests/test_withhold_and_qb.py"
+run "136 el retenido ocupando un puesto entre los alineables" scripts/export_web_data.py \
+  "        row[\"position_rank\"] = por_pos[pos]|||        pass" \
+  "python -m pytest -q tests/test_withhold_and_qb.py"
+run "137 la retención leyendo una clave de lesión que nadie escribe" scripts/export_web_data.py \
+  "row.get(\"injury_source_as_of\")|||row.get(\"injury_report_as_of\")" \
+  "python -m pytest -q tests/test_withhold_and_qb.py"
+run "138 la prensa decidiendo quién recibe proyección" scripts/export_web_data.py \
+  "        motivos = []|||        motivos = [] if not row.get(\"status_severity\") else []" \
+  "python -m pytest -q tests/test_withhold_and_qb.py"
+run "139 la salud calculando su etiqueta en el navegador" web/app/salud/HealthTable.jsx \
+  "{s.window_hours != null ? \`\${s.window_hours} h\` : \"—\"}|||{s.as_of ? \`\${(Date.now() - Date.parse(s.as_of)) / 3600} h\` : \"—\"}" \
+  "cd web && node --test tests/health.test.mjs"
+run "140 la columna de cobertura sin marcar un BEHIND" web/app/salud/HealthTable.jsx \
+  "{s.coverage === \"BEHIND\" ? (|||{false ? (" \
+  "cd web && node --test tests/health.test.mjs"
+run "141 un laboratorio midiendo el build de otro servidor" web/tools/lab/server.mjs \
+  "  if (await ocupado(base)) {|||  if (false) {" \
+  "cd web && node --test tests/labServer.test.mjs"
+run "142 un laboratorio arrancando su propio next start" web/tools/lab/smoke.mjs \
+  "await startServer({ port: PORT, cwd: WEB });|||const _s = spawn(\"npx\", [\"next\", \"start\", \"-p\", String(PORT)], { cwd: WEB, stdio: \"ignore\" });" \
+  "cd web && node --test tests/labServer.test.mjs"
+run "143 el contrato de esquema leyendo el payload que .gitignore borra" tests/test_schema_contract.py \
+  "    datos = payload_source.load()|||    _r = Path(__file__).resolve().parents[1] / \"web\" / \"data\" / \"model.json\"\n    datos = json.loads(_r.read_text()) if _r.exists() else None" \
+  "python -m pytest -q tests/test_ci_artifacts.py"

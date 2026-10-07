@@ -8,6 +8,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
+import { startServer } from "./server.mjs";
 
 import { USERNAME, crearLiga, emitir as emitirPick, libres as libresDe, montar }
   from "./sleeper-double.mjs";
@@ -23,9 +24,10 @@ const SLEEPER_OF = Object.fromEntries(
 if(!process.env.SKIP_BUILD){
   await new Promise((r,j)=>{const b=spawn("npx",["next","build"],{cwd:WEB,stdio:"ignore"});b.on("exit",c=>c===0?r():j(new Error(`build ${c}`)));});
 }
-const server=spawn("npx",["next","start","-p",String(PORT)],{cwd:WEB,stdio:"ignore",detached:true});
-const stop=()=>{try{process.kill(-server.pid);}catch{/* ya no está */}};process.on("exit",stop);
-for(let i=0;i<60;i+=1){try{if((await fetch(BASE)).ok)break;}catch{/* aún no */}await new Promise(r=>setTimeout(r,400));}
+/* EL ARRANQUE, COMPARTIDO (`server.mjs`): se niega a lanzar si el puerto ya
+   contesta, porque un `next start` huérfano de otra ejecución responde al
+   primer intento y este laboratorio mediría un build que no es el suyo. */
+const { stop } = await startServer({ port: PORT, cwd: WEB });
 const browser=await launch();
 
 const TEAMS=12, ROUNDS=15;

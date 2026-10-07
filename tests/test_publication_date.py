@@ -135,9 +135,22 @@ def test_el_workflow_de_feeds_no_pregunta_por_un_fichero_QUE_NO_RASTREA():
     """
     from pathlib import Path
 
+    # La publicación se compartió en `scripts/ci_publish.sh` —el patrón estaba
+    # copiado en tres workflows y FALTABA en los dos que fallaron sus cuatro
+    # ejecuciones programadas—, así que el `git add` ya no vive en el workflow.
+    # La propiedad no cambia y se comprueba en los dos sitios: que el workflow
+    # delegue en el publicador compartido, y que el publicador añada ANTES de
+    # comparar. Lo segundo lo exige `tests/test_ci_publish.py`.
     texto = Path(".github/workflows/research-feeds.yml").read_text(encoding="utf-8")
-    add = texto.find("git add -- research/feeds_latest.json")
-    diff = texto.find("git diff --cached --quiet -- research/feeds_latest.json")
+    assert "scripts/ci_publish.sh" in texto, (
+        "el barrido de feeds no delega en el publicador compartido"
+    )
+    assert "research/feeds_latest.json" in texto, (
+        "el barrido no le dice al publicador qué artefacto publicar"
+    )
+    publicador = Path("scripts/ci_publish.sh").read_text(encoding="utf-8")
+    add = publicador.find("git add")
+    diff = publicador.find("git diff --cached")
     assert add != -1, "el artefacto tiene que añadirse al índice"
     assert diff != -1, "y compararse contra el ÍNDICE, que sí ve lo nuevo"
     assert add < diff, "añadir va ANTES de comparar, o la primera publicación no ocurre"

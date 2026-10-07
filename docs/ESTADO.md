@@ -26,7 +26,7 @@ Dos implementaciones independientes sobre los mismos datos aterrizan en el mismo
 sitio, que es la mejor señal de que ninguna tiene una fuga. Pero la diferencia
 del tercer decimal **no es cosmética y va en la dirección incómoda**: la
 distancia real al mercado es mayor que la que se venía publicando —0,0008 de
-Brier en vez de 0,0005; 0,065 de MAE en vez de 0,03—. La tesis del proyecto no
+Brier en vez de 0,0005; 0,066 de MAE en vez de 0,03—. La tesis del proyecto no
 cambia; se refuerza.
 
 Durante meses el `README.md` y el `CLAUDE.md` siguieron publicando las cifras
@@ -41,7 +41,7 @@ Corregido, y con guardián: `scripts/check_headline_metrics.py`, en CI.
 | Anti-fuga temporal (pasada cronológica única) | **Verificada** (`test_features_have_no_future_information`) |
 | Walk-forward sin validación cruzada aleatoria | **Verificado** (`test_walk_forward_never_trains_on_the_future`) |
 | Brier / MAE del modelo de partidos | **Medido** sobre datos reales (arriba) |
-| `pred_margin_free` (MAE 10.29, Brier 0.2187) | **Medido** desde 2026-09-05: el backtest lo saca al payload (`validation.overall.free_brier`) y la página de survivor lo lee de ahí. Las del proyecto original eran 10.24 / 0.2187 |
+| `pred_margin_free` (MAE 10.27, Brier 0.2186) | **Medido** desde 2026-09-05: el backtest lo saca al payload (`validation.overall.free_brier`) y la página de survivor lo lee de ahí. Las del proyecto original eran 10.24 / 0.2187 |
 | Capacidades de fantasy, una por una | Ver `src/oracle/capabilities.py`: cada una lleva su experimento, su métrica y su muestra, y el test del registro no deja subir de BLOCKED sin ellos |
 | Calibración del QB = 0.812 y demás constantes | **Heredadas del documento**, no reajustadas aquí |
 

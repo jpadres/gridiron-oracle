@@ -16,10 +16,10 @@
  * de hoy no tiene esa pareja, el laboratorio lo DICE y sale en rojo en vez de
  * inventarse un fixture — un doble que no se parece al dominio prueba otra cosa.
  */
-import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
+import { startServer } from "./server.mjs";
 import { kickoffMs } from "../../app/gameClock.js";
 import { crearLiga, montar, USERNAME } from "./sleeper-double.mjs";
 
@@ -99,12 +99,14 @@ const mio = liga.rosters[2];
 mio.players = [idDe(tarde), idDe(otro ?? cover), idDe(cover)];
 mio.starters = [idDe(tarde), idDe(otro ?? cover)];
 
-const server = spawn("npx", ["next", "start", "-p", "4539"], { cwd: WEB, stdio: "ignore" });
+/* EL ARRANQUE, COMPARTIDO (`server.mjs`): se niega a lanzar si el puerto ya
+   contesta. Este laboratorio además lo hacía SIN `detached`, así que su
+   `next start` sobrevivía al proceso y era precisamente el huérfano que
+   después confundía a otro — el servidor viejo que se mide creyendo que es el
+   propio. */
+await startServer({ port: 4539, cwd: WEB });
 const browser = await launch();
 try {
-  for (let i = 0; i < 60; i += 1) {
-    try { await fetch(BASE); break; } catch { await new Promise((r) => setTimeout(r, 500)); }
-  }
   // ANTES del saque del recambio, y DESPUÉS: las dos respuestas tienen que
   // ser distintas o el panel no está mirando el reloj.
   const MOMENTOS = [

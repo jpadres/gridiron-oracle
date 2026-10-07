@@ -34,6 +34,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
+import { startServer } from "./server.mjs";
 
 import { USERNAME, crearLiga, crearMock, emitir, slotOf, montar } from "./sleeper-double.mjs";
 
@@ -44,7 +45,7 @@ const BASE = `http://127.0.0.1:${PORT}`;
 const TODAS = [
   "/", "/modelo", "/predicciones", "/betting",
   "/fantasy", "/fantasy/draft", "/fantasy/leagues", "/fantasy/semanal", "/fantasy/lineups",
-  "/fantasy/resto", "/fantasy/analisis", "/survivor", "/research",
+  "/fantasy/resto", "/fantasy/analisis", "/survivor", "/research", "/salud",
 ];
 /* `SOLO=/ruta,/otra` acota el recorrido. Existe para poder PROBAR LOS
    GUARDIANES inyectando su fallo sin esperar el pase entero: un guardián que no
@@ -79,15 +80,14 @@ if (!process.env.SKIP_BUILD) {
     b.on("exit", (c) => (c === 0 ? r() : j(new Error(`build ${c}`))));
   });
 }
-const server = spawn("npx", ["next", "start", "-p", String(PORT)], {
-  cwd: WEB, stdio: "ignore", detached: true,
-});
-const stop = () => { try { process.kill(-server.pid); } catch { /* ya no está */ } };
-process.on("exit", stop);
-for (let i = 0; i < 60; i += 1) {
-  try { if ((await fetch(BASE)).ok) break; } catch { /* aún no */ }
-  await new Promise((r) => setTimeout(r, 400));
-}
+/* EL ARRANQUE, COMPARTIDO. `startServer` se NIEGA a lanzar si el puerto ya
+   contesta: un `next start` huérfano de otra ejecución responde al primer
+   intento y este laboratorio mediría un BUILD QUE NO ES EL SUYO — y la lectura
+   equivocada culpa al producto, no al laboratorio. Se escribió el 13 de
+   septiembre de 2026 y llegó sólo a `apuestas` y `reloj`: el 7 de octubre esa
+   cobertura a medias produjo un rojo de `headshot-shots` que no existía. Dos
+   superficies del mismo arreglo con distinta cobertura, otra vez. */
+await startServer({ port: PORT, cwd: WEB });
 
 const { model } = await import(path.join(WEB, "data/model.js"));
 const BOARD = model.fantasy.board;
@@ -297,8 +297,21 @@ check(mudos.length === 0, `lo deshabilitado se ve deshabilitado — ${mudos.leng
 for (const s of mudos.slice(0, 12)) console.log(`        · ${s}`);
 check(sinEstilo.length === 0, `ningún primario sale con el botón del sistema — ${sinEstilo.length}`);
 for (const s of sinEstilo.slice(0, 12)) console.log(`        · ${s}`);
-check(coloresPrimarios.size === 1,
-  `la acción principal tiene UN color en todo el producto — ${coloresPrimarios.size}`);
+/* CERO PRIMARIOS NO SIGNIFICA LO MISMO EN LOS DOS MODOS.
+   En el recorrido COMPLETO, cero primarios es un fallo: el producto se ha
+   quedado sin acción principal en ninguna parte. Acotado con `SOLO=`, puede ser
+   simplemente que esas rutas sean de sólo lectura —`/salud` es una tabla sin
+   una sola acción— y entonces no hay nada que comparar. Decirlo no es relajar
+   la comprobación: lo que la relajaría es dejar pasar el cero en el recorrido
+   completo, y ahí sigue siendo rojo. Y al revés: un cero reportado como rojo
+   donde no hay nada que mirar es un falso positivo, y un guardián con falsos
+   positivos acaba desactivado. */
+if (process.env.SOLO && coloresPrimarios.size === 0) {
+  console.log("  --    la acción principal: ninguna en este subconjunto (SOLO=), nada que comparar");
+} else {
+  check(coloresPrimarios.size === 1,
+    `la acción principal tiene UN color en todo el producto — ${coloresPrimarios.size}`);
+}
 for (const [color, donde] of coloresPrimarios) {
   console.log(`        · ${color}: ${donde.slice(0, 4).join(", ")}`);
 }

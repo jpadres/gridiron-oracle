@@ -1,0 +1,6 @@
+{
+ "status": "UNREACHABLE",
+ "retrieved_at": "2026-10-07T06:02:35+00:00",
+ "url": "https://api.sleeper.app/v1/state/nfl",
+ "note": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>"
+}

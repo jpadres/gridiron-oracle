@@ -86,6 +86,7 @@ class Domain(str, Enum):
     NEWS = "NEWS"
     ADP = "ADP"
     LEAGUE_STATE = "LEAGUE_STATE"
+    SCHEDULE = "SCHEDULE"
     SEASON_STATS = "SEASON_STATS"
     CAREER_STATS = "CAREER_STATS"
 
@@ -114,6 +115,12 @@ WINDOWS: dict[Domain, tuple[timedelta, timedelta, timedelta]] = {
     Domain.ADP: (timedelta(0), timedelta(days=2), timedelta(days=14)),
     Domain.LEAGUE_STATE: (timedelta(minutes=5), timedelta(hours=6), timedelta(days=2)),
     # Las estadísticas de la temporada en curso se cierran cada semana.
+    # El CALENDARIO no caduca por las fechas —están puestas meses antes— sino
+    # por los MARCADORES: un `games.csv` de hace una semana sigue diciendo
+    # cuándo se juega y ya no sabe quién ganó la jornada pasada, que es
+    # justamente de lo que vive el modelo. De ahí la misma forma que la
+    # plantilla: un día para afirmarlo sin nota, una semana para usarlo.
+    Domain.SCHEDULE: (timedelta(0), timedelta(hours=24), timedelta(days=7)),
     Domain.SEASON_STATS: (timedelta(0), timedelta(days=2), timedelta(days=9)),
 }
 

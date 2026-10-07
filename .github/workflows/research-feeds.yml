@@ -66,24 +66,4 @@ jobs:
         #
         # Se añade PRIMERO y se compara contra el índice, que sí ve lo nuevo.
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- research/feeds_latest.json
-          if git diff --cached --quiet -- research/feeds_latest.json; then
-            echo "Sin cambios en el artefacto de feeds."
-            exit 0
-          fi
-          git commit -m "research: barrido determinista de feeds"
-          # DOS WORKFLOWS QUE PUBLICAN EN LA MISMA RAMA SE PISAN. Pasó a los
-          # cuarenta segundos de existir el segundo: el barrido de feeds
-          # commiteó sus 292 entradas y el push salió rechazado porque el de
-          # ADP había empujado primero. El trabajo estaba HECHO y se perdió.
-          # Se reintenta sobre lo que haya llegado; el rebase es trivial porque
-          # cada uno toca sólo su propio artefacto.
-          for intento in 1 2 3; do
-            git pull --rebase --autostash origin "$GITHUB_REF_NAME" && git push && exit 0
-            echo "push rechazado (intento $intento), reintentando..."
-            sleep $((intento * 5))
-          done
-          echo "no se pudo publicar tras tres intentos" >&2
-          exit 1
+          scripts/ci_publish.sh "research: barrido determinista de feeds" research/feeds_latest.json

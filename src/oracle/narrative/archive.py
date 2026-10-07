@@ -111,4 +111,71 @@ def consolidate(
     items.sort(
         key=lambda item: (item.get("date", ""), item.get("fantasy_relevance", 1)), reverse=True
     )
-    return {"window_days": days, "total": len(items), "items": items[:limit]}
+    publicados, cobertura = _con_cobertura_por_equipo(items, limit)
+    return {
+        "window_days": days,
+        "total": len(items),
+        "items": publicados,
+        # Los DOS números, porque no son el mismo: cuántos clubes nombra lo que
+        # se publica y cuántos nombra la ventana entera. Si no coinciden, la
+        # pantalla puede decirlo en vez de dejar creer que son los 32.
+        "teams_covered": len(cobertura["publicados"]),
+        "teams_in_window": len(cobertura["ventana"]),
+        "primary_limit": limit,
+    }
+
+
+def _equipos_de(item: dict) -> set[str]:
+    """Los clubes que una ficha nombra, NORMALIZADOS. Una ficha puede nombrar varios.
+
+    Por `normalize_team` por lo de siempre: el dossier curado escribe `LA` donde
+    los feeds escriben `LAR`, así que la primera versión de este conteo publicó
+    «33 de 33» con 32 clubes en la liga — los Rams contados dos veces, y una
+    ficha de ellos añadida como si fuera de un club sin cubrir. Es el `AZ`/`ARI`
+    de la tabla de errores, otra vez, y otra vez comparando dos fuentes que uno
+    creía iguales.
+    """
+    from oracle.data.ingest import normalize_team
+
+    v = item.get("team")
+    crudos = [v] if isinstance(v, str) else (v if isinstance(v, list) else [])
+    return {
+        normalize_team(x) for x in crudos
+        if isinstance(x, str) and x and normalize_team(x)
+    }
+
+
+def _con_cobertura_por_equipo(items: list[dict], limit: int) -> tuple[list[dict], dict]:
+    """Los `limit` primeros por el orden de siempre, MÁS un hueco por club que falte.
+
+        LA INGESTA CUBRÍA LOS 32 CLUBES Y LA PANTALLA ENSEÑABA 23.
+
+    El recorte a 60 por (fecha, relevancia) es correcto para «lo último» y
+    pierde a los clubes de los que no se ha publicado nada reciente: medido el
+    7 de octubre de 2026, los feeds traían 2.112 entradas con 32 de 32 equipos
+    y la sección publicada nombraba 23. Es el dato computado que no llega a la
+    pantalla, por sexta vez en este repositorio.
+
+    No se reordena nada ni se cambia el criterio: los `limit` primeros son
+    exactamente los de antes —así que nada de lo que se publicaba deja de
+    publicarse— y detrás se añade la ficha MÁS NUEVA de cada club que no
+    aparezca ya. El orden sigue siendo un hecho (fecha), no un juicio: un feed
+    no sabe lo que significa su nota (regla 8) y aquí no se le inventa ninguna.
+    """
+    principales = items[:limit]
+    ya = set()
+    for item in principales:
+        ya |= _equipos_de(item)
+    extra = []
+    for item in items[limit:]:
+        nuevos = _equipos_de(item) - ya
+        if not nuevos:
+            continue
+        # `items` ya viene ordenado por fecha, así que la primera que aparece de
+        # un club es la más nueva que hay de él.
+        extra.append(item)
+        ya |= nuevos
+    ventana = set()
+    for item in items:
+        ventana |= _equipos_de(item)
+    return principales + extra, {"publicados": ya, "ventana": ventana}

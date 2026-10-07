@@ -10,10 +10,17 @@
  * recomendaba sobre una plantilla vacía. Sólo un navegador ve eso.
  */
 import { launch } from "./browser.mjs";
-import { spawn } from "node:child_process";
+import { startServer } from "./server.mjs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const port = Number(process.env.PORT ?? 4620), base = `http://127.0.0.1:${port}`;
-const srv = spawn("npx", ["next","start","-p",String(port)], { stdio:"ignore" });
-for (let i=0;i<60;i++){ try{ if((await fetch(base)).ok) break; }catch{} await new Promise(r=>setTimeout(r,1000)); }
+/* EL ARRANQUE, COMPARTIDO (`server.mjs`): se niega a lanzar si el puerto ya
+   contesta. Éste además lo hacía SIN `cwd` y SIN `detached`, así que su
+   `next start` sobrevivía al proceso y era el huérfano que luego confunde a
+   otro laboratorio. */
+await startServer({ port, cwd: WEB });
 let fallos = 0; const check=(n,ok,d="")=>{ if(!ok) fallos++; console.log(`  ${ok?"ok   ":"FALLA"} ${n}${d?` — ${d}`:""}`); };
 const b = await launch(); const p = await b.newPage({ viewport:{width:1280,height:2400} });
 p.on("pageerror", e=>{ console.log("PAGEERROR", e.message); fallos++; });
@@ -55,5 +62,5 @@ const ba = t.slice(t.indexOf("Best available"));
 check("BEST AVAILABLE sigue enseñando algún QB o TE con su VOR", /\b(QB|TE)\d+\b/.test(ba));
 await p.screenshot({ path: "/tmp/mineflow_QB.png" });
 console.log("\nPRIMARY tras TE+QB:", prim.replace(/\n+/g," ").slice(0,220));
-await b.close(); srv.kill("SIGKILL");
+await b.close();  // el servidor lo para  al salir el proceso
 console.log(fallos===0 ? "\nSIN FALLOS" : `\n${fallos} FALLOS`); process.exit(fallos===0?0:1);
