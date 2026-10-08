@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T01:15:13Z",
+  "generated_at": "2026-10-08T06:08:56Z",
   "season": 2026,
   "week": 5,
   "schedule": {
@@ -17,15 +17,474 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-08T01:15:13Z",
-    "injuries_as_of": "week 5 PARTIAL · 2 of 30 clubs filed",
-    "roster_as_of": "2026-10-07T14:29:10Z",
-    "schedule_as_of": "2026-10-08T00:35:13Z"
+    "research_as_of": "2026-10-08T06:08:56Z",
+    "injuries_as_of": "week 5 PARTIAL · 21 of 30 clubs filed",
+    "roster_as_of": "2026-10-08T06:02:36Z",
+    "schedule_as_of": "2026-10-08T05:35:13Z"
   },
   "injury_report": {
     "status": "PARTIALLY_FILED",
     "week": 5,
     "rows": [
+      {
+        "team": "ATL",
+        "gsis_id": "00-0031279",
+        "full_name": "Jake Matthews",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "ATL",
+        "gsis_id": "00-0031576",
+        "full_name": "Za'Darius Smith",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "ATL",
+        "gsis_id": "00-0037815",
+        "full_name": "Cameron Thomas",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "ATL",
+        "gsis_id": "00-0038580",
+        "full_name": "Yasir Abdullah",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "ATL",
+        "gsis_id": "00-0039842",
+        "full_name": "Michael Jerrell",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0026190",
+        "full_name": "Calais Campbell",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0032398",
+        "full_name": "Chris Moore",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0032965",
+        "full_name": "Ronnie Stanley",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": null
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0033281",
+        "full_name": "Marlon Humphrey",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0033935",
+        "full_name": "Trey Hendrickson",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0034753",
+        "full_name": "Mark Andrews",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0034796",
+        "full_name": "Lamar Jackson",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0034798",
+        "full_name": "Durham Smythe",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0036369",
+        "full_name": "John Simpson",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0036550",
+        "full_name": "Rashod Bateman",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0038038",
+        "full_name": "Kyle Hamilton",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0038383",
+        "full_name": "Andrew Vorhees",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0039064",
+        "full_name": "Zay Flowers",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0031583",
+        "full_name": "Grady Jarrett",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0032391",
+        "full_name": "Joe Thuney",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0035357",
+        "full_name": "Cam Lewis",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0036258",
+        "full_name": "Jonah Jackson",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0036275",
+        "full_name": "D'Andre Swift",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0038111",
+        "full_name": "Kyler Gordon",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0038390",
+        "full_name": "Noah Sewell",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0038932",
+        "full_name": "Darnell Wright",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0039918",
+        "full_name": "Caleb Williams",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0040236",
+        "full_name": "Kyle Monangai",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0040741",
+        "full_name": "Shemar Turner",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0041085",
+        "full_name": "Keyshaun Elliott",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0033523",
+        "full_name": "Jonathan Allen",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0034800",
+        "full_name": "B.J. Hill",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0035683",
+        "full_name": "Dexter Lawrence",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0035702",
+        "full_name": "Dalton Risner",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0036231",
+        "full_name": "Kyle Dugger",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0036410",
+        "full_name": "Tee Higgins",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0036900",
+        "full_name": "Ja'Marr Chase",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0037193",
+        "full_name": "Bryan Cook",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0038560",
+        "full_name": "Jordan Battle",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0039313",
+        "full_name": "Swayze Bozeman",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0040157",
+        "full_name": "Barrett Carter",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0041069",
+        "full_name": "Colbie Young",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CLE",
+        "gsis_id": "00-0033876",
+        "full_name": "Derek Barnett",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CLE",
+        "gsis_id": "00-0035526",
+        "full_name": "Elgton Jenkins",
+        "position": "C",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "CLE",
+        "gsis_id": "00-0036282",
+        "full_name": "Grant Delpit",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CLE",
+        "gsis_id": "00-0036630",
+        "full_name": "Tylan Wallace",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CLE",
+        "gsis_id": "00-0036953",
+        "full_name": "Teven Jenkins",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CLE",
+        "gsis_id": "00-0037832",
+        "full_name": "Kalia Davis",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CLE",
+        "gsis_id": "00-0039895",
+        "full_name": "Mike Hall Jr.",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CLE",
+        "gsis_id": "00-0040685",
+        "full_name": "Mason Graham",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CLE",
+        "gsis_id": "00-0040704",
+        "full_name": "Dillon Gabriel",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
       {
         "team": "DAL",
         "gsis_id": "00-0033877",
@@ -58,9 +517,9 @@
         "gsis_id": "00-0037243",
         "full_name": "Tyler Smith",
         "position": "G",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Thumb",
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "DAL",
@@ -76,8 +535,8 @@
         "gsis_id": "00-0037839",
         "full_name": "Cobie Durant",
         "position": "CB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Hamstring",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -85,8 +544,17 @@
         "gsis_id": "00-0038556",
         "full_name": "DeMarvion Overshown",
         "position": "LB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Hamstring",
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "DAL",
+        "gsis_id": "00-0039062",
+        "full_name": "Jonathan Mingo",
+        "position": "WR",
+        "report_status": "Questionable",
+        "report_primary_injury": "Illness",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -112,17 +580,1097 @@
         "gsis_id": "00-0040874",
         "full_name": "Drew Shelton",
         "position": "T",
+        "report_status": "Out",
+        "report_primary_injury": "Hamstring",
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "DET",
+        "gsis_id": "00-0035637",
+        "full_name": "Rock Ya-Sin",
+        "position": "CB",
         "report_status": null,
         "report_primary_injury": null,
         "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "DET",
+        "gsis_id": "00-0036272",
+        "full_name": "Ben Bartch",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "DET",
+        "gsis_id": "00-0036335",
+        "full_name": "D.J. Wonnum",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "DET",
+        "gsis_id": "00-0037297",
+        "full_name": "Cade Mays",
+        "position": "C",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "DET",
+        "gsis_id": "00-0039141",
+        "full_name": "Brian Branch",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "DET",
+        "gsis_id": "00-0040672",
+        "full_name": "Tyleik Williams",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0036551",
+        "full_name": "Aaron Banks",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0037075",
+        "full_name": "Devonte Wyatt",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0038685",
+        "full_name": "Chris Brooks",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0039112",
+        "full_name": "Lukas Van Ness",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0039817",
+        "full_name": "Jacob Monk",
+        "position": "C",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0040009",
+        "full_name": "Savion Williams",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0040689",
+        "full_name": "Anthony Campbell",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0040726",
+        "full_name": "Anthony Belton",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0040884",
+        "full_name": "Jager Burton",
+        "position": "C",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0041470",
+        "full_name": "Brandon Cisse",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0031364",
+        "full_name": "Jadeveon Clowney",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0032071",
+        "full_name": "Trent Brown",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0034355",
+        "full_name": "M.J. Stewart",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0034836",
+        "full_name": "Braden Smith",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0035166",
+        "full_name": "Azeez Al-Shaair",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0036554",
+        "full_name": "Nico Collins",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0038127",
+        "full_name": "Logan Hall",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0038977",
+        "full_name": "Tank Dell",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0039108",
+        "full_name": "Will Anderson Jr.",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0039395",
+        "full_name": "Jamal Hill",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0039422",
+        "full_name": "Nathan Thomas",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0041440",
+        "full_name": "Kayden McDonald",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "HOU",
+        "gsis_id": "00-0041465",
+        "full_name": "Wade Woodaz",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "IND",
+        "gsis_id": "00-0030279",
+        "full_name": "Keenan Allen",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "IND",
+        "gsis_id": "00-0034573",
+        "full_name": "Charvarius Ward",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "IND",
+        "gsis_id": "00-0034825",
+        "full_name": "Arden Key",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "IND",
+        "gsis_id": "00-0035021",
+        "full_name": "Ashton Dulin",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "IND",
+        "gsis_id": "00-0036223",
+        "full_name": "Jonathan Taylor",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "IND",
+        "gsis_id": "00-0036298",
+        "full_name": "Akeem Davis-Gaither",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "IND",
+        "gsis_id": "00-0038394",
+        "full_name": "Will Mallory",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "IND",
+        "gsis_id": "00-0039377",
+        "full_name": "Jaylon Carlies",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "IND",
+        "gsis_id": "00-0039744",
+        "full_name": "Tanor Bortolini",
+        "position": "C",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0033038",
+        "full_name": "Eric Murray",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0033928",
+        "full_name": "Jourdan Lewis",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0034960",
+        "full_name": "Jakobi Meyers",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0035642",
+        "full_name": "Josh Hines-Allen",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0036262",
+        "full_name": "DaVon Hamilton",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0036655",
+        "full_name": "Cole Van Lanen",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0037106",
+        "full_name": "Jaylon Jones",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0037313",
+        "full_name": "Montaric Brown",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0038934",
+        "full_name": "Anton Harrison",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0039353",
+        "full_name": "Jarrian Jones",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0040238",
+        "full_name": "LeQuint Allen Jr.",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "MIA",
+        "gsis_id": "00-0036248",
+        "full_name": "Austin Jackson",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "MIA",
+        "gsis_id": "00-0037686",
+        "full_name": "Tucker Addington",
+        "position": "LS",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "MIA",
+        "gsis_id": "00-0038521",
+        "full_name": "Reese Taylor",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "MIA",
+        "gsis_id": "00-0038603",
+        "full_name": "Rob Beal Jr.",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "MIA",
+        "gsis_id": "00-0039156",
+        "full_name": "Julius Brents",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "MIA",
+        "gsis_id": "00-0039481",
+        "full_name": "Storm Duck",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "MIA",
+        "gsis_id": "00-0040066",
+        "full_name": "Jackson Woodard",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "MIA",
+        "gsis_id": "00-0040127",
+        "full_name": "Kenneth Grant",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "MIA",
+        "gsis_id": "00-0040182",
+        "full_name": "Dante Trader Jr.",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "MIA",
+        "gsis_id": "00-0041523",
+        "full_name": "Caleb Douglas",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "MIA",
+        "gsis_id": "00-0041525",
+        "full_name": "Chris Bell",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "MIN",
+        "gsis_id": "00-0033293",
+        "full_name": "Aaron Jones",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "MIN",
+        "gsis_id": "00-0034158",
+        "full_name": "Brian O'Neill",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "MIN",
+        "gsis_id": "00-0036322",
+        "full_name": "Justin Jefferson",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "MIN",
+        "gsis_id": "00-0036616",
+        "full_name": "Christian Darrisaw",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "MIN",
+        "gsis_id": "00-0038994",
+        "full_name": "Jordan Addison",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "MIN",
+        "gsis_id": "00-0039419",
+        "full_name": "Michael Jurgens",
+        "position": "C",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "MIN",
+        "gsis_id": "00-0040509",
+        "full_name": "Ben Yurosek",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "MIN",
+        "gsis_id": "00-0041083",
+        "full_name": "Charles Demmings",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "MIN",
+        "gsis_id": "00-0041581",
+        "full_name": "Brett Thorson",
+        "position": "P",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0031330",
+        "full_name": "Morgan Moses",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0033555",
+        "full_name": "Mack Hollins",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0034778",
+        "full_name": "Carlton Davis III",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0035678",
+        "full_name": "Dre'Mont Jones",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0036187",
+        "full_name": "Reggie Gilliam",
+        "position": "FB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0036813",
+        "full_name": "Christian Elliss",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0036875",
+        "full_name": "Rhamondre Stevenson",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0036981",
+        "full_name": "Christian Barmore",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0037205",
+        "full_name": "Brenden Schooler",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0039147",
+        "full_name": "Christian Gonzalez",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0039770",
+        "full_name": "Charles Woods",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0039851",
+        "full_name": "Drake Maye",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0040716",
+        "full_name": "Craig Woodson",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0041088",
+        "full_name": "Karon Prunty",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0041316",
+        "full_name": "Channing Canada",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0033860",
+        "full_name": "Davon Godchaux",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0033906",
+        "full_name": "Alvin Kamara",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0035316",
+        "full_name": "Kaden Elliss",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0035402",
+        "full_name": "Carl Granderson",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0035644",
+        "full_name": "Noah Fant",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0036193",
+        "full_name": "Anfernee Jennings",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0036253",
+        "full_name": "Julian Blackmon",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0037239",
+        "full_name": "Chris Olave",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0039388",
+        "full_name": "Jaylan Ford",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0040293",
+        "full_name": "Michael Reid",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0040743",
+        "full_name": "Tyler Shough",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0041089",
+        "full_name": "Lorenzo Styles Jr.",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NO",
+        "gsis_id": "00-0041099",
+        "full_name": "Barion Brown",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0031484",
+        "full_name": "Chris Manhertz",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0036386",
+        "full_name": "Andrew Thomas",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0036502",
+        "full_name": "Jason Pinnock",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0036893",
+        "full_name": "Najee Harris",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0036982",
+        "full_name": "Chauncey Golston",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0037838",
+        "full_name": "Isaiah Likely",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0039000",
+        "full_name": "Deonte Banks",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0039337",
+        "full_name": "Malik Nabers",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0039446",
+        "full_name": "Bryan Hudson",
+        "position": "C",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0040715",
+        "full_name": "Cam Skattebo",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NYJ",
+        "gsis_id": "00-0033375",
+        "full_name": "Tim Patrick",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NYJ",
+        "gsis_id": "00-0037083",
+        "full_name": "Kingsley Enagbare",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NYJ",
+        "gsis_id": "00-0037255",
+        "full_name": "Dylan Parham",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NYJ",
+        "gsis_id": "00-0038120",
+        "full_name": "Breece Hall",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NYJ",
+        "gsis_id": "00-0039372",
+        "full_name": "Jarvis Brownlee Jr.",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NYJ",
+        "gsis_id": "00-0039890",
+        "full_name": "Adonai Mitchell",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NYJ",
+        "gsis_id": "00-0040186",
+        "full_name": "Francisco Mauigoa",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NYJ",
+        "gsis_id": "00-0040736",
+        "full_name": "Mason Taylor",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "PIT",
+        "gsis_id": "00-0027969",
+        "full_name": "Cameron Heyward",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "PIT",
+        "gsis_id": "00-0033055",
+        "full_name": "Jalen Ramsey",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "PIT",
+        "gsis_id": "00-0035699",
+        "full_name": "Jamel Dean",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "PIT",
+        "gsis_id": "00-0036139",
+        "full_name": "Rico Dowdle",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "PIT",
+        "gsis_id": "00-0036252",
+        "full_name": "Michael Pittman",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "TB",
         "gsis_id": "00-0034855",
         "full_name": "Baker Mayfield",
         "position": "QB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Thumb",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -141,15 +1689,15 @@
         "position": "K",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "TB",
         "gsis_id": "00-0036411",
         "full_name": "Antoine Winfield Jr.",
         "position": "S",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Rib",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -159,15 +1707,15 @@
         "position": "TE",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "TB",
         "gsis_id": "00-0039049",
         "full_name": "SirVocea Dennis",
         "position": "LB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Ankle",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -175,8 +1723,8 @@
         "gsis_id": "00-0040747",
         "full_name": "Benjamin Morrison",
         "position": "CB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Quadricep",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -196,49 +1744,328 @@
         "report_status": null,
         "report_primary_injury": null,
         "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "TEN",
+        "gsis_id": "00-0034805",
+        "full_name": "John Franklin-Myers",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "TEN",
+        "gsis_id": "00-0035261",
+        "full_name": "Tony Pollard",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "TEN",
+        "gsis_id": "00-0035632",
+        "full_name": "Amani Hooker",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "TEN",
+        "gsis_id": "00-0035643",
+        "full_name": "Jeffery Simmons",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "TEN",
+        "gsis_id": "00-0038043",
+        "full_name": "Joshua Williams",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "TEN",
+        "gsis_id": "00-0039648",
+        "full_name": "David Martin-Robinson",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "TEN",
+        "gsis_id": "00-0040141",
+        "full_name": "Kevin Winston Jr.",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "TEN",
+        "gsis_id": "00-0040201",
+        "full_name": "Marcus Harris",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0031588",
+        "full_name": "Stefon Diggs",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0032268",
+        "full_name": "Marcus Mariota",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0033918",
+        "full_name": "Fabian Moreau",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0033947",
+        "full_name": "Deatrich Wise",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0033955",
+        "full_name": "Jeremy McNichols",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0034302",
+        "full_name": "Frankie Luvu",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0034465",
+        "full_name": "Jeremy Reaves",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0035149",
+        "full_name": "Nick Allegretti",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0035279",
+        "full_name": "Charles Omenihu",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0035659",
+        "full_name": "Terry McLaurin",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0036260",
+        "full_name": "Javon Kinlaw",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0036618",
+        "full_name": "Sam Cosmi",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0037256",
+        "full_name": "Rachaad White",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0037616",
+        "full_name": "Nick Cross",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0037742",
+        "full_name": "Treylon Burks",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0037809",
+        "full_name": "Chig Okonkwo",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0038100",
+        "full_name": "Percy Butler",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0039681",
+        "full_name": "Tyler Owens",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0039910",
+        "full_name": "Jayden Daniels",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0039912",
+        "full_name": "Ben Sinnott",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0040242",
+        "full_name": "Jacory Croskey-Merritt",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0040731",
+        "full_name": "Trey Amos",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0041028",
+        "full_name": "Sonny Styles",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
       }
     ],
-    "teams": 2,
+    "teams": 21,
     "teams_filed": [
-      "DAL",
-      "TB"
-    ],
-    "teams_expected": 30,
-    "teams_pending": [
-      "ARI",
       "ATL",
       "BAL",
-      "BUF",
       "CHI",
       "CIN",
       "CLE",
-      "DEN",
+      "DAL",
       "DET",
       "GB",
       "HOU",
       "IND",
       "JAX",
-      "LAC",
-      "LAR",
-      "LV",
       "MIA",
       "MIN",
       "NE",
       "NO",
       "NYG",
       "NYJ",
-      "PHI",
       "PIT",
-      "SEA",
-      "SF",
+      "TB",
       "TEN",
       "WAS"
     ],
-    "with_designation": 0
+    "teams_expected": 30,
+    "teams_pending": [
+      "ARI",
+      "BUF",
+      "DEN",
+      "LAC",
+      "LAR",
+      "LV",
+      "PHI",
+      "SEA",
+      "SF"
+    ],
+    "with_designation": 9
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-10-07T14:25:15Z",
+    "effective_at": "2026-10-08T06:01:40Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -15270,16 +17097,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-07T14:25:29Z",
+      "retrieved_at": "2026-10-08T06:01:28Z",
       "status": "OK",
-      "rows": 1071
+      "rows": 1274
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-07T14:25:22Z",
+      "retrieved_at": "2026-10-08T06:01:47Z",
       "status": "OK",
-      "rows": 617763
+      "rows": 620051
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -15298,15 +17125,869 @@
     }
   ],
   "unknowns": [
-    "official injury report for week 5: 28 of 30 clubs have not filed yet (ARI, ATL, BAL, BUF, CHI, CIN, CLE, DEN, DET, GB, HOU, IND, JAX, LAC, LAR, LV, MIA, MIN, NE, NO, NYG, NYJ, PHI, PIT, SEA, SF, TEN, WAS) — no designation for their players means NOT REPORTED, not healthy",
+    "official injury report for week 5: 9 of 30 clubs have not filed yet (ARI, BUF, DEN, LAC, LAR, LV, PHI, SEA, SF) — no designation for their players means NOT REPORTED, not healthy",
     "route participation: nflverse does not publish per-player routes in this dataset, so role is measured by snap share and targets, not routes",
     "press, unofficial depth charts and transactions: SOURCE UNAVAILABLE from this environment"
   ],
   "diff": {
     "against": "2026-10-07.json",
-    "new": [],
-    "changed": [],
+    "new": [
+      {
+        "key": "ATL:Jake Matthews",
+        "now": "None"
+      },
+      {
+        "key": "ATL:Za'Darius Smith",
+        "now": "None"
+      },
+      {
+        "key": "ATL:Cameron Thomas",
+        "now": "None"
+      },
+      {
+        "key": "ATL:Yasir Abdullah",
+        "now": "None"
+      },
+      {
+        "key": "ATL:Michael Jerrell",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Calais Campbell",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Chris Moore",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Ronnie Stanley",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Marlon Humphrey",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Trey Hendrickson",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Mark Andrews",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Lamar Jackson",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Durham Smythe",
+        "now": "None"
+      },
+      {
+        "key": "BAL:John Simpson",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Rashod Bateman",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Kyle Hamilton",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Andrew Vorhees",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Zay Flowers",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Grady Jarrett",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Joe Thuney",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Cam Lewis",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Jonah Jackson",
+        "now": "None"
+      },
+      {
+        "key": "CHI:D'Andre Swift",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Kyler Gordon",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Noah Sewell",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Darnell Wright",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Caleb Williams",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Kyle Monangai",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Shemar Turner",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Keyshaun Elliott",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Jonathan Allen",
+        "now": "None"
+      },
+      {
+        "key": "CIN:B.J. Hill",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Dexter Lawrence",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Dalton Risner",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Kyle Dugger",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Tee Higgins",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Ja'Marr Chase",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Bryan Cook",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Jordan Battle",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Swayze Bozeman",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Barrett Carter",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Colbie Young",
+        "now": "None"
+      },
+      {
+        "key": "CLE:Derek Barnett",
+        "now": "None"
+      },
+      {
+        "key": "CLE:Elgton Jenkins",
+        "now": "None"
+      },
+      {
+        "key": "CLE:Grant Delpit",
+        "now": "None"
+      },
+      {
+        "key": "CLE:Tylan Wallace",
+        "now": "None"
+      },
+      {
+        "key": "CLE:Teven Jenkins",
+        "now": "None"
+      },
+      {
+        "key": "CLE:Kalia Davis",
+        "now": "None"
+      },
+      {
+        "key": "CLE:Mike Hall Jr.",
+        "now": "None"
+      },
+      {
+        "key": "CLE:Mason Graham",
+        "now": "None"
+      },
+      {
+        "key": "CLE:Dillon Gabriel",
+        "now": "None"
+      },
+      {
+        "key": "DAL:Jonathan Mingo",
+        "now": "Questionable"
+      },
+      {
+        "key": "DET:Rock Ya-Sin",
+        "now": "None"
+      },
+      {
+        "key": "DET:Ben Bartch",
+        "now": "None"
+      },
+      {
+        "key": "DET:D.J. Wonnum",
+        "now": "None"
+      },
+      {
+        "key": "DET:Cade Mays",
+        "now": "None"
+      },
+      {
+        "key": "DET:Brian Branch",
+        "now": "None"
+      },
+      {
+        "key": "DET:Tyleik Williams",
+        "now": "None"
+      },
+      {
+        "key": "GB:Aaron Banks",
+        "now": "None"
+      },
+      {
+        "key": "GB:Devonte Wyatt",
+        "now": "None"
+      },
+      {
+        "key": "GB:Chris Brooks",
+        "now": "None"
+      },
+      {
+        "key": "GB:Lukas Van Ness",
+        "now": "None"
+      },
+      {
+        "key": "GB:Jacob Monk",
+        "now": "None"
+      },
+      {
+        "key": "GB:Savion Williams",
+        "now": "None"
+      },
+      {
+        "key": "GB:Anthony Campbell",
+        "now": "None"
+      },
+      {
+        "key": "GB:Anthony Belton",
+        "now": "None"
+      },
+      {
+        "key": "GB:Jager Burton",
+        "now": "None"
+      },
+      {
+        "key": "GB:Brandon Cisse",
+        "now": "None"
+      },
+      {
+        "key": "HOU:Jadeveon Clowney",
+        "now": "None"
+      },
+      {
+        "key": "HOU:Trent Brown",
+        "now": "None"
+      },
+      {
+        "key": "HOU:M.J. Stewart",
+        "now": "None"
+      },
+      {
+        "key": "HOU:Braden Smith",
+        "now": "None"
+      },
+      {
+        "key": "HOU:Azeez Al-Shaair",
+        "now": "None"
+      },
+      {
+        "key": "HOU:Nico Collins",
+        "now": "None"
+      },
+      {
+        "key": "HOU:Logan Hall",
+        "now": "None"
+      },
+      {
+        "key": "HOU:Tank Dell",
+        "now": "None"
+      },
+      {
+        "key": "HOU:Will Anderson Jr.",
+        "now": "None"
+      },
+      {
+        "key": "HOU:Jamal Hill",
+        "now": "None"
+      },
+      {
+        "key": "HOU:Nathan Thomas",
+        "now": "None"
+      },
+      {
+        "key": "HOU:Kayden McDonald",
+        "now": "None"
+      },
+      {
+        "key": "HOU:Wade Woodaz",
+        "now": "None"
+      },
+      {
+        "key": "IND:Keenan Allen",
+        "now": "None"
+      },
+      {
+        "key": "IND:Charvarius Ward",
+        "now": "None"
+      },
+      {
+        "key": "IND:Arden Key",
+        "now": "None"
+      },
+      {
+        "key": "IND:Ashton Dulin",
+        "now": "None"
+      },
+      {
+        "key": "IND:Jonathan Taylor",
+        "now": "None"
+      },
+      {
+        "key": "IND:Akeem Davis-Gaither",
+        "now": "None"
+      },
+      {
+        "key": "IND:Will Mallory",
+        "now": "None"
+      },
+      {
+        "key": "IND:Jaylon Carlies",
+        "now": "None"
+      },
+      {
+        "key": "IND:Tanor Bortolini",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Eric Murray",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Jourdan Lewis",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Jakobi Meyers",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Josh Hines-Allen",
+        "now": "None"
+      },
+      {
+        "key": "JAX:DaVon Hamilton",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Cole Van Lanen",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Jaylon Jones",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Montaric Brown",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Anton Harrison",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Jarrian Jones",
+        "now": "None"
+      },
+      {
+        "key": "JAX:LeQuint Allen Jr.",
+        "now": "None"
+      },
+      {
+        "key": "MIA:Austin Jackson",
+        "now": "None"
+      },
+      {
+        "key": "MIA:Tucker Addington",
+        "now": "None"
+      },
+      {
+        "key": "MIA:Reese Taylor",
+        "now": "None"
+      },
+      {
+        "key": "MIA:Rob Beal Jr.",
+        "now": "None"
+      },
+      {
+        "key": "MIA:Julius Brents",
+        "now": "None"
+      },
+      {
+        "key": "MIA:Storm Duck",
+        "now": "None"
+      },
+      {
+        "key": "MIA:Jackson Woodard",
+        "now": "None"
+      },
+      {
+        "key": "MIA:Kenneth Grant",
+        "now": "None"
+      },
+      {
+        "key": "MIA:Dante Trader Jr.",
+        "now": "None"
+      },
+      {
+        "key": "MIA:Caleb Douglas",
+        "now": "None"
+      },
+      {
+        "key": "MIA:Chris Bell",
+        "now": "None"
+      },
+      {
+        "key": "MIN:Aaron Jones",
+        "now": "None"
+      },
+      {
+        "key": "MIN:Brian O'Neill",
+        "now": "None"
+      },
+      {
+        "key": "MIN:Justin Jefferson",
+        "now": "None"
+      },
+      {
+        "key": "MIN:Christian Darrisaw",
+        "now": "None"
+      },
+      {
+        "key": "MIN:Jordan Addison",
+        "now": "None"
+      },
+      {
+        "key": "MIN:Michael Jurgens",
+        "now": "None"
+      },
+      {
+        "key": "MIN:Ben Yurosek",
+        "now": "None"
+      },
+      {
+        "key": "MIN:Charles Demmings",
+        "now": "None"
+      },
+      {
+        "key": "MIN:Brett Thorson",
+        "now": "None"
+      },
+      {
+        "key": "NE:Morgan Moses",
+        "now": "None"
+      },
+      {
+        "key": "NE:Mack Hollins",
+        "now": "None"
+      },
+      {
+        "key": "NE:Carlton Davis III",
+        "now": "None"
+      },
+      {
+        "key": "NE:Dre'Mont Jones",
+        "now": "None"
+      },
+      {
+        "key": "NE:Reggie Gilliam",
+        "now": "None"
+      },
+      {
+        "key": "NE:Christian Elliss",
+        "now": "None"
+      },
+      {
+        "key": "NE:Rhamondre Stevenson",
+        "now": "None"
+      },
+      {
+        "key": "NE:Christian Barmore",
+        "now": "None"
+      },
+      {
+        "key": "NE:Brenden Schooler",
+        "now": "None"
+      },
+      {
+        "key": "NE:Christian Gonzalez",
+        "now": "None"
+      },
+      {
+        "key": "NE:Charles Woods",
+        "now": "None"
+      },
+      {
+        "key": "NE:Drake Maye",
+        "now": "None"
+      },
+      {
+        "key": "NE:Craig Woodson",
+        "now": "None"
+      },
+      {
+        "key": "NE:Karon Prunty",
+        "now": "None"
+      },
+      {
+        "key": "NE:Channing Canada",
+        "now": "None"
+      },
+      {
+        "key": "NO:Davon Godchaux",
+        "now": "None"
+      },
+      {
+        "key": "NO:Alvin Kamara",
+        "now": "None"
+      },
+      {
+        "key": "NO:Kaden Elliss",
+        "now": "None"
+      },
+      {
+        "key": "NO:Carl Granderson",
+        "now": "None"
+      },
+      {
+        "key": "NO:Noah Fant",
+        "now": "None"
+      },
+      {
+        "key": "NO:Anfernee Jennings",
+        "now": "None"
+      },
+      {
+        "key": "NO:Julian Blackmon",
+        "now": "None"
+      },
+      {
+        "key": "NO:Chris Olave",
+        "now": "None"
+      },
+      {
+        "key": "NO:Jaylan Ford",
+        "now": "None"
+      },
+      {
+        "key": "NO:Michael Reid",
+        "now": "None"
+      },
+      {
+        "key": "NO:Tyler Shough",
+        "now": "None"
+      },
+      {
+        "key": "NO:Lorenzo Styles Jr.",
+        "now": "None"
+      },
+      {
+        "key": "NO:Barion Brown",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Chris Manhertz",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Andrew Thomas",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Jason Pinnock",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Najee Harris",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Chauncey Golston",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Isaiah Likely",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Deonte Banks",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Malik Nabers",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Bryan Hudson",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Cam Skattebo",
+        "now": "None"
+      },
+      {
+        "key": "NYJ:Tim Patrick",
+        "now": "None"
+      },
+      {
+        "key": "NYJ:Kingsley Enagbare",
+        "now": "None"
+      },
+      {
+        "key": "NYJ:Dylan Parham",
+        "now": "None"
+      },
+      {
+        "key": "NYJ:Breece Hall",
+        "now": "None"
+      },
+      {
+        "key": "NYJ:Jarvis Brownlee Jr.",
+        "now": "None"
+      },
+      {
+        "key": "NYJ:Adonai Mitchell",
+        "now": "None"
+      },
+      {
+        "key": "NYJ:Francisco Mauigoa",
+        "now": "None"
+      },
+      {
+        "key": "NYJ:Mason Taylor",
+        "now": "None"
+      },
+      {
+        "key": "PIT:Cameron Heyward",
+        "now": "None"
+      },
+      {
+        "key": "PIT:Jalen Ramsey",
+        "now": "None"
+      },
+      {
+        "key": "PIT:Jamel Dean",
+        "now": "None"
+      },
+      {
+        "key": "PIT:Rico Dowdle",
+        "now": "None"
+      },
+      {
+        "key": "PIT:Michael Pittman",
+        "now": "None"
+      },
+      {
+        "key": "TEN:John Franklin-Myers",
+        "now": "None"
+      },
+      {
+        "key": "TEN:Tony Pollard",
+        "now": "None"
+      },
+      {
+        "key": "TEN:Amani Hooker",
+        "now": "None"
+      },
+      {
+        "key": "TEN:Jeffery Simmons",
+        "now": "None"
+      },
+      {
+        "key": "TEN:Joshua Williams",
+        "now": "None"
+      },
+      {
+        "key": "TEN:David Martin-Robinson",
+        "now": "None"
+      },
+      {
+        "key": "TEN:Kevin Winston Jr.",
+        "now": "None"
+      },
+      {
+        "key": "TEN:Marcus Harris",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Stefon Diggs",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Marcus Mariota",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Fabian Moreau",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Deatrich Wise",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Jeremy McNichols",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Frankie Luvu",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Jeremy Reaves",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Nick Allegretti",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Charles Omenihu",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Terry McLaurin",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Javon Kinlaw",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Sam Cosmi",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Rachaad White",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Nick Cross",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Treylon Burks",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Chig Okonkwo",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Percy Butler",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Tyler Owens",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Jayden Daniels",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Ben Sinnott",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Jacory Croskey-Merritt",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Trey Amos",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Sonny Styles",
+        "now": "None"
+      }
+    ],
+    "changed": [
+      {
+        "key": "DAL:Tyler Smith",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "DAL:Cobie Durant",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "DAL:DeMarvion Overshown",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "DAL:Drew Shelton",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "TB:Baker Mayfield",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "TB:Antoine Winfield Jr.",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "TB:SirVocea Dennis",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "TB:Benjamin Morrison",
+        "was": "None",
+        "now": "Out"
+      }
+    ],
     "removed": [],
-    "unchanged": 51
+    "unchanged": 43
   }
 }
