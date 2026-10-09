@@ -1,0 +1,1346 @@
+{
+ "date": "2026-10-09",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks News: Keys to a Seahawks victory on Sunday",
+   "summary": "Although some of the stats have been there, the eye test alone would tell you that Sam Darnold has been a bit rusty in the early going for our Seattle Seahawks. Whether it’s missing an occasional read, or holding onto the ball too long, Sam’s been less-than-optimal. Most likely, he’ll get it together. Just needs […]",
+   "published": "2026-10-09T13:20:00Z",
+   "published_at": "2026-10-09T13:20:00Z",
+   "first_seen_at": "2026-10-09T13:42:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks News: Keys to a Seahawks victory on Sunday",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/176864/seahawks-news-keys-to-a-seahawks-victory-on-sunday"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Game Picks: Pundit Says Ravens Are 'No Match' for Prime-Time Falcons",
+   "summary": "The Falcons are favored to beat the Ravens, who may be without Lamar Jackson, at ‘Sunday Night Football’ in Atlanta.",
+   "published": "2026-10-09T13:12:18Z",
+   "published_at": "2026-10-09T13:12:18Z",
+   "first_seen_at": "2026-10-09T13:42:32+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Game Picks: Pundit Says Ravens Are 'No Match' for Prime-Time Falcons",
+     "url": "https://www.baltimoreravens.com/news/game-picks-ravens-falcons-mike-florio-no-match-week-5-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen",
+    "James Cook"
+   ],
+   "headline": "Can the Rams contain James Cook on Monday night?",
+   "summary": "Everyone rightfully should be talking about how and if the Los Angeles Rams can handle Josh Allen, but another weapon on the Buffalo Bills is James Cook, can the Rams handle both Allen and Cook? Cook is capable of leading the NFL in rushing touchdowns and rushing scores, he has that type of talent. That […]",
+   "published": "2026-10-09T13:06:21Z",
+   "published_at": "2026-10-09T13:06:21Z",
+   "first_seen_at": "2026-10-09T13:42:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Can the Rams contain James Cook on Monday night?",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-news/151198/rams-bills-james-cook-monday-night"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Marcus Mariota",
+    "Athan Kaliakmanis"
+   ],
+   "headline": "Stats and Snaps – 2026 Week 4, Commanders vs Colts in London",
+   "summary": "A week after the Commanders pulled off the upset of the season, under leadership of backup QB Marcus Mariota, they were dealt another setback, when Mariota exited the London game with an injury in the first quarter. Mariota’s trip to the medical tent left 2026 seventh-round draft pick, Athan Kaliakmanis atop the QB depth chart. […]",
+   "published": "2026-10-09T12:30:00Z",
+   "published_at": "2026-10-09T12:30:00Z",
+   "first_seen_at": "2026-10-09T13:42:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Stats and Snaps – 2026 Week 4, Commanders vs Colts in London",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/447609/stats-and-snaps-2026-week-4-commanders-vs-colts-in-london"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "Bills news: Recapping the latest press conferences",
+   "summary": "Josh Allen, Joe Brady, Christian Benford, Cole Bishop and others break down the Bills’ Week 5 showdown with the Rams.",
+   "published": "2026-10-09T12:28:17Z",
+   "published_at": "2026-10-09T12:28:17Z",
+   "first_seen_at": "2026-10-09T13:42:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Bills news: Recapping the latest press conferences",
+     "url": "https://sports.yahoo.com/articles/bills-news-recapping-latest-press-122817544.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Worker tells Cowboys QB Dak Prescott loss to winless Buccaneers was 'embarrassing'",
+   "summary": "The loss drops the Cowboys to 2-3 on the season.",
+   "published": "2026-10-09T12:20:40Z",
+   "published_at": "2026-10-09T12:20:40Z",
+   "first_seen_at": "2026-10-09T13:42:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Worker tells Cowboys QB Dak Prescott loss to winless Buccaneers was 'embarrassing'",
+     "url": "https://sports.yahoo.com/nfl/article/worker-tells-cowboys-qb-dak-prescott-loss-to-winless-buccaneers-was-embarrassing-122040640.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jaxson Dart"
+   ],
+   "headline": "Washington Commanders vs New York Giants Week 5: Five Questions with Big Blue View",
+   "summary": "It’s week 5 of the NFL season, and the 1-3 Washington Commanders will be facing the 3-1 New York Giants at Northwest Stadium in Landover, MD this Sunday at 1:00 p.m. ET. The Giants lost starting QB Jaxson Dart in week 2 to a season-ending knee injury, yet have managed to persevere with backup Jameis […]",
+   "published": "2026-10-09T12:00:00Z",
+   "published_at": "2026-10-09T12:00:00Z",
+   "first_seen_at": "2026-10-09T13:42:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Washington Commanders vs New York Giants Week 5: Five Questions with Big Blue View",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/447260/washington-commanders-vs-new-york-giants-week-5-five-questions-with-big-blue-view"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIA",
+   "players": [
+    "Malik Willis"
+   ],
+   "headline": "Dolphins news: Bengals game preview, injury updates, and Malik Willis reflecting on 2026 start",
+   "summary": "A collection of Miami Dolphins news from around the web, including previews of the Cincinnati Bengals game, injury updates, and Malik Willis breaking down his season.",
+   "published": "2026-10-09T11:44:44Z",
+   "published_at": "2026-10-09T11:44:44Z",
+   "first_seen_at": "2026-10-09T13:42:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Dolphins news: Bengals game preview, injury updates, and Malik Willis reflecting on 2026 start",
+     "url": "https://sports.yahoo.com/articles/dolphins-news-bengals-game-preview-114444174.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Super Bowl champion Seahawks defense vs. Brock Purdy's 49ers will be one of Week 5's top battles. Here's why",
+   "summary": "Purdy is playing the best of any QB in the league this season, but now he'll face the NFL's No. 1 defense",
+   "published": "2026-10-09T11:28:11Z",
+   "published_at": "2026-10-09T11:28:11Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Super Bowl champion Seahawks defense vs. Brock Purdy's 49ers will be one of Week 5's top battles. Here's why",
+     "url": "https://www.cbssports.com/nfl/news/super-bowl-champion-seahawks-defense-vs-brock-purdys-49ers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "4 key matchups to watch in Bengals vs. Dolphins",
+   "summary": "Joe Burrow needs to limit the turnovers in Miami.",
+   "published": "2026-10-09T11:05:00Z",
+   "published_at": "2026-10-09T11:05:00Z",
+   "first_seen_at": "2026-10-09T13:42:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "4 key matchups to watch in Bengals vs. Dolphins",
+     "url": "https://sports.yahoo.com/articles/4-key-matchups-watch-bengals-110500612.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIA",
+   "players": [
+    "Malik Willis"
+   ],
+   "headline": "4 key matchups to watch in Bengals vs. Dolphins",
+   "summary": "The Cincinnati Bengals will take on the Miami Dolphins this upcoming Sunday. While Miami hasn’t won a game to start the season, they played the Minnesota Vikings tough during Week 3 action. The offense has struggled mightily with Malik Willis throwing for just 85 yards against Minnesota. It is important to note that Minnesota is […]",
+   "published": "2026-10-09T11:05:00Z",
+   "published_at": "2026-10-09T11:05:00Z",
+   "first_seen_at": "2026-10-09T13:42:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "4 key matchups to watch in Bengals vs. Dolphins",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-analysis/201490/4-key-matchups-to-watch-miami-dolphins-week-5"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott did not appreciate stadium worker calling Cowboys' loss \"embarrassing\"",
+   "summary": "\"Feel free to speak your mind. Just speak it. Don't coward away from the reaction that you're going to get,\" Prescott said of his exchange with the worker in the tunnel after the game.",
+   "published": "2026-10-09T10:34:32Z",
+   "published_at": "2026-10-09T10:34:32Z",
+   "first_seen_at": "2026-10-09T13:42:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Dak Prescott did not appreciate stadium worker calling Cowboys' loss \"embarrassing\"",
+     "url": "https://sports.yahoo.com/articles/dak-prescott-did-not-appreciate-103432431.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "Bills will get Dome Josh Allen vs. Rams on Monday Night Football",
+   "summary": "This is the best form of Josh Allen",
+   "published": "2026-10-09T10:30:00Z",
+   "published_at": "2026-10-09T10:30:00Z",
+   "first_seen_at": "2026-10-09T13:42:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Bills will get Dome Josh Allen vs. Rams on Monday Night Football",
+     "url": "https://sports.yahoo.com/articles/bills-dome-josh-allen-vs-103000671.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "NY Giants news: Dennard Wilson on Tae Banks, Arvell Reese named Rookie of the Week",
+   "summary": "Good morning, New York Giants fans! Here are the stories you need to know about as rhe Giants will meet the Washington Commanders this weekend. Giants standout says ‘bad things’ are coming for Commanders QB Jayden Daniels | NJ.com Abdul Carter is well aware that he has just one sack through four games this season […]",
+   "published": "2026-10-09T10:00:00Z",
+   "published_at": "2026-10-09T10:00:00Z",
+   "first_seen_at": "2026-10-09T13:42:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "NY Giants news: Dennard Wilson on Tae Banks, Arvell Reese named Rookie of the Week",
+     "url": "https://www.bigblueview.com/new-york-giants-news/174811/dennard-wilson-on-tae-banks-arvell-reese-named-rookie-of-the-week"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Drake Maye's trash-talking brothers prepared him to overcome slow start to season",
+   "summary": "New England Patriots QB Drake Maye is riding the rollercoaster of up-and-down play as he readies for the Las Vegas Raiders.",
+   "published": "2026-10-09T09:46:33Z",
+   "published_at": "2026-10-09T09:46:33Z",
+   "first_seen_at": "2026-10-09T13:42:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Drake Maye's trash-talking brothers prepared him to overcome slow start to season",
+     "url": "https://sports.yahoo.com/articles/drake-mayes-trash-talking-brothers-094633815.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Mike Gesicki"
+   ],
+   "headline": "Fantasy Football Week 5: 3 players to flex",
+   "summary": "Bengals tight end Mike Gesicki is among the players worth inserting into starting fantasy lineups in Week 5 given a combination of strong circumstances and defensive opponents.",
+   "published": "2026-10-09T09:30:00Z",
+   "published_at": "2026-10-09T09:30:00Z",
+   "first_seen_at": "2026-10-09T13:42:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Fantasy Football Week 5: 3 players to flex",
+     "url": "https://www.pff.com/news/fantasy-football-week-5-3-players-to-flex"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "‘Why’s He Upset?’ ‘Give Whoever Said That a Raise’ — NFL Fans React as Cowboys Star Dak Prescott Gets Heckled by AT&T Employee With Cutting 1-Word Jab",
+   "summary": "",
+   "published": "2026-10-09T09:27:09Z",
+   "published_at": "2026-10-09T09:27:09Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Why’s He Upset?’ ‘Give Whoever Said That a Raise’ — NFL Fans React as Cowboys Star Dak Prescott Gets Heckled by AT&T Employee With Cutting 1-Word Jab",
+     "url": "https://www.profootballnetwork.com/fans-reaction-cowboys-dak-prescott-heckled-employee"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "49ers News: Connor Colby might be faster than the Blue Angels",
+   "summary": "After looking at some Seahawks tape, some thoughts: The offensive line seems not as good as I thought they’d be. The defense, while still being super disruptive, is missing more tackles. Otherwise, they’re still pretty nasty. If Bosa was playing, I’d be more confident that the 49ers could disrupt Sam Darnold enough to stay in […]",
+   "published": "2026-10-09T09:00:00Z",
+   "published_at": "2026-10-09T09:00:00Z",
+   "first_seen_at": "2026-10-09T13:42:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers News: Connor Colby might be faster than the Blue Angels",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/163995/49ers-news-regular-season-week-5-seattle-seahawks-mykel-williams-height-connor-colby-speed"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott on Cowboys loss to Bucs: 'We were supposed to win'",
+   "summary": "Little about the matchup conjured images of what ultimately happened to the Cowboys when they got a wake-up call from the Bucs, and Dak Prescott says the Cowboys have to be better.",
+   "published": "2026-10-09T05:35:06Z",
+   "published_at": "2026-10-09T05:35:06Z",
+   "first_seen_at": "2026-10-09T13:42:33+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Dak Prescott on Cowboys loss to Bucs: 'We were supposed to win'",
+     "url": "https://www.dallascowboys.com/news/dak-prescott-on-cowboys-loss-to-bucs-we-were-supposed-to-win"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Bucky Irving"
+   ],
+   "headline": "NFL Week 5 Recap: Immediate fantasy football takeaways from Buccaneers-Cowboys",
+   "summary": "Buccaneers running back Bucky Irving's big day was among the chief fantasy football takeaways from Week 5's \"Thursday Night Football\" clash.",
+   "published": "2026-10-09T03:20:52Z",
+   "published_at": "2026-10-09T03:20:52Z",
+   "first_seen_at": "2026-10-09T13:42:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "NFL Week 5 Recap: Immediate fantasy football takeaways from Buccaneers-Cowboys",
+     "url": "https://www.pff.com/news/nfl-week-5-recap-immediate-fantasy-football-takeaways-from-buccaneers-cowboys"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "‘You Hurt Every Year’ — Super Bowl Champion Puts Joe Burrow on Notice After Bengals’ 2–2 Start",
+   "summary": "",
+   "published": "2026-10-09T02:59:06Z",
+   "published_at": "2026-10-09T02:59:06Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘You Hurt Every Year’ — Super Bowl Champion Puts Joe Burrow on Notice After Bengals’ 2–2 Start",
+     "url": "https://www.profootballnetwork.com/super-bowl-t-j-ward-joe-burrow-on-notice-bengals-2-2"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford",
+    "Josh Allen"
+   ],
+   "headline": "Matthew Stafford: 'A ton of respect' for Josh Allen, looking forward to challenge Bills will present on Monday Night Football",
+   "summary": "Rams-Bills at SoFi Stadium in Week 14 of the 2024 season became an instant classic as Los Angeles outlasted Buffalo 44-42; the two teams will meet again in Inglewood on Monday Night Football.",
+   "published": "2026-10-09T01:11:14Z",
+   "published_at": "2026-10-09T01:11:14Z",
+   "first_seen_at": "2026-10-09T13:42:34+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Matthew Stafford: 'A ton of respect' for Josh Allen, looking forward to challenge Bills will present on Monday Night Football",
+     "url": "https://www.therams.com/news/matthew-stafford-a-ton-of-respect-for-josh-allen-looking-forward-to-challenge-bills-will-present-on-monday-night-football"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford",
+    "Davante Adams"
+   ],
+   "headline": "From the Podium: Sean McVay, Matthew Stafford and Davante Adams preview Monday Night Football against Bills",
+   "summary": "Rams head coach Sean McVay, quarterback Matthew Stafford and wide receiver Davante Adams preview the Rams' Monday Night Football matchup with the Bills.",
+   "published": "2026-10-09T01:10:01Z",
+   "published_at": "2026-10-09T01:10:01Z",
+   "first_seen_at": "2026-10-09T13:42:34+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "From the Podium: Sean McVay, Matthew Stafford and Davante Adams preview Monday Night Football against Bills",
+     "url": "https://www.therams.com/news/from-the-podium-head-coach-sean-mcvay-quarterback-matthew-stafford-wide-receivers-davante-adams-puka-nacua-defensive-end-aaron-donald-preview-rams-monday-night-football-matchup-with-bills-press-conference-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Bijan Robinson"
+   ],
+   "headline": "‘Ain’t Going to Shy Away From It’ — Derrick Henry Crowns Falcons RB Bijan Robinson As ‘Best in the Game’",
+   "summary": "",
+   "published": "2026-10-09T00:35:59Z",
+   "published_at": "2026-10-09T00:35:59Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Ain’t Going to Shy Away From It’ — Derrick Henry Crowns Falcons RB Bijan Robinson As ‘Best in the Game’",
+     "url": "https://www.profootballnetwork.com/derrick-henry-crowns-bijan-robinson"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Colby Parkinson"
+   ],
+   "headline": "Injury Updates: 'As long as they progress accordingly,' Aaron Donald, Jaylen Watson and Colby Parkinson will be 'ready to go' for Week 5 against Bills, Sean McVay says",
+   "summary": "Rams head coach Sean McVay gives updates on the statuses of defensive end Aaron Donald (back), cornerback Jaylen Watson (shoulder) and tight end Colby Parkinson (knee/shoulder) for Week 5 against the Bills",
+   "published": "2026-10-09T00:27:53Z",
+   "published_at": "2026-10-09T00:27:53Z",
+   "first_seen_at": "2026-10-09T13:42:34+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Injury Updates: 'As long as they progress accordingly,' Aaron Donald, Jaylen Watson and Colby Parkinson will be 'ready to go' for Week 5 against Bills, Sean McVay says",
+     "url": "https://www.therams.com/news/injury-updates-as-long-as-they-progress-accordingly-aaron-donald-jaylen-watson-and-colby-parkinson-will-be-ready-to-go-for-week-5-against-bills-sean-mcvay-says"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Rashid Shaheed"
+   ],
+   "headline": "Rashid Shaheed Is A 'Weapon' For Seahawks: 'There Are A Lot Of Possibilities There'",
+   "summary": "The Seahawks used receiver Rashid Shaheed as a ball carrier in Week 4 and are looking forward to seeing him more in that role.",
+   "published": "2026-10-09T00:10:03Z",
+   "published_at": "2026-10-09T00:10:03Z",
+   "first_seen_at": "2026-10-09T13:42:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Rashid Shaheed Is A 'Weapon' For Seahawks: 'There Are A Lot Of Possibilities There'",
+     "url": "https://www.seahawks.com/news/rashid-shaheed-is-a-weapon-for-seahawks-there-are-a-lot-of-possibilities-there"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield",
+    "Jalon Daniels"
+   ],
+   "headline": "Cowboys-Bucs live discussion: An MVP candidate versus a rookie quarterback",
+   "summary": "No Baker Mayfield last week for the Tampa Bay Buccaneers. That meant rookie Jalon Daniels took the reins. Daniels went 9-for-27 for 148 yards, threw two interceptions, posted a 65 passer rating, and was sacked three times. It can’t get worse, right? The San Francisco 49ers play the Dallas Cowboys a month from now. In […]",
+   "published": "2026-10-09T00:05:00Z",
+   "published_at": "2026-10-09T00:05:00Z",
+   "first_seen_at": "2026-10-09T13:42:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Cowboys-Bucs live discussion: An MVP candidate versus a rookie quarterback",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-discussion/163981/cowboys-bucs-live-discussion-an-mvp-candidate-versus-a-rookie-quarterback"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "‘He Keeps It Glued Together’ — Colin Cowherd Credits Cowboys QB Dak Prescott for Overcoming Chaos Surrounding Him in Dallas",
+   "summary": "",
+   "published": "2026-10-09T00:03:42Z",
+   "published_at": "2026-10-09T00:03:42Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He Keeps It Glued Together’ — Colin Cowherd Credits Cowboys QB Dak Prescott for Overcoming Chaos Surrounding Him in Dallas",
+     "url": "https://www.profootballnetwork.com/dak-prescott-overcoming-chaos-dallas"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Thursday Night Football: Tampa Bay Buccaneers @ Dallas Cowboys",
+   "summary": "Week 5 of the 2026 season kicks off with an NFC battle between the Tampa Bay Buccaneers and the Dallas Cowboys. The Bucs haven’t won a game this season and are on their way to a top 3 pick in next year’s draft after finally giving Baker Mayfield his contract extension…and immediately regretting it. The […]",
+   "published": "2026-10-09T00:00:00Z",
+   "published_at": "2026-10-09T00:00:00Z",
+   "first_seen_at": "2026-10-09T13:42:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Thursday Night Football: Tampa Bay Buccaneers @ Dallas Cowboys",
+     "url": "https://www.hogshaven.com/openthread/447491/thursday-night-football-tampa-bay-buccaneers-dallas-cowboys"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jameis Winston"
+   ],
+   "headline": "‘Doesn’t Make Any Sense’ — NFL Analyst Rejects Calls for J.J. McCarthy To Replace Jameis Winston As Giants’ Starting QB",
+   "summary": "",
+   "published": "2026-10-08T23:19:42Z",
+   "published_at": "2026-10-08T23:19:42Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Doesn’t Make Any Sense’ — NFL Analyst Rejects Calls for J.J. McCarthy To Replace Jameis Winston As Giants’ Starting QB",
+     "url": "https://www.profootballnetwork.com/analyst-rejects-j-j-mccarthy-replace-jameis-winston-giants"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIA",
+   "players": [
+    "Malik Willis"
+   ],
+   "headline": "Bengals' Jordan Battle reveals subtle Malik Willis tell ahead of Week 5 matchup against Dolphins",
+   "summary": "Cincinnati might have a leg up on Miami thanks to this scouting revelation",
+   "published": "2026-10-08T23:13:05Z",
+   "published_at": "2026-10-08T23:13:05Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Bengals' Jordan Battle reveals subtle Malik Willis tell ahead of Week 5 matchup against Dolphins",
+     "url": "https://www.cbssports.com/nfl/news/bengals-jordan-battle-reveals-subtle-malik-willis-tell-dolphins"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Jalen McMillan"
+   ],
+   "headline": "What Happened to Jalen McMillan, and When Will He Return? Latest on Buccaneers WR’s Injury and Why He’s Out in Week 5 vs. Cowboys",
+   "summary": "",
+   "published": "2026-10-08T23:10:57Z",
+   "published_at": "2026-10-08T23:10:57Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "What Happened to Jalen McMillan, and When Will He Return? Latest on Buccaneers WR’s Injury and Why He’s Out in Week 5 vs. Cowboys",
+     "url": "https://www.profootballnetwork.com/what-happened-jalen-mcmillan-buccaneers-week-5-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "What Happened to Baker Mayfield, and When Will He Return? Latest on Buccaneers QB’s Injury and Why He’s Out for Week 5 vs. Cowboys",
+   "summary": "",
+   "published": "2026-10-08T23:01:06Z",
+   "published_at": "2026-10-08T23:01:06Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "What Happened to Baker Mayfield, and When Will He Return? Latest on Buccaneers QB’s Injury and Why He’s Out for Week 5 vs. Cowboys",
+     "url": "https://www.profootballnetwork.com/what-happened-baker-mayfield-buccaneers-week-5-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Bucs-Cowboys Inactives | Rueben Bain Jr., Ko Kieft Return to Action",
+   "summary": "The Buccaneers will be without QB Baker Mayfield for a second straight game and have a new issue on defense with Antoine Winfield Jr. ruled out, but rookie OLB Rueben Bain Jr. and TE Ko Kieft are back after missing time",
+   "published": "2026-10-08T22:45:00Z",
+   "published_at": "2026-10-08T22:45:00Z",
+   "first_seen_at": "2026-10-09T13:42:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Bucs-Cowboys Inactives | Rueben Bain Jr., Ko Kieft Return to Action",
+     "url": "https://www.buccaneers.com/news/bucs-cowboys-inactives-rueben-bain-jr-ko-kieft-return-action"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans",
+    "Christian McCaffrey",
+    "Kaelon Black"
+   ],
+   "headline": "49ers injury updates: Mike Evans misses practice; Dante Pettis released",
+   "summary": "The San Francisco 49ers released wide receiver Dante Pettis from the practice squad injured reserve with a settlement, per Aaron Wilson. A couple of changes to Thursday’s injury report. Trent Williams, Dre Greenlaw, and Christian McCaffrey all returned in full after having their typical rest day on Wednesday. Running back Kaelon Black practiced in full […]",
+   "published": "2026-10-08T22:40:53Z",
+   "published_at": "2026-10-08T22:40:53Z",
+   "first_seen_at": "2026-10-09T13:42:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers injury updates: Mike Evans misses practice; Dante Pettis released",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/163974/49ers-injury-updates-mike-evans-misses-practice-dante-pettis-released"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Cowboys vs. Buccaneers odds, picks, prediction: Best bets, player props for Thursday Night Football NFL Week 5",
+   "summary": "Back the Over in Arlington as Dak Prescott faces a winless Tampa Bay squad, plus lock in player props and anytime touchdown picks for Thursday night",
+   "published": "2026-10-08T22:30:50Z",
+   "published_at": "2026-10-08T22:30:50Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Cowboys vs. Buccaneers odds, picks, prediction: Best bets, player props for Thursday Night Football NFL Week 5",
+     "url": "https://www.cbssports.com/betting/news/cowboys-vs-buccaneers-odds-picks-prediction-best-bets-player-props-for-thursday-night-football-nfl-week-5"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "George Pickens",
+    "CeeDee Lamb"
+   ],
+   "headline": "The hidden impact of George Pickens: How Cowboys WR is helping unlock CeeDee Lamb",
+   "summary": "Pickens may not be leading the box score, but his ability to draw coverage and create explosive plays has become a key ingredient in Dallas' offensive success",
+   "published": "2026-10-08T21:49:48Z",
+   "published_at": "2026-10-08T21:49:48Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "The hidden impact of George Pickens: How Cowboys WR is helping unlock CeeDee Lamb",
+     "url": "https://www.cbssports.com/nfl/news/george-pickens-stats-cowboys-wr-ceedee-lamb"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Denzel Boston"
+   ],
+   "headline": "Denzel Boston showcases threat as explosive receiver for the Browns",
+   "summary": "Boston has 284 receiving yards this season, the 11th most in the NFL heading into Week 5",
+   "published": "2026-10-08T21:46:32Z",
+   "published_at": "2026-10-08T21:46:32Z",
+   "first_seen_at": "2026-10-09T13:42:32+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Denzel Boston showcases threat as explosive receiver for the Browns",
+     "url": "https://www.clevelandbrowns.com/news/denzel-boston-showcases-threat-as-explosive-receiver-for-the-browns"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Christian McCaffrey"
+   ],
+   "headline": "John Lynch on the 49ers ahead of the trade deadline: ‘I think you’re always in active mode’",
+   "summary": "We’re a little more than a month away from the NFL’s trade deadline. When the San Francisco 49ers have swung a deal, they’ve made deep playoff runs. Emmanuel Sanders in 2019. Christian McCaffrey in 2022. Chase Young in 2023. Two Super Bowls and an NFC Championship appearance. Looking back, it’d be nice to have the […]",
+   "published": "2026-10-08T21:45:00Z",
+   "published_at": "2026-10-08T21:45:00Z",
+   "first_seen_at": "2026-10-09T13:42:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "John Lynch on the 49ers ahead of the trade deadline: ‘I think you’re always in active mode’",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-rumors/163953/john-lynch-on-the-49ers-ahead-of-the-trade-deadline-i-think-youre-always-in-active-mode"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Derrick Henry",
+    "Tyler Huntley"
+   ],
+   "headline": "News & Notes: Declan Doyle And Ravens Teammates Have Confidence in Tyler Huntley",
+   "summary": "Derrick Henry gives props to Bijan Robinson as the NFL’s best running back right now. Dwayne Ledford looks forward to coaching newly acquired center Cam Jurgens.",
+   "published": "2026-10-08T21:30:19Z",
+   "published_at": "2026-10-08T21:30:19Z",
+   "first_seen_at": "2026-10-09T13:42:32+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "News & Notes: Declan Doyle And Ravens Teammates Have Confidence in Tyler Huntley",
+     "url": "https://www.baltimoreravens.com/news/declan-doyle-confident-tyler-huntley-derrick-henry-calls-bijan-robinson-best-running-back-week-5-ravens-falcons"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "CeeDee Lamb",
+    "Jalon Daniels"
+   ],
+   "headline": "Cowboys vs. Buccaneers prediction: Can Tampa Bay slow down CeeDee Lamb and high-powered Dallas offense?",
+   "summary": "Dallas brings a historically efficient scoring attack into Thursday night against an 0-4 Tampa Bay squad turning to rookie quarterback Jalon Daniels",
+   "published": "2026-10-08T21:25:40Z",
+   "published_at": "2026-10-08T21:25:40Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Cowboys vs. Buccaneers prediction: Can Tampa Bay slow down CeeDee Lamb and high-powered Dallas offense?",
+     "url": "https://www.cbssports.com/nfl/news/cowboys-vs-buccaneers-prediction-where-to-watch-tnf"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Kaytron Allen"
+   ],
+   "headline": "Commanders vs. Giants Thursday injury report: Sam Cosmi approaching return",
+   "summary": "Commanders right guard Sam Cosmi didn’t make the trip to London for that Week 4 contest against the Indianapolis Colts. He was in the concussion protocol and ruled out early in the week while recovering from a vicious hit delivered by his own teammate, when running back Kaytron Allen inadvertently ran into him. Missing one […]",
+   "published": "2026-10-08T20:58:48Z",
+   "published_at": "2026-10-08T20:58:48Z",
+   "first_seen_at": "2026-10-09T13:42:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders vs. Giants Thursday injury report: Sam Cosmi approaching return",
+     "url": "https://www.hogshaven.com/washington-commanders-injuries/447316/commanders-vs-giants-thursday-injury-report-week-5-terry-mclaurin-stefon-diggs-sam-cosmi"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Malik Nabers"
+   ],
+   "headline": "NY Giants get WR Malik Nabers, OT Andrew Thomas back at practice",
+   "summary": "The New York Giants got some good news on the injury front Thursday as they continued to prepare for a Week 5 game against the Washington Commanders. There was, though, some bad news. Safety Jason Pinnock (concussion) did not practice. He would seem unlikely to clear the protocol in time to play on Sunday. Defensive […]",
+   "published": "2026-10-08T20:36:39Z",
+   "published_at": "2026-10-08T20:36:39Z",
+   "first_seen_at": "2026-10-09T13:42:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "NY Giants get WR Malik Nabers, OT Andrew Thomas back at practice",
+     "url": "https://www.bigblueview.com/new-york-giants-injuries/174797/injury-report-wr-malik-nabers-ot-andrew-thomas-back-at-practice"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Kaytron Allen"
+   ],
+   "headline": "Commanders roster moves: Sixth-round NFL draft pick Kaytron Allen waived",
+   "summary": "The Commanders have waived rookie running back Kaytron Allen. That was a surprise move even with Jeremy McNichols practicing again (while on IR) and Austin Ekeler now on the roster, considering how much the Commanders liked the Penn State product. The team announced the transaction on Thursday afternoon. The Commanders drafted Allen […]",
+   "published": "2026-10-08T20:19:59Z",
+   "published_at": "2026-10-08T20:19:59Z",
+   "first_seen_at": "2026-10-09T13:42:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders roster moves: Sixth-round NFL draft pick Kaytron Allen waived",
+     "url": "https://www.hogshaven.com/washington-commanders-news/447468/commanders-roster-moves-kaytron-allen-penn-state-nfl-draft"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Malik Nabers"
+   ],
+   "headline": "Giants vs. Commanders Week 5 Injury Report: Malik Nabers, Andrew Thomas limited",
+   "summary": "View the injury report for the Week 5 matchup between the New York Giants (3-1) and Washington Commanders (1-3).",
+   "published": "2026-10-08T20:00:00Z",
+   "published_at": "2026-10-08T20:00:00Z",
+   "first_seen_at": "2026-10-09T13:42:34+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYG official",
+     "title": "Giants vs. Commanders Week 5 Injury Report: Malik Nabers, Andrew Thomas limited",
+     "url": "https://www.giants.com/news/giants-vs-commanders-week-5-injury-report-malik-nabers-andrew-thomas-cam-skattebo"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Mason Taylor"
+   ],
+   "headline": "Jets Injury Report | Week 5 vs. Browns - Thursday",
+   "summary": "TE Mason Taylor (Thumb) Again a Full Participant",
+   "published": "2026-10-08T20:00:00Z",
+   "published_at": "2026-10-08T20:00:00Z",
+   "first_seen_at": "2026-10-09T13:42:34+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Injury Report | Week 5 vs. Browns - Thursday",
+     "url": "https://www.newyorkjets.com/news/jets-injury-report-week-5-vs-browns-thursday-10-07-20268"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield",
+    "Jalon Daniels"
+   ],
+   "headline": "S J.J. Roberts and QB Easton Stick Elevated for TNF Game in Dallas",
+   "summary": "Safety J.J. Roberts is in line to make his NFL regular season debut on Thursday night while Easton Stick will once again back up rookie quarterback Jalon Daniels in the absence of Baker Mayfield",
+   "published": "2026-10-08T20:00:00Z",
+   "published_at": "2026-10-08T20:00:00Z",
+   "first_seen_at": "2026-10-09T13:42:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "S J.J. Roberts and QB Easton Stick Elevated for TNF Game in Dallas",
+     "url": "https://www.buccaneers.com/news/s-j-j-roberts-and-qb-easton-stick-elevated-for-tnf-game-in-dallas"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Kyren Williams"
+   ],
+   "headline": "Sean McVay has a running game tendency the Bills are built to stop",
+   "summary": "Rams head coach Sean McVay has a favorite run-blocking scheme and it has delivered many of Kyren Williams’ most explosive plays this season, but on Monday night the coach faces a Buffalo Bills defense that has yet to be exploited by it. What happens when McVay’s “man” meets Jim Leonhard’s “wall”? The Rams have called […]",
+   "published": "2026-10-08T18:30:42Z",
+   "published_at": "2026-10-08T18:30:42Z",
+   "first_seen_at": "2026-10-09T13:42:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Sean McVay has a running game tendency the Bills are built to stop",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-analysis/151144/rams-sean-mcvay-kyren-williams-bills-run-defense"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Bryce Young"
+   ],
+   "headline": "Bryce Young to serve as celebrity Gameday picker; appear in Saban documentary",
+   "summary": "The Panthers quarterback is reconnecting with his college roots this weekend. With Carolina on a bye week, Young is traveling to Tuscaloosa to serve as the celebrity picker on College Gameday. He also appears in a new documentary premiering this week about Nick Saban.",
+   "published": "2026-10-08T18:27:24Z",
+   "published_at": "2026-10-08T18:27:24Z",
+   "first_seen_at": "2026-10-09T13:42:32+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Bryce Young to serve as celebrity Gameday picker; appear in Saban documentary",
+     "url": "https://www.panthers.com/news/bryce-young-to-serve-as-celebrity-college-gameday-picker-appear-in-nick-saban-documentary"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Lamar Jackson Misses Practice Again, But Other Ravens Return",
+   "summary": "Ravens left tackle Ronnie Stanley (toe/ankle) was back, along with guard Andrew Vorhees (foot).",
+   "published": "2026-10-08T17:46:32Z",
+   "published_at": "2026-10-08T17:46:32Z",
+   "first_seen_at": "2026-10-09T13:42:32+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Lamar Jackson Misses Practice Again, But Other Ravens Return",
+     "url": "https://www.baltimoreravens.com/news/lamar-jackson-injury-report-ravens-falcons-zay-flowers-ronnie-stanley-trey-hendrickson"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Bijan Robinson"
+   ],
+   "headline": "How Ravens Are Facing the Challenge of Defending Bijan Robinson",
+   "summary": "Falcons running back Bijan Robinson has been stellar in primetime, but the Ravens’ defense hopes to close the show on Sunday night.",
+   "published": "2026-10-08T17:18:31Z",
+   "published_at": "2026-10-08T17:18:31Z",
+   "first_seen_at": "2026-10-09T13:42:32+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "How Ravens Are Facing the Challenge of Defending Bijan Robinson",
+     "url": "https://www.baltimoreravens.com/news/ravens-defense-pumped-to-face-bijan-robinson-who-excels-in-primetime-ravens-falcons-week-5"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Brock Bowers"
+   ],
+   "headline": "Brock Bowers is forcing defenses to rethink the tight end position",
+   "summary": "Praise comes in many forms when it comes to the Raiders tight end, a first-team All-Pro selection as a rookie two seasons ago.",
+   "published": "2026-10-08T17:16:20Z",
+   "published_at": "2026-10-08T17:16:20Z",
+   "first_seen_at": "2026-10-09T13:42:33+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "Brock Bowers is forcing defenses to rethink the tight end position",
+     "url": "https://www.raiders.com/news/brock-bowers-is-forcing-defenses-to-rethink-the-tight-end-position"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Zay Flowers"
+   ],
+   "headline": "The Stats That Defined the Ravens' First Four Games",
+   "summary": "Breaking down Lamar Jackson’s hot start, Zay Flowers’ mind-boggling production, and other trends from the first four games of Baltimore’s 2026 season.",
+   "published": "2026-10-08T16:04:23Z",
+   "published_at": "2026-10-08T16:04:23Z",
+   "first_seen_at": "2026-10-09T13:42:32+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "The Stats That Defined the Ravens' First Four Games",
+     "url": "https://www.baltimoreravens.com/news/ravens-stats-first-four-games-2026-season"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "Spadaro: Jalen Hurts and the Eagles' offense embrace 'next-man-up' mentality",
+   "summary": "With multiple starters on offense out with injuries, Jalen Hurts opens up about what steps the offense is taking to prepare for London.",
+   "published": "2026-10-08T15:45:00Z",
+   "published_at": "2026-10-08T15:45:00Z",
+   "first_seen_at": "2026-10-09T13:42:34+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PHI official",
+     "title": "Spadaro: Jalen Hurts and the Eagles' offense embrace 'next-man-up' mentality",
+     "url": "https://www.philadelphiaeagles.com/news/spadaro-jalen-hurts-and-the-eagles-offense-embrace-next-man-up-mentality"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "George Kittle"
+   ],
+   "headline": "The 49ers proved that good teams can win ugly",
+   "summary": "As we approach a big Week 5 showdown against the Seattle Seahawks, let’s take a final look at the San Francisco 49ers’ 24-14 win over the Denver Broncos. It took a bit, but the 49ers finally took control after a special teams play and then put things away with a big play from George Kittle. […]",
+   "published": "2026-10-08T15:45:00Z",
+   "published_at": "2026-10-08T15:45:00Z",
+   "first_seen_at": "2026-10-09T13:42:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "The 49ers proved that good teams can win ugly",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-scores-results/163921/the-49ers-proved-that-good-teams-can-win-ugly"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Dohnte Meyers"
+   ],
+   "headline": "The Conversation | Old Uber Eats Driver Dohnte Meyers Talks Going Contactless At The Catch",
+   "summary": "Bengals.com senior writer Geoff Hobson sits down with WR Dohnte Meyers ahead of Week 5 against the Jaguars.",
+   "published": "2026-10-08T14:14:03Z",
+   "published_at": "2026-10-08T14:14:03Z",
+   "first_seen_at": "2026-10-09T13:42:32+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "The Conversation | Old Uber Eats Driver Dohnte Meyers Talks Going Contactless At The Catch",
+     "url": "https://www.bengals.com/news/the-conversation-dohnte-meyers-story-bengals-dolphins-week-5-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes",
+    "Kenneth Walker III"
+   ],
+   "headline": "Revamped defense plus Kenneth Walker III: How the Chiefs re-established themselves as a Super Bowl contender",
+   "summary": "Kenneth Walker III's league-leading ground game and Steve Spagnuolo's revamped, pressure-heavy defense are taking the burden off Patrick Mahomes",
+   "published": "2026-10-08T14:02:19Z",
+   "published_at": "2026-10-08T14:02:19Z",
+   "first_seen_at": "2026-10-09T13:42:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Revamped defense plus Kenneth Walker III: How the Chiefs re-established themselves as a Super Bowl contender",
+     "url": "https://www.cbssports.com/nfl/news/how-chiefs-re-established-super-bowl-contender-mahomes-walker"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Bengals News: Joe Burrow wants to stick with under-center offense",
+   "summary": "The Cincinnati Bengals have been trying to incorporate more offense from under the center. They made an effort all offseason to work out any kinks. Many wondered what would happen to it after they abandoned it against the Jacksonville Jaguars in their loss on Sunday. However, Burrow isn’t going to push to trash it. “We […]",
+   "published": "2026-10-08T13:45:28Z",
+   "published_at": "2026-10-08T13:45:28Z",
+   "first_seen_at": "2026-10-09T13:42:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Bengals News: Joe Burrow wants to stick with under-center offense",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/201626/bengals-news-joe-burrow-wants-to-stick-with-under-center-offense"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Kaelon Black"
+   ],
+   "headline": "Kyle Shanahan shares interesting perspective on 49ers unique drafting strategy for their OL",
+   "summary": "When it comes to the NFL Draft, the San Francisco 49ers are often a team in many conversations during the offseason, with this year being no different after they took wide receiver De’Zhaun Stribling at No. 33 and running back Kaelon Black at No. 90 overall. San Francisco has seen its wide range of successes […]",
+   "published": "2026-10-08T13:44:39Z",
+   "published_at": "2026-10-08T13:44:39Z",
+   "first_seen_at": "2026-10-09T13:42:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Kyle Shanahan shares interesting perspective on 49ers unique drafting strategy for their OL",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/163931/san-francisco-49ers-news-kyle-shanahan-shares-interesting-perspective-unique-drafting-strategy-offensive-line-2026-nfl-draft"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Late for Work: Ravens Get Favorable Grades From Pundits for Cam Jurgens Trade",
+   "summary": "Lamar Jackson is PFF’s MVP of the season’s first quarter. Vega Ioane makes a draft analyst’s ranking of the top 10 rookies.",
+   "published": "2026-10-08T13:36:45Z",
+   "published_at": "2026-10-08T13:36:45Z",
+   "first_seen_at": "2026-10-09T13:42:32+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Late for Work: Ravens Get Favorable Grades From Pundits for Cam Jurgens Trade",
+     "url": "https://www.baltimoreravens.com/news/late-for-work-cam-jurgens-ravens-trade-grades-lamar-jackson-vega-ioane"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 22,
+ "feeds_generated_at": "2026-10-09T13:42:31+00:00"
+}
