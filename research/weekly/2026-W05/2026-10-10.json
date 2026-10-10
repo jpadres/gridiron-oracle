@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T12:35:48Z",
+  "generated_at": "2026-10-10T16:12:48Z",
   "season": 2026,
   "week": 5,
   "schedule": {
@@ -17,10 +17,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-10T12:35:48Z",
+    "research_as_of": "2026-10-10T16:12:48Z",
     "injuries_as_of": "week 5",
-    "roster_as_of": "2026-10-10T06:02:44Z",
-    "schedule_as_of": "2026-10-10T12:35:12Z"
+    "roster_as_of": "2026-10-10T13:37:28Z",
+    "schedule_as_of": "2026-10-10T16:05:13Z"
   },
   "injury_report": {
     "status": "PUBLISHED",
@@ -3279,8 +3279,8 @@
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-10-10T06:02:29Z",
-    "teams": 32,
+    "effective_at": "2026-10-10T13:32:40Z",
+    "teams": 31,
     "kickers": {
       "ARI": {
         "player_id": "00-0038567",
@@ -3375,12 +3375,6 @@
       "KC": {
         "player_id": "00-0033303",
         "player_name": "Harrison Butker",
-        "contested": false,
-        "competition": []
-      },
-      "LAC": {
-        "player_id": "00-0037224",
-        "player_name": "Cameron Dicker",
         "contested": false,
         "competition": []
       },
@@ -18311,16 +18305,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-10T06:01:15Z",
+      "retrieved_at": "2026-10-10T13:33:06Z",
       "status": "OK",
       "rows": 1409
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-10T06:02:38Z",
+      "retrieved_at": "2026-10-10T13:32:49Z",
       "status": "OK",
-      "rows": 629222
+      "rows": 631463
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -19182,7 +19176,12 @@
         "now": "Questionable"
       }
     ],
-    "removed": [],
-    "unchanged": 220
+    "removed": [
+      {
+        "key": "K:LAC",
+        "was": "Cameron Dicker"
+      }
+    ],
+    "unchanged": 219
   }
 }
