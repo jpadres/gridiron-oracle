@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T05:50:44Z",
+  "generated_at": "2026-10-11T12:54:21Z",
   "season": 2026,
   "week": 5,
   "schedule": {
@@ -17,10 +17,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-11T05:50:44Z",
+    "research_as_of": "2026-10-11T12:54:21Z",
     "injuries_as_of": "week 5",
-    "roster_as_of": "2026-10-10T13:37:28Z",
-    "schedule_as_of": "2026-10-11T05:15:14Z"
+    "roster_as_of": "2026-10-11T06:02:51Z",
+    "schedule_as_of": "2026-10-11T12:45:13Z"
   },
   "injury_report": {
     "status": "PUBLISHED",
@@ -310,9 +310,9 @@
         "gsis_id": "00-0034827",
         "full_name": "DJ Moore",
         "position": "WR",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Shoulder",
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "BUF",
@@ -328,8 +328,8 @@
         "gsis_id": "00-0035230",
         "full_name": "Ed Oliver",
         "position": "DE",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Knee",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -343,12 +343,21 @@
       },
       {
         "team": "BUF",
+        "gsis_id": "00-0036988",
+        "full_name": "Josh Palmer",
+        "position": "WR",
+        "report_status": "Out",
+        "report_primary_injury": "Shoulder",
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BUF",
         "gsis_id": "00-0037034",
         "full_name": "Dee Alford",
         "position": "CB",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Ankle",
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "BUF",
@@ -357,7 +366,7 @@
         "position": "LB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Full Participation in Practice"
+        "practice_status": "Did Not Participate In Practice"
       },
       {
         "team": "BUF",
@@ -366,7 +375,7 @@
         "position": "CB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "BUF",
@@ -409,9 +418,9 @@
         "gsis_id": "00-0040132",
         "full_name": "Landon Jackson",
         "position": "DE",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Knee",
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "BUF",
@@ -1428,7 +1437,7 @@
         "position": "WR",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "LAR",
@@ -1437,7 +1446,16 @@
         "position": "DT",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "LAR",
+        "gsis_id": "00-0033110",
+        "full_name": "Tyler Higbee",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
       },
       {
         "team": "LAR",
@@ -1446,7 +1464,16 @@
         "position": "TE",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "LAR",
+        "gsis_id": "00-0036603",
+        "full_name": "Alaric Jackson",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
       },
       {
         "team": "LAR",
@@ -1455,7 +1482,7 @@
         "position": "LB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "LAR",
@@ -1464,7 +1491,7 @@
         "position": "CB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "LAR",
@@ -1473,13 +1500,22 @@
         "position": "LB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "LAR",
         "gsis_id": "00-0037841",
         "full_name": "Quentin Lake",
         "position": "S",
+        "report_status": "Questionable",
+        "report_primary_injury": "Hip",
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "LAR",
+        "gsis_id": "00-0039137",
+        "full_name": "Byron Young",
+        "position": "LB",
         "report_status": null,
         "report_primary_injury": null,
         "practice_status": "Did Not Participate In Practice"
@@ -1491,7 +1527,7 @@
         "position": "LB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "LAR",
@@ -3275,12 +3311,12 @@
     ],
     "teams_expected": 30,
     "teams_pending": [],
-    "with_designation": 172
+    "with_designation": 178
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-10-10T13:32:40Z",
-    "teams": 31,
+    "effective_at": "2026-10-11T06:01:52Z",
+    "teams": 32,
     "kickers": {
       "ARI": {
         "player_id": "00-0038567",
@@ -3375,6 +3411,12 @@
       "KC": {
         "player_id": "00-0033303",
         "player_name": "Harrison Butker",
+        "contested": false,
+        "competition": []
+      },
+      "LAC": {
+        "player_id": "00-0037224",
+        "player_name": "Cameron Dicker",
         "contested": false,
         "competition": []
       },
@@ -18305,16 +18347,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-10T13:33:06Z",
+      "retrieved_at": "2026-10-11T06:01:13Z",
       "status": "OK",
-      "rows": 1409
+      "rows": 1413
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-10T13:32:49Z",
+      "retrieved_at": "2026-10-11T06:01:59Z",
       "status": "OK",
-      "rows": 631463
+      "rows": 633794
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -18338,9 +18380,56 @@
   ],
   "diff": {
     "against": "2026-10-10.json",
-    "new": [],
-    "changed": [],
+    "new": [
+      {
+        "key": "BUF:Josh Palmer",
+        "now": "Out"
+      },
+      {
+        "key": "LAR:Tyler Higbee",
+        "now": "None"
+      },
+      {
+        "key": "LAR:Alaric Jackson",
+        "now": "None"
+      },
+      {
+        "key": "LAR:Byron Young",
+        "now": "None"
+      },
+      {
+        "key": "K:LAC",
+        "now": "Cameron Dicker"
+      }
+    ],
+    "changed": [
+      {
+        "key": "BUF:DJ Moore",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "BUF:Ed Oliver",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "BUF:Dee Alford",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "BUF:Landon Jackson",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "LAR:Quentin Lake",
+        "was": "None",
+        "now": "Questionable"
+      }
+    ],
     "removed": [],
-    "unchanged": 388
+    "unchanged": 383
   }
 }
