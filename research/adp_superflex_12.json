@@ -2,7 +2,7 @@
  "source": "fantasyfootballcalculator",
  "scoring": "superflex",
  "league_size": 12,
- "fetched_at": "2026-10-11T22:01:08Z",
+ "fetched_at": "2026-10-12T15:33:02Z",
  "sample_size": 187,
  "window": "2026-09-08",
  "entries": [
@@ -441,7 +441,7 @@
   {
    "name": "Marvin Harrison Jr.",
    "position": "WR",
-   "team": "ARI",
+   "team": "HOU",
    "adp": 86.6
   },
   {
