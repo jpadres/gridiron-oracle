@@ -1,0 +1,1352 @@
+{
+ "date": "2026-10-12",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Garrett Wilson"
+   ],
+   "headline": "Jets Turned to Garrett Wilson & Braelon Allen to Power Offense in the Sunday Rain",
+   "summary": "2-Man Combo Provided Almost 80% of Scrimmage Yards Green & White Needed to Down the Browns",
+   "published": "2026-10-12T15:47:49Z",
+   "published_at": "2026-10-12T15:47:49Z",
+   "first_seen_at": "2026-10-12T16:01:25+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Turned to Garrett Wilson & Braelon Allen to Power Offense in the Sunday Rain",
+     "url": "https://www.newyorkjets.com/news/garrett-wilson-braelon-allen-power-jets-offense-vs-browns-10-12-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Josh Allen",
+    "Puka Nacua",
+    "Kyren Williams"
+   ],
+   "headline": "Bills vs. Rams odds, picks, player props: Expert's best bets for NFL Week 5 Monday Night Football",
+   "summary": "A massive 54.5 total headlines the board as two high-powered offenses collide, creating prime opportunities on Josh Allen and Puka Nacua anytime touchdowns along with a sneaky Kyren Williams prop",
+   "published": "2026-10-12T15:42:30Z",
+   "published_at": "2026-10-12T15:42:30Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Bills vs. Rams odds, picks, player props: Expert's best bets for NFL Week 5 Monday Night Football",
+     "url": "https://www.cbssports.com/betting/news/bills-vs-rams-odds-picks-player-props-experts-best-bets-for-nfl-week-5-monday-night-football"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Jordan Love"
+   ],
+   "headline": "Vote for Jordan Love for FedEx Air Player of the Week",
+   "summary": "Packers QB posted 137.5 passer rating, throwing for 367 yards, two TDs",
+   "published": "2026-10-12T15:27:28Z",
+   "published_at": "2026-10-12T15:27:28Z",
+   "first_seen_at": "2026-10-12T16:01:22+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Vote for Jordan Love for FedEx Air Player of the Week",
+     "url": "https://www.packers.com/news/vote-for-jordan-love-for-fedex-air-player-of-the-week-5-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Saquon Barkley"
+   ],
+   "headline": "Eagles reportedly lose RB Will Shipley for weeks due to foot injury with Saquon Barkley, Tank Bigsby already out",
+   "summary": "The Eagles' running back is being heavily tested early in the 2026 season.",
+   "published": "2026-10-12T15:22:46Z",
+   "published_at": "2026-10-12T15:22:46Z",
+   "first_seen_at": "2026-10-12T16:01:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Eagles reportedly lose RB Will Shipley for weeks due to foot injury with Saquon Barkley, Tank Bigsby already out",
+     "url": "https://sports.yahoo.com/nfl/breaking-news/article/eagles-reportedly-lose-rb-will-shipley-for-weeks-with-foot-injury-with-saquon-barkley-tank-bigsby-already-out-152246344.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "Jaylen Warren"
+   ],
+   "headline": "Steelers PFF grades: Jaylen Warren's stats surging in Mike McCarthy offense",
+   "summary": "The cornerback duo of Asante Samuel Jr. and Daylen Everette has also shown promise amid the injury to Jamel Dean and departure of Joey Porter Jr.",
+   "published": "2026-10-12T15:10:38Z",
+   "published_at": "2026-10-12T15:10:38Z",
+   "first_seen_at": "2026-10-12T16:01:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Steelers PFF grades: Jaylen Warren's stats surging in Mike McCarthy offense",
+     "url": "https://sports.yahoo.com/articles/steelers-pff-grades-jaylen-warrens-151038537.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Bucky Irving"
+   ],
+   "headline": "Bucky Irving Drives Explosive Rushing Attack | Data Crunch",
+   "summary": "In their win over the Cowboys in Week Five, Bucky Irving and the Buccaneers ran the ball a lot and had one of the best per-carry games in franchise history",
+   "published": "2026-10-12T15:00:00Z",
+   "published_at": "2026-10-12T15:00:00Z",
+   "first_seen_at": "2026-10-12T16:01:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Bucky Irving Drives Explosive Rushing Attack | Data Crunch",
+     "url": "https://www.buccaneers.com/news/bucky-irving-drives-explosive-rushing-attack-data-crunch"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LA",
+   "players": [
+    "Dean Connors"
+   ],
+   "headline": "Rams could have a punt return upgrade on the roster already",
+   "summary": "Why the Rams should bench Alex Bachman in favor of Dean Connors",
+   "published": "2026-10-12T15:00:00Z",
+   "published_at": "2026-10-12T15:00:00Z",
+   "first_seen_at": "2026-10-12T16:01:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Rams could have a punt return upgrade on the roster already",
+     "url": "https://sports.yahoo.com/articles/rams-could-punt-return-upgrade-150000637.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Jameson Williams"
+   ],
+   "headline": "Jameson Williams catches two TDs",
+   "summary": "Detroit Lions WR Jameson Williams caught two receptions for 47 yards and two touchdowns in the Week 5 win over the Arizona Cardinals.",
+   "published": "2026-10-12T14:44:20Z",
+   "published_at": "2026-10-12T14:44:20Z",
+   "first_seen_at": "2026-10-12T16:01:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Jameson Williams catches two TDs",
+     "url": "https://sports.yahoo.com/articles/jameson-williams-catches-two-tds-144420209.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Mark Andrews"
+   ],
+   "headline": "‘You Are the Adversity,’ ‘Leave Him in Atlanta’ — Ravens Fans Not Sold on Mark Andrews’ Honest Response to Costly Errors vs. Falcons",
+   "summary": "",
+   "published": "2026-10-12T14:20:11Z",
+   "published_at": "2026-10-12T14:20:11Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘You Are the Adversity,’ ‘Leave Him in Atlanta’ — Ravens Fans Not Sold on Mark Andrews’ Honest Response to Costly Errors vs. Falcons",
+     "url": "https://www.profootballnetwork.com/ravens-fans-not-sold-mark-andrews-errors-falcons"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Michael Penix Jr."
+   ],
+   "headline": "NFL news, live updates: Texans trade for Marvin Harrison Jr., earn first win of 2026 season; Falcons fall flat in OT after Michael Penix Jr. injured",
+   "summary": "Follow along with the latest NFL news coming out of Week 5.",
+   "published": "2026-10-12T14:15:35Z",
+   "published_at": "2026-10-12T14:15:35Z",
+   "first_seen_at": "2026-10-12T16:01:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "NFL news, live updates: Texans trade for Marvin Harrison Jr., earn first win of 2026 season; Falcons fall flat in OT after Michael Penix Jr. injured",
+     "url": "https://sports.yahoo.com/nfl/live/nfl-news-live-injury-updates-from-week-5-marvin-harrison-jr-trade-141535298.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Jared Goff"
+   ],
+   "headline": "Jared Goff continues rolling",
+   "summary": "Detroit Lions QB Jared Goff went 19-for-30 for 271 yards and three touchdowns in the Week 5 win over the Arizona Cardinals.",
+   "published": "2026-10-12T14:10:38Z",
+   "published_at": "2026-10-12T14:10:38Z",
+   "first_seen_at": "2026-10-12T16:01:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Jared Goff continues rolling",
+     "url": "https://sports.yahoo.com/articles/jared-goff-continues-rolling-141038757.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Jacoby Brissett"
+   ],
+   "headline": "Mike LaFleur on possible QB change after latest loss: \"Jacoby [Brissett] was not the problem\"",
+   "summary": "The Cardinals lost their franchise-record ninth straight home game on Sunday, in blowout fashion to the Lions.",
+   "published": "2026-10-12T14:04:41Z",
+   "published_at": "2026-10-12T14:04:41Z",
+   "first_seen_at": "2026-10-12T16:01:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Mike LaFleur on possible QB change after latest loss: \"Jacoby [Brissett] was not the problem\"",
+     "url": "https://sports.yahoo.com/articles/mike-lafleur-possible-qb-change-140441682.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Jared Goff"
+   ],
+   "headline": "Lions report card, grades: Secondary takes huge strides vs. Cardinals",
+   "summary": "The Detroit Lions got back on track on Sunday afternoon with their most complete win of the season over the Arizona Cardinals. Here are my grades for each position in their convincing victory. Quarterback: A Jared Goff wasn’t electric against the Cardinals, but he also played pretty close to mistake-free football. He finished the game […]",
+   "published": "2026-10-12T14:01:34Z",
+   "published_at": "2026-10-12T14:01:34Z",
+   "first_seen_at": "2026-10-12T16:01:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "Lions report card, grades: Secondary takes huge strides vs. Cardinals",
+     "url": "https://www.prideofdetroit.com/detroit-lions-analysis/176918/detroit-lions-report-card-grades-secondary-takes-huge-strides-vs-cardinals"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Turnovers continue to be the Seahawks’ biggest problem under Mike Macdonald",
+   "summary": "The Seattle Seahawks have only lost three games dating back to last November; the San Francisco 49ers, Los Angeles Rams, and Washington Commanders bested Seattle by a combined eight points. You know what else happened? Seattle gave the ball away a lot, namely Sam Darnold, but he’s not the only guilty party. Those three losses […]",
+   "published": "2026-10-12T14:00:00Z",
+   "published_at": "2026-10-12T14:00:00Z",
+   "first_seen_at": "2026-10-12T16:01:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Turnovers continue to be the Seahawks’ biggest problem under Mike Macdonald",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-analysis/177119/nfl-stats-turnovers-continue-seahawks-biggest-problem-under-mike-macdonald"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Davante Adams",
+    "Matthew Stafford",
+    "James Cook",
+    "Kyren Williams"
+   ],
+   "headline": "Bills vs. Rams Start 'Em, Sit 'Em: Monday Night Football - Matthew Stafford, James Cook, Kyren Williams, DJ Moore, Davante Adams, and more",
+   "summary": "",
+   "published": "2026-10-12T13:45:10Z",
+   "published_at": "2026-10-12T13:45:10Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Bills vs. Rams Start 'Em, Sit 'Em: Monday Night Football - Matthew Stafford, James Cook, Kyren Williams, DJ Moore, Davante Adams, and more",
+     "url": "https://www.rotoballer.com/fantasy-football-start-em-sit-em-monday-bills-vs-rams-week-5-mnf-2026/1963563"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Tyler Huntley"
+   ],
+   "headline": "Late for Work: Ravens Excel in Clutch to Rally for 'Incredible Win' in Atlanta",
+   "summary": "Tyler Huntley shows again why he has the Ravens’ trust. Tyler Loop boosted the Ravens in the first half. The Ravens reportedly had Cam Jurgens undergo a physical before trade was finalized.",
+   "published": "2026-10-12T13:44:26Z",
+   "published_at": "2026-10-12T13:44:26Z",
+   "first_seen_at": "2026-10-12T16:01:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Late for Work: Ravens Excel in Clutch to Rally for 'Incredible Win' in Atlanta",
+     "url": "https://www.baltimoreravens.com/news/ravens-clutch-falcons-overtime-incredible-win-atlanta-tyler-huntley-tyler-loop-cam-jurgens"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Tyler Huntley"
+   ],
+   "headline": "‘Insane,’ ‘This Cannot Be Real’ — NFL Fans Take Notice of Wild Stat Where Ravens’ Tyler Huntley Comes Out on Top vs. Joe Burrow",
+   "summary": "",
+   "published": "2026-10-12T13:42:58Z",
+   "published_at": "2026-10-12T13:42:58Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Insane,’ ‘This Cannot Be Real’ — NFL Fans Take Notice of Wild Stat Where Ravens’ Tyler Huntley Comes Out on Top vs. Joe Burrow",
+     "url": "https://www.profootballnetwork.com/tyler-huntley-on-top-joe-burrow"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jameis Winston"
+   ],
+   "headline": "Jameis Winston is, and should be, the NY Giants quarterback",
+   "summary": "Can we stop now with the breathless drum-banging for J.J. McCarthy to replace Jameis Winston as quarterback of the New York Giants sooner rather than later? The Giants unquestionably lose Sunday’s game against the Washington Commanders without Winston’s heroics — 254 yards passing and three touchdowns, two of those in the final eight minutes of […]",
+   "published": "2026-10-12T13:21:46Z",
+   "published_at": "2026-10-12T13:21:46Z",
+   "first_seen_at": "2026-10-12T16:01:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "Jameis Winston is, and should be, the NY Giants quarterback",
+     "url": "https://www.bigblueview.com/new-york-giants-analysis/175502/jameis-winston-is-and-should-be-the-ny-giants-quarterback"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIA",
+   "players": [
+    "Malik Willis"
+   ],
+   "headline": "‘That Score Looks Better Than It Was,’ ‘We Need a QB Badly’ — Dolphins Fans Question Malik Willis as Miami Falls to 0-5 Against Bengals",
+   "summary": "",
+   "published": "2026-10-12T13:04:51Z",
+   "published_at": "2026-10-12T13:04:51Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘That Score Looks Better Than It Was,’ ‘We Need a QB Badly’ — Dolphins Fans Question Malik Willis as Miami Falls to 0-5 Against Bengals",
+     "url": "https://www.profootballnetwork.com/dolphins-fans-malik-willis-bengals-loss"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "‘The Answer to Tua (Tagovailoa) vs (Justin) Herbert Was Neither’ — NFL Fans Roast Chargers QB As Awful 38.2 Fourth-Quarter Passer Rating Goes Viral",
+   "summary": "",
+   "published": "2026-10-12T13:00:31Z",
+   "published_at": "2026-10-12T13:00:31Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘The Answer to Tua (Tagovailoa) vs (Justin) Herbert Was Neither’ — NFL Fans Roast Chargers QB As Awful 38.2 Fourth-Quarter Passer Rating Goes Viral",
+     "url": "https://www.profootballnetwork.com/justin-herbert-fourth-quarter-passer-rating-chargers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "The 49ers, not the Rams have started 2026 the hottest",
+   "summary": "The NFL season is a long one for players and coaches, but it usually goes fast for the fans, and so much can change quicky, but almost 5-weeks into the 2026 season the San Francisco 49ers look like the strongest team in the NFC. Not the Los Angeles Rams. When the Rams kept Matthew Stafford, […]",
+   "published": "2026-10-12T12:59:00Z",
+   "published_at": "2026-10-12T12:59:00Z",
+   "first_seen_at": "2026-10-12T16:01:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "The 49ers, not the Rams have started 2026 the hottest",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-news/151499/rams-49ers-seahawks-bills-garrett-nfc"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Matthew Stafford",
+    "Josh Allen"
+   ],
+   "headline": "Rams vs. Bills how to watch, prediction, odds: Matthew Stafford, Josh Allen clash in Week 5 'MNF' matchup",
+   "summary": "Here's how to watch Rams vs. Bills, along with the latest odds, key matchups and our Week 5 'Monday Night Football' prediction",
+   "published": "2026-10-12T12:33:52Z",
+   "published_at": "2026-10-12T12:33:52Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Rams vs. Bills how to watch, prediction, odds: Matthew Stafford, Josh Allen clash in Week 5 'MNF' matchup",
+     "url": "https://www.cbssports.com/nfl/news/rams-vs-bills-how-to-watch-prediction-odds-monday-night-football"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Garrett Wilson"
+   ],
+   "headline": "3 Takeaways | Jets Defense Registers 8 Sacks, Holds Browns Under 200 Yards",
+   "summary": "WR Garrett Wilson Has Second 100-Plus-Yard Performance of the Season",
+   "published": "2026-10-12T12:15:00Z",
+   "published_at": "2026-10-12T12:15:00Z",
+   "first_seen_at": "2026-10-12T16:01:25+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "3 Takeaways | Jets Defense Registers 8 Sacks, Holds Browns Under 200 Yards",
+     "url": "https://www.newyorkjets.com/news/3-takeaways-jets-defense-registers-8-sacks-holds-browns-under-200-yards"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Tee Higgins",
+    "Joe Burrow"
+   ],
+   "headline": "Bengals kicker Evan McPherson continues to rewrite Bengals franchise history",
+   "summary": "The Cincinnati Bengals’ 2020 NFL Draft class may have more notoriety because of Joe Burrow and Tee Higgins being their first two picks of that class, but their 2021 haul can’t be overlooked, either. Sure, they drafted Ja’Marr Chase at No. 6 overall that year, but it’s a 5th-round selection that is also continuing to […]",
+   "published": "2026-10-12T11:05:00Z",
+   "published_at": "2026-10-12T11:05:00Z",
+   "first_seen_at": "2026-10-12T16:01:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Bengals kicker Evan McPherson continues to rewrite Bengals franchise history",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/201991/evan-mcpherson-franchise-history-kicker-dolphins"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Derrick Henry"
+   ],
+   "headline": "‘We Keep Receipts,’ ‘Point Em Out’: Ravens Fans React as Derrick Henry Pulls Up Baltimore Sun Reporters’ Doom-And-Gloom Predictions",
+   "summary": "",
+   "published": "2026-10-12T10:32:27Z",
+   "published_at": "2026-10-12T10:32:27Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘We Keep Receipts,’ ‘Point Em Out’: Ravens Fans React as Derrick Henry Pulls Up Baltimore Sun Reporters’ Doom-And-Gloom Predictions",
+     "url": "https://www.profootballnetwork.com/ravens-fans-react-derrick-henry-baltimore-sun-week-5-predictions"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Patriots QB Drake Maye uses elite Week 5 outing vs. Raiders to continue rebound",
+   "summary": "After nearly winning the NFL's MVP award in 2025, Drake Maye came to a crashing halt during the playoffs and the start of 2026. However, the Patriots quarterback has turned things up a notch over his last two games, punctuated by a career-best day in Week 5.",
+   "published": "2026-10-12T10:30:00Z",
+   "published_at": "2026-10-12T10:30:00Z",
+   "first_seen_at": "2026-10-12T16:01:19+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Patriots QB Drake Maye uses elite Week 5 outing vs. Raiders to continue rebound",
+     "url": "https://www.pff.com/news/patriots-qb-drake-maye-uses-elite-week-5-outing-vs-raiders-to-continue-rebound"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIA",
+   "players": [
+    "Malik Willis"
+   ],
+   "headline": "Jordan Battle backs up talk with two interceptions vs. Malik Willis in Bengals’ win over Dolphins",
+   "summary": "Jordan Battle had a pretty good idea of what he wanted to accomplish against the Miami Dolphins. By the time halftime rolled around Sunday, the Cincinnati Bengals safety had made his presence felt in a big way. After discussing a potential tell in quarterback Malik Willis’ throwing motion earlier in the week, Battle intercepted the […]",
+   "published": "2026-10-12T10:30:00Z",
+   "published_at": "2026-10-12T10:30:00Z",
+   "first_seen_at": "2026-10-12T16:01:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Jordan Battle backs up talk with two interceptions vs. Malik Willis in Bengals’ win over Dolphins",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-analysis/201994/jordan-battle-2-interceptions-dolphins-qb-malik-willis"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "‘Mike Evans, I Love You’ — Jon Gruden Goes Wild for 49ers Star’s Razzle-Dazzle in Showdown With Seahawks",
+   "summary": "",
+   "published": "2026-10-12T09:54:21Z",
+   "published_at": "2026-10-12T09:54:21Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Mike Evans, I Love You’ — Jon Gruden Goes Wild for 49ers Star’s Razzle-Dazzle in Showdown With Seahawks",
+     "url": "https://www.profootballnetwork.com/mike-evans-jon-gruden-49ers-seahawks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Davante Adams",
+    "Dalton Kincaid",
+    "Matthew Stafford",
+    "Keon Coleman"
+   ],
+   "headline": "Monday Night Football Same-Game Parlay: Bills vs. Rams",
+   "summary": "Monday Night Football betting picks for the Buffalo Bills vs. Los Angeles Rams feature a four-leg same-game parlay with +750 odds. Davante Adams' receiving yards, Matthew Stafford's passing touchdowns, Dalton Kincaid's receptions and Keon Coleman's receiving yards form the recommended combination.",
+   "published": "2026-10-12T09:00:00Z",
+   "published_at": "2026-10-12T09:00:00Z",
+   "first_seen_at": "2026-10-12T16:01:19+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Monday Night Football Same-Game Parlay: Bills vs. Rams",
+     "url": "https://www.pff.com/news/bet-monday-night-football-same-game-parlay-bills-rams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers News: Victory Monday + Go Bills",
+   "summary": "Fleet Week was this past weekend in San Francisco. When the Blue Angels really get rocking with their aerial tricks, it’s such an overwhelming combination of power and precision. They go so fast and turn so tight and everything feels both explosive and hyper-accurate. That’s what it felt like watching Mike Evans play today. I’ve […]",
+   "published": "2026-10-12T09:00:00Z",
+   "published_at": "2026-10-12T09:00:00Z",
+   "first_seen_at": "2026-10-12T16:01:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers News: Victory Monday + Go Bills",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/164148/49ers-news-regular-season-week-5-seattle-seahawks-victory-monday-win-victory-mike-evans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Commanders vs. 49ers odds: Opening lines for Week 6 matchup",
+   "summary": "The Washington Commanders are 1-3-1 after Sunday’s home game against the New York Giants ended in a tie. This was a game where Jayden Daniels and the Commanders were in control the entire game, but they let the Giants come back in the 4th quarter. Then they couldn’t finish the game in overtime, and a […]",
+   "published": "2026-10-12T08:00:00Z",
+   "published_at": "2026-10-12T08:00:00Z",
+   "first_seen_at": "2026-10-12T16:01:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders vs. 49ers odds: Opening lines for Week 6 matchup",
+     "url": "https://www.hogshaven.com/washington-commanders-odds/448040/commanders-vs-49ers-odds-week-6-opening-lines-point-spread-total"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Michael Penix Jr."
+   ],
+   "headline": "‘That’s My QB1,’ ‘We Needed You on That Drive’ — Falcons Fans React As Michael Penix Jr. Drops 9-Word Injury Update After Loss to Ravens",
+   "summary": "",
+   "published": "2026-10-12T07:43:16Z",
+   "published_at": "2026-10-12T07:43:16Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘That’s My QB1,’ ‘We Needed You on That Drive’ — Falcons Fans React As Michael Penix Jr. Drops 9-Word Injury Update After Loss to Ravens",
+     "url": "https://www.profootballnetwork.com/falcons-fans-reaction-michael-penix-jr-injury-update-week-6"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Mark Andrews"
+   ],
+   "headline": "‘I Have to Be Better,’ ‘All About Details’ — Ravens TE Mark Andrews Owns Criticism Around Dropped Touchdown, Lost Fumble in OT Win Vs. Falcons",
+   "summary": "",
+   "published": "2026-10-12T07:09:01Z",
+   "published_at": "2026-10-12T07:09:01Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I Have to Be Better,’ ‘All About Details’ — Ravens TE Mark Andrews Owns Criticism Around Dropped Touchdown, Lost Fumble in OT Win Vs. Falcons",
+     "url": "https://www.profootballnetwork.com/ravens-mark-andrews-drop-fumble-falcons"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson",
+    "Tyler Huntley"
+   ],
+   "headline": "Tyler Huntley Delivers (Again) With the Faith of His Teammates in Atlanta Win",
+   "summary": "With Lamar Jackson sidelined by an ankle injury, Tyler Huntley rose to the occasion down the stretch.",
+   "published": "2026-10-12T06:26:00Z",
+   "published_at": "2026-10-12T06:26:00Z",
+   "first_seen_at": "2026-10-12T16:01:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Tyler Huntley Delivers (Again) With the Faith of His Teammates in Atlanta Win",
+     "url": "https://www.baltimoreravens.com/news/tyler-huntley-smile-faith-teammates-atlanta-overtime-win-ravens-falcons-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson",
+    "Tyler Huntley"
+   ],
+   "headline": "‘Incredible,’ ‘Apology Letters to Tyler Huntley’ — Super Bowl Champ, Ravens Fans Celebrate Lamar Jackson-Less Baltimore’s Comeback Win vs. Falcons",
+   "summary": "",
+   "published": "2026-10-12T06:11:29Z",
+   "published_at": "2026-10-12T06:11:29Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Incredible,’ ‘Apology Letters to Tyler Huntley’ — Super Bowl Champ, Ravens Fans Celebrate Lamar Jackson-Less Baltimore’s Comeback Win vs. Falcons",
+     "url": "https://www.profootballnetwork.com/ravens-fans-celebrate-lamar-jackson-less-baltimore-win-tyler-huntley-falcons"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Michael Penix Jr."
+   ],
+   "headline": "Michael Penix Jr.: 'I hated it. I hated that I couldn't get back in that game.'",
+   "summary": "Penix suffered an injury to his ribs in the final moments of regulation in the Falcons' Sunday Night Football loss to the Ravens.",
+   "published": "2026-10-12T05:10:03Z",
+   "published_at": "2026-10-12T05:10:03Z",
+   "first_seen_at": "2026-10-12T16:01:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ATL official",
+     "title": "Michael Penix Jr.: 'I hated it. I hated that I couldn't get back in that game.'",
+     "url": "https://www.atlantafalcons.com/news/michael-penix-jr-sunday-night-football-rib-injury"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Michael Penix Jr."
+   ],
+   "headline": "Michael Penix Jr. injury: Falcons QB hurts ribs late in regulation on 'SNF,' says he'll be ready for Week 6",
+   "summary": "Penix initially only left the game for one play but then couldn't play in overtime",
+   "published": "2026-10-12T04:47:52Z",
+   "published_at": "2026-10-12T04:47:52Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Michael Penix Jr. injury: Falcons QB hurts ribs late in regulation on 'SNF,' says he'll be ready for Week 6",
+     "url": "https://www.cbssports.com/nfl/news/michael-penix-jr-injury-update-falcons-qb-ravens-bears"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "‘It’s Even More Disrespectful’ — Ex-NFL LB Reacts to Mike Evans Addressing Viral Exchange With Trevon Diggs During 49ers-Seahawks",
+   "summary": "",
+   "published": "2026-10-12T04:45:59Z",
+   "published_at": "2026-10-12T04:45:59Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘It’s Even More Disrespectful’ — Ex-NFL LB Reacts to Mike Evans Addressing Viral Exchange With Trevon Diggs During 49ers-Seahawks",
+     "url": "https://www.profootballnetwork.com/emmanuel-acho-reacts-mike-evans-trevon-diggs-49ers-seahawks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Mark Andrews"
+   ],
+   "headline": "‘Nightmare,’ ‘I’m Done, Trade Him’ — Shannon Sharpe, Ravens Fans Reach Breaking Point With Mark Andrews After Week 5 Struggles vs. Falcons",
+   "summary": "",
+   "published": "2026-10-12T04:26:57Z",
+   "published_at": "2026-10-12T04:26:57Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Nightmare,’ ‘I’m Done, Trade Him’ — Shannon Sharpe, Ravens Fans Reach Breaking Point With Mark Andrews After Week 5 Struggles vs. Falcons",
+     "url": "https://www.profootballnetwork.com/shannon-sharpe-ravens-fans-breaking-point-mark-andrews-week-5"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Michael Penix Jr."
+   ],
+   "headline": "Falcons vs Ravens Week 5 postgame show: Atlanta blows it in spectacular fashion",
+   "summary": "The Falcons fell to the Ravens in overtime after a series of miscues on offense and two bad drives by the defense to end the game. Kevin Knight and Allen Strk discuss the loss, the injury to Michael Penix Jr., and why this loss sets Atlanta back in a major way. Fellow Falcoholics, welcome to […]",
+   "published": "2026-10-12T04:05:46Z",
+   "published_at": "2026-10-12T04:05:46Z",
+   "first_seen_at": "2026-10-12T16:01:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "Falcons vs Ravens Week 5 postgame show: Atlanta blows it in spectacular fashion",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-analysis/97201/falcons-vs-ravens-week-5-postgame-show-atlanta-blows-it-in-spectacular-fashion"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Courtland Sutton"
+   ],
+   "headline": "Broncos Postgame Notebook: 'Battle tested' Broncos earn another 1-score win, Denver finds late success in run game",
+   "summary": "\"You have to experience those moments with the team that you have now,\" wide receiver Courtland Sutton said.",
+   "published": "2026-10-12T03:40:42Z",
+   "published_at": "2026-10-12T03:40:42Z",
+   "first_seen_at": "2026-10-12T16:01:22+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DEN official",
+     "title": "Broncos Postgame Notebook: 'Battle tested' Broncos earn another 1-score win, Denver finds late success in run game",
+     "url": "https://www.denverbroncos.com/news/broncos-postgame-notebook-battle-tested-broncos-earn-another-1-score-win-denver-finds-late-success-in-run-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jaxon Smith-Njigba"
+   ],
+   "headline": "After Another Productive Game, Jaxon Smith-Njigba Focused On One Catch He Didn't Make vs. 49ers",
+   "summary": "Seahawks receiver Jaxon Smith-Njigba had another touchdown and 100-yard performance, but after Sunday’s loss, he was focused on the catch he didn’t make.",
+   "published": "2026-10-12T03:40:00Z",
+   "published_at": "2026-10-12T03:40:00Z",
+   "first_seen_at": "2026-10-12T16:01:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "After Another Productive Game, Jaxon Smith-Njigba Focused On One Catch He Didn't Make vs. 49ers",
+     "url": "https://www.seahawks.com/news/after-another-productive-game-jaxon-smith-njigba-focused-on-one-catch-he-didn-t-make-vs-49ers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Jordan Love"
+   ],
+   "headline": "Are the Pack back? Green Bay, Jordan Love erupt in dominant win vs. Bears behind retooled offensive line",
+   "summary": "Love's 367 yards passing are the most by a Packers QB vs. the Bears at Lambeau Field in series history",
+   "published": "2026-10-12T03:38:08Z",
+   "published_at": "2026-10-12T03:38:08Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Are the Pack back? Green Bay, Jordan Love erupt in dominant win vs. Bears behind retooled offensive line",
+     "url": "https://www.cbssports.com/nfl/news/are-the-pack-back-green-bay-jordan-love-erupt-dominant-win-bears"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "C.J. Stroud"
+   ],
+   "headline": "‘Hardest Worker I’ve Ever Been Around’ — C.J. Stroud Makes Feelings Clear on Texans’ Marvin Harrison Jr. Trade",
+   "summary": "",
+   "published": "2026-10-12T03:35:43Z",
+   "published_at": "2026-10-12T03:35:43Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Hardest Worker I’ve Ever Been Around’ — C.J. Stroud Makes Feelings Clear on Texans’ Marvin Harrison Jr. Trade",
+     "url": "https://www.profootballnetwork.com/c-j-stroud-feelings-texans-marvin-harrison-jr-trade"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "‘Sam Darnold Lost Us Another Game,’ ‘Bring Back Drew Lock’ — Seahawks Fans Ignite QB1 Debate Following Loss to 49ers",
+   "summary": "",
+   "published": "2026-10-12T02:40:43Z",
+   "published_at": "2026-10-12T02:40:43Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Sam Darnold Lost Us Another Game,’ ‘Bring Back Drew Lock’ — Seahawks Fans Ignite QB1 Debate Following Loss to 49ers",
+     "url": "https://www.profootballnetwork.com/sam-darnold-drew-lock-seahawks-fans-qb1-debate"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "‘150% Hike on Income Tax, Guy Loves Ball’ — Ex-Bears Pro Bowler Praises Mike Evans’ Tax-Hit Gamble on 49ers to Chase 2nd Super Bowl Ring",
+   "summary": "",
+   "published": "2026-10-12T02:38:26Z",
+   "published_at": "2026-10-12T02:38:26Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘150% Hike on Income Tax, Guy Loves Ball’ — Ex-Bears Pro Bowler Praises Mike Evans’ Tax-Hit Gamble on 49ers to Chase 2nd Super Bowl Ring",
+     "url": "https://www.profootballnetwork.com/mike-evans-kyle-long-49ers-san-francisco-tax"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Cooper Kupp"
+   ],
+   "headline": "Cooper Kupp Laments Falling Short On Last Play vs. 49ers; NFL Official Explains Ruling In Pool Report",
+   "summary": "Vice president of instant replay Mark Butterworth provided an explanation on the final fourth down on which Cooper Kupp was ruled short of a first down.",
+   "published": "2026-10-12T02:13:20Z",
+   "published_at": "2026-10-12T02:13:20Z",
+   "first_seen_at": "2026-10-12T16:01:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Cooper Kupp Laments Falling Short On Last Play vs. 49ers; NFL Official Explains Ruling In Pool Report",
+     "url": "https://www.seahawks.com/news/cooper-kupp-laments-falling-short-on-last-play-vs-49ers-nfl-official-explains-ruling-in-pool-report"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "Mike Evans trolls Trevon Diggs with name-check in 49ers' win over Seahawks",
+   "summary": "Evans explained that he asked, \"Who are you?\" before checking Diggs' jersey and realizing who was talking trash to him",
+   "published": "2026-10-12T01:42:16Z",
+   "published_at": "2026-10-12T01:42:16Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Mike Evans trolls Trevon Diggs with name-check in 49ers' win over Seahawks",
+     "url": "https://www.cbssports.com/nfl/news/49ers-seahawks-mike-evans-trolls-trevon-diggs"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Zach Charbonnet"
+   ],
+   "headline": "RB Zach Charbonnet Not Expected To Make Return For Seahawks' Week 6 Game At Denver",
+   "summary": "Seahawks coach Mike Macdonald said Sunday that it’s unlikely running back Zach Charbonnet will return from the physically unable to perform list ahead of Thursday’s game at Denver.",
+   "published": "2026-10-12T01:28:08Z",
+   "published_at": "2026-10-12T01:28:08Z",
+   "first_seen_at": "2026-10-12T16:01:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "RB Zach Charbonnet Not Expected To Make Return For Seahawks' Week 6 Game At Denver",
+     "url": "https://www.seahawks.com/news/rb-zach-charbonnet-not-expected-to-make-return-for-seahawks-week-6-game-at-denver"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Zach Charbonnet"
+   ],
+   "headline": "Seahawks injury update: Zach Charbonnet not expected to play vs Broncos",
+   "summary": "The Seattle Seahawks just lost to the San Francisco 49ers 32-29, with key fumbles from both Emanuel Wilson and George Holani leading to Niners TDs. Seattle has a short week, as they play the Denver Broncos on the road for Thursday Night Football. If you were hoping for an infusion at the RB position with […]",
+   "published": "2026-10-12T01:25:02Z",
+   "published_at": "2026-10-12T01:25:02Z",
+   "first_seen_at": "2026-10-12T16:01:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks injury update: Zach Charbonnet not expected to play vs Broncos",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-injury-report/177107/seahawks-injury-update-zach-charbonnet-not-expected-to-play-vs-broncos"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "NFL Week 5 winners and losers: Commanders botch overtime as 49ers take command of NFC West",
+   "summary": "Jayden Daniels and Cam Skattebo failed to execute in the clutch, while the 49ers delivered a third divisional win",
+   "published": "2026-10-12T00:46:35Z",
+   "published_at": "2026-10-12T00:46:35Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "NFL Week 5 winners and losers: Commanders botch overtime as 49ers take command of NFC West",
+     "url": "https://www.cbssports.com/nfl/news/nfl-week-5-winners-and-losers-commanders-nfc-east"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Marvin Harrison Jr."
+   ],
+   "headline": "After Marvin Harrison Jr. Trade To Texans, Cardinals Push Forward",
+   "summary": "Wide receiver dealt for 2027 draft picks",
+   "published": "2026-10-12T00:36:22Z",
+   "published_at": "2026-10-12T00:36:22Z",
+   "first_seen_at": "2026-10-12T16:01:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "After Marvin Harrison Jr. Trade To Texans, Cardinals Push Forward",
+     "url": "https://www.azcardinals.com/news/after-marvin-harrison-jr-trade-to-texans-cardinals-push-forward"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Tyler Shough"
+   ],
+   "headline": "Postgame Quotes: New Orleans Saints, Minnesota Vikings | 2026 NFL Week 5",
+   "summary": "Quotes from Head Coach Kellen Moore, QB Tyler Shough, S Jonas Sanker",
+   "published": "2026-10-12T00:24:00Z",
+   "published_at": "2026-10-12T00:24:00Z",
+   "first_seen_at": "2026-10-12T16:01:24+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NO official",
+     "title": "Postgame Quotes: New Orleans Saints, Minnesota Vikings | 2026 NFL Week 5",
+     "url": "https://www.neworleanssaints.com/news/2026-nfl-week-5-minnesota-vikings-vs-new-orleans-saints-game-quotes"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Brock Purdy",
+    "Mike Evans",
+    "Sam Darnold"
+   ],
+   "headline": "49ers win a thriller over the Seahawks to remain undefeated",
+   "summary": "Are you not entertained? This was the most San Francisco 49ers-Seattle Seahawks game you’ll see. The 49ers started with a three-and-out. Punter Corliss Waitman pinned Seattle deep in their territory. Three plays later, Renardo Green stepped in front of a route to intercept Sam Darnold. Gifted with terrific field position, Brock Purdy found Mike Evans […]",
+   "published": "2026-10-11T23:43:21Z",
+   "published_at": "2026-10-11T23:43:21Z",
+   "first_seen_at": "2026-10-12T16:01:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers win a thriller over the Seahawks to remain undefeated",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-scores-results/164120/49ers-win-a-thriller-over-the-seahawks-to-remain-undefeated"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Chris Olave"
+   ],
+   "headline": "Game Notes: New Orleans Saints, Minnesota Vikings | 2026 NFL Week 5",
+   "summary": "Chris Olave recorded his 327th career catch, moving into second place for the most receptions by a Saint through his first 60 contests",
+   "published": "2026-10-11T23:30:00Z",
+   "published_at": "2026-10-11T23:30:00Z",
+   "first_seen_at": "2026-10-12T16:01:24+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NO official",
+     "title": "Game Notes: New Orleans Saints, Minnesota Vikings | 2026 NFL Week 5",
+     "url": "https://www.neworleanssaints.com/news/2026-nfl-week-5-minnesota-vikings-vs-new-orleans-saints-game-notes"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels",
+    "Rachaad White"
+   ],
+   "headline": "Inside the end-of-game sequence that led to Commanders tie with Giants",
+   "summary": "The Commanders worked their way into comfortable field goal range with Jayden Daniels’ pass to Treylon Burks, who went out of bounds at the New York Giants’ 26-yard line with 1 minute, 2 seconds remaining. Washington kept pushing for yards despite it being just a 43-yard field goal attempt. They ran Rachaad White to […]",
+   "published": "2026-10-11T23:19:21Z",
+   "published_at": "2026-10-11T23:19:21Z",
+   "first_seen_at": "2026-10-12T16:01:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Inside the end-of-game sequence that led to Commanders tie with Giants",
+     "url": "https://www.hogshaven.com/washington-commanders-news/448101/commanders-giants-tie-final-play-jayden-daniels-dan-quinn"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Zay Flowers"
+   ],
+   "headline": "Zay Flowers, Marlon Humphrey Active vs. Falcons",
+   "summary": "Andrew Vorhees (foot) is inactive, putting Emery Jones Jr. in line to start at right guard.",
+   "published": "2026-10-11T23:14:08Z",
+   "published_at": "2026-10-11T23:14:08Z",
+   "first_seen_at": "2026-10-12T16:01:20+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Zay Flowers, Marlon Humphrey Active vs. Falcons",
+     "url": "https://www.baltimoreravens.com/news/zay-flowers-marlon-humphrey-active-week-5-falcons-ravens"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Ja'Marr Chase",
+    "Malik Willis"
+   ],
+   "headline": "Postgame Quick Hits | Jordan Battle, Ja'Marr Chase Make Marquee Plays In Miami",
+   "summary": "Bengals safety Jordan Battle came back home Sunday here at Hard Rock Stadium to have the last laugh with two first half interceptions of quarterback Malik Willis that set the script for the 31-24 victory over the Dolphins.",
+   "published": "2026-10-11T23:07:31Z",
+   "published_at": "2026-10-11T23:07:31Z",
+   "first_seen_at": "2026-10-12T16:01:21+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Postgame Quick Hits | Jordan Battle, Ja'Marr Chase Make Marquee Plays In Miami",
+     "url": "https://www.bengals.com/news/postgame-quick-hits-jordan-battle-ja-marr-chase-dolphins-week-5-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Lamar Jackson",
+    "Bijan Robinson",
+    "Derrick Henry"
+   ],
+   "headline": "Falcons vs. Ravens picks, prediction, player props: Expert's best bets for Sunday Night Football NFL Week 5",
+   "summary": "With Lamar Jackson sidelined, expect a run-heavy clash between Derrick Henry and Bijan Robinson that keeps the scoring low and creates prime value on player props",
+   "published": "2026-10-11T23:00:56Z",
+   "published_at": "2026-10-11T23:00:56Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Falcons vs. Ravens picks, prediction, player props: Expert's best bets for Sunday Night Football NFL Week 5",
+     "url": "https://www.cbssports.com/betting/news/falcons-vs-ravens-picks-prediction-player-props-experts-best-bets-for-sunday-night-football-nfl-week-5"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "What Commanders' Dan Quinn, Jayden Daniels said after jarring end-of-game mistake in tie vs. Giants",
+   "summary": "Daniels took accountability for the mishap, saying ultimately, it's on him",
+   "published": "2026-10-11T22:59:52Z",
+   "published_at": "2026-10-11T22:59:52Z",
+   "first_seen_at": "2026-10-12T16:01:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "What Commanders' Dan Quinn, Jayden Daniels said after jarring end-of-game mistake in tie vs. Giants",
+     "url": "https://www.cbssports.com/nfl/news/commanders-dan-quinn-jayden-daniels-respond-to-mistake-vs-giants"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 23,
+ "feeds_generated_at": "2026-10-12T16:01:19+00:00"
+}
