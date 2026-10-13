@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T12:06:42Z",
+  "generated_at": "2026-10-13T18:09:57Z",
   "season": 2026,
   "week": 6,
   "schedule": {
@@ -17,10 +17,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-13T12:06:42Z",
+    "research_as_of": "2026-10-13T18:09:57Z",
     "injuries_as_of": "NOT_PUBLISHED_YET",
-    "roster_as_of": "2026-10-13T06:04:03Z",
-    "schedule_as_of": "2026-10-13T12:05:13Z"
+    "roster_as_of": "2026-10-13T15:01:25Z",
+    "schedule_as_of": "2026-10-13T18:05:14Z"
   },
   "injury_report": {
     "status": "NOT_PUBLISHED_YET",
@@ -31,7 +31,7 @@
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-10-13T06:02:07Z",
+    "effective_at": "2026-10-13T14:58:07Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -14243,16 +14243,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-13T06:01:47Z",
+      "retrieved_at": "2026-10-13T14:57:28Z",
       "status": "OK",
       "rows": 1413
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-13T06:02:16Z",
+      "retrieved_at": "2026-10-13T14:58:16Z",
       "status": "OK",
-      "rows": 643146
+      "rows": 645475
     },
     {
       "source": "snap_counts_2026.parquet",
