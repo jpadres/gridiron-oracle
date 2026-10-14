@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T02:07:49Z",
+  "generated_at": "2026-10-14T07:58:43Z",
   "season": 2026,
   "week": 6,
   "schedule": {
@@ -17,21 +17,190 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-14T02:07:49Z",
-    "injuries_as_of": "NOT_PUBLISHED_YET",
-    "roster_as_of": "2026-10-13T15:01:25Z",
-    "schedule_as_of": "2026-10-14T01:35:13Z"
+    "research_as_of": "2026-10-14T07:58:43Z",
+    "injuries_as_of": "week 6 PARTIAL · 2 of 28 clubs filed",
+    "roster_as_of": "2026-10-14T06:02:46Z",
+    "schedule_as_of": "2026-10-14T07:35:13Z"
   },
   "injury_report": {
-    "status": "NOT_PUBLISHED_YET",
+    "status": "PARTIALLY_FILED",
     "week": 6,
-    "rows": [],
-    "last_published_week": 5,
-    "note": "clubs file the week's report from Wednesday on; the previous week's designation is NOT carried forward as if it were this week's"
+    "rows": [
+      {
+        "team": "DEN",
+        "gsis_id": "00-0034978",
+        "full_name": "Ben Powers",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "DEN",
+        "gsis_id": "00-0036221",
+        "full_name": "Brandon Jones",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "DEN",
+        "gsis_id": "00-0036564",
+        "full_name": "Talanoa Hufanga",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "DEN",
+        "gsis_id": "00-0036874",
+        "full_name": "Pat Surtain II",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "DEN",
+        "gsis_id": "00-0038552",
+        "full_name": "Riley Moss",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "DEN",
+        "gsis_id": "00-0040153",
+        "full_name": "Sai'vion Jones",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0031933",
+        "full_name": "Leonard Williams",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0035704",
+        "full_name": "Drew Lock",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0037003",
+        "full_name": "Chazz Surratt",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0037156",
+        "full_name": "Irvin Charles",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0038543",
+        "full_name": "Jaxon Smith-Njigba",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0038922",
+        "full_name": "Drake Thomas",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0039165",
+        "full_name": "Zach Charbonnet",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0039299",
+        "full_name": "George Holani",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0040882",
+        "full_name": "Beau Stephens",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      }
+    ],
+    "teams": 2,
+    "teams_filed": [
+      "DEN",
+      "SEA"
+    ],
+    "teams_expected": 28,
+    "teams_pending": [
+      "ARI",
+      "ATL",
+      "BAL",
+      "BUF",
+      "CAR",
+      "CHI",
+      "CLE",
+      "DAL",
+      "GB",
+      "HOU",
+      "IND",
+      "JAX",
+      "KC",
+      "LAC",
+      "LAR",
+      "LV",
+      "NE",
+      "NO",
+      "NYG",
+      "NYJ",
+      "PHI",
+      "PIT",
+      "SF",
+      "TB",
+      "TEN",
+      "WAS"
+    ],
+    "with_designation": 0
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-10-13T14:58:07Z",
+    "effective_at": "2026-10-14T06:01:55Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -137,8 +306,8 @@
         "competition": []
       },
       "LAR": {
-        "player_id": "00-0039498",
-        "player_name": "Harrison Mevis",
+        "player_id": "00-0038905",
+        "player_name": "Blake Grupe",
         "contested": false,
         "competition": []
       },
@@ -14243,16 +14412,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-13T14:57:28Z",
+      "retrieved_at": "2026-10-14T06:01:28Z",
       "status": "OK",
-      "rows": 1413
+      "rows": 1428
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-13T14:58:16Z",
+      "retrieved_at": "2026-10-14T06:02:04Z",
       "status": "OK",
-      "rows": 645475
+      "rows": 647773
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -14271,15 +14440,82 @@
     }
   ],
   "unknowns": [
-    "official injury report for week 6: NOT_PUBLISHED_YET",
+    "official injury report for week 6: 26 of 28 clubs have not filed yet (ARI, ATL, BAL, BUF, CAR, CHI, CLE, DAL, GB, HOU, IND, JAX, KC, LAC, LAR, LV, NE, NO, NYG, NYJ, PHI, PIT, SF, TB, TEN, WAS) — no designation for their players means NOT REPORTED, not healthy",
     "route participation: nflverse does not publish per-player routes in this dataset, so role is measured by snap share and targets, not routes",
     "press, unofficial depth charts and transactions: SOURCE UNAVAILABLE from this environment"
   ],
   "diff": {
     "against": "2026-10-13.json",
-    "new": [],
-    "changed": [],
+    "new": [
+      {
+        "key": "DEN:Ben Powers",
+        "now": "None"
+      },
+      {
+        "key": "DEN:Brandon Jones",
+        "now": "None"
+      },
+      {
+        "key": "DEN:Talanoa Hufanga",
+        "now": "None"
+      },
+      {
+        "key": "DEN:Pat Surtain II",
+        "now": "None"
+      },
+      {
+        "key": "DEN:Riley Moss",
+        "now": "None"
+      },
+      {
+        "key": "DEN:Sai'vion Jones",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Leonard Williams",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Drew Lock",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Chazz Surratt",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Irvin Charles",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Jaxon Smith-Njigba",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Drake Thomas",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Zach Charbonnet",
+        "now": "None"
+      },
+      {
+        "key": "SEA:George Holani",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Beau Stephens",
+        "now": "None"
+      }
+    ],
+    "changed": [
+      {
+        "key": "K:LAR",
+        "was": "Harrison Mevis",
+        "now": "Blake Grupe"
+      }
+    ],
     "removed": [],
-    "unchanged": 32
+    "unchanged": 31
   }
 }
