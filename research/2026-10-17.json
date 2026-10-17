@@ -1,0 +1,1344 @@
+{
+ "date": "2026-10-17",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jameis Winston"
+   ],
+   "headline": "Giants news: Jameis Winston, good injury news, more",
+   "summary": "New York Giants headlines for Saturday",
+   "published": "2026-10-17T10:00:00Z",
+   "published_at": "2026-10-17T10:00:00Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Giants news: Jameis Winston, good injury news, more",
+     "url": "https://sports.yahoo.com/articles/giants-news-jameis-winston-good-100000998.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jameis Winston"
+   ],
+   "headline": "NY Giants news: Jameis Winston, good injury news, more",
+   "summary": "Good morning, New York Giants fans! Here are the stories you need to know for the Giants battle with the New Orleans Saints set for 1 p.m. tomorrow at MetLife Stadium. Giants hint at ‘explosive’ change to offense: ‘You’ll see a lot more’ | NJ.com Scheme matters, too. And to that end, Tracy and Skattebo […]",
+   "published": "2026-10-17T10:00:00Z",
+   "published_at": "2026-10-17T10:00:00Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "NY Giants news: Jameis Winston, good injury news, more",
+     "url": "https://www.bigblueview.com/new-york-giants-news/176070/jameis-winston-good-injury-news-more"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers News: What a sublime Saturday to trade for a pass-rusher",
+   "summary": "49ers injury updates: Kyle Juszczyk practices in full; 2 rookies miss“Wide receiver Mike Evans didn’t practice for the second day in a row. This is likely how it’ll be with Evans this year. Even if he doesn’t practice, he’ll still suit up on game day. Defensive tackle Gracen Halton missed a second straight day with […]",
+   "published": "2026-10-17T06:20:52Z",
+   "published_at": "2026-10-17T06:20:52Z",
+   "first_seen_at": "2026-10-17T11:07:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers News: What a sublime Saturday to trade for a pass-rusher",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/164395/49ers-news-week-6-washington-commanders-john-lynch-trade-monday-night-football"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Shedeur Sanders"
+   ],
+   "headline": "‘He’s Going To Get That Opportunity’ — Lil Wayne Backs Shedeur Sanders to Stay With Browns Despite Trade Rumors",
+   "summary": "",
+   "published": "2026-10-17T03:53:27Z",
+   "published_at": "2026-10-17T03:53:27Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He’s Going To Get That Opportunity’ — Lil Wayne Backs Shedeur Sanders to Stay With Browns Despite Trade Rumors",
+     "url": "https://www.profootballnetwork.com/lil-wayne-shedeur-sanders-browns-qb-competition"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield",
+    "Jalon Daniels"
+   ],
+   "headline": "‘Jalon Daniels Is the Perfect Fit’ — Buccaneers’ Super Bowl Champion Urges Tampa Bay to Keep Starting Rookie QB Over Baker Mayfield",
+   "summary": "",
+   "published": "2026-10-17T03:12:25Z",
+   "published_at": "2026-10-17T03:12:25Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Jalon Daniels Is the Perfect Fit’ — Buccaneers’ Super Bowl Champion Urges Tampa Bay to Keep Starting Rookie QB Over Baker Mayfield",
+     "url": "https://www.profootballnetwork.com/jalon-daniels-perfect-fit-buccaneers-super-bowl-champion-baker-mayfield"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Mike Macdonald sticking with Sam Darnold as Seahawks starting quarterback",
+   "summary": "The Seattle Seahawks, for now, will stick with their Super Bowl winning quarterback amid ongoing struggles with turnovers and accuracy. Seahawks head coach Mike Macdonald told Seattle Sports 710 and later reporters on Friday that there won’t be a pivot to Drew Lock, who started and performed well against the Arizona Cardinals and otherwise doesn’t […]",
+   "published": "2026-10-17T02:20:40Z",
+   "published_at": "2026-10-17T02:20:40Z",
+   "first_seen_at": "2026-10-17T11:07:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Mike Macdonald sticking with Sam Darnold as Seahawks starting quarterback",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/177651/seahawks-mike-macdonald-sticking-with-sam-darnold-quarterback-chiefs"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Josh Jacobs"
+   ],
+   "headline": "Terrion Arnold remains on paid leave",
+   "summary": "The NFL's decision to reinstate Packers running back Josh Jacobs and Broncos linebacker Jonathon Cooper from the Commissioner Exempt list carried with it a conspicuous omission.",
+   "published": "2026-10-17T01:52:50Z",
+   "published_at": "2026-10-17T01:52:50Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Terrion Arnold remains on paid leave",
+     "url": "https://sports.yahoo.com/articles/terrion-arnold-remains-paid-leave-015250918.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Omar Cooper Jr.",
+    "Kenyon Sadiq"
+   ],
+   "headline": "Jets getting much-needed offensive boost with Omar Cooper Jr., Kenyon Sadiq returning",
+   "summary": "The Jets offense won’t be whole for at least another week. The unit will be healthier than it was last Sunday, though.",
+   "published": "2026-10-17T01:36:30Z",
+   "published_at": "2026-10-17T01:36:30Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Jets getting much-needed offensive boost with Omar Cooper Jr., Kenyon Sadiq returning",
+     "url": "https://sports.yahoo.com/articles/jets-getting-much-needed-offensive-013630625.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "Caleb Williams declares himself ready for Week 6",
+   "summary": "Chicago Bears QB Caleb Williams says he is ready to return from hamstring injury",
+   "published": "2026-10-17T01:34:33Z",
+   "published_at": "2026-10-17T01:34:33Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Caleb Williams declares himself ready for Week 6",
+     "url": "https://sports.yahoo.com/articles/caleb-williams-declares-himself-ready-013433163.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "New York Jets: Geno Smith Appreciation Post",
+   "summary": "Geno has done a nice job in his return to the Jets",
+   "published": "2026-10-17T00:30:00Z",
+   "published_at": "2026-10-17T00:30:00Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "New York Jets: Geno Smith Appreciation Post",
+     "url": "https://sports.yahoo.com/articles/york-jets-geno-smith-appreciation-003000503.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Patrick Mahomes removed from injury report",
+   "summary": "Kansas City Chiefs QB Patrick Mahomes logs full practice Friday",
+   "published": "2026-10-17T00:29:22Z",
+   "published_at": "2026-10-17T00:29:22Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Patrick Mahomes removed from injury report",
+     "url": "https://sports.yahoo.com/articles/patrick-mahomes-removed-injury-report-002922433.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "NFL Network analyst has doubts about Eagles’ Jalen Hurts story",
+   "summary": "NFL Network analyst Michael Robinson thinks there's more to the story behind Jalen Hurts’ injury.",
+   "published": "2026-10-17T00:16:00Z",
+   "published_at": "2026-10-17T00:16:00Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "NFL Network analyst has doubts about Eagles’ Jalen Hurts story",
+     "url": "https://sports.yahoo.com/articles/nfl-network-analyst-doubts-eagles-001600730.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks 'Have A Lot Of Faith' In Sam Darnold & Other Things From Mike Macdonald's Friday Press Conference",
+   "summary": "Seahawks head coach spoke with the media on Friday, following Seattle’s Thursday night 17-14 loss to the Broncos.",
+   "published": "2026-10-16T23:32:55Z",
+   "published_at": "2026-10-16T23:32:55Z",
+   "first_seen_at": "2026-10-17T11:07:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Seahawks 'Have A Lot Of Faith' In Sam Darnold & Other Things From Mike Macdonald's Friday Press Conference",
+     "url": "https://www.seahawks.com/news/seahawks-have-a-lot-of-faith-in-sam-darnold-other-things-from-mike-macdonald-s-friday-press-conference"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Isaiah Likely"
+   ],
+   "headline": "Isaiah Likely emerging as Giants star after years in Mark Andrews’ shadow",
+   "summary": "Isaiah Likely is proving his worth with the Giants, ranking second among NFL tight ends with 33 catches after leaving Mark Andrews' shadow.",
+   "published": "2026-10-16T23:19:39Z",
+   "published_at": "2026-10-16T23:19:39Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Isaiah Likely emerging as Giants star after years in Mark Andrews’ shadow",
+     "url": "https://sports.yahoo.com/articles/isaiah-likely-emerging-giants-star-231939537.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Buccaneers vs. Steelers: Final injury report for Week 6",
+   "summary": "The Tampa Bay Buccaneers have released their final injury report ahead of Sunday’s Week 6 matchup against the Pittsburgh Steelers, and several key players will be unavailable as Tampa Bay looks to build on last week’s victory over Dallas. Quarterback Baker Mayfield (right thumb) has officially been ruled out after missing all three practices this […]",
+   "published": "2026-10-16T23:10:20Z",
+   "published_at": "2026-10-16T23:10:20Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Buccaneers vs. Steelers: Final injury report for Week 6",
+     "url": "https://sports.yahoo.com/articles/buccaneers-vs-steelers-final-injury-231020302.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Ravens rule out QB Lamar Jackson, C Cam Jurgens for Week 6 vs. Browns",
+   "summary": "The Ravens will start Tyler ‘Snoop’ Huntley at quarterback for a second straight week.",
+   "published": "2026-10-16T22:25:23Z",
+   "published_at": "2026-10-16T22:25:23Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Ravens rule out QB Lamar Jackson, C Cam Jurgens for Week 6 vs. Browns",
+     "url": "https://sports.yahoo.com/articles/ravens-rule-qb-lamar-jackson-222523805.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Jeremiyah Love"
+   ],
+   "headline": "Cardinals star Jeremiyah Love to miss Week 6 during frustrating beginning to career",
+   "summary": "Jeremiyah Love’s NFL career isn’t off to the best start.",
+   "published": "2026-10-16T22:24:04Z",
+   "published_at": "2026-10-16T22:24:04Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Cardinals star Jeremiyah Love to miss Week 6 during frustrating beginning to career",
+     "url": "https://sports.yahoo.com/articles/cardinals-star-jeremiyah-love-miss-222404147.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Stefon Diggs"
+   ],
+   "headline": "Commanders vs. 49ers Friday injury report: Stefon Diggs back at practice",
+   "summary": "Stefon Diggs returned to Commanders practice on Friday in a limited capacity, a positive step towards possibly playing in Monday night’s game against the host San Francisco 49ers. We’re still a ways from knowing that or even his injury designation — that comes Saturday — but his abilty to work back from a hamstring injury […]",
+   "published": "2026-10-16T22:09:40Z",
+   "published_at": "2026-10-16T22:09:40Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders vs. 49ers Friday injury report: Stefon Diggs back at practice",
+     "url": "https://www.hogshaven.com/washington-commanders-injuries/449541/commanders-49ers-friday-injury-report-stefon-diggs-bill-croskey-merritt-javon-kinlaw"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Bijan Robinson",
+    "Colston Loveland"
+   ],
+   "headline": "Bears at Falcons: 3 Props to Play",
+   "summary": "The Chicago Bears face the Atlanta Falcons in Georgia this weekend. Here are 3 Player Props to play featuring Bijan Robinson, Colston Loveland, and Kalif Raymond.",
+   "published": "2026-10-16T22:00:00Z",
+   "published_at": "2026-10-16T22:00:00Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Bears at Falcons: 3 Props to Play",
+     "url": "https://sports.yahoo.com/articles/bears-falcons-3-props-play-220000574.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Chris Olave"
+   ],
+   "headline": "Chris Olave returns to practice, listed as questionable for Sunday",
+   "summary": "Saints wide receiver Chris Olave was back on the practice field Friday, but his status for Sunday's road game against the Giants remains up in the air.",
+   "published": "2026-10-16T21:54:18Z",
+   "published_at": "2026-10-16T21:54:18Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Chris Olave returns to practice, listed as questionable for Sunday",
+     "url": "https://sports.yahoo.com/articles/chris-olave-returns-practice-listed-215418427.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Josh Jacobs"
+   ],
+   "headline": "Josh Jacobs getting pulled off commissioner’s exempt list amid NFL investigation",
+   "summary": "The Packers running back was placed on the list on Aug. 30 after being arrested in Wisconsin in May.",
+   "published": "2026-10-16T21:53:27Z",
+   "published_at": "2026-10-16T21:53:27Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Josh Jacobs getting pulled off commissioner’s exempt list amid NFL investigation",
+     "url": "https://sports.yahoo.com/articles/josh-jacobs-getting-pulled-off-215327859.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Sam Howell"
+   ],
+   "headline": "‘This Is Sickening,’ ‘Can’t Believe We Kept Sam Howell Over Him’ — Cowboys Fans React to Eagles Signing Joe Milton III From Dallas’ Practice Squad",
+   "summary": "",
+   "published": "2026-10-16T21:08:13Z",
+   "published_at": "2026-10-16T21:08:13Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘This Is Sickening,’ ‘Can’t Believe We Kept Sam Howell Over Him’ — Cowboys Fans React to Eagles Signing Joe Milton III From Dallas’ Practice Squad",
+     "url": "https://www.profootballnetwork.com/cowboys-fans-joe-milton-eagles-signing"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Jameis Winston"
+   ],
+   "headline": "Former New Orleans Saints quarterback Jameis Winston helping to energize the Giants",
+   "summary": "\"Whatever (label) you want to put on him, he gets the job done\"",
+   "published": "2026-10-16T20:49:17Z",
+   "published_at": "2026-10-16T20:49:17Z",
+   "first_seen_at": "2026-10-17T11:07:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NO official",
+     "title": "Former New Orleans Saints quarterback Jameis Winston helping to energize the Giants",
+     "url": "https://www.neworleanssaints.com/news/former-new-orleans-saints-quarterback-jameis-winston-helping-to-energize-the-giants"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "Injury Update: Caleb Williams questionable for Sunday's game vs. Falcons",
+   "summary": "Bears quarterback Caleb Williams was a full participant in practice Friday and is listed as questionable for Sunday’s game against the Falcons in Atlanta.",
+   "published": "2026-10-16T20:38:48Z",
+   "published_at": "2026-10-16T20:38:48Z",
+   "first_seen_at": "2026-10-17T11:07:40+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "Injury Update: Caleb Williams questionable for Sunday's game vs. Falcons",
+     "url": "https://www.chicagobears.com/news/injury-update-caleb-williams-questionable-for-sunday-s-game-vs-falcons"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks make unwanted NFL history in loss vs. Broncos",
+   "summary": "While it was the defense that kept the Seattle Seahawks within striking distance right until the end in their devastating 17-14 overtime loss to the Denver Broncos on Thursday night, it was ultimately Sam Darnold and the offense’s inability to string together scoring drives that helped their former AFC West rival make history. With just […]",
+   "published": "2026-10-16T20:33:22Z",
+   "published_at": "2026-10-16T20:33:22Z",
+   "first_seen_at": "2026-10-17T11:07:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks make unwanted NFL history in loss vs. Broncos",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-analysis/177611/seahawks-make-unwanted-nfl-history-overtime-loss-vs-broncos"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Breece Hall",
+    "Omar Cooper Jr."
+   ],
+   "headline": "Jets Notebook | WR Omar Cooper Jr. Set to Return Sunday vs. Patriots",
+   "summary": "RB Breece Hall, WR Adonai Mitchell, LG Dylan Parham and Edge Jospeh Ossai All Ruled Out",
+   "published": "2026-10-16T20:30:00Z",
+   "published_at": "2026-10-16T20:30:00Z",
+   "first_seen_at": "2026-10-17T11:07:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Notebook | WR Omar Cooper Jr. Set to Return Sunday vs. Patriots",
+     "url": "https://www.newyorkjets.com/news/jets-notebook-omar-cooper-jr-set-to-return-sunday-vs-patriots-10-16-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Quinshon Judkins"
+   ],
+   "headline": "Quinshon Judkins questionable for Week 6 vs. Ravens | Injury Report",
+   "summary": "Derek Barnett, Mason Graham and Carson Schwesinger also all listed as questionable for Week 6",
+   "published": "2026-10-16T20:13:25Z",
+   "published_at": "2026-10-16T20:13:25Z",
+   "first_seen_at": "2026-10-17T11:07:40+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Quinshon Judkins questionable for Week 6 vs. Ravens | Injury Report",
+     "url": "https://www.clevelandbrowns.com/news/quinshon-judkins-questionable-for-week-6-vs-ravens-injury-report"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "Panthers vs. Eagles Injury Report",
+   "summary": "Wide receivers DeVonta Smith and Dontayvion Wicks, along with outside linebacker Jonathan Greenard, are good to go for Sunday's showdown with Carolina.",
+   "published": "2026-10-16T20:05:00Z",
+   "published_at": "2026-10-16T20:05:00Z",
+   "first_seen_at": "2026-10-17T11:07:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PHI official",
+     "title": "Panthers vs. Eagles Injury Report",
+     "url": "https://www.philadelphiaeagles.com/news/panthers-vs-eagles-injury-report-2026-nfl-week-6-saquon-barkley-devonta-smith"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks injury update: Anthony Bradford could return vs. Chiefs",
+   "summary": "The Seattle Seahawks offense is broken. While the disaster on Thursday night wasn’t all on the team’s offensive line, the Seahawks front certainly didn’t do their quarterback, Sam Darnold, any favors. Well, have no fear, Seahawks fans! Because help is on the way. Seahawks head coach Mike Macdonald said that starting right guard Anthony Bradford […]",
+   "published": "2026-10-16T20:04:36Z",
+   "published_at": "2026-10-16T20:04:36Z",
+   "first_seen_at": "2026-10-17T11:07:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks injury update: Anthony Bradford could return vs. Chiefs",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-injury-report/177630/nfl-news-seahawks-injury-update-guard-anthony-bradford-could-return-vs-chiefs"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "Rams seek statement win against Cardinals | Game Preview",
+   "summary": "J.B. Long breaks down how quarterback Matthew Stafford and the Los Angeles Rams’ high-powered offense, a defense that’s dominating on third down, and a retooled special teams unit can come together for a complete performance against Arizona in Week 6.",
+   "published": "2026-10-16T20:00:00Z",
+   "published_at": "2026-10-16T20:00:00Z",
+   "first_seen_at": "2026-10-17T11:07:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Rams seek statement win against Cardinals | Game Preview",
+     "url": "https://www.therams.com/news/rams-seek-statement-win-against-cardinals-game-preview"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Theo Johnson"
+   ],
+   "headline": "Giants vs. Saints Week 6 Injury Report: Colton Hood, Theo Johnson, Tyler Nubin ruled out",
+   "summary": "View the injury report for the Week 6 matchup between the New York Giants (3-1-1) and New Orleans Saints (1-4).",
+   "published": "2026-10-16T20:00:00Z",
+   "published_at": "2026-10-16T20:00:00Z",
+   "first_seen_at": "2026-10-17T11:07:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYG official",
+     "title": "Giants vs. Saints Week 6 Injury Report: Colton Hood, Theo Johnson, Tyler Nubin ruled out",
+     "url": "https://www.giants.com/news/giants-vs-saints-week-6-injury-report-abdul-carter-jermaine-eluemunor-dnp"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Tyler Huntley",
+    "Josh Cuevas"
+   ],
+   "headline": "News & Notes: Cam Jurgens Isn't Ready Yet to Make Ravens Debut",
+   "summary": "Vega Ioane’s take on Offensive Rookie of the Year buzz. Tyler Huntley set to play against the team that cut him. Josh Cuevas is ready for a bigger role in place of fellow rookie Matt Hibner.",
+   "published": "2026-10-16T19:49:27Z",
+   "published_at": "2026-10-16T19:49:27Z",
+   "first_seen_at": "2026-10-17T11:07:39+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "News & Notes: Cam Jurgens Isn't Ready Yet to Make Ravens Debut",
+     "url": "https://www.baltimoreravens.com/news/cam-jurgens-concussion-debut-vega-ioane-tyler-huntley-josh-cuevas-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Will Sam Darnold be the starter when Rams face Seahawks?",
+   "summary": "The Seattle Seahawks may be questioning if Super Bowl winner Sam Darnold is still the right man for the job, just six weeks into his second season with the team. When the Los Angeles Rams face the Seahawks twice in the final three weeks of the season, will they be facing Darnold, backup Drew Lock, […]",
+   "published": "2026-10-16T19:29:51Z",
+   "published_at": "2026-10-16T19:29:51Z",
+   "first_seen_at": "2026-10-17T11:07:48+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Will Sam Darnold be the starter when Rams face Seahawks?",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-schedule/152142/rams-seahawks-sam-darnold-drew-lock"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "A.J. Brown"
+   ],
+   "headline": "Injury Report Analysis: Christian Gonzalez expected to play, A.J. Brown officially questionable for Sunday's game vs. Jets",
+   "summary": "The Patriots will make a decision on Brown's (ankle) status for this week on Saturday, per head coach Mike Vrabel.",
+   "published": "2026-10-16T19:26:31Z",
+   "published_at": "2026-10-16T19:26:31Z",
+   "first_seen_at": "2026-10-17T11:07:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "Injury Report Analysis: Christian Gonzalez expected to play, A.J. Brown officially questionable for Sunday's game vs. Jets",
+     "url": "https://www.patriots.com/news/injury-report-analysis-christian-gonzalez-expected-to-play-a-j-brown-officially-questionable-for-sunday-s-game-vs-jets"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "Trevor Lawrence",
+    "Parker Washington"
+   ],
+   "headline": "Know Your Foe: Texans vs. Jaguars Week 6 Preview at Wembley Stadium",
+   "summary": "John Harris breaks down Trevor Lawrence, Parker Washington, Travis Hunter and the Jaguars' pass rush ahead of the Texans' second game in London.",
+   "published": "2026-10-16T19:22:13Z",
+   "published_at": "2026-10-16T19:22:13Z",
+   "first_seen_at": "2026-10-17T11:07:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "HOU official",
+     "title": "Know Your Foe: Texans vs. Jaguars Week 6 Preview at Wembley Stadium",
+     "url": "https://www.houstontexans.com/news/know-your-foe-texans-vs-jaguars-week-6-preview-at-wembley-stadium"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Omar Cooper Jr."
+   ],
+   "headline": "Jets Injury Report | Week 6 vs. Patriots - Friday",
+   "summary": "Dane Belton & Omar Cooper Jr. Full Participants & Questionable for Sunday",
+   "published": "2026-10-16T19:15:00Z",
+   "published_at": "2026-10-16T19:15:00Z",
+   "first_seen_at": "2026-10-17T11:07:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Injury Report | Week 6 vs. Patriots - Friday",
+     "url": "https://www.newyorkjets.com/news/jets-injury-report-week-6-vs-patriots-friday-10-16-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "‘You Could Die From a Blood Clot’ — Shannon Sharpe Condemns Eagles for Allowing Jalen Hurts To Play With Medical Condition",
+   "summary": "",
+   "published": "2026-10-16T19:12:46Z",
+   "published_at": "2026-10-16T19:12:46Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘You Could Die From a Blood Clot’ — Shannon Sharpe Condemns Eagles for Allowing Jalen Hurts To Play With Medical Condition",
+     "url": "https://www.profootballnetwork.com/shannon-sharpe-condemns-eagles-jalen-hurts"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Tee Higgins",
+    "Colbie Young"
+   ],
+   "headline": "Bengals Bye Week Awards: Unsung Hero",
+   "summary": "We’re continuing our Cincinnati Bengals Bye Week Awards with a look at who’s been the team’s unsung hero through five games. The MVP debates get the headlines. This one’s for the guys who stepped in when Colbie Young went down on the first play in Pittsburgh, when Ja’Marr Chase and Tee Higgins both left the […]",
+   "published": "2026-10-16T18:52:12Z",
+   "published_at": "2026-10-16T18:52:12Z",
+   "first_seen_at": "2026-10-17T11:07:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Bengals Bye Week Awards: Unsung Hero",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-discussion/202439/bye-week-awards-unsung-hero"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Jaylen Waddle"
+   ],
+   "headline": "Jaylen Waddle trade revisited: Bo Nix, Broncos struggling to integrate speedy WR who's also dropping passes",
+   "summary": "Neither the Denver passing offense nor Waddle are playing well",
+   "published": "2026-10-16T18:26:41Z",
+   "published_at": "2026-10-16T18:26:41Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Jaylen Waddle trade revisited: Bo Nix, Broncos struggling to integrate speedy WR who's also dropping passes",
+     "url": "https://www.cbssports.com/nfl/news/jaylen-waddle-trade-revisited-bo-nix-broncos"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "‘Sam Darnold Should Be Ashamed’ — Ex-NFL LB Goes Off on Seahawks QB for Being ‘The Weak Link’ in Seattle’s Loss to Broncos",
+   "summary": "",
+   "published": "2026-10-16T18:20:44Z",
+   "published_at": "2026-10-16T18:20:44Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Sam Darnold Should Be Ashamed’ — Ex-NFL LB Goes Off on Seahawks QB for Being ‘The Weak Link’ in Seattle’s Loss to Broncos",
+     "url": "https://www.profootballnetwork.com/sam-darnold-ashamed-ex-nfl-lb"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "‘Hope He Doesn’t Trust His Guys Too Much,’ ‘Increasingly Worried’ — Seahawks Fans Call Out HC Mike Macdonald for Sticking With Sam Darnold",
+   "summary": "",
+   "published": "2026-10-16T18:02:52Z",
+   "published_at": "2026-10-16T18:02:52Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Hope He Doesn’t Trust His Guys Too Much,’ ‘Increasingly Worried’ — Seahawks Fans Call Out HC Mike Macdonald for Sticking With Sam Darnold",
+     "url": "https://www.profootballnetwork.com/seahawks-fans-mike-macdonald-sam-darnold-decision"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "3 things to watch for in 49ers-Commanders: Keep Jayden Daniels in the pocket",
+   "summary": "The San Francisco 49ers look to extend their five-game winning streak against the Washington Commanders on Monday Night Football at Levi’s Stadium. The Commanders limp into this game with an injury report longer than the 49ers’ somehow and following a tie with the New York football Giants. After a very physical and tense matchup with […]",
+   "published": "2026-10-16T18:01:00Z",
+   "published_at": "2026-10-16T18:01:00Z",
+   "first_seen_at": "2026-10-17T11:07:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "3 things to watch for in 49ers-Commanders: Keep Jayden Daniels in the pocket",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-analysis/164371/3-things-to-watch-for-in-49ers-commanders-keep-jayden-daniels-in-the-pocket"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jadarian Price"
+   ],
+   "headline": "Return Timelines for Jadarian Price, Anthony Bradford & Other Injury Updates From Mike Macdonald",
+   "summary": "Injury updates from Seahawks coach Mike Macdonald after his team’s Week 6 loss in Denver.",
+   "published": "2026-10-16T17:56:11Z",
+   "published_at": "2026-10-16T17:56:11Z",
+   "first_seen_at": "2026-10-17T11:07:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Return Timelines for Jadarian Price, Anthony Bradford & Other Injury Updates From Mike Macdonald",
+     "url": "https://www.seahawks.com/news/jadarian-price-s-and-anthony-bradford-s-timelines-and-other-injury-updates-from-mike-macdonald"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Mike Macdonald shuts down potential Seahawks quarterback change, sticking with Sam Darnold",
+   "summary": "Darnold has thrown an NFL-high seven interceptions, but Macdonald stands behind his starter",
+   "published": "2026-10-16T17:47:56Z",
+   "published_at": "2026-10-16T17:47:56Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Mike Macdonald shuts down potential Seahawks quarterback change, sticking with Sam Darnold",
+     "url": "https://www.cbssports.com/nfl/news/seahawks-starting-qb-sam-darnold-mike-macdonald-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Jeremiyah Love"
+   ],
+   "headline": "Jeremiyah Love Ruled Out Against Rams",
+   "summary": "Running back dealing with ankle sprain",
+   "published": "2026-10-16T17:33:04Z",
+   "published_at": "2026-10-16T17:33:04Z",
+   "first_seen_at": "2026-10-17T11:07:39+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "Jeremiyah Love Ruled Out Against Rams",
+     "url": "https://www.azcardinals.com/news/jeremiyah-love-ruled-out-against-rams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson",
+    "Tyler Huntley"
+   ],
+   "headline": "Lamar Jackson and Three Other Ravens Ruled Out vs. Browns",
+   "summary": "Tyler Huntley is in position to make a second straight start Sunday in Cleveland.",
+   "published": "2026-10-16T16:58:48Z",
+   "published_at": "2026-10-16T16:58:48Z",
+   "first_seen_at": "2026-10-17T11:07:39+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Lamar Jackson and Three Other Ravens Ruled Out vs. Browns",
+     "url": "https://www.baltimoreravens.com/news/lamar-jackson-injury-report-ravens-browns-sidelined-matt-hibner-broderick-washington"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "JAX",
+   "players": [
+    "Parker Washington"
+   ],
+   "headline": "‘That’s Just Motivation’ — Jaguars WR Parker Washington Opens Up on Receiving Compliment From NFL Legend Tom Brady",
+   "summary": "",
+   "published": "2026-10-16T16:36:04Z",
+   "published_at": "2026-10-16T16:36:04Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘That’s Just Motivation’ — Jaguars WR Parker Washington Opens Up on Receiving Compliment From NFL Legend Tom Brady",
+     "url": "https://www.profootballnetwork.com/parker-washington-tom-brady-praise"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "George Kittle"
+   ],
+   "headline": "John Lynch says George Kittle asked him if the 49ers were trading for a pass rusher",
+   "summary": "San Francisco 49ers general manager John Lynch was asked if trade talks around the league are increasing and whether there are more calls in a Friday morning interview on KNBR: “Just because the flow of the way the trade deadline is approaching, yes. That’s our job to do that. To talk with our counterparts around […]",
+   "published": "2026-10-16T16:33:17Z",
+   "published_at": "2026-10-16T16:33:17Z",
+   "first_seen_at": "2026-10-17T11:07:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "John Lynch says George Kittle asked him if the 49ers were trading for a pass rusher",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-rumors/164376/john-lynch-says-george-kittle-asked-him-if-the-49ers-were-trading-for-a-pass-rusher"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "‘Totally Franchise Altering’ — Ex-NFL QB Highlights Major Impact of Jalen Hurts’ Scary Health Issue on Eagles",
+   "summary": "",
+   "published": "2026-10-16T16:22:53Z",
+   "published_at": "2026-10-16T16:22:53Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Totally Franchise Altering’ — Ex-NFL QB Highlights Major Impact of Jalen Hurts’ Scary Health Issue on Eagles",
+     "url": "https://www.profootballnetwork.com/jalen-hurts-scary-health-issue-eagles-impact"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Emeka Egbuka"
+   ],
+   "headline": "Performance Preview: Week Six Showstopper – Emeka Egbuka, Josiah Trotter or Tez Johnson?",
+   "summary": "Our three Buccaneers.com contributors once again try to predict which players will rise above the pack and produce a star performance, this time against the visiting Steelers in Week Six",
+   "published": "2026-10-16T16:08:25Z",
+   "published_at": "2026-10-16T16:08:25Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Performance Preview: Week Six Showstopper – Emeka Egbuka, Josiah Trotter or Tez Johnson?",
+     "url": "https://www.buccaneers.com/news/performance-preview-week-six-showstopper-emeka-egbuka-josiah-trotter-or-tez-johnson"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield",
+    "Jalon Daniels"
+   ],
+   "headline": "Baker Mayfield Ruled Out, Jalon Daniels to Make Third Start at QB | Updates",
+   "summary": "Keep informed with our daily updates: News, notes and more throughout the month of October",
+   "published": "2026-10-16T16:05:00Z",
+   "published_at": "2026-10-16T16:05:00Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Baker Mayfield Ruled Out, Jalon Daniels to Make Third Start at QB | Updates",
+     "url": "https://www.buccaneers.com/news/october-2026-updates"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts",
+    "Cole Payton"
+   ],
+   "headline": "Eagles steal QB from Cowboys: Joe Milton expected to sign with Philadelphia after injury to Jalen Hurts",
+   "summary": "Joe Milton joins Tanner McKee and rookie Cole Payton in Philadelphia, a move that raises the possibility of Jalen Hurts eventually landing on injured reserve",
+   "published": "2026-10-16T16:02:35Z",
+   "published_at": "2026-10-16T16:02:35Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Eagles steal QB from Cowboys: Joe Milton expected to sign with Philadelphia after injury to Jalen Hurts",
+     "url": "https://www.cbssports.com/nfl/news/eagles-sign-qb-joe-milton-jalen-hurts-injury-cowboys"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Shedeur Sanders"
+   ],
+   "headline": "‘It’s Not Because They’re a Bad Football Team Now’ — Cam Newton Reveals His Top Shedeur Sanders Landing Spot as Trade Rumors Swirl Around Browns QB",
+   "summary": "",
+   "published": "2026-10-16T16:01:16Z",
+   "published_at": "2026-10-16T16:01:16Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘It’s Not Because They’re a Bad Football Team Now’ — Cam Newton Reveals His Top Shedeur Sanders Landing Spot as Trade Rumors Swirl Around Browns QB",
+     "url": "https://www.profootballnetwork.com/cam-newton-shedeur-sanders-landing-spot-browns-trade-rumors"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Explosive Weapon in Tez Johnson, Baker Mayfield's Progression and More | Bucs Blitz",
+   "summary": "In Week Six press conferences, Offensive Coordinator Zac Robinson discussed what Tez Johnson brings as a vertical threat and Baker Mayfield’s recovery with the thumb injury, while Run Game Coordinator/Outside Linebackers Coach Larry Foote talked about Josiah Trotter’s production",
+   "published": "2026-10-16T15:57:50Z",
+   "published_at": "2026-10-16T15:57:50Z",
+   "first_seen_at": "2026-10-17T11:07:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Explosive Weapon in Tez Johnson, Baker Mayfield's Progression and More | Bucs Blitz",
+     "url": "https://www.buccaneers.com/news/explosive-weapon-tez-johnson-baker-mayfield-progression-more-bucs-blitz"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Davante Adams"
+   ],
+   "headline": "Fantasy football: The five highest-scoring wide receiver groups through Week 5",
+   "summary": "The 2026 fantasy football wide receiver rankings identify the five highest-scoring NFL receiver groups in PPR formats through Week 5, led by the Dallas Cowboys with 237.9 points. Green Bay, Seattle, the Los Angeles Rams and Cincinnati round out the top five, with Christian Watson, Jaxon Smith-Njigba and Davante Adams among their leading contributors.",
+   "published": "2026-10-16T15:22:35Z",
+   "published_at": "2026-10-16T15:22:35Z",
+   "first_seen_at": "2026-10-17T11:07:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Fantasy football: The five highest-scoring wide receiver groups through Week 5",
+     "url": "https://www.pff.com/news/fantasy-football-the-five-highest-scoring-wide-receiver-groups-through-week-5"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "Nico Collins"
+   ],
+   "headline": "Texans Roundup: Houston Texans at Jacksonville Jaguars",
+   "summary": "Will Anderson Jr.'s NFL-leading sack pace, Nico Collins' 100-yard streak against Jacksonville and the numbers to know before Houston returns to Wembley Stadium",
+   "published": "2026-10-16T15:15:03Z",
+   "published_at": "2026-10-16T15:15:03Z",
+   "first_seen_at": "2026-10-17T11:07:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "HOU official",
+     "title": "Texans Roundup: Houston Texans at Jacksonville Jaguars",
+     "url": "https://www.houstontexans.com/news/texans-roundup-houston-texans-at-jacksonville-jaguars"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Ja'Marr Chase"
+   ],
+   "headline": "Ja'Marr Chase And Bengals' Long Line Of Great Catches",
+   "summary": "Bengals legends Isaac Curtis, Chad Johnson, Andrew Hawkins and T.J. Houshmandzadeh talk Ja'Marr Chase and the franchise's most iconic catches.",
+   "published": "2026-10-16T15:00:14Z",
+   "published_at": "2026-10-16T15:00:14Z",
+   "first_seen_at": "2026-10-17T11:07:40+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Ja'Marr Chase And Bengals' Long Line Of Great Catches",
+     "url": "https://www.bengals.com/news/ja-marr-chase-bengals-best-catches-isaac-curtis-chad-johnson"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Hunter Henry"
+   ],
+   "headline": "Hunter Henry named NFLPA Community MVP after hosting second annual \"Freedom to Play\" ping pong tournament",
+   "summary": "New England Patriots tight end Hunter Henry was named the NFLPA’s Community MVP for Week 6, two weeks after teammate Mack Hollins earned the same recognition.",
+   "published": "2026-10-16T15:00:00Z",
+   "published_at": "2026-10-16T15:00:00Z",
+   "first_seen_at": "2026-10-17T11:07:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "Hunter Henry named NFLPA Community MVP after hosting second annual \"Freedom to Play\" ping pong tournament",
+     "url": "https://www.patriots.com/news/hunter-henry-named-nflpa-community-mvp-after-hosting-second-annual-freedom-to-play-ping-pong-tournament"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Jonathan Taylor"
+   ],
+   "headline": "Colts Week 6 preview: Can Jonathan Taylor get going again vs. winless Titans?",
+   "summary": "The Colts have won their last six meetings with the Tennessee Titans and have averaged 160.7 rushing yards per game in those wins.",
+   "published": "2026-10-16T14:31:37Z",
+   "published_at": "2026-10-16T14:31:37Z",
+   "first_seen_at": "2026-10-17T11:07:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "IND official",
+     "title": "Colts Week 6 preview: Can Jonathan Taylor get going again vs. winless Titans?",
+     "url": "https://www.colts.com/news/colts-week-6-preview-can-jonathan-taylor-get-going-again-vs-winless-titans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Jaylen Waddle"
+   ],
+   "headline": "‘Jaylen Waddle Has a Right To Be Mad’ — Ex-NFL DT Urges Broncos WR To ‘Publicly Express’ Bo Nix’s Flaws",
+   "summary": "",
+   "published": "2026-10-16T14:26:26Z",
+   "published_at": "2026-10-16T14:26:26Z",
+   "first_seen_at": "2026-10-17T11:07:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Jaylen Waddle Has a Right To Be Mad’ — Ex-NFL DT Urges Broncos WR To ‘Publicly Express’ Bo Nix’s Flaws",
+     "url": "https://www.profootballnetwork.com/jaylen-waddle-broncos-wr-express-bo-nix-flaws"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 25,
+ "feeds_generated_at": "2026-10-17T11:07:38+00:00"
+}
