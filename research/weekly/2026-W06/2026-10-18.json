@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T04:37:50Z",
+  "generated_at": "2026-10-18T11:10:01Z",
   "season": 2026,
   "week": 6,
   "schedule": {
@@ -17,10 +17,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-18T04:37:50Z",
+    "research_as_of": "2026-10-18T11:10:01Z",
     "injuries_as_of": "week 6",
-    "roster_as_of": "2026-10-17T11:35:26Z",
-    "schedule_as_of": "2026-10-18T04:35:12Z"
+    "roster_as_of": "2026-10-18T06:03:42Z",
+    "schedule_as_of": "2026-10-18T11:05:14Z"
   },
   "injury_report": {
     "status": "PUBLISHED",
@@ -1372,8 +1372,8 @@
         "gsis_id": "00-0038394",
         "full_name": "Will Mallory",
         "position": "TE",
-        "report_status": "Questionable",
-        "report_primary_injury": "Thumb",
+        "report_status": null,
+        "report_primary_injury": null,
         "practice_status": "Full Participation in Practice"
       },
       {
@@ -2542,7 +2542,7 @@
         "gsis_id": "00-0037002",
         "full_name": "Landon Dickerson",
         "position": "G",
-        "report_status": "Questionable",
+        "report_status": "Out",
         "report_primary_injury": "Knee",
         "practice_status": "Limited Participation in Practice"
       },
@@ -2551,7 +2551,7 @@
         "gsis_id": "00-0037086",
         "full_name": "Grant Calcaterra",
         "position": "TE",
-        "report_status": "Questionable",
+        "report_status": "Out",
         "report_primary_injury": "Back",
         "practice_status": "Full Participation in Practice"
       },
@@ -2605,7 +2605,7 @@
         "gsis_id": "00-0039072",
         "full_name": "Jakorian Bennett",
         "position": "CB",
-        "report_status": "Questionable",
+        "report_status": "Out",
         "report_primary_injury": "Knee",
         "practice_status": "Full Participation in Practice"
       },
@@ -2668,7 +2668,7 @@
         "gsis_id": "00-0041483",
         "full_name": "Eli Stowers",
         "position": "TE",
-        "report_status": "Questionable",
+        "report_status": "Out",
         "report_primary_injury": "Quadricep",
         "practice_status": "Full Participation in Practice"
       },
@@ -2713,8 +2713,8 @@
         "gsis_id": "00-0035640",
         "full_name": "DK Metcalf",
         "position": "WR",
-        "report_status": "Questionable",
-        "report_primary_injury": "Illness",
+        "report_status": null,
+        "report_primary_injury": null,
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2743,6 +2743,15 @@
         "report_status": "Out",
         "report_primary_injury": "Calf",
         "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "PIT",
+        "gsis_id": "00-0036894",
+        "full_name": "Pat Freiermuth",
+        "position": "TE",
+        "report_status": "Questionable",
+        "report_primary_injury": "Calf",
+        "practice_status": null
       },
       {
         "team": "PIT",
@@ -2866,8 +2875,8 @@
         "gsis_id": "00-0031408",
         "full_name": "Mike Evans",
         "position": "WR",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Ribs",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2884,8 +2893,8 @@
         "gsis_id": "00-0034391",
         "full_name": "Siran Neal",
         "position": "S",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Neck",
         "practice_status": "Limited Participation in Practice"
       },
       {
@@ -2893,8 +2902,8 @@
         "gsis_id": "00-0034775",
         "full_name": "Christian Kirk",
         "position": "WR",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Calf",
         "practice_status": "Limited Participation in Practice"
       },
       {
@@ -2902,8 +2911,8 @@
         "gsis_id": "00-0035717",
         "full_name": "Nick Bosa",
         "position": "DE",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Knee",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2911,8 +2920,8 @@
         "gsis_id": "00-0035719",
         "full_name": "Deebo Samuel Sr.",
         "position": "WR",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Hamstring",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2922,15 +2931,15 @@
         "position": "T",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "SF",
         "gsis_id": "00-0036844",
         "full_name": "Garret Wallow",
         "position": "LB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Hamstring",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2947,8 +2956,8 @@
         "gsis_id": "00-0040152",
         "full_name": "Upton Stout",
         "position": "CB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Shoulder",
         "practice_status": "Limited Participation in Practice"
       },
       {
@@ -2956,8 +2965,8 @@
         "gsis_id": "00-0040185",
         "full_name": "Marques Sigle",
         "position": "S",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Ankle",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2965,9 +2974,18 @@
         "gsis_id": "00-0040660",
         "full_name": "Mykel Williams",
         "position": "DE",
+        "report_status": "Questionable",
+        "report_primary_injury": "Knee",
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "SF",
+        "gsis_id": "00-0041052",
+        "full_name": "Kaelon Black",
+        "position": "RB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Did Not Participate In Practice"
       },
       {
         "team": "SF",
@@ -2985,7 +3003,7 @@
         "position": "DT",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "SF",
@@ -2994,16 +3012,16 @@
         "position": "DE",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "SF",
         "gsis_id": "00-0041557",
         "full_name": "Gracen Halton",
         "position": "DT",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Quadricep",
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "TB",
@@ -3199,8 +3217,8 @@
         "gsis_id": "00-0031588",
         "full_name": "Stefon Diggs",
         "position": "WR",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Hamstring",
         "practice_status": "Limited Participation in Practice"
       },
       {
@@ -3208,8 +3226,8 @@
         "gsis_id": "00-0032268",
         "full_name": "Marcus Mariota",
         "position": "QB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Knee",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -3217,9 +3235,9 @@
         "gsis_id": "00-0033082",
         "full_name": "Lucas Patrick",
         "position": "G",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Illness",
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "WAS",
@@ -3244,8 +3262,8 @@
         "gsis_id": "00-0033955",
         "full_name": "Jeremy McNichols",
         "position": "RB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Quadricep",
         "practice_status": "Full Participation in Practice"
       },
       {
@@ -3262,8 +3280,8 @@
         "gsis_id": "00-0035279",
         "full_name": "Charles Omenihu",
         "position": "DE",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Groin",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -3273,16 +3291,16 @@
         "position": "WR",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "WAS",
         "gsis_id": "00-0036260",
         "full_name": "Javon Kinlaw",
         "position": "DT",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Ankle",
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "WAS",
@@ -3291,7 +3309,7 @@
         "position": "LB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "WAS",
@@ -3307,8 +3325,8 @@
         "gsis_id": "00-0037616",
         "full_name": "Nick Cross",
         "position": "S",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Illness",
         "practice_status": "Full Participation in Practice"
       },
       {
@@ -3325,8 +3343,8 @@
         "gsis_id": "00-0038100",
         "full_name": "Percy Butler",
         "position": "S",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Hamstring",
         "practice_status": "Limited Participation in Practice"
       },
       {
@@ -3343,8 +3361,8 @@
         "gsis_id": "00-0039368",
         "full_name": "Jordan Magee",
         "position": "LB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Hamstring",
         "practice_status": "Limited Participation in Practice"
       },
       {
@@ -3352,8 +3370,8 @@
         "gsis_id": "00-0039412",
         "full_name": "Javontae Jean-Baptiste",
         "position": "LB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Pectoral",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -3361,8 +3379,8 @@
         "gsis_id": "00-0039681",
         "full_name": "Tyler Owens",
         "position": "S",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Hamstring",
         "practice_status": "Limited Participation in Practice"
       },
       {
@@ -3379,8 +3397,8 @@
         "gsis_id": "00-0040242",
         "full_name": "Jacory Croskey-Merritt",
         "position": "RB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Groin",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -3388,8 +3406,8 @@
         "gsis_id": "00-0040731",
         "full_name": "Trey Amos",
         "position": "CB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Ankle",
         "practice_status": "Full Participation in Practice"
       }
     ],
@@ -3426,11 +3444,11 @@
     ],
     "teams_expected": 28,
     "teams_pending": [],
-    "with_designation": 159
+    "with_designation": 181
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-10-17T11:33:46Z",
+    "effective_at": "2026-10-18T06:02:04Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -17642,16 +17660,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-17T11:33:31Z",
+      "retrieved_at": "2026-10-18T06:01:06Z",
       "status": "OK",
-      "rows": 1787
+      "rows": 1789
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-17T11:33:56Z",
+      "retrieved_at": "2026-10-18T06:02:16Z",
       "status": "OK",
-      "rows": 663879
+      "rows": 666210
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -17675,9 +17693,164 @@
   ],
   "diff": {
     "against": "2026-10-17.json",
-    "new": [],
-    "changed": [],
+    "new": [
+      {
+        "key": "PIT:Pat Freiermuth",
+        "now": "Questionable"
+      },
+      {
+        "key": "SF:Kaelon Black",
+        "now": "None"
+      }
+    ],
+    "changed": [
+      {
+        "key": "IND:Will Mallory",
+        "was": "Questionable",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Landon Dickerson",
+        "was": "Questionable",
+        "now": "Out"
+      },
+      {
+        "key": "PHI:Grant Calcaterra",
+        "was": "Questionable",
+        "now": "Out"
+      },
+      {
+        "key": "PHI:Jakorian Bennett",
+        "was": "Questionable",
+        "now": "Out"
+      },
+      {
+        "key": "PHI:Eli Stowers",
+        "was": "Questionable",
+        "now": "Out"
+      },
+      {
+        "key": "PIT:DK Metcalf",
+        "was": "Questionable",
+        "now": "None"
+      },
+      {
+        "key": "SF:Mike Evans",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "SF:Siran Neal",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "SF:Christian Kirk",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "SF:Nick Bosa",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "SF:Deebo Samuel Sr.",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "SF:Garret Wallow",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "SF:Upton Stout",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "SF:Marques Sigle",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "SF:Mykel Williams",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "SF:Gracen Halton",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "WAS:Stefon Diggs",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "WAS:Marcus Mariota",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "WAS:Lucas Patrick",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "WAS:Jeremy McNichols",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "WAS:Charles Omenihu",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "WAS:Javon Kinlaw",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "WAS:Nick Cross",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "WAS:Percy Butler",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "WAS:Jordan Magee",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "WAS:Javontae Jean-Baptiste",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "WAS:Tyler Owens",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "WAS:Jacory Croskey-Merritt",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "WAS:Trey Amos",
+        "was": "None",
+        "now": "Questionable"
+      }
+    ],
     "removed": [],
-    "unchanged": 406
+    "unchanged": 377
   }
 }
