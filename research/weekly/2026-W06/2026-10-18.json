@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-18T18:39:22Z",
+  "generated_at": "2026-10-18T21:54:25Z",
   "season": 2026,
   "week": 6,
   "schedule": {
     "games": 14,
     "from": "2026-10-15",
     "to": "2026-10-19",
-    "played": 2,
+    "played": 9,
     "kickoffs": [
       "09:30",
       "13:00",
@@ -17,10 +17,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-18T18:39:22Z",
+    "research_as_of": "2026-10-18T21:54:25Z",
     "injuries_as_of": "week 6",
     "roster_as_of": "2026-10-18T12:04:05Z",
-    "schedule_as_of": "2026-10-18T18:15:15Z"
+    "schedule_as_of": "2026-10-18T21:50:19Z"
   },
   "injury_report": {
     "status": "PUBLISHED",
