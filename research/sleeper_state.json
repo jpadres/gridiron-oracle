@@ -1,9 +1,9 @@
 {
  "status": "OK",
- "retrieved_at": "2026-10-20T01:13:09+00:00",
+ "retrieved_at": "2026-10-20T06:31:00+00:00",
  "url": "https://api.sleeper.app/v1/state/nfl",
  "season": "2026",
  "season_type": "regular",
- "week": 6,
+ "week": 7,
  "display_week": 6
 }
