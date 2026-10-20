@@ -1,0 +1,1346 @@
+{
+ "date": "2026-10-20",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jadarian Price"
+   ],
+   "headline": "Revisiting the 2026 NFL Draft: Evaluating how well Seahawks have done re-tooling Super Bowl roster",
+   "summary": "Injuries to top picks like Jadarian Price and Bud Clark have derailed early returns of Seattle's draft class",
+   "published": "2026-10-20T11:32:32Z",
+   "published_at": "2026-10-20T11:32:32Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Revisiting the 2026 NFL Draft: Evaluating how well Seahawks have done re-tooling Super Bowl roster",
+     "url": "https://www.cbssports.com/nfl/news/revisiting-the-2026-nfl-draft-seattle-seahawks-roster"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Terry McLaurin"
+   ],
+   "headline": "Terry McLaurin believed to have season-ending knee injury",
+   "summary": "Commanders wide receiver Terry McLaurin had to be carted off the field with an air cast on his left knee on Monday night and the image didn't do much to conjure up hopes of a quick return to the field this season.",
+   "published": "2026-10-20T11:17:20Z",
+   "published_at": "2026-10-20T11:17:20Z",
+   "first_seen_at": "2026-10-20T12:03:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Terry McLaurin believed to have season-ending knee injury",
+     "url": "https://sports.yahoo.com/articles/terry-mclaurin-believed-season-ending-111720735.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "Eagles star Hurts could miss season over blood clots",
+   "summary": "Jalen Hurts may not play again in 2026 for the struggling Philadelphia Eagles after being diagnosed with multiple blood clots in his lungs.",
+   "published": "2026-10-20T10:54:22Z",
+   "published_at": "2026-10-20T10:54:22Z",
+   "first_seen_at": "2026-10-20T12:03:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Eagles star Hurts could miss season over blood clots",
+     "url": "https://sports.yahoo.com/articles/cardinals-upset-rams-eagles-lose-060037217.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "Jalen Hurts blood clots: Biggest unanswered questions for Eagles about star QB's health",
+   "summary": "The Eagles and Hurts' agent revealed more information about the quarterback's blood clot situation on Monday, but there are still lingering questions",
+   "published": "2026-10-20T10:01:01Z",
+   "published_at": "2026-10-20T10:01:01Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Jalen Hurts blood clots: Biggest unanswered questions for Eagles about star QB's health",
+     "url": "https://www.cbssports.com/nfl/news/biggest-unanswered-questions-eagles-jalen-hurts"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Jonathan Taylor"
+   ],
+   "headline": "How a Jonathan Taylor trade could work for Colts and Cincinnati",
+   "summary": "Could the Bengals take another big swing?",
+   "published": "2026-10-20T10:00:00Z",
+   "published_at": "2026-10-20T10:00:00Z",
+   "first_seen_at": "2026-10-20T12:03:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "How a Jonathan Taylor trade could work for Colts and Cincinnati",
+     "url": "https://sports.yahoo.com/articles/jonathan-taylor-trade-could-colts-100000319.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TEN",
+   "players": [
+    "Carnell Tate"
+   ],
+   "headline": "Grading all 32 NFL first-round rookies after Week 6",
+   "summary": "Titans receiver Carnell Tate was among the NFL's first-round rookies to impress during Week 6 action.",
+   "published": "2026-10-20T09:30:00Z",
+   "published_at": "2026-10-20T09:30:00Z",
+   "first_seen_at": "2026-10-20T12:02:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Grading all 32 NFL first-round rookies after Week 6",
+     "url": "https://www.pff.com/news/grading-all-32-nfl-first-round-rookies-after-week-6"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "‘It’s Negligence, It’s Malpractice,’ ‘This Is Bigger Than Football’ — Ex-Eagles LB Suggests Jalen Hurts Should Sue Philadelphia",
+   "summary": "",
+   "published": "2026-10-20T09:15:31Z",
+   "published_at": "2026-10-20T09:15:31Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘It’s Negligence, It’s Malpractice,’ ‘This Is Bigger Than Football’ — Ex-Eagles LB Suggests Jalen Hurts Should Sue Philadelphia",
+     "url": "https://www.profootballnetwork.com/emmanuel-acho-philadelphia-eagles-answers-jalen-hurts-blood-clots-news"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "DK Metcalf",
+    "Germie Bernard"
+   ],
+   "headline": "Rest-Of-Season Fantasy Football Rankings: NFL Week 7",
+   "summary": "The Week 6 fantasy football rest-of-season rankings highlight players gaining value as managers prepare for trades, waiver-wire moves and lineup decisions. James Cook III enters the top 10 after a productive receiving performance, while Pittsburgh Steelers receivers DK Metcalf and Germie Bernard continue to rise.",
+   "published": "2026-10-20T09:15:00Z",
+   "published_at": "2026-10-20T09:15:00Z",
+   "first_seen_at": "2026-10-20T12:02:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Rest-Of-Season Fantasy Football Rankings: NFL Week 7",
+     "url": "https://www.pff.com/news/fantasy-football-rest-of-season-rankings"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Dalton Schultz",
+    "Omar Cooper Jr."
+   ],
+   "headline": "Fantasy Football Waiver Wire Week 7: 5 to add, drop, buy low, sell high",
+   "summary": "Fantasy football managers should pursue Jets receiver Omar Cooper Jr. on the waiver wire ahead of Week 7, while Texans tight end Dalton Schultz is a strong cut candidate.",
+   "published": "2026-10-20T09:00:00Z",
+   "published_at": "2026-10-20T09:00:00Z",
+   "first_seen_at": "2026-10-20T12:02:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Fantasy Football Waiver Wire Week 7: 5 to add, drop, buy low, sell high",
+     "url": "https://www.pff.com/news/fantasy-football-waiver-wire-week-7-5-to-add-drop-buy-low-sell-high-2"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Jarrett Stidham"
+   ],
+   "headline": "Horse Tracks: Stop blaming Bo",
+   "summary": "Good morning, Broncos Country! Everyone, just freakin’ relax on the QB play, will you? The second question at yesterday’s presser with Sean Payton was wondering if the head coach had considered replacing Bo Nix. What are you even talking about? I’m a big fan of Jarrett Stidham as our backup. If Nix goes down, he’s […]",
+   "published": "2026-10-20T08:59:52Z",
+   "published_at": "2026-10-20T08:59:52Z",
+   "first_seen_at": "2026-10-20T12:03:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Horse Tracks: Stop blaming Bo",
+     "url": "https://sports.yahoo.com/articles/horse-tracks-stop-blaming-bo-085952897.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "‘I See Why Terrell Owens Is the Best WR of All Time’ — Eagles Fans Take Notice As HoFer Goes After Michael Robinson Over Jalen Hurts Controversy",
+   "summary": "",
+   "published": "2026-10-20T07:58:21Z",
+   "published_at": "2026-10-20T07:58:21Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I See Why Terrell Owens Is the Best WR of All Time’ — Eagles Fans Take Notice As HoFer Goes After Michael Robinson Over Jalen Hurts Controversy",
+     "url": "https://www.profootballnetwork.com/eagles-fans-notice-terrell-owens-calls-out-michael-robinson-jalen-hurts-controversy"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "‘Say Your Apology on Air’ — Eagles Legend Terrell Owens Calls Out Michael Robinson’s Response to Jalen Hurts Controversy",
+   "summary": "",
+   "published": "2026-10-20T07:25:54Z",
+   "published_at": "2026-10-20T07:25:54Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Say Your Apology on Air’ — Eagles Legend Terrell Owens Calls Out Michael Robinson’s Response to Jalen Hurts Controversy",
+     "url": "https://www.profootballnetwork.com/terrell-owens-calls-out-michael-robinson-jalen-hurts-controversy"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "A.J. Brown"
+   ],
+   "headline": "‘He Wasn’t Blaming This on Anyone’ — Patriots WR A.J. Brown Earns Praise From Hall of Famer for Taking Accountability After Three Drops vs. Jets",
+   "summary": "",
+   "published": "2026-10-20T05:52:29Z",
+   "published_at": "2026-10-20T05:52:29Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He Wasn’t Blaming This on Anyone’ — Patriots WR A.J. Brown Earns Praise From Hall of Famer for Taking Accountability After Three Drops vs. Jets",
+     "url": "https://www.profootballnetwork.com/patriots-aj-brown-earns-praise-accountability-three-drops-versus-jets"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "‘Jayden Daniels’ Football IQ Is 0.0,’ ‘Awareness Is So Bad’ — NFL World Rips Commanders QB’s ‘Horrible’ Mistake vs. 49ers",
+   "summary": "",
+   "published": "2026-10-20T05:30:00Z",
+   "published_at": "2026-10-20T05:30:00Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Jayden Daniels’ Football IQ Is 0.0,’ ‘Awareness Is So Bad’ — NFL World Rips Commanders QB’s ‘Horrible’ Mistake vs. 49ers",
+     "url": "https://www.profootballnetwork.com/jayden-daniels-football-iq-horrible-mistake-commanders-qb-49ers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "‘It’s Pathetic,’ ‘How Much Did the PR Team Pay You?’ — Fans Slam NFL Insider’s ‘Damage Control’ for Eagles After Jalen Hurts’ Diagnosis",
+   "summary": "",
+   "published": "2026-10-20T05:05:28Z",
+   "published_at": "2026-10-20T05:05:28Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘It’s Pathetic,’ ‘How Much Did the PR Team Pay You?’ — Fans Slam NFL Insider’s ‘Damage Control’ for Eagles After Jalen Hurts’ Diagnosis",
+     "url": "https://www.profootballnetwork.com/nfl-fans-slam-insider-damage-control-eagles-jalen-hurts-diagnosis"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Terry McLaurin"
+   ],
+   "headline": "Washington Commanders WR Terry McLaurin carted off field vs. 49ers",
+   "summary": "UPDATE: Commanders head coach Dan Quinn said that, while there’s no formal update on Terry McLaurin’s knee injury, there’s fear that his injury is significant. Commanders receiver Terry McLaurin was carted off the field during Monday night’s game against the San Francisco 49ers. Washington’s best wideout went down on a third down play with roughly […]",
+   "published": "2026-10-20T04:42:15Z",
+   "published_at": "2026-10-20T04:42:15Z",
+   "first_seen_at": "2026-10-20T12:03:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Washington Commanders WR Terry McLaurin carted off field vs. 49ers",
+     "url": "https://www.hogshaven.com/washington-commanders-news/449921/commanders-terry-mclaurin-injury-san-francisco-49ers-nfl-week6"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Terry McLaurin"
+   ],
+   "headline": "Commanders' Terry McLaurin carted off after knee injury vs. 49ers: 'There's fear'",
+   "summary": "McLaurin went down while running a route late in the first quarter",
+   "published": "2026-10-20T04:41:43Z",
+   "published_at": "2026-10-20T04:41:43Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Commanders' Terry McLaurin carted off after knee injury vs. 49ers: 'There's fear'",
+     "url": "https://www.cbssports.com/nfl/news/commanders-terry-mclaurin-knee-injury-monday-night-football"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Terry McLaurin",
+    "Jayden Daniels"
+   ],
+   "headline": "Dan Quinn and Jayden Daniels talk about another loss",
+   "summary": "The Washington Commanders showed up in the 2nd half against the San Francisco 49ers, but they couldn’t complete the comeback, losing 23-17. Terry McLaurin suffered a serious knee injury, and more time management issues came up during the game, raising questions for Quinn and Jayden Daniels. They spoke to reporters after the game, answering game […]",
+   "published": "2026-10-20T04:22:11Z",
+   "published_at": "2026-10-20T04:22:11Z",
+   "first_seen_at": "2026-10-20T12:03:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Dan Quinn and Jayden Daniels talk about another loss",
+     "url": "https://www.hogshaven.com/pressers/449832/dan-quinn-jayden-daniels-talk-about-another-loss-49ers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "‘Get Well Soon,’ ‘Give Him a Few Weeks’ — NFL World Concerned as 49ers WR Mike Evans Suffers Achilles Injury vs. Commanders",
+   "summary": "",
+   "published": "2026-10-20T04:04:58Z",
+   "published_at": "2026-10-20T04:04:58Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Get Well Soon,’ ‘Give Him a Few Weeks’ — NFL World Concerned as 49ers WR Mike Evans Suffers Achilles Injury vs. Commanders",
+     "url": "https://www.profootballnetwork.com/mike-evans-achilles-injury-49ers-rest-mnf-commanders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "Kyle Shanahan on Mike Evans’ injury: ‘We don’t think it’s a long-term thing’",
+   "summary": "The San Francisco 49ers lost multiple players during their victory over the Washington Commanders: WR Mike Evans (Achilles)LB Luke Gifford (groin)CB Upton Stout (shoulder) When asked about the severity of Evans’ Achilles injury, Kyle Shanahan said, “Just the same thing that was bothering him all week. Just acted up during the game; couldn’t go. We’ll […]",
+   "published": "2026-10-20T03:58:22Z",
+   "published_at": "2026-10-20T03:58:22Z",
+   "first_seen_at": "2026-10-20T12:03:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Kyle Shanahan on Mike Evans’ injury: ‘We don’t think it’s a long-term thing’",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/164550/kyle-shanahan-on-mike-evans-injury-we-dont-think-its-a-long-term-thing"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "What if the Colts had traded for Stafford instead of the Rams?",
+   "summary": "What if the Colts had traded for Matthew Stafford instead of the Rams?",
+   "published": "2026-10-20T03:45:44Z",
+   "published_at": "2026-10-20T03:45:44Z",
+   "first_seen_at": "2026-10-20T12:03:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "What if the Colts had traded for Stafford instead of the Rams?",
+     "url": "https://sports.yahoo.com/articles/colts-had-traded-stafford-instead-034544991.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "Fired Colts GM didn’t finalize potential Matthew Stafford trade",
+   "summary": "The Indianapolis Colts fired general manager Chris Ballard on Monday and the news surfaced an old report by Peter Schrager that the team could have acquired Matthew Stafford in 2021 instead of the Los Angeles Rams. Stafford wanted to go to the Rams, but would have approved a trade to the Colts if Ballard had […]",
+   "published": "2026-10-20T03:45:44Z",
+   "published_at": "2026-10-20T03:45:44Z",
+   "first_seen_at": "2026-10-20T12:03:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Fired Colts GM didn’t finalize potential Matthew Stafford trade",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-history/152682/colts-stafford-trade-rams-history"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Tetairoa McMillan"
+   ],
+   "headline": "How former Arizona Wildcats fared in Week 6 of NFL season",
+   "summary": "Another week of the NFL is in the books. Here’s a look at how former Arizona Wildcats fared in Week 6. Tetairoa McMillan, WR, Carolina Panthers Back in action after a bye week, McMillan had a productive Sunday, catching six passes for 86 yards. The Panthers offense did enough to beat the Philadelphia Eagles on […]",
+   "published": "2026-10-20T03:45:00Z",
+   "published_at": "2026-10-20T03:45:00Z",
+   "first_seen_at": "2026-10-20T12:03:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "How former Arizona Wildcats fared in Week 6 of NFL season",
+     "url": "https://sports.yahoo.com/articles/former-arizona-wildcats-fared-week-034500600.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Terry McLaurin",
+    "Mike Evans"
+   ],
+   "headline": "NFL Week 6 Recap: Immediate fantasy football takeaways from Commanders-49ers",
+   "summary": "The 49ers vs. Commanders Week 6 fantasy football recap examines injuries, snap counts and changing player roles following Monday Night Football. Terry McLaurin and Mike Evans exited early, creating potential opportunities for Treylon Burks and Brandin Cooks.",
+   "published": "2026-10-20T03:26:59Z",
+   "published_at": "2026-10-20T03:26:59Z",
+   "first_seen_at": "2026-10-20T12:02:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "NFL Week 6 Recap: Immediate fantasy football takeaways from Commanders-49ers",
+     "url": "https://www.pff.com/news/fantasy-football-week-6-recap-commanders-49ers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans",
+    "Kaelon Black"
+   ],
+   "headline": "49ers escape Week 6 with a win over the Commanders after a second-half letdown",
+   "summary": "Jordan James took the opening kickoff to the 36-yard line for the San Francisco 49ers. Jordan Watkins started at wide receiver opposite Mike Evans. Jacob Cowing came in on the first third down. Evans caught a 25-yard pass on the first play. Kaelon Black converted on 3rd-and-1. The offense quickly got into the red zone. […]",
+   "published": "2026-10-20T03:24:29Z",
+   "published_at": "2026-10-20T03:24:29Z",
+   "first_seen_at": "2026-10-20T12:03:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers escape Week 6 with a win over the Commanders after a second-half letdown",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-scores-results/164530/49ers-escape-week-6-with-a-win-over-the-commanders-after-a-second-half-letdown"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "‘A Punishment Has To Happen’ — Super Bowl Champion Calls for Eagles To Face Consequences for Handling of Jalen Hurts’ Health Issue",
+   "summary": "",
+   "published": "2026-10-20T03:01:07Z",
+   "published_at": "2026-10-20T03:01:07Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘A Punishment Has To Happen’ — Super Bowl Champion Calls for Eagles To Face Consequences for Handling of Jalen Hurts’ Health Issue",
+     "url": "https://www.profootballnetwork.com/super-bowl-champion-calls-eagles-consequences-jalen-hurts-health-issue"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers' Mike Evans ruled out with Achilles injury after leaving game late in first half",
+   "summary": "Evans was having a good first half before exiting",
+   "published": "2026-10-20T02:16:13Z",
+   "published_at": "2026-10-20T02:16:13Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "49ers' Mike Evans ruled out with Achilles injury after leaving game late in first half",
+     "url": "https://www.cbssports.com/nfl/news/is-mike-evans-playing-monday-night-football"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Davante Adams"
+   ],
+   "headline": "‘Season Is Over,’ ‘Rams Are Cursed’ — NFL Fans React As Davante Adams, Others Suffer Major Injuries in LA’s Brutal Loss to Cardinals",
+   "summary": "",
+   "published": "2026-10-20T01:40:34Z",
+   "published_at": "2026-10-20T01:40:34Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Season Is Over,’ ‘Rams Are Cursed’ — NFL Fans React As Davante Adams, Others Suffer Major Injuries in LA’s Brutal Loss to Cardinals",
+     "url": "https://www.profootballnetwork.com/fans-reaction-rams-davante-adams-major-injuries-cardinals"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Terry McLaurin"
+   ],
+   "headline": "‘Just a Complete Nightmare,’ ‘Prayers Up’ — Chad Johnson, NFL World Deeply Worried As Commanders WR Terry McLaurin Suffers ‘Serious’ Injury vs. 49ers",
+   "summary": "",
+   "published": "2026-10-20T01:34:53Z",
+   "published_at": "2026-10-20T01:34:53Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Just a Complete Nightmare,’ ‘Prayers Up’ — Chad Johnson, NFL World Deeply Worried As Commanders WR Terry McLaurin Suffers ‘Serious’ Injury vs. 49ers",
+     "url": "https://www.profootballnetwork.com/chad-johnson-nfl-world-terry-mclaurin-injury"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "‘Jalen Hurts Could’ve Lost His Life’ — Pro Bowler Calls for ‘Independent Doctors’ After Eagles’ Handling of Star QB’s Health Scare",
+   "summary": "",
+   "published": "2026-10-20T01:34:07Z",
+   "published_at": "2026-10-20T01:34:07Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Jalen Hurts Could’ve Lost His Life’ — Pro Bowler Calls for ‘Independent Doctors’ After Eagles’ Handling of Star QB’s Health Scare",
+     "url": "https://www.profootballnetwork.com/jalen-hurts-health-scare-eagles-pro-bowler-calls-for-independent-doctors"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Mike Gesicki"
+   ],
+   "headline": "Quick Hits | Erick All Jr. Hopes To Show Bengals' Tight End Depth; Orlando Brown Jr.'s 40th AFC North Game Has An OId Friend",
+   "summary": "In the first practice since the Bengals lost sure-handed Tanner Hudson for the season with a pectoral injury, tight end Erick All Jr. showed off the depth of the room when he ran some of the routes reserved for noted pass catches Hudson and Mike Gesicki.",
+   "published": "2026-10-20T01:08:39Z",
+   "published_at": "2026-10-20T01:08:39Z",
+   "first_seen_at": "2026-10-20T12:02:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Quick Hits | Erick All Jr. Hopes To Show Bengals' Tight End Depth; Orlando Brown Jr.'s 40th AFC North Game Has An OId Friend",
+     "url": "https://www.bengals.com/news/quick-hits-erick-all-jr-flashes-bengals-tight-end-depth-orlando-brown-jr-s-40th-afc-north-game-has-an-oid-friend"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Terry McLaurin"
+   ],
+   "headline": "Commanders star Terry McLaurin carted off after knee injury early in loss to 49ers",
+   "summary": "Terry McLaurin was carted off in an air cast after going down early on Monday night.",
+   "published": "2026-10-20T00:58:26Z",
+   "published_at": "2026-10-20T00:58:26Z",
+   "first_seen_at": "2026-10-20T12:03:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Commanders star Terry McLaurin carted off after knee injury early in loss to 49ers",
+     "url": "https://sports.yahoo.com/nfl/breaking-news/article/commanders-star-terry-mclaurin-carted-off-after-knee-injury-early-in-loss-to-49ers-032814610.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "Questions abound as Jalen Hurts likely to miss rest of season due to blood clots, sources say",
+   "summary": "League sources tell CBS Philadelphia that Eagles quarterback Jalen Hurts is being sidelined, likely for the rest of the season, after testing revealed deep vein thrombosis and blood clots in his lungs.",
+   "published": "2026-10-20T00:41:49Z",
+   "published_at": "2026-10-20T00:41:49Z",
+   "first_seen_at": "2026-10-20T12:03:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbsnews.com",
+     "title": "Questions abound as Jalen Hurts likely to miss rest of season due to blood clots, sources say",
+     "url": "https://www.cbsnews.com/video/eagles-qb-jalen-hurts-likely-out-for-rest-of-season-due-to-blood-clots-in-lungs"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Jayden Daniels",
+    "Brock Purdy",
+    "Stefon Diggs"
+   ],
+   "headline": "49ers-Commanders live discussion: Jayden Daniels will try to keep pace with Brock Purdy",
+   "summary": "The San Francisco 49ers look to continue their winning ways and remain undefeated at home as they face the Washington Commanders on Monday Night Football. On one side, you have a quarterback two weeks removed from injury, with a full cast of pass-catchers around him. This week, Jayden Daniels will have Stefon Diggs. He’ll also […]",
+   "published": "2026-10-19T23:55:00Z",
+   "published_at": "2026-10-19T23:55:00Z",
+   "first_seen_at": "2026-10-20T12:03:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers-Commanders live discussion: Jayden Daniels will try to keep pace with Brock Purdy",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-discussion/164523/49ers-commanders-live-discussion-jayden-daniels-will-try-to-keep-pace-with-brock-purdy"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Zach Charbonnet"
+   ],
+   "headline": "Zach Charbonnet & Anthony Bradford's Potential Return & Other Seahawks Injury Updates",
+   "summary": "Injury updates from Seahawks coach Mike Macdonald’s Monday press conference.",
+   "published": "2026-10-19T23:47:10Z",
+   "published_at": "2026-10-19T23:47:10Z",
+   "first_seen_at": "2026-10-20T12:03:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Zach Charbonnet & Anthony Bradford's Potential Return & Other Seahawks Injury Updates",
+     "url": "https://www.seahawks.com/news/zach-charbonnet-anthony-bradford-s-potential-return-other-seahawks-injury-updates"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "Jalen Hurts' devastating diagnosis rattles sports world",
+   "summary": "Jalen Hurts, star quarterback of the Philadelphia Eagles, may be out for the season after doctors discovered a serious blood clot that could have been life-threatening. Tom Hanson reports.",
+   "published": "2026-10-19T23:46:00Z",
+   "published_at": "2026-10-19T23:46:00Z",
+   "first_seen_at": "2026-10-20T12:03:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbsnews.com",
+     "title": "Jalen Hurts' devastating diagnosis rattles sports world",
+     "url": "https://www.cbsnews.com/video/jalen-hurts-devastating-diagnosis-rattles-sports-world"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Tre Tucker",
+    "Mike Washington Jr."
+   ],
+   "headline": "By the Numbers: Raiders offense continuing to click despite three-game slide",
+   "summary": "Michael Mayer, Tre Tucker and Mike Washington Jr. had impressive showings in Week 6 loss to Buffalo Bills.",
+   "published": "2026-10-19T23:38:00Z",
+   "published_at": "2026-10-19T23:38:00Z",
+   "first_seen_at": "2026-10-20T12:03:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "By the Numbers: Raiders offense continuing to click despite three-game slide",
+     "url": "https://www.raiders.com/news/by-the-numbers-raiders-offense-continuing-to-click-despite-three-game-slide"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Stefon Diggs"
+   ],
+   "headline": "Washington Commanders vs San Francisco 49ers Inactives: Stefon Diggs will play",
+   "summary": "The Washington Commanders released their final injury report for Sunday’s game on Saturday and then made several roster moves earlier on Monday. CB Trey Amos (ankle) RB Jeremy McNichols (quad), and LB Jordan Magee (hamstring) were activated from injured reserve. RB Bill Croskey-Merritt (groin) and OLB Javontae Jean-Baptiste were placed on injured reserve, taking them […]",
+   "published": "2026-10-19T23:04:16Z",
+   "published_at": "2026-10-19T23:04:16Z",
+   "first_seen_at": "2026-10-20T12:03:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Washington Commanders vs San Francisco 49ers Inactives: Stefon Diggs will play",
+     "url": "https://www.hogshaven.com/washington-commanders-injuries/449600/washington-commanders-vs-san-francisco-49ers-inactives-stefon-diggs-mike-0evans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Davante Adams"
+   ],
+   "headline": "Injury Updates: Blake Grupe and Poona Ford sustain season-ending injuries vs. Cardinals; Davante Adams out 6-10 weeks after rupturing hamstring; latest on Myles Garrett and Trent McDuffie",
+   "summary": "Rams head coach Sean McVay provides injury updates on kicker Blake Grupe, nose tackle Poona Ford, wide receiver Davante Adams, defensive end Kobie Turner, outside linebacker Myles Garrett and cornerback Trent McDuffie heading into Week 7 against the Raiders.",
+   "published": "2026-10-19T23:01:06Z",
+   "published_at": "2026-10-19T23:01:06Z",
+   "first_seen_at": "2026-10-20T12:03:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Injury Updates: Blake Grupe and Poona Ford sustain season-ending injuries vs. Cardinals; Davante Adams out 6-10 weeks after rupturing hamstring; latest on Myles Garrett and Trent McDuffie",
+     "url": "https://www.therams.com/news/rams-injury-updates-cardinals-week-6-2026-blake-grupe-torn-acl-out-for-season-poona-ford-davante-adams-kobie-turner-trent-mcduffie-raiders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "Mike Evans and Kyle Juszczyk are active for the 49ers",
+   "summary": "The San Francisco 49ers released veteran offensive lineman Brett Toth from injured reserve as part of an injury settlement, per Matt Maiocco. That should tell us the team was not expecting Toth to return this season, while acknowledging they may play another player on the injured reserve. As for the inactive list, Mike Evans and […]",
+   "published": "2026-10-19T22:53:34Z",
+   "published_at": "2026-10-19T22:53:34Z",
+   "first_seen_at": "2026-10-20T12:03:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Mike Evans and Kyle Juszczyk are active for the 49ers",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/164521/mike-evans-and-kyle-juszczyk-are-active-for-the-49ers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Stefon Diggs"
+   ],
+   "headline": "Is Stefon Diggs playing Monday night? A look at the Commanders WR's status vs. 49ers on 'MNF'",
+   "summary": "Diggs is officially listed as questionable with a hamstring injury",
+   "published": "2026-10-19T22:49:40Z",
+   "published_at": "2026-10-19T22:49:40Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Is Stefon Diggs playing Monday night? A look at the Commanders WR's status vs. 49ers on 'MNF'",
+     "url": "https://www.cbssports.com/nfl/news/is-stefon-diggs-playing-tonight-injury-update-commanders-vs-49ers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "Mike Evans Active, Kirk OUT vs. Commanders; Inactives Week 6 #WASvsSF",
+   "summary": "Take a look at players who have been ruled out for the San Francisco 49ers Week 6 matchup versus the Washington Commanders.",
+   "published": "2026-10-19T22:44:25Z",
+   "published_at": "2026-10-19T22:44:25Z",
+   "first_seen_at": "2026-10-20T12:03:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SF official",
+     "title": "Mike Evans Active, Kirk OUT vs. Commanders; Inactives Week 6 #WASvsSF",
+     "url": "https://www.49ers.com/news/mike-evans-active-kirk-out-vs-commanders-inactives-week-6-wasvssf"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "Tank Dell"
+   ],
+   "headline": "Tank Dell Will Return vs. the Giants, DeMeco Ryans Confirms",
+   "summary": "The Texans head coach said WR Tank Dell will play Sunday for the first time in over two years, and that his speed is already stressing defenders in practice.",
+   "published": "2026-10-19T22:32:06Z",
+   "published_at": "2026-10-19T22:32:06Z",
+   "first_seen_at": "2026-10-20T12:02:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "HOU official",
+     "title": "Tank Dell Will Return vs. the Giants, DeMeco Ryans Confirms",
+     "url": "https://www.houstontexans.com/news/tank-dell-return-giants-demeco-ryans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "George Kittle",
+    "Brock Purdy"
+   ],
+   "headline": "Commanders vs. 49ers odds, picks, player props: Expert's best bets for NFL Week 6 Monday Night Football",
+   "summary": "Taking Washington with the points against undefeated San Francisco, plus prime-time props for Brock Purdy and George Kittle",
+   "published": "2026-10-19T21:57:07Z",
+   "published_at": "2026-10-19T21:57:07Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Commanders vs. 49ers odds, picks, player props: Expert's best bets for NFL Week 6 Monday Night Football",
+     "url": "https://www.cbssports.com/betting/news/commanders-vs-49ers-odds-picks-player-props-experts-best-bets-for-nfl-week-6-monday-night-football"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "News & Notes: Jesse Minter Gives Health Update on Lamar Jackson",
+   "summary": "Minter discusses injuries to other Ravens, breaks down Tyler Loop's missed field goal, and what occurred in coverage on Cleveland's 33-yard pass play that set up the game-winning field goal.",
+   "published": "2026-10-19T21:38:31Z",
+   "published_at": "2026-10-19T21:38:31Z",
+   "first_seen_at": "2026-10-20T12:02:57+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "News & Notes: Jesse Minter Gives Health Update on Lamar Jackson",
+     "url": "https://www.baltimoreravens.com/news/jesse-minter-lamar-jackson-ankle-still-day-day-monday-week-7-injuries-rashod-bateman-cam-jurgens-trey-hendrickson-tyler-loop-critical-misses"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Davante Adams"
+   ],
+   "headline": "From bad to worse for Rams: Davante Adams to miss 6-10 weeks with ruptured hamstring",
+   "summary": "Adams wasn't the only bad news L.A. got on Monday: Blake Grupe tore his ACL, Poona Ford ruptured his triceps, and Kobie Turner is projected to miss four to six weeks",
+   "published": "2026-10-19T21:33:41Z",
+   "published_at": "2026-10-19T21:33:41Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "From bad to worse for Rams: Davante Adams to miss 6-10 weeks with ruptured hamstring",
+     "url": "https://www.cbssports.com/nfl/news/rams-davante-adams-to-miss-6-10-weeks-ruptured-hamstring"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Josh Jacobs"
+   ],
+   "headline": "Packers RB Josh Jacobs to get full week of practice, game status TBD",
+   "summary": "But edge rusher Micah Parsons isn’t returning to field yet",
+   "published": "2026-10-19T21:22:38Z",
+   "published_at": "2026-10-19T21:22:38Z",
+   "first_seen_at": "2026-10-20T12:02:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Packers RB Josh Jacobs to get full week of practice, game status TBD",
+     "url": "https://www.packers.com/news/packers-rb-josh-jacobs-to-get-full-week-of-practice-game-status-tbd-oct-19-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "3 keys to a 49ers win over the Commanders: Can Raheem Morris contain Jayden Daniels?",
+   "summary": "The San Francisco 49ers have a chance to go 6-0 on Monday night when they host the Washington Commanders at Levi’s Stadium in primetime. Heading into the game, the 49ers are 7.5-point favorites on a hefty 51.5 point total. San Francisco has been on a heater to start the year, and they’ve had success over […]",
+   "published": "2026-10-19T21:13:05Z",
+   "published_at": "2026-10-19T21:13:05Z",
+   "first_seen_at": "2026-10-20T12:03:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "3 keys to a 49ers win over the Commanders: Can Raheem Morris contain Jayden Daniels?",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/164515/san-francisco-49ers-news-3-keys-win-washington-commanders-week-6-kyle-shanahan-brock-purdy"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Davante Adams"
+   ],
+   "headline": "Davante Adams to miss 6-10 weeks with hamstring injury",
+   "summary": "The Los Angeles Rams will place receiver Davante Adams on injured reserve due to a ruptured hamstring that he suffered at the end of Week 6’s loss to the Arizona Cardinals, according to Sean McVay. The receiver will miss between 6-10 weeks, which opens up the possibility that Adams will not return to the team […]",
+   "published": "2026-10-19T21:00:38Z",
+   "published_at": "2026-10-19T21:00:38Z",
+   "first_seen_at": "2026-10-20T12:03:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Davante Adams to miss 6-10 weeks with hamstring injury",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-injuries/152697/davante-adams-injury-update-rams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "George Kittle",
+    "Jayden Daniels",
+    "Brock Purdy"
+   ],
+   "headline": "Monday Night Football Same-Game Parlay: Commanders vs. 49ers",
+   "summary": "The 49ers vs. Commanders Monday Night Football betting preview features a four-leg same-game parlay with combined odds of +435. Brock Purdy's passing efficiency against the blitz and George Kittle's target share support two San Francisco passing props, while Jayden Daniels' projected volume provides a Washington angle.",
+   "published": "2026-10-19T20:42:45Z",
+   "published_at": "2026-10-19T20:42:45Z",
+   "first_seen_at": "2026-10-20T12:02:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Monday Night Football Same-Game Parlay: Commanders vs. 49ers",
+     "url": "https://www.pff.com/news/bet-monday-night-football-same-game-parlay-commanders-49ers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TEN",
+   "players": [
+    "Carnell Tate"
+   ],
+   "headline": "Titans Rookie WR Carnell Tate Growing More Comfortable as His Confidence Continues to Build",
+   "summary": "Coach Robert Saleh on Monday raved about Tate, who leads the Titans with 29 catches for 344 yards and a touchdown through five games this season.",
+   "published": "2026-10-19T20:41:37Z",
+   "published_at": "2026-10-19T20:41:37Z",
+   "first_seen_at": "2026-10-20T12:03:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TEN official",
+     "title": "Titans Rookie WR Carnell Tate Growing More Comfortable as His Confidence Continues to Build",
+     "url": "https://www.tennesseetitans.com/news/titans-rookie-wr-carnell-tate-growing-more-comfortable-as-confidence-continues-to-build"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Jordan Mason"
+   ],
+   "headline": "Vikings Announce RB Jordan Mason to Return to Practice in Week 7",
+   "summary": "",
+   "published": "2026-10-19T20:30:06Z",
+   "published_at": "2026-10-19T20:30:06Z",
+   "first_seen_at": "2026-10-20T12:03:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "MIN official",
+     "title": "Vikings Announce RB Jordan Mason to Return to Practice in Week 7",
+     "url": "https://www.vikings.com/news/running-back-jordan-mason-return-to-practice-week-7"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jameis Winston"
+   ],
+   "headline": "John Harbaugh provides update on Giants' QB situation between JJ McCarthy, Jameis Winston",
+   "summary": "McCarthy made his Giants debut on Sunday after Jameis Winston was benched",
+   "published": "2026-10-19T20:08:28Z",
+   "published_at": "2026-10-19T20:08:28Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "John Harbaugh provides update on Giants' QB situation between JJ McCarthy, Jameis Winston",
+     "url": "https://www.cbssports.com/nfl/news/john-harbaugh-update-giants-qb-jj-mccarthy-jameis-winston"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Romeo Doubs"
+   ],
+   "headline": "Patriots Place WR Romeo Doubs on Injured Reserve; Sign DB Elliott Davison to the 53-Man Roster from the Practice Squad; Announce Additional Practice Squad Moves",
+   "summary": "The Patriots announced today that they have placed WR Romeo Doubs on injured reserve and signed DB Elliott Davison to the 53-man roster from the practice squad. In addition, the Patriots signed WR Ryan Miller, OL Jacob Rizy and G Andrew Rupcich to the practice squad and released CB D’Shawn Jamison from the practice squad.",
+   "published": "2026-10-19T20:00:00Z",
+   "published_at": "2026-10-19T20:00:00Z",
+   "first_seen_at": "2026-10-20T12:03:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "Patriots Place WR Romeo Doubs on Injured Reserve; Sign DB Elliott Davison to the 53-Man Roster from the Practice Squad; Announce Additional Practice Squad Moves",
+     "url": "https://www.patriots.com/news/patriots-place-wr-romeo-doubs-on-injured-reserve-sign-db-elliott-davison-to-the-53-man-roster-from-the-practice-squad-announce-additional-practice-squad-moves"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Bucs Will Evaluate Baker Mayfield in Practice on Wednesday for Potential Return",
+   "summary": "As the Buccaneers prepare for a critical intra-division game against the Panthers this week, they will also be trying to determine if quarterback Baker Mayfield will be able return from action following his thumb injury",
+   "published": "2026-10-19T20:00:00Z",
+   "published_at": "2026-10-19T20:00:00Z",
+   "first_seen_at": "2026-10-20T12:03:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Bucs Will Evaluate Baker Mayfield in Practice on Wednesday for Potential Return",
+     "url": "https://www.buccaneers.com/news/bucs-will-evaluate-baker-mayfield-in-practice-wednesday-potential-return"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye",
+    "A.J. Brown"
+   ],
+   "headline": "After Further Review: Drake Maye and A.J. Brown film breakdown, quick-hit film notes from Sunday's win over the Jets",
+   "summary": "Breaking down the tape on the Drake Maye-A.J. Brown connection in Brown's return to the lineup in Week 6.",
+   "published": "2026-10-19T19:55:52Z",
+   "published_at": "2026-10-19T19:55:52Z",
+   "first_seen_at": "2026-10-20T12:03:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "After Further Review: Drake Maye and A.J. Brown film breakdown, quick-hit film notes from Sunday's win over the Jets",
+     "url": "https://www.patriots.com/news/after-further-review-drake-maye-and-a-j-brown-film-breakdown-quick-hit-film-notes-from-sunday-s-win-over-the-jets"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "Analytics: Tutu Atwell is key to Rams’ passing offense",
+   "summary": "Tutu Atwell was inactive during the L.A. Rams’ Week 6 loss to the Arizona Cardinals, but Matthew Stafford may need him to be on the field more often if Sean McVay wants the offense to become more consistent from drive to drive. Atwell’s brief appearances this season have coincided with a great EPA per play […]",
+   "published": "2026-10-19T19:43:38Z",
+   "published_at": "2026-10-19T19:43:38Z",
+   "first_seen_at": "2026-10-20T12:03:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Analytics: Tutu Atwell is key to Rams’ passing offense",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-discussion/152650/rams-tutu-atwell-wr3-option"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "George Kittle"
+   ],
+   "headline": "49ers-Commanders preview: A George Kittle breakout game is in the cards",
+   "summary": "Recent history will point you in the correct direction if you’re wondering how certain NFL games will go. For example, the Washington Commanders are coming off a game they should have won against a divisional foe. Those contests can take an emotional toll. Since 2022, Washington has won only once the week after playing the […]",
+   "published": "2026-10-19T19:37:21Z",
+   "published_at": "2026-10-19T19:37:21Z",
+   "first_seen_at": "2026-10-20T12:03:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers-Commanders preview: A George Kittle breakout game is in the cards",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/164475/49ers-commanders-preview-a-george-kittle-breakout-game-is-in-the-cards"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "Jalen Hurts expected to miss rest of 2026 season after blood clots found in lungs",
+   "summary": "The Eagles quarterback is clinically stable and expected to make a full recovery, but he cannot participate in contact activities",
+   "published": "2026-10-19T19:36:36Z",
+   "published_at": "2026-10-19T19:36:36Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Jalen Hurts expected to miss rest of 2026 season after blood clots found in lungs",
+     "url": "https://www.cbssports.com/nfl/news/jalen-hurts-blood-clot-update-eagles-qb-out-2026-season"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Brock Bowers"
+   ],
+   "headline": "NFL suspends Bills' C.J. Gardner-Johnson for spitting on Raiders' Brock Bowers",
+   "summary": "Gardner-Johnson was ejected during Sunday's game vs. the Raiders and will forfeit money and playing time",
+   "published": "2026-10-19T19:34:05Z",
+   "published_at": "2026-10-19T19:34:05Z",
+   "first_seen_at": "2026-10-20T12:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "NFL suspends Bills' C.J. Gardner-Johnson for spitting on Raiders' Brock Bowers",
+     "url": "https://www.cbssports.com/nfl/news/nfl-suspends-bills-c-j-gardner-johnson-spitting"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 20,
+ "feeds_generated_at": "2026-10-20T12:02:56+00:00"
+}
