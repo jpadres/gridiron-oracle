@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T10:32:09Z",
+  "generated_at": "2026-10-21T15:33:21Z",
   "season": 2026,
   "week": 7,
   "schedule": {
@@ -17,10 +17,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-21T10:32:09Z",
+    "research_as_of": "2026-10-21T15:33:21Z",
     "injuries_as_of": "week 7 PARTIAL · 2 of 28 clubs filed",
-    "roster_as_of": "2026-10-21T06:04:18Z",
-    "schedule_as_of": "2026-10-21T10:15:14Z"
+    "roster_as_of": "2026-10-21T12:56:34Z",
+    "schedule_as_of": "2026-10-21T14:05:13Z"
   },
   "injury_report": {
     "status": "PARTIALLY_FILED",
@@ -272,8 +272,8 @@
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-10-20T12:41:41Z",
-    "teams": 32,
+    "effective_at": "2026-10-21T12:53:27Z",
+    "teams": 30,
     "kickers": {
       "ARI": {
         "player_id": "00-0038567",
@@ -378,10 +378,12 @@
         "competition": []
       },
       "LAR": {
-        "player_id": "00-0038905",
-        "player_name": "Blake Grupe",
-        "contested": false,
-        "competition": []
+        "player_id": "00-0029822",
+        "player_name": "Brandon McManus",
+        "contested": true,
+        "competition": [
+          "Blake Grupe"
+        ]
       },
       "LV": {
         "player_id": "00-0035269",
@@ -389,21 +391,9 @@
         "contested": false,
         "competition": []
       },
-      "MIA": {
-        "player_id": "00-0036816",
-        "player_name": "Riley Patterson",
-        "contested": false,
-        "competition": []
-      },
       "MIN": {
         "player_id": "00-0039404",
         "player_name": "Will Reichard",
-        "contested": false,
-        "competition": []
-      },
-      "NE": {
-        "player_id": "00-0040200",
-        "player_name": "Andy Borregales",
         "contested": false,
         "competition": []
       },
@@ -13494,16 +13484,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-21T06:02:07Z",
+      "retrieved_at": "2026-10-21T12:53:02Z",
       "status": "OK",
       "rows": 1812
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-20T12:41:54Z",
+      "retrieved_at": "2026-10-21T12:53:35Z",
       "status": "OK",
-      "rows": 677875
+      "rows": 680140
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -13622,8 +13612,23 @@
         "now": "None"
       }
     ],
-    "changed": [],
-    "removed": [],
-    "unchanged": 32
+    "changed": [
+      {
+        "key": "K:LAR",
+        "was": "Blake Grupe",
+        "now": "Brandon McManus"
+      }
+    ],
+    "removed": [
+      {
+        "key": "K:MIA",
+        "was": "Riley Patterson"
+      },
+      {
+        "key": "K:NE",
+        "was": "Andy Borregales"
+      }
+    ],
+    "unchanged": 29
   }
 }
