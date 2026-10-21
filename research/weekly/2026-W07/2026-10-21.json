@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T05:14:06Z",
+  "generated_at": "2026-10-21T10:32:09Z",
   "season": 2026,
   "week": 7,
   "schedule": {
@@ -17,17 +17,258 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-21T05:14:06Z",
-    "injuries_as_of": "NOT_PUBLISHED_YET",
-    "roster_as_of": "2026-10-20T12:44:09Z",
-    "schedule_as_of": "2026-10-21T05:05:13Z"
+    "research_as_of": "2026-10-21T10:32:09Z",
+    "injuries_as_of": "week 7 PARTIAL · 2 of 28 clubs filed",
+    "roster_as_of": "2026-10-21T06:04:18Z",
+    "schedule_as_of": "2026-10-21T10:15:14Z"
   },
   "injury_report": {
-    "status": "NOT_PUBLISHED_YET",
+    "status": "PARTIALLY_FILED",
     "week": 7,
-    "rows": [],
-    "last_published_week": 6,
-    "note": "clubs file the week's report from Wednesday on; the previous week's designation is NOT carried forward as if it were this week's"
+    "rows": [
+      {
+        "team": "CHI",
+        "gsis_id": "00-0035386",
+        "full_name": "T.J. Edwards",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0036258",
+        "full_name": "Jonah Jackson",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0037109",
+        "full_name": "Jack Sanborn",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0039071",
+        "full_name": "Tyrique Stevenson",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0040236",
+        "full_name": "Kyle Monangai",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CHI",
+        "gsis_id": "00-0041085",
+        "full_name": "Keyshaun Elliott",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0031330",
+        "full_name": "Morgan Moses",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0033132",
+        "full_name": "Kevin Byard",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0034778",
+        "full_name": "Carlton Davis III",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0035676",
+        "full_name": "A.J. Brown",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0035678",
+        "full_name": "Dre'Mont Jones",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0036813",
+        "full_name": "Christian Elliss",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0036979",
+        "full_name": "Alijah Vera-Tucker",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0037413",
+        "full_name": "Ben Brown",
+        "position": "C",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0039851",
+        "full_name": "Drake Maye",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0040171",
+        "full_name": "Joshua Farmer",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0040200",
+        "full_name": "Andy Borregales",
+        "position": "K",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0040226",
+        "full_name": "Marcus Bryant",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0040699",
+        "full_name": "Will Campbell",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0040716",
+        "full_name": "Craig Woodson",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0040734",
+        "full_name": "TreVeyon Henderson",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0041088",
+        "full_name": "Karon Prunty",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NE",
+        "gsis_id": "00-0041316",
+        "full_name": "Channing Canada",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      }
+    ],
+    "teams": 2,
+    "teams_filed": [
+      "CHI",
+      "NE"
+    ],
+    "teams_expected": 28,
+    "teams_pending": [
+      "ARI",
+      "ATL",
+      "BAL",
+      "CAR",
+      "CIN",
+      "CLE",
+      "DAL",
+      "DEN",
+      "DET",
+      "GB",
+      "HOU",
+      "IND",
+      "KC",
+      "LAR",
+      "LV",
+      "MIA",
+      "MIN",
+      "NO",
+      "NYG",
+      "NYJ",
+      "PHI",
+      "PIT",
+      "SEA",
+      "SF",
+      "TB",
+      "TEN"
+    ],
+    "with_designation": 0
   },
   "jobs": {
     "status": "PUBLISHED",
@@ -13253,9 +13494,9 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-20T12:41:12Z",
+      "retrieved_at": "2026-10-21T06:02:07Z",
       "status": "OK",
-      "rows": 1789
+      "rows": 1812
     },
     {
       "source": "depth_charts_2026.parquet",
@@ -13281,13 +13522,106 @@
     }
   ],
   "unknowns": [
-    "official injury report for week 7: NOT_PUBLISHED_YET",
+    "official injury report for week 7: 26 of 28 clubs have not filed yet (ARI, ATL, BAL, CAR, CIN, CLE, DAL, DEN, DET, GB, HOU, IND, KC, LAR, LV, MIA, MIN, NO, NYG, NYJ, PHI, PIT, SEA, SF, TB, TEN) — no designation for their players means NOT REPORTED, not healthy",
     "route participation: nflverse does not publish per-player routes in this dataset, so role is measured by snap share and targets, not routes",
     "press, unofficial depth charts and transactions: SOURCE UNAVAILABLE from this environment"
   ],
   "diff": {
     "against": "2026-10-20.json",
-    "new": [],
+    "new": [
+      {
+        "key": "CHI:T.J. Edwards",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Jonah Jackson",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Jack Sanborn",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Tyrique Stevenson",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Kyle Monangai",
+        "now": "None"
+      },
+      {
+        "key": "CHI:Keyshaun Elliott",
+        "now": "None"
+      },
+      {
+        "key": "NE:Morgan Moses",
+        "now": "None"
+      },
+      {
+        "key": "NE:Kevin Byard",
+        "now": "None"
+      },
+      {
+        "key": "NE:Carlton Davis III",
+        "now": "None"
+      },
+      {
+        "key": "NE:A.J. Brown",
+        "now": "None"
+      },
+      {
+        "key": "NE:Dre'Mont Jones",
+        "now": "None"
+      },
+      {
+        "key": "NE:Christian Elliss",
+        "now": "None"
+      },
+      {
+        "key": "NE:Alijah Vera-Tucker",
+        "now": "None"
+      },
+      {
+        "key": "NE:Ben Brown",
+        "now": "None"
+      },
+      {
+        "key": "NE:Drake Maye",
+        "now": "None"
+      },
+      {
+        "key": "NE:Joshua Farmer",
+        "now": "None"
+      },
+      {
+        "key": "NE:Andy Borregales",
+        "now": "None"
+      },
+      {
+        "key": "NE:Marcus Bryant",
+        "now": "None"
+      },
+      {
+        "key": "NE:Will Campbell",
+        "now": "None"
+      },
+      {
+        "key": "NE:Craig Woodson",
+        "now": "None"
+      },
+      {
+        "key": "NE:TreVeyon Henderson",
+        "now": "None"
+      },
+      {
+        "key": "NE:Karon Prunty",
+        "now": "None"
+      },
+      {
+        "key": "NE:Channing Canada",
+        "now": "None"
+      }
+    ],
     "changed": [],
     "removed": [],
     "unchanged": 32
