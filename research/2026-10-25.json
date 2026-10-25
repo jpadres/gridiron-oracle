@@ -1,0 +1,1351 @@
+{
+ "date": "2026-10-25",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Tyler Shough"
+   ],
+   "headline": "Saints vs. Steelers prediction: Aaron Rodgers, Tyler Shough to duel in first-ever game in Paris",
+   "summary": "Plus, how to watch, what to know and a preview from an NFL expert",
+   "published": "2026-10-25T11:40:23Z",
+   "published_at": "2026-10-25T11:40:23Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Saints vs. Steelers prediction: Aaron Rodgers, Tyler Shough to duel in first-ever game in Paris",
+     "url": "https://www.cbssports.com/nfl/news/steelers-vs-saints-how-to-watch-odds-preview-prediction"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "Eagles-Cowboys Final Injury Report: DeVonta Smith and Dontayvion Wicks out",
+   "summary": "Week 7 game status updates.",
+   "published": "2026-10-25T11:30:45Z",
+   "published_at": "2026-10-25T11:30:45Z",
+   "first_seen_at": "2026-10-25T11:57:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Eagles-Cowboys Final Injury Report: DeVonta Smith and Dontayvion Wicks out",
+     "url": "https://sports.yahoo.com/articles/eagles-cowboys-final-injury-report-113045173.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "Michael Pittman"
+   ],
+   "headline": "What Happened to Michael Pittman Jr. and When Will He Return? Latest on Steelers WR’s Injury and Why He’s Out for Week 7 vs. Saints in Paris",
+   "summary": "",
+   "published": "2026-10-25T11:30:24Z",
+   "published_at": "2026-10-25T11:30:24Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "What Happened to Michael Pittman Jr. and When Will He Return? Latest on Steelers WR’s Injury and Why He’s Out for Week 7 vs. Saints in Paris",
+     "url": "https://www.profootballnetwork.com/michael-pittman-jr-injury-return-update-steelers-saints-week-7-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Bengals vs. Ravens odds, expert picks, and our prediction for Week 7 matchup",
+   "summary": "The Cincinnati Bengals are going into the Baltimore Ravens’ nest this week. Ravens quarterback Lamar Jackson will be out this week due to a high ankle sprain. This rivalry somehow keeps getting more personal. This will be Trey Hendrickson’s first time facing the Bengals since the two sides had the most dramatic offseason contract argument […]",
+   "published": "2026-10-25T11:05:00Z",
+   "published_at": "2026-10-25T11:05:00Z",
+   "first_seen_at": "2026-10-25T11:57:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Bengals vs. Ravens odds, expert picks, and our prediction for Week 7 matchup",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/202998/ravens-odds-expert-picks-and-our-prediction-for-week-7-matchup"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "George Pickens"
+   ],
+   "headline": "‘This Is Gonna Be a Problem’ — Hall of Fame WR Warns Cowboys Crisis Could Be Brewing With George Pickens",
+   "summary": "",
+   "published": "2026-10-25T11:00:33Z",
+   "published_at": "2026-10-25T11:00:33Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘This Is Gonna Be a Problem’ — Hall of Fame WR Warns Cowboys Crisis Could Be Brewing With George Pickens",
+     "url": "https://www.profootballnetwork.com/cowboys-crisis-george-pickens-hall-of-fame-wr-warning"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "Are the Bills playing today? NFL Week 7 schedule, next game, AFC East standings",
+   "summary": "The Buffalo Bills and star QB Josh Allen are off to a terrific start to the 2026 NFL season. Here's what's on deck for the team in Week 7.",
+   "published": "2026-10-25T10:00:54Z",
+   "published_at": "2026-10-25T10:00:54Z",
+   "first_seen_at": "2026-10-25T11:57:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Are the Bills playing today? NFL Week 7 schedule, next game, AFC East standings",
+     "url": "https://sports.yahoo.com/articles/bills-playing-today-nfl-week-100054189.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "A.J. Brown"
+   ],
+   "headline": "Sunday Patriots Notes: Rookie class making an early impact",
+   "summary": "Notes and thoughts on the rookie class, A.J. Brown, and more.",
+   "published": "2026-10-25T10:00:00Z",
+   "published_at": "2026-10-25T10:00:00Z",
+   "first_seen_at": "2026-10-25T11:57:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Sunday Patriots Notes: Rookie class making an early impact",
+     "url": "https://sports.yahoo.com/articles/sunday-patriots-notes-rookie-class-100000893.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Drake London",
+    "Bijan Robinson",
+    "Mike Evans",
+    "George Kittle"
+   ],
+   "headline": "49ers News: GAME DAY",
+   "summary": "Never going to overlook at 10 am body clock game in Atlanta. Never going to overlook the absence of Mike Evans and Nick Bosa. Never going to overlook Bijan Robinson, Drake London, and this Falcons pass-rush. However, with Divine Deablo ruled out, Atlanta will be relying on rookie linebackers to cover George Kittle and Christian […]",
+   "published": "2026-10-25T09:13:00Z",
+   "published_at": "2026-10-25T09:13:00Z",
+   "first_seen_at": "2026-10-25T11:57:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers News: GAME DAY",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/164776/49ers-news-week-7-atlanta-falcons-christian-kirk-injured-reserve-game-day"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Bengals vs. Ravens news and pregame discussion",
+   "summary": "The Bengals’ have a huge game against the Ravens, with Baltimore being without the services of Lamar Jackson.",
+   "published": "2026-10-25T09:07:00Z",
+   "published_at": "2026-10-25T09:07:00Z",
+   "first_seen_at": "2026-10-25T11:57:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Bengals vs. Ravens news and pregame discussion",
+     "url": "https://sports.yahoo.com/articles/bengals-vs-ravens-news-pregame-090700223.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Bengals vs. Ravens news and pregame discussion",
+   "summary": "It’s GameDey! The Cincinnati Bengals head to Baltimore to take on the 4-2 Ravens, but Baltimore will surprisingly be without star quarterback Lamar Jackson. The Ravens’ signal-caller returned to practice this week, giving the impression he’d play, but a report on Saturday afternoon nixed that notion. Nevertheless, Huntley can be effective, and has given the […]",
+   "published": "2026-10-25T09:07:00Z",
+   "published_at": "2026-10-25T09:07:00Z",
+   "first_seen_at": "2026-10-25T11:57:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Bengals vs. Ravens news and pregame discussion",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/203114/ravens-pregame-discussion"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Jordyn Tyson"
+   ],
+   "headline": "When will Jordyn Tyson play? Latest injury updates on Saints rookie WR",
+   "summary": "Former Arizona State star Jordyn Tyson is still waiting to make his NFL debut. When will the Saints rookie WR get back on the field?",
+   "published": "2026-10-25T09:05:13Z",
+   "published_at": "2026-10-25T09:05:13Z",
+   "first_seen_at": "2026-10-25T11:57:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "When will Jordyn Tyson play? Latest injury updates on Saints rookie WR",
+     "url": "https://sports.yahoo.com/articles/jordyn-tyson-play-latest-injury-090513846.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "‘They’re Not Going Anywhere’ — Hall of Fame WR Pushes Eagles To Embrace the Tank, Host Fire Sale as DeVonta Smith Injury Adds to Philly’s Crisis",
+   "summary": "",
+   "published": "2026-10-25T07:09:14Z",
+   "published_at": "2026-10-25T07:09:14Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘They’re Not Going Anywhere’ — Hall of Fame WR Pushes Eagles To Embrace the Tank, Host Fire Sale as DeVonta Smith Injury Adds to Philly’s Crisis",
+     "url": "https://www.profootballnetwork.com/cris-carter-eagles-sellers-devonta-smith"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "Eagles notebook: Why Vic Fangio might have to start calling games differently",
+   "summary": "In the latest Eagles notebook: Vic Fangio might have to call his defense differently, Tanner McKee keeps up with Jalen Hurts and more.",
+   "published": "2026-10-25T07:00:00Z",
+   "published_at": "2026-10-25T07:00:00Z",
+   "first_seen_at": "2026-10-25T11:57:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Eagles notebook: Why Vic Fangio might have to start calling games differently",
+     "url": "https://sports.yahoo.com/articles/eagles-notebook-why-vic-fangio-070000577.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Kenneth Walker III"
+   ],
+   "headline": "‘Let’s Put Some Respect on Kenneth Walker (III)’ — Broncos Legend Demands Chiefs Star Get His Due in MVP Conversation",
+   "summary": "",
+   "published": "2026-10-25T06:32:11Z",
+   "published_at": "2026-10-25T06:32:11Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Let’s Put Some Respect on Kenneth Walker (III)’ — Broncos Legend Demands Chiefs Star Get His Due in MVP Conversation",
+     "url": "https://www.profootballnetwork.com/lets-put-some-respect-on-kenneth-walker-iii-broncos-legend-demands-chiefs-star-get-his-due-in-mvp-conversation"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "George Pickens"
+   ],
+   "headline": "‘It Will Eat Away at Your Locker Room,’ ‘Only Going to Get Worse’ — NFL Legend Delivers $27.3M Reality Check to Cowboys About George Pickens",
+   "summary": "",
+   "published": "2026-10-25T06:06:57Z",
+   "published_at": "2026-10-25T06:06:57Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘It Will Eat Away at Your Locker Room,’ ‘Only Going to Get Worse’ — NFL Legend Delivers $27.3M Reality Check to Cowboys About George Pickens",
+     "url": "https://www.profootballnetwork.com/cris-carter-george-pickens-franchise-tag-cowboys"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Alvin Kamara",
+    "Tyler Shough",
+    "Chris Olave",
+    "DK Metcalf",
+    "Jaylen Warren",
+    "Germie Bernard"
+   ],
+   "headline": "Steelers vs. Saints Start 'Em, Sit 'Em: Paris International Game - Aaron Rodgers, Tyler Shough, Jaylen Warren, Alvin Kamara, DK Metcalf, Chris Olave, Germie Bernard, more",
+   "summary": "",
+   "published": "2026-10-24T22:49:58Z",
+   "published_at": "2026-10-24T22:49:58Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Steelers vs. Saints Start 'Em, Sit 'Em: Paris International Game - Aaron Rodgers, Tyler Shough, Jaylen Warren, Alvin Kamara, DK Metcalf, Chris Olave, Germie Bernard, more",
+     "url": "https://www.rotoballer.com/fantasy-football-start-em-sit-em-london-game-steelers-vs-saints-week-7-2026/1974848"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jameis Winston"
+   ],
+   "headline": "Giants' John Harbaugh details J.J. McCarthy decision with convincing explanation: 'Heck of a skill set'",
+   "summary": "The switch from Jameis Winston to McCarthy comes after the third-year quarterback has been with the team for four weeks",
+   "published": "2026-10-24T22:18:20Z",
+   "published_at": "2026-10-24T22:18:20Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Giants' John Harbaugh details J.J. McCarthy decision with convincing explanation: 'Heck of a skill set'",
+     "url": "https://www.cbssports.com/nfl/news/giants-john-harbaugh-details-j-j-mccarthy-start"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Chig Okonkwo"
+   ],
+   "headline": "NFL levies two fines to 49ers LB Fred Warner for hit on Commanders TE Chig Okonkwo",
+   "summary": "Warner was initially flagged for the violation, but the officials picked it up",
+   "published": "2026-10-24T22:12:23Z",
+   "published_at": "2026-10-24T22:12:23Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "NFL levies two fines to 49ers LB Fred Warner for hit on Commanders TE Chig Okonkwo",
+     "url": "https://www.cbssports.com/nfl/news/nfl-levies-two-fines-to-49ers-lb-fred-warner"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Shedeur Sanders"
+   ],
+   "headline": "‘It’s the Same Situation’ — Host Draws Bold Comparison Between Shedeur Sanders and Johnny Manziel Amid Deshaun Watson’s Browns Success",
+   "summary": "",
+   "published": "2026-10-24T21:53:24Z",
+   "published_at": "2026-10-24T21:53:24Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘It’s the Same Situation’ — Host Draws Bold Comparison Between Shedeur Sanders and Johnny Manziel Amid Deshaun Watson’s Browns Success",
+     "url": "https://www.profootballnetwork.com/host-shedeur-sanders-johnny-manziel-comparison-watson-browns"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "‘Season Is Over,’ ‘Just Cancel the Games’ – NFL Fans React to Eagles HC Nick Sirianni’s Cryptic Response on Shutting Down DeVonta Smith",
+   "summary": "",
+   "published": "2026-10-24T21:16:22Z",
+   "published_at": "2026-10-24T21:16:22Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Season Is Over,’ ‘Just Cancel the Games’ – NFL Fans React to Eagles HC Nick Sirianni’s Cryptic Response on Shutting Down DeVonta Smith",
+     "url": "https://www.profootballnetwork.com/eagles-hc-nick-siriannis-devonta-smith"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Breece Hall"
+   ],
+   "headline": "Jets Notebook | WR Adonai Mitchell to Return Against Miami Dolphins in Week 7",
+   "summary": "RB Breece Hall & LG Dylan Parham 'Questionable' for Sunday",
+   "published": "2026-10-24T20:56:00Z",
+   "published_at": "2026-10-24T20:56:00Z",
+   "first_seen_at": "2026-10-25T11:57:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Notebook | WR Adonai Mitchell to Return Against Miami Dolphins in Week 7",
+     "url": "https://www.newyorkjets.com/news/adonai-mitchell-to-return-against-miami-dolphins-breece-hall-dylan-parham-questionable-10-23-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers activate Christian Kirk; add 2 players from the practice squad to the active roster",
+   "summary": "The San Francisco 49ers announced a few roster moves Saturday afternoon. The team removed Christian Kirk’s questionable status for Sunday’s game against the Atlanta Falcons and officially activated him from the Injured Reserve List. With Mike Evans ruled out, Here’s a look at the wide receiver depth chart heading into Week 7: Brandin CooksJordan WatkinsJacob […]",
+   "published": "2026-10-24T20:52:27Z",
+   "published_at": "2026-10-24T20:52:27Z",
+   "first_seen_at": "2026-10-25T11:57:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers activate Christian Kirk; add 2 players from the practice squad to the active roster",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/164764/49ers-activate-christian-kirk-add-2-players-from-the-practice-squad-to-the-active-roster"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "‘They Have Been Putting Out Fires Behind the Scenes for 3 Years’ — NFL Analyst Highlights Rams’ Struggles With ‘Immature’ Puka Nacua",
+   "summary": "",
+   "published": "2026-10-24T20:36:04Z",
+   "published_at": "2026-10-24T20:36:04Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘They Have Been Putting Out Fires Behind the Scenes for 3 Years’ — NFL Analyst Highlights Rams’ Struggles With ‘Immature’ Puka Nacua",
+     "url": "https://www.profootballnetwork.com/nfl-analyst-highlights-rams-struggles-immature-puka-nacua"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Jonah Coleman"
+   ],
+   "headline": "Broncos activate RB Jonah Coleman and OLB Jonathon Cooper, place RB Tyler Badie and OLB Jonah Elliss on IR",
+   "summary": "Denver has regained a pair of players ahead of Sunday’s game against the Cardinals.",
+   "published": "2026-10-24T20:32:32Z",
+   "published_at": "2026-10-24T20:32:32Z",
+   "first_seen_at": "2026-10-25T11:57:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DEN official",
+     "title": "Broncos activate RB Jonah Coleman and OLB Jonathon Cooper, place RB Tyler Badie and OLB Jonah Elliss on IR",
+     "url": "https://www.denverbroncos.com/news/broncos-activate-rb-jonah-coleman-and-olb-jonathon-cooper-place-rb-tyler-badie-and-olb-jonah-elliss-on-ir"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Jordan Mason"
+   ],
+   "headline": "Vikings Activate Jordan Mason for Week 7 vs. Colts",
+   "summary": "",
+   "published": "2026-10-24T20:30:00Z",
+   "published_at": "2026-10-24T20:30:00Z",
+   "first_seen_at": "2026-10-25T11:57:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "MIN official",
+     "title": "Vikings Activate Jordan Mason for Week 7 vs. Colts",
+     "url": "https://www.vikings.com/news/jordan-mason-activated-colts-game-week-7-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Sam Darnold",
+    "Kenneth Walker III",
+    "Patrick Mahomes",
+    "Travis Kelce",
+    "Xavier Worthy"
+   ],
+   "headline": "Chiefs vs. Seahawks Start 'Em, Sit 'Em: Sunday Night Football - Patrick Mahomes, Sam Darnold, Kenneth Walker III, Emanuel Wilson, Xavier Worthy, Travis Kelce, and more",
+   "summary": "",
+   "published": "2026-10-24T20:23:02Z",
+   "published_at": "2026-10-24T20:23:02Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Chiefs vs. Seahawks Start 'Em, Sit 'Em: Sunday Night Football - Patrick Mahomes, Sam Darnold, Kenneth Walker III, Emanuel Wilson, Xavier Worthy, Travis Kelce, and more",
+     "url": "https://www.rotoballer.com/fantasy-football-start-em-sit-em-sunday-night-chiefs-vs-seahawks-week-7-snf-2026/1974866"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Seahawks turn to practice squad for defensive depth for Chiefs game",
+   "summary": "The Seattle Seahawks are on a two game losing streak, set to host the undefeated Kansas City Chiefs at Lumen Field on Sunday Night Football. Kansas City comes in with former Seahawks running back Kenneth Walker carrying enough of the load to allow All-Pro quarterback Patrick Mahomes to ease his way back from knee surgery, […]",
+   "published": "2026-10-24T20:22:51Z",
+   "published_at": "2026-10-24T20:22:51Z",
+   "first_seen_at": "2026-10-25T11:57:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks turn to practice squad for defensive depth for Chiefs game",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/178108/seattle-seahawks-turn-to-practice-squad-for-defensive-depth-bring-anthony-bradford-back-from-ir-week-7-chiefs"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "NFL Week 7 injury report: Lamar Jackson downgraded to out for Ravens matchup vs. Bengals",
+   "summary": "A look at game statuses across the league",
+   "published": "2026-10-24T20:12:15Z",
+   "published_at": "2026-10-24T20:12:15Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "NFL Week 7 injury report: Lamar Jackson downgraded to out for Ravens matchup vs. Bengals",
+     "url": "https://www.cbssports.com/nfl/news/nfl-week-7-injury-report-baker-mayfield-lamar-jackson-questionable"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "‘Nothing About This Was Derogatory,’ ‘Trying to Stir Up Trouble’ — NFL Fans React As Chiefs’ Super Bowl Champ Calls Out ESPN Star’s Patrick Mahomes Take",
+   "summary": "",
+   "published": "2026-10-24T20:00:40Z",
+   "published_at": "2026-10-24T20:00:40Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Nothing About This Was Derogatory,’ ‘Trying to Stir Up Trouble’ — NFL Fans React As Chiefs’ Super Bowl Champ Calls Out ESPN Star’s Patrick Mahomes Take",
+     "url": "https://www.profootballnetwork.com/chiefs-sb-champ-calls-out-espn-patrick-mahomes-take"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Jeremiyah Love"
+   ],
+   "headline": "As Jeremiyah Love Heals, Cardinals Promote Evan Hull To Roster",
+   "summary": "Running back is fourth on depth chart",
+   "published": "2026-10-24T20:00:07Z",
+   "published_at": "2026-10-24T20:00:07Z",
+   "first_seen_at": "2026-10-25T11:57:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "As Jeremiyah Love Heals, Cardinals Promote Evan Hull To Roster",
+     "url": "https://www.azcardinals.com/news/as-jeremiyah-love-heals-cardinals-promote-evan-hull-to-roster"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Josh Jacobs"
+   ],
+   "headline": "Packers activate RB Josh Jacobs, DT Jordon Riley",
+   "summary": "Green Bay signs WR Coleman Owen to the active roster, elevates EDGE Arron Mosby for gameday",
+   "published": "2026-10-24T20:00:00Z",
+   "published_at": "2026-10-24T20:00:00Z",
+   "first_seen_at": "2026-10-25T11:57:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Packers activate RB Josh Jacobs, DT Jordon Riley",
+     "url": "https://www.packers.com/news/packers-activate-rb-josh-jacobs-dt-jordon-riley-oct-24-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Saquon Barkley",
+    "Dallas Goedert"
+   ],
+   "headline": "Cowboys vs. Eagles Injury Report",
+   "summary": "Dallas Goedert is good to go for Monday, while Saquon Barkley and Jalyx Hunt inch closer to a potential return.",
+   "published": "2026-10-24T20:00:00Z",
+   "published_at": "2026-10-24T20:00:00Z",
+   "first_seen_at": "2026-10-25T11:57:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PHI official",
+     "title": "Cowboys vs. Eagles Injury Report",
+     "url": "https://www.philadelphiaeagles.com/news/cowboys-vs-eagles-injury-report-2026-nfl-week-7-saquon-barkley-jalyx-hunt"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LA",
+   "players": [
+    "Ty Simpson"
+   ],
+   "headline": "Rams were right to not wait for 2027 QB class",
+   "summary": "The Los Angeles Rams drafted quarterback Ty Simpson with the 13th overall pick this year and that was probably higher than any other team would have taken the inexperienced Alabama signal-caller, but the reason Les Snead did it was: Opportunity. The Rams didn’t expect to have a high first-round pick in 2027 — they would […]",
+   "published": "2026-10-24T20:00:00Z",
+   "published_at": "2026-10-24T20:00:00Z",
+   "first_seen_at": "2026-10-25T11:57:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Rams were right to not wait for 2027 QB class",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-draft/153026/rams-2027-qb-class-arch-manning"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson",
+    "Tyler Huntley"
+   ],
+   "headline": "Lamar Jackson Ruled Out vs. Bengals",
+   "summary": "Tyler Huntley will start his third straight game with Lamar Jackson ruled out Week 7 against the Cincinnati Bengals. Outside linebacker Adisa Isaac has been elevated to face the Bengals, while guard Kyle Hergel has been signed to the 53-man roster.",
+   "published": "2026-10-24T19:47:00Z",
+   "published_at": "2026-10-24T19:47:00Z",
+   "first_seen_at": "2026-10-25T11:57:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Lamar Jackson Ruled Out vs. Bengals",
+     "url": "https://www.baltimoreravens.com/news/lamar-jackson-out-against-bengals-week-7-tyler-huntley-third-straight-start"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "Aaron Rodgers, Kenneth Walker III address Eagles' handling of Jalen Hurts blood clot situation: 'That's crazy'",
+   "summary": "Hurts is presumed to miss the rest of the 2026 regular season",
+   "published": "2026-10-24T18:58:18Z",
+   "published_at": "2026-10-24T18:58:18Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Aaron Rodgers, Kenneth Walker III address Eagles' handling of Jalen Hurts blood clot situation: 'That's crazy'",
+     "url": "https://www.cbssports.com/nfl/news/aaron-rodgers-kenneth-walker-iii-eagles-handling-jalen-hurts-blood-clot"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Kenneth Walker III"
+   ],
+   "headline": "Seahawks vs. Chiefs: How to watch as Kansas City's Kenneth Walker III returns to Seattle",
+   "summary": "Here's what you need to know to catch the game",
+   "published": "2026-10-24T17:21:43Z",
+   "published_at": "2026-10-24T17:21:43Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Seahawks vs. Chiefs: How to watch as Kansas City's Kenneth Walker III returns to Seattle",
+     "url": "https://www.cbssports.com/nfl/news/chiefs-vs-seahawks-how-to-watch-preview-odds-prediction"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TEN",
+   "players": [
+    "Kalel Mullings"
+   ],
+   "headline": "Titans Promote DL Timmy Horne to the Team's Active Roster",
+   "summary": "RB Kalel Mullings and WR K.J. Osborn will be gameday elevations for Sunday’s game vs the Browns.",
+   "published": "2026-10-24T17:14:19Z",
+   "published_at": "2026-10-24T17:14:19Z",
+   "first_seen_at": "2026-10-25T11:57:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TEN official",
+     "title": "Titans Promote DL Timmy Horne to the Team's Active Roster",
+     "url": "https://www.tennesseetitans.com/news/titans-promote-dl-timmy-horne-to-the-team-s-active-roster"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Cowherd: Rams fans don’t know full Puka Nacua story",
+   "summary": "Puka Nacua has been the subject of many stories over the last three years, both really positive and really negative. We know the Los Angeles Rams have been aware of the negative stories that get reported, but how many haven’t reached the media or the public yet? At least a few, according to Colin Cowherd, […]",
+   "published": "2026-10-24T16:56:33Z",
+   "published_at": "2026-10-24T16:56:33Z",
+   "first_seen_at": "2026-10-25T11:57:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Cowherd: Rams fans don’t know full Puka Nacua story",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-news/153007/cowherd-rams-puka-nacua"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Bengals News: Andrew Hawkins Weighs in on Bengals vs. Ravens",
+   "summary": "The Cincinnati Bengals are going to Baltimore in a much-needed victory for both teams. Lamar Jackson returned to practice this week, making it seem like he’ll be starting once again. Cincinnati will need to come out of the bye rejuvenated, as a win would further logjam the top of the AFC North. Can they get […]",
+   "published": "2026-10-24T16:33:00Z",
+   "published_at": "2026-10-24T16:33:00Z",
+   "first_seen_at": "2026-10-25T11:57:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Bengals News: Andrew Hawkins Weighs in on Bengals vs. Ravens",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/203103/bengals-news-andrew-hawkins-weighs-in-on-bengals-vs-ravens"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Dylan Sampson"
+   ],
+   "headline": "Browns activate RB Dylan Sampson",
+   "summary": "Browns place G Teven Jenkins on injured reserve and elevate DT Sam Kamara from the practice squad",
+   "published": "2026-10-24T16:28:03Z",
+   "published_at": "2026-10-24T16:28:03Z",
+   "first_seen_at": "2026-10-25T11:57:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Browns activate RB Dylan Sampson",
+     "url": "https://www.clevelandbrowns.com/news/browns-activate-rb-dylan-sampson"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Jameis Winston",
+    "J.J. McCarthy"
+   ],
+   "headline": "Survey results: Giants fans support the quarterback change",
+   "summary": "The New York Giants made news this week when the team made the decision to go with J.J. McCarthy as their starting quarterback against the Houston Texans. McCarthy has only been in the building since the Giants traded a 2027 fifth round to the Minnesota Vikings for him on September 28th. Backup quarterback Jameis Winston […]",
+   "published": "2026-10-24T15:53:41Z",
+   "published_at": "2026-10-24T15:53:41Z",
+   "first_seen_at": "2026-10-25T11:57:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "Survey results: Giants fans support the quarterback change",
+     "url": "https://www.bigblueview.com/new-york-giants-discussion/177232/survey-results-giants-fans-support-the-quarterback-change"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Revisiting Raiders' 2026 NFL Draft: What Vegas is getting out of Fernando Mendoza, what's next",
+   "summary": "Sitting behind Kirk Cousins was always the initial plan, but the Raiders may soon be pressed to start the No. 1 overall selection",
+   "published": "2026-10-24T15:04:43Z",
+   "published_at": "2026-10-24T15:04:43Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Revisiting Raiders' 2026 NFL Draft: What Vegas is getting out of Fernando Mendoza, what's next",
+     "url": "https://www.cbssports.com/nfl/news/revisiting-raiders-2026-nfl-draft-no-1-pick-fernando-mendoza"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Derrick Henry"
+   ],
+   "headline": "Dexter Lawrence has a plan for stopping Derrick Henry",
+   "summary": "The Cincinnati Bengals’ struggling run defense gets its toughest challenge of the year in the massive, powerful Derrick Henry. The centerpiece of the run defense, Dexter Lawrence, talked about what his unit’s strategy will be to slow down the Baltimore Ravens running back. He told Mike Petraglia that the emphasis in practice on Wednesday was […]",
+   "published": "2026-10-24T15:00:00Z",
+   "published_at": "2026-10-24T15:00:00Z",
+   "first_seen_at": "2026-10-25T11:57:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Dexter Lawrence has a plan for stopping Derrick Henry",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/203090/dexter-lawrence-plan-stopping-derrick-henry"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Amarius Mims is absolutely dominating 1-on-1 situations",
+   "summary": "The Cincinnati Bengals have found a pillar in the pass blocking game in Amarius Mims. He is not letting rushers get to Joe Burrow, allowing pressure on just 4% of his snaps. But even more impressive is the fact that he’s doing it while being left alone in one-on-one situations 87.6% of the time, the […]",
+   "published": "2026-10-24T14:30:00Z",
+   "published_at": "2026-10-24T14:30:00Z",
+   "first_seen_at": "2026-10-25T11:57:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Amarius Mims is absolutely dominating 1-on-1 situations",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-discussion/203088/amarius-mims-dominating-1-on-1-situations"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Denzel Boston"
+   ],
+   "headline": "Revisiting Browns' 2026 NFL Draft: Did the K.C. Concepcion, Denzel Boston selections fix the offense?",
+   "summary": "Concepcion and Boston are sparking the pass game, while Spencer Fano and Austin Barber have quickly solidified the rebuilt offensive line",
+   "published": "2026-10-24T14:27:04Z",
+   "published_at": "2026-10-24T14:27:04Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Revisiting Browns' 2026 NFL Draft: Did the K.C. Concepcion, Denzel Boston selections fix the offense?",
+     "url": "https://www.cbssports.com/nfl/news/revisiting-browns-2026-nfl-draft-k-c-concepcion-denzel-boston"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Jonah Coleman"
+   ],
+   "headline": "Revisiting the 2026 NFL Draft: Jonah Coleman is all Broncos have to show for their efforts",
+   "summary": "Fourth-round running back Jonah Coleman is the only draft pick to see the field this year, as Denver gets virtually zero production from its first-year players through six games",
+   "published": "2026-10-24T13:55:21Z",
+   "published_at": "2026-10-24T13:55:21Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Revisiting the 2026 NFL Draft: Jonah Coleman is all Broncos have to show for their efforts",
+     "url": "https://www.cbssports.com/nfl/news/revisiting-the-2026-nfl-draft-broncos-jonah-coleman"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Derrick Henry"
+   ],
+   "headline": "50 Words or Less: Players Know Good Health Can't Be Taken for Granted",
+   "summary": "Derrick Henry will be a major test for the Bengals’ run defense. Both the Ravens and Bengals want to avoid another loss in the division. The Trey Hendrickson-Orlando Brown Jr. matchup should be intriguing.",
+   "published": "2026-10-24T13:00:09Z",
+   "published_at": "2026-10-24T13:00:09Z",
+   "first_seen_at": "2026-10-25T11:57:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "50 Words or Less: Players Know Good Health Can't Be Taken for Granted",
+     "url": "https://www.baltimoreravens.com/news/lamar-jackson-health-not-taken-for-granted-by-players-tavius-robinson-jalen-hurts-50-words"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Cam Skattebo",
+    "J.J. McCarthy"
+   ],
+   "headline": "New York Giants mailbag: J.J. McCarthy, Jon Runyan, Cam Skattebo, more",
+   "summary": "Alan Backman asks: I know everyone (including me) may be over-reacting to J.J. McCarthy having 2 great quarters. But let’s take the upside for a minute. 1. Contract – How does that work? Did Giants acquire the rights to that 4 year locked deal from the Vikings? My understanding is that this contract is guaranteed. So who absorbs the guarantee […]",
+   "published": "2026-10-24T12:00:00Z",
+   "published_at": "2026-10-24T12:00:00Z",
+   "first_seen_at": "2026-10-25T11:57:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "New York Giants mailbag: J.J. McCarthy, Jon Runyan, Cam Skattebo, more",
+     "url": "https://www.bigblueview.com/new-york-giants-discussion/176897/questions-answers-mailbag-jj-mccarthy-jon-runyan-cam-skattebo-more"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Tee Higgins",
+    "Joe Burrow"
+   ],
+   "headline": "Tee Higgins is in a league of his own vs. man coverage",
+   "summary": "It is no secret that the Cincinnati Bengals have one of the best offenses in all of the NFL with Joe Burrow, Ja’Marr Chase, and Tee Higgins. The Bengals trio has continued to get better and better each season, and Tee Higgins has taken another step in 2026. Higgins currently has 27 catches for 423 […]",
+   "published": "2026-10-24T10:40:00Z",
+   "published_at": "2026-10-24T10:40:00Z",
+   "first_seen_at": "2026-10-25T11:57:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Tee Higgins is in a league of his own vs. man coverage",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-analysis/203016/tee-higgins-is-in-a-league-of-his-own-vs-man-coverage"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Tyler Huntley"
+   ],
+   "headline": "NFL predictions: Can Falcons take advantage of 49ers injuries?",
+   "summary": "The Atlanta Falcons are sitting at 2-4 after a disappointing two-week stretch. Atlanta desperately needed to find a win over the past few weeks, instead dropping a game to the Tyler Huntley-led Ravens and (understandably) to the finally healthy Bears. The Falcons didn’t play terribly in either game, but in both, it was too little […]",
+   "published": "2026-10-24T01:17:07Z",
+   "published_at": "2026-10-24T01:17:07Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "NFL predictions: Can Falcons take advantage of 49ers injuries?",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-odds/97611/falcons-vs-49ers-predictions-week-7-picks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Brock Bowers"
+   ],
+   "headline": "How Brock Bowers and Michael Mayer are bringing out the best in each other",
+   "summary": "The Raiders' tight end tandem has formed a great friendship over the years, translating to great results to start the 2026 season.",
+   "published": "2026-10-24T00:29:07Z",
+   "published_at": "2026-10-24T00:29:07Z",
+   "first_seen_at": "2026-10-25T11:57:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "How Brock Bowers and Michael Mayer are bringing out the best in each other",
+     "url": "https://www.raiders.com/news/how-brock-bowers-and-michael-mayer-are-bringing-out-the-best-in-each-other"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "George Pickens"
+   ],
+   "headline": "Cowboys' George Pickens brushes off Brian Schottenheimer's critique, says team needs to improve",
+   "summary": "Schottenheimer challenged Pro Bowl WR George Pickens on his effort in the run game, Pickens talked about the team",
+   "published": "2026-10-24T00:14:10Z",
+   "published_at": "2026-10-24T00:14:10Z",
+   "first_seen_at": "2026-10-25T11:57:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Cowboys' George Pickens brushes off Brian Schottenheimer's critique, says team needs to improve",
+     "url": "https://www.cbssports.com/nfl/news/cowboys-george-pickens-deflects-brian-schottenheimers-critique"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "CeeDee Lamb"
+   ],
+   "headline": "CeeDee Lamb on Cowboys odds to win NFC East: 'Why not us?\"",
+   "summary": "The NFC East, as a whole, is having one of the most unexpected seasons ever and, despite their own woes, the Cowboys can still right the ship versus the Eagles and begin pulling away.",
+   "published": "2026-10-23T22:10:29Z",
+   "published_at": "2026-10-23T22:10:29Z",
+   "first_seen_at": "2026-10-25T11:57:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "CeeDee Lamb on Cowboys odds to win NFC East: 'Why not us?\"",
+     "url": "https://www.dallascowboys.com/news/ceedee-lamb-on-cowboys-odds-to-win-nfc-east-why-not-us"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers Rule Out Mike Evans vs. Falcons; Christian Kirk Questionable Ahead of Week 7 #SFvsATL",
+   "summary": "The San Francisco 49ers released their latest injury updates headed into their contest against the Atlanta Falcons.",
+   "published": "2026-10-23T22:02:58Z",
+   "published_at": "2026-10-23T22:02:58Z",
+   "first_seen_at": "2026-10-25T11:57:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SF official",
+     "title": "49ers Rule Out Mike Evans vs. Falcons; Christian Kirk Questionable Ahead of Week 7 #SFvsATL",
+     "url": "https://www.49ers.com/news/49ers-rule-out-mike-evans-vs-falcons-christian-kirk-questionable-ahead-of-week-7-sfvsatl"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "Rams Reacts: Fans getting more comfortable with a Matthew Stafford trade",
+   "summary": "The majority of Los Angeles Rams fans likely do not want to trade Matthew Stafford, but over 28% of fans surveyed would be open to the trade. That number is likely far higher than compared to the beginning of the season when Stafford and the Rams were expected to win the Super Bowl. At 2-4, […]",
+   "published": "2026-10-23T22:00:00Z",
+   "published_at": "2026-10-23T22:00:00Z",
+   "first_seen_at": "2026-10-25T11:57:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Rams Reacts: Fans getting more comfortable with a Matthew Stafford trade",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-odds/152970/rams-stafford-trade-raiders-mccarthy-mcvay"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Zach Charbonnet"
+   ],
+   "headline": "Zach Charbonnet Ruled Out & Other Seahawks Injury Updates From Mike Macdonald",
+   "summary": "Injury updates from Seahawks coach Mike Macdonald ahead of his team’s Week 7 game against the Chiefs.",
+   "published": "2026-10-23T21:57:22Z",
+   "published_at": "2026-10-23T21:57:22Z",
+   "first_seen_at": "2026-10-25T11:57:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Zach Charbonnet Ruled Out & Other Seahawks Injury Updates From Mike Macdonald",
+     "url": "https://www.seahawks.com/news/zach-charbonnet-ruled-out-other-seahawks-injury-updates-from-mike-macdonald"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Zach Charbonnet"
+   ],
+   "headline": "Seahawks-Chiefs injury designations: Zach Charbonnet out, Nick Emmanwori questionable",
+   "summary": "Coming off back-to-back losses against the San Francisco 49ers and Denver Broncos, the Seattle Seahawks are in desperate need of a win but it won’t get any easier in Week 7 as they’re set to remain without their starting running back and possibly a star second year safety—against the undefeated Kansas City Chiefs. Seahawks injury […]",
+   "published": "2026-10-23T21:57:11Z",
+   "published_at": "2026-10-23T21:57:11Z",
+   "first_seen_at": "2026-10-25T11:57:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks-Chiefs injury designations: Zach Charbonnet out, Nick Emmanwori questionable",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-injury-report/178037/seahawks-chiefs-injury-designations-zach-charbonnet-out-nick-emmanwori-questionable-week-7"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "After Further Review: Drake Maye film breakdown, defense review and quick-hit film notes from Week 7 loss to the Bears",
+   "summary": "Film review of Drake Maye and the Patriots defense from Thursday night's loss to the Bears in Chicago.",
+   "published": "2026-10-23T21:50:24Z",
+   "published_at": "2026-10-23T21:50:24Z",
+   "first_seen_at": "2026-10-25T11:57:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "After Further Review: Drake Maye film breakdown, defense review and quick-hit film notes from Week 7 loss to the Bears",
+     "url": "https://www.patriots.com/news/after-further-review-drake-maye-film-breakdown-defense-review-and-quick-hit-film-notes-from-week-7-loss-to-the-bears"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott details how finding rhythm in run game can help spark Cowboys offense",
+   "summary": "Cowboys QB Dak Prescott says Dallas is \"urgent to get it done now\" in terms of stacking wins. If they want to do so, they'll need to find their footing again on offense, which begins with getting a spark in the run game.",
+   "published": "2026-10-23T21:45:32Z",
+   "published_at": "2026-10-23T21:45:32Z",
+   "first_seen_at": "2026-10-25T11:57:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Dak Prescott details how finding rhythm in run game can help spark Cowboys offense",
+     "url": "https://www.dallascowboys.com/news/dak-prescott-details-how-finding-rhythm-in-run-game-can-help-spark-cowboys-offense"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Injury Report, Week 7 at Raiders: Puka Nacua and Trent McDuffie questionable, Nate Landman ruled out",
+   "summary": "The final injury report heading into Sunday's Week 7 regular season game between the Rams and the Raiders at Allegiant Stadium.",
+   "published": "2026-10-23T21:14:04Z",
+   "published_at": "2026-10-23T21:14:04Z",
+   "first_seen_at": "2026-10-25T11:57:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Injury Report, Week 7 at Raiders: Puka Nacua and Trent McDuffie questionable, Nate Landman ruled out",
+     "url": "https://www.therams.com/news/rams-injury-report-week-7-2026-at-raiders-puka-nacua-trent-mcduffie-questionable-nate-landman-out"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 25,
+ "feeds_generated_at": "2026-10-25T11:57:02+00:00"
+}
