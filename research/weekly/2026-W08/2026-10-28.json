@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T02:33:29Z",
+  "generated_at": "2026-10-28T08:56:11Z",
   "season": 2026,
   "week": 8,
   "schedule": {
@@ -16,21 +16,199 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-28T02:33:29Z",
-    "injuries_as_of": "NOT_PUBLISHED_YET",
-    "roster_as_of": "2026-10-27T13:10:47Z",
-    "schedule_as_of": "2026-10-28T02:15:17Z"
+    "research_as_of": "2026-10-28T08:56:11Z",
+    "injuries_as_of": "week 8 PARTIAL · 2 of 28 clubs filed",
+    "roster_as_of": "2026-10-28T06:04:43Z",
+    "schedule_as_of": "2026-10-28T08:35:16Z"
   },
   "injury_report": {
-    "status": "NOT_PUBLISHED_YET",
+    "status": "PARTIALLY_FILED",
     "week": 8,
-    "rows": [],
-    "last_published_week": 7,
-    "note": "clubs file the week's report from Wednesday on; the previous week's designation is NOT carried forward as if it were this week's"
+    "rows": [
+      {
+        "team": "CAR",
+        "gsis_id": "00-0036417",
+        "full_name": "Damien Lewis",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CAR",
+        "gsis_id": "00-0036903",
+        "full_name": "Bobby Brown III",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "CAR",
+        "gsis_id": "00-0036934",
+        "full_name": "Jaelan Phillips",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CAR",
+        "gsis_id": "00-0038101",
+        "full_name": "Akayleb Evans",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CAR",
+        "gsis_id": "00-0039150",
+        "full_name": "Bryce Young",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "CAR",
+        "gsis_id": "00-0039491",
+        "full_name": "Jalen Coker",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "CAR",
+        "gsis_id": "00-0040541",
+        "full_name": "Torricelli Simpkins III",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0034431",
+        "full_name": "Zaire Franklin",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0036551",
+        "full_name": "Aaron Banks",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0036625",
+        "full_name": "Benjamin St-Juste",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0037075",
+        "full_name": "Devonte Wyatt",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0037076",
+        "full_name": "Sean Rhyan",
+        "position": "C",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0038463",
+        "full_name": "Brenton Cox Jr.",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0039819",
+        "full_name": "Travis Glover",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0040667",
+        "full_name": "Matthew Golden",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "GB",
+        "gsis_id": "00-0040689",
+        "full_name": "Anthony Campbell",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      }
+    ],
+    "teams": 2,
+    "teams_filed": [
+      "CAR",
+      "GB"
+    ],
+    "teams_expected": 28,
+    "teams_pending": [
+      "ARI",
+      "ATL",
+      "BAL",
+      "BUF",
+      "CHI",
+      "CIN",
+      "CLE",
+      "DAL",
+      "DEN",
+      "DET",
+      "IND",
+      "JAX",
+      "KC",
+      "LAC",
+      "LAR",
+      "LV",
+      "MIA",
+      "MIN",
+      "NE",
+      "NYJ",
+      "PHI",
+      "PIT",
+      "SEA",
+      "TB",
+      "TEN",
+      "WAS"
+    ],
+    "with_designation": 0
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-10-27T13:08:56Z",
+    "effective_at": "2026-10-28T06:01:45Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -13344,16 +13522,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-27T13:08:39Z",
+      "retrieved_at": "2026-10-28T06:03:04Z",
       "status": "OK",
-      "rows": 2139
+      "rows": 2155
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-27T13:09:09Z",
+      "retrieved_at": "2026-10-28T06:01:55Z",
       "status": "OK",
-      "rows": 707893
+      "rows": 710223
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -13372,13 +13550,78 @@
     }
   ],
   "unknowns": [
-    "official injury report for week 8: NOT_PUBLISHED_YET",
+    "official injury report for week 8: 26 of 28 clubs have not filed yet (ARI, ATL, BAL, BUF, CHI, CIN, CLE, DAL, DEN, DET, IND, JAX, KC, LAC, LAR, LV, MIA, MIN, NE, NYJ, PHI, PIT, SEA, TB, TEN, WAS) — no designation for their players means NOT REPORTED, not healthy",
     "route participation: nflverse does not publish per-player routes in this dataset, so role is measured by snap share and targets, not routes",
     "press, unofficial depth charts and transactions: SOURCE UNAVAILABLE from this environment"
   ],
   "diff": {
     "against": "2026-10-27.json",
-    "new": [],
+    "new": [
+      {
+        "key": "CAR:Damien Lewis",
+        "now": "None"
+      },
+      {
+        "key": "CAR:Bobby Brown III",
+        "now": "None"
+      },
+      {
+        "key": "CAR:Jaelan Phillips",
+        "now": "None"
+      },
+      {
+        "key": "CAR:Akayleb Evans",
+        "now": "None"
+      },
+      {
+        "key": "CAR:Bryce Young",
+        "now": "None"
+      },
+      {
+        "key": "CAR:Jalen Coker",
+        "now": "None"
+      },
+      {
+        "key": "CAR:Torricelli Simpkins III",
+        "now": "None"
+      },
+      {
+        "key": "GB:Zaire Franklin",
+        "now": "None"
+      },
+      {
+        "key": "GB:Aaron Banks",
+        "now": "None"
+      },
+      {
+        "key": "GB:Benjamin St-Juste",
+        "now": "None"
+      },
+      {
+        "key": "GB:Devonte Wyatt",
+        "now": "None"
+      },
+      {
+        "key": "GB:Sean Rhyan",
+        "now": "None"
+      },
+      {
+        "key": "GB:Brenton Cox Jr.",
+        "now": "None"
+      },
+      {
+        "key": "GB:Travis Glover",
+        "now": "None"
+      },
+      {
+        "key": "GB:Matthew Golden",
+        "now": "None"
+      },
+      {
+        "key": "GB:Anthony Campbell",
+        "now": "None"
+      }
+    ],
     "changed": [],
     "removed": [],
     "unchanged": 32
