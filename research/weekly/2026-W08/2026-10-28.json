@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T08:56:11Z",
+  "generated_at": "2026-10-28T16:15:11Z",
   "season": 2026,
   "week": 8,
   "schedule": {
@@ -16,10 +16,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-28T08:56:11Z",
+    "research_as_of": "2026-10-28T16:15:11Z",
     "injuries_as_of": "week 8 PARTIAL · 2 of 28 clubs filed",
-    "roster_as_of": "2026-10-28T06:04:43Z",
-    "schedule_as_of": "2026-10-28T08:35:16Z"
+    "roster_as_of": "2026-10-28T14:00:16Z",
+    "schedule_as_of": "2026-10-28T16:05:17Z"
   },
   "injury_report": {
     "status": "PARTIALLY_FILED",
@@ -208,7 +208,7 @@
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-10-28T06:01:45Z",
+    "effective_at": "2026-10-28T13:58:02Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -13522,16 +13522,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-28T06:03:04Z",
+      "retrieved_at": "2026-10-28T13:57:55Z",
       "status": "OK",
       "rows": 2155
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-28T06:01:55Z",
+      "retrieved_at": "2026-10-28T13:58:09Z",
       "status": "OK",
-      "rows": 710223
+      "rows": 712553
     },
     {
       "source": "snap_counts_2026.parquet",
