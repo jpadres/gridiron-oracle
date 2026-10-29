@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T13:05:52Z",
+  "generated_at": "2026-10-29T17:23:42Z",
   "season": 2026,
   "week": 8,
   "schedule": {
@@ -16,10 +16,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-10-29T13:05:52Z",
-    "injuries_as_of": "week 8 PARTIAL · 24 of 28 clubs filed",
-    "roster_as_of": "2026-10-29T06:02:58Z",
-    "schedule_as_of": "2026-10-29T13:05:17Z"
+    "research_as_of": "2026-10-29T17:23:42Z",
+    "injuries_as_of": "week 8 PARTIAL · 26 of 28 clubs filed",
+    "roster_as_of": "2026-10-29T14:12:44Z",
+    "schedule_as_of": "2026-10-29T17:15:16Z"
   },
   "injury_report": {
     "status": "PARTIALLY_FILED",
@@ -1322,6 +1322,87 @@
         "practice_status": "Full Participation in Practice"
       },
       {
+        "team": "LAC",
+        "gsis_id": "00-0031040",
+        "full_name": "Khalil Mack",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "LAC",
+        "gsis_id": "00-0034356",
+        "full_name": "Donte Jackson",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "LAC",
+        "gsis_id": "00-0034790",
+        "full_name": "Derwin James",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "LAC",
+        "gsis_id": "00-0036736",
+        "full_name": "Kayode Awosika",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "LAC",
+        "gsis_id": "00-0037320",
+        "full_name": "Deane Leonard",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "LAC",
+        "gsis_id": "00-0039915",
+        "full_name": "Ladd McConkey",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "LAC",
+        "gsis_id": "00-0040727",
+        "full_name": "Tre Harris",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "LAC",
+        "gsis_id": "00-0041381",
+        "full_name": "Rodney Shelley",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "LAC",
+        "gsis_id": "00-0041550",
+        "full_name": "Brenen Thompson",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
         "team": "LV",
         "gsis_id": "00-0034275",
         "full_name": "Foley Fatukasi",
@@ -1389,6 +1470,15 @@
         "gsis_id": "00-0040488",
         "full_name": "Carter Runyon",
         "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "LV",
+        "gsis_id": "00-0040729",
+        "full_name": "Jack Bech",
+        "position": "WR",
         "report_status": null,
         "report_primary_injury": null,
         "practice_status": "Full Participation in Practice"
@@ -1727,6 +1817,177 @@
         "practice_status": "Did Not Participate In Practice"
       },
       {
+        "team": "PHI",
+        "gsis_id": "00-0032580",
+        "full_name": "Jonathan Jones",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0034351",
+        "full_name": "Dallas Goedert",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0034844",
+        "full_name": "Saquon Barkley",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0036224",
+        "full_name": "Jonathan Greenard",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0036418",
+        "full_name": "Zack Baun",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0036501",
+        "full_name": "Michael Carter II",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0036912",
+        "full_name": "DeVonta Smith",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0037002",
+        "full_name": "Landon Dickerson",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0037132",
+        "full_name": "Britain Covey",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0038116",
+        "full_name": "Arnold Ebiketie",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0038393",
+        "full_name": "Dontayvion Wicks",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0038412",
+        "full_name": "Moro Ojomo",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0039001",
+        "full_name": "Tyler Steen",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0039013",
+        "full_name": "Nolan Smith",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0039072",
+        "full_name": "Jakorian Bennett",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0039740",
+        "full_name": "Jalyx Hunt",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0040013",
+        "full_name": "Smael Mondon Jr.",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0040587",
+        "full_name": "Drew Kendall",
+        "position": "C",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "PHI",
+        "gsis_id": "00-0040708",
+        "full_name": "Jihaad Campbell",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
         "team": "PIT",
         "gsis_id": "00-0027969",
         "full_name": "Cameron Heyward",
@@ -2006,7 +2267,7 @@
         "practice_status": "Full Participation in Practice"
       }
     ],
-    "teams": 24,
+    "teams": 26,
     "teams_filed": [
       "ARI",
       "ATL",
@@ -2022,12 +2283,14 @@
       "IND",
       "JAX",
       "KC",
+      "LAC",
       "LAR",
       "LV",
       "MIA",
       "MIN",
       "NE",
       "NYJ",
+      "PHI",
       "PIT",
       "TB",
       "TEN",
@@ -2036,15 +2299,13 @@
     "teams_expected": 28,
     "teams_pending": [
       "CHI",
-      "LAC",
-      "PHI",
       "SEA"
     ],
     "with_designation": 12
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-10-29T06:01:40Z",
+    "effective_at": "2026-10-29T14:07:35Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -15358,16 +15619,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-29T06:01:21Z",
+      "retrieved_at": "2026-10-29T14:07:07Z",
       "status": "OK",
-      "rows": 2359
+      "rows": 2388
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-29T06:01:52Z",
+      "retrieved_at": "2026-10-29T14:07:45Z",
       "status": "OK",
-      "rows": 714861
+      "rows": 717169
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -15386,7 +15647,7 @@
     }
   ],
   "unknowns": [
-    "official injury report for week 8: 4 of 28 clubs have not filed yet (CHI, LAC, PHI, SEA) — no designation for their players means NOT REPORTED, not healthy",
+    "official injury report for week 8: 2 of 28 clubs have not filed yet (CHI, SEA) — no designation for their players means NOT REPORTED, not healthy",
     "route participation: nflverse does not publish per-player routes in this dataset, so role is measured by snap share and targets, not routes",
     "press, unofficial depth charts and transactions: SOURCE UNAVAILABLE from this environment"
   ],
@@ -15906,6 +16167,42 @@
         "now": "None"
       },
       {
+        "key": "LAC:Khalil Mack",
+        "now": "None"
+      },
+      {
+        "key": "LAC:Donte Jackson",
+        "now": "None"
+      },
+      {
+        "key": "LAC:Derwin James",
+        "now": "None"
+      },
+      {
+        "key": "LAC:Kayode Awosika",
+        "now": "None"
+      },
+      {
+        "key": "LAC:Deane Leonard",
+        "now": "None"
+      },
+      {
+        "key": "LAC:Ladd McConkey",
+        "now": "None"
+      },
+      {
+        "key": "LAC:Tre Harris",
+        "now": "None"
+      },
+      {
+        "key": "LAC:Rodney Shelley",
+        "now": "None"
+      },
+      {
+        "key": "LAC:Brenen Thompson",
+        "now": "None"
+      },
+      {
         "key": "LV:Foley Fatukasi",
         "now": "None"
       },
@@ -15935,6 +16232,10 @@
       },
       {
         "key": "LV:Carter Runyon",
+        "now": "None"
+      },
+      {
+        "key": "LV:Jack Bech",
         "now": "None"
       },
       {
@@ -16083,6 +16384,82 @@
       },
       {
         "key": "NYJ:David Bailey",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Jonathan Jones",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Dallas Goedert",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Saquon Barkley",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Jonathan Greenard",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Zack Baun",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Michael Carter II",
+        "now": "None"
+      },
+      {
+        "key": "PHI:DeVonta Smith",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Landon Dickerson",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Britain Covey",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Arnold Ebiketie",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Dontayvion Wicks",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Moro Ojomo",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Tyler Steen",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Nolan Smith",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Jakorian Bennett",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Jalyx Hunt",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Smael Mondon Jr.",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Drew Kendall",
+        "now": "None"
+      },
+      {
+        "key": "PHI:Jihaad Campbell",
         "now": "None"
       },
       {
