@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T06:10:47Z",
+  "generated_at": "2026-11-01T13:29:15Z",
   "season": 2026,
   "week": 8,
   "schedule": {
@@ -16,10 +16,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-11-01T06:10:47Z",
+    "research_as_of": "2026-11-01T13:29:15Z",
     "injuries_as_of": "week 8",
-    "roster_as_of": "2026-10-31T13:38:09Z",
-    "schedule_as_of": "2026-11-01T06:05:16Z"
+    "roster_as_of": "2026-11-01T07:03:55Z",
+    "schedule_as_of": "2026-11-01T13:05:15Z"
   },
   "injury_report": {
     "status": "PUBLISHED",
@@ -678,9 +678,9 @@
         "gsis_id": "00-0037271",
         "full_name": "D'Marco Jackson",
         "position": "LB",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Ankle",
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "CHI",
@@ -689,15 +689,15 @@
         "position": "TE",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "CHI",
         "gsis_id": "00-0040236",
         "full_name": "Kyle Monangai",
         "position": "RB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Thumb",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -705,8 +705,8 @@
         "gsis_id": "00-0041060",
         "full_name": "Malik Muhammad",
         "position": "CB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Toe",
         "practice_status": "Limited Participation in Practice"
       },
       {
@@ -2469,8 +2469,8 @@
         "gsis_id": "00-0034350",
         "full_name": "Uchenna Nwosu",
         "position": "LB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Doubtful",
+        "report_primary_injury": "Ankle",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2478,8 +2478,8 @@
         "gsis_id": "00-0035704",
         "full_name": "Drew Lock",
         "position": "QB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Elbow",
         "practice_status": "Limited Participation in Practice"
       },
       {
@@ -2496,8 +2496,8 @@
         "gsis_id": "00-0037545",
         "full_name": "Rashid Shaheed",
         "position": "WR",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Knee",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2505,8 +2505,8 @@
         "gsis_id": "00-0037745",
         "full_name": "Velus Jones Jr.",
         "position": "RB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Hamstring",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2514,8 +2514,8 @@
         "gsis_id": "00-0037821",
         "full_name": "Charles Cross",
         "position": "T",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Ankle",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2541,8 +2541,8 @@
         "gsis_id": "00-0038694",
         "full_name": "Brandon Pili",
         "position": "DT",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Back",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2550,8 +2550,8 @@
         "gsis_id": "00-0038764",
         "full_name": "Patrick O'Connell",
         "position": "LB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Toe",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2568,9 +2568,9 @@
         "gsis_id": "00-0039020",
         "full_name": "Anthony Bradford",
         "position": "G",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Knee",
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "SEA",
@@ -2579,7 +2579,7 @@
         "position": "RB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "SEA",
@@ -2588,7 +2588,7 @@
         "position": "DT",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "SEA",
@@ -2597,7 +2597,7 @@
         "position": "LB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "SEA",
@@ -2939,11 +2939,11 @@
     ],
     "teams_expected": 28,
     "teams_pending": [],
-    "with_designation": 121
+    "with_designation": 132
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-10-31T13:34:51Z",
+    "effective_at": "2026-11-01T07:02:30Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -3053,6 +3053,7 @@
         "player_name": "Brandon McManus",
         "contested": true,
         "competition": [
+          "Joshua Karty",
           "Blake Grupe"
         ]
       },
@@ -16257,16 +16258,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-31T13:34:02Z",
+      "retrieved_at": "2026-11-01T07:01:27Z",
       "status": "OK",
       "rows": 2459
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-10-31T13:35:03Z",
+      "retrieved_at": "2026-11-01T07:02:43Z",
       "status": "OK",
-      "rows": 726415
+      "rows": 728767
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -16291,8 +16292,64 @@
   "diff": {
     "against": "2026-10-31.json",
     "new": [],
-    "changed": [],
+    "changed": [
+      {
+        "key": "CHI:D'Marco Jackson",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "CHI:Kyle Monangai",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "CHI:Malik Muhammad",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "SEA:Uchenna Nwosu",
+        "was": "None",
+        "now": "Doubtful"
+      },
+      {
+        "key": "SEA:Drew Lock",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "SEA:Rashid Shaheed",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "SEA:Velus Jones Jr.",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "SEA:Charles Cross",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "SEA:Brandon Pili",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "SEA:Patrick O'Connell",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "SEA:Anthony Bradford",
+        "was": "None",
+        "now": "Questionable"
+      }
+    ],
     "removed": [],
-    "unchanged": 352
+    "unchanged": 341
   }
 }
