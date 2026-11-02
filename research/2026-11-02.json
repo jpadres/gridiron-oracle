@@ -1,0 +1,1345 @@
+{
+ "date": "2026-11-02",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "‘Brittany Mahomes Is Absolutely Right,’ ‘This Is a Joke, Right?’ — NFL Fans Divided as Patrick Mahomes’ Wife Rips ‘Weakest Call’ by Refs in Chiefs’ Loss",
+   "summary": "",
+   "published": "2026-11-02T06:41:59Z",
+   "published_at": "2026-11-02T06:41:59Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Brittany Mahomes Is Absolutely Right,’ ‘This Is a Joke, Right?’ — NFL Fans Divided as Patrick Mahomes’ Wife Rips ‘Weakest Call’ by Refs in Chiefs’ Loss",
+     "url": "https://www.profootballnetwork.com/brittany-mahomes-referees-chiefs-broncos-nfl-fans-react"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Bucky Irving",
+    "Baker Mayfield",
+    "Kenny Gainwell"
+   ],
+   "headline": "Bucs first team without pass completion since '74, still beat Falcons",
+   "summary": "Baker Mayfield didn't complete a pass, but the Buccaneers beat the Falcons 16-0 behind Bucky Irving and Kenny Gainwell's rushing on a wet, sloppy field.",
+   "published": "2026-11-02T06:27:03Z",
+   "published_at": "2026-11-02T06:27:03Z",
+   "first_seen_at": "2026-11-02T06:44:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Bucs first team without pass completion since '74, still beat Falcons",
+     "url": "https://www.espn.com/nfl/story/_/id/50351129/buccaneers-silence-falcons-pass-completion"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Ja'Marr Chase"
+   ],
+   "headline": "Frustrated Chase spikes helmet before helping Bengals to OT victory",
+   "summary": "Visibly frustrated earlier in the game, Cincinnati Bengals star wide receiver Ja'Marr Chase cooled off in time to help his club to a 43-36 overtime victory over the Tennessee Titans on Sunday at Paycor Stadium.",
+   "published": "2026-11-02T06:27:03Z",
+   "published_at": "2026-11-02T06:27:03Z",
+   "first_seen_at": "2026-11-02T06:44:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Frustrated Chase spikes helmet before helping Bengals to OT victory",
+     "url": "https://www.espn.com/nfl/story/_/id/50353331/frustrated-chase-spikes-helmet-helping-bengals-win"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Justin Jefferson",
+    "Kyler Murray"
+   ],
+   "headline": "Vikings recognize Jefferson's frustration as WR quiet during -- and after -- loss",
+   "summary": "Justin Jefferson declined to speak with reporters after Sunday's loss, and coach Kevin O'Connell and QB Kyler Murray acknowledged the receiver's disposition.",
+   "published": "2026-11-02T06:27:03Z",
+   "published_at": "2026-11-02T06:27:03Z",
+   "first_seen_at": "2026-11-02T06:44:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Vikings recognize Jefferson's frustration as WR quiet during -- and after -- loss",
+     "url": "https://www.espn.com/nfl/story/_/id/50353208/vikings-acknowledge-justin-jefferson-frustration-loss"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "Chargers' woes continue post-bye, but Harbaugh still backing OC, QB",
+   "summary": "Jim Harbaugh continued to back both offensive coordinator Mike McDaniel and quarterback Justin Herbert after the Chargers' latest loss Sunday.",
+   "published": "2026-11-02T06:27:03Z",
+   "published_at": "2026-11-02T06:27:03Z",
+   "first_seen_at": "2026-11-02T06:44:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Chargers' woes continue post-bye, but Harbaugh still backing OC, QB",
+     "url": "https://www.espn.com/nfl/story/_/id/50355492/chargers-jim-harbaugh-backs-mike-mcdaniel-justin-herbert"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Ashton Jeanty"
+   ],
+   "headline": "Raiders' Jeanty limited to 2 carries in win after comments about Jets' D",
+   "summary": "Ashton Jeanty had a career low in carries Sunday, which coach Klint Kubiak said was his call but not a response to Jeanty's comments during the week.",
+   "published": "2026-11-02T06:27:03Z",
+   "published_at": "2026-11-02T06:27:03Z",
+   "first_seen_at": "2026-11-02T06:44:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Raiders' Jeanty limited to 2 carries in win after comments about Jets' D",
+     "url": "https://www.espn.com/nfl/story/_/id/50353065/raiders-ashton-jeanty-two-carries-win-jets-comments"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Jauan Jennings"
+   ],
+   "headline": "Source: Jennings voiced desire to stay with Vikings amid 49ers trade talks",
+   "summary": "Jauan Jennings expressed his desire to stay in Minnesota after the 49ers tried to reacquire the wide receiver in trade talks with the Vikings.",
+   "published": "2026-11-02T06:27:03Z",
+   "published_at": "2026-11-02T06:27:03Z",
+   "first_seen_at": "2026-11-02T06:44:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Source: Jennings voiced desire to stay with Vikings amid 49ers trade talks",
+     "url": "https://www.espn.com/nfl/story/_/id/50350048/source-jennings-wanted-stay-vikings-amid-49ers-talks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Lamar headed to IR with 'potentially' season-ending thumb injury",
+   "summary": "Ravens quarterback Lamar Jackson needs to have surgery on his injured right thumb and will be placed on injured reserve, coach Jesse Minter said.",
+   "published": "2026-11-02T06:26:12Z",
+   "published_at": "2026-11-02T06:26:12Z",
+   "first_seen_at": "2026-11-02T06:44:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Lamar headed to IR with 'potentially' season-ending thumb injury",
+     "url": "https://www.espn.com/nfl/story/_/id/50349558/ravens-lamar-jackson-rest-game-thumb-injury"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Saquon Barkley"
+   ],
+   "headline": "Barkley receives assurances he won't be dealt, wants to help Eagles 'fix it'",
+   "summary": "Speaking after Sunday night's 27-10 loss to the Washington Commanders, Philadelphia Eagles running back Saquon Barkley told reporters he has received assurances from the front office that he will remain with the club beyond the Nov. 10 trade deadline.",
+   "published": "2026-11-02T06:26:12Z",
+   "published_at": "2026-11-02T06:26:12Z",
+   "first_seen_at": "2026-11-02T06:44:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Barkley receives assurances he won't be dealt, wants to help Eagles 'fix it'",
+     "url": "https://www.espn.com/nfl/story/_/id/50356092/saquon-barkley-assurances-eagles-dealt"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Jacoby Brissett"
+   ],
+   "headline": "LaFleur won't commit to starter after Minshew replaces Brissett, leads Cards' OT win",
+   "summary": "Cardinals coach Mike LaFleur wouldn't commit to next week's starting quarterback after Gardner Minshew replaced Jacoby Brissett in the third quarter Sunday and led Arizona to a comeback win over Dallas.",
+   "published": "2026-11-02T06:26:12Z",
+   "published_at": "2026-11-02T06:26:12Z",
+   "first_seen_at": "2026-11-02T06:44:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "LaFleur won't commit to starter after Minshew replaces Brissett, leads Cards' OT win",
+     "url": "https://www.espn.com/nfl/story/_/id/50353468/cardinals-mike-lafleur-noncommittal-starting-qb-gardner-minshew-replaces-jacoby-brissett-win"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "‘He’s Over There Crying,’ ‘He Had His Binky Today’ — Steelers Safety Rips ‘Baby’ Deshaun Watson, ‘Assumes’ He Won’t Be Fined for Hit on Browns QB",
+   "summary": "",
+   "published": "2026-11-02T06:08:51Z",
+   "published_at": "2026-11-02T06:08:51Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He’s Over There Crying,’ ‘He Had His Binky Today’ — Steelers Safety Rips ‘Baby’ Deshaun Watson, ‘Assumes’ He Won’t Be Fined for Hit on Browns QB",
+     "url": "https://www.profootballnetwork.com/steelers-jaquan-brisker-deshaun-watson-baby-browns-week-8"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Justin Jefferson"
+   ],
+   "headline": "‘Request That Trade,’ ‘Don’t Blame Him for Being Frustrated’ — NFL Fans Push Justin Jefferson To Confront Vikings Over Offensive Woes",
+   "summary": "",
+   "published": "2026-11-02T05:02:45Z",
+   "published_at": "2026-11-02T05:02:45Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Request That Trade,’ ‘Don’t Blame Him for Being Frustrated’ — NFL Fans Push Justin Jefferson To Confront Vikings Over Offensive Woes",
+     "url": "https://www.profootballnetwork.com/nfl-fans-react-justin-jefferson-vikings-offensive-woes"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Dan Quinn, Jayden Daniels, Commanders players talk about win over the Eagles",
+   "summary": "The Washington Commanders had a pretty bad start to their Sunday Night Football game at home against the Philadelphia Eagles. They fell behind 10-0, and didn’t look like they’d be able to score, or not commit penalties. They turned things around and scored 27 unanswered points to put the Eagles firmly in the bottom of […]",
+   "published": "2026-11-02T05:00:00Z",
+   "published_at": "2026-11-02T05:00:00Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Dan Quinn, Jayden Daniels, Commanders players talk about win over the Eagles",
+     "url": "https://www.hogshaven.com/pressers/449581/dan-quinn-jayden-daniels-commanders-players-talk-about-win-over-eagles"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Key takeaways from Washington Commanders win over Philadelphia Eagles",
+   "summary": "BOX SCORE The Commanders struggled to start the season, yet a weak NFC East kept them in contention. They had a bye week to get right and fix the execution, penalties and game management issues that had produced a 1-4-1 record. That’s why, as quarterback Jayden Daniels said, Sunday night’s game against the rival NFC […]",
+   "published": "2026-11-02T04:25:47Z",
+   "published_at": "2026-11-02T04:25:47Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Key takeaways from Washington Commanders win over Philadelphia Eagles",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/452256/takeaways-washington-commanders-philadelphia-eagles-jayden-daniels-treylon-burks-tanner-mckee"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "‘Justin Herbert Is Fed Up,’ ‘Fire the OC’ — NFL World Loses Patience With Mike McDaniel After Chargers’ 0–7 Start",
+   "summary": "",
+   "published": "2026-11-02T04:24:16Z",
+   "published_at": "2026-11-02T04:24:16Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Justin Herbert Is Fed Up,’ ‘Fire the OC’ — NFL World Loses Patience With Mike McDaniel After Chargers’ 0–7 Start",
+     "url": "https://www.profootballnetwork.com/chargers-oc-mike-mcdaniel-faces-fan-backlash"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Patrick Mahomes tosses three TDs in loss to Broncos",
+   "summary": "Kansas City Chiefs QB Patrick Mahomes' three TDs not enough against Denver",
+   "published": "2026-11-02T04:17:41Z",
+   "published_at": "2026-11-02T04:17:41Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Patrick Mahomes tosses three TDs in loss to Broncos",
+     "url": "https://sports.yahoo.com/articles/patrick-mahomes-tosses-three-tds-041741573.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Bengals vs. Falcons odds: Opening lines for Week 9 matchup in Madrid",
+   "summary": "The Cincinnati Bengals needed a spectacular performance from Joe Burrow to escape with an overtime victory over the Tennessee Titans on Sunday, but oddsmakers aren’t expecting the same kind of offensive fireworks when Cincinnati faces the Atlanta Falcons next weekend. Still, with the Bengals’ defense continuing to struggle, the early betting lines suggest another potentially […]",
+   "published": "2026-11-02T04:01:34Z",
+   "published_at": "2026-11-02T04:01:34Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Bengals vs. Falcons odds: Opening lines for Week 9 matchup in Madrid",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-odds/204023/bengals-vs-falcons-odds-week-9-opening-lines-point-spread-total"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Patrick Mahomes’ Trainer Pens 6-Word Review of J.J. Watt’s Work In CBS Booth For Chiefs vs. Broncos",
+   "summary": "",
+   "published": "2026-11-02T03:45:05Z",
+   "published_at": "2026-11-02T03:45:05Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "Patrick Mahomes’ Trainer Pens 6-Word Review of J.J. Watt’s Work In CBS Booth For Chiefs vs. Broncos",
+     "url": "https://www.profootballnetwork.com/patrick-mahomes-trainer-praises-jj-watt-cbs"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Andy Reid questions controversial false start that erased Chiefs' apparent winning TD",
+   "summary": "A controversial false start on Jaylon Moore wiped out a go-ahead touchdown before Malcolm Roach sealed the win with a sack on Patrick Mahomes",
+   "published": "2026-11-02T03:38:43Z",
+   "published_at": "2026-11-02T03:38:43Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Andy Reid questions controversial false start that erased Chiefs' apparent winning TD",
+     "url": "https://www.cbssports.com/nfl/news/chiefs-controversial-penalty-andy-reid-broncos"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "‘The Browns Have No Urgency’ — NFL Reporter Reveals What Deshaun Watson Must Do To Earn Another Contract in Cleveland",
+   "summary": "",
+   "published": "2026-11-02T03:21:09Z",
+   "published_at": "2026-11-02T03:21:09Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘The Browns Have No Urgency’ — NFL Reporter Reveals What Deshaun Watson Must Do To Earn Another Contract in Cleveland",
+     "url": "https://www.profootballnetwork.com/nfl-reporter-deshaun-watson-cleveland-browns-contract-future"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Jonathan Taylor"
+   ],
+   "headline": "Broncos are reportedly doing everything in their power to trade for Colts RB Jonathan Taylor",
+   "summary": "Could the Broncos end the night with a big splash? According to DNVR’s Broncos insider Zac Stevens, the Broncos are doing everything in their power to trade for Indianapolis Colts star running back Jonathan Taylor. Stevens adds that this deal could go down at any moment and that Broncos Country may not want to go […]",
+   "published": "2026-11-02T02:57:35Z",
+   "published_at": "2026-11-02T02:57:35Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Broncos are reportedly doing everything in their power to trade for Colts RB Jonathan Taylor",
+     "url": "https://sports.yahoo.com/articles/broncos-reportedly-doing-everything-power-025735761.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Cover 4: Broncos use 4th-quarter flurry, late defensive stand to surge back in 28-24 win over Kansas City Chiefs",
+   "summary": "Malcolm Roach tossed Patrick Mahomes to the grass and sent the Broncos to the top of the AFC West.",
+   "published": "2026-11-02T02:52:51Z",
+   "published_at": "2026-11-02T02:52:51Z",
+   "first_seen_at": "2026-11-02T06:44:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DEN official",
+     "title": "Cover 4: Broncos use 4th-quarter flurry, late defensive stand to surge back in 28-24 win over Kansas City Chiefs",
+     "url": "https://www.denverbroncos.com/news/cover-4-broncos-use-4th-quarter-flurry-late-defensive-stand-to-surge-back-in-28-24-win-over-kansas-city-chiefs"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Kyler Murray"
+   ],
+   "headline": "Week 8 overreactions: Time for Vikings to bench Kyler Murray? Colts should fire Steichen?",
+   "summary": "Plus, does the NFC South run through the Buccaneers?",
+   "published": "2026-11-02T02:11:45Z",
+   "published_at": "2026-11-02T02:11:45Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Week 8 overreactions: Time for Vikings to bench Kyler Murray? Colts should fire Steichen?",
+     "url": "https://www.cbssports.com/nfl/news/nfl-week-8-overreactions-vikings-kyler-murray-colts"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Josh Downs"
+   ],
+   "headline": "Josh Downs scores touchdown in Week 8 vs. Jaguars",
+   "summary": "Indianapolis Colts wide receiver Josh Downs finished with four receptions for 23 yards and a touchdown on five targets in Week 8",
+   "published": "2026-11-02T02:09:07Z",
+   "published_at": "2026-11-02T02:09:07Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Josh Downs scores touchdown in Week 8 vs. Jaguars",
+     "url": "https://sports.yahoo.com/articles/josh-downs-scores-touchdown-week-020907033.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Blake Corum"
+   ],
+   "headline": "Blake Corum sparks Rams offense against Chargers, leading first second-half drive into momentum-shifting touchdown",
+   "summary": "Running back Blake Corum helped get the Rams' offense going to start the second half in Sunday's win over the Chargers.",
+   "published": "2026-11-02T02:07:21Z",
+   "published_at": "2026-11-02T02:07:21Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Blake Corum sparks Rams offense against Chargers, leading first second-half drive into momentum-shifting touchdown",
+     "url": "https://www.therams.com/news/blake-corum-sparks-rams-offense-against-chargers-leading-first-second-half-drive-into-momentum-shifting-touchdown"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Postgame Quick Hits | Joe Burrow's Bengals Grind To Thrilling OT Win: 'I Looked At Him And Told Him He Was Legendary'",
+   "summary": "Notes and quotes as Bengals rule overtime thriller over Titans",
+   "published": "2026-11-02T02:06:38Z",
+   "published_at": "2026-11-02T02:06:38Z",
+   "first_seen_at": "2026-11-02T06:44:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Postgame Quick Hits | Joe Burrow's Bengals Grind To Thrilling OT Win: 'I Looked At Him And Told Him He Was Legendary'",
+     "url": "https://www.bengals.com/news/postgame-quick-hits-joe-burrow-s-bengals-grind-to-thrilling-ot-win-dexter-lawrence-jamarr-chase-tee-higgins"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Cowboys had never blown a 14-point, fourth-quarter lead at home before Sunday",
+   "summary": "A third-party contractor yelled \"embarrassing\" to Dak Prescott as he walked back to the Cowboys' locker room after a 24-16 loss to the Bucs in Week 5.",
+   "published": "2026-11-02T02:06:11Z",
+   "published_at": "2026-11-02T02:06:11Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Cowboys had never blown a 14-point, fourth-quarter lead at home before Sunday",
+     "url": "https://sports.yahoo.com/articles/cowboys-had-never-blown-14-020611832.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Javonte Williams"
+   ],
+   "headline": "Javonte Williams held in check by Cardinals in Week 8",
+   "summary": "Dallas Cowboys RB Javonte Williams has quiet Week 8 against Arizona",
+   "published": "2026-11-02T02:00:56Z",
+   "published_at": "2026-11-02T02:00:56Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Javonte Williams held in check by Cardinals in Week 8",
+     "url": "https://sports.yahoo.com/articles/javonte-williams-held-check-cardinals-020056643.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "NFL Week 8 winners and losers: Cowboys suffer epic collapse, Joe Burrow delivers historic heroics",
+   "summary": "Burrow produced a historic six-touchdown performance, while the Cowboys squandered a late lead and the Ravens endured another devastating Lamar Jackson injury",
+   "published": "2026-11-02T01:57:37Z",
+   "published_at": "2026-11-02T01:57:37Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "NFL Week 8 winners and losers: Cowboys suffer epic collapse, Joe Burrow delivers historic heroics",
+     "url": "https://www.cbssports.com/nfl/news/nfl-week-8-winners-losers-cowboys-joe-burrow"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Baker Mayfield on zero completed passes: Whatever it takes to win",
+   "summary": "The Buccaneers set a franchise-record with 324 rushing yards in Sunday's 16-0 win over the Falcons and they made a little other history as well.",
+   "published": "2026-11-02T01:56:26Z",
+   "published_at": "2026-11-02T01:56:26Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Baker Mayfield on zero completed passes: Whatever it takes to win",
+     "url": "https://sports.yahoo.com/articles/baker-mayfield-zero-completed-passes-015626549.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "‘Atrociously Awful,’ ‘Worst Starting QB in the League’ — Calls Mount for Chargers To ‘Bench’ Justin Herbert After Another Horrid Performance",
+   "summary": "",
+   "published": "2026-11-02T01:38:09Z",
+   "published_at": "2026-11-02T01:38:09Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Atrociously Awful,’ ‘Worst Starting QB in the League’ — Calls Mount for Chargers To ‘Bench’ Justin Herbert After Another Horrid Performance",
+     "url": "https://www.profootballnetwork.com/calls-mount-chargers-bench-justin-herbert-week-8"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Broncos overcome Bo Nix, bad offense and Chiefs in wondrous win: Winners and losers",
+   "summary": "The Denver Broncos were atrocious on third down and dismal on offense, but their defense sacked Patrick Mahomes as time ran out to seal a remarkable comeback.",
+   "published": "2026-11-02T01:10:44Z",
+   "published_at": "2026-11-02T01:10:44Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Broncos overcome Bo Nix, bad offense and Chiefs in wondrous win: Winners and losers",
+     "url": "https://sports.yahoo.com/articles/broncos-overcome-bo-nix-bad-011044870.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "Rams’ Matthew Stafford makes memorable moment for military members before game vs. Chargers",
+   "summary": "Matthew Stafford shows patriotism ahead of a game against the Chargers.Before Matthew Stafford took the field for the Rams Salute to Service game against the Los Angeles Chargers on Sunday...",
+   "published": "2026-11-02T01:02:39Z",
+   "published_at": "2026-11-02T01:02:39Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Rams’ Matthew Stafford makes memorable moment for military members before game vs. Chargers",
+     "url": "https://sports.yahoo.com/articles/rams-matthew-stafford-makes-memorable-010239603.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Garrett Wilson"
+   ],
+   "headline": "Jets see no moral victory after wasting career days by Braelon Allen and Adonai Mitchell",
+   "summary": "Under different circumstances, the career-best performances by Braelon Allen and Adonai Mitchell could be celebrated as the Jets developing playmakers to complement Garrett Wilson.",
+   "published": "2026-11-02T01:00:41Z",
+   "published_at": "2026-11-02T01:00:41Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Jets see no moral victory after wasting career days by Braelon Allen and Adonai Mitchell",
+     "url": "https://sports.yahoo.com/articles/jets-see-no-moral-victory-010041366.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "Top 3 things we learned from Bills vs. Ravens Week 8",
+   "summary": "From Josh Allen's passing performance and the offense's halftime turnaround, to a defensive game plan that overwhelmed Baltimore's backup quarterbacks",
+   "published": "2026-11-02T00:54:22Z",
+   "published_at": "2026-11-02T00:54:22Z",
+   "first_seen_at": "2026-11-02T06:44:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BUF official",
+     "title": "Top 3 things we learned from Bills vs. Ravens Week 8",
+     "url": "https://www.buffalobills.com/news/top-3-things-we-learned-from-bills-vs-ravens-week-8"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Bijan Robinson"
+   ],
+   "headline": "Week 8 winners and losers: Burrow, Higgins, Chase steal the show; Falcons falter",
+   "summary": "Joe Burrow, Bhayshul Tuten and Brock Bowers came up big in Week 8, while Bijan Robinson, Ashton Jeanty and Jonathan Taylor had quiet days.",
+   "published": "2026-11-02T00:51:13Z",
+   "published_at": "2026-11-02T00:51:13Z",
+   "first_seen_at": "2026-11-02T06:44:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Week 8 winners and losers: Burrow, Higgins, Chase steal the show; Falcons falter",
+     "url": "https://www.espn.com/fantasy/football/story/_/page/FFSundayHighLows-50350092/nfl-week-8-fantasy-football-winners-losers-injuries-rankings-more"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "‘Shut Up,’ ‘Stop Taking Bullets for Him’ — Cowboys Fans Livid as Dak Prescott Shields Brian Schottenheimer After OT Loss vs. Cardinals",
+   "summary": "",
+   "published": "2026-11-02T00:46:44Z",
+   "published_at": "2026-11-02T00:46:44Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Shut Up,’ ‘Stop Taking Bullets for Him’ — Cowboys Fans Livid as Dak Prescott Shields Brian Schottenheimer After OT Loss vs. Cardinals",
+     "url": "https://www.profootballnetwork.com/cowboys-fans-livid-dak-prescott-shields-brian-schottenheimer"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Blake Corum"
+   ],
+   "headline": "Rams Takeaways: What We Learned From Win Over Chargers",
+   "summary": "The Los Angeles Rams may have found the missing ingredient to their offense, and Blake Corum is proving to be the secret sauce behind their success. Sunday’s victory over the Chargers showcased how the second-year running back’s explosive playmaking and physical running style can elevate an already dangerous offense. While the Rams have leaned heavily […]",
+   "published": "2026-11-02T00:45:00Z",
+   "published_at": "2026-11-02T00:45:00Z",
+   "first_seen_at": "2026-11-02T06:44:32+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Rams Takeaways: What We Learned From Win Over Chargers",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-analysis/153706/rams-chargers-takeaways-blake-corum-rb1"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott calls loss to Cardinals 'one of the toughest' in his career",
+   "summary": "Cowboys QB Dak Prescott called Dallas' 33-30 overtime loss to the Cardinals on Sunday \"one of the toughest\" in his career. Prescott discussed the loss and why he's confident the team can get on track.",
+   "published": "2026-11-02T00:40:11Z",
+   "published_at": "2026-11-02T00:40:11Z",
+   "first_seen_at": "2026-11-02T06:44:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Dak Prescott calls loss to Cardinals 'one of the toughest' in his career",
+     "url": "https://www.dallascowboys.com/news/dak-prescott-calls-loss-to-cardinals-one-of-the-toughest-in-his-career"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "From the Podium: Sean McVay and Matthew Stafford detail Rams' win over Chargers at SoFi Stadium",
+   "summary": "Head coach Sean McVay and quarterback Matthew Stafford talk about the Rams' resiliency to come away with a win over the Chargers at SoFi Stadium.",
+   "published": "2026-11-02T00:25:00Z",
+   "published_at": "2026-11-02T00:25:00Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "From the Podium: Sean McVay and Matthew Stafford detail Rams' win over Chargers at SoFi Stadium",
+     "url": "https://www.therams.com/news/from-the-podium-head-coach-sean-mcvay-quarterback-matthew-stafford-detail-rams-win-over-chargers-at-sofi-stadium-press-conference-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "T.J. Hockenson"
+   ],
+   "headline": "Jack Campbell injury updates: Detroit Lions LB to stay overnight hospital",
+   "summary": "The Detroit Lions’ Week 8 game against the Minnesota Vikings came to a screetching halt after the first play of the fourth quarter, when Lions All-Pro linebacker appeared to go limp when tackling Vikings tight end T.J. Hockenson. On the play, Campbell appeared to get bent awkwardly back. Campbell was down on the ground for […]",
+   "published": "2026-11-02T00:24:37Z",
+   "published_at": "2026-11-02T00:24:37Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "Jack Campbell injury updates: Detroit Lions LB to stay overnight hospital",
+     "url": "https://www.prideofdetroit.com/detroit-lions-injuries/179179/jack-campbell-injury-updates-detroit-lions-lb-carted-off"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones",
+    "Anthony Richardson"
+   ],
+   "headline": "‘Greatest Thief in NFL History,’ ‘Looks Worse and Worse Every Week’ — Calls Mount for Colts To ‘Bench’ Daniel Jones in Favor of Anthony Richardson Sr.",
+   "summary": "",
+   "published": "2026-11-02T00:15:29Z",
+   "published_at": "2026-11-02T00:15:29Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Greatest Thief in NFL History,’ ‘Looks Worse and Worse Every Week’ — Calls Mount for Colts To ‘Bench’ Daniel Jones in Favor of Anthony Richardson Sr.",
+     "url": "https://www.profootballnetwork.com/fans-bench-daniel-jones-colts-anthony-richardson"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Bucky Irving",
+    "Kenny Gainwell"
+   ],
+   "headline": "\"Lightning and Lightning\" Put On Historic Rushing Display",
+   "summary": "Bucky Irving and Kenny Gainwell became just the second duo in Bucs history to each top 100 rushing yards in the same game, joining the \"Lightning and Thunder\" pairing of Warrick Dunn and Mike Alstott exactly 28 yards after the first occurrence",
+   "published": "2026-11-02T00:00:00Z",
+   "published_at": "2026-11-02T00:00:00Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "\"Lightning and Lightning\" Put On Historic Rushing Display",
+     "url": "https://www.buccaneers.com/news/lightning-lightning-put-historic-rushing-display"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "Jets WR Adonai Mitchell Has Career Game in Loss to the Raiders",
+   "summary": "Geno Smith: ‘I Think AD had a Great Game’",
+   "published": "2026-11-01T23:57:00Z",
+   "published_at": "2026-11-01T23:57:00Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets WR Adonai Mitchell Has Career Game in Loss to the Raiders",
+     "url": "https://www.newyorkjets.com/news/adonai-mitchell-posts-career-game-in-loss-to-the-raiders-11-01-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Jalen Hurts",
+    "Jayden Daniels"
+   ],
+   "headline": "Eagles vs. Commanders NFL Week 8 picks, prediction, player props: Expert's best bets for Sunday Night Football",
+   "summary": "With Jalen Hurts sidelined and Tanner McKee stepping in, Washington has a prime opportunity to cover at home while Jayden Daniels makes plays with his legs",
+   "published": "2026-11-01T23:45:49Z",
+   "published_at": "2026-11-01T23:45:49Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Eagles vs. Commanders NFL Week 8 picks, prediction, player props: Expert's best bets for Sunday Night Football",
+     "url": "https://www.cbssports.com/betting/news/eagles-vs-commanders-nfl-week-8-picks-prediction-player-props-experts-best-bets-for-sunday-night-football"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Lamar Jackson Set for Surgery, Headed to Injured Reserve",
+   "summary": "Lamar Jackson is questionable to return after suffering a thumb injury on his first pass.",
+   "published": "2026-11-01T23:38:00Z",
+   "published_at": "2026-11-01T23:38:00Z",
+   "first_seen_at": "2026-11-02T06:44:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Lamar Jackson Set for Surgery, Headed to Injured Reserve",
+     "url": "https://www.baltimoreravens.com/news/lamar-jackson-thumb-injured-ravens-bills-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson",
+    "Tyler Huntley",
+    "Joe Fagnano"
+   ],
+   "headline": "Ravens Turn to Joe Fagnano After Lamar Jackson, Tyler Huntley Suffer Injuries",
+   "summary": "Undrafted rookie quarterback Joe Fagnano made his NFL debut in Buffalo.",
+   "published": "2026-11-01T23:36:00Z",
+   "published_at": "2026-11-01T23:36:00Z",
+   "first_seen_at": "2026-11-02T06:44:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Ravens Turn to Joe Fagnano After Lamar Jackson, Tyler Huntley Suffer Injuries",
+     "url": "https://www.baltimoreravens.com/news/joe-fagnano-tyler-huntley-injured-toe-questionable-emergency-quarterback"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Game Recap: Ravens Blown Out By Bills After Quarterback Injuries",
+   "summary": "Baltimore has lost three straight games and could be without Lamar Jackson for even more time.",
+   "published": "2026-11-01T23:34:00Z",
+   "published_at": "2026-11-01T23:34:00Z",
+   "first_seen_at": "2026-11-02T06:44:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Game Recap: Ravens Blown Out By Bills After Quarterback Injuries",
+     "url": "https://www.baltimoreravens.com/news/ravens-bills-blowout-week-8-lamar-jackson-tyler-huntley-joe-fagnano-injuries"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Mark Andrews"
+   ],
+   "headline": "‘Mark Andrews Should Retire,’ ‘Worst Starting TE’ — NFL Analysts, Fans Take Aim at Ravens’ Pro Bowler’s Performance vs. Bills",
+   "summary": "",
+   "published": "2026-11-01T23:25:50Z",
+   "published_at": "2026-11-01T23:25:50Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Mark Andrews Should Retire,’ ‘Worst Starting TE’ — NFL Analysts, Fans Take Aim at Ravens’ Pro Bowler’s Performance vs. Bills",
+     "url": "https://www.profootballnetwork.com/mark-andrews-nfl-analysts-fans-performance"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Harold Fannin Jr."
+   ],
+   "headline": "Harold Fannin Jr. records career-high 154 receiving yards | By the Numbers",
+   "summary": "Denzel Ward tallied his third interception of the season",
+   "published": "2026-11-01T23:25:03Z",
+   "published_at": "2026-11-01T23:25:03Z",
+   "first_seen_at": "2026-11-02T06:44:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Harold Fannin Jr. records career-high 154 receiving yards | By the Numbers",
+     "url": "https://www.clevelandbrowns.com/news/harold-fannin-jr-records-career-high-154-receiving-yards-by-the-numbers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Josh Jacobs",
+    "Jonathan Taylor"
+   ],
+   "headline": "‘Make a Push for Jonathan Taylor ASAP,’ ‘No Brainer’ — Calls Mount for Packers To Trade for Colts Star Amid Uncertainty Around Josh Jacobs’ Future",
+   "summary": "",
+   "published": "2026-11-01T23:07:39Z",
+   "published_at": "2026-11-01T23:07:39Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Make a Push for Jonathan Taylor ASAP,’ ‘No Brainer’ — Calls Mount for Packers To Trade for Colts Star Amid Uncertainty Around Josh Jacobs’ Future",
+     "url": "https://www.profootballnetwork.com/packers-fans-want-jonathan-taylor-trade"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Amon-Ra St. Brown"
+   ],
+   "headline": "‘This Is Awful Officiating,’ ‘What a Terrible Call’ — NFL Fans Rip Refs for Costing Lions WR Amon-Ra St. Brown a TD vs. Vikings",
+   "summary": "",
+   "published": "2026-11-01T23:03:04Z",
+   "published_at": "2026-11-01T23:03:04Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘This Is Awful Officiating,’ ‘What a Terrible Call’ — NFL Fans Rip Refs for Costing Lions WR Amon-Ra St. Brown a TD vs. Vikings",
+     "url": "https://www.profootballnetwork.com/nfl-fans-refs-lions-amon-ra-st-brown"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Kyler Murray"
+   ],
+   "headline": "‘Kyler Murray Is Absolutely Atrocious,’ ‘Lost Us This Game’ — Vikings Fans Call for Franchise To ‘Trade for a QB’ After Loss to Lions",
+   "summary": "",
+   "published": "2026-11-01T22:56:29Z",
+   "published_at": "2026-11-01T22:56:29Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Kyler Murray Is Absolutely Atrocious,’ ‘Lost Us This Game’ — Vikings Fans Call for Franchise To ‘Trade for a QB’ After Loss to Lions",
+     "url": "https://www.profootballnetwork.com/kyler-murray-atrocious-vikings-fans-loss-lions"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "‘Suspend Him Before He Seriously Injures Someone,’ ‘Vontaze Burfict All Over Again’ — Bills Fans Rip Ravens LB Roquan Smith Over Josh Allen Incident",
+   "summary": "",
+   "published": "2026-11-01T22:47:37Z",
+   "published_at": "2026-11-01T22:47:37Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Suspend Him Before He Seriously Injures Someone,’ ‘Vontaze Burfict All Over Again’ — Bills Fans Rip Ravens LB Roquan Smith Over Josh Allen Incident",
+     "url": "https://www.profootballnetwork.com/bills-fans-roquan-smith-hit-josh-allen"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Jonathan Taylor"
+   ],
+   "headline": "Colts RB Jonathan Taylor focused on 'embarrassing' loss to Jaguars, not swirling trade rumors",
+   "summary": "Taylor rushed eight times for 23 yards in the Colts' 35-point loss to the Jaguars on Sunday.",
+   "published": "2026-11-01T22:28:34Z",
+   "published_at": "2026-11-01T22:28:34Z",
+   "first_seen_at": "2026-11-02T06:44:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "IND official",
+     "title": "Colts RB Jonathan Taylor focused on 'embarrassing' loss to Jaguars, not swirling trade rumors",
+     "url": "https://www.colts.com/news/colts-rb-jonathan-taylor-focused-on-embarrassing-loss-to-jaguars-not-swirling-trade-rumors"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "Buccaneers' Next Game: Tampa Bay Gets Prime-Time Stage in Chicago",
+   "summary": "Following wins at Carolina and Atlanta that propelled the Bucs back into the NFC South race, they will now take on QB Caleb Williams and the Bears in Chicago on Sunday night in Week Eight",
+   "published": "2026-11-01T22:00:00Z",
+   "published_at": "2026-11-01T22:00:00Z",
+   "first_seen_at": "2026-11-02T06:44:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Buccaneers' Next Game: Tampa Bay Gets Prime-Time Stage in Chicago",
+     "url": "https://www.buccaneers.com/news/next-game-tampa-bay-buccaneers-vs-chicago-bears-nfl-season-week-9-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Lamar Jackson headed for injured reserve: Ravens QB to undergo surgery after injuring thumb vs. Bills",
+   "summary": "Jackson made his first start on Sunday after missing the last three games",
+   "published": "2026-11-01T21:59:54Z",
+   "published_at": "2026-11-01T21:59:54Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Lamar Jackson headed for injured reserve: Ravens QB to undergo surgery after injuring thumb vs. Bills",
+     "url": "https://www.cbssports.com/nfl/news/lamar-jackson-injury-updates-ravens-bills"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson",
+    "Tyler Huntley",
+    "Joe Fagnano"
+   ],
+   "headline": "Who is Ravens' Joe Fagnano? Baltimore turns to third QB after Lamar Jackson, Tyler Huntley injuries",
+   "summary": "Baltimore is down to its third-string quarterback, an undrafted rookie",
+   "published": "2026-11-01T21:54:23Z",
+   "published_at": "2026-11-01T21:54:23Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Who is Ravens' Joe Fagnano? Baltimore turns to third QB after Lamar Jackson, Tyler Huntley injuries",
+     "url": "https://www.cbssports.com/nfl/news/who-is-ravens-joe-fagnano-baltimore-quarterbacks-lamar-jackson"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Ashton Jeanty"
+   ],
+   "headline": "‘Clown Move,’ ‘Just Being Petty’ — NFL Fans Question Raiders HC Klint Kubiak’s Decision To Bench Ashton Jeanty for Controversial Comments on Jets",
+   "summary": "",
+   "published": "2026-11-01T21:53:52Z",
+   "published_at": "2026-11-01T21:53:52Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Clown Move,’ ‘Just Being Petty’ — NFL Fans Question Raiders HC Klint Kubiak’s Decision To Bench Ashton Jeanty for Controversial Comments on Jets",
+     "url": "https://www.profootballnetwork.com/fans-question-raiders-ashton-jeanty-benching"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Baker Mayfield, Buccaneers complete win against Falcons with statistics not seen since 1933",
+   "summary": "Tampa Bay quarterback Baker Mayfield didn't complete any of his three throws in a 16-0 win",
+   "published": "2026-11-01T21:48:37Z",
+   "published_at": "2026-11-01T21:48:37Z",
+   "first_seen_at": "2026-11-02T06:44:31+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Baker Mayfield, Buccaneers complete win against Falcons with statistics not seen since 1933",
+     "url": "https://www.cbssports.com/nfl/news/buccaneers-falcons-baker-mayfield-no-completions-nfl-history"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 49,
+ "outlets_unique": 18,
+ "feeds_generated_at": "2026-11-02T06:44:27+00:00"
+}
