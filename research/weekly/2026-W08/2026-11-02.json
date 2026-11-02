@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-02T02:37:37Z",
+  "generated_at": "2026-11-02T06:44:01Z",
   "season": 2026,
   "week": 8,
   "schedule": {
     "games": 14,
     "from": "2026-10-29",
     "to": "2026-11-02",
-    "played": 12,
+    "played": 13,
     "kickoffs": [
       "13:00",
       "16:05",
@@ -16,10 +16,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-11-02T02:37:37Z",
+    "research_as_of": "2026-11-02T06:44:01Z",
     "injuries_as_of": "week 8",
     "roster_as_of": "2026-11-01T14:17:53Z",
-    "schedule_as_of": "2026-11-02T02:35:15Z"
+    "schedule_as_of": "2026-11-02T06:35:17Z"
   },
   "injury_report": {
     "status": "PUBLISHED",
