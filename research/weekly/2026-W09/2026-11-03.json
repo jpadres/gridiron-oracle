@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T07:11:10Z",
+  "generated_at": "2026-11-03T15:27:01Z",
   "season": 2026,
   "week": 9,
   "schedule": {
@@ -17,10 +17,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-11-03T07:11:10Z",
+    "research_as_of": "2026-11-03T15:27:01Z",
     "injuries_as_of": "NOT_PUBLISHED_YET",
-    "roster_as_of": "2026-11-03T07:02:59Z",
-    "schedule_as_of": "2026-11-03T06:45:18Z"
+    "roster_as_of": "2026-11-03T15:06:06Z",
+    "schedule_as_of": "2026-11-03T15:15:19Z"
   },
   "injury_report": {
     "status": "NOT_PUBLISHED_YET",
@@ -31,7 +31,7 @@
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-11-03T07:02:07Z",
+    "effective_at": "2026-11-03T14:59:52Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -276,6 +276,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Quenton Nelson",
+        "team": "SEA",
+        "position": "G",
+        "snap_pct": 1.0,
+        "snap_pct_prev": null,
+        "delta": null,
+        "sample_games": 1,
+        "as_of_week": 8
+      },
+      {
         "player": "Tylan Grable",
         "team": "BUF",
         "position": "T",
@@ -292,6 +302,16 @@
         "snap_pct": 1.0,
         "snap_pct_prev": 0.07,
         "delta": 0.93,
+        "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Josh Jones",
+        "team": "SEA",
+        "position": "G",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 0.19,
+        "delta": 0.81,
         "sample_games": 7,
         "as_of_week": 8
       },
@@ -516,6 +536,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Zach Charbonnet",
+        "team": "SEA",
+        "position": "RB",
+        "snap_pct": 0.37,
+        "snap_pct_prev": null,
+        "delta": null,
+        "sample_games": 1,
+        "as_of_week": 8
+      },
+      {
         "player": "Elijah Mitchell",
         "team": "PHI",
         "position": "RB",
@@ -586,6 +616,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Sam Roush",
+        "team": "CHI",
+        "position": "TE",
+        "snap_pct": 0.53,
+        "snap_pct_prev": 0.2,
+        "delta": 0.33,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Brian Thomas",
         "team": "JAX",
         "position": "WR",
@@ -623,6 +663,26 @@
         "snap_pct_prev": 0.02,
         "delta": 0.29,
         "sample_games": 4,
+        "as_of_week": 8
+      },
+      {
+        "player": "Theo Benedet",
+        "team": "CHI",
+        "position": "OL",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 0.72,
+        "delta": 0.28,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Cooper Kupp",
+        "team": "SEA",
+        "position": "WR",
+        "snap_pct": 0.92,
+        "snap_pct_prev": 0.65,
+        "delta": 0.27,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -716,6 +776,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Tory Horton",
+        "team": "SEA",
+        "position": "WR",
+        "snap_pct": 0.68,
+        "snap_pct_prev": 0.45,
+        "delta": 0.23,
+        "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
         "player": "DeeJay Dallas",
         "team": "MIN",
         "position": "RB",
@@ -806,6 +876,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Jadarian Price",
+        "team": "SEA",
+        "position": "RB",
+        "snap_pct": 0.48,
+        "snap_pct_prev": 0.28,
+        "delta": 0.2,
+        "sample_games": 4,
+        "as_of_week": 8
+      },
+      {
         "player": "Jalen Coker",
         "team": "CAR",
         "position": "WR",
@@ -813,6 +893,16 @@
         "snap_pct_prev": 0.66,
         "delta": 0.2,
         "sample_games": 6,
+        "as_of_week": 8
+      },
+      {
+        "player": "Jaxon Smith-Njigba",
+        "team": "SEA",
+        "position": "WR",
+        "snap_pct": 0.97,
+        "snap_pct_prev": 0.77,
+        "delta": 0.2,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -976,6 +1066,16 @@
         "as_of_week": 8
       },
       {
+        "player": "AJ Barner",
+        "team": "SEA",
+        "position": "TE",
+        "snap_pct": 0.95,
+        "snap_pct_prev": 0.8,
+        "delta": 0.15,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Aaron Jones",
         "team": "MIN",
         "position": "RB",
@@ -1063,6 +1163,16 @@
         "snap_pct_prev": 0.22,
         "delta": 0.14,
         "sample_games": 3,
+        "as_of_week": 8
+      },
+      {
+        "player": "Stephen Carlson",
+        "team": "CHI",
+        "position": "TE",
+        "snap_pct": 0.14,
+        "snap_pct_prev": null,
+        "delta": null,
+        "sample_games": 1,
         "as_of_week": 8
       },
       {
@@ -1186,6 +1296,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Zavion Thomas",
+        "team": "CHI",
+        "position": "WR",
+        "snap_pct": 0.19,
+        "snap_pct_prev": 0.07,
+        "delta": 0.12,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Chuma Edoga",
         "team": "BAL",
         "position": "T",
@@ -1301,6 +1421,16 @@
         "position": "WR",
         "snap_pct": 0.82,
         "snap_pct_prev": 0.73,
+        "delta": 0.09,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Colston Loveland",
+        "team": "CHI",
+        "position": "TE",
+        "snap_pct": 0.93,
+        "snap_pct_prev": 0.84,
         "delta": 0.09,
         "sample_games": 8,
         "as_of_week": 8
@@ -1621,6 +1751,16 @@
         "position": "FB",
         "snap_pct": 0.12,
         "snap_pct_prev": 0.06,
+        "delta": 0.06,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Roschon Johnson",
+        "team": "CHI",
+        "position": "RB",
+        "snap_pct": 0.2,
+        "snap_pct_prev": 0.14,
         "delta": 0.06,
         "sample_games": 8,
         "as_of_week": 8
@@ -1956,6 +2096,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Jahdae Walker",
+        "team": "CHI",
+        "position": "WR",
+        "snap_pct": 0.07,
+        "snap_pct_prev": 0.04,
+        "delta": 0.03,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Jaleel McLaughlin",
         "team": "CLE",
         "position": "RB",
@@ -2286,6 +2436,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Olusegun Oluwatimi",
+        "team": "SEA",
+        "position": "C",
+        "snap_pct": 0.02,
+        "snap_pct_prev": 0.01,
+        "delta": 0.01,
+        "sample_games": 4,
+        "as_of_week": 8
+      },
+      {
         "player": "Pierre Strong",
         "team": "GB",
         "position": "RB",
@@ -2413,6 +2573,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Abraham Lucas",
+        "team": "SEA",
+        "position": "T",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -2856,6 +3026,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Austin Booker",
+        "team": "CHI",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Austin Jackson",
         "team": "MIA",
         "position": "T",
@@ -2883,6 +3063,16 @@
         "snap_pct_prev": 1.0,
         "delta": 0.0,
         "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Avery Smith",
+        "team": "SEA",
+        "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 5,
         "as_of_week": 8
       },
       {
@@ -3376,6 +3566,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Byron Murphy",
+        "team": "SEA",
+        "position": "NT",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 2,
+        "as_of_week": 8
+      },
+      {
         "player": "Byron Young",
         "team": "LAR",
         "position": "LB",
@@ -3436,6 +3636,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Cairo Santos",
+        "team": "CHI",
+        "position": "K",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Calais Campbell",
         "team": "BAL",
         "position": "DL",
@@ -3473,6 +3683,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 4,
+        "as_of_week": 8
+      },
+      {
+        "player": "Caleb Williams",
+        "team": "CHI",
+        "position": "QB",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 5,
         "as_of_week": 8
       },
       {
@@ -3553,6 +3773,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Cameron Lewis",
+        "team": "CHI",
+        "position": "DB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 7,
         "as_of_week": 8
       },
       {
@@ -3776,6 +4006,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Chazz Surratt",
+        "team": "SEA",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 4,
+        "as_of_week": 8
+      },
+      {
         "player": "Chidobe Awuzie",
         "team": "BAL",
         "position": "CB",
@@ -3853,6 +4093,16 @@
         "snap_pct_prev": 1.0,
         "delta": 0.0,
         "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Chris Stoll",
+        "team": "SEA",
+        "position": "LS",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -3996,6 +4246,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Clark Phillips",
+        "team": "CHI",
+        "position": "DB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 6,
+        "as_of_week": 8
+      },
+      {
         "player": "Cobie Durant",
         "team": "DAL",
         "position": "CB",
@@ -4086,6 +4346,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Connor O'Toole",
+        "team": "SEA",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 5,
+        "as_of_week": 8
+      },
+      {
         "player": "Cooper Beebe",
         "team": "DAL",
         "position": "C",
@@ -4173,6 +4443,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 6,
+        "as_of_week": 8
+      },
+      {
+        "player": "D'Marco Jackson",
+        "team": "CHI",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -4366,6 +4646,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Daniel Hardy",
+        "team": "CHI",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Daniel Thomas",
         "team": "CLE",
         "position": "S",
@@ -4393,6 +4683,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Dante Fowler",
+        "team": "SEA",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -4441,6 +4741,16 @@
         "position": "DL",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Darnell Wright",
+        "team": "CHI",
+        "position": "OL",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
         "delta": 0.0,
         "sample_games": 8,
         "as_of_week": 8
@@ -4529,6 +4839,16 @@
         "player": "DeMarcco Hellams",
         "team": "ATL",
         "position": "S",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "DeMarcus Lawrence",
+        "team": "SEA",
+        "position": "LB",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
         "delta": 0.0,
@@ -4686,6 +5006,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Derick Hall",
+        "team": "SEA",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Derrick Barnes",
         "team": "DET",
         "position": "LB",
@@ -4716,6 +5046,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Devin Bush Jr.",
+        "team": "CHI",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Devin Lloyd",
         "team": "CAR",
         "position": "LB",
@@ -4729,6 +5069,16 @@
         "player": "Devon Key",
         "team": "DEN",
         "position": "DB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Devon Witherspoon",
+        "team": "SEA",
+        "position": "CB",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
         "delta": 0.0,
@@ -4753,6 +5103,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Dillon Thieneman",
+        "team": "CHI",
+        "position": "DB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -4823,6 +5183,16 @@
         "snap_pct_prev": 1.0,
         "delta": 0.0,
         "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Drake Thomas",
+        "team": "SEA",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 6,
         "as_of_week": 8
       },
       {
@@ -4923,6 +5293,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 5,
+        "as_of_week": 8
+      },
+      {
+        "player": "Elijah Hicks",
+        "team": "CHI",
+        "position": "DB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -5066,6 +5446,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Ernest Jones",
+        "team": "SEA",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Ethan Burke",
         "team": "BAL",
         "position": "LB",
@@ -5206,6 +5596,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Garrett Bradbury",
+        "team": "CHI",
+        "position": "OL",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Garrett Williams",
         "team": "ARI",
         "position": "CB",
@@ -5276,6 +5676,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Grady Jarrett",
+        "team": "CHI",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Graham Barton",
         "team": "TB",
         "position": "C",
@@ -5313,6 +5723,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Grey Zabel",
+        "team": "SEA",
+        "position": "G",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -5423,6 +5843,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Irvin Charles",
+        "team": "SEA",
+        "position": "WR",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 3,
         "as_of_week": 8
       },
       {
@@ -5613,6 +6043,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 2,
+        "as_of_week": 8
+      },
+      {
+        "player": "Jack Sanborn",
+        "team": "CHI",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 7,
         "as_of_week": 8
       },
       {
@@ -5926,6 +6366,16 @@
         "as_of_week": 8
       },
       {
+        "player": "James Lynch",
+        "team": "CHI",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
         "player": "James Pierre",
         "team": "MIN",
         "position": "CB",
@@ -6026,6 +6476,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Jarran Reed",
+        "team": "SEA",
+        "position": "DE",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
         "player": "Jarrian Jones",
         "team": "JAX",
         "position": "CB",
@@ -6053,6 +6513,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Jason Myers",
+        "team": "SEA",
+        "position": "K",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -6186,6 +6656,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Jaylon Johnson",
+        "team": "CHI",
+        "position": "DB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Jaylon Jones",
         "team": "JAX",
         "position": "CB",
@@ -6203,6 +6683,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 4,
+        "as_of_week": 8
+      },
+      {
+        "player": "Jeffery Simmons",
+        "team": "CHI",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": null,
+        "delta": null,
+        "sample_games": 1,
         "as_of_week": 8
       },
       {
@@ -6336,6 +6826,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Joe Thuney",
+        "team": "CHI",
+        "position": "OL",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Joe Tippmann",
         "team": "NYJ",
         "position": "C",
@@ -6403,6 +6903,16 @@
         "snap_pct_prev": null,
         "delta": null,
         "sample_games": 1,
+        "as_of_week": 8
+      },
+      {
+        "player": "Jonah Jackson",
+        "team": "CHI",
+        "position": "OL",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -6586,6 +7096,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Josh Blackwell",
+        "team": "CHI",
+        "position": "DB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Josh Conerly",
         "team": "WAS",
         "position": "T",
@@ -6613,6 +7133,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Josh Jobe",
+        "team": "SEA",
+        "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -6773,6 +7303,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Julian Love",
+        "team": "SEA",
+        "position": "S",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 7,
         "as_of_week": 8
       },
       {
@@ -7156,6 +7696,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Kentavius Street",
+        "team": "CHI",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Keondre Jackson",
         "team": "BAL",
         "position": "S",
@@ -7223,6 +7773,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Keyshaun Elliott",
+        "team": "CHI",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 6,
         "as_of_week": 8
       },
       {
@@ -7406,6 +7966,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Kyler Gordon",
+        "team": "CHI",
+        "position": "DB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 3,
+        "as_of_week": 8
+      },
+      {
         "player": "Kyler Murray",
         "team": "MIN",
         "position": "QB",
@@ -7536,6 +8106,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Leonard Williams",
+        "team": "SEA",
+        "position": "DT",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Levi Drake Rodriguez",
         "team": "MIN",
         "position": "DL",
@@ -7573,6 +8153,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Logan Jones",
+        "team": "CHI",
+        "position": "OL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -8096,6 +8686,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Michael Dickson",
+        "team": "SEA",
+        "position": "P",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Michael Hall",
         "team": "CLE",
         "position": "DT",
@@ -8196,6 +8796,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Mike Morris",
+        "team": "SEA",
+        "position": "DE",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 6,
+        "as_of_week": 8
+      },
+      {
         "player": "Mike Sainristil",
         "team": "WAS",
         "position": "CB",
@@ -8273,6 +8883,26 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 5,
+        "as_of_week": 8
+      },
+      {
+        "player": "Montez Sweat",
+        "team": "CHI",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 6,
+        "as_of_week": 8
+      },
+      {
+        "player": "Montorie Foster",
+        "team": "SEA",
+        "position": "WR",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 2,
         "as_of_week": 8
       },
       {
@@ -8386,6 +9016,26 @@
         "as_of_week": 8
       },
       {
+        "player": "Nehemiah Pritchett",
+        "team": "SEA",
+        "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Neville Gallimore",
+        "team": "CHI",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Nick Barrett",
         "team": "LAC",
         "position": "DL",
@@ -8413,6 +9063,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 4,
+        "as_of_week": 8
+      },
+      {
+        "player": "Nick Emmanwori",
+        "team": "SEA",
+        "position": "S",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 7,
         "as_of_week": 8
       },
       {
@@ -8503,6 +9163,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 6,
+        "as_of_week": 8
+      },
+      {
+        "player": "Noah Sewell",
+        "team": "CHI",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 3,
         "as_of_week": 8
       },
       {
@@ -8663,6 +9333,16 @@
         "snap_pct_prev": 1.0,
         "delta": 0.0,
         "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Patrick O'Connell",
+        "team": "SEA",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -9076,6 +9756,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Rodney Thomas II",
+        "team": "SEA",
+        "position": "S",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Roger McCreary",
         "team": "DET",
         "position": "CB",
@@ -9236,11 +9926,31 @@
         "as_of_week": 8
       },
       {
+        "player": "Rylie Mills",
+        "team": "SEA",
+        "position": "DT",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
         "player": "Sai'vion Jones",
         "team": "DEN",
         "position": "DE",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Sam Darnold",
+        "team": "SEA",
+        "position": "QB",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
         "delta": 0.0,
         "sample_games": 7,
         "as_of_week": 8
@@ -9306,6 +10016,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Scott Daly",
+        "team": "CHI",
+        "position": "LS",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 6,
+        "as_of_week": 8
+      },
+      {
         "player": "Sean Murphy-Bunting",
         "team": "PIT",
         "position": "CB",
@@ -9366,6 +10086,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Shemar Turner",
+        "team": "CHI",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 3,
+        "as_of_week": 8
+      },
+      {
         "player": "Shy Tuttle",
         "team": "WAS",
         "position": "DT",
@@ -9383,6 +10113,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Skyler Thomas",
+        "team": "CHI",
+        "position": "DB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -9463,6 +10203,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "T.J. Edwards",
+        "team": "CHI",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 6,
         "as_of_week": 8
       },
       {
@@ -9816,6 +10566,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Tory Taylor",
+        "team": "CHI",
+        "position": "P",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Travis Burke",
         "team": "LAC",
         "position": "T",
@@ -10066,6 +10826,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Ty Okada",
+        "team": "SEA",
+        "position": "S",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 4,
+        "as_of_week": 8
+      },
+      {
         "player": "Ty Robinson",
         "team": "PHI",
         "position": "DT",
@@ -10236,9 +11006,29 @@
         "as_of_week": 8
       },
       {
+        "player": "Tyrice Knight",
+        "team": "SEA",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Tyrion Ingram-Dawkins",
         "team": "MIN",
         "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Tyrique Stevenson",
+        "team": "CHI",
+        "position": "DB",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
         "delta": 0.0,
@@ -10566,6 +11356,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Zavier Scott",
+        "team": "CHI",
+        "position": "RB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 4,
+        "as_of_week": 8
+      },
+      {
         "player": "Zayne Anderson",
         "team": "MIA",
         "position": "S",
@@ -10696,6 +11496,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Kalif Raymond",
+        "team": "CHI",
+        "position": "WR",
+        "snap_pct": 0.69,
+        "snap_pct_prev": 0.7,
+        "delta": -0.01,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Kameron Johnson",
         "team": "TB",
         "position": "WR",
@@ -10773,6 +11583,16 @@
         "snap_pct_prev": 0.09,
         "delta": -0.02,
         "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "Jalen Sundell",
+        "team": "SEA",
+        "position": "C",
+        "snap_pct": 0.98,
+        "snap_pct_prev": 1.0,
+        "delta": -0.02,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -10863,6 +11683,16 @@
         "snap_pct_prev": 0.05,
         "delta": -0.03,
         "sample_games": 6,
+        "as_of_week": 8
+      },
+      {
+        "player": "Luke Newman",
+        "team": "CHI",
+        "position": "OL",
+        "snap_pct": 0.01,
+        "snap_pct_prev": 0.04,
+        "delta": -0.03,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -11021,6 +11851,26 @@
         "position": "WR",
         "snap_pct": 0.7,
         "snap_pct_prev": 0.74,
+        "delta": -0.04,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Luther Burden",
+        "team": "CHI",
+        "position": "WR",
+        "snap_pct": 0.57,
+        "snap_pct_prev": 0.61,
+        "delta": -0.04,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Rome Odunze",
+        "team": "CHI",
+        "position": "WR",
+        "snap_pct": 0.9,
+        "snap_pct_prev": 0.94,
         "delta": -0.04,
         "sample_games": 8,
         "as_of_week": 8
@@ -11436,6 +12286,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Eric Saubert",
+        "team": "SEA",
+        "position": "TE",
+        "snap_pct": 0.24,
+        "snap_pct_prev": 0.32,
+        "delta": -0.08,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Gavin Bartholomew",
         "team": "MIN",
         "position": "TE",
@@ -11551,6 +12411,16 @@
         "position": "WR",
         "snap_pct": 0.17,
         "snap_pct_prev": 0.26,
+        "delta": -0.09,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "D'Andre Swift",
+        "team": "CHI",
+        "position": "RB",
+        "snap_pct": 0.77,
+        "snap_pct_prev": 0.86,
         "delta": -0.09,
         "sample_games": 8,
         "as_of_week": 8
@@ -11856,6 +12726,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Brady Russell",
+        "team": "SEA",
+        "position": "FB",
+        "snap_pct": 0.16,
+        "snap_pct_prev": 0.32,
+        "delta": -0.16,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
         "player": "Drew Sample",
         "team": "CIN",
         "position": "TE",
@@ -11933,6 +12813,16 @@
         "snap_pct_prev": 1.0,
         "delta": -0.19,
         "sample_games": 7,
+        "as_of_week": 8
+      },
+      {
+        "player": "George Holani",
+        "team": "SEA",
+        "position": "RB",
+        "snap_pct": 0.17,
+        "snap_pct_prev": 0.36,
+        "delta": -0.19,
+        "sample_games": 8,
         "as_of_week": 8
       },
       {
@@ -12156,6 +13046,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Ozzy Trapilo",
+        "team": "CHI",
+        "position": "OL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.28,
+        "delta": -0.28,
+        "sample_games": 3,
+        "as_of_week": 8
+      },
+      {
         "player": "Tre Tucker",
         "team": "LV",
         "position": "WR",
@@ -12236,6 +13136,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Nick Kallerup",
+        "team": "SEA",
+        "position": "TE",
+        "snap_pct": 0.06,
+        "snap_pct_prev": 0.38,
+        "delta": -0.32,
+        "sample_games": 5,
+        "as_of_week": 8
+      },
+      {
         "player": "Dawand Jones",
         "team": "CLE",
         "position": "T",
@@ -12302,6 +13212,16 @@
         "snap_pct": 0.55,
         "snap_pct_prev": 1.0,
         "delta": -0.45,
+        "sample_games": 8,
+        "as_of_week": 8
+      },
+      {
+        "player": "Emanuel Wilson",
+        "team": "SEA",
+        "position": "RB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.48,
+        "delta": -0.48,
         "sample_games": 8,
         "as_of_week": 8
       },
@@ -12396,6 +13316,16 @@
         "as_of_week": 8
       },
       {
+        "player": "Anthony Bradford",
+        "team": "SEA",
+        "position": "G",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 1.0,
+        "delta": -1.0,
+        "sample_games": 3,
+        "as_of_week": 8
+      },
+      {
         "player": "Benjamin Chukwuma",
         "team": "TB",
         "position": "T",
@@ -12425,23 +13355,23 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-03T07:01:10Z",
+      "retrieved_at": "2026-11-03T14:59:31Z",
       "status": "OK",
       "rows": 2459
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-03T07:02:16Z",
+      "retrieved_at": "2026-11-03T15:00:03Z",
       "status": "OK",
-      "rows": 738160
+      "rows": 740485
     },
     {
       "source": "snap_counts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-02T12:09:04Z",
+      "retrieved_at": "2026-11-03T12:01:36Z",
       "status": "OK",
-      "rows": 11199
+      "rows": 11292
     },
     {
       "source": "press_feeds",
