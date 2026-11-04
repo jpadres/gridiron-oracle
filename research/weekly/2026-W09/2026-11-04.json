@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T01:37:01Z",
+  "generated_at": "2026-11-04T07:58:05Z",
   "season": 2026,
   "week": 9,
   "schedule": {
@@ -17,22 +17,310 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-11-04T01:37:01Z",
-    "injuries_as_of": "NOT_PUBLISHED_YET",
-    "roster_as_of": "2026-11-03T15:06:06Z",
-    "schedule_as_of": "2026-11-04T01:15:16Z"
+    "research_as_of": "2026-11-04T07:58:05Z",
+    "injuries_as_of": "week 9 PARTIAL · 2 of 30 clubs filed",
+    "roster_as_of": "2026-11-04T07:03:19Z",
+    "schedule_as_of": "2026-11-04T07:35:17Z"
   },
   "injury_report": {
-    "status": "NOT_PUBLISHED_YET",
+    "status": "PARTIALLY_FILED",
     "week": 9,
-    "rows": [],
-    "last_published_week": 8,
-    "note": "clubs file the week's report from Wednesday on; the previous week's designation is NOT carried forward as if it were this week's"
+    "rows": [
+      {
+        "team": "BAL",
+        "gsis_id": "00-0026190",
+        "full_name": "Calais Campbell",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0030070",
+        "full_name": "John Jenkins",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0032965",
+        "full_name": "Ronnie Stanley",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0033935",
+        "full_name": "Trey Hendrickson",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0034753",
+        "full_name": "Mark Andrews",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0034796",
+        "full_name": "Lamar Jackson",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0034874",
+        "full_name": "Roquan Smith",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0034975",
+        "full_name": "Justice Hill",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0035993",
+        "full_name": "Tyler Huntley",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0036302",
+        "full_name": "Jaylinn Hawkins",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0036369",
+        "full_name": "John Simpson",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0039232",
+        "full_name": "Nate Wiggins",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0039233",
+        "full_name": "Roger Rosengarten",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0040074",
+        "full_name": "Tyler Loop",
+        "position": "K",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0040866",
+        "full_name": "Olaivavega Ioane",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0040879",
+        "full_name": "Matthew Hibner",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0040888",
+        "full_name": "Adam Randall",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0040981",
+        "full_name": "Joe Fagnano",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0033038",
+        "full_name": "Eric Murray",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0034960",
+        "full_name": "Jakobi Meyers",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0036262",
+        "full_name": "DaVon Hamilton",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0036327",
+        "full_name": "Ezra Cleveland",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0037235",
+        "full_name": "Travon Walker",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0038596",
+        "full_name": "Antonio Johnson",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0038611",
+        "full_name": "Chris Rodriguez Jr.",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0039353",
+        "full_name": "Jarrian Jones",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0040326",
+        "full_name": "Branson Combs",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "JAX",
+        "gsis_id": "00-0040719",
+        "full_name": "Bhayshul Tuten",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      }
+    ],
+    "teams": 2,
+    "teams_filed": [
+      "BAL",
+      "JAX"
+    ],
+    "teams_expected": 30,
+    "teams_pending": [
+      "ARI",
+      "ATL",
+      "BUF",
+      "CAR",
+      "CHI",
+      "CIN",
+      "CLE",
+      "DAL",
+      "DEN",
+      "DET",
+      "GB",
+      "HOU",
+      "IND",
+      "KC",
+      "LAC",
+      "LAR",
+      "LV",
+      "MIA",
+      "MIN",
+      "NE",
+      "NO",
+      "NYG",
+      "NYJ",
+      "PHI",
+      "SEA",
+      "SF",
+      "TB",
+      "WAS"
+    ],
+    "with_designation": 0
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-11-03T14:59:52Z",
-    "teams": 32,
+    "effective_at": "2026-11-04T07:01:51Z",
+    "teams": 31,
     "kickers": {
       "ARI": {
         "player_id": "00-0038567",
@@ -165,12 +453,6 @@
       "NE": {
         "player_id": "00-0040200",
         "player_name": "Andy Borregales",
-        "contested": false,
-        "competition": []
-      },
-      "NO": {
-        "player_id": "00-0034161",
-        "player_name": "Daniel Carlson",
         "contested": false,
         "competition": []
       },
@@ -13355,16 +13637,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-03T14:59:31Z",
+      "retrieved_at": "2026-11-04T07:01:18Z",
       "status": "OK",
-      "rows": 2459
+      "rows": 2487
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-03T15:00:03Z",
+      "retrieved_at": "2026-11-04T07:02:01Z",
       "status": "OK",
-      "rows": 740485
+      "rows": 742804
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -13383,15 +13665,133 @@
     }
   ],
   "unknowns": [
-    "official injury report for week 9: NOT_PUBLISHED_YET",
+    "official injury report for week 9: 28 of 30 clubs have not filed yet (ARI, ATL, BUF, CAR, CHI, CIN, CLE, DAL, DEN, DET, GB, HOU, IND, KC, LAC, LAR, LV, MIA, MIN, NE, NO, NYG, NYJ, PHI, SEA, SF, TB, WAS) — no designation for their players means NOT REPORTED, not healthy",
     "route participation: nflverse does not publish per-player routes in this dataset, so role is measured by snap share and targets, not routes",
     "press, unofficial depth charts and transactions: SOURCE UNAVAILABLE from this environment"
   ],
   "diff": {
     "against": "2026-11-03.json",
-    "new": [],
+    "new": [
+      {
+        "key": "BAL:Calais Campbell",
+        "now": "None"
+      },
+      {
+        "key": "BAL:John Jenkins",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Ronnie Stanley",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Trey Hendrickson",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Mark Andrews",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Lamar Jackson",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Roquan Smith",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Justice Hill",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Tyler Huntley",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Jaylinn Hawkins",
+        "now": "None"
+      },
+      {
+        "key": "BAL:John Simpson",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Nate Wiggins",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Roger Rosengarten",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Tyler Loop",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Olaivavega Ioane",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Matthew Hibner",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Adam Randall",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Joe Fagnano",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Eric Murray",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Jakobi Meyers",
+        "now": "None"
+      },
+      {
+        "key": "JAX:DaVon Hamilton",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Ezra Cleveland",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Travon Walker",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Antonio Johnson",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Chris Rodriguez Jr.",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Jarrian Jones",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Branson Combs",
+        "now": "None"
+      },
+      {
+        "key": "JAX:Bhayshul Tuten",
+        "now": "None"
+      }
+    ],
     "changed": [],
-    "removed": [],
-    "unchanged": 32
+    "removed": [
+      {
+        "key": "K:NO",
+        "was": "Daniel Carlson"
+      }
+    ],
+    "unchanged": 31
   }
 }
