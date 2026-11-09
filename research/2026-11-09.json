@@ -1,0 +1,1347 @@
+{
+ "date": "2026-11-09",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Shedeur Sanders"
+   ],
+   "headline": "‘You’d Be Doing Him a Favor’ — Browns Analysts Make Case for Cleveland To Trade Shedeur Sanders Despite QB’s Heroics vs",
+   "summary": "",
+   "published": "2026-11-09T06:41:04Z",
+   "published_at": "2026-11-09T06:41:04Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘You’d Be Doing Him a Favor’ — Browns Analysts Make Case for Cleveland To Trade Shedeur Sanders Despite QB’s Heroics vs",
+     "url": "https://www.profootballnetwork.com/browns-analysts-cleveland-trade-shedeur-sanders-week-9"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "Bucs Rally But Fall to Bears in Turnover-Riddled Prime-Time Affair",
+   "summary": "Despite intercepting MVP candidate Caleb Williams four times, winning the ground-game battle and throwing for a season-high 226 net passing yards, the Buccaneers lost on Sunday night in Chicago, 27-24 thanks in part to their own miscues",
+   "published": "2026-11-09T05:45:00Z",
+   "published_at": "2026-11-09T05:45:00Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Bucs Rally But Fall to Bears in Turnover-Riddled Prime-Time Affair",
+     "url": "https://www.buccaneers.com/news/bucs-bears-week-9-recap-postgame-report-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "‘Falling Head Over Heels for Caleb Williams,’ ‘(Patrick) Mahomes Is Jealous’ — NFL World Pokes Fun at Cris Collinsworth’s Praise of Bears QB",
+   "summary": "",
+   "published": "2026-11-09T05:14:31Z",
+   "published_at": "2026-11-09T05:14:31Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Falling Head Over Heels for Caleb Williams,’ ‘(Patrick) Mahomes Is Jealous’ — NFL World Pokes Fun at Cris Collinsworth’s Praise of Bears QB",
+     "url": "https://www.profootballnetwork.com/cris-collinsworth-caleb-williams-mahomes"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Christian Watson"
+   ],
+   "headline": "Christian Watson blows up for 171 yards, TD in Week 9",
+   "summary": "Green Bay Packers wide receiver Christian Watson posted seven receptions for 171 yards and a touchdown on eight targets in Week 9",
+   "published": "2026-11-09T05:00:51Z",
+   "published_at": "2026-11-09T05:00:51Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Christian Watson blows up for 171 yards, TD in Week 9",
+     "url": "https://sports.yahoo.com/articles/christian-watson-blows-171-yards-050051056.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Rhamondre Stevenson"
+   ],
+   "headline": "Rhamondre Stevenson suffers knee injury in Week 9",
+   "summary": "New England Patriots RB Rhamondre Stevenson scores before leaving eek 9 contest wit knee issue",
+   "published": "2026-11-09T04:56:03Z",
+   "published_at": "2026-11-09T04:56:03Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Rhamondre Stevenson suffers knee injury in Week 9",
+     "url": "https://sports.yahoo.com/articles/rhamondre-stevenson-suffers-knee-injury-045603506.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "‘Makes No Sense,’ ‘Never Seen a Franchise Implode Like This’ — NFL World Baffled by Colts’ Stance on Daniel Jones Ahead of Trade Deadline",
+   "summary": "",
+   "published": "2026-11-09T04:55:45Z",
+   "published_at": "2026-11-09T04:55:45Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Makes No Sense,’ ‘Never Seen a Franchise Implode Like This’ — NFL World Baffled by Colts’ Stance on Daniel Jones Ahead of Trade Deadline",
+     "url": "https://www.profootballnetwork.com/nfl-world-baffled-colts-daniel-jones-trade-deadline-stance"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TEN",
+   "players": [
+    "Calvin Ridley"
+   ],
+   "headline": "Titans' Calvin Ridley involved in 'incident' at Nashville International Airport, per report",
+   "summary": "Ridley has been the subject of trade rumors in recent weeks",
+   "published": "2026-11-09T04:55:07Z",
+   "published_at": "2026-11-09T04:55:07Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Titans' Calvin Ridley involved in 'incident' at Nashville International Airport, per report",
+     "url": "https://www.cbssports.com/nfl/news/titans-calvin-ridley-involved-in-incident-nashville-airport"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "Sunday Night Football: Bears overcome five giveaways, beat Bucs 27-24",
+   "summary": "Caleb Williams threw four interceptions, but the Buccaneers could not capitalize on the opportunities enough to win.",
+   "published": "2026-11-09T04:53:49Z",
+   "published_at": "2026-11-09T04:53:49Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Sunday Night Football: Bears overcome five giveaways, beat Bucs 27-24",
+     "url": "https://sports.yahoo.com/articles/sunday-night-football-bears-overcome-045349340.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Mixed results for Drake Maye against Packers",
+   "summary": "New England Patriots QB Drake Maye sloppy in Week 9 loss to Green Bay",
+   "published": "2026-11-09T04:48:42Z",
+   "published_at": "2026-11-09T04:48:42Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Mixed results for Drake Maye against Packers",
+     "url": "https://sports.yahoo.com/articles/mixed-results-drake-maye-against-044842569.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "Caleb Williams' suboptimal SNF performance might have doomed his MVP hopes",
+   "summary": "The Chicago Bears pulled out a \"Sunday Night Football\" win over the Tampa Bay Buccaneers, despite four interceptions from Caleb Williams.",
+   "published": "2026-11-09T04:48:07Z",
+   "published_at": "2026-11-09T04:48:07Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Caleb Williams' suboptimal SNF performance might have doomed his MVP hopes",
+     "url": "https://sports.yahoo.com/articles/caleb-williams-suboptimal-snf-performance-044807610.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "‘I Don’t Know How Many More Hits He Can Take’ — CBS Sideline Reporter Outlines How Chargers Are Badly Failing Justin Herbert",
+   "summary": "",
+   "published": "2026-11-09T04:46:26Z",
+   "published_at": "2026-11-09T04:46:26Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I Don’t Know How Many More Hits He Can Take’ — CBS Sideline Reporter Outlines How Chargers Are Badly Failing Justin Herbert",
+     "url": "https://www.profootballnetwork.com/kinkhabwala-justin-herbert-eight-sacks-week-9-chargers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Josh Jacobs"
+   ],
+   "headline": "Josh Jacobs fractures finger in Week 9",
+   "summary": "Green Bay Packers running back Josh Jacobs suffered a fractured finger in the first quarter in Week 9",
+   "published": "2026-11-09T04:45:04Z",
+   "published_at": "2026-11-09T04:45:04Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Josh Jacobs fractures finger in Week 9",
+     "url": "https://sports.yahoo.com/articles/josh-jacobs-fractures-finger-week-044504991.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Luther Burden III"
+   ],
+   "headline": "Luther Burden injury update as Bears WR left 'Sunday Night Football' with concussion",
+   "summary": "Latest updates after Luther Burden III suffered a head injury after a big hit in the Bears' \"Sunday Night Football\" game vs. Buccaneers",
+   "published": "2026-11-09T04:39:49Z",
+   "published_at": "2026-11-09T04:39:49Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Luther Burden injury update as Bears WR left 'Sunday Night Football' with concussion",
+     "url": "https://sports.yahoo.com/articles/luther-burden-injury-bears-wr-043949050.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIA",
+   "players": [
+    "Caleb Douglas"
+   ],
+   "headline": "Fantasy football waiver wire targets: NFL Week 10",
+   "summary": "The Week 10 fantasy football waiver wire features Miami Dolphins receiver Caleb Douglas, Seattle quarterback Drew Lock and Cleveland quarterback Shedeur Sanders among the potential pickups. Running back priorities could change at the NFL trade deadline, with Seth McGowan's opportunity tied to Jonathan Taylor's future in Indianapolis. PFF's Waiver Wire Tool helps fantasy managers compare available players, upcoming matchups and rest-of-season rankings.",
+   "published": "2026-11-09T04:20:00Z",
+   "published_at": "2026-11-09T04:20:00Z",
+   "first_seen_at": "2026-11-09T07:06:22+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Fantasy football waiver wire targets: NFL Week 10",
+     "url": "https://www.pff.com/news/fantasy-football-waiver-wire-targets-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TEN",
+   "players": [
+    "Calvin Ridley"
+   ],
+   "headline": "Titans WR Calvin Ridley was involved in an incident at Nashville International Airport",
+   "summary": "The Titans had a bye in Week 9.",
+   "published": "2026-11-09T04:13:51Z",
+   "published_at": "2026-11-09T04:13:51Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Titans WR Calvin Ridley was involved in an incident at Nashville International Airport",
+     "url": "https://sports.yahoo.com/articles/titans-wr-calvin-ridley-involved-041351276.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "‘I Refuse To Believe All This Is on Him’ — Ryan Clark Shifts Blame From Justin Herbert to Chargers HC Jim Harbaugh’s Staff",
+   "summary": "",
+   "published": "2026-11-09T04:13:08Z",
+   "published_at": "2026-11-09T04:13:08Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I Refuse To Believe All This Is on Him’ — Ryan Clark Shifts Blame From Justin Herbert to Chargers HC Jim Harbaugh’s Staff",
+     "url": "https://www.profootballnetwork.com/ryan-clark-shifts-blame-justin-herbert-chargers-staff"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Zach Charbonnet",
+    "Jadarian Price"
+   ],
+   "headline": "Seahawks RBs Zach Charbonnet, Jadarian Price Show Growth In Second Game Together",
+   "summary": "Seattle’s running backs Zach Charbonnet and Jadarian Price showed growth in their second game together.",
+   "published": "2026-11-09T04:05:16Z",
+   "published_at": "2026-11-09T04:05:16Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Seahawks RBs Zach Charbonnet, Jadarian Price Show Growth In Second Game Together",
+     "url": "https://www.seahawks.com/news/seahawks-rbs-zach-charbonnet-jadarian-price-show-growth-in-second-game-together"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks QB Drew Lock 'Cool As Can Be' Starting In Place Of An Injured Sam Darnold",
+   "summary": "Seahawks quarterback Drew Lock played well in his second start of the season, playing in place of an injured Sam Darnold.",
+   "published": "2026-11-09T03:39:20Z",
+   "published_at": "2026-11-09T03:39:20Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Seahawks QB Drew Lock 'Cool As Can Be' Starting In Place Of An Injured Sam Darnold",
+     "url": "https://www.seahawks.com/news/seahawks-qb-drew-lock-cool-as-can-be-starting-in-place-of-an-injured-sam-darnold"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "Justin Herbert visits blue medical tent in Chargers' loss to Texans",
+   "summary": "Quarterback Justin Herbert suffered a finger injury during the Los Angeles Chargers' loss to the Houston Texans as his interception streak extends.",
+   "published": "2026-11-09T03:38:42Z",
+   "published_at": "2026-11-09T03:38:42Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Justin Herbert visits blue medical tent in Chargers' loss to Texans",
+     "url": "https://sports.yahoo.com/articles/justin-herbert-visits-blue-medial-033842787.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "Geno Smith held out of the end zone in Week 9 loss at Kansas City",
+   "summary": "Geno Smith's seven-game streak of throwing for at least one touchdown was halted in the Jets' Week 9 loss to the Chiefs.",
+   "published": "2026-11-09T03:38:26Z",
+   "published_at": "2026-11-09T03:38:26Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Geno Smith held out of the end zone in Week 9 loss at Kansas City",
+     "url": "https://sports.yahoo.com/articles/geno-smith-held-end-zone-033826787.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "9 winners, 2 losers, and 1 IDK from the 49ers win over the Raiders",
+   "summary": "No Mike Evans, no problem for the 49ers offense in Week 9",
+   "published": "2026-11-09T03:29:06Z",
+   "published_at": "2026-11-09T03:29:06Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "9 winners, 2 losers, and 1 IDK from the 49ers win over the Raiders",
+     "url": "https://sports.yahoo.com/articles/9winners-2-losers-1-idk-032906614.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "9 winners, 2 losers, and 1 IDK from the 49ers win over the Raiders",
+   "summary": "The San Francisco 49ers made it interesting after a wild third-quarter sequence that saw multiple turnovers in 10 minutes, but the offense was too much for the Raiders. Here are the winners and losers from the Niners’ high-scoring affair. Winners Jordan Watkins Watkins caught a 37-yard post from Brock Purdy for a touchdown. He caught […]",
+   "published": "2026-11-09T03:29:06Z",
+   "published_at": "2026-11-09T03:29:06Z",
+   "first_seen_at": "2026-11-09T07:06:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "9 winners, 2 losers, and 1 IDK from the 49ers win over the Raiders",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-scores-results/165391/9winners-2-losers-and-1-idk-from-the-49ers-win-over-the-raiders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Jonathan Taylor"
+   ],
+   "headline": "‘He’s Ready To Leave,’ ‘Going to the Giants’ — NFL Fans Take Notice As Jonathan Taylor Seemingly Delivers ‘Farewell’ Message to Colts Before Trade Deadline",
+   "summary": "",
+   "published": "2026-11-09T03:16:43Z",
+   "published_at": "2026-11-09T03:16:43Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He’s Ready To Leave,’ ‘Going to the Giants’ — NFL Fans Take Notice As Jonathan Taylor Seemingly Delivers ‘Farewell’ Message to Colts Before Trade Deadline",
+     "url": "https://www.profootballnetwork.com/jonathan-taylor-colts-fans-react-trade-deadline"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Cowboys spoil comeback bid with TDs at end of each half in Colts’ 5th straight loss",
+   "summary": "The Indianapolis Colts fought their way back from down 10 in the second half and took control late in the fourth quarter, but the thrill of stealing a comeback win was short-lived as Dak Prescott led the Dallas Cowboys on a game-winning touchdown drive inside the final minute to escape with a 27-23 win.",
+   "published": "2026-11-09T03:10:11Z",
+   "published_at": "2026-11-09T03:10:11Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Cowboys spoil comeback bid with TDs at end of each half in Colts’ 5th straight loss",
+     "url": "https://sports.yahoo.com/articles/cowboys-spoil-comeback-bid-tds-031011719.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Christian Watson"
+   ],
+   "headline": "Game notes: Packers turned big takeaways into explosive plays",
+   "summary": "Matthew Golden and Christian Watson notch career days, Kaleb Johnson sparks run game",
+   "published": "2026-11-09T03:05:00Z",
+   "published_at": "2026-11-09T03:05:00Z",
+   "first_seen_at": "2026-11-09T07:06:24+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Game notes: Packers turned big takeaways into explosive plays",
+     "url": "https://www.packers.com/news/game-notes-packers-turned-big-takeaways-into-explosive-plays-week-9-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Jordan Love"
+   ],
+   "headline": "Rapid reaction: Jordan Love hears M-V-P chants",
+   "summary": "Packers QB launches candidacy with tour de force performance vs. Patriots",
+   "published": "2026-11-09T03:00:00Z",
+   "published_at": "2026-11-09T03:00:00Z",
+   "first_seen_at": "2026-11-09T07:06:24+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Rapid reaction: Jordan Love hears M-V-P chants",
+     "url": "https://www.packers.com/news/rapid-reaction-jordan-love-hears-m-v-p-chants-week-9-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "Sunday Night Football: Despite three Caleb Williams INTs, Bears lead 17-6 at halftime",
+   "summary": "The Buccaneers scored just three points off of Williams' interceptions in the first half.",
+   "published": "2026-11-09T02:59:15Z",
+   "published_at": "2026-11-09T02:59:15Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Sunday Night Football: Despite three Caleb Williams INTs, Bears lead 17-6 at halftime",
+     "url": "https://sports.yahoo.com/articles/sunday-night-football-despite-three-025915730.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "Daniel Jones on his future: I believe in what we're doing; I love Shane Steichen",
+   "summary": "Colts quarterback Daniel Jones has heard the trade speculation.",
+   "published": "2026-11-09T02:52:58Z",
+   "published_at": "2026-11-09T02:52:58Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Daniel Jones on his future: I believe in what we're doing; I love Shane Steichen",
+     "url": "https://sports.yahoo.com/articles/daniel-jones-future-believe-were-025258980.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Tyler Allgeier"
+   ],
+   "headline": "Tyler Allgeier held in check by Seahawks in Week 9",
+   "summary": "Arizona Cardinals RB Tyler Allgeier runs for 46 yards against Seahawks",
+   "published": "2026-11-09T02:37:04Z",
+   "published_at": "2026-11-09T02:37:04Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Tyler Allgeier held in check by Seahawks in Week 9",
+     "url": "https://sports.yahoo.com/articles/tyler-allgeier-held-check-seahawks-023704037.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Report: MRI shows Patrick Mahomes avoided serious injury",
+   "summary": "The Chiefs quarterback injured his right elbow in the second quarter Sunday.",
+   "published": "2026-11-09T02:30:51Z",
+   "published_at": "2026-11-09T02:30:51Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Report: MRI shows Patrick Mahomes avoided serious injury",
+     "url": "https://sports.yahoo.com/articles/report-mri-shows-patrick-mahomes-023051244.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Chris Olave",
+    "Tyler Shough",
+    "Audric Estimé"
+   ],
+   "headline": "Postgame Quotes: Cleveland Browns vs. New Orleans Saints | 2026 NFL Week 9",
+   "summary": "Quotes from Kellen Moore, QB Tyler Shough, RB Audric Estimé, EDGE Carl Granderson, and Wide Receiver Chris Olave",
+   "published": "2026-11-09T02:21:18Z",
+   "published_at": "2026-11-09T02:21:18Z",
+   "first_seen_at": "2026-11-09T07:06:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NO official",
+     "title": "Postgame Quotes: Cleveland Browns vs. New Orleans Saints | 2026 NFL Week 9",
+     "url": "https://www.neworleanssaints.com/news/cleveland-browns-vs-new-orleans-saints-2026-nfl-week-9-postgame-quotes"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Game Notes: Drake Maye Records Three Touchdowns in Sixth-Straight Game",
+   "summary": "Game notes and stats from the Patriots Week 9 game against the Green Bay Packers on Sunday, November 8, 2026.",
+   "published": "2026-11-09T02:15:38Z",
+   "published_at": "2026-11-09T02:15:38Z",
+   "first_seen_at": "2026-11-09T07:06:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "Game Notes: Drake Maye Records Three Touchdowns in Sixth-Straight Game",
+     "url": "https://www.patriots.com/news/game-notes-drake-maye-accounts-for-three-touchdowns-in-sixth-straight-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Shedeur Sanders"
+   ],
+   "headline": "‘Listen to a Hall of Famer,’ ‘Bill Cowher Hates the Browns’ — NFL Fans React As Super Bowl Champion HC Urges Browns To Name Shedeur Sanders QB1",
+   "summary": "",
+   "published": "2026-11-09T02:15:29Z",
+   "published_at": "2026-11-09T02:15:29Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Listen to a Hall of Famer,’ ‘Bill Cowher Hates the Browns’ — NFL Fans React As Super Bowl Champion HC Urges Browns To Name Shedeur Sanders QB1",
+     "url": "https://www.profootballnetwork.com/browns-fans-react-bill-cowher-shedeur-sanders-qb1"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Drew Lock suffers oblique injury, Week 10 status up in the air: Seahawks could have to start Jalen Milroe",
+   "summary": "Lock was already filling in for Sam Darnold, who missed Week 9 with quad and rib injuries",
+   "published": "2026-11-09T02:10:50Z",
+   "published_at": "2026-11-09T02:10:50Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Drew Lock suffers oblique injury, Week 10 status up in the air: Seahawks could have to start Jalen Milroe",
+     "url": "https://www.cbssports.com/nfl/news/drew-lock-suffers-oblique-injury-week-10-status-seahawks-could-start-jalen-milroe"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Josh Jacobs"
+   ],
+   "headline": "Josh Jacobs breaks finger during Packers' win over Patriots, could Green Bay trade for a RB?",
+   "summary": "Jacobs hopes to play through the issue, but grip struggles could force Green Bay to pursue running back help before Tuesday's trade deadline",
+   "published": "2026-11-09T01:48:30Z",
+   "published_at": "2026-11-09T01:48:30Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Josh Jacobs breaks finger during Packers' win over Patriots, could Green Bay trade for a RB?",
+     "url": "https://www.cbssports.com/nfl/news/josh-jacobs-breaks-finger-packers-win-over-patriots-trade-deadline"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Patrick Mahomes injury update: MRI reveals no significant damage to Chiefs QB's elbow",
+   "summary": "An MRI revealed no significant injury after Mahomes' right elbow bent awkwardly",
+   "published": "2026-11-09T01:35:13Z",
+   "published_at": "2026-11-09T01:35:13Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Patrick Mahomes injury update: MRI reveals no significant damage to Chiefs QB's elbow",
+     "url": "https://www.cbssports.com/nfl/news/patrick-mahomes-injury-update-mri-chiefs-qb-elbow"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Jonathan Taylor",
+    "Daniel Jones"
+   ],
+   "headline": "Daniel Jones trade rumors: Colts tell QB he will not be dealt before NFL deadline, per report",
+   "summary": "The 2-7 Colts have taken Daniel Jones off the market, even as Jonathan Taylor and several teammates remain names to watch",
+   "published": "2026-11-09T01:22:46Z",
+   "published_at": "2026-11-09T01:22:46Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Daniel Jones trade rumors: Colts tell QB he will not be dealt before NFL deadline, per report",
+     "url": "https://www.cbssports.com/nfl/news/daniel-jones-trade-rumors-colts-nfl-deadline"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Malik Nabers"
+   ],
+   "headline": "‘Keep the Camera Off Me,’ ‘Trying (To) Create a Narrative’ — Giants WR Malik Nabers Fires Back at Fox’s Greg Olsen Over ‘Bad Teammate’ Label",
+   "summary": "",
+   "published": "2026-11-09T01:18:14Z",
+   "published_at": "2026-11-09T01:18:14Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Keep the Camera Off Me,’ ‘Trying (To) Create a Narrative’ — Giants WR Malik Nabers Fires Back at Fox’s Greg Olsen Over ‘Bad Teammate’ Label",
+     "url": "https://www.profootballnetwork.com/giants-malik-nabers-fires-back-greg-olsen"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Bijan Robinson"
+   ],
+   "headline": "Seahawks fan chat: NFL Week 9 Sunday early games, Buccaneers vs. Bears live discussion",
+   "summary": "We’ve got ourselves another early morning NFL game to look forward to, Seattle Seahawks fans! It’s the Cincinnati Bengals and the Atlanta Falcons at the Santiago Bernabeu, aka the home of Real Madrid in Madrid, Spain. It won’t be Kylian Mbappe rampaging through a defense; it’ll be Bijan Robinson trying to get on track against […]",
+   "published": "2026-11-09T01:13:27Z",
+   "published_at": "2026-11-09T01:13:27Z",
+   "first_seen_at": "2026-11-09T07:06:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks fan chat: NFL Week 9 Sunday early games, Buccaneers vs. Bears live discussion",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-discussion/179356/seahawks-fan-chat-nfl-week-9-sunday-games-rams-vs-commanders-live-discussion"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Baker Mayfield",
+    "Caleb Williams"
+   ],
+   "headline": "Bears-Buccaneers live discussion: Caleb Williams takes on Baker Mayfield",
+   "summary": "The 3-5 Tampa Bay Buccaneers take on the 6-2 Chicago Bears. It’ll be one of the best defenses in the league taking on one of the top offenses. The Bears enter this game on a three-game winning streak, while the Bucs, who are somehow in first place in the NFC South, are on a two-game […]",
+   "published": "2026-11-09T01:10:00Z",
+   "published_at": "2026-11-09T01:10:00Z",
+   "first_seen_at": "2026-11-09T07:06:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Bears-Buccaneers live discussion: Caleb Williams takes on Baker Mayfield",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-discussion/165410/bears-buccaneers-live-discussion-caleb-williams-takes-on-baker-mayfield"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold",
+    "Rashid Shaheed"
+   ],
+   "headline": "Seahawks’ latest win over Cardinals involved something they haven’t done in 26 years",
+   "summary": "The Seattle Seahawks didn’t light up the scoreboard in their win over the Arizona Cardinals, but the offense had enough cohesiveness to come away with a 17-3 win. Given the injuries to Sam Darnold, Quenton Nelson, Charles Cross, and Rashid Shaheed, you take the wins any way you can get, even if it means not […]",
+   "published": "2026-11-09T01:09:17Z",
+   "published_at": "2026-11-09T01:09:17Z",
+   "first_seen_at": "2026-11-09T07:06:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks’ latest win over Cardinals involved something they haven’t done in 26 years",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-analysis/179438/nfl-stats-seahawks-win-cardinals-was-something-they-havent-done-2000"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "What Dan Quinn, Jayden Daniels said about ‘frustrating’ Commanders loss",
+   "summary": "The Commanders lost yet another game they simply had to win, which has become a running theme of a 2026 campaign. Washington is now 2-5-1 with their season realistically circling the drain now that the Week 9 game against the Los Angeles Rams was lost by a 20-13 score on Sunday at Northwest Stadium. There […]",
+   "published": "2026-11-09T00:48:27Z",
+   "published_at": "2026-11-09T00:48:27Z",
+   "first_seen_at": "2026-11-09T07:06:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "What Dan Quinn, Jayden Daniels said about ‘frustrating’ Commanders loss",
+     "url": "https://www.hogshaven.com/pressers/453670/dann-quinn-jayden-daniels-commanders-rams-nfl-week-9-press-conference"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jaxon Smith-Njigba"
+   ],
+   "headline": "Drew Lock finishes Seahawks win over Cardinals despite apparent hip injury",
+   "summary": "Drew Lock, who got the start at quarterback for the Seattle Seahawks against the Arizona Cardinals appears to have injured his hip. Lock was seen entering the blue tent late in the third quarter of Seattle’s 17-3 win after appearing to suffer the injury throwing an incomplete pass towards Jaxon Smith-Njigba. Lock, who entered the […]",
+   "published": "2026-11-09T00:37:07Z",
+   "published_at": "2026-11-09T00:37:07Z",
+   "first_seen_at": "2026-11-09T07:06:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Drew Lock finishes Seahawks win over Cardinals despite apparent hip injury",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-injury-report/179418/drew-lock-finishes-seahawks-win-over-cardinals-apparent-hip-injury"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "AJ Barner"
+   ],
+   "headline": "Rapid Reactions: AJ Barner Finds End Zone Twice As Seahawks Handle Cardinals In 17-3 Win",
+   "summary": "Seattle’s defense dominated and Drew Lock and the offense did enough to lead the Seahawks to 17-3 win over the Cardinals.",
+   "published": "2026-11-09T00:36:02Z",
+   "published_at": "2026-11-09T00:36:02Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Rapid Reactions: AJ Barner Finds End Zone Twice As Seahawks Handle Cardinals In 17-3 Win",
+     "url": "https://www.seahawks.com/news/rapid-reactions-aj-barner-finds-end-zone-twice-as-seahawks-handle-cardinals-in-17-3-win"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Tee Higgins",
+    "Joe Burrow"
+   ],
+   "headline": "Joe Burrow shares best part of Bengals’ Madrid trip; wants to play in NFL’s first Tokyo game",
+   "summary": "The Cincinnati Bengals are now 6-2 on the season after taking care of business against the Atlanta Falcons this morning in Madrid, Spain. Joe Burrow has been adamant about getting the Bengals an international game, and the NFL granted his request this season. Ja’Marr Chase, Tee Higgins, and Burrow put on an absolute show for […]",
+   "published": "2026-11-09T00:26:24Z",
+   "published_at": "2026-11-09T00:26:24Z",
+   "first_seen_at": "2026-11-09T07:06:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "Joe Burrow shares best part of Bengals’ Madrid trip; wants to play in NFL’s first Tokyo game",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-news/204874/joe-burrow-best-part-madrid-trip-nfl-first-tokyo-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy",
+    "George Kittle",
+    "Kaelon Black"
+   ],
+   "headline": "49ers force four straight turnovers in blowout win over the Raiders",
+   "summary": "Brock Purdy airmailed a 3rd-and-2 pass to George Kittle on the opening drive, but the two connected on fourth down to keep the drive alive. Kaelon Black had a nine-yard run. Brandin Cooks caught a 13-yard pass, and Christian McCaffrey’s 11-yard gain put the San Francisco 49ers in a goal-to-go situation. After Kyle Juszczyk’s first […]",
+   "published": "2026-11-09T00:15:51Z",
+   "published_at": "2026-11-09T00:15:51Z",
+   "first_seen_at": "2026-11-09T07:06:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers force four straight turnovers in blowout win over the Raiders",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-analysis/165386/49ers-force-four-straight-turnovers-in-blowout-win-over-the-raiders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Jonathan Taylor"
+   ],
+   "headline": "NY Giants trade deadline: John Harbaugh won’t rule out Jonathan Taylor move",
+   "summary": "New York Giants head coach John Harbaugh on Sunday evening did not dispute reporting that the team had pulled an offer for Indianapolis Colts’ running back Jonathan Taylor. “I’d say we’re open for any kind of situation, but I will say this, things do change. Things change from day-to-day,” Harbaugh said. “So it’s not like […]",
+   "published": "2026-11-09T00:01:38Z",
+   "published_at": "2026-11-09T00:01:38Z",
+   "first_seen_at": "2026-11-09T07:06:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "NY Giants trade deadline: John Harbaugh won’t rule out Jonathan Taylor move",
+     "url": "https://www.bigblueview.com/new-york-giants-rumors/179186/nfl-trade-deadline-john-harbaugh-wont-rule-out-jonathan-taylor-move"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Breece Hall"
+   ],
+   "headline": "Jets-Chiefs Game Recap | Green & White Fall, 35-12, on the Road at Kansas City",
+   "summary": "RB Breece Hall Productive in Return with 87 Scrimmage Yards",
+   "published": "2026-11-09T00:00:00Z",
+   "published_at": "2026-11-09T00:00:00Z",
+   "first_seen_at": "2026-11-09T07:06:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets-Chiefs Game Recap | Green & White Fall, 35-12, on the Road at Kansas City",
+     "url": "https://www.newyorkjets.com/news/jets-chiefs-game-recap-11-08-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Pay Puka Nacua already",
+   "summary": "The Los Angeles Rams have made Puka Nacua the engine of their offense. That kind of responsibility can make a star receiver invaluable, but it also leaves the team exposed when the workload becomes unsustainable. Now Nacua is dealing with a knee injury, and the risk of building so much around one player is suddenly […]",
+   "published": "2026-11-09T00:00:00Z",
+   "published_at": "2026-11-09T00:00:00Z",
+   "first_seen_at": "2026-11-09T07:06:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Pay Puka Nacua already",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-free-agency/154521/puka-nacua-rams-contract-free-agent"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Breece Hall"
+   ],
+   "headline": "Jets RB Breece Hall: 'Happy to Be Back on the Field'",
+   "summary": "No. 20 and Braelon Allen Combined for 94 Rush Yards, Mostly in the First Half",
+   "published": "2026-11-08T23:58:00Z",
+   "published_at": "2026-11-08T23:58:00Z",
+   "first_seen_at": "2026-11-09T07:06:26+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets RB Breece Hall: 'Happy to Be Back on the Field'",
+     "url": "https://www.newyorkjets.com/news/jets-rb-breece-hall-happy-to-be-back-on-the-field-11-08-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Puka Nacua records season-high 150 receiving yards along with touchdown in Rams win over Commanders",
+   "summary": "Rams wide receiver Puka Nacua recorded a season-high 150 receiving yards on 14 catches, including a touchdown and adding 20 rushing yards on a day where he impacted the game from start to finish against the Commanders.",
+   "published": "2026-11-08T23:51:38Z",
+   "published_at": "2026-11-08T23:51:38Z",
+   "first_seen_at": "2026-11-09T07:06:25+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Puka Nacua records season-high 150 receiving yards along with touchdown in Rams win over Commanders",
+     "url": "https://www.therams.com/news/puka-nacua-records-season-high-150-receiving-yards-along-with-touchdown-in-rams-win-over-commanders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Emeka Egbuka"
+   ],
+   "headline": "Bucs-Bears Inactives | Emeka Egbuka Returns to Action",
+   "summary": "WR Emeka Egbuka, who leads the Buccaneers in receptions in 2026, is back in the mix after missing two games with a foot injury, but OLB Yaya Diaby is out due to a knee ailment",
+   "published": "2026-11-08T23:51:38Z",
+   "published_at": "2026-11-08T23:51:38Z",
+   "first_seen_at": "2026-11-09T07:06:27+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Bucs-Bears Inactives | Emeka Egbuka Returns to Action",
+     "url": "https://www.buccaneers.com/news/bucs-bears-inactives-emeka-egbuka-returns-action"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "‘Cursed With Injuries,’ ‘I 100% Blame Sean McVay’ — NFL Fans React to Puka Nacua Getting Hurt in Final Moments of Rams’ Win vs. Commanders",
+   "summary": "",
+   "published": "2026-11-08T23:50:41Z",
+   "published_at": "2026-11-08T23:50:41Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Cursed With Injuries,’ ‘I 100% Blame Sean McVay’ — NFL Fans React to Puka Nacua Getting Hurt in Final Moments of Rams’ Win vs. Commanders",
+     "url": "https://www.profootballnetwork.com/puka-nacua-hurt-rams-commanders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Baker Mayfield",
+    "Luther Burden III"
+   ],
+   "headline": "Buccaneers vs. Bears picks, prediction, player props: Expert's best bets for NFL Week 9 Sunday Night Football",
+   "summary": "Targeting a 6-point favorite, anytime touchdown value at +380 and key player props featuring Baker Mayfield and Luther Burden III",
+   "published": "2026-11-08T23:50:37Z",
+   "published_at": "2026-11-08T23:50:37Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Buccaneers vs. Bears picks, prediction, player props: Expert's best bets for NFL Week 9 Sunday Night Football",
+     "url": "https://www.cbssports.com/betting/news/buccaneers-vs-bears-picks-prediction-player-props-experts-best-bets-for-nfl-week-9-sunday-night-football"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Shedeur Sanders",
+    "Deshaun Watson"
+   ],
+   "headline": "How Shedeur Sanders fared in first 2026 start: Browns QB shines late vs. Saints",
+   "summary": "Sanders sparked a high-scoring finish that has analysts calling for him to keep the job over Deshaun Watson",
+   "published": "2026-11-08T23:46:01Z",
+   "published_at": "2026-11-08T23:46:01Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "How Shedeur Sanders fared in first 2026 start: Browns QB shines late vs. Saints",
+     "url": "https://www.cbssports.com/nfl/news/how-browns-shadeur-sanders-fared-season-debut-saints"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Big plays by Puka Nacua and Myles Garrett give Rams road win",
+   "summary": "The Los Angeles Rams leaned on their biggest playmakers when it mattered most, with Puka Nacua and Myles Garrett delivering game-changing moments in a hard-fought 20-13 road victory over the Washington Commanders. In a game where momentum swung and opportunities were limited, the Rams needed their stars to step up, and both delivered in significant […]",
+   "published": "2026-11-08T23:30:00Z",
+   "published_at": "2026-11-08T23:30:00Z",
+   "first_seen_at": "2026-11-09T07:06:30+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Big plays by Puka Nacua and Myles Garrett give Rams road win",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-analysis/154394/rams-commanders-key-plays-puka-nacua-touchdown"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "KC Concepcion",
+    "Shedeur Sanders"
+   ],
+   "headline": "Shedeur Sanders showcases deep ball in loss to the Saints | 3 Big Takeaways",
+   "summary": "KC Concepcion Jr. continues to build on rookie season with first career touchdown",
+   "published": "2026-11-08T23:26:24Z",
+   "published_at": "2026-11-08T23:26:24Z",
+   "first_seen_at": "2026-11-09T07:06:24+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Shedeur Sanders showcases deep ball in loss to the Saints | 3 Big Takeaways",
+     "url": "https://www.clevelandbrowns.com/news/shedeur-sanders-showcases-deep-ball-in-loss-to-the-saints-3-big-takeaways"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott, Cowboys offense persevere vs. Colts: 'We had to have it'",
+   "summary": "Despite not playing the cleanest game by their own admission, Dak Prescott and the Cowboys offense found a way to get in the end zone late to propel Dallas to a 27-23 win over the Colts.",
+   "published": "2026-11-08T23:25:46Z",
+   "published_at": "2026-11-08T23:25:46Z",
+   "first_seen_at": "2026-11-09T07:06:24+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Dak Prescott, Cowboys offense persevere vs. Colts: 'We had to have it'",
+     "url": "https://www.dallascowboys.com/news/dak-prescott-cowboys-offense-persevere-vs-colts-we-had-to-have-it"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Jonathan Taylor",
+    "Daniel Jones"
+   ],
+   "headline": "What did we learn from the Giants’ victory over the Eagles?",
+   "summary": "“Hi, Ed (Dodds, Colts interim GM). Joe here. Forget Jonathan Taylor. What would it take to get Daniel Jones?” OK, only kidding, only kidding. But a ridiculous sequence of events for Giants quarterbacks this season demands an equally ridiculous reaction. In our BBV predictions for this game, I suggested that it would show us whether […]",
+   "published": "2026-11-08T23:18:18Z",
+   "published_at": "2026-11-08T23:18:18Z",
+   "first_seen_at": "2026-11-09T07:06:29+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "What did we learn from the Giants’ victory over the Eagles?",
+     "url": "https://www.bigblueview.com/new-york-giants-analysis/178993/what-did-we-learn-from-the-giants"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Shedeur Sanders"
+   ],
+   "headline": "‘Shedeur Sanders Is So Bad It’s Incredible,’ ‘The Dude Can Play’ — NFL World Has Mixed Reaction to Browns QB’s Performance in Loss to Saints",
+   "summary": "",
+   "published": "2026-11-08T23:17:52Z",
+   "published_at": "2026-11-08T23:17:52Z",
+   "first_seen_at": "2026-11-09T07:06:28+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Shedeur Sanders Is So Bad It’s Incredible,’ ‘The Dude Can Play’ — NFL World Has Mixed Reaction to Browns QB’s Performance in Loss to Saints",
+     "url": "https://www.profootballnetwork.com/shedeur-sanders-nfl-world-saints"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 19,
+ "feeds_generated_at": "2026-11-09T07:06:22+00:00"
+}
