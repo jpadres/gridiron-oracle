@@ -18,6 +18,26 @@ Y es ESTRECHO a propósito: sólo las cuatro cifras de portada, buscadas por la
 frase que las contiene. Si la frase cambia de forma, el guardián se pone ROJO
 por «no la encuentro» en vez de pasar en vacío — que es el fallo que este
 repositorio ya ha cometido cuatro veces.
+
+## `--write`: que publicar el payload no deje CI en rojo
+
+La muestra del backtest crece CADA JORNADA, así que cada publicación semanal
+movía las cifras del payload y dejaba esta comprobación en rojo hasta que
+alguien corregía tres documentos a mano. Nadie lo hacía, y un rojo que está
+siempre deja de mirarse: en octubre de 2026 la exportación semanal se paró
+TRES SEMANAS por una etiqueta de plantilla nueva y nadie lo vio, porque CI ya
+llevaba rojo «por lo de las cifras» desde la última vez que funcionó. El
+control que existía para que la prosa no mintiera estaba tapando un fallo real.
+
+`--write` hace la corrección que este script pide, con los mismos patrones: sólo
+toca los dígitos que ya vigila. El workflow semanal lo corre después de exportar
+y publica los documentos en el MISMO commit que el payload.
+
+Lo que NO hace es reescribir el titular. Si el modelo deja de quedar por detrás
+del mercado, las frases de alrededor («iguala; no la bate», «la distancia real
+es MAYOR que la publicada») pasarían a ser falsas con las cifras nuevas dentro,
+y la regla del proyecto para ese caso no es actualizar la portada: es buscar la
+fuga. Ahí se niega y sale con 1, para que lo mire una persona.
 """
 
 from __future__ import annotations
@@ -132,10 +152,105 @@ BRECHAS = [
 ]
 
 
-def main() -> int:
+#: Las brechas que el preámbulo de CLAUDE.md cita como las PUBLICADAS antes
+#: («en vez de 0,0005», «en vez de 0,03»). La frase afirma que la real es mayor.
+BRECHA_PUBLICADA = {"brier": 0.0005, "margin_mae": 0.03}
+
+
+def _miles(n: int) -> str:
+    """3964 -> «3.964», que es como lo escribe la prosa."""
+    return f"{int(n):,}".replace(",", ".")
+
+
+def _sustituir(texto: str, m: re.Match, valores: list[str]) -> str:
+    """Cambia SÓLO los grupos del patrón, de atrás hacia delante."""
+    for grupo in range(len(valores), 0, -1):
+        ini, fin = m.span(grupo)
+        texto = texto[:ini] + valores[grupo - 1] + texto[fin:]
+    return texto
+
+
+def titular_en_pie(overall: dict) -> list[str]:
+    """Por qué NO se puede reescribir la portada sola. Vacío si se puede."""
+    motivos = []
+    brecha_brier = float(overall["brier"]) - float(overall["market_brier"])
+    brecha_mae = float(overall["margin_mae"]) - float(overall["market_margin_mae"])
+    if brecha_brier <= 0 or brecha_mae <= 0:
+        motivos.append(
+            f"el modelo ya no queda por detrás del mercado (Brier {brecha_brier:+.4f}, "
+            f"MAE {brecha_mae:+.3f}). La hipótesis por defecto no es «mejoró»: es fuga "
+            "de información. Búscala antes de tocar la portada")
+    if brecha_brier <= BRECHA_PUBLICADA["brier"] or brecha_mae <= BRECHA_PUBLICADA["margin_mae"]:
+        motivos.append(
+            "la brecha ya no es MAYOR que la que se publicaba antes, que es lo que afirma "
+            "el preámbulo de CLAUDE.md: esa frase hay que reescribirla a mano")
+    return motivos
+
+
+def escribir(overall: dict) -> int:
+    """Pone en los documentos las cifras del payload. Devuelve 0 si pudo."""
+    motivos = titular_en_pie(overall)
+    if motivos:
+        print("NO se reescriben las cifras de portada:\n")
+        for motivo in motivos:
+            print(f"  {motivo}")
+        return 1
+    textos: dict[str, str] = {}
+
+    def texto_de(fichero: str) -> str:
+        if fichero not in textos:
+            textos[fichero] = (RAIZ / fichero).read_text(encoding="utf-8")
+        return textos[fichero]
+
+    perdidos = []
+    for fichero, que, patron, metricas in COMPROBACIONES:
+        m = re.search(patron, texto_de(fichero))
+        if not m:
+            perdidos.append(f"{fichero}: no encuentro las {que}")
+            continue
+        valores = [f"{float(overall[clave]):.{dec}f}" for clave, dec in metricas]
+        textos[fichero] = _sustituir(texto_de(fichero), m, valores)
+    for fichero, que, patron, clave_a, clave_b, decimales in BRECHAS:
+        m = re.search(patron, texto_de(fichero))
+        if not m:
+            perdidos.append(f"{fichero}: no encuentro la {que}")
+            continue
+        real = float(overall[clave_a]) - float(overall[clave_b])
+        textos[fichero] = _sustituir(
+            texto_de(fichero), m, [f"{real:.{decimales}f}".replace(".", ",")])
+    for fichero, que, patron in RECUENTOS:
+        m = re.search(patron, texto_de(fichero))
+        if not m:
+            perdidos.append(f"{fichero}: no encuentro el {que}")
+            continue
+        textos[fichero] = _sustituir(texto_de(fichero), m, [_miles(overall["games"])])
+    if perdidos:
+        # Sin escribir NADA: medio documento corregido es peor que ninguno.
+        print("No se ha escrito nada — hay frases que ya no casan con su patrón:\n")
+        for perdido in perdidos:
+            print(f"  {perdido}")
+        return 1
+    cambiados = []
+    for fichero, nuevo in textos.items():
+        ruta = RAIZ / fichero
+        if ruta.read_text(encoding="utf-8") != nuevo:
+            ruta.write_text(nuevo, encoding="utf-8")
+            cambiados.append(fichero)
+    print("Cifras de portada puestas al día en: "
+          + (", ".join(cambiados) if cambiados else "ningún fichero (ya lo estaban)"))
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    argv = sys.argv[1:] if argv is None else argv
     overall = payload().get("validation", {}).get("overall")
     if not overall:
         sys.exit("El payload no trae validation.overall: no hay contra qué comprobar.")
+    if "--write" in argv:
+        # Escribir y, acto seguido, COMPROBAR con el camino de siempre: que el
+        # modo que escribe no pueda dar por bueno lo que el que lee rechazaría.
+        if escribir(overall):
+            return 1
 
     fallos = []
     for fichero, que, patron, metricas in COMPROBACIONES:

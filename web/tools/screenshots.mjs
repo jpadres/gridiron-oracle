@@ -32,7 +32,8 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { mkdirSync } from "node:fs";
-import { chromium } from "playwright";
+// La ruta de Chromium vive en UN sitio: `lab/browser.mjs`.
+import { launch } from "./lab/browser.mjs";
 
 // `next start` tiene que arrancar en `web/`, no en el directorio desde el que se
 // lance esta herramienta. Lanzada desde la raíz del repo, `npx next start`
@@ -75,11 +76,7 @@ async function main() {
   await assertPortFree();
   const server = startServer();
   await waitForServer();
-  const browser = await chromium.launch({
-    // Ruta explícita: el entorno trae Chromium preinstalado y descargarlo otra
-    // vez son 150 MB por nada.
-    executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-  });
+  const browser = await launch();
 
   try {
     for (const [device, width, height] of VIEWPORTS) {

@@ -136,7 +136,7 @@ check("y aparece en el feed",
       (await page.locator(".room-feed .feed-who").first().innerText())===primero);
 
 // --- deshacer en caliente --------------------------------------------------
-await page.locator(".room-flash button").click();
+await page.locator(".room-flash button").filter({ hasText: /^Undo$/ }).click();
 await page.waitForFunction(()=>document.querySelector(".room-count strong")?.textContent==="0");
 check("deshacer lo devuelve al pool",
       (await page.locator(".room-list .nm").first().innerText())===primero);

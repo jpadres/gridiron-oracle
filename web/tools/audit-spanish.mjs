@@ -21,66 +21,12 @@ import { fileURLToPath } from "node:url";
 // no tenerlo, porque da permiso para dejar de mirar.
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
-// Palabras que sólo aparecen en prosa española. No sirven «no», «error» ni
-// «total», que son idénticas en inglés.
-const FUNCIONALES = /\b(el|la|los|las|un|una|unos|unas|del|de|al|que|con|para|en|por|como|pero|sin|sobre|entre|cuando|donde|porque|más|menos|muy|todo|toda|todos|cada|otro|otra|este|esta|estos|estas|ese|esa|aquí|allí|hay|son|está|están|fue|ser|tiene|tienen|puede|pueden|hace|hacen|desde|hasta|aunque|también|sólo|solo|así|ya|no se|se ha|lo que)\b/gi;
-
-/**
- * Nombres propios que el detector confundiría con español.
- *
- * «Las Vegas is rebuilding…» dispara con «Las»; «Rams On SI» disparaba con «si»
- * —Sports Illustrated—, y por eso «si» salió de la lista de arriba. Un guardián
- * que da falsos positivos con nombres de equipo y de medio acaba desactivado, y
- * entonces no guarda nada. Se quitan por sustitución exacta, no por heurística.
- */
-const NOMBRES_PROPIOS = [
-  "Las Vegas", "Los Angeles", "Los Angeles Times", "La Crosse",
-  "De La Cruz", "Von Miller", "Del Rio",
-  // Apellidos y nombres con partícula que dispararían con «de»: se quitan por
-  // nombre exacto, no relajando el detector.
-  "De'Von", "DeVon", "De'Zhaun", "DeAndre", "D'Andre", "Deebo",
-];
-
-/**
- * Dos aciertos, o una tilde.
- *
- * Con un solo acierto, cualquier acrónimo o apellido dispara. Con dos palabras
- * funcionales distintas la frase es española de verdad — y una tilde ya es
- * concluyente por sí sola, porque el inglés no las usa.
- */
-/**
- * Frases sueltas que en una etiqueta de interfaz sólo pueden ser un fallo.
- *
- * El detector de arriba pide DOS palabras funcionales distintas, que es lo que
- * lo hace fiable en prosa y CIEGO en una etiqueta de dos palabras: «SIN EQUIPO»
- * tiene una sola («sin»), así que convivió meses con «5 LEFT», «on board» y
- * «picks until you» — la única palabra en español de la pantalla, y encima en
- * la marca que invalida el número de al lado. Lo vio un crítico mirando una
- * CAPTURA; ninguna comprobación lo miraba.
- *
- * La lista es literal y corta a propósito: cada entrada es una frase que no
- * existe en inglés. Estrecho y cierto antes que amplio y ruidoso.
- */
-const FRASES_SUELTAS = [
-  "SIN EQUIPO", "SIN DATOS", "SIN FECHA", "NO DISPONIBLE", "PENDIENTE",
-  "JORNADA", "PLANTILLA", "LESIONADO", "TITULAR", "BANQUILLO", "PATEADOR",
-];
-
-function esEspanol(texto) {
-  let limpio = texto;
-  for (const nombre of NOMBRES_PROPIOS) limpio = limpio.split(nombre).join(" ");
-  if (/[áéíóúñ¿¡«»]/.test(limpio)) return true;
-  // Con FRONTERA DE PALABRA. La primera versión usaba `includes` y sacó
-  // `[alineaciones, misTitulares]` —un array de variables— porque
-  // «misTitulares» contiene «TITULAR». Un guardián con falsos positivos acaba
-  // desactivado, y entonces no guarda nada: es la lección de `no-undef.mjs`.
-  const mayus = limpio.toUpperCase();
-  if (FRASES_SUELTAS.some((f) => new RegExp(`(?<![A-ZÁÉÍÓÚÑ])${f}(?![A-ZÁÉÍÓÚÑ])`).test(mayus))) {
-    return true;
-  }
-  const aciertos = new Set((limpio.match(FUNCIONALES) ?? []).map((w) => w.toLowerCase()));
-  return aciertos.size >= 2;
-}
+// EL DETECTOR VIVE EN `spanish.mjs`, no aquí. Este fichero se ejecuta al
+// importarlo —recorre el árbol y sale con `process.exit`—, así que la regla que
+// decide qué es español no se podía probar sin lanzar la auditoría entera. Y la
+// regla tiene un gemelo en Python (`narrative/sweep.py`): sin poder probar los
+// dos con los MISMOS casos, se separaron sin que nadie lo viera.
+import { esEspanol } from "./spanish.mjs";
 
 // `model.b64.js` se salta aquí a propósito: es un bloque de base64 opaco, así
 // que en esta pasada sólo puede dar falsos positivos. Lo audita de verdad la
@@ -261,6 +207,8 @@ const DATOS = new Set([
   ".health.sources[].extra.stats_basis",
   ".health.generated_at",
   ".health.week_agreement.status", ".health.week_agreement.retrieved_at",
+  // La temporada que dijo Sleeper: «2026», un dato y no una frase.
+  ".health.week_agreement.sleeper_season",
   // La fecha de la sección del semanal, como las otras cinco de `data_dates`.
   ".data_dates.fantasy_weekly",
   // De dónde sale la jornada hasta la que llega la estadística del semanal:

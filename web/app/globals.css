@@ -270,8 +270,14 @@ th:first-child, td:first-child { text-align: left; }
 th { background: var(--surface); font-weight: var(--weight-semibold); position: sticky; top: 0; }
 tbody tr:hover { background: var(--surface); }
 
-.grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+/* El mínimo es 9,5rem y no 11: con 11 (176 px) dos fichas más su hueco piden
+   368 px y un teléfono de 390 deja 342, así que cada cifra ocupaba un renglón
+   ENTERO — cuatro fichas, cuatrocientos píxeles de desplazamiento para leer
+   cuatro números. Con 9,5 caben dos por fila en 342 y en escritorio no cambia
+   nada, porque ahí el reparto lo decide el ancho y no el mínimo. */
+.grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
         margin: var(--space-5) 0; }
+@media (max-width: 47.99rem) { .grid { gap: var(--space-3); } }
 /* UNA tarjeta de cifra, no cinco. `.stat` y `.card` eran la misma caja con
    distinto relleno, distinto tamaño de valor y distinto tamaño de etiqueta —
    diferencias por accidente, no por decisión, y se notaban al ponerlas en
@@ -291,6 +297,18 @@ tbody tr:hover { background: var(--surface); }
   text-transform: uppercase; letter-spacing: 0.05em;
 }
 .stat .caption, .card-detail { display: block; font-size: var(--text-micro); color: var(--muted); }
+
+/* RÓTULO Y VALOR, EN DOS COLUMNAS. Para una lista corta de hechos fechados
+   («Rosters — Oct 14, 2026 · 12:52 UTC») cuatro cajas de cifra son demasiado:
+   el valor es una frase, no un número, y en tipo de cifra grande parte en tres
+   renglones. Aquí el rótulo va apagado a la izquierda y el valor a su lado,
+   alineados, y en el teléfono sigue cabiendo porque el valor parte línea. */
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: var(--space-1) var(--space-4);
+      margin: var(--space-3) 0; font-size: var(--text-dense); }
+.kv > div { display: contents; }
+.kv dt { color: var(--muted); font-size: var(--text-micro); text-transform: uppercase;
+         letter-spacing: 0.05em; padding-top: 0.15em; }
+.kv dd { margin: 0; font-weight: var(--weight-semibold); min-width: 0; overflow-wrap: anywhere; }
 
 footer { border-top: 1px solid var(--line); margin-top: var(--space-7); padding-top: var(--space-5);
          font-size: var(--text-dense); color: var(--muted); }
@@ -742,6 +760,99 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
   color: var(--muted);
   letter-spacing: 0.01em;
   margin-top: var(--space-0);
+}
+
+/* COLUMNAS DE TEXTO. La regla general de arriba —`th, td { text-align: right;
+   white-space: nowrap }`— está pensada para columnas de NÚMEROS, que es lo que
+   eran todas cuando se escribió. Waivers y la página de salud metieron PROSA en
+   esas columnas («Immediate starter — fills a starting slot you have empty») y
+   la heredaron tal cual: el motivo pegado al borde derecho con su viñeta suelta
+   a la izquierda, «QB · CAR» a 150 px del nombre al que pertenece, y la tabla
+   sin poder partir línea hasta medir 1.877 px en un marco de 944. Nada
+   desbordaba el CUERPO —`.table-wrap` lo recorta— así que ninguna comprobación
+   de geometría lo veía: se ve MIRANDO.
+   Una columna de texto se declara, se alinea a la izquierda y parte línea. */
+.rank-table th.cell-text, .rank-table td.cell-text { text-align: left; white-space: normal; }
+.rank-table td.cell-text ul { margin: var(--space-0) 0 0; padding-left: 1.1em; }
+/* El apunte secundario DENTRO de una celda de texto: en su propio renglón y
+   apagado, igual que el de la celda del nombre. Sin esto un `<small>` detrás
+   del valor fluía en línea y se pintaba pegado a él —«HISTORICALold BY
+   DESIGN»—, que es como se leía la primera tabla de salud. */
+.rank-table td.cell-text small.meta {
+  display: block; font-size: var(--text-micro); color: var(--muted);
+  margin-top: var(--space-0);
+}
+.rank-table td.cell-text li { margin: 0; }
+/* Una fecha no se parte por la mitad: «Oct 14, 2026 ·» en un renglón y la hora
+   en el siguiente se lee como dos datos. */
+.rank-table .nowrap { white-space: nowrap; }
+/* Un texto largo no puede decidir el ancho de la tabla: con un tope, el motivo
+   parte en dos o tres líneas y el resto de columnas cabe a su lado. */
+.rank-table td.cell-text { max-width: 26rem; }
+.rank-table td.cell-text--narrow { max-width: 13rem; }
+
+/* TABLAS DE PROSA EN EL TELÉFONO: FILAS APILADAS, NO SCROLL LATERAL.
+   Las tablas de números (board, semanal) se desplazan a lo ancho con el nombre
+   fijo, y funciona porque cada celda es una cifra que se lee sola. Una fila de
+   waivers es una FRASE —quién entra, por qué, a quién cortas, cuánto añade— y
+   partirla en siete columnas dentro de 342 px deja a la vista «Add | Pos» y un
+   motivo cortado por la mitad. Aquí cada fila pasa a ser un bloque: el nombre
+   arriba y cada dato en su renglón con su rótulo delante (`data-label`), así
+   que cabe entera sin desplazar nada.
+   El `thead` se oculta a la vista y NO con `display: none`: sigue nombrando
+   las columnas para quien navega con lector de pantalla. */
+/* EL CORTE ES 64rem Y NO 48. Con 48 (768 px) una tableta en vertical caía del
+   lado «tabla»: 720 px de hueco para una tabla que pide 764, o sea un listado
+   que promete caber y no cabe, justo en el ancho que nadie mira. Lo cazó
+   `tablas.mjs` el mismo día que se escribió. Por debajo de 1024 se apila. */
+@media (max-width: 63.99rem) {
+  .rank-table--stack { display: block; width: 100%; min-width: 0; }
+  .rank-table--stack thead {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap;
+  }
+  .rank-table--stack tbody { display: block; }
+  /* La fila es una caja que ENVUELVE: el nombre y la cifra clave en el primer
+     renglón, la frase a todo el ancho debajo, y el resto de datos fluyendo en
+     línea como fichas pequeñas (rótulo encima, valor debajo). Una ficha por
+     renglón dejaba 200 px por fila y 16.000 px de página; así una defensa con
+     cuatro cifras ocupa dos renglones. */
+  .rank-table--stack tr {
+    display: flex; flex-wrap: wrap; align-items: flex-start;
+    gap: var(--space-1) var(--space-4);
+    padding: var(--space-3); border-bottom: 1px solid var(--line);
+  }
+  .rank-table--stack td {
+    display: flex; flex-direction: column; order: 2;
+    padding: 0; border: 0; min-width: 0; max-width: 100%;
+    text-align: left; white-space: normal;
+  }
+  .rank-table--stack td::before {
+    content: attr(data-label);
+    font-size: var(--text-micro); color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  /* El nombre abre la fila y la cifra clave va a su derecha, en el mismo
+     renglón: es lo que se busca al recorrer la lista con el pulgar. */
+  .rank-table--stack td.who {
+    display: block; order: 0; flex: 1 1 55%;
+    position: static; min-width: 0;
+  }
+  .rank-table--stack td.cell-key {
+    order: 1; margin-left: auto; align-items: flex-end; text-align: right;
+    font-size: var(--num-lead); font-weight: var(--weight-numeric);
+  }
+  /* Cuando la «cifra» clave es una PALABRA (FRESH, STALE) no va en tipo de
+     cifra: «FRESH» a 20 px en negrita doce veces seguidas grita lo normal. */
+  .rank-table--stack td.cell-key--word { font-size: inherit; font-weight: var(--weight-semibold); }
+  /* La frase principal, a todo el ancho y sin rótulo: un «WHY NOW» delante de
+     cada motivo sería ruido. */
+  .rank-table--stack td.cell-lead { display: block; flex: 1 0 100%; }
+  .rank-table--stack td.who::before,
+  .rank-table--stack td.cell-lead::before { content: none; }
+  .rank-table--stack td.cell-text, .rank-table--stack td.cell-text--narrow { max-width: 100%; }
+  /* Una celda vacía no ocupa sitio con su rótulo y nada detrás. */
+  .rank-table--stack td:empty { display: none; }
 }
 
 .ptag {
@@ -1315,15 +1426,66 @@ tr.tier-start td { border-top: 2px solid var(--axis); }
 .mu-cell b { font-variant-numeric: tabular-nums; }
 .mu-cell--theirs { justify-content: flex-end; }
 .mu-slot { flex: 0 0 auto; }
+/* El centro de la fila: el chip del hueco y, debajo, lo que le pasa hoy. El
+   chip NO se estira: como hijo directo de la rejilla ocupaba el ancho entero de
+   su celda y en teléfono era una barra de color de lado a lado — un chip es una
+   etiqueta, y con 340 px de ancho se leía como un separador de sección. */
+.mu-mid {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  min-width: 2.75rem;
+}
+.mu-mid .ptag { margin-right: 0; }
+.lu-locked {
+  font-size: var(--text-micro); color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.15; text-align: center;
+}
+/* El rótulo de lado sólo existe donde hace falta: en teléfono. */
+.lu-side { display: none; }
 .mu-startsit { margin-top: var(--space-4); }
 .mu-startsit h4 { margin: 0 0 var(--space-1); font-size: var(--text-body); }
 .mu-start { color: var(--pos-diff-up); letter-spacing: 0.06em; font-size: var(--text-micro); }
 .mu-sit { color: var(--pos-diff-down); letter-spacing: 0.06em; font-size: var(--text-micro); }
-/* En un teléfono los dos equipos NO caben en paralelo: el hueco pasa a mandar
-   la fila y cada lado va a su renglón. */
+/* EN UN TELÉFONO LA CABECERA SÍ CABE EN PARALELO — son dos cifras y la
+   diferencia — y se queda así: apilada, «42.8 / 42.8 / 0.0» en tres renglones
+   no dice cuál es de quién sin subir a leer el rótulo.
+
+   Las FILAS dependen de lo que lleven. El cara a cara del analizador son dos
+   nombres y dos cifras: sin foto caben los dos lados, y la comparación de un
+   vistazo se conserva. */
 @media (max-width: 560px) {
-  .mu-head, .mu-rows > li { grid-template-columns: 1fr; }
-  .mu-side--theirs { text-align: left; align-items: flex-start; }
-  .mu-cell--theirs { justify-content: flex-start; flex-direction: row-reverse; }
-  .mu-vs { order: 3; }
+  .mu-head { gap: var(--space-2); }
+  .mu-rows .hs { display: none; }
+  .mu-rows > li { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+
+  /* Las de Lineups llevan marcas de estado, equipo y frases enteras («id 9221
+     — not in this week's projections»): en 130 px por lado se parten en tres
+     renglones cada una. Ahí el chip va a la IZQUIERDA y los dos lados uno
+     debajo del otro, con todo arrancando en el mismo borde.
+
+     Y un hueco que no cambia NO se pinta dos veces: es el caso normal, y
+     repetir al mismo jugador en dos renglones convertía nueve huecos en
+     dieciocho filas para decir que no había nada que hacer. */
+  .lu-rows > li {
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    grid-template-areas: "slot mine" "slot best" "slot lock";
+    row-gap: 2px; padding-left: var(--space-2); padding-right: var(--space-2);
+  }
+  /* El estado del partido NO cabe debajo del chip: «IN PROGRESS» en una
+     columna de 52 px se partía en dos renglones y se salía por la derecha
+     hasta meterse bajo el nombre. Aquí el contenedor se disuelve y el estado
+     baja a su propio renglón, en la columna ancha. */
+  .lu-rows .mu-mid { display: contents; }
+  .lu-rows .mu-slot { grid-area: slot; justify-self: start; align-self: start; }
+  .lu-rows .lu-locked { grid-area: lock; text-align: left; }
+  .lu-rows .mu-cell { flex-wrap: wrap; row-gap: 2px; }
+  .lu-rows .mu-cell--mine { grid-area: mine; }
+  /* `row-reverse` pone el arranque a la DERECHA: para pegar a la izquierda
+     hace falta `flex-end`. Con `flex-start` —que es lo que había— «nobody
+     fits» se iba al borde contrario de la fila que acompañaba. */
+  .lu-rows .mu-cell--theirs { grid-area: best; flex-direction: row-reverse; justify-content: flex-end; }
+  .lu-rows .lu-row--same .mu-cell--theirs { display: none; }
+  .lu-rows .lu-row--changed .lu-side {
+    display: inline; font-size: var(--text-micro); color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
 }

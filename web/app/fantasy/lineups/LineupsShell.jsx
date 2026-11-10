@@ -232,7 +232,7 @@ function LeagueLineup({ league, index, byes, week, statuses, active, now }) {
               const a = out.current?.rows?.[i] ?? null;
               const same = (a?.sid ?? null) === (b.sid ?? null);
               return (
-                <li key={`${b.slot}-${i}`} className={same ? undefined : "lu-row--changed"}>
+                <li key={`${b.slot}-${i}`} className={same ? "lu-row--same" : "lu-row--changed"}>
                   <span className="mu-cell mu-cell--mine">
                     {a ? (
                       <>
@@ -241,8 +241,16 @@ function LeagueLineup({ league, index, byes, week, statuses, active, now }) {
                         <b>{a.points === null ? "—" : num(a.points, 1)}</b>
                       </>
                     ) : <span className="attrib">not published</span>}
+                    {/* En teléfono las dos alineaciones van una DEBAJO de la
+                        otra, y sin rótulo no se sabe cuál es cuál. En
+                        escritorio lo dice la cabecera de la columna. */}
+                    <small className="lu-side">set</small>
                   </span>
-                  <span className={`mu-slot ${slotClass(b.slot)}`}>{SLOT_LABEL(b.slot)}
+                  {/* EL CHIP Y EL ESTADO SON DOS COSAS. Con la etiqueta DENTRO del
+                      chip se leía «RBIN PROGRESS», una palabra que no existe: el
+                      hueco es una categoría y el estado es lo que le pasa hoy. */}
+                  <span className="mu-mid">
+                    <span className={`mu-slot ${slotClass(b.slot)}`}>{SLOT_LABEL(b.slot)}</span>
                     {/* UN HUECO CONGELADO NO ES UN HUECO QUE COINCIDE.
                         Sin decirlo, la fila se lee como «aquí no hay nada que
                         cambiar» cuando lo cierto es «aquí ya no se puede». */}
@@ -254,6 +262,7 @@ function LeagueLineup({ league, index, byes, week, statuses, active, now }) {
                     ) : null}
                   </span>
                   <span className="mu-cell mu-cell--theirs">
+                    <small className="lu-side">best</small>
                     {b.row ? (
                       <>
                         <b>{b.points === null ? "—" : num(b.points, 1)}</b>

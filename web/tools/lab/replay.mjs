@@ -52,7 +52,7 @@ for(let i=1;i<=12;i+=1){
 }
 // Deshacer el pick 12 y coger a OTRO: el deshecho no es historia efectiva.
 const deshecho=nombres[11];
-await page.locator(".room-flash button").click();
+await page.locator(".room-flash button").filter({ hasText: /^Undo$/ }).click();
 await page.waitForFunction(()=>document.querySelector(".room-count strong")?.textContent==="11");
 await page.locator(".draft-search").fill("");
 const sustituto=await page.locator(".room-list .nm").nth(3).innerText();

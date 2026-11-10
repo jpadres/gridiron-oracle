@@ -325,3 +325,120 @@ def test_una_etiqueta_de_plantilla_NUEVA_sigue_levantando(tmp_path):
     ]).to_parquet(ruta)
     with pytest.raises(roster_status.RosterStageUnknown, match="ZZZ"):
         roster_status.load(ruta)
+
+
+# === EL LISTADO MÁS RECIENTE ES POR CLUB ====================================
+#
+# El 14 de octubre de 2026, con cuatro clubes en descanso, 16 de los 150
+# primeros del board salían «NO NFL TEAM»: `load` se quedaba con la semana más
+# alta del fichero y el club que descansa no publica listado esa semana.
+
+
+def _dos_clubes(tmp_path, extra=()):
+    """KC juega la 5 y la 6. CIN descansa en la 6: su último listado es la 5."""
+    return _roster([
+        {"gsis_id": "kc-qb", "status": "ACT", "team": "KC", "week": 5},
+        {"gsis_id": "kc-qb", "status": "ACT", "team": "KC", "week": 6},
+        {"gsis_id": "cin-wr", "status": "ACT", "team": "CIN", "week": 5},
+        {"gsis_id": "cin-ir", "status": "RES", "team": "CIN", "week": 5,
+         "status_description_abbr": "R01"},
+        *extra,
+    ], tmp_path)
+
+
+def test_un_club_en_descanso_conserva_su_ultimo_listado(tmp_path):
+    e = roster_status.load(_dos_clubes(tmp_path))
+    assert "cin-wr" in e, "la plantilla del club que descansa desapareció del registro"
+    assert e["cin-wr"].state == roster_status.ACTIVE
+    assert e["cin-wr"].has_team is True
+    assert e["cin-ir"].state == roster_status.RESERVE
+    # Y la semana que lleva es la de SU fila, no la del fichero.
+    assert e["cin-wr"].week == 5 and e["kc-qb"].week == 6
+
+
+def test_y_attach_no_lo_marca_sin_equipo(tmp_path):
+    # La consecuencia que se vio: «NO NFL TEAM» junto a Ja'Marr Chase.
+    filas = [{"player_id": "cin-wr", "vor": 90.0}, {"player_id": "kc-qb", "vor": 80.0}]
+    roster_status.attach(filas, roster_status.load(_dos_clubes(tmp_path)))
+    assert [f["roster_state"] for f in filas] == [roster_status.ACTIVE, roster_status.ACTIVE]
+    assert [f["vor"] for f in filas] == [90.0, 80.0], "marca, no calcula"
+
+
+def test_quien_sale_del_ultimo_listado_de_SU_club_se_queda_sin_fila(tmp_path):
+    # La otra mitad: «la última foto de cada club» no es «la última fila de cada
+    # jugador». Uno que KC listaba en la 5 y ya no en la 6 NO sigue activo.
+    path = _dos_clubes(tmp_path, extra=[
+        {"gsis_id": "kc-ex", "status": "ACT", "team": "KC", "week": 5},
+    ])
+    assert "kc-ex" not in roster_status.load(path)
+
+
+def test_si_otro_club_lo_lista_despues_manda_la_fila_mas_nueva(tmp_path):
+    # Activo en CIN (descansa, foto de la 5) y en el equipo de prácticas de KC
+    # en la 6: lo último que se sabe de él es lo de KC.
+    path = _dos_clubes(tmp_path, extra=[
+        {"gsis_id": "cin-wr", "status": "DEV", "team": "KC", "week": 6,
+         "status_description_abbr": "P01"},
+    ])
+    e = roster_status.load(path)
+    assert e["cin-wr"].team == "KC" and e["cin-wr"].state == roster_status.PRACTICE_SQUAD
+
+
+def test_dos_jornadas_sin_listado_no_son_un_descanso(tmp_path):
+    path = _roster([
+        {"gsis_id": "a", "status": "ACT", "team": "KC", "week": 7},
+        {"gsis_id": "b", "status": "ACT", "team": "CIN", "week": 5},
+    ], tmp_path)
+    with pytest.raises(roster_status.RosterStageUnknown, match="CIN"):
+        roster_status.load(path)
+
+
+def test_el_fichero_real_de_descansos_no_deja_a_nadie_fuera(tmp_path):
+    # La forma medida en 2026: 32 clubes, cuatro de ellos sin la última semana.
+    clubes = [f"T{i:02d}" for i in range(32)]
+    filas = []
+    for i, club in enumerate(clubes):
+        filas.append({"gsis_id": f"p{i}", "status": "ACT", "team": club, "week": 5})
+        if i >= 4:   # los cuatro primeros descansan en la 6
+            filas.append({"gsis_id": f"p{i}", "status": "ACT", "team": club, "week": 6})
+    e = roster_status.load(_roster(filas, tmp_path))
+    assert len(e) == 32
+    assert all(x.state == roster_status.ACTIVE for x in e.values())
+
+
+# === TRC / TRD / TRT ========================================================
+
+
+@pytest.mark.parametrize("etiqueta", ["TRC", "TRD", "TRT"])
+def test_una_transaccion_es_el_club_soltandolo(tmp_path, etiqueta):
+    """38 de las 40 filas de 2023-2026 son lo último que ese club dice de él."""
+    path = _roster([
+        {"gsis_id": "ps", "status": etiqueta, "status_description_abbr": "P01"},
+        {"gsis_id": "k", "status": etiqueta, "status_description_abbr": "A01"},
+        {"gsis_id": "ok", "status": "ACT"},
+    ], tmp_path)
+    e = roster_status.load(path)
+    assert e["ps"].state == roster_status.NOT_ON_ROSTER
+    assert e["k"].has_team is False and e["k"].on_active_roster is False
+    # El código fino viaja crudo: lo que no se traduce no se pierde.
+    assert e["ps"].roster_code == "P01"
+    assert e["ok"].state == roster_status.ACTIVE
+
+
+def test_una_etiqueta_desconocida_en_una_semana_VIEJA_no_bloquea(tmp_path):
+    # Lo que se publica es el último listado; una etiqueta rara de septiembre
+    # que ya no describe a nadie no puede parar la exportación de noviembre.
+    path = _roster([
+        {"gsis_id": "p", "status": "ZZZ", "week": 2},
+        {"gsis_id": "p", "status": "ACT", "week": 3},
+    ], tmp_path)
+    assert roster_status.load(path)["p"].state == roster_status.ACTIVE
+
+
+def test_pero_en_el_listado_que_se_publica_sigue_levantando(tmp_path):
+    path = _roster([
+        {"gsis_id": "p", "status": "ACT", "week": 2},
+        {"gsis_id": "p", "status": "ZZZ", "week": 3},
+    ], tmp_path)
+    with pytest.raises(roster_status.RosterStageUnknown, match="ZZZ"):
+        roster_status.load(path)

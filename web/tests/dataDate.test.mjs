@@ -10,7 +10,7 @@
  * aquí encima sobre el dato que caduca antes.
  */
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 
 import { dataDate, dateFrom, model } from "../data/model.js";
@@ -95,8 +95,9 @@ test("el pie promete que CADA sección fecha lo suyo, y las cuatro lo hacen", ()
     // y mientras compartieron una el semanal citaba la del board sobre sus
     // proyecciones — 54 días de más.
     fantasy: ["app/fantasy/page.jsx"],
-    fantasy_weekly: ["app/fantasy/semanal/page.jsx"],
-    rosters: ["app/fantasy/page.jsx", "app/fantasy/semanal/page.jsx"],
+    fantasy_weekly: ["app/fantasy/semanal/page.jsx", "app/fantasy/lineups/page.jsx"],
+    rosters: ["app/fantasy/page.jsx", "app/fantasy/semanal/page.jsx",
+              "app/fantasy/lineups/page.jsx"],
     research: ["app/research/page.jsx"],
   };
   const secciones = Object.keys(model?.data_dates ?? {});
@@ -108,6 +109,33 @@ test("el pie promete que CADA sección fecha lo suyo, y las cuatro lo hacen", ()
       assert.match(leer(ruta), new RegExp(`dataDate\\("${seccion}"\\)`),
         `${ruta} tendría que leer dataDate("${seccion}")`);
     }
+  }
+});
+
+test("la fecha del BOARD sólo la citan las pantallas del board", () => {
+  /* `fantasy` fecha la estadística que entra en el board de DRAFT, que es de
+     agosto por diseño. Una pantalla SEMANAL que la cita le pone dos meses de
+     más a una proyección hecha con la jornada pasada — y nada falla, porque la
+     fecha existe y es cierta: lo que está mal es de qué habla. Pasó en
+     /semanal (54 días) y, ya corregido allí, seguía en /fantasy/lineups.
+
+     Lista BLANCA: quien quiera citarla tiene que estar aquí a propósito. */
+  const delBoard = new Set(["app/fantasy/page.jsx", "app/fantasy/draft/page.jsx"]);
+  const paginas = [];
+  const recorrer = (dir) => {
+    for (const e of readdirSync(new URL(`${dir}/`, RAIZ), { withFileTypes: true })) {
+      const ruta = `${dir}/${e.name}`;
+      if (e.isDirectory()) recorrer(ruta);
+      else if (/\.jsx?$/.test(e.name)) paginas.push(ruta);
+    }
+  };
+  recorrer("app");
+  assert.ok(paginas.length > 20, "el recorrido tiene que ver la aplicación entera");
+  const citan = paginas.filter((r) => /dataDate\("fantasy"\)/.test(leer(r)));
+  assert.ok(citan.length > 0, "alguien tiene que citar la fecha del board");
+  for (const ruta of citan) {
+    assert.ok(delBoard.has(ruta),
+      `${ruta} cita dataDate("fantasy"), que es la fecha del board de draft`);
   }
 });
 

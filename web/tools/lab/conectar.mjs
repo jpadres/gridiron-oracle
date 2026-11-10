@@ -60,7 +60,7 @@ await page.waitForSelector(".room-list button",{timeout:8000});
 await page.clock.runFor(1_000);
 await page.waitForSelector(".room-head-src",{timeout:8000}).catch(()=>{});
 
-const cabecera=await page.locator(".room-head p").innerText();
+const cabecera=await page.locator(".room-head p:not(.room-asof)").innerText();
 check("la sincronización arranca sola y los ajustes vienen del proveedor",
       /from sleeper/i.test(cabecera),cabecera.split("\n").join(" · "));
 check("tamaño, puntuación y puesto son los REALES (10 / half / 4)",

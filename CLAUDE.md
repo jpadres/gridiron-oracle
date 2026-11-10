@@ -9,16 +9,16 @@ dueño del repo). Sin cuentas, sin base de datos, sin backend.
 
 ## Lo primero que hay que entender
 
-**El modelo iguala a la línea de cierre del mercado; no la bate.** Brier **0.2129**
-frente a **0.2121**, MAE **10.03** frente a **9.97**, en 3.893 partidos fuera de
+**El modelo iguala a la línea de cierre del mercado; no la bate.** Brier **0.2128**
+frente a **0.2121**, MAE **10.02** frente a **9.96**, en 3.964 partidos fuera de
 muestra.
 
 Esas cifras salen de `validation.overall` del payload —lo que este código midió y
 lo que la web publica—, no de una tabla escrita a mano. Durante meses aquí ponía
 0.2118 / 0.2113 y 10.00 / 9.97, que son las del **proyecto original** del autor y
 nunca se reconciliaron con esta implementación. La corrección va en la dirección
-incómoda: la distancia real al mercado es algo MAYOR que la publicada —0,0008 de
-Brier en vez de 0,0005; 0,066 de MAE en vez de 0,03—. Si vuelves a ver cuatro
+incómoda: la distancia real al mercado es algo MAYOR que la publicada —0,0007 de
+Brier en vez de 0,0005; 0,064 de MAE en vez de 0,03—. Si vuelves a ver cuatro
 cifras de portada que no cuadran con el payload, **el payload manda**.
 
 Ese resultado es correcto y está bien medido. La línea de cierre de la NFL agrega
@@ -496,13 +496,14 @@ python scripts/sleeper_draft_sync.py --league <id>  # picks ya hechos -> researc
 python scripts/dossier_import.py libro.xlsx    # importa el dossier curado
 python scripts/export_web_data.py              # regenera el payload de la web
 python scripts/make_report.py                  # informe HTML de validación
+python scripts/check_headline_metrics.py --write   # pone en los documentos las cifras del payload
 
 # Opcionales, necesitan ANTHROPIC_API_KEY (pip install -e ".[narrative]")
 python scripts/research_build.py               # barrido diario de prensa: ~5 min
 python scripts/research_patch.py               # mete el research en el payload sin reentrenar
 python scripts/export_web_data.py --with-narrative   # resumen y explicaciones
 
-pytest -q          # 383 tests, sobre datos sintéticos (no requieren `oracle refresh`)
+pytest -q          # ~800 tests, sobre datos sintéticos (no requieren `oracle refresh`)
 ruff check src tests scripts
 cd web && npx next build
 ```
@@ -782,6 +783,22 @@ comentario está para que no los reintroduzcas.
 | Un guardián del arranque que pedía que el MENSAJE apareciera | `tests/labServer.test.mjs` | Exigía el texto «ya está ocupado» en `server.mjs`. El simulacro cambió `if (await ocupado(base))` por `if (false)` —la negativa entera— y siguió VERDE, porque el mensaje vive DENTRO del `throw`. **Sexta vez** con «el nombre sigue apareciendo», y escrita sabiéndolo. Y el ARREGLO cayó en el fallo de al lado: pedir la condición en cualquier parte del fichero seguía pasando, porque el BUCLE DE ESPERA llama a `ocupado(base)` doce líneas más abajo — el patrón casaba otra ocurrencia. La propiedad es que la comprobación y el `throw` ocurran ANTES del `spawn` |
 | Dos inyecciones que no reproducían su fallo | `scripts/injection_drill.sh` | La 119 cambiaba sólo `casa` a `Number(...)` y `fuera` seguía siendo `numberOrNull`, así que la guarda del 0-0 falso seguía saltando por el otro lado; la 138 apuntaba a dos líneas que no existían juntas. Las dos escribieron «VERDE (NO ES GUARDIÁN)» e «INYECCIÓN ROTA» sobre guardianes que SÍ lo eran. El aviso de `INYECCIÓN ROTA` distingue una de las dos; la otra —una inyección que cambia algo pero no lo suficiente— sólo se caza comprobándola a mano, que es lo que hay que hacer con cada inyección nueva |
 
+| Frases en columnas hechas para cifras | `globals.css`, `tablas.mjs` | La regla base de tabla es `text-align: right; white-space: nowrap`, la correcta para NÚMEROS. Waivers y `/salud` metieron prosa —«Why now», los motivos, el origen de cada fuente— y esa prosa heredó la alineación: cada renglón arrancando en un sitio distinto y la tabla empujada a **1.877 px en un hueco de 944**. Lo dijo el dueño mirando la pantalla («se ve raro… júntalo a la izquierda, que quepa») y no un test: nada falla cuando un listado se lee mal. Y el mismo guardián encontró DOS casos más que nadie había señalado, en el analizador y en apuestas. `cell-text` es ahora la clase de la prosa, y `tools/lab/tablas.mjs` mide estilo calculado: ninguna celda con cinco palabras o más alineada a la derecha, en ninguna tabla |
+| «No desborda» con dos tercios de la tabla fuera de la pantalla | `smoke.mjs`, `movil.mjs` | La comprobación de desbordamiento mira la PÁGINA, y una tabla dentro de un `.table-wrap` con `overflow-x: auto` no la desborda nunca: el envoltorio recorta. `smoke` y `movil` salían verdes con la tabla de salud midiendo el doble que su caja. Las tablas de cifras anchas desplazan a propósito con sus columnas fijas; las de prosa prometen caber (`rank-table--stack`) y esa promesa se mide DENTRO del envoltorio. El primer día cazó otro: a 768 px la tabla pedía 764 en 720, porque el corte del modo apilado estaba en 48rem — el ancho que nadie mira |
+| «RBIN PROGRESS» | `LineupsShell.jsx` | El estado del partido se pintaba DENTRO del chip del hueco, sin separación: una palabra que no existe. Y en teléfono el chip, hijo directo de una rejilla de una columna, se estiraba de lado a lado — una barra de color donde iba una etiqueta. El chip es una categoría y el estado es lo que le pasa hoy: dos elementos. Lo que hay que anotar es que al inyectar el fallo `movil` siguió VERDE, porque su doble no tenía titulares puestos y nunca había un hueco congelado que pintar: un doble que no se parece a una liga de verdad, por séptima vez. Ahora los lleva, y el escenario pisa el reloj a después del último saque del payload para que haya huecos congelados sea cual sea la hora |
+| La página de salud, ciega a lo único que tenía que ver | `salud/healthClock.js`, `health.py` | La etiqueta de cada fuente se calculaba al EXPORTAR y la página se lee días después: el 10 de noviembre de 2026 decía «10 de 12 FRESH» sobre un payload del 14 de octubre, con la exportación semanal parada tres semanas. Y había un test que lo BLINDABA —«la etiqueta no se calcula en el navegador»—, escrito con buena intención (dos autoridades para una decisión es `noBet.js`) y con esa consecuencia. La regla que queda es la de `gameClock.js`: Python fija de cuándo es el dato y publica cuánto dura (`fresh_for_hours`, de `freshness.WINDOWS`), el reloj del navegador decide si ya pasó, **y sólo puede bajar**. Un test que protege una decisión equivocada es más difícil de ver que no tener test |
+| La fecha del board sobre una proyección semanal, otra vez | `lineups/page.jsx` | `dataDate("fantasy")` es la estadística de agosto por diseño; `/fantasy/lineups` la citaba sobre su proyección de la jornada. Ya se había corregido en `/semanal` —54 días de más— y esta página se quedó con la clave vieja: el mismo día que se anota una lección hay que buscar dónde más aplica. Lista blanca en `tests/dataDate.test.mjs`: quien cite la fecha del board tiene que estar ahí a propósito |
+| Ja'Marr Chase, «NO NFL TEAM» | `fantasy/roster_status.py` | `load` se quedaba con la semana MÁS ALTA del roster semanal, y el club que descansa no publica listado esa semana: en 2026 las semanas 5 a 9 traen 30, 28, 28, 28 y 30 clubes. Sus plantillas enteras se quedaban sin fila, y `attach` lee «sin fila» como «sin equipo»: con CIN, DET, MIA y MIN en descanso, 16 de los 150 primeros del board —Chase, Gibbs, Achane, St. Brown, Jefferson— salían fuera de la lista corta. Un filtro correcto para una pregunta («¿de qué semana es lo último?») aplicado a otra («¿qué dice cada club?»). Ahora es el último listado DE CADA CLUB; quien ya no figura en el de SU club sigue sin fila, y un club dos jornadas por detrás no está descansando: levanta |
+| Tres semanas parados por un guardia del equipo de prácticas | `fantasy/roster_status.py`, (proceso) | El 28 de octubre apareció UNA fila con `status: TRC` y la puerta —bien— se negó a exportar. Lo que estuvo mal no fue la puerta: nadie miró el rojo, y la web entera se quedó en la jornada 6 hasta el 10 de noviembre. La traducción salió del fichero, como la de `INA`: de las 40 filas `TRC`/`TRD`/`TRT` de 2023-2026 en las que el mismo club vuelve a publicar listado, en 38 el jugador ya no está o figura `CUT`. Es el club soltándolo. **Fallar cerrado sólo protege si alguien mira el fallo**, y eso es lo que arreglan las tres filas siguientes |
+| CI rojo «por lo de siempre», tapando un fallo de verdad | `check_headline_metrics.py`, `ci.yml` | La muestra del backtest crece cada jornada, así que cada publicación semanal dejaba la comprobación de cifras de portada en rojo hasta que alguien corregía tres documentos a mano. Nadie lo hacía. Dos consecuencias: un rojo permanente deja de mirarse —así pasó inadvertida la parada de arriba—, y como en GitHub Actions un paso que falla SALTA los de detrás, **ni el lint ni la suite de Python corrieron una sola vez en CI en cuatro semanas**; en el job de la web, un falso positivo del paso de idioma apagó los tests de JavaScript, la simulación de draft y las cabeceras de seguridad. Ahora el workflow semanal corre `--write` y publica los documentos en el MISMO commit que el payload (y se NIEGA si el modelo deja de quedar por detrás del mercado: eso no se actualiza, se investiga), y cada control lleva su condición para informar por su cuenta |
+| /survivor vacía en producción desde siempre | `weekly-predictions.yml` | `survivor_build.py` no corría en el workflow y `out/` nace vacío en CI: `survivor: null` en cada publicación, con `/salud` diciéndolo en una fila que nadie miraba. Tercera sección con este fallo. Y el paso del ranking semanal llevaba `continue-on-error`, o sea que si fallaba se publicaban /semanal, /lineups y /waivers vacías en VERDE — con un comentario encima diciendo que eso ya estaba cerrado. `tests/test_ci_out_artifacts.py` cruza lo que el exportador lee de `out/` con lo que el workflow genera, y prohíbe que un paso que lo alimenta pueda fallar en silencio |
+| Una tilde en un nombre propio, leída como español | `web/tools/spanish.mjs`, `narrative/sweep.py` | «RB Audric Estimé» es una frase en inglés. La puerta de idioma daba por española cualquier tilde y el filtro del barrido no miraba ninguna: los dos detectores compartían la lista de palabras —había un test que lo exigía— y discrepaban en la regla. El barrido publicó el titular y la puerta lo rechazó. Compartir una LISTA no es compartir un veredicto: ahora los dos se prueban contra los mismos casos (`tests/fixtures/spanish_cases.json`), y la tilde sólo cuenta en una palabra que no empieza por mayúscula |
+| Los restos de un ADP pisando el ADP | `scripts/adp_fetch.py`, `adp.yml` | La fuente agrega mock drafts y fuera de temporada casi no los hay: seguía contestando 200 con jugadores dentro, cada vez menos —131, 54, 29, y el 10 de noviembre UNO—, y `require_rows` con su mínimo de una fila daba cada resto por bueno y lo escribía encima. No es un vacío ni un fallo de red: es una fuente fuera de temporada, que es lo que parece que funcionó. Mínimo declarado como CONVENCIÓN (ocho rondas) y cron sólo de junio a septiembre: un job rojo dos veces al día por un motivo esperado es otro rojo que enseña a no mirar |
+| Ocho laboratorios nocturnos, uno ejecutado | `labs-nightly.yml`, `tools/lab/` | El bucle llevaba `set -e`: `live-assistant` fallaba cada noche y los siete de detrás no llegaban a correr. Dos tenían un selector roto desde septiembre (`.room-head p`, que pasó a ser dos elementos; `.room-flash button`, ídem). Y `live-assistant` fallaba por el LABORATORIO: en los dos últimos turnos el asistente recomienda pateador y defensa —la regla 6e— y el laboratorio ni los tenía en su pool ni conocía ese motivo, así que caía al board en silencio y leía tres rojos de un producto que hacía lo correcto. Ahora ficha la recomendación también ahí y comprueba que los dos huecos obligatorios se llenan, uno por turno |
+| La primera alternativa, fuera del primer viewport | `system.css` | El cuarto rojo del nocturno SÍ era del producto. En teléfono la cifra de la recomendación bajaba a su propio renglón (tres líneas) y sacaba de la pantalla a la primera alternativa: se veía a quién coger y no a quién coger si te lo quitan. Y en la fila de alternativas, una marca de estado era un quinto hijo en una rejilla repartida por orden de llegada: empujaba la cifra a un renglón nuevo, sola en la esquina, justo en las filas con un QUESTIONABLE. Cada pieza va ahora en su zona por nombre |
+| Un laboratorio que necesitaba dos partidos abiertos | `tools/lab/reloj.mjs` | Derivaba sus tres momentos de TODOS los saques del payload. Exportado con 14 de 15 partidos terminados, los dos primeros caían antes del único abierto y «56 → 56 → 60» se leyó como un reloj que no se lee. Los momentos salen de los partidos que Python NO cerró —preguntándoselo a `gameClock.js`, no adivinando el nombre del campo, que es como falló el primer arreglo— y con uno solo se exige que antes y después difieran |
+| Una ruta con la revisión de Chromium escrita | `tools/lab/browser.mjs` | `/opt/pw-browsers/chromium-1194/…` en el sitio «único» y en once utilidades más. El contenedor pasó a otra revisión y nada arrancaba, con el mensaje de un navegador que falta. Una ruta con versión dentro es una fecha escrita a mano. La estable va primero y un test impide que vuelva a haber una segunda copia |
+| `next build` cayéndose por un aviso de seguridad | `package-lock.json` | Next se niega a compilar una versión con una vulnerabilidad crítica publicada (`SecurityFatalError`): con 16.4.0 y tres avisos nuevos, el build dejó de funcionar sin que cambiara una línea del repositorio. `npm audit fix` a 16.4.6. No es un fallo del proyecto, pero conviene saber leerlo: un build que deja de compilar solo es, primero, una dependencia |
 ---
 
 ## Estado actual y qué sigue
@@ -803,6 +820,22 @@ ninguna pantalla le preste al dato la hora del build y que **cada sección del
 payload que trae fecha la pinte alguien** (`tests/dataDate.test.mjs`), y que
 nadie vuelva a preguntar «¿hay dato?» con un idioma que dice que sí sobre un
 hueco (`tests/numbers.test.mjs`).
+
+**Cada control informa por su cuenta.** En GitHub Actions un paso que falla
+salta los de detrás, y eso convirtió un rojo en una ceguera durante cuatro
+semanas de octubre de 2026: ni el lint ni la suite de Python corrieron una vez.
+Todo control de `ci.yml` lleva ahora
+`if: ${{ !cancelled() && steps.preparar.outcome == 'success' }}`, el bucle
+nocturno corre todos los laboratorios y falla al final, y un control nuevo
+lleva lo mismo (`tests/test_ci_steps_independent.py`). Y el workflow semanal
+publica las cifras de portada en el mismo commit que el payload
+(`check_headline_metrics.py --write`): un rojo esperado cada miércoles era la
+forma de que nadie mirase el del jueves.
+
+**La salud envejece en el navegador** (`app/salud/healthClock.js`), con la
+misma partición que el reloj del partido de abajo: Python fija de cuándo es
+cada fuente y cuánto dura; el navegador sólo puede BAJAR una etiqueta, nunca
+reabrirla. Antes se quedaba congelada en el instante de la exportación.
 
 **El reloj del partido** (`app/gameClock.js`) parte la pregunta en dos mitades
 con dueños distintos, y conviene tenerlo claro antes de tocarlo: «¿ha
@@ -877,8 +910,8 @@ está construida:
 
 | Laboratorio | Qué prueba |
 |---|---|
-| `smoke.mjs` | Las CATORCE páginas en 390/768/1440 sin cuenta: responden, no lanzan, tienen `h1`, no desbordan y ninguna se queda sin enlace. Comprueba la ALCANZABILIDAD, no la presencia en el menú: `/fantasy/leagues` salió del menú a propósito y la enlaza la barra de liga. Y que los dos menús —el de escritorio y el desplegable del teléfono— lleven exactamente lo mismo |
-| `movil.mjs` | GEOMETRÍA en 390/360, claro y oscuro, y con el texto agrandado: que nada se salga de su celda por la derecha, que nada se monte encima de nada y que las columnas fijas sean opacas. Cada ruta declara además la pieza densa que la define: una comprobación de geometría sobre una pantalla que se quedó vacía sale verde sin mirar nada |
+| `smoke.mjs` | Las CATORCE páginas en 390/768/1440 sin cuenta: responden, no lanzan, tienen `h1`, no desbordan y ninguna se queda sin enlace. Y en los tres anchos, los LISTADOS (`tablas.mjs`): la tabla que promete caber cabe DENTRO de su envoltorio —que recorta, y por eso «no desborda» no lo veía—, ninguna frase va alineada a la derecha y un chip no es una barra. Comprueba la ALCANZABILIDAD, no la presencia en el menú: `/fantasy/leagues` salió del menú a propósito y la enlaza la barra de liga. Y que los dos menús —el de escritorio y el desplegable del teléfono— lleven exactamente lo mismo |
+| `movil.mjs` | GEOMETRÍA en 390/360, claro y oscuro, y con el texto agrandado (incluida `/fantasy/waivers`, que no estaba), más dos pasadas cortas: Lineups con el reloj pisado a después del último saque —para que haya huecos congelados que medir— y los listados de prosa en 1440 CON cuenta: que nada se salga de su celda por la derecha, que nada se monte encima de nada y que las columnas fijas sean opacas. Cada ruta declara además la pieza densa que la define: una comprobación de geometría sobre una pantalla que se quedó vacía sale verde sin mirar nada |
 | `cuenta.mjs` | Enlazar la cuenta, los paneles por liga, el semanal marcado, lo libre, el resto de temporada, el analizador y el recorrido «una cuenta, una liga» |
 | `live-assistant.mjs` | Un draft entero de 180 picks por el adaptador, las carreras por un candidato, los picks leídos que no se aplican, y que la lista corta se ADAPTE a la plantilla: ocho turnos ordenados por lo que añaden y siete de vuelta al board cuando ya no queda titular que llenar |
 | `conectar.mjs` | Conectar una liga de Sleeper de verdad, y `/fantasy` CON esa liga: que no lance —ni al cargar ni al sincronizar, que es cuando corren los efectos con red— y que el orden se adapte igual que en el Draft Room |
@@ -892,7 +925,7 @@ está construida:
 | `controles.mjs` | **Control por control, las catorce páginas, con cuenta y sin ella.** Enumera cada botón, enlace, campo y desplegable; comprueba que tiene nombre accesible, que en 390 llega a 44 px, que no desborda, que no pisa a otro, que lo deshabilitado se VE deshabilitado y que ningún primario sale con el botón del sistema operativo. Después PULSA cada botón aislado —recargando entre uno y otro— y exige que no lance, que la página conserve su `h1` y que no aparezca desbordamiento nuevo. Escucha `console` además de `pageerror`, porque Next atrapa el fallo de un cliente en su frontera de error. `SOLO=/ruta` y `SIN_CUENTA=1` acotan el recorrido para poder probar los guardianes inyectando su fallo en un minuto |
 
 Todo guardián nuevo se prueba INYECTANDO el fallo que existe para cazar. Si no
-se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CIENTO CUARENTA Y TRES fallos
+se pone rojo, no es un guardián. `scripts/injection_drill.sh` mete CIENTO SESENTA Y TRES fallos
 conocidos —frescura prestada del reloj, un OUT drafteable, el cupo filtrando a
 quien mejora, la fecha de descarga como publicación, el Brier a mano, la cuota
 negativa mal convertida, un LIVE sin evidencia, un K1…K12 sin registro y una
@@ -922,8 +955,14 @@ y desde la jornada 5 la jornada vieja presentada como la de hoy, la ventana de
 estadística derivada de una resta, el handicap exacto cobrando como victoria, un
 partido sin marcador liquidado como 0-0, un prop liquidado con el marcador, la
 prensa dejándose nueve clubes fuera, `LA` y `LAR` contados como dos, una ingesta
-vacía dada por buena y `refresh` escribiendo un `player_weeks` sin filas— y
-exige 143 rojos y 143 verdes al
+vacía dada por buena y `refresh` escribiendo un `player_weeks` sin filas, y
+desde el 10 de noviembre el veredicto de salud congelado en la exportación, el
+navegador reabriendo lo que Python cerró, un club en descanso leído como sin
+equipo NFL, una transacción de plantilla traducida a activo, el plan de survivor
+fuera del workflow semanal, la portada reescrita sola cuando el modelo bate al
+mercado, un control de CI saltándose porque falló el anterior, una tilde en un
+nombre propio leída como español, los restos de un ADP pisando el bueno y la
+prosa de un listado alineada a la derecha— y exige 163 rojos y 163 verdes al
 restaurar.
 
 ## El skill de UI/UX

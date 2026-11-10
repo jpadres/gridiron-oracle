@@ -18,6 +18,7 @@ propio fichero declara en su columna `status` —no las inventa nadie aquí—:
     EXE  EXEMPT          lista de exentos
     CUT  NOT_ON_ROSTER   cortado
     RET  NOT_ON_ROSTER   retirado
+    TRC/TRD/TRT          NOT_ON_ROSTER: el club lo está soltando esa semana
     (sin fila)           NOT_ON_ROSTER: no está en ninguna plantilla
     (defensa)            TEAM_UNIT: la pregunta no se le hace a un equipo
 
@@ -93,7 +94,36 @@ FROM_NFLVERSE = {
     "EXE": EXEMPT,
     "CUT": NOT_ON_ROSTER,
     "RET": NOT_ON_ROSTER,
+    # `TRC`, `TRD`, `TRT`: EL CLUB LO SUELTA ESA SEMANA.
+    #
+    # Aparecen un puñado de veces por temporada desde 2020 y este módulo —bien—
+    # se negó a exportar con la primera: el 28 de octubre de 2026 había UNA fila
+    # `TRC` (un guardia del equipo de prácticas de Filadelfia) y el board no se
+    # construyó. Lo que estuvo mal no fue la puerta: fue que nadie miró el rojo,
+    # y la web entera se quedó en la jornada 6 TRES SEMANAS por un jugador que
+    # no está en ningún board de fantasy.
+    #
+    # La traducción sale del fichero, como la de `INA`, y no del significado que
+    # uno le supondría a las siglas. Se siguieron las 44 filas de 2023 a 2026:
+    # de las 40 en las que el MISMO club vuelve a publicar listado después, en
+    # 37 el jugador ya no está en él y en 1 figura `CUT`. O sea que en 38 de 40
+    # la fila es lo último que ese club dice de él — venga de su 53 (un pateador
+    # de Washington en 2025, activo en Houston a la semana siguiente) o de su
+    # equipo de prácticas, que son la mayoría. En las otras 2 seguía allí.
+    #
+    # Traducirlo a «activo» o a «equipo de prácticas» sería afirmar lo contrario
+    # de lo que el fichero dice una semana después 19 de cada 20 veces. Y el
+    # error de las otras dos dura una semana: el siguiente listado lo corrige
+    # solo. Si firma con otro club, ese club lo lista y `load` se queda con la
+    # fila más nueva.
+    "TRC": NOT_ON_ROSTER,
+    "TRD": NOT_ON_ROSTER,
+    "TRT": NOT_ON_ROSTER,
 }
+
+#: Cuántas jornadas puede ir un club por detrás del fichero sin que sea un
+#: fallo: UNA, que es su semana de descanso. Dos seguidas no son un descanso.
+MAX_LISTING_LAG = 1
 
 LABEL = {
     ACTIVE: "ACTIVE ROSTER",
@@ -156,11 +186,57 @@ def _source_date(path: Path) -> str | None:
         return None
 
 
+def _latest_listing(frame: pd.DataFrame) -> pd.DataFrame:
+    """El listado más reciente DE CADA CLUB, que no es la semana más alta.
+
+        UN CLUB EN DESCANSO NO PUBLICA LISTADO ESA SEMANA.
+
+    El roster semanal trae una foto por club y jornada, y el club que no juega
+    no sale: en 2026 las semanas 5 a 9 traen 30, 28, 28, 28 y 30 clubes, que es
+    el calendario de descansos exacto. Quedarse con «la semana más alta» dejaba
+    SIN FILA a las plantillas enteras de los que descansaban, y `attach` lee
+    «sin fila» como «sin equipo NFL»: el 14 de octubre de 2026, con CIN, DET,
+    MIA y MIN en descanso, Ja'Marr Chase, Jahmyr Gibbs, De'Von Achane,
+    Amon-Ra St. Brown y Justin Jefferson salían `NOT_ON_ROSTER` — 16 de los 150
+    primeros del board, fuera de la lista corta y con «NO NFL TEAM» al lado. Un
+    filtro correcto para una pregunta («¿de qué semana es lo último?») aplicado
+    a otra («¿qué dice cada club?»).
+
+    Lo que se devuelve es la unión de la última foto de cada club. Quien ya no
+    figura en la última foto de SU club se queda sin fila, como antes: eso sí
+    es una afirmación del fichero.
+
+    Y un club que va más de una jornada por detrás no está descansando: está
+    roto, y publicar su foto vieja como la de hoy sería la falsa actualidad de
+    la regla 5. Ahí se levanta.
+    """
+    ultima = int(frame["week"].max())
+    por_club = frame.groupby("team")["week"].max()
+    atrasados = sorted(
+        f"{club} (semana {int(semana)})"
+        for club, semana in por_club.items()
+        if int(semana) < ultima - MAX_LISTING_LAG
+    )
+    if atrasados:
+        raise RosterStageUnknown(
+            f"el fichero llega a la semana {ultima} y estos clubes no publican listado "
+            f"desde antes de la {ultima - MAX_LISTING_LAG}: {', '.join(atrasados)}. Un "
+            "descanso es UNA jornada; dar por actual una foto más vieja sería afirmar "
+            "una plantilla que nadie ha confirmado"
+        )
+    foto = frame[frame["week"] == frame["team"].map(por_club)]
+    # Un jugador puede salir en la foto de dos clubes: la del que descansa (de
+    # la semana pasada) y la del que lo acaba de fichar. Manda la más nueva.
+    return foto.sort_values("week").drop_duplicates("gsis_id", keep="last")
+
+
 def load(roster_path: Path) -> dict[str, RosterEntry]:
     """Lee el roster semanal y devuelve la situación por `gsis_id`.
 
-    Se queda con la semana MÁS ALTA del fichero: un roster semanal acumula
-    semanas y la vieja diría que alguien cortado en agosto sigue activo.
+    Se queda con el listado MÁS RECIENTE DE CADA CLUB (`_latest_listing`): un
+    roster semanal acumula semanas y la vieja diría que alguien cortado en
+    agosto sigue activo, pero «la más reciente» se decide club a club, porque
+    el que descansa no publica.
     """
     if not roster_path.exists():
         return {}
@@ -178,8 +254,7 @@ def load(roster_path: Path) -> dict[str, RosterEntry]:
     frame = frame[frame["gsis_id"].notna()]
     if frame.empty:
         return {}
-    week = int(frame["week"].max())
-    frame = frame[frame["week"] == week]
+    frame = _latest_listing(frame)
     desconocidos = sorted(set(frame["status"].dropna().unique()) - set(FROM_NFLVERSE))
     if desconocidos:
         raise RosterStageUnknown(
@@ -205,7 +280,10 @@ def load(roster_path: Path) -> dict[str, RosterEntry]:
             team=normalize_team(str(row["team"])) if row.get("team") else None,
             roster_code=str(code) if code and not pd.isna(code) else None,
             season=int(row["season"]) if row.get("season") else 0,
-            week=week,
+            # LA SEMANA DE SU FILA, no la del fichero: la de un club en
+            # descanso es la anterior, y decir otra cosa le pondría a su foto
+            # una jornada que no tiene.
+            week=int(row["week"]),
             source_as_of=as_of,
         )
     return entries

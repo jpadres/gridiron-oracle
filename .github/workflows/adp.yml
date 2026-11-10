@@ -11,7 +11,13 @@ on:
   schedule:
     # Dos veces al día. Un ADP se mueve con los drafts que se juegan, no con el
     # reloj: más a menudo sería ruido.
-    - cron: "20 6,18 * * *"
+    #
+    # SÓLO DE JUNIO A SEPTIEMBRE. La fuente agrega mock drafts y fuera de la
+    # temporada de drafts no los hay: desde octubre de 2026 este job salía ROJO
+    # dos veces al día por un motivo esperado, y un rojo que está siempre deja
+    # de mirarse — así se le pasó a todo el mundo que la exportación semanal
+    # llevaba tres semanas parada. Fuera de temporada se lanza a mano.
+    - cron: "20 6,18 * 6-9 *"
   workflow_dispatch:
 
 concurrency:

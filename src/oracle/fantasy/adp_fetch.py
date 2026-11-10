@@ -53,6 +53,29 @@ FORMATS = {"ppr": "ppr", "half-ppr": "half_ppr", "standard": "standard",
            "2qb": "superflex"}
 
 
+#: CUÁNTAS RONDAS TIENE QUE CUBRIR UNA INSTANTÁNEA PARA SER UN ADP.
+#:
+#: Es una CONVENCIÓN declarada, no una medición: ocho rondas de las quince de
+#: un draft. El ADP contesta «¿puedo esperar a mi siguiente pick?», y esa
+#: pregunta se hace sobre todo en la mitad del draft donde aún se eligen
+#: titulares; una instantánea que no llega ahí no la puede contestar.
+#:
+#: Existe por lo que pasó al acabar la temporada de drafts de 2026. La fuente
+#: agrega mock drafts, y en octubre ya casi nadie los juega: la respuesta seguía
+#: siendo un 200 con jugadores dentro, pero CADA VEZ MENOS —131, 54, 29, y el 10
+#: de noviembre UNO—, y `require_rows` con su mínimo de una fila daba cada una
+#: por buena y la escribía encima de la anterior. El artefacto de septiembre,
+#: que era el ADP de verdad, se fue sustituyendo por sus restos. No es un fallo
+#: de red ni un vacío: es una fuente fuera de temporada, y lo que parece es que
+#: funcionó.
+MIN_ROUNDS_COVERED = 8
+
+
+def minimum_entries(league_size: int) -> int:
+    """Los jugadores que tiene que traer un ADP de `league_size` equipos."""
+    return MIN_ROUNDS_COVERED * int(league_size)
+
+
 class AdpUnavailable(RuntimeError):
     """No se pudo obtener un ADP utilizable. NO se devuelve uno a medias."""
 

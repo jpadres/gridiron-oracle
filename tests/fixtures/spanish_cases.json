@@ -1,0 +1,62 @@
+[
+ {
+  "text": "Quotes from Kellen Moore, QB Tyler Shough, RB Audric Estimé, EDGE Carl Granderson, and Wide Receiver Chris Olave",
+  "spanish": false,
+  "why": "una tilde en un nombre propio no es español: es el caso que dejó CI en rojo"
+ },
+ {
+  "text": "José Ramírez and Iván Peñalver were signed to the practice squad",
+  "spanish": false,
+  "why": "tres nombres con tilde"
+ },
+ {
+  "text": "Las Vegas is rebuilding its offensive line",
+  "spanish": false,
+  "why": "un topónimo no es una palabra funcional"
+ },
+ {
+  "text": "Rams On SI: what the trade means",
+  "spanish": false,
+  "why": "«si» salió de la lista por Sports Illustrated"
+ },
+ {
+  "text": "Bowers is doubtful for Sunday with a knee injury",
+  "spanish": false,
+  "why": "inglés corriente"
+ },
+ {
+  "text": "He played solo coverage on third down",
+  "spanish": false,
+  "why": "una sola palabra funcional no basta"
+ },
+ {
+  "text": "El equipo anuncia los inactivos para el partido",
+  "spanish": true,
+  "why": "dos palabras funcionales"
+ },
+ {
+  "text": "Raiders firman a su corredor más joven",
+  "spanish": true,
+  "why": "tilde en una palabra común"
+ },
+ {
+  "text": "el jugador está fuera",
+  "spanish": true,
+  "why": "tilde y funcionales"
+ },
+ {
+  "text": "¿Quién juega el domingo?",
+  "spanish": true,
+  "why": "puntuación que el inglés no tiene"
+ },
+ {
+  "text": "Resumen del partido: Raiders contra Chiefs",
+  "spanish": false,
+  "why": "una sola funcional («del»): el detector pide dos, y lo que no ve no se finge"
+ },
+ {
+  "text": "Estimé corre para 80 yardas y un touchdown",
+  "spanish": true,
+  "why": "nombre con tilde EN una frase española"
+ }
+]

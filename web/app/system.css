@@ -2274,13 +2274,23 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .room-why--pick li { font-size: var(--text-micro); }
 .room-why--pick li::before { content: "· "; color: var(--chalk-dim); }
 .room-alts { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: grid; gap: 2px; }
+/* CADA PIEZA EN SU ZONA, por nombre y no por orden de llegada. La fila tiene
+   cuatro hijos… o CINCO, cuando el jugador lleva una marca de estado: con las
+   columnas repartidas por orden, esa quinta pieza empujaba la cifra a un
+   renglón nuevo — «90» suelto en la esquina izquierda, debajo del motivo, justo
+   en las filas con un QUESTIONABLE, que son las que más hay que leer bien. */
 .room-alts button {
-  display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+  grid-template-areas: "tag nm mark why n";
   align-items: center; gap: var(--space-2); width: 100%; min-height: 44px;
   padding: var(--space-2); background: var(--field); border: none; cursor: pointer;
   color: inherit; font: inherit; text-align: left;
 }
-.room-alts .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.room-alts .ptag { grid-area: tag; }
+.room-alts .nm { grid-area: nm; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.room-alts .mark { grid-area: mark; }
+.room-alts .alt-why { grid-area: why; }
+.room-alts .alt-n { grid-area: n; text-align: right; }
 .room-alts .alt-why { font-size: var(--text-nano); color: var(--chalk-dim); }
 .room-alts .alt-n { font-variant-numeric: tabular-nums; }
 .room-must {
@@ -2291,10 +2301,20 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 /* En el teléfono la fila del alternativo se parte: el motivo baja de renglón
    antes que estrangular el nombre, que es el fallo de `.room-row` de agosto. */
 @media (max-width: 480px) {
-  .room-alts button { grid-template-columns: auto minmax(0, 1fr) auto; }
-  .room-alts .alt-why { grid-column: 2 / -1; }
-  .room-pick-hero { grid-template-columns: auto minmax(0, 1fr); }
-  .room-pick-hero .room-cand-vor { grid-column: 2; text-align: left; }
+  .room-alts button {
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-areas: "tag nm mark n" ". why why n";
+    row-gap: 0;
+  }
+  /* LA CIFRA, A LA DERECHA DEL NOMBRE TAMBIÉN EN EL TELÉFONO. Bajaba a su
+     propio renglón —tres líneas: el número, «to your lineup» y el VOR— y esos
+     75 px sacaban del primer viewport a la primera alternativa: con el reloj
+     corriendo se veía a quién coger y no a quién coger si te lo quitan. El
+     laboratorio nocturno lo marcaba en rojo desde que la tarjeta ganó la línea
+     del ADP, y de madrugada no lo miraba nadie. El nombre puede partir en dos
+     renglones; la cifra mide lo mismo siempre. */
+  .room-pick-hero { gap: var(--space-2); }
+  .room-pick-hero .room-cand-vor { text-align: right; }
 }
 
 /* Las dos fechas del dato en la cabecera de la sala. Una línea, tono de
@@ -2333,9 +2353,21 @@ button.pick--mine { min-width: 44px; padding-inline: var(--space-4); }
 .lu-swap-delta { font-variant-numeric: tabular-nums; text-align: right; }
 .lu-row--changed { background: var(--field-sunken); }
 .lu-rows .mark { order: 0; }
+/* En teléfono el cambio se lee de arriba abajo —quién sale, quién entra— con el
+   chip del hueco a la IZQUIERDA y lo que vale a la derecha. En una sola columna
+   el chip era hijo directo de la rejilla y se estiraba de lado a lado: una
+   barra naranja encima de cada cambio, y la diferencia —que es por lo que se
+   hace el cambio— sola en un cuarto renglón. */
 @media (max-width: 560px) {
-  .lu-swaps > li { grid-template-columns: minmax(0, 1fr); }
-  .lu-swap-delta { text-align: left; }
+  .lu-swaps > li {
+    grid-template-columns: 3.25rem minmax(0, 1fr) auto;
+    grid-template-areas: "slot out delta" "slot in delta";
+    row-gap: 2px; align-items: start;
+  }
+  .lu-swaps > li > .ptag { grid-area: slot; justify-self: start; margin-right: 0; }
+  .lu-swap-out { grid-area: out; }
+  .lu-swap-in { grid-area: in; }
+  .lu-swap-delta { grid-area: delta; align-self: center; }
 }
 
 /* NEEDS ACTION: lo único de la pantalla que tiene reloj.

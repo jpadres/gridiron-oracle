@@ -21,6 +21,7 @@ import { useCallback, useMemo, useState } from "react";
 
 import { capabilityStatus, num } from "../../../data/model.js";
 import { Callout } from "../../ui.jsx";
+import { instantLabel } from "../../instant.js";
 import { coverageTitle, coverageWarning, injuryClockLabel } from "../injuryReport.js";
 import LeagueBar from "../LeagueBar.jsx";
 import { RowMarks } from "../rowMarks.jsx";
@@ -37,11 +38,17 @@ const CATEGORIA = {
   [MOVE.BENCH_DEPTH]: ["Bench depth", "does not enter your lineup this week"],
 };
 
+/* UN RELOJ: RÓTULO Y VALOR, CADA UNO EN SU SITIO.
+   Antes eran un `<small>` y un `<b>` sueltos dentro de una rejilla pensada para
+   `<dl>`: los dos fluían en línea y se pintaban pegados —«Rankings2026-10-
+   14T13:59:16Z»—, con el instante en ISO crudo partido en dos renglones. Es un
+   par término/definición, así que va en `<dt>`/`<dd>`, y el instante se escribe
+   para leerse (`instantLabel`). */
 function Clock({ label, value }) {
   return (
     <div>
-      <small>{label}</small>
-      <b>{value ?? "UNKNOWN"}</b>
+      <dt>{label}</dt>
+      <dd>{instantLabel(value) ?? "UNKNOWN"}</dd>
     </div>
   );
 }
@@ -97,6 +104,13 @@ export default function WaiversShell({ weekly, research, byes }) {
 
   // Los huecos vacíos que este pool no puede servir. Se derivan de lo que el
   // motor DICE que trae, no de una lista escrita a mano.
+  /* ¿Hay ALGÚN movimiento con corte, o con puja? Si ninguno lo tiene, la
+     columna entera diría lo mismo en cada fila y se retira: se dice una vez en
+     el pie. Se deriva de los movimientos y no de la configuración de la liga,
+     para que la tabla y la frase no puedan contradecirse. */
+  const algunCorte = Boolean(movimientos?.moves?.some((m) => m.drop));
+  const algunFaab = Boolean(
+    movimientos?.moves?.some((m) => m.faab?.status !== "NO_BUDGET_DECLARED"));
   const fueraDelPool = useMemo(() => {
     const trae = new Set(movimientos?.poolPositions ?? []);
     return (movimientos?.emptyStarterSlots ?? []).filter((pos) => !trae.has(pos));
@@ -118,12 +132,12 @@ export default function WaiversShell({ weekly, research, byes }) {
           refrescan a ritmos distintos aplana justo el desacuerdo que importa. */}
       <section aria-label="Freshness" className="bk-plan">
         <h2 className="bk-h">As of <small>each row dates its own source</small></h2>
-        <div className="bk-plan-nums">
+        <dl className="kv">
           <Clock label="Rankings" value={research?.clocks?.research_as_of ?? null} />
           <Clock label="Injury report" value={injuryClockLabel(research?.injury_report)} />
           <Clock label="Rosters" value={research?.clocks?.roster_as_of ?? null} />
           <Clock label="Kicker jobs" value={jobInstante} />
-        </div>
+        </dl>
         {/* Un parte a medias no se puede leer como un parte. Sale SÓLO cuando
             falta algún club: un aviso que aparece siempre es decoración.
             Va en ámbar porque CONTRADICE lo que el lector asume al no ver
@@ -188,11 +202,23 @@ export default function WaiversShell({ weekly, research, byes }) {
               </p>
             ) : null}
             <div className="table-wrap">
-              <table className="rank-table">
+              {/* TEXTO A LA IZQUIERDA, Y EN EL TELÉFONO, APILADA.
+                  Cada fila es una frase —quién entra, por qué, a quién cortas,
+                  cuánto añade— y con la alineación de las tablas de números se
+                  leía en dos trozos: el nombre a la izquierda, su posición a
+                  150 px, y el motivo pegado al borde derecho. La posición y el
+                  equipo van DEBAJO del nombre, como en el resto de tablas, que
+                  ahorra una columna; las de prosa se declaran `cell-text`; y
+                  `rank-table--stack` las apila en pantallas estrechas con el
+                  rótulo de cada dato delante (`data-label`). */}
+              <table className="rank-table rank-table--stack">
                 <thead>
                   <tr>
-                    <th>Add</th><th>Pos</th><th>Why now</th>
-                    <th>Drop</th><th>Lineup</th><th>Adds</th><th>FAAB</th>
+                    <th>Add</th>
+                    <th className="cell-text">Why now</th>
+                    {algunCorte ? <th className="cell-text">Drop</th> : null}
+                    <th>Lineup</th><th>Adds</th>
+                    {algunFaab ? <th className="cell-text">FAAB</th> : null}
                   </tr>
                 </thead>
                 <tbody>
@@ -202,10 +228,10 @@ export default function WaiversShell({ weekly, research, byes }) {
                       <tr key={`${m.add.player_id}:${m.drop?.player_id ?? "none"}`}>
                         <td className="who">
                           <span className="nm">{m.add.player_name}</span>
+                          <span className="meta">{m.add.position} · {m.add.team}</span>
                           <RowMarks row={m.add} />
                         </td>
-                        <td>{m.add.position} · {m.add.team}</td>
-                        <td>
+                        <td className="cell-text cell-lead">
                           <b>{titulo}</b>
                           <small> — {explica}</small>
                           {m.reasons.length ? (
@@ -214,21 +240,26 @@ export default function WaiversShell({ weekly, research, byes }) {
                             </ul>
                           ) : null}
                         </td>
-                        <td>
-                          {m.drop
-                            ? <>{m.drop.player_name}<small> {m.drop.position}</small></>
-                            : <small>no cut needed</small>}
+                        {algunCorte ? (
+                          <td className="cell-text cell-text--narrow" data-label="Drop">
+                            {m.drop
+                              ? <>{m.drop.player_name}<small> {m.drop.position}</small></>
+                              : <small>no cut needed</small>}
+                          </td>
+                        ) : null}
+                        <td data-label="Lineup">{num(m.lineupBefore, 1)} &rarr; {num(m.lineupAfter, 1)}</td>
+                        <td data-label="Adds"
+                            className={`cell-key ${m.improves ? "wk-up" : "wk-down"}`}>
+                          {m.net > 0 ? "+" : ""}{num(m.net, 1)}
                         </td>
-                        <td>{m.lineupBefore} &rarr; {m.lineupAfter}</td>
-                        <td className={m.improves ? "wk-up" : "wk-down"}>
-                          {m.net > 0 ? "+" : ""}{m.net}
-                        </td>
-                        <td>
-                          {m.faab.status === "NO_BUDGET_DECLARED"
-                            ? <small>no FAAB budget declared</small>
-                            : <>{m.faab.pct[0]}&ndash;{m.faab.pct[1]}%
-                                <small> of {m.faab.of} left ({m.faab.label})</small></>}
-                        </td>
+                        {algunFaab ? (
+                          <td className="cell-text cell-text--narrow" data-label="FAAB">
+                            {m.faab.status === "NO_BUDGET_DECLARED"
+                              ? <small>no budget declared</small>
+                              : <>{m.faab.pct[0]}&ndash;{m.faab.pct[1]}%
+                                  <small> of {m.faab.of} left ({m.faab.label})</small></>}
+                          </td>
+                        ) : null}
                       </tr>
                     );
                   })}
@@ -237,9 +268,16 @@ export default function WaiversShell({ weekly, research, byes }) {
             </div>
             <p className="caption">
               &ldquo;Adds&rdquo; is the difference between two lineups assigned by the same
-              slot-filler the board and the Draft Assistant use — not a score. FAAB is a
-              declared <strong>convention</strong> over your remaining budget, not a
-              measured bid: this project has no validated FAAB model.
+              slot-filler the board and the Draft Assistant use — not a score.
+              {/* Lo que era igual en TODAS las filas se dice una vez aquí. Una
+                  columna con «no cut needed» cincuenta y ocho veces no informa:
+                  es el aviso que sale en los 250 jugadores, en forma de columna. */}
+              {!algunCorte ? " No move here requires a cut: your roster has room." : ""}
+              {algunFaab
+                ? <> FAAB is a declared <strong>convention</strong> over your remaining
+                    budget, not a measured bid: this project has no validated FAAB
+                    model.</>
+                : " This league declares no FAAB budget, so no bid is suggested."}
             </p>
           </>
         )}
@@ -261,12 +299,13 @@ export default function WaiversShell({ weekly, research, byes }) {
                 DST streaming, so no ordinal claim is made here.</>}
         </p>
         <div className="table-wrap">
-          <table className="rank-table">
+          <table className="rank-table rank-table--stack">
             <thead>
               <tr>
-                <th>Defense</th><th>Opponent</th><th>Opposing QB</th>
+                <th>Defense</th>
+                <th className="cell-text">Opposing QB</th>
                 <th>Opp. implied</th><th>Pts allowed</th><th>Sacks</th><th>TO</th>
-                {league ? <th>In my league</th> : null}
+                {league ? <th className="cell-text">In my league</th> : null}
               </tr>
             </thead>
             <tbody>
@@ -274,23 +313,36 @@ export default function WaiversShell({ weekly, research, byes }) {
                 const own = league ? ownRow(d) : null;
                 return (
                   <tr key={d.team}>
-                    <td className="who"><span className="nm">{d.team}</span></td>
-                    <td>{d.is_home ? "vs " : "@ "}{d.opponent}</td>
-                    <td>
+                    <td className="who">
+                      <span className="nm">{d.team}</span>
+                      <span className="meta">{d.is_home ? "vs " : "@ "}{d.opponent}</span>
+                    </td>
+                    <td className="cell-text cell-text--narrow" data-label="Opp. QB">
                       {d.opposing_qb ?? "UNKNOWN"}
                       {d.opposing_qb_designation
                         ? <small> · {d.opposing_qb_designation}</small>
                         : null}
+                      {/* LA DISPUTA SE ENSEÑA. El club declara a uno y los snaps
+                          de la última jornada los tomó otro: el payload publica
+                          las dos cosas desde octubre y esta celda sólo pintaba
+                          el nombre, o sea que el desacuerdo se calculaba y no
+                          llegaba a la pantalla. */}
+                      {d.opposing_qb_basis === "DISPUTED" ? (
+                        <>
+                          {" "}<span className="mark mark--risk">DISPUTED</span>
+                          {d.opposing_qb_note ? <small> {d.opposing_qb_note}</small> : null}
+                        </>
+                      ) : null}
                       {d.opposing_qb_basis === "MODEL_PROJECTED_STARTER"
                         ? <small> (model&rsquo;s projected starter, not a club statement)</small>
                         : null}
                     </td>
-                    <td>{num(d.opponent_implied) ?? "—"}</td>
-                    <td>{num(d.points_allowed_recent) ?? "—"}</td>
-                    <td>{num(d.sacks_recent) ?? "—"}</td>
-                    <td>{num(d.takeaways_recent) ?? "—"}</td>
+                    <td data-label="Opp. implied" className="cell-key">{num(d.opponent_implied) ?? "—"}</td>
+                    <td data-label="Pts allowed">{num(d.points_allowed_recent) ?? "—"}</td>
+                    <td data-label="Sacks">{num(d.sacks_recent) ?? "—"}</td>
+                    <td data-label="Takeaways">{num(d.takeaways_recent) ?? "—"}</td>
                     {league ? (
-                      <td>{own?.status === "MINE" ? "MINE"
+                      <td className="cell-text" data-label="My league">{own?.status === "MINE" ? "MINE"
                         : own?.status === "FREE_AGENT" ? "FREE"
                         : own?.label ?? "—"}</td>
                     ) : null}
@@ -329,12 +381,13 @@ export default function WaiversShell({ weekly, research, byes }) {
             : <>Ordinal ranking status: <code>{kOrdinal ?? "unknown"}</code>.</>}
         </p>
         <div className="table-wrap">
-          <table className="rank-table">
+          <table className="rank-table rank-table--stack">
             <thead>
               <tr>
-                <th>Kicker</th><th>Team</th><th>Job</th><th>Opponent</th>
+                <th>Kicker</th>
+                <th className="cell-text">Job</th>
                 <th>Exp. pts</th>
-                {league ? <th>In my league</th> : null}
+                {league ? <th className="cell-text">In my league</th> : null}
               </tr>
             </thead>
             <tbody>
@@ -345,10 +398,10 @@ export default function WaiversShell({ weekly, research, byes }) {
                   <tr key={k.player_id}>
                     <td className="who">
                       <span className="nm">{k.player_full_name ?? k.player_name}</span>
+                      <span className="meta">{k.team} · {k.is_home ? "vs " : "@ "}{k.opponent}</span>
                       <RowMarks row={k} />
                     </td>
-                    <td>{k.team}</td>
-                    <td>
+                    <td className="cell-text" data-label="Job">
                       {/* Sólo se marca lo ANORMAL. Tener el puesto es el caso de
                           27 de los 32, y una marca que sale siempre no informa. */}
                       {tieneElPuesto ? (
@@ -367,10 +420,9 @@ export default function WaiversShell({ weekly, research, byes }) {
                         <small>UNKNOWN — no depth chart for this team</small>
                       )}
                     </td>
-                    <td>{k.is_home ? "vs " : "@ "}{k.opponent}</td>
-                    <td>{num(k.projected_points) ?? "—"}</td>
+                    <td data-label="Exp. pts" className="cell-key">{num(k.projected_points) ?? "—"}</td>
                     {league ? (
-                      <td>{own?.status === "MINE" ? "MINE"
+                      <td className="cell-text" data-label="My league">{own?.status === "MINE" ? "MINE"
                         : own?.status === "FREE_AGENT" ? "FREE"
                         : own?.label ?? "—"}</td>
                     ) : null}

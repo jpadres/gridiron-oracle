@@ -67,7 +67,26 @@ jobs:
           # jornada sin jugar con la misma regla que el export. Saltárselo
           # publicaba la web sin ranking semanal y nadie lo veía.
           python scripts/fantasy_weekly_build.py $args
-        continue-on-error: true
+        # SIN `continue-on-error`. Lo llevaba, y con él un ranking semanal que
+        # falla NO para nada: `out/` nace vacío, el export escribe
+        # `fantasy_weekly: null` y se publican /semanal, /lineups y /waivers
+        # vacías con el workflow en VERDE — el fallo exacto que el comentario de
+        # arriba dice haber cerrado. Si el semanal no se puede construir, no se
+        # publica: el payload anterior sigue en pie y el rojo dice por qué.
+
+      # EL PLAN DE SURVIVOR NO SE CONSTRUÍA AQUÍ. `out/` está en .gitignore, así
+      # que en CI `out/survivor.json` no existía NUNCA: el export escribía
+      # `survivor: null`, /survivor salía vacía en producción y /salud marcaba
+      # la fuente BROKEN — correctamente, y sin que nadie lo mirase, desde que
+      # este workflow publica. Es el fallo del ranking semanal de más arriba,
+      # con otra sección. Un guardián (tests/test_ci_out_artifacts.py) cruza
+      # ahora lo que el exportador lee de `out/` con lo que se genera aquí.
+      - name: Plan de survivor
+        run: |
+          args=""
+          if [ -n "${{ inputs.season }}" ]; then args="--season ${{ inputs.season }}"; fi
+          if [ -n "${{ inputs.week }}" ]; then args="$args --from-week ${{ inputs.week }}"; fi
+          python scripts/survivor_build.py $args
 
       # ESTE es el paso que se olvida al hacerlo a mano: sin él la web sigue
       # mostrando los datos anteriores y no da ningún error.
@@ -87,6 +106,14 @@ jobs:
           # que nada falle — el fallo de «Today's Intelligence», otra vez.
           python scripts/predraft_brief.py
           python scripts/export_web_data.py --with-narrative $args
+          # LAS CIFRAS DE PORTADA, EN EL MISMO COMMIT QUE EL PAYLOAD. La muestra
+          # del backtest crece cada jornada, así que cada publicación dejaba
+          # `check_headline_metrics.py` en rojo hasta que alguien corregía tres
+          # documentos a mano — y un CI siempre rojo fue lo que tapó tres semanas
+          # de exportación parada. `--write` toca sólo los dígitos vigilados y se
+          # NIEGA si el modelo deja de quedar por detrás del mercado: eso no se
+          # actualiza, se investiga.
+          python scripts/check_headline_metrics.py --write
 
       - name: Comprobar que la web sigue construyendo
         working-directory: web
@@ -100,4 +127,5 @@ jobs:
 
       - name: Publicar
         run: |
-          scripts/ci_publish.sh "datos: regenerar payload de la web" web/data/model.b64.js
+          scripts/ci_publish.sh "datos: regenerar payload de la web" \
+            web/data/model.b64.js README.md CLAUDE.md docs/ESTADO.md

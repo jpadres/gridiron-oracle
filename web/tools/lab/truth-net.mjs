@@ -56,7 +56,7 @@ console.log("=== FASE 53 · frontera de red ===");
     await page.waitForFunction((n) => document.querySelector(".room-count strong")?.textContent === String(n), i + 1);
   }
   check("se sigue drafteando con la red caída", (await page.locator(".room-count strong").innerText()) === "18");
-  await page.locator(".room-flash button").click();
+  await page.locator(".room-flash button").filter({ hasText: /^Undo$/ }).click();
   await page.waitForFunction(() => document.querySelector(".room-count strong")?.textContent === "17");
   check("y deshacer funciona igual", true);
   const texto = await page.locator(".room").innerText();

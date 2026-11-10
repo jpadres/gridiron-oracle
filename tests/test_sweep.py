@@ -182,7 +182,7 @@ def test_las_dos_listas_de_espanol_coinciden():
     import re
     from pathlib import Path
 
-    js = Path(__file__).resolve().parents[1] / "web" / "tools" / "audit-spanish.mjs"
+    js = Path(__file__).resolve().parents[1] / "web" / "tools" / "spanish.mjs"
     crudo = re.search(r"const FUNCIONALES = /\\b\(([^)]*)\)\\b/gi;", js.read_text(encoding="utf-8"))
     assert crudo, "la puerta cambió de forma: este guardián no puede leerla, y eso es ROJO"
     assert set(crudo.group(1).split("|")) == set(sweep.FUNCIONALES_ES), (
@@ -190,3 +190,27 @@ def test_las_dos_listas_de_espanol_coinciden():
         "algo que el barrido publica, o al revés"
     )
 
+
+
+def test_los_dos_detectores_dan_el_mismo_veredicto_sobre_los_mismos_casos():
+    """Compartir la lista de palabras NO bastaba.
+
+    Las dos listas coincidían —el test de arriba lo exigía— y los dos detectores
+    discrepaban igual: la puerta de la web daba por española cualquier tilde y
+    este filtro no miraba ninguna. «RB Audric Estimé» pasó el barrido, llegó al
+    payload y dejó en rojo el paso de idioma de CI, que va delante de los tests
+    de JavaScript: se saltaban todos.
+
+    Los casos viven en UN fichero que leen los dos (`web/tests/spanish.test.mjs`
+    es el otro lado). Añadir un caso lo prueba en los dos lenguajes.
+    """
+    import json
+    from pathlib import Path
+
+    casos = json.loads(
+        (Path(__file__).parent / "fixtures" / "spanish_cases.json").read_text(encoding="utf-8"))
+    assert len(casos) >= 10, "sin casos, este test pasaría sin comparar nada"
+    assert {c["spanish"] for c in casos} == {True, False}, "hacen falta casos de los dos lados"
+    for caso in casos:
+        assert sweep.looks_spanish(caso["text"]) is caso["spanish"], (
+            f"{caso['text']!r}: se esperaba {caso['spanish']} — {caso['why']}")

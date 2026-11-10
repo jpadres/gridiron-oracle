@@ -86,3 +86,68 @@ def test_un_fallo_de_red_no_devuelve_una_instantanea_vacia():
 def test_un_formato_que_la_fuente_no_publica_no_se_pide():
     with pytest.raises(AdpUnavailable):
         fetch("superflex-inventado", 12, 2026, opener=_opener(RESPUESTA), now=AHORA)
+
+
+# === UNA FUENTE FUERA DE TEMPORADA ==========================================
+#
+# En noviembre de 2026 la fuente devolvía un 200 con UN jugador, y antes 29, 54
+# y 131: cada resto se escribió encima del artefacto de septiembre.
+
+from oracle.fantasy import adp_fetch as adp_mod  # noqa: E402
+
+
+def test_el_minimo_sale_del_tamano_de_la_liga_y_no_es_una_fila():
+    assert adp_mod.minimum_entries(12) == adp_mod.MIN_ROUNDS_COVERED * 12
+    assert adp_mod.minimum_entries(10) < adp_mod.minimum_entries(14)
+    # Los restos que se llegaron a publicar no llegan; un ADP de verdad, sí.
+    for restos in (1, 29, 54):
+        assert restos < adp_mod.minimum_entries(12)
+    assert 180 >= adp_mod.minimum_entries(12)
+
+
+def test_el_script_no_pisa_el_artefacto_con_los_restos(tmp_path, monkeypatch):
+    import importlib.util
+    from pathlib import Path
+
+    ruta = Path(__file__).resolve().parents[1] / "scripts" / "adp_fetch.py"
+    spec = importlib.util.spec_from_file_location("adp_fetch_script", ruta)
+    script = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(script)
+
+    destino = tmp_path / "adp.json"
+    destino.write_text("EL DE SEPTIEMBRE", encoding="utf-8")
+
+    def falsa(n):
+        entradas = tuple(
+            adp_mod.AdpEntry(name=f"P{i}", position="RB", team="KC", adp=float(i + 1))
+            for i in range(n))
+        return lambda scoring, teams, year=None: adp_mod.AdpSnapshot(
+            source="x", scoring="ppr", league_size=12, fetched_at="2026-11-10T00:00:00Z",
+            sample_size=100, window="2026-11-02", entries=entradas)
+
+    for n, esperado in ((29, 1), (adp_mod.minimum_entries(12) - 1, 1)):
+        monkeypatch.setattr(script.adp_fetch, "fetch", falsa(n))
+        monkeypatch.setattr("sys.argv", ["adp_fetch.py", "--out", str(destino)])
+        assert script.main() == esperado
+        assert destino.read_text(encoding="utf-8") == "EL DE SEPTIEMBRE", (
+            f"{n} jugadores pisaron el artefacto anterior")
+
+    monkeypatch.setattr(script.adp_fetch, "fetch", falsa(adp_mod.minimum_entries(12)))
+    monkeypatch.setattr("sys.argv", ["adp_fetch.py", "--out", str(destino)])
+    assert script.main() == 0
+    assert destino.read_text(encoding="utf-8") != "EL DE SEPTIEMBRE"
+
+
+def test_el_cron_de_adp_solo_corre_en_temporada_de_drafts():
+    from pathlib import Path
+
+    yml = (Path(__file__).resolve().parents[1] / ".github/workflows/adp.yml").read_text(
+        encoding="utf-8")
+    crons = [ln.split("cron:")[1].strip().strip('"') for ln in yml.splitlines()
+             if ln.strip().startswith("- cron:")]
+    assert crons, "el workflow de ADP se quedó sin programar"
+    for cron in crons:
+        mes = cron.split()[3]
+        assert mes != "*", (
+            f"«{cron}» corre todo el año: fuera de temporada la fuente no tiene mocks "
+            "y el job sale rojo a diario por un motivo esperado")

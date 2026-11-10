@@ -12,7 +12,8 @@ import { spawn } from "node:child_process";
 import { mkdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { chromium } from "playwright";
+// La ruta de Chromium vive en UN sitio: `lab/browser.mjs`.
+import { launch } from "./lab/browser.mjs";
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PORT = 4326;
@@ -73,9 +74,7 @@ for (let i = 0; i < 60; i += 1) {
 
 const outDir = path.join(WEB, "tools", "shots", LABEL);
 mkdirSync(outDir, { recursive: true });
-const browser = await chromium.launch({
-  executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-});
+const browser = await launch();
 
 for (const width of WIDTHS) {
   const page = await browser.newPage({ viewport: { width, height: HEIGHT }, colorScheme: SCHEME });

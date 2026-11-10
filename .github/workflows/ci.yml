@@ -26,12 +26,26 @@ jobs:
           cache: pip
 
       - name: Instalar
+        id: preparar
         run: pip install -e ".[dev]"
+
+      # CADA CONTROL INFORMA POR SU CUENTA. Un paso que falla SALTA los que van
+      # detrás, y eso convertía un rojo en una ceguera: del 14 de octubre al 10
+      # de noviembre de 2026 «Cifras de portada» falló cada día —la muestra del
+      # backtest crece cada jornada— y por ir delante, ni el lint ni los 800
+      # tests de Python corrieron UNA sola vez en CI. En el job de la web pasó
+      # lo mismo con el idioma: un falso positivo apagó los tests de JavaScript,
+      # la simulación de draft y las cabeceras de seguridad.
+      #
+      # `PREPARADO` exige que la preparación saliera bien —sin dependencias no
+      # hay nada que comprobar— y que el job no se haya cancelado. Lo vigila
+      # `tests/test_ci_steps_independent.py`.
 
       # El contraste es computable, así que se computa. Encontró un verde a
       # 4,36:1 que a ojo era perfectamente legible — que es justo el motivo por
       # el que no se puede dejar al ojo.
       - name: Contraste de color (WCAG AA)
+        if: ${{ !cancelled() && steps.preparar.outcome == 'success' }}
         run: python scripts/check_contrast.py
 
       # La web lee las métricas del payload; la documentación las tenía escritas
@@ -39,15 +53,18 @@ jobs:
       # Nada falla cuando eso pasa —es prosa— así que se comprueba: las cuatro
       # cifras de portada contra `validation.overall`.
       - name: Cifras de portada contra el payload
+        if: ${{ !cancelled() && steps.preparar.outcome == 'success' }}
         run: python scripts/check_headline_metrics.py
 
       - name: Lint
+        if: ${{ !cancelled() && steps.preparar.outcome == 'success' }}
         run: ruff check src tests scripts
 
       # Los tests usan datos sintéticos (tests/conftest.py). No descargan los
       # ~490 MB de nflverse: un test que sólo pasa si alguien corrió `oracle
       # refresh` a mano no es un test.
       - name: Tests
+        if: ${{ !cancelled() && steps.preparar.outcome == 'success' }}
         run: pytest -q
 
   web:
@@ -75,12 +92,14 @@ jobs:
         run: npm ci
 
       - name: Build
+        id: preparar
         run: npm run build
 
       # El producto es en inglés. Esta comprobación mira el JSX **y descomprime
       # el payload**, que es por donde se coló el español que se vio en
       # producción: la pasada anterior sólo leía el código y daba verde.
       - name: Idioma de la interfaz
+        if: ${{ !cancelled() && steps.preparar.outcome == 'success' }}
         run: node tools/audit-spanish.mjs
 
       # Aislamiento entre ligas y compilador de puntuación.
@@ -90,9 +109,11 @@ jobs:
       # comprobación es estrecha a propósito —sólo interpolaciones de plantilla—
       # y por eso no tiene falsos positivos.
       - name: Identificadores huérfanos
+        if: ${{ !cancelled() && steps.preparar.outcome == 'success' }}
         run: node tools/no-undef.mjs
 
       - name: Tests de JavaScript
+        if: ${{ !cancelled() && steps.preparar.outcome == 'success' }}
         run: npm test
 
       # ¿Está el producto ENTERO? Lee el payload versionado —`model.b64.js`, no
@@ -103,6 +124,7 @@ jobs:
       # Falla cerrado: «no he podido comprobarlo» cuenta como NOT READY, igual
       # que «no he podido auditar» no es «no hay vulnerabilidades».
       - name: ¿Listo para un draft? (pre_draft_ready)
+        if: ${{ !cancelled() && steps.preparar.outcome == 'success' }}
         # `${{ github.workspace }}` y no `.`: este job tiene
         # `working-directory: web` por defecto, y un `.` relativo lo dejaría
         # dentro de `web/`, donde el script no está.
@@ -114,6 +136,7 @@ jobs:
       # TODOS los turnos. Los laboratorios de Playwright no corren en CI; éste sí
       # puede, y es el que cubre el motor que decide qué se recomienda.
       - name: Simulación de draft (3 ligas)
+        if: ${{ !cancelled() && steps.preparar.outcome == 'success' }}
         run: node tools/lab/draft-sim.mjs
 
       # Las cabeceras se comprueban CONTRA EL SERVIDOR REAL, no leyendo
@@ -121,6 +144,7 @@ jobs:
       # no aplicarse, y entonces la comprobación estaría mirando el sitio
       # equivocado.
       - name: Verificar cabeceras de seguridad
+        if: ${{ !cancelled() && steps.preparar.outcome == 'success' }}
         run: |
           npm run start &
           server_pid=$!
@@ -188,6 +212,7 @@ jobs:
 
       # Una sola página pide red, y sólo a Sleeper. Ni HTML crudo en ninguna.
       - name: Acotar las peticiones de runtime y prohibir dangerouslySetInnerHTML
+        if: ${{ !cancelled() && steps.preparar.outcome == 'success' }}
         run: |
           if grep -rn "dangerouslySetInnerHTML" app data; then
             echo "dangerouslySetInnerHTML no está permitido en este proyecto."

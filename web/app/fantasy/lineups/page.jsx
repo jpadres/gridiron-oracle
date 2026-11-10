@@ -46,7 +46,12 @@ export default function LineupsPage() {
       <Note title="What the numbers are">
         <p>
           The projection is this site&rsquo;s weekly projection, built from player stats as of{" "}
-          <strong>{dataDate("fantasy") ?? "an unknown date"}</strong>, with roster and status
+          {/* LA FECHA DEL SEMANAL, no la del board de draft. `fantasy` fecha la
+              estadística de agosto —el board no lee la temporada que proyecta—
+              y citarla aquí envejecía dos meses una proyección hecha con la
+              jornada pasada. Ya se corrigió en /semanal; esta página se quedó
+              con la clave vieja. */}
+          <strong>{dataDate("fantasy_weekly") ?? "an unknown date"}</strong>, with roster and status
           facts as of <strong>{dataDate("rosters") ?? "an unknown date"}</strong>. A player who is
           OUT, on bye, or on your IR or taxi squad is never proposed as a starter. A defense has
           no projection here by design: it holds its slot and adds nothing.

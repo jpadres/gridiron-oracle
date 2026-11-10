@@ -19,6 +19,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
 import { startServer } from "./server.mjs";
+import { listados } from "./tablas.mjs";
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const PORT = Number(process.env.PORT ?? 4521);
@@ -82,6 +83,14 @@ for (const width of [390, 768, 1440]) {
         overflow ? "desborda" : "",
         errores[0] ?? "",
       ].filter(Boolean).join(" · "));
+    /* LOS LISTADOS, EN LOS TRES ANCHOS. «No desborda» de arriba mira la PÁGINA,
+       y una tabla dentro de un envoltorio con `overflow-x: auto` no la
+       desborda nunca: `/salud` medía 1.877 px en un hueco de 944 con este
+       laboratorio en verde. Ver `tablas.mjs`. */
+    const l = await listados(page);
+    const malos = [...l.anchas, ...l.derecha, ...l.chips];
+    check(`${url} — los listados caben y se leen desde la izquierda`, malos.length === 0,
+      `${malos.length}: ${malos.slice(0, 3).join(" | ")}`);
   }
   if (width === 1440) {
     /* NINGUNA PÁGINA HUÉRFANA. Una página publicada que no se enlaza desde

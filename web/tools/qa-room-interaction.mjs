@@ -8,7 +8,8 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { chromium } from "playwright";
+// La ruta de Chromium vive en UN sitio: `lab/browser.mjs`.
+import { launch } from "./lab/browser.mjs";
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PORT = 4345;
@@ -33,9 +34,7 @@ for (let i = 0; i < 60; i += 1) {
   await new Promise((r) => setTimeout(r, 400));
 }
 
-const browser = await chromium.launch({
-  executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-});
+const browser = await launch();
 let fallos = 0;
 const check = (nombre, ok, detalle = "") => {
   if (!ok) fallos += 1;

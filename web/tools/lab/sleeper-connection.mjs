@@ -238,7 +238,7 @@ console.log("\n=== Sleeper dice 10 equipos; el formulario decía 12 ===");
   // leerla en ese instante mide el arranque, no el resultado. `.room-head-src`
   // aparece exactamente cuando los ajustes vienen de Sleeper.
   await page.waitForSelector(".room-head-src",{timeout:8000});
-  const cabecera=await page.locator(".room-head p").innerText();
+  const cabecera=await page.locator(".room-head p:not(.room-asof)").innerText();
   // `innerText` devuelve el texto YA transformado por CSS (mayúsculas), así que
   // la comprobación va sin distinguir caja. Comparar contra minúsculas hacía
   // fallar una cabecera correcta.

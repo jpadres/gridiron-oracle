@@ -20,7 +20,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
 import { startServer } from "./server.mjs";
-import { hasStarted, kickoffMs } from "../../app/gameClock.js";
+import { GAME, gameState, hasStarted, kickoffMs } from "../../app/gameClock.js";
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
 const WEB = path.resolve(AQUI, "..", "..");
@@ -72,13 +72,33 @@ try {
      `gameClock.js` nadie parsea un campo de saque, y el guardián de esa regla
      —escrito el 13 de septiembre— cazó esta misma línea al escribirla. Segunda
      copia evitada en el fichero que existe para probar el reloj. */
+  /* SÓLO LOS PARTIDOS QUE EL PAYLOAD DEJA ABIERTOS. Lo que Python cerró
+     (`game_final`) está cerrado a cualquier hora, así que no sirve para ver si
+     el reloj se lee: el 10 de noviembre de 2026 el payload se exportó con 14 de
+     los 15 partidos ya terminados y uno por jugar, los tres momentos —derivados
+     de TODOS los saques— caían los dos primeros antes del único abierto, y el
+     laboratorio leyó «56 → 56 → 60» como un reloj que no se lee. Lo leía
+     perfectamente: no había tres estados que distinguir, había dos.
+
+     Los momentos salen de los saques ABIERTOS, y la propiedad se ajusta a los
+     que haya: con dos saques abiertos distintos se exigen tres respuestas
+     crecientes; con uno solo, que la primera y la última difieran. */
   const saques = PREDICTIONS
+    // «¿Lo cerró Python?» se le pregunta a `gameClock.js`, que es quien lo
+    // decide en la pantalla: los partidos llevan `final` y los mercados
+    // `game_final`, y adivinar el nombre del campo aquí ya falló una vez —
+    // filtraba por uno que este listado no trae y no quitaba ninguno.
+    .filter((g) => gameState(g, 0) !== GAME.FINAL)
     .map((g) => kickoffMs(g))
     .filter((ms) => Number.isFinite(ms))
     .sort((a, b) => a - b);
-  if (saques.length < 2) throw new Error("el payload no trae saques con los que fijar el reloj");
+  if (saques.length < 1) {
+    throw new Error("el payload no deja ningún partido abierto: no hay reloj que comprobar. "
+      + "Eso es un payload de final de jornada o de temporada, no un fallo del producto");
+  }
   const primero = saques[0];
   const ultimo = saques[saques.length - 1];
+  const hayIntermedio = saques.some((ms) => ms > primero);
   // El de en medio: el primer saque ESTRICTAMENTE posterior al primero, para que
   // el momento intermedio cierre unos partidos y no todos.
   const intermedio = saques.find((ms) => ms > primero) ?? ultimo;
@@ -124,8 +144,15 @@ try {
   // LA PROPIEDAD QUE DISTINGUE ESTO DE UN TEST EN VACÍO: los tres momentos
   // tienen que dar respuestas DISTINTAS y crecientes. Con el reloj sin leer,
   // los tres darían el mismo número.
-  check("el reloj se está leyendo: los tres momentos dan cierres CRECIENTES",
-    vistos[0] < vistos[1] && vistos[1] < vistos[2],
+  // Con un solo saque abierto el momento intermedio cae ANTES de él —no hay
+  // otro del que colgarlo— y repite la primera respuesta: ahí se exige que no
+  // retroceda y que el final sea distinto del principio.
+  check(hayIntermedio
+    ? "el reloj se está leyendo: los tres momentos dan cierres CRECIENTES"
+    : "el reloj se está leyendo: con un solo partido abierto, antes y después difieren",
+    hayIntermedio
+      ? vistos[0] < vistos[1] && vistos[1] < vistos[2]
+      : vistos[0] <= vistos[1] && vistos[0] < vistos[2],
     vistos.join(" -> "));
   check("al final del lunes están cerrados TODOS", vistos[2] === MARKETS.length,
     `${vistos[2]} de ${MARKETS.length}`);

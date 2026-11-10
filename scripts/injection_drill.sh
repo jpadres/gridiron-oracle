@@ -331,7 +331,7 @@ run "78 un impacto ausente pintado como neutro" web/app/ui.jsx \
 run "79 una ficha en español en una interfaz en inglés" src/oracle/narrative/sweep.py \
   "        if looks_spanish(f'{ficha[\"headline\"]} {ficha[\"summary\"]}'):|||        if False:" \
   "python -m pytest -q tests/test_sweep.py"
-run "80 las dos listas de español separándose" web/tools/audit-spanish.mjs \
+run "80 las dos listas de español separándose" web/tools/spanish.mjs \
   "(el|la|los|las|un|||(el|la|los|un|" \
   "python -m pytest -q tests/test_sweep.py"
 run "81 las entidades HTML pintadas crudas" src/oracle/narrative/feeds.py \
@@ -412,8 +412,14 @@ run "105 el rótulo del aviso escrito a mano en /fantasy/lineups" web/app/fantas
 run "106 el rótulo más suave que el cuerpo con CERO clubes entregados" web/app/fantasy/injuryReport.js \
   '  return "No club has filed this week'"'"'s injury report yet";|||  return "The report does not cover every club yet";' \
   "cd web && node --test tests/injuryReport.test.mjs"
+# ANCLADA EN EL TEXTO, NO EN LA CIFRA. Decía «0,066 de MAE» y el 10 de noviembre
+# de 2026 la medición pasó a 0,064: la inyección dejó de encontrar su línea y el
+# simulacro escribió INYECCIÓN ROTA. Es la misma lección de la inyección 5, sin
+# aplicar aquí — y ahora que `--write` mueve esa cifra cada semana, un ancla
+# numérica caducaría todos los miércoles. Se le antepone un dígito a la brecha
+# de MAE, sea la que sea.
 run "107 la brecha al mercado del preámbulo, a la deriva" CLAUDE.md \
-  '0,066 de MAE en vez de|||0,065 de MAE en vez de' \
+  'Brier en vez de 0,0005; 0,|||Brier en vez de 0,0005; 0,9' \
   "python scripts/check_headline_metrics.py"
 run "108 la ficha vieja compitiendo con el registro de plantillas de hoy" web/app/availability.js \
   '  if (row.roster_source_as_of && rosterMark(row)) fechas.push(String(row.roster_source_as_of));|||' \
@@ -508,8 +514,13 @@ run "137 la retención leyendo una clave de lesión que nadie escribe" scripts/e
 run "138 la prensa decidiendo quién recibe proyección" scripts/export_web_data.py \
   "        motivos = []|||        motivos = [] if not row.get(\"status_severity\") else []" \
   "python -m pytest -q tests/test_withhold_and_qb.py"
-run "139 la salud calculando su etiqueta en el navegador" web/app/salud/HealthTable.jsx \
-  "{s.window_hours != null ? \`\${s.window_hours} h\` : \"—\"}|||{s.as_of ? \`\${(Date.now() - Date.parse(s.as_of)) / 3600} h\` : \"—\"}" \
+# La 139 inyectaba aritmética de horas en la TABLA de salud, y la regla cambió el
+# 10 de noviembre de 2026: comparar con el reloj ya no está prohibido —así se
+# congeló el veredicto— sino acotado a `healthClock.js`. La tabla sigue sin
+# decidir nada: pinta la etiqueta que le pasan, y esto la pone a pintar la del
+# payload.
+run "139 la tabla de salud pintando la etiqueta congelada" web/app/salud/HealthTable.jsx \
+  "const v = s.now ?? { label: s.label|||const v = { label: s.label" \
   "cd web && node --test tests/health.test.mjs"
 run "140 la columna de cobertura sin marcar un BEHIND" web/app/salud/HealthTable.jsx \
   "{s.coverage === \"BEHIND\" ? (|||{false ? (" \
@@ -523,3 +534,72 @@ run "142 un laboratorio arrancando su propio next start" web/tools/lab/smoke.mjs
 run "143 el contrato de esquema leyendo el payload que .gitignore borra" tests/test_schema_contract.py \
   "    datos = payload_source.load()|||    _r = Path(__file__).resolve().parents[1] / \"web\" / \"data\" / \"model.json\"\n    datos = json.loads(_r.read_text()) if _r.exists() else None" \
   "python -m pytest -q tests/test_ci_artifacts.py"
+# --- 10 de noviembre de 2026: el listado, el veredicto congelado y la parada ---
+run "144 el veredicto de salud congelado en la exportación" web/app/salud/healthClock.js \
+  "if (ageMs > horas * 3600_000) return|||if (false) return" \
+  "cd web && node --test tests/health.test.mjs"
+run "145 el navegador reabriendo lo que Python cerró" web/app/salud/healthClock.js \
+  "if (base.label !== LABEL.FRESH) return base;|||if (false) return base;" \
+  "cd web && node --test tests/health.test.mjs"
+run "146 «no caduca» leído como «caduca al instante»" web/app/salud/healthClock.js \
+  "const horas = numberOrNull(source.fresh_for_hours);|||const horas = Number(source.fresh_for_hours);" \
+  "cd web && node --test tests/health.test.mjs"
+run "147 el corte de frescura fuera de freshness.WINDOWS" src/oracle/health.py \
+  "        fresco = round(ventana[1].total_seconds() / 3600, 2)|||        fresco = 24.0" \
+  "python -m pytest -q tests/test_health_fresh_for.py"
+run "148 un club en descanso leído como sin equipo NFL" src/oracle/fantasy/roster_status.py \
+  "    foto = frame[frame[\"week\"] == frame[\"team\"].map(por_club)]|||    foto = frame[frame[\"week\"] == ultima]" \
+  "python -m pytest -q tests/test_roster_status.py"
+run "149 la última fila del jugador en vez del listado de su club" src/oracle/fantasy/roster_status.py \
+  "    return foto.sort_values(\"week\").drop_duplicates(\"gsis_id\", keep=\"last\")|||    return frame.sort_values(\"week\").drop_duplicates(\"gsis_id\", keep=\"last\")" \
+  "python -m pytest -q tests/test_roster_status.py"
+run "150 una transacción de plantilla traducida a activo" src/oracle/fantasy/roster_status.py \
+  "    \"TRC\": NOT_ON_ROSTER,|||    \"TRC\": ACTIVE," \
+  "python -m pytest -q tests/test_roster_status.py"
+run "151 dos jornadas sin listado dadas por un descanso" src/oracle/fantasy/roster_status.py \
+  "        if int(semana) < ultima - MAX_LISTING_LAG|||        if False" \
+  "python -m pytest -q tests/test_roster_status.py"
+run "152 el plan de survivor fuera del workflow semanal" .github/workflows/weekly-predictions.yml \
+  "          python scripts/survivor_build.py \$args|||          echo sin survivor" \
+  "python -m pytest -q tests/test_ci_out_artifacts.py"
+run "153 el ranking semanal fallando en silencio" .github/workflows/weekly-predictions.yml \
+  "          python scripts/fantasy_weekly_build.py \$args|||          python scripts/fantasy_weekly_build.py \$args || true" \
+  "python -m pytest -q tests/test_ci_out_artifacts.py"
+run "154 la portada reescrita sola cuando el modelo bate al mercado" scripts/check_headline_metrics.py \
+  "    motivos = titular_en_pie(overall)|||    motivos = []" \
+  "python -m pytest -q tests/test_headline_write.py"
+run "155 las cifras de portada fuera del commit semanal" .github/workflows/weekly-predictions.yml \
+  "          python scripts/check_headline_metrics.py --write|||          true" \
+  "python -m pytest -q tests/test_headline_write.py"
+run "156 un control de CI que se salta si falla el anterior" .github/workflows/ci.yml \
+  "      - name: Tests
+        if: \${{ !cancelled() && steps.preparar.outcome == 'success' }}|||      - name: Tests" \
+  "python -m pytest -q tests/test_ci_steps_independent.py"
+run "157 una tilde en un nombre propio leída como español" web/tools/spanish.mjs \
+  "    if (inicial === inicial.toLowerCase()) return true;|||    return true;" \
+  "cd web && node --test tests/spanish.test.mjs"
+run "158 el barrido publicando lo que la puerta rechaza" src/oracle/narrative/sweep.py \
+  "        if re.search(r\"[áéíóúñ]\", palabra) and palabra[0] == palabra[0].lower():|||        if False:" \
+  "python -m pytest -q tests/test_sweep.py"
+run "159 los restos de un ADP fuera de temporada pisando el bueno" scripts/adp_fetch.py \
+  "                     minimum=adp_fetch.minimum_entries(snapshot.league_size))|||                     minimum=1)" \
+  "python -m pytest -q tests/test_adp_fetch.py"
+run "160 la fecha del board citada sobre el semanal" web/app/fantasy/lineups/page.jsx \
+  "dataDate(\"fantasy_weekly\") ?? \"an unknown date\"|||dataDate(\"fantasy\") ?? \"an unknown date\"" \
+  "cd web && node --test tests/dataDate.test.mjs"
+run "161 un instante sin zona leído en la hora local" web/app/instant.js \
+  "  if (!INSTANTE.test(texto)) return texto;|||  if (!/^\\d{4}-\\d{2}-\\d{2}T/.test(texto)) return texto;" \
+  "cd web && node --test tests/instant.test.mjs"
+run "162 la ruta de Chromium con la revisión escrita" web/tools/lab/browser.mjs \
+  "  \"/opt/pw-browsers/chromium\",|||  \"/opt/pw-browsers/chromium-1243/chrome-linux64/chrome\"," \
+  "cd web && node --test tests/labServer.test.mjs"
+# LA GEOMETRÍA SÓLO SE VE EN UN NAVEGADOR, y por eso esta inyección cuesta un
+# build: la regla que pone la prosa de una tabla a la izquierda y la deja partir.
+# Sin ella `/salud` vuelve a pedir más ancho del que tiene y `/fantasy/waivers`
+# vuelve a alinear sus frases a la derecha — el listado que el dueño señaló. El
+# comando reconstruye en las DOS pasadas, o la de «verde tras restaurar» mediría
+# el build inyectado.
+run "163 la prosa de un listado alineada a la derecha" web/app/globals.css \
+  ".rank-table th.cell-text, .rank-table td.cell-text { text-align: left; white-space: normal; }|||/* inyectado */" \
+  "cd web && npx next build && SKIP_BUILD=1 LABS=smoke.mjs node tools/lab/ci-required.mjs"
+

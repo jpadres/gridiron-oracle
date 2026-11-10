@@ -44,7 +44,7 @@ const abrir = async (l) => {
   return p;
 };
 const cuenta = (p) => p.locator(".room-count strong").innerText();
-const contexto = async (p) => (await p.locator(".room-head p").innerText()).replace(/\s+/g, " ");
+const contexto = async (p) => (await p.locator(".room-head p:not(.room-asof)").innerText()).replace(/\s+/g, " ");
 const pick = async (p, n) => { await p.locator(".room-list button").first().click();
   await p.waitForFunction((x) => document.querySelector(".room-count strong")?.textContent === String(x), n); };
 

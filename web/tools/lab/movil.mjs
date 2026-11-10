@@ -24,6 +24,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { launch } from "./browser.mjs";
 import { startServer } from "./server.mjs";
+import { listados } from "./tablas.mjs";
+import { kickoffMs } from "../../app/gameClock.js";
 
 import { USERNAME, crearLiga, crearMock, emitir, montar, slotOf } from "./sleeper-double.mjs";
 
@@ -72,6 +74,27 @@ const MOCK = crearMock({ draftId: "MK1", teams: 12, mySlot: 4, rounds: 15, name:
     while (slotOf(no, 12) !== 7) no += 1;
     emitir(L1, no, row, SLEEPER_OF);
     no += 1;
+  }
+  /* MIS TITULARES, COMO LOS PUBLICA SLEEPER: un array alineado con
+     `roster_positions` y «0» en el hueco vacío. Sin esto la pantalla de Lineups
+     no tenía alineación puesta, y por tanto NUNCA un hueco congelado: al
+     inyectar el fallo de «RBIN PROGRESS» este laboratorio siguió verde, porque
+     la etiqueta de estado no llegaba a pintarse. Un doble que no se parece a
+     una liga de verdad prueba otra cosa — séptima vez. */
+  {
+    const yo = L1.rosters.find((r) => r.roster_id === 7);
+    const filaDe = (sid) => [...BOARD, ...DEFENSES, ...KICKERS]
+      .find((r) => SLEEPER_OF[r.player_id] === sid) ?? null;
+    const admite = { QB: ["QB"], RB: ["RB"], WR: ["WR"], TE: ["TE"], FLEX: ["RB", "WR", "TE"],
+      DEF: ["DST", "DEF"], K: ["K"] };
+    const libres = new Set(yo.players);
+    yo.starters = ROSTER.filter((slot) => slot !== "BN").map((slot) => {
+      const sid = [...libres].find((id) =>
+        (admite[slot] ?? []).includes(String(filaDe(id)?.position ?? "").toUpperCase()));
+      if (!sid) return "0";
+      libres.delete(sid);
+      return sid;
+    });
   }
   const pool = BOARD.filter((r) => SLEEPER_OF[r.player_id] && !mios.includes(r));
   let k = 0;
@@ -221,7 +244,12 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
                      // metadatos por fila: exactamente la forma que ya se salió
                      // de su caja en el board y en el Draft Room. Una pantalla
                      // nueva con tabla densa entra aquí el mismo día.
-                     "/salud"]) {
+                     "/salud",
+                     // WAIVERS NO ESTABA. Es la pantalla del listado que el
+                     // dueño señaló el 10 de noviembre —texto a la derecha,
+                     // contenido cortado— y este laboratorio, que existe para
+                     // eso, no la recorría: entró en `smoke` y aquí no.
+                     "/fantasy/waivers"]) {
     await page.goto(`${BASE}${url}`, { waitUntil: "domcontentloaded" });
     await page.waitForSelector("table, .room-row, .pick, .cc-panel, .lu-panel, .bk-plan-grid", { timeout: 10000 }).catch(() => {});
     await page.waitForFunction(() => !document.querySelector(".skeleton"), null, { timeout: 8000 }).catch(() => {});
@@ -241,7 +269,9 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
       "/fantasy": ["table"],
       // La tabla de salud, con sus filas: una comprobación de geometría sobre
       // el estado vacío de esta página saldría verde sin medir nada.
-      "/salud": [".rank-table tbody tr", ".bk-plan-nums .stat"],
+      "/salud": [".rank-table--stack tbody tr", ".grid .stat"],
+      // Con cuenta: la tabla de movimientos, además de defensas y pateadores.
+      "/fantasy/waivers": [".rank-table--stack tbody tr"],
     }[url] ?? [];
     for (const sel of EXIGIDO) {
       check(`${etiqueta}: ${url} — trae lo que se quiere medir (${sel})`,
@@ -252,6 +282,17 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
       `${fuera.length}: ${fuera.slice(0, 3).join(" | ")}`);
     check(`${etiqueta}: ${url} — nada se monta encima de nada`, encima.length === 0,
       `${encima.length}: ${encima.slice(0, 3).join(" | ")}`);
+    /* Y LOS LISTADOS: que la tabla que promete caber quepa DENTRO de su
+       envoltorio (el desbordamiento de página de abajo no lo ve, porque el
+       envoltorio recorta), que ninguna frase vaya alineada a la derecha y que
+       un chip no sea una barra. Ver `tablas.mjs`. */
+    const l = await listados(page);
+    check(`${etiqueta}: ${url} — las tablas apiladas caben en su hueco`, l.anchas.length === 0,
+      l.anchas.slice(0, 2).join(" | "));
+    check(`${etiqueta}: ${url} — ninguna frase alineada a la derecha`, l.derecha.length === 0,
+      `${l.derecha.length}: ${l.derecha.slice(0, 2).join(" | ")}`);
+    check(`${etiqueta}: ${url} — un chip es una etiqueta, no una barra`, l.chips.length === 0,
+      l.chips.slice(0, 3).join(" | "));
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
     // Qué lo provoca, no sólo que ocurra: sin el culpable, un desbordamiento en
@@ -324,6 +365,98 @@ for (const { w, h, tema, fuente } of ESCENARIOS) {
       await page.waitForTimeout(200);
       await page.screenshot({ path: `${OUT}/movil-${url.replace(/\//g, "-") || "-raiz"}.png` });
     }
+  }
+  await ctx.close();
+}
+
+/* === LINEUPS CON LA JORNADA EMPEZADA =======================================
+   El hueco CONGELADO sólo existe cuando el partido de un titular ya ha
+   arrancado, y eso depende de la hora a la que corre el laboratorio: con el
+   payload recién exportado no hay ninguno, y un guardián cuyo veredicto depende
+   del reloj no es un guardián (`apuestas.mjs`, 13 de septiembre). Se pisa el
+   reloj a una hora después del ÚLTIMO saque que el payload publica —derivado,
+   no escrito a mano— y se exige que la etiqueta de estado esté en pantalla
+   antes de medir nada. */
+{
+  const saques = (model.predictions ?? [])
+    .map((g) => kickoffMs(g)).filter((ms) => Number.isFinite(ms));
+  if (saques.length === 0) throw new Error("el payload no trae saques con los que fijar el reloj");
+  const FIJO = Math.max(...saques) + 3600e3;
+  console.log("\n=== 390 px · tras el último saque · lineups ===");
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
+  await ctx.addInitScript(`{
+    const FIJO = ${FIJO};
+    const Real = Date;
+    Date = class extends Real {
+      constructor(...a) { return a.length ? new Real(...a) : new Real(FIJO); }
+      static now() { return FIJO; }
+    };
+    Date.parse = Real.parse; Date.UTC = Real.UTC;
+  }`);
+  await montar(ctx, [L1, MOCK]);
+  const page = await ctx.newPage();
+  await page.goto(`${BASE}/fantasy/leagues`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector("#cc-user");
+  await page.fill("#cc-user", USERNAME);
+  await page.click(".cc-link button[type=submit]");
+  await page.waitForSelector(".cc-panel", { timeout: 10000 });
+  await page.goto(`${BASE}/fantasy/lineups`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector(".lu-rows > li", { timeout: 10000 }).catch(() => {});
+  await page.waitForTimeout(500);
+  const congelados = await page.locator(".lu-rows .lu-locked").count();
+  check("lineups tras el saque — hay huecos congelados que medir (.lu-locked)", congelados > 0,
+    `${congelados}`);
+  const l = await listados(page);
+  check("lineups tras el saque — un chip es una etiqueta, no una barra ni un contenedor",
+    l.chips.length === 0, l.chips.slice(0, 3).join(" | "));
+  // El estado, DENTRO del ancho de su fila: debajo del chip se salía por la
+  // derecha de una columna de 52 px y se metía bajo el nombre.
+  const salidos = await page.evaluate(() => [...document.querySelectorAll(".lu-rows .lu-locked")]
+    .filter((el) => {
+      const fila = el.closest("li").getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      const nombre = el.closest("li").querySelector(".mu-cell--mine")?.getBoundingClientRect();
+      const pisa = nombre && r.left < nombre.right - 1 && nombre.left < r.right - 1
+        && r.top < nombre.bottom - 1 && nombre.top < r.bottom - 1;
+      return r.right > fila.right + 1 || r.left < fila.left - 1 || pisa;
+    }).length);
+  check("lineups tras el saque — el estado del partido no pisa al jugador", salidos === 0,
+    `${salidos} de ${congelados}`);
+  const { fuera, encima } = await solapes(page);
+  check("lineups tras el saque — nada se sale ni se monta", fuera.length + encima.length === 0,
+    [...fuera, ...encima].slice(0, 3).join(" | "));
+  await ctx.close();
+}
+
+/* === ESCRITORIO, CON CUENTA ================================================
+   El nombre del laboratorio dice «móvil», y el fallo que originó `tablas.mjs`
+   era IGUAL de grave en escritorio: 1.877 px de tabla en 944. `smoke` lo mira
+   en 1440 pero SIN cuenta, y la tabla de movimientos de waivers —la del
+   listado— sólo existe con una liga enlazada. Una pasada corta, sólo por las
+   pantallas con listados de prosa. */
+{
+  console.log("\n=== 1440 px · con cuenta · listados ===");
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
+  await montar(ctx, [L1, MOCK]);
+  const page = await ctx.newPage();
+  await page.goto(`${BASE}/fantasy/leagues`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector("#cc-user");
+  await page.fill("#cc-user", USERNAME);
+  await page.click(".cc-link button[type=submit]");
+  await page.waitForSelector(".cc-panel", { timeout: 10000 });
+  for (const [url, sel, minimo] of [["/fantasy/waivers", "table.rank-table--stack", 3],
+                                    ["/salud", "table.rank-table--stack", 1],
+                                    ["/fantasy/lineups", ".lu-rows > li", 1]]) {
+    await page.goto(`${BASE}${url}`, { waitUntil: "domcontentloaded" });
+    await page.waitForSelector(sel, { timeout: 10000 }).catch(() => {});
+    await page.waitForFunction(() => !document.querySelector(".skeleton"), null, { timeout: 8000 }).catch(() => {});
+    await page.waitForTimeout(400);
+    const n = await page.locator(sel).count();
+    check(`1440: ${url} — trae lo que se quiere medir (${sel})`, n >= minimo, `${n}, se esperaban ${minimo}`);
+    const l = await listados(page);
+    const malos = [...l.anchas, ...l.derecha, ...l.chips];
+    check(`1440: ${url} — los listados caben y se leen desde la izquierda`, malos.length === 0,
+      `${malos.length}: ${malos.slice(0, 3).join(" | ")}`);
   }
   await ctx.close();
 }

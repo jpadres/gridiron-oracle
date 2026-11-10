@@ -87,3 +87,29 @@ test("todo laboratorio de navegador usa el arranque compartido", () => {
   assert.deepEqual(faltan, [],
     `${faltan.join(", ")} abren un navegador y no usan startServer`);
 });
+
+test("la ruta de Chromium vive en UN sitio, y sin número de versión delante", () => {
+  /* Once utilidades de `tools/` llevaban escrita `/opt/pw-browsers/chromium-1194/…`.
+     El contenedor pasó a otra revisión y las once dejaron de arrancar; y
+     `lab/browser.mjs`, que era el sitio único, tenía la misma ruta con la misma
+     versión, así que los 28 laboratorios tampoco. Una ruta con la revisión
+     dentro es una fecha escrita a mano: caduca sola. */
+  const TOOLS = new URL("../", DIR);
+  const culpables = [];
+  const recorrer = (base, prefijo) => {
+    for (const e of readdirSync(base, { withFileTypes: true })) {
+      if (e.isDirectory()) { recorrer(new URL(`${e.name}/`, base), `${prefijo}${e.name}/`); continue; }
+      if (!e.name.endsWith(".mjs")) continue;
+      const ruta = `${prefijo}${e.name}`;
+      if (ruta === "lab/browser.mjs") continue;
+      if (readFileSync(new URL(e.name, base), "utf8").includes("/opt/pw-browsers")) culpables.push(ruta);
+    }
+  };
+  recorrer(TOOLS, "");
+  assert.deepEqual(culpables, [], `${culpables.join(", ")} llevan su propia ruta de Chromium`);
+  const browser = readFileSync(new URL("browser.mjs", DIR), "utf8");
+  const lista = /const CONTAINER = \[([\s\S]*?)\];/.exec(browser);
+  assert.ok(lista, "browser.mjs ya no declara sus rutas como lista");
+  const primera = /"([^"]+)"/.exec(lista[1])?.[1] ?? "";
+  assert.doesNotMatch(primera, /\d{3,}/, `la primera ruta (${primera}) lleva una revisión escrita`);
+});

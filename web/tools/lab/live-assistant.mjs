@@ -69,6 +69,16 @@ function emitir(no,row,porOtro=false){
   if(porOtro){ const p=PROV.picks[PROV.picks.length-1]; p.picked_by=`ajeno`; p.roster_id=0; }
 }
 const libres=()=>libresDe(PROV,BOARD,SLEEPER_OF);
+/* LOS ESPECIALISTAS, APARTE Y SÓLO PARA MIS TURNOS. Los rivales siguen
+   cogiendo el primero del BOARD; yo ficho lo que el asistente recomienda, y en
+   los dos últimos turnos lo que recomienda es un pateador y una defensa (regla
+   6e: se avisa cuando quedan tantos picks como huecos titulares abiertos). Sin
+   ellos en el pool el laboratorio no podía fichar la recomendación, caía al
+   board en silencio y el hueco de K seguía abierto al turno siguiente: tres
+   comprobaciones en rojo, de madrugada, durante semanas, por un producto que
+   hacía lo correcto. Un laboratorio que mide el board del día, otra vez. */
+const ESPECIALISTAS=[...(model.fantasy.specialists?.kickers??[]),...(model.fantasy.specialists?.defenses??[])];
+const especialistasLibres=()=>libresDe(PROV,ESPECIALISTAS,SLEEPER_OF);
 
 const cuenta=(p)=>p.locator(".room-count strong").innerText();
 const esperar=async(p,n)=>p.waitForFunction((x)=>document.querySelector(".room-count strong")?.textContent===String(x),n,{timeout:8000});
@@ -136,7 +146,8 @@ for(let no=1; no<=180; no+=1){
   let elegido = libres()[0];
   if (mine(no)) {
     const nombre = await page.locator(".room-pick-who b").first().innerText().catch(() => "");
-    const rec = nombre ? libres().find((r) => (r.player_full_name ?? r.player_name) === nombre.trim()) : null;
+    const esEl = (r) => (r.player_full_name ?? r.player_name) === nombre.trim();
+    const rec = nombre ? (libres().find(esEl) ?? especialistasLibres().find(esEl) ?? null) : null;
     if (rec) elegido = rec;
     // Si había panel y NO se pudo fichar lo recomendado, se cuenta: un respaldo
     // silencioso al board sería volver a medir el board del día sin decirlo.
@@ -189,10 +200,28 @@ check("y en los turnos con hueco aparece «Best pick for you» con sus motivos",
 check("con los titulares llenos el panel desaparece y queda el board",
       conAjuste.length>0 && sinAjuste.length>0,
       `${conAjuste.length} con panel -> ${sinAjuste.length} sin panel`);
-check("el cambio ocurre UNA vez y no va y viene",
-      conAjuste.length>0 && sinAjuste.length>0 &&
-      turnos.findIndex(t=>!t.conPanel)===conAjuste.length,
-      turnos.map(t=>t.conPanel?"#":"·").join(""));
+/* EL PANEL TIENE TRES TRAMOS, NO DOS. Mientras quedan titulares con valor que
+   llenar (#), cuando ya no queda ninguno (·), y al final OTRA VEZ, por los
+   huecos OBLIGATORIOS que no tienen valor: pateador y defensa. Ese tercer tramo
+   es la regla que impide acabar con una alineación ilegal, y la comprobación
+   de «el cambio ocurre una vez» lo contaba como un vaivén. La propiedad exacta:
+   el dibujo es #…·…#… y todo lo que reaparece es un hueco obligatorio. */
+const REQUERIDO=/Required roster slot still open/i;
+const dibujo=turnos.map(t=>t.conPanel?"#":"·").join("");
+const cola=turnos.slice(turnos.findIndex(t=>!t.conPanel)).filter(t=>t.conPanel);
+check("el panel no va y viene: se apaga una vez y sólo vuelve por un hueco OBLIGATORIO",
+      conAjuste.length>0 && sinAjuste.length>0 && /^#+·+#*$/.test(dibujo) &&
+      cola.every(t=>t.porque.some(l=>REQUERIDO.test(l))),
+      `${dibujo} · reaparece en ${cola.map(t=>`pick ${t.no}`).join(", ")||"ningún turno"}`);
+/* Y ESOS DOS TURNOS LLENAN LOS DOS HUECOS, uno cada uno. Si el asistente
+   recomendara pateador dos veces, o el pick no entrara en mi plantilla, la
+   alineación acabaría ilegal con el aviso puesto — el fallo que E23 midió en
+   el baseline. Se lee del texto del motivo, que nombra el hueco. */
+const obligatorios=cola.map(t=>(t.porque.find(l=>REQUERIDO.test(l))??"").split(":").pop().trim());
+check("los huecos obligatorios se llenan los DOS, uno por turno (K y DEF)",
+      obligatorios.length===2 && new Set(obligatorios).size===2
+      && obligatorios.every(h=>["K","DEF"].includes(h)),
+      obligatorios.join(" → ")||"no reapareció");
 /* La propiedad concreta que se pidió: mientras quede hueco, el que encabeza la
    lista SIEMPRE llena uno. Ésa es la diferencia con lo de antes, que ofrecía un
    segundo ala cerrada con el hueco de ala cerrada ya ocupado. */
@@ -202,8 +231,15 @@ check("mientras hay hueco, el recomendado SIEMPRE llena uno abierto",
       // nadie supera el nivel de reemplazo, lo que encabeza es quien llena un
       // hueco titular que si no se queda a cero. El regex anterior sólo conocía
       // las dos redacciones viejas y ponía en rojo un turno correcto.
-      conAjuste.every(t=>t.porque.some(l=>/starter open|Fits your open|Fills an open|Fills your open/i.test(l))),
-      `${conAjuste.length} turnos · ${conAjuste[0]?.porque.join(" | ")}`);
+      // Y «Required roster slot still open» es el tercer tramo: llena un hueco
+      // OBLIGATORIO. Es la misma propiedad —el recomendado llena uno abierto—
+      // dicha por la rama de pateador y defensa.
+      conAjuste.every(t=>t.porque.some(l=>/starter open|Fits your open|Fills an open|Fills your open|Required roster slot still open/i.test(l))),
+      // LOS TURNOS QUE FALLAN, no el primero. El detalle enseñaba los motivos
+      // del turno 1 —que estaba bien— fuera cual fuera el que no casaba.
+      `${conAjuste.length} turnos · ` + conAjuste
+        .filter(t=>!t.porque.some(l=>/starter open|Fits your open|Fills an open|Fills your open|Required roster slot still open/i.test(l)))
+        .map(t=>`pick ${t.no}: ${t.porque.join(" | ")}`).join(" ‖ "));
 check("el draft se declara completo y ofrece revisarlo",
       /draft complete/i.test(await page.locator(".room-state").innerText()) &&
       (await page.locator(".room-replay-enter").count())===1);

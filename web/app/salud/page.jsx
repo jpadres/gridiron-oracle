@@ -1,6 +1,6 @@
 import { model } from "../../data/model.js";
 import { Callout, Note, NoDataYet } from "../ui.jsx";
-import HealthTable from "./HealthTable.jsx";
+import HealthBoard from "./HealthBoard.jsx";
 
 export const metadata = {
   title: "Gridiron Oracle — Source health",
@@ -41,15 +41,11 @@ export default function SaludPage() {
       </>
     );
   }
-  const c = h.counts ?? {};
-  const w = h.week_agreement ?? {};
-  const roto = (h.sources ?? []).filter((s) => s.label === "BROKEN");
-  const viejo = (h.sources ?? []).filter((s) => s.label === "STALE");
 
   return (
     <>
       <p className="eyebrow">
-        {h.season} · week {h.week} · built {h.generated_at}
+        {h.season} · week {h.week}
       </p>
       <h1>Source health</h1>
       <p className="lede">
@@ -74,63 +70,10 @@ export default function SaludPage() {
         </p>
       </Callout>
 
-      {/* EL CONTRASTE DE LA JORNADA. La autoridad sigue siendo el calendario
-          (`schedule.py::current_point`, el primer partido sin jugar); Sleeper es
-          un segundo testigo para cazar el caso que duele — el sitio en la 4
-          mientras el mundo va por la 5. Si no se pudo leer, se dice: «no pude
-          comprobar» no es «coinciden». */}
-      <section aria-label="Week agreement" className="bk-plan">
-        <h2 className="bk-h">
-          Which week is it <small>two witnesses, and the disagreement if any</small>
-        </h2>
-        <div className="bk-plan-nums">
-          <div className="stat">
-            <span className="stat-label">From the schedule</span>
-            <strong>{w.derived_week ?? "UNKNOWN"}</strong>
-            <span className="caption">first unplayed game · this is what the site publishes</span>
-          </div>
-          <div className="stat">
-            <span className="stat-label">From Sleeper</span>
-            <strong>{w.sleeper_week ?? "—"}</strong>
-            <span className="caption">
-              {w.status === "UNREACHABLE" ? "could not be read" : `api.sleeper.app · ${w.retrieved_at ?? ""}`}
-            </span>
-          </div>
-          <div className="stat">
-            <span className="stat-label">Agreement</span>
-            <strong>{w.status ?? "UNKNOWN"}</strong>
-            <span className="caption">
-              {w.status === "AGREE" ? "both witnesses say the same week" : "see the note below"}
-            </span>
-          </div>
-          <div className="stat">
-            <span className="stat-label">Sources</span>
-            <strong>
-              {c.FRESH ?? 0} / {(c.FRESH ?? 0) + (c.STALE ?? 0) + (c.BROKEN ?? 0)}
-            </strong>
-            <span className="caption">fresh · {c.STALE ?? 0} stale · {c.BROKEN ?? 0} broken</span>
-          </div>
-        </div>
-        {w.note ? <p className="caption">{w.note}</p> : null}
-      </section>
-
-      {roto.length || viejo.length ? (
-        <Callout title={`${roto.length} broken, ${viejo.length} stale right now`}>
-          <ul>
-            {[...roto, ...viejo].map((s) => (
-              <li key={s.name}>
-                <strong>{s.name}</strong> — {s.label}: {s.reason}
-              </li>
-            ))}
-          </ul>
-        </Callout>
-      ) : (
-        <Note title="Every source is inside its window">
-          <p>Nothing here is being presented as more current than it is.</p>
-        </Note>
-      )}
-
-      <HealthTable sources={h.sources} />
+      {/* Todo lo que depende de CUÁNDO SE MIRA —las etiquetas, el recuento, la
+          edad— vive en un componente de cliente, porque necesita el reloj. El
+          texto fijo de esta página sigue saliendo del servidor. */}
+      <HealthBoard health={h} />
 
       <Note title="What this page cannot tell you">
         <p>

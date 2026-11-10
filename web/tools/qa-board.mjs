@@ -7,7 +7,8 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { chromium } from "playwright";
+// La ruta de Chromium vive en UN sitio: `lab/browser.mjs`.
+import { launch } from "./lab/browser.mjs";
 
 // `next start` tiene que arrancar en `web/`, no en el directorio desde el que se
 // lance esta herramienta. Lanzada desde la raíz del repo, `npx next start`
@@ -43,7 +44,7 @@ const stopServer = () => { try { process.kill(-server.pid); } catch { /* ya no e
 process.on("exit", stopServer);
 process.on("uncaughtException", (error) => { stopServer(); throw error; });
 for (let i = 0; i < 60; i++) { try { if ((await fetch(BASE)).ok) break; } catch {} await new Promise(r => setTimeout(r, 500)); }
-const browser = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" });
+const browser = await launch();
 
 const ESTADOS = [
   ["Draft / ALL", ""],

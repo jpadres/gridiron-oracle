@@ -48,10 +48,16 @@ def main() -> int:
 
     # Una respuesta 200 con cero jugadores no es un ADP. `AdpUnavailable` cubre
     # el fallo de red; esto cubre el otro, que es el que parece que funcionó.
+    #
+    # Y TAMPOCO lo es un 200 con veintinueve. Fuera de la temporada de drafts la
+    # fuente se va quedando sin mocks y devuelve los restos: con un mínimo de
+    # una fila, cada resto se escribía encima del artefacto bueno. El mínimo lo
+    # declara `adp_fetch.minimum_entries` — ver ahí de dónde sale.
     try:
-        require_rows("ADP", snapshot.entries)
+        require_rows("ADP", snapshot.entries,
+                     minimum=adp_fetch.minimum_entries(snapshot.league_size))
     except IngestFailed as error:
-        print(f"FALLO: {error}", file=sys.stderr)
+        print(f"FALLO: {error}. No se toca el artefacto anterior.", file=sys.stderr)
         return 1
 
     destino = Path(args.out) if args.out else (

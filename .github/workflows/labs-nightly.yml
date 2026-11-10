@@ -33,8 +33,17 @@ jobs:
         run: npm run build
       - name: Laboratorios profundos
         run: |
-          set -e
+          # SE CORREN TODOS Y SE FALLA AL FINAL. Con `set -e` el primer laboratorio
+          # en rojo paraba el bucle: `live-assistant` llevaba semanas fallando por
+          # un motivo suyo y, detrás de él, `conectar` y `roster-isolation` tenían
+          # un selector roto desde septiembre que no llegó a ejecutarse ni una
+          # noche. Un control que falla cuesta UN control, no los de detrás.
+          rojos=""
           for lab in live-assistant cuenta conectar storage-blocked live-assistant-matrix replay roster-isolation reloj; do
             echo "=== $lab"
-            SKIP_BUILD=1 node tools/lab/$lab.mjs
+            if ! SKIP_BUILD=1 node tools/lab/$lab.mjs; then rojos="$rojos $lab"; fi
           done
+          if [ -n "$rojos" ]; then
+            echo "::error::laboratorios en rojo:$rojos"
+            exit 1
+          fi

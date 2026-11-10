@@ -437,7 +437,7 @@ export default function BettingShell({ predictions, weekly, context, markets = [
               <thead>
                 <tr>
                   <th>Week</th><th>Budget</th><th>Per bet</th>
-                  <th>Max bets</th><th>How it is set</th>
+                  <th>Max bets</th><th className="cell-text">How it is set</th>
                 </tr>
               </thead>
               <tbody>
@@ -447,7 +447,7 @@ export default function BettingShell({ predictions, weekly, context, markets = [
                     <td>{w.known ? money(w.weekBudget) : <span className="muted">{calendario.weekPct}%</span>}</td>
                     <td>{w.known ? money(w.perBet) : <span className="muted">{calendario.unitPct}%</span>}</td>
                     <td>{w.known ? w.maxBets : <span className="muted">{calendario.schedule[0].maxBets}</span>}</td>
-                    <td className="bk-ahead-rule">{w.rule}</td>
+                    <td className="bk-ahead-rule cell-text">{w.rule}</td>
                   </tr>
                 ))}
               </tbody>

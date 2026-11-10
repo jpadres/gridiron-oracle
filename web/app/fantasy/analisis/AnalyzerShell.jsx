@@ -339,8 +339,10 @@ export default function AnalyzerShell({
                     </>
                   ) : <span className="attrib">empty</span>}
                 </span>
-                <span className={`mu-slot ptag ptag--${String(row.slot).toLowerCase().replace("super_flex", "sflx")}`}>
-                  {row.slot === "SUPER_FLEX" ? "SFLX" : row.slot}
+                <span className="mu-mid">
+                  <span className={`mu-slot ptag ptag--${String(row.slot).toLowerCase().replace("super_flex", "sflx")}`}>
+                    {row.slot === "SUPER_FLEX" ? "SFLX" : row.slot}
+                  </span>
                 </span>
                 <span className="mu-cell mu-cell--theirs">
                   {row.theirs ? (
@@ -481,7 +483,11 @@ export default function AnalyzerShell({
               <thead>
                 <tr>
                   <th className="who">Slot</th>
-                  <th>Player</th>
+                  {/* Un NOMBRE, no una cifra: a la izquierda, como en todas
+                      las demás tablas. Heredaba el `text-align: right` de las
+                      columnas numéricas y la foto se quedaba en un borde con
+                      el nombre pegado al otro. */}
+                  <th className="cell-text">Player</th>
                   <th className="wk-proj">ROS value</th>
                 </tr>
               </thead>
@@ -491,7 +497,7 @@ export default function AnalyzerShell({
                     <td className="who">
                       <span className="nm">{slot.slot}</span>
                     </td>
-                    <td className="hs-who">
+                    <td className="hs-who cell-text">
                       {slot.player ? (
                         <>
                           <Headshot sid={slot.player.sid} team={slot.player.team}

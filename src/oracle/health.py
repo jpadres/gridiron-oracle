@@ -132,6 +132,27 @@ class SourceHealth:
     window_hours: float | None = None
     """El corte que decidió la etiqueta, para que el umbral sea auditable."""
 
+    fresh_for_hours: float | None = None
+    """Cuántas horas, desde `as_of`, se puede AFIRMAR actual. `None` = no caduca.
+
+        EL VEREDICTO SE CALCULA AL EXPORTAR Y SE LEE SEMANAS DESPUÉS.
+
+    La primera versión de esta página congelaba la etiqueta en el build. El 10
+    de noviembre de 2026 decía «10 de 12 FRESH» sobre un payload del 14 de
+    octubre: la ingesta llevaba tres semanas fallando —una situación de
+    plantilla nueva, `TRC`, y el compilador negándose con razón— y la página
+    que existe para decir «esto es viejo» era la que afirmaba que no. Si la
+    exportación se para, NADA vuelve a calcular la etiqueta: el fallo que la
+    página tiene que mostrar es justo el que la deja ciega.
+
+    La edad depende de CUÁNDO SE MIRA, y eso no se sabe al exportar. Es la misma
+    partición que `gameClock.js`: Python decide lo que es un hecho del fichero
+    y el reloj del navegador decide lo que depende del instante. Y con la misma
+    asimetría: el navegador sólo puede DEGRADAR (FRESH → STALE), nunca reabrir
+    lo que Python cerró. El umbral sigue viviendo en `freshness.WINDOWS`; esto
+    es ese mismo número, publicado, para que el navegador no guarde una copia.
+    """
+
     coverage: str = NOT_WEEKLY
     """`CURRENT_WEEK`, `BEHIND` o `NOT_WEEKLY`: el otro eje de la frescura.
 
@@ -156,6 +177,7 @@ class SourceHealth:
             "label": self.label,
             "reason": self.reason,
             "window_hours": self.window_hours,
+            "fresh_for_hours": self.fresh_for_hours,
             "coverage": self.coverage,
             **({"extra": self.extra} if self.extra else {}),
         }
@@ -268,11 +290,18 @@ def assess(
         detalle = (f"covers week {covers_week} while the current week is "
                    f"{current_week}: this section has not advanced")
         motivo = f"{detalle}; {motivo}" if motivo else detalle
+    # Hasta cuándo se puede afirmar actual: el SEGUNDO de la terna, que es el
+    # corte de `USABLE_AS_CURRENT`. Lo que no caduca (una estadística de
+    # carrera, el board que por diseño no lee su temporada) lleva `None`, y el
+    # navegador no lo degrada nunca.
+    fresco = None
+    if not timeless and ventana and estado is not Freshness.HISTORICAL:
+        fresco = round(ventana[1].total_seconds() / 3600, 2)
     return SourceHealth(
         name=name, feeds=feeds, domain=domain, origin=origin,
         as_of=_iso(published_at), covers_week=covers_week, covers_season=covers_season,
         freshness=estado.value, label=etiqueta, reason=motivo,
-        window_hours=horas, coverage=cobertura, extra=extra or {},
+        window_hours=horas, fresh_for_hours=fresco, coverage=cobertura, extra=extra or {},
     )
 
 

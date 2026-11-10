@@ -79,10 +79,23 @@ NO_ES_ESPANOL = ("Las Vegas", "Los Angeles", "La Crosse", "De La Cruz", "Del Rio
 
 
 def looks_spanish(text: str) -> bool:
-    """DOS palabras funcionales, como la puerta de la web. Ni una, ni tres."""
+    """La MISMA regla que la puerta de la web (`web/tools/spanish.mjs`).
+
+    Dos palabras funcionales distintas, o una tilde en una palabra que no sea un
+    nombre propio, o puntuación que el inglés no tiene. Compartir sólo la lista
+    de palabras no bastaba: aquí no se miraba la tilde y allí bastaba una, así
+    que «RB Audric Estimé» pasaba este filtro y ponía la puerta en rojo. Los dos
+    se prueban contra los mismos casos, `tests/fixtures/spanish_cases.json`.
+    """
     limpio = str(text or "")
     for propio in NO_ES_ESPANOL:
         limpio = limpio.replace(propio, " ")
+    if re.search(r"[¿¡«»]", limpio):
+        return True
+    for palabra in re.findall(r"[A-Za-zÁÉÍÓÚÑÜáéíóúñü]+", limpio):
+        # Un nombre propio va con mayúscula en los dos idiomas; «más» no.
+        if re.search(r"[áéíóúñ]", palabra) and palabra[0] == palabra[0].lower():
+            return True
     encontradas = {
         w for w in re.findall(r"[a-záéíóúñü]+", limpio.lower()) if w in FUNCIONALES_ES
     }

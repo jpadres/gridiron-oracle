@@ -68,7 +68,7 @@ await page.goto(`${BASE}/fantasy/draft`,{waitUntil:"domcontentloaded"});
 await page.waitForSelector(".room-list button");
 await page.clock.runFor(1_000);
 
-const scope=()=>page.locator(".room-head p").innerText();
+const scope=()=>page.locator(".room-head p:not(.room-asof)").innerText();
 const columnas=()=>page.locator(".room-grid .is-mine").count();
 
 console.log("=== abro antes del sorteo ===");
@@ -84,7 +84,7 @@ L.draft.status = "drafting";
 // Un sondeo. Sin recargar, sin tocar el formulario, sin reconectar.
 await page.clock.runFor(16_000);
 await page.waitForFunction(
-  () => /slot \d+/i.test(document.querySelector(".room-head p")?.textContent ?? ""),
+  () => /slot \d+/i.test(document.querySelector(".room-head p:not(.room-asof)")?.textContent ?? ""),
   null, {timeout: 8000}).catch(()=>{});
 
 check(`el siguiente sondeo recoge mi puesto solo — slot ${MY_SLOT}`,
