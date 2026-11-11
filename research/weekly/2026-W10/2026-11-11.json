@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T07:00:25Z",
+  "generated_at": "2026-11-11T15:34:32Z",
   "season": 2026,
   "week": 10,
   "schedule": {
@@ -17,21 +17,235 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-11-11T07:00:25Z",
-    "injuries_as_of": "NOT_PUBLISHED_YET",
-    "roster_as_of": "2026-11-10T15:34:26Z",
-    "schedule_as_of": "2026-11-11T05:45:20Z"
+    "research_as_of": "2026-11-11T15:34:32Z",
+    "injuries_as_of": "week 10 PARTIAL · 2 of 28 clubs filed",
+    "roster_as_of": "2026-11-11T07:04:34Z",
+    "schedule_as_of": "2026-11-11T15:05:18Z"
   },
   "injury_report": {
-    "status": "NOT_PUBLISHED_YET",
+    "status": "PARTIALLY_FILED",
     "week": 10,
-    "rows": [],
-    "last_published_week": 9,
-    "note": "clubs file the week's report from Wednesday on; the previous week's designation is NOT carried forward as if it were this week's"
+    "rows": [
+      {
+        "team": "NYG",
+        "gsis_id": "00-0033290",
+        "full_name": "Jermaine Eluemunor",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0036280",
+        "full_name": "Malik Harrison",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0036309",
+        "full_name": "Darnell Mooney",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0036386",
+        "full_name": "Andrew Thomas",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0038576",
+        "full_name": "Charlie Jones",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0039337",
+        "full_name": "Malik Nabers",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0039847",
+        "full_name": "Theo Johnson",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0039923",
+        "full_name": "J.J. McCarthy",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0040677",
+        "full_name": "Abdul Carter",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0040715",
+        "full_name": "Cam Skattebo",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "NYG",
+        "gsis_id": "00-0041462",
+        "full_name": "Colton Hood",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0033082",
+        "full_name": "Lucas Patrick",
+        "position": "C",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0035409",
+        "full_name": "Shy Tuttle",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0036375",
+        "full_name": "Amik Robertson",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0036628",
+        "full_name": "John Bates",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0037742",
+        "full_name": "Treylon Burks",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0037809",
+        "full_name": "Chig Okonkwo",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0039686",
+        "full_name": "Colson Yankoff",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0039910",
+        "full_name": "Jayden Daniels",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0041108",
+        "full_name": "Matt Gulbin",
+        "position": "C",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      }
+    ],
+    "teams": 2,
+    "teams_filed": [
+      "NYG",
+      "WAS"
+    ],
+    "teams_expected": 28,
+    "teams_pending": [
+      "ARI",
+      "ATL",
+      "BAL",
+      "BUF",
+      "CAR",
+      "CIN",
+      "CLE",
+      "DAL",
+      "DET",
+      "GB",
+      "HOU",
+      "IND",
+      "JAX",
+      "KC",
+      "LAC",
+      "LAR",
+      "LV",
+      "MIA",
+      "MIN",
+      "NE",
+      "NO",
+      "NYJ",
+      "PIT",
+      "SEA",
+      "SF",
+      "TEN"
+    ],
+    "with_designation": 0
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-11-10T15:32:14Z",
+    "effective_at": "2026-11-11T07:02:21Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -41,18 +255,16 @@
         "competition": []
       },
       "ATL": {
-        "player_id": "00-0025565",
-        "player_name": "Nick Folk",
+        "player_id": "00-0038562",
+        "player_name": "Jake Moody",
         "contested": false,
         "competition": []
       },
       "BAL": {
-        "player_id": "00-0038562",
-        "player_name": "Jake Moody",
-        "contested": true,
-        "competition": [
-          "Tyler Loop"
-        ]
+        "player_id": "00-0040074",
+        "player_name": "Tyler Loop",
+        "contested": false,
+        "competition": []
       },
       "BUF": {
         "player_id": "00-0036162",
@@ -14258,16 +14470,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-10T15:32:03Z",
+      "retrieved_at": "2026-11-11T07:01:35Z",
       "status": "OK",
-      "rows": 2821
+      "rows": 2841
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-10T15:32:24Z",
+      "retrieved_at": "2026-11-11T07:02:31Z",
       "status": "OK",
-      "rows": 773170
+      "rows": 775490
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -14286,15 +14498,107 @@
     }
   ],
   "unknowns": [
-    "official injury report for week 10: NOT_PUBLISHED_YET",
+    "official injury report for week 10: 26 of 28 clubs have not filed yet (ARI, ATL, BAL, BUF, CAR, CIN, CLE, DAL, DET, GB, HOU, IND, JAX, KC, LAC, LAR, LV, MIA, MIN, NE, NO, NYJ, PIT, SEA, SF, TEN) — no designation for their players means NOT REPORTED, not healthy",
     "route participation: nflverse does not publish per-player routes in this dataset, so role is measured by snap share and targets, not routes",
     "press, unofficial depth charts and transactions: SOURCE UNAVAILABLE from this environment"
   ],
   "diff": {
     "against": "2026-11-10.json",
-    "new": [],
-    "changed": [],
+    "new": [
+      {
+        "key": "NYG:Jermaine Eluemunor",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Malik Harrison",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Darnell Mooney",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Andrew Thomas",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Charlie Jones",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Malik Nabers",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Theo Johnson",
+        "now": "None"
+      },
+      {
+        "key": "NYG:J.J. McCarthy",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Abdul Carter",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Cam Skattebo",
+        "now": "None"
+      },
+      {
+        "key": "NYG:Colton Hood",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Lucas Patrick",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Shy Tuttle",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Amik Robertson",
+        "now": "None"
+      },
+      {
+        "key": "WAS:John Bates",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Treylon Burks",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Chig Okonkwo",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Colson Yankoff",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Jayden Daniels",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Matt Gulbin",
+        "now": "None"
+      }
+    ],
+    "changed": [
+      {
+        "key": "K:ATL",
+        "was": "Nick Folk",
+        "now": "Jake Moody"
+      },
+      {
+        "key": "K:BAL",
+        "was": "Jake Moody",
+        "now": "Tyler Loop"
+      }
+    ],
     "removed": [],
-    "unchanged": 32
+    "unchanged": 30
   }
 }
