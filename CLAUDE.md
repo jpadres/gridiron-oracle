@@ -9,8 +9,8 @@ dueño del repo). Sin cuentas, sin base de datos, sin backend.
 
 ## Lo primero que hay que entender
 
-**El modelo iguala a la línea de cierre del mercado; no la bate.** Brier **0.2128**
-frente a **0.2121**, MAE **10.02** frente a **9.96**, en 3.964 partidos fuera de
+**El modelo iguala a la línea de cierre del mercado; no la bate.** Brier **0.2127**
+frente a **0.2120**, MAE **10.02** frente a **9.96**, en 3.965 partidos fuera de
 muestra.
 
 Esas cifras salen de `validation.overall` del payload —lo que este código midió y
