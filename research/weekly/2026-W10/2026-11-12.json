@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T07:14:43Z",
+  "generated_at": "2026-11-12T16:50:00Z",
   "season": 2026,
   "week": 10,
   "schedule": {
@@ -17,10 +17,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-11-12T07:14:43Z",
-    "injuries_as_of": "week 10 PARTIAL · 24 of 28 clubs filed",
-    "roster_as_of": "2026-11-12T07:02:33Z",
-    "schedule_as_of": "2026-11-12T03:45:18Z"
+    "research_as_of": "2026-11-12T16:50:00Z",
+    "injuries_as_of": "week 10 PARTIAL · 26 of 28 clubs filed",
+    "roster_as_of": "2026-11-12T15:58:36Z",
+    "schedule_as_of": "2026-11-12T16:45:19Z"
   },
   "injury_report": {
     "status": "PARTIALLY_FILED",
@@ -70,6 +70,15 @@
         "report_status": null,
         "report_primary_injury": null,
         "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "ARI",
+        "gsis_id": "00-0035378",
+        "full_name": "Andrew Wingard",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "ARI",
@@ -403,6 +412,42 @@
         "report_status": null,
         "report_primary_injury": null,
         "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0033523",
+        "full_name": "Jonathan Allen",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0036231",
+        "full_name": "Kyle Dugger",
+        "position": "S",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0038549",
+        "full_name": "DJ Turner II",
+        "position": "CB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "CIN",
+        "gsis_id": "00-0040140",
+        "full_name": "Dylan Fairchild",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "CLE",
@@ -2034,6 +2079,141 @@
         "practice_status": "Limited Participation in Practice"
       },
       {
+        "team": "SEA",
+        "gsis_id": "00-0031933",
+        "full_name": "Leonard Williams",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0032387",
+        "full_name": "Jarran Reed",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0034342",
+        "full_name": "Quenton Nelson",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0034350",
+        "full_name": "Uchenna Nwosu",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0034869",
+        "full_name": "Sam Darnold",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0035704",
+        "full_name": "Drew Lock",
+        "position": "QB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0037545",
+        "full_name": "Rashid Shaheed",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0037821",
+        "full_name": "Charles Cross",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0038543",
+        "full_name": "Jaxon Smith-Njigba",
+        "position": "WR",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0038694",
+        "full_name": "Brandon Pili",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0038764",
+        "full_name": "Patrick O'Connell",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0039020",
+        "full_name": "Anthony Bradford",
+        "position": "G",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0039047",
+        "full_name": "Derick Hall",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0039793",
+        "full_name": "AJ Barner",
+        "position": "TE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "SEA",
+        "gsis_id": "00-0040061",
+        "full_name": "Connor O'Toole",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
         "team": "SF",
         "gsis_id": "00-0027857",
         "full_name": "Trent Williams",
@@ -2062,12 +2242,30 @@
       },
       {
         "team": "SF",
+        "gsis_id": "00-0033280",
+        "full_name": "Christian McCaffrey",
+        "position": "RB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "SF",
         "gsis_id": "00-0034391",
         "full_name": "Siran Neal",
         "position": "S",
         "report_status": null,
         "report_primary_injury": null,
         "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "SF",
+        "gsis_id": "00-0034982",
+        "full_name": "Dre Greenlaw",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
       },
       {
         "team": "SF",
@@ -2313,12 +2511,13 @@
         "practice_status": "Full Participation in Practice"
       }
     ],
-    "teams": 24,
+    "teams": 26,
     "teams_filed": [
       "ARI",
       "ATL",
       "BUF",
       "CAR",
+      "CIN",
       "CLE",
       "DAL",
       "DET",
@@ -2336,6 +2535,7 @@
       "NYG",
       "NYJ",
       "PIT",
+      "SEA",
       "SF",
       "TEN",
       "WAS"
@@ -2343,15 +2543,13 @@
     "teams_expected": 28,
     "teams_pending": [
       "BAL",
-      "CIN",
-      "LAC",
-      "SEA"
+      "LAC"
     ],
     "with_designation": 6
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-11-12T07:01:31Z",
+    "effective_at": "2026-11-12T15:57:12Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -16578,16 +16776,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-12T07:01:35Z",
+      "retrieved_at": "2026-11-12T15:56:22Z",
       "status": "OK",
-      "rows": 3075
+      "rows": 3097
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-12T07:01:38Z",
+      "retrieved_at": "2026-11-12T15:57:20Z",
       "status": "OK",
-      "rows": 777815
+      "rows": 780140
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -16606,7 +16804,7 @@
     }
   ],
   "unknowns": [
-    "official injury report for week 10: 4 of 28 clubs have not filed yet (BAL, CIN, LAC, SEA) — no designation for their players means NOT REPORTED, not healthy",
+    "official injury report for week 10: 2 of 28 clubs have not filed yet (BAL, LAC) — no designation for their players means NOT REPORTED, not healthy",
     "route participation: nflverse does not publish per-player routes in this dataset, so role is measured by snap share and targets, not routes",
     "press, unofficial depth charts and transactions: SOURCE UNAVAILABLE from this environment"
   ],
@@ -16631,6 +16829,10 @@
       },
       {
         "key": "ARI:Hjalte Froholdt",
+        "now": "None"
+      },
+      {
+        "key": "ARI:Andrew Wingard",
         "now": "None"
       },
       {
@@ -16779,6 +16981,22 @@
       },
       {
         "key": "CAR:Lee Hunter",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Jonathan Allen",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Kyle Dugger",
+        "now": "None"
+      },
+      {
+        "key": "CIN:DJ Turner II",
+        "now": "None"
+      },
+      {
+        "key": "CIN:Dylan Fairchild",
         "now": "None"
       },
       {
@@ -17462,6 +17680,66 @@
         "now": "None"
       },
       {
+        "key": "SEA:Leonard Williams",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Jarran Reed",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Quenton Nelson",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Uchenna Nwosu",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Sam Darnold",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Drew Lock",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Rashid Shaheed",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Charles Cross",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Jaxon Smith-Njigba",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Brandon Pili",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Patrick O'Connell",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Anthony Bradford",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Derick Hall",
+        "now": "None"
+      },
+      {
+        "key": "SEA:AJ Barner",
+        "now": "None"
+      },
+      {
+        "key": "SEA:Connor O'Toole",
+        "now": "None"
+      },
+      {
         "key": "SF:Trent Williams",
         "now": "None"
       },
@@ -17474,7 +17752,15 @@
         "now": "None"
       },
       {
+        "key": "SF:Christian McCaffrey",
+        "now": "None"
+      },
+      {
         "key": "SF:Siran Neal",
+        "now": "None"
+      },
+      {
+        "key": "SF:Dre Greenlaw",
         "now": "None"
       },
       {
