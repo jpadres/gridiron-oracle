@@ -1,0 +1,1343 @@
+{
+ "date": "2026-11-12",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jaxon Smith-Njigba"
+   ],
+   "headline": "Day off for Jaxon Smith-Njigba",
+   "summary": "Seattle Seahawks WR Jaxon Smith-Njigba receives day off Wednesday",
+   "published": "2026-11-12T04:11:20Z",
+   "published_at": "2026-11-12T04:11:20Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Day off for Jaxon Smith-Njigba",
+     "url": "https://sports.yahoo.com/articles/day-off-jaxon-smith-njigba-041120115.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "AJ Barner"
+   ],
+   "headline": "AJ Barner logs full practice Wednesday",
+   "summary": "Seattle Seahawks TE AJ Barner full practices Wednesday",
+   "published": "2026-11-12T03:31:55Z",
+   "published_at": "2026-11-12T03:31:55Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "AJ Barner logs full practice Wednesday",
+     "url": "https://sports.yahoo.com/articles/aj-barner-logs-full-practice-033155196.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Quick Hits | Joe Burrow Eyes Drew Brees' Record Of 74.4%: 'That Would Be A Fun One To Break'",
+   "summary": "More notes and quotes from a Paycor Stadium Wednesday.",
+   "published": "2026-11-12T03:12:48Z",
+   "published_at": "2026-11-12T03:12:48Z",
+   "first_seen_at": "2026-11-12T07:39:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Quick Hits | Joe Burrow Eyes Drew Brees' Record Of 74.4%: 'That Would Be A Fun One To Break'",
+     "url": "https://www.bengals.com/news/quick-hits-joe-burrow-eyes-drew-brees-record-of-74-4-that-would-be-a-fun-one-to-break"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Puka Nacua unable to practice",
+   "summary": "Los Angeles Rams WR Puka Nacua sidelined Wednesday",
+   "published": "2026-11-12T03:04:59Z",
+   "published_at": "2026-11-12T03:04:59Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Puka Nacua unable to practice",
+     "url": "https://sports.yahoo.com/articles/puka-nacua-unable-practice-030459758.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TEN",
+   "players": [
+    "Calvin Ridley"
+   ],
+   "headline": "Calvin Ridley — $92 million NFL star — reveals what happened during airport incident",
+   "summary": "The Titans star receiver spoke with reporters Wednesday and explained his side of the story that involved a valet — who apparently claimed the wideout broke his finger.",
+   "published": "2026-11-12T02:40:57Z",
+   "published_at": "2026-11-12T02:40:57Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Calvin Ridley — $92 million NFL star — reveals what happened during airport incident",
+     "url": "https://sports.yahoo.com/articles/calvin-ridley-92-million-nfl-024057476.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford",
+    "Puka Nacua",
+    "Davante Adams"
+   ],
+   "headline": "Matthew Stafford defiant as Rams face injury crisis without Puka Nacua, Davante Adams",
+   "summary": "Matthew Stafford refuses to give up on the Rams' Super Bowl hopes despite injuries to Puka Nacua and Davante Adams decimating their receiving corps.",
+   "published": "2026-11-12T02:21:50Z",
+   "published_at": "2026-11-12T02:21:50Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Matthew Stafford defiant as Rams face injury crisis without Puka Nacua, Davante Adams",
+     "url": "https://sports.yahoo.com/articles/matthew-stafford-defiant-rams-face-022150243.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Makai Lemon"
+   ],
+   "headline": "Roob's Stats: Makai Lemon shows up again and 2nd-half defense doesn't",
+   "summary": "The stats to know after the Eagles fell to 2-7.",
+   "published": "2026-11-12T02:04:02Z",
+   "published_at": "2026-11-12T02:04:02Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Roob's Stats: Makai Lemon shows up again and 2nd-half defense doesn't",
+     "url": "https://sports.yahoo.com/articles/roob-stats-makai-lemon-shows-111309154.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Saquon Barkley"
+   ],
+   "headline": "Eagles down 1 RB on active roster after waiving Blue",
+   "summary": "Saquon Barkley is now the only running back on the Eagles 53-man roster.",
+   "published": "2026-11-12T02:04:02Z",
+   "published_at": "2026-11-12T02:04:02Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Eagles down 1 RB on active roster after waiving Blue",
+     "url": "https://sports.yahoo.com/articles/eagles-down-1-rb-active-173058718.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Patrick Mahomes able to practice Wednesday",
+   "summary": "No limitations for Kansas City Chiefs QB Patrick Mahomes",
+   "published": "2026-11-12T02:02:55Z",
+   "published_at": "2026-11-12T02:02:55Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Patrick Mahomes able to practice Wednesday",
+     "url": "https://sports.yahoo.com/articles/patrick-mahomes-able-practice-wednesday-020255735.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Gutierrez: Raiders long-term plan comes to fruition with insertion of Fernando Mendoza at quarterback",
+   "summary": "“It’s Fernando’s time to start the season. We’re ready to rock and roll and keep the season going,\" said Raiders owner Mark Davis.",
+   "published": "2026-11-12T01:00:00Z",
+   "published_at": "2026-11-12T01:00:00Z",
+   "first_seen_at": "2026-11-12T07:39:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "Gutierrez: Raiders long-term plan comes to fruition with insertion of Fernando Mendoza at quarterback",
+     "url": "https://www.raiders.com/news/gutierrez-raiders-long-term-plan-comes-to-fruition-insertion-fernando-mendoza-quarterback-mark-davis"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "From the Podium: Sean McVay and Matthew Stafford preview Rams' second meeting with Cardinals",
+   "summary": "What head coach Sean McVay and quarterback Matthew Stafford had to say about the Rams' offense adapting to injuries to key contributors ahead of Sunday’s game against the Cardinals",
+   "published": "2026-11-12T00:56:46Z",
+   "published_at": "2026-11-12T00:56:46Z",
+   "first_seen_at": "2026-11-12T07:39:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "From the Podium: Sean McVay and Matthew Stafford preview Rams' second meeting with Cardinals",
+     "url": "https://www.therams.com/news/from-the-podium-sean-mcvay-quarterback-matthew-stafford-defensive-end-aaron-donald-coordinators-preview-rams-second-meeting-with-cardinals-press-conference-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford",
+    "Puka Nacua",
+    "Davante Adams"
+   ],
+   "headline": "'I trust those guys to be in the right spots': Matthew Stafford confident in next receivers up with Puka Nacua and Davante Adams sidelined",
+   "summary": "Sunday's Week 10 regular season game against the Cardinals will be Rams quarterback Matthew Stafford's biggest adjustment yet to the core group of pass-catchers he'll be working with with Davante Adams still on Injured Reserve and Puka Nacua out with knee and toe injuries.",
+   "published": "2026-11-12T00:56:43Z",
+   "published_at": "2026-11-12T00:56:43Z",
+   "first_seen_at": "2026-11-12T07:39:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "'I trust those guys to be in the right spots': Matthew Stafford confident in next receivers up with Puka Nacua and Davante Adams sidelined",
+     "url": "https://www.therams.com/news/i-trust-those-guys-to-be-in-the-right-spots-matthew-stafford-confident-in-next-receivers-up-with-puka-nacua-and-davante-adams-sidelined"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Carson Beck"
+   ],
+   "headline": "For Starters, Carson Beck Ready To Play First Game Against Rams",
+   "summary": "Rookie takes over at QB after Minshew's season-ending injury",
+   "published": "2026-11-12T00:44:49Z",
+   "published_at": "2026-11-12T00:44:49Z",
+   "first_seen_at": "2026-11-12T07:39:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "For Starters, Carson Beck Ready To Play First Game Against Rams",
+     "url": "https://www.azcardinals.com/news/for-starters-carson-beck-ready-to-play-first-game-against-rams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Keenan Allen",
+    "Brock Purdy"
+   ],
+   "headline": "Kyle Shanahan throws kitchen sink at Keenan Allen in 49ers’ desperate situation",
+   "summary": "49ers wide receiver Keenan Allen, head coach Kyle Shanahan and quarterback Brock Purdy stand together.Kyle Shanahan felt for Keenan Allen on Wednesday. A little bit, anyway. The Colts had traded...",
+   "published": "2026-11-12T00:41:50Z",
+   "published_at": "2026-11-12T00:41:50Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Kyle Shanahan throws kitchen sink at Keenan Allen in 49ers’ desperate situation",
+     "url": "https://sports.yahoo.com/articles/kyle-shanahan-throws-kitchen-sink-004150768.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "Matthew Stafford a full participant Wednesday; Myles Garrett limited",
+   "summary": "Rams quarterback Matthew Stafford (right elbow) had full participation on Wednesday.",
+   "published": "2026-11-12T00:38:13Z",
+   "published_at": "2026-11-12T00:38:13Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Matthew Stafford a full participant Wednesday; Myles Garrett limited",
+     "url": "https://sports.yahoo.com/articles/matthew-stafford-full-participant-wednesday-003813842.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "As competitor, QB Daniel Jones wasn’t happy to see Colts as recent major trade sellers",
+   "summary": "Colts QB Daniel Jones voiced his recent displeasure over the team’s recent trades, but understood, it’s outside the players’ control.",
+   "published": "2026-11-12T00:37:36Z",
+   "published_at": "2026-11-12T00:37:36Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "As competitor, QB Daniel Jones wasn’t happy to see Colts as recent major trade sellers",
+     "url": "https://sports.yahoo.com/articles/competitor-qb-daniel-jones-wasn-003736068.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Carson Beck"
+   ],
+   "headline": "Carson Beck has ‘all the confidence’ of Cardinals going into first career NFL start",
+   "summary": "The Cardinals' quarterback shuffle is now landing on a rookie.",
+   "published": "2026-11-12T00:32:38Z",
+   "published_at": "2026-11-12T00:32:38Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Carson Beck has ‘all the confidence’ of Cardinals going into first career NFL start",
+     "url": "https://sports.yahoo.com/articles/carson-beck-confidence-cardinals-going-003238547.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Rashid Shaheed"
+   ],
+   "headline": "Seahawks-Raiders Wednesday injury report: Leonard Williams still out, Rashid Shaheed returns",
+   "summary": "Early indications suggest that the Seahawks will limp into the game for the second week in a row.",
+   "published": "2026-11-12T00:29:25Z",
+   "published_at": "2026-11-12T00:29:25Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Seahawks-Raiders Wednesday injury report: Leonard Williams still out, Rashid Shaheed returns",
+     "url": "https://sports.yahoo.com/articles/seahawks-raiders-wednesday-injury-report-002925052.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Rashid Shaheed"
+   ],
+   "headline": "Seahawks-Raiders Wednesday injury report: Leonard Williams still out, Rashid Shaheed returns",
+   "summary": "The Seattle Seahawks emerged victorious in an injury bowl against the Arizona Cardinals last week, and it appears they may have to do it again on Sunday against the Las Vegas Raiders. Seattle released the first of the three weekly injury reports, which is headlined by the health of backup quarterback Drew Lock, who is […]",
+   "published": "2026-11-12T00:29:25Z",
+   "published_at": "2026-11-12T00:29:25Z",
+   "first_seen_at": "2026-11-12T07:39:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks-Raiders Wednesday injury report: Leonard Williams still out, Rashid Shaheed returns",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-injury-report/179679/seahawks-raiders-wednesday-injury-report-leonard-williams-still-out-rashid-shaheed-returns"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Sam Darnold did not practice Wednesday; Drew Lock was limited",
+   "summary": "The Seahawks have already ruled out Sam Darnold for Week 10, with the starting quarterback's return potentially coming in Week 12 after the bye.",
+   "published": "2026-11-12T00:18:57Z",
+   "published_at": "2026-11-12T00:18:57Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Sam Darnold did not practice Wednesday; Drew Lock was limited",
+     "url": "https://sports.yahoo.com/articles/sam-darnold-did-not-practice-001857300.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Jordan Love"
+   ],
+   "headline": "Packers' offense vs. Vikings' defense: What's different from Week 1?",
+   "summary": "“It’s never easy going against this defense,” QB Jordan Love says",
+   "published": "2026-11-12T00:13:57Z",
+   "published_at": "2026-11-12T00:13:57Z",
+   "first_seen_at": "2026-11-12T07:39:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Packers' offense vs. Vikings' defense: What's different from Week 1?",
+     "url": "https://www.packers.com/news/packers-offense-vs-vikings-defense-what-s-different-from-week-1-nov-11-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Alec Pierce"
+   ],
+   "headline": "Colts rightfully noncommittal on whether WR Alec Pierce will still return this 2026 season",
+   "summary": "For those holding out hope for Alec Pierce returning this season, I wouldn’t count on it for the Colts.",
+   "published": "2026-11-12T00:11:43Z",
+   "published_at": "2026-11-12T00:11:43Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Colts rightfully noncommittal on whether WR Alec Pierce will still return this 2026 season",
+     "url": "https://sports.yahoo.com/articles/colts-rightfully-noncommittal-whether-wr-001143652.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers’ Keenan Allen trade makes more sense after latest Mike Evans injury update",
+   "summary": "The 49ers still have no update when Mike Evans will return to the field, and coach Kyle Shanahan told reporters on Wednesday the receiver is considered “week to week.” Since...",
+   "published": "2026-11-11T23:54:53Z",
+   "published_at": "2026-11-11T23:54:53Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "49ers’ Keenan Allen trade makes more sense after latest Mike Evans injury update",
+     "url": "https://sports.yahoo.com/articles/49ers-keenan-allen-trade-makes-235453134.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Raiders QB Fernando Mendoza effusively thanks Kirk Cousins ahead of first NFL start",
+   "summary": "The Raiders' new starting quarterback has plenty of appreciation for the previous one.",
+   "published": "2026-11-11T23:39:27Z",
+   "published_at": "2026-11-11T23:39:27Z",
+   "first_seen_at": "2026-11-12T07:39:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Raiders QB Fernando Mendoza effusively thanks Kirk Cousins ahead of first NFL start",
+     "url": "https://sports.yahoo.com/nfl/article/raiders-qb-fernando-mendoza-effusively-thanks-kirk-cousins-ahead-of-first-nfl-start-233927684.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Keenan Allen"
+   ],
+   "headline": "5 final observations for the 49ers following Raiders win and trade deadline",
+   "summary": "The San Francisco 49ers are coming off an eventful few days following their 38-17 win over the Las Vegas Raiders and the trade deadline, where the team added Indianapolis Colts wide receiver Keenan Allen after trading for DeForest Buckner last week. Now, the 49ers are set for the second half of the season with two […]",
+   "published": "2026-11-11T23:13:46Z",
+   "published_at": "2026-11-11T23:13:46Z",
+   "first_seen_at": "2026-11-12T07:39:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "5 final observations for the 49ers following Raiders win and trade deadline",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/165630/san-francisco-49ers-news-5-observations-after-las-vegas-raiders-win-trade-deadline-thoughts-kyle-shanahan"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "Renner's post-deadline 2027 NFL mock draft: How the trade deadline affected the first three rounds",
+   "summary": "The Eagles and Titans rebuild after the deadline, while the Chargers land a new weapon for Justin Herbert in Jeremiah Smith",
+   "published": "2026-11-11T22:57:15Z",
+   "published_at": "2026-11-11T22:57:15Z",
+   "first_seen_at": "2026-11-12T07:39:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Renner's post-deadline 2027 NFL mock draft: How the trade deadline affected the first three rounds",
+     "url": "https://www.cbssports.com/nfl/draft/news/renners-2027-nfl-three-round-mock-draft-trade-deadline-first-three-rounds-eagles-jets-titans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua",
+    "Davante Adams"
+   ],
+   "headline": "Injury Updates: Rams 'optimistic' about Trent McDuffie returning from injury for Week 10 at Cardinals; latest on Davante Adams, Puka Nacua and Terrance Ferguson's timelines",
+   "summary": "Rams head coach Sean McVay discusses the latest on timelines for cornerback Trent McDuffie, wide receivers Davante Adams and Puka Nacua, and tight end Terrance Ferguson.",
+   "published": "2026-11-11T22:14:48Z",
+   "published_at": "2026-11-11T22:14:48Z",
+   "first_seen_at": "2026-11-12T07:39:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Injury Updates: Rams 'optimistic' about Trent McDuffie returning from injury for Week 10 at Cardinals; latest on Davante Adams, Puka Nacua and Terrance Ferguson's timelines",
+     "url": "https://www.therams.com/news/injury-updates-rams-optimistic-about-trent-mcduffie-returning-from-injury-for-week-10-at-cardinals-latest-on-davante-adams-puka-nacua-and-terrance-ferguson-timelines"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Zachariah Branch"
+   ],
+   "headline": "Falcons injury report: Zachariah Branch, Josh Woods, James Pearce Jr. held out of practice",
+   "summary": "Atlanta had only three players miss practice due to injury as it began its week of preparation for the Kansas City Chiefs.",
+   "published": "2026-11-11T22:03:26Z",
+   "published_at": "2026-11-11T22:03:26Z",
+   "first_seen_at": "2026-11-12T07:39:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ATL official",
+     "title": "Falcons injury report: Zachariah Branch, Josh Woods, James Pearce Jr. held out of practice",
+     "url": "https://www.atlantafalcons.com/news/falcons-injury-report-zachariah-branch-josh-woods-james-pearce-jr"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Carson Beck"
+   ],
+   "headline": "Cardinals name Carson Beck starting QB: Rookie faces Aaron Donald, Myles Garrett in NFL debut",
+   "summary": "Gardner Minshew's season-ending injury opens the door for Beck, whose first assignment comes against one of the NFL's most accomplished pass-rushing duos",
+   "published": "2026-11-11T21:42:20Z",
+   "published_at": "2026-11-11T21:42:20Z",
+   "first_seen_at": "2026-11-12T07:39:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Cardinals name Carson Beck starting QB: Rookie faces Aaron Donald, Myles Garrett in NFL debut",
+     "url": "https://www.cbssports.com/nfl/news/cardinals-starting-qb-carson-beck-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Is Trent Williams enjoying a career year at age 38?",
+   "summary": "The San Francisco 49ers are rolling at 7-1, coming off a big 38-17 win over the Las Vegas Raiders last weekend, as they set up for the second half of the year. San Francisco’s offense has been the story, with Brock Purdy being a top MVP candidate, while the 49ers rank third in points per […]",
+   "published": "2026-11-11T21:34:31Z",
+   "published_at": "2026-11-11T21:34:31Z",
+   "first_seen_at": "2026-11-12T07:39:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Is Trent Williams enjoying a career year at age 38?",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/165619/san-francisco-49ers-news-is-trent-williams-having-career-year-2026-protector-of-year-award-kyle-shanahan"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Cam Skattebo"
+   ],
+   "headline": "NY Giants have only one player on their injury report for game vs. Commanders",
+   "summary": "Linebacker Malik Harrison, questionable with a groin injury, is the only member of the New York Giants carrying an injury designation heading into Thursday’s game with the Washington Commanders. Quarterback J.J. McCarthy (hip), and running back Cam Skattebo (hamstring) will play as the 5-2-1 Giants seek to solidify their NFC East lead. It will be […]",
+   "published": "2026-11-11T21:32:39Z",
+   "published_at": "2026-11-11T21:32:39Z",
+   "first_seen_at": "2026-11-12T07:39:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "NY Giants have only one player on their injury report for game vs. Commanders",
+     "url": "https://www.bigblueview.com/new-york-giants-injuries/179637/ny-giants-have-only-one-player-on-their-injury-report-for-game-vs-commanders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Jordan Love"
+   ],
+   "headline": "Packers QB Jordan Love goes back-to-back as FedEx Air and Ground Player of Week",
+   "summary": "It’s the Green Bay quarterback’s third time winning weekly award this season",
+   "published": "2026-11-11T21:22:00Z",
+   "published_at": "2026-11-11T21:22:00Z",
+   "first_seen_at": "2026-11-12T07:39:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Packers QB Jordan Love goes back-to-back as FedEx Air and Ground Player of Week",
+     "url": "https://www.packers.com/news/packers-qb-jordan-love-goes-back-to-back-as-fedex-air-and-ground-player-of-week-9-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Michael Wilson"
+   ],
+   "headline": "Michael Wilson Prognosis Good For 2027 Return",
+   "summary": "Minshew to have surgery on right elbow",
+   "published": "2026-11-11T21:17:22Z",
+   "published_at": "2026-11-11T21:17:22Z",
+   "first_seen_at": "2026-11-12T07:39:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "Michael Wilson Prognosis Good For 2027 Return",
+     "url": "https://www.azcardinals.com/news/michael-wilson-prognosis-good-for-2027-return"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Jared Goff"
+   ],
+   "headline": "Lions, Patriots Week 10 injury report: Jared Goff limited; DJ Wonnum returns to practice",
+   "summary": "The Detroit Lions (6-2) head to Germany in Week 10 to take on the New England Patriots (5-4), but before they travel overseas, they’ll hold two practices in Allen Park: a walkthrough on Wednesday and a standard practice on Thursday. A walkthrough practice means that all participation levels are estimates from the coaching staff based […]",
+   "published": "2026-11-11T21:16:43Z",
+   "published_at": "2026-11-11T21:16:43Z",
+   "first_seen_at": "2026-11-12T07:39:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "Lions, Patriots Week 10 injury report: Jared Goff limited; DJ Wonnum returns to practice",
+     "url": "https://www.prideofdetroit.com/detroit-lions-injuries/180416/lions-patriots-week-10-injury-report-jared-goff-limited-dj-wonnum-returns-to-practice"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Jordan Love"
+   ],
+   "headline": "Why Packers' Jordan Love is the 2026 midseason MVP: Green Bay QB dominating with no help",
+   "summary": "Love is doing more with less and doing it better than every other quarterback in the NFL through nine weeks of the 2026 season",
+   "published": "2026-11-11T21:16:19Z",
+   "published_at": "2026-11-11T21:16:19Z",
+   "first_seen_at": "2026-11-12T07:39:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Why Packers' Jordan Love is the 2026 midseason MVP: Green Bay QB dominating with no help",
+     "url": "https://www.cbssports.com/nfl/news/why-packers-jordan-love-is-2026-midseason-mvp"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers injury updates: Nate Hobbs returns to practice",
+   "summary": "The San Francisco 49ers injury report is out for Wednesday. The following players won’t practice: WR Mike Evans (Achilles)CB Renardo Green (back)CB Deommodore Lenoir (foot) These players will be limited: WR Deebo Samuel (hamstring)CB Siran Neal (knee/foot)CB Upton Stout (shoulder/neck)DT CJ West (limited) The team officially opened the practice window for West to return from […]",
+   "published": "2026-11-11T21:16:06Z",
+   "published_at": "2026-11-11T21:16:06Z",
+   "first_seen_at": "2026-11-12T07:39:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers injury updates: Nate Hobbs returns to practice",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/165616/49ers-injury-updates-nate-hobbs-returns-to-practice"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Garrett Wilson",
+    "Omar Cooper Jr."
+   ],
+   "headline": "Jets Practice Notebook | WRs Garrett Wilson and Omar Cooper Jr. Limited",
+   "summary": "Musings on a Late Bye Week, NFL Trade Deadline and a Win-Win Trade",
+   "published": "2026-11-11T21:10:00Z",
+   "published_at": "2026-11-11T21:10:00Z",
+   "first_seen_at": "2026-11-12T07:39:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Practice Notebook | WRs Garrett Wilson and Omar Cooper Jr. Limited",
+     "url": "https://www.newyorkjets.com/news/garrett-wilson-omar-cooper-jr-limited-jets-practice-wednesday-bills-week-11-11-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Rams won’t put Puka Nacua on IR, but return timeline is unclear",
+   "summary": "The Los Angeles Rams will not put Puka Nacua on injury reserve with his knee injury according to head coach Sean McVay, but that does not mean that the receiver will miss fewer than four games. ESPN’s Sarah Barshop reports that the decision to keep Nacua on the 53-man roster is due to “semantics” and […]",
+   "published": "2026-11-11T21:06:48Z",
+   "published_at": "2026-11-11T21:06:48Z",
+   "first_seen_at": "2026-11-12T07:39:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Rams won’t put Puka Nacua on IR, but return timeline is unclear",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-news/154906/rams-puka-nacua-mcvay-ir-injury"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Tanner Arkin"
+   ],
+   "headline": "Patriots Sign TE Tanner Arkin to the Practice Squad",
+   "summary": "The Patriots announced today that they have signed rookie TE Tanner Arkin to the practice squad.",
+   "published": "2026-11-11T21:00:00Z",
+   "published_at": "2026-11-11T21:00:00Z",
+   "first_seen_at": "2026-11-12T07:39:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "Patriots Sign TE Tanner Arkin to the Practice Squad",
+     "url": "https://www.patriots.com/news/patriots-sign-te-tanner-arkin-to-the-practice-squad"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Garrett Wilson"
+   ],
+   "headline": "Jets Injury Report | Week 10 vs. Bills - Wednesday",
+   "summary": "WR Garrett Wilson (Concussion) Returns to Practice in a Limited Capacity",
+   "published": "2026-11-11T21:00:00Z",
+   "published_at": "2026-11-11T21:00:00Z",
+   "first_seen_at": "2026-11-12T07:39:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Injury Report | Week 10 vs. Bills - Wednesday",
+     "url": "https://www.newyorkjets.com/news/jets-injury-report-week-10-vs-bills-wednesday-11-11-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Jonathan Taylor"
+   ],
+   "headline": "‘Would Have Been a Tough Pill To Swallow’ — Pat McAfee Defends Colts’ Decision To Keep Jonathan Taylor Despite Trade Interest",
+   "summary": "",
+   "published": "2026-11-11T20:55:42Z",
+   "published_at": "2026-11-11T20:55:42Z",
+   "first_seen_at": "2026-11-12T07:39:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Would Have Been a Tough Pill To Swallow’ — Pat McAfee Defends Colts’ Decision To Keep Jonathan Taylor Despite Trade Interest",
+     "url": "https://www.profootballnetwork.com/pat-mcafee-defends-colts-jonathan-taylor"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Josh Downs",
+    "Keenan Allen"
+   ],
+   "headline": "After trading Keenan Allen and Josh Downs, who's left at wide receiver for the Colts?",
+   "summary": "The Colts acquired picks in the fourth, fifth and sixth rounds of the 2027 NFL Draft in trading Allen to the San Francisco 49ers and Downs to the Kansas City Chiefs on Tuesday.",
+   "published": "2026-11-11T20:40:06Z",
+   "published_at": "2026-11-11T20:40:06Z",
+   "first_seen_at": "2026-11-12T07:39:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "IND official",
+     "title": "After trading Keenan Allen and Josh Downs, who's left at wide receiver for the Colts?",
+     "url": "https://www.colts.com/news/after-trading-keenan-allen-and-josh-downs-who-s-left-at-wide-receiver-for-the-colts"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jacory Croskey-Merritt"
+   ],
+   "headline": "Is Jacory Croskey-Merritt The Starting Running Back For The Washington Commanders When He Returns? (Week 10 Update)",
+   "summary": "",
+   "published": "2026-11-11T20:33:28Z",
+   "published_at": "2026-11-11T20:33:28Z",
+   "first_seen_at": "2026-11-12T07:39:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Is Jacory Croskey-Merritt The Starting Running Back For The Washington Commanders When He Returns? (Week 10 Update)",
+     "url": "https://www.rotoballer.com/is-jacory-croskey-merritt-the-starting-running-back-for-the-commanders-when-he-returns-week-10-update/1990525"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Travis Etienne"
+   ],
+   "headline": "Is Travis Etienne Jr. The Starting Running Back For The Saints When He Returns? (Week 10 Update)",
+   "summary": "",
+   "published": "2026-11-11T20:29:00Z",
+   "published_at": "2026-11-11T20:29:00Z",
+   "first_seen_at": "2026-11-12T07:39:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Is Travis Etienne Jr. The Starting Running Back For The Saints When He Returns? (Week 10 Update)",
+     "url": "https://www.rotoballer.com/is-travis-etienne-jr-the-starting-running-back-for-the-saints-when-he-returns-week-10-update/1990597"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Jeremiyah Love"
+   ],
+   "headline": "Is Jeremiyah Love The Starting Running Back For The Cardinals When He Returns? (Week 10 Update)",
+   "summary": "",
+   "published": "2026-11-11T20:26:44Z",
+   "published_at": "2026-11-11T20:26:44Z",
+   "first_seen_at": "2026-11-12T07:39:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Is Jeremiyah Love The Starting Running Back For The Cardinals When He Returns? (Week 10 Update)",
+     "url": "https://www.rotoballer.com/is-jeremiyah-love-the-starting-running-back-for-the-cardinals-when-he-returns-week-10-update/1990605"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "‘Your Season May Be Going Down the Drain’ — Former Pro Bowl WR Wants Matthew Stafford’s Rams To Sign 5-Time All-Pro ‘Tomorrow’ as Cover For Puka Nacua",
+   "summary": "",
+   "published": "2026-11-11T20:25:00Z",
+   "published_at": "2026-11-11T20:25:00Z",
+   "first_seen_at": "2026-11-12T07:39:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Your Season May Be Going Down the Drain’ — Former Pro Bowl WR Wants Matthew Stafford’s Rams To Sign 5-Time All-Pro ‘Tomorrow’ as Cover For Puka Nacua",
+     "url": "https://www.profootballnetwork.com/pro-bowl-wr-rams-sign-5-time-all-pro"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Jonathan Taylor"
+   ],
+   "headline": "‘He Deserves To Be in a Better Situation’ — Stephen A. Smith Slams Colts for Trapping Jonathan Taylor in ‘Pathetic Purgatory’",
+   "summary": "",
+   "published": "2026-11-11T19:57:20Z",
+   "published_at": "2026-11-11T19:57:20Z",
+   "first_seen_at": "2026-11-12T07:39:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He Deserves To Be in a Better Situation’ — Stephen A. Smith Slams Colts for Trapping Jonathan Taylor in ‘Pathetic Purgatory’",
+     "url": "https://www.profootballnetwork.com/stephen-a-smith-slams-colts-trapping-jonathan-taylor"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "‘I Don’t Think They’re Signing Puka Nacua’ — Analyst Casts Doubt Over Rams WR’s Future in Los Angeles After New Injury",
+   "summary": "",
+   "published": "2026-11-11T19:08:42Z",
+   "published_at": "2026-11-11T19:08:42Z",
+   "first_seen_at": "2026-11-12T07:39:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I Don’t Think They’re Signing Puka Nacua’ — Analyst Casts Doubt Over Rams WR’s Future in Los Angeles After New Injury",
+     "url": "https://www.profootballnetwork.com/puka-nacua-rams-future-injury"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LA",
+   "players": [
+    "Ty Simpson"
+   ],
+   "headline": "Rams will face quarterback who they didn’t draft this year",
+   "summary": "Les Snead had his blinders on when it came to picking a quarterback in the 2026 NFL Draft, as the Rams’ GM was even the one who convinced Ty Simpson to enter this year so that L.A. could pick him 13th overall. That’s exactly what the Rams did and there wasn’t any apparent consideration to […]",
+   "published": "2026-11-11T18:55:20Z",
+   "published_at": "2026-11-11T18:55:20Z",
+   "first_seen_at": "2026-11-12T07:39:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Rams will face quarterback who they didn’t draft this year",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-schedule/154897/rams-carson-beck-draft-cardinals"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Breece Hall"
+   ],
+   "headline": "Jets Stock Report | Dylan Parham, Breece Hall Boost Already Strong Run Game",
+   "summary": "Aaron Glenn on Rookie D’Angelo Ponds: “He is Building Up … We Like What We’ve Seen”",
+   "published": "2026-11-11T18:44:30Z",
+   "published_at": "2026-11-11T18:44:30Z",
+   "first_seen_at": "2026-11-12T07:39:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Stock Report | Dylan Parham, Breece Hall Boost Already Strong Run Game",
+     "url": "https://www.newyorkjets.com/news/jets-stock-report-dylan-parham-breece-hall-boost-already-strong-run-game-11-11-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Kendre Miller"
+   ],
+   "headline": "Cowboys sign RB Kendre Miller to practice squad",
+   "summary": "The Cowboys have signed former Saints RB Kendre Miller to the practice squad, giving them added depth in the running back room after Tyler Goodson suffered a knee injury that's expected to sideline him for multiple weeks.",
+   "published": "2026-11-11T18:31:26Z",
+   "published_at": "2026-11-11T18:31:26Z",
+   "first_seen_at": "2026-11-12T07:39:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Cowboys sign RB Kendre Miller to practice squad",
+     "url": "https://www.dallascowboys.com/news/cowboys-sign-rb-kendre-miller-to-practice-squad"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Kenyon Sadiq"
+   ],
+   "headline": "5 Jets Earn Honors in The Athletic's Midseason All-Rookie Team",
+   "summary": "Edge David Bailey & TE Kenyon Sadiq Receive First-Team Recognition",
+   "published": "2026-11-11T18:25:04Z",
+   "published_at": "2026-11-11T18:25:04Z",
+   "first_seen_at": "2026-11-12T07:39:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "5 Jets Earn Honors in The Athletic's Midseason All-Rookie Team",
+     "url": "https://www.newyorkjets.com/news/five-jets-earn-honors-in-the-athletics-midseason-all-rookie-team-11-11-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Post NFL trade deadline, the rest of the NFC fails to bury Seahawks",
+   "summary": "As the NFL trade deadline approached, I was nervous for the Seattle Seahawks. Not necessarily nervous because of the Sam Darnold injury, or the Drew Lock injury, or the fact that if feels like half the team is hurt while Seattle tries to find itself at 5-4. I was most nervous about what the NFC […]",
+   "published": "2026-11-11T18:18:40Z",
+   "published_at": "2026-11-11T18:18:40Z",
+   "first_seen_at": "2026-11-12T07:39:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Post NFL trade deadline, the rest of the NFC fails to bury Seahawks",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-analysis/179628/post-nfl-trade-deadline-analysis-rest-of-nfc-fails-bury-seahawks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Keenan Allen"
+   ],
+   "headline": "49ers bring back recently released cornerback to the practice squad",
+   "summary": "The San Francisco 49ers officially announced the trade with the Indianapolis Colts for Keenan Allen, sending a 2027 sixth-round pick in return. The team also signed cornerback Jack Jones to the practice squad. Jones appeared in seven games with the 49ers before they released him on October 28. Jones came in when the 49ers were […]",
+   "published": "2026-11-11T18:18:07Z",
+   "published_at": "2026-11-11T18:18:07Z",
+   "first_seen_at": "2026-11-12T07:39:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers bring back recently released cornerback to the practice squad",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/165603/49ers-bring-back-recently-released-cornerback-to-the-practice-squad"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "‘I Hate This for Fernando Mendoza’ — Former QB Warns Kirk Cousins’ Trade to Vikings Will ‘Hinder’ Raiders Rookie’s Development",
+   "summary": "",
+   "published": "2026-11-11T17:55:01Z",
+   "published_at": "2026-11-11T17:55:01Z",
+   "first_seen_at": "2026-11-12T07:39:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I Hate This for Fernando Mendoza’ — Former QB Warns Kirk Cousins’ Trade to Vikings Will ‘Hinder’ Raiders Rookie’s Development",
+     "url": "https://www.profootballnetwork.com/fernando-mendoza-former-qb-warns-kirk-cousins-trade"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Keenan Allen"
+   ],
+   "headline": "The 49ers Acquire WR Keenan Allen",
+   "summary": "The 49ers announced they have acquired WR Keenan Allen from the Indianapolis Colts in exchange for a 2027 sixth-round pick. In addition, the team signed CB Jack Jones to the team’s practice squad.",
+   "published": "2026-11-11T17:50:47Z",
+   "published_at": "2026-11-11T17:50:47Z",
+   "first_seen_at": "2026-11-12T07:39:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SF official",
+     "title": "The 49ers Acquire WR Keenan Allen",
+     "url": "https://www.49ers.com/news/the-49ers-acquire-wr-keenan-allen"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Jonathan Taylor"
+   ],
+   "headline": "‘Unfair to Him’ — NFL Analyst Criticizes Colts for Not Trading Jonathan Taylor Despite Interest From ‘Multiple Contenders’",
+   "summary": "",
+   "published": "2026-11-11T17:44:19Z",
+   "published_at": "2026-11-11T17:44:19Z",
+   "first_seen_at": "2026-11-12T07:39:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Unfair to Him’ — NFL Analyst Criticizes Colts for Not Trading Jonathan Taylor Despite Interest From ‘Multiple Contenders’",
+     "url": "https://www.profootballnetwork.com/unfair-analyst-colts-jonathan-taylor"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Jonathon Brooks",
+    "Xavier Legette"
+   ],
+   "headline": "Panthers open practice windows for three, among other moves",
+   "summary": "They will get Mike Jackson, Jonathon Brooks, and Xavier Legette back on the practice field Wednesday, and signed wide receiver David Moore and defensive tackle Cam Horsley.",
+   "published": "2026-11-11T17:16:22Z",
+   "published_at": "2026-11-11T17:16:22Z",
+   "first_seen_at": "2026-11-12T07:39:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Panthers open practice windows for three, among other moves",
+     "url": "https://www.panthers.com/news/panthers-open-practice-windows-for-three-among-other-moves-mike-jackson-jonathon-brooks-xavier-legette-david-moore"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "C.J. Stroud"
+   ],
+   "headline": "Houston Texans QB C.J. Stroud Named AFC Offensive Player Of The Week",
+   "summary": "Stroud earned a 125.5 passer rating while completing 21-of-35 (60.0%) passes for 384 yards and five touchdowns in a 44-22 victory over the Los Angeles Chargers.",
+   "published": "2026-11-11T17:01:07Z",
+   "published_at": "2026-11-11T17:01:07Z",
+   "first_seen_at": "2026-11-12T07:39:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "HOU official",
+     "title": "Houston Texans QB C.J. Stroud Named AFC Offensive Player Of The Week",
+     "url": "https://www.houstontexans.com/news/houston-texans-qb-c-j-stroud-named-afc-offensive-player-of-the-week"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Kyren Williams"
+   ],
+   "headline": "Rams create cap space with Kyren Williams’ contract",
+   "summary": "The Los Angeles Rams created $3 million of 2026 cap space on Wednesday, according to Spotrac. The Rams converted $2 million of Kyren Williams’ salary into a signing bonus and added two void years, which created $1.7 million worth of new space in 2026. They also did the same with $1.7 million of Kam Curl’s […]",
+   "published": "2026-11-11T17:00:03Z",
+   "published_at": "2026-11-11T17:00:03Z",
+   "first_seen_at": "2026-11-12T07:39:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Rams create cap space with Kyren Williams’ contract",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-salary-cap/154891/rams-cap-space-kyren-williams-contract"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 22,
+ "feeds_generated_at": "2026-11-12T07:39:02+00:00"
+}
