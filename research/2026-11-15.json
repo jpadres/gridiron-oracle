@@ -1,0 +1,1346 @@
+{
+ "date": "2026-11-15",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "‘He’s Literally John Harbaugh,’ ‘Objectively Bizarre and Highly Unusual’ – NFL Fans Mock Ravens HC Jesse Minter Over Vague Lamar Jackson Injury Update",
+   "summary": "",
+   "published": "2026-11-15T03:36:20Z",
+   "published_at": "2026-11-15T03:36:20Z",
+   "first_seen_at": "2026-11-15T07:06:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He’s Literally John Harbaugh,’ ‘Objectively Bizarre and Highly Unusual’ – NFL Fans Mock Ravens HC Jesse Minter Over Vague Lamar Jackson Injury Update",
+     "url": "https://www.profootballnetwork.com/nfl-fans-mock-ravens-jesse-minter-lamar-jackson-injury-update"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "‘Finally an Adult in the Receiving Room’ — Colin Cowherd Makes Feelings Clear on Chiefs Adding Josh Downs to Patrick Mahomes’ Offense",
+   "summary": "",
+   "published": "2026-11-15T01:58:08Z",
+   "published_at": "2026-11-15T01:58:08Z",
+   "first_seen_at": "2026-11-15T07:06:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Finally an Adult in the Receiving Room’ — Colin Cowherd Makes Feelings Clear on Chiefs Adding Josh Downs to Patrick Mahomes’ Offense",
+     "url": "https://www.profootballnetwork.com/colin-cowherd-chiefs-josh-downs-patrick-mahomes-offense"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Derrick Henry"
+   ],
+   "headline": "Jaguars DT Arik Armstead fined for hip drop tackle on Ravens RB Derrick Henry",
+   "summary": "A Jaguars defender was fined $18k for an illegal hip drop tackle on Derrick Henry in Week 9.",
+   "published": "2026-11-15T01:25:10Z",
+   "published_at": "2026-11-15T01:25:10Z",
+   "first_seen_at": "2026-11-15T07:06:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Jaguars DT Arik Armstead fined for hip drop tackle on Ravens RB Derrick Henry",
+     "url": "https://sports.yahoo.com/articles/jaguars-dt-arik-armstead-fined-012510050.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Drake Maye",
+    "Rhamondre Stevenson",
+    "Jameson Williams",
+    "Sam LaPorta",
+    "Hunter Henry",
+    "Corey Kiner"
+   ],
+   "headline": "Patriots vs. Lions Start 'Em, Sit 'Em: Munich International Game - Drake Maye, Jarod Goff, Rhamondre Stevenson, Jameson Williams, Sam LaPorta, Hunter Henry, Corey Kiner",
+   "summary": "",
+   "published": "2026-11-15T01:16:00Z",
+   "published_at": "2026-11-15T01:16:00Z",
+   "first_seen_at": "2026-11-15T07:06:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Patriots vs. Lions Start 'Em, Sit 'Em: Munich International Game - Drake Maye, Jarod Goff, Rhamondre Stevenson, Jameson Williams, Sam LaPorta, Hunter Henry, Corey Kiner",
+     "url": "https://www.rotoballer.com/fantasy-football-start-em-sit-em-munich-game-patriots-vs-lions-week-10-2026/1993956"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Dallas Goedert"
+   ],
+   "headline": "3 Eagles tidbits coming out of the NFL trade deadline",
+   "summary": "Notes on Dallas Goedert, Jordan Davis, and more.",
+   "published": "2026-11-15T00:35:26Z",
+   "published_at": "2026-11-15T00:35:26Z",
+   "first_seen_at": "2026-11-15T07:06:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "3 Eagles tidbits coming out of the NFL trade deadline",
+     "url": "https://sports.yahoo.com/articles/3-eagles-tidbits-coming-nfl-003526333.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Rams’ Sean McVay crushes fantasy football owners",
+   "summary": "Fantasy football owners who drafted the Rams’ Puka Nacua with their first pick in the draft likely aren’t happy with the wide receiver landing on injured reserve. Nacua and Davante...",
+   "published": "2026-11-14T23:42:56Z",
+   "published_at": "2026-11-14T23:42:56Z",
+   "first_seen_at": "2026-11-15T07:06:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Rams’ Sean McVay crushes fantasy football owners",
+     "url": "https://sports.yahoo.com/articles/rams-sean-mcvay-crushes-fantasy-234256636.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "TreVeyon Henderson"
+   ],
+   "headline": "What placing TreVeyon Henderson on IR, activating Greg Van Roten and Reggie Gilliam means for the Patriots",
+   "summary": "The Patriots made three roster moves ahead of their game against the Lions.",
+   "published": "2026-11-14T23:30:22Z",
+   "published_at": "2026-11-14T23:30:22Z",
+   "first_seen_at": "2026-11-15T07:06:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "What placing TreVeyon Henderson on IR, activating Greg Van Roten and Reggie Gilliam means for the Patriots",
+     "url": "https://sports.yahoo.com/articles/placing-treveyon-henderson-ir-activating-233022245.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Drake London"
+   ],
+   "headline": "Drake London fined AGAIN for unnecessary roughness in Falcons’ loss to Bengals in Madrid",
+   "summary": "Drake London has been fined by the NFL for the second consecutive week.",
+   "published": "2026-11-14T23:16:22Z",
+   "published_at": "2026-11-14T23:16:22Z",
+   "first_seen_at": "2026-11-15T07:06:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Drake London fined AGAIN for unnecessary roughness in Falcons’ loss to Bengals in Madrid",
+     "url": "https://sports.yahoo.com/articles/drake-london-fined-again-unnecessary-231622922.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Drake London"
+   ],
+   "headline": "Drake London fined for unnecessary roughness in Falcons’ loss to Bengals in Madrid",
+   "summary": "Drake London was fined for a second consecutive game, earning a $23,882 fine for unnecessary roughness/use of the helmet in the Falcons’ frustrating loss to the Bengals in Madrid, Spain in Week 9. The fine was levied for London’s 21-yard catch with seconds left to play in the third quarter. London does lower his head […]",
+   "published": "2026-11-14T23:16:22Z",
+   "published_at": "2026-11-14T23:16:22Z",
+   "first_seen_at": "2026-11-15T07:06:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "Drake London fined for unnecessary roughness in Falcons’ loss to Bengals in Madrid",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-roster/98411/drake-london-fined-unnecessary-roughness-bengals-madrid"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Saquon Barkley"
+   ],
+   "headline": "Eagles down 1 RB on active roster after waiving Blue",
+   "summary": "Saquon Barkley is now the only running back on the Eagles 53-man roster.",
+   "published": "2026-11-14T23:04:54Z",
+   "published_at": "2026-11-14T23:04:54Z",
+   "first_seen_at": "2026-11-15T07:06:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Eagles down 1 RB on active roster after waiving Blue",
+     "url": "https://sports.yahoo.com/articles/eagles-down-1-rb-active-173058718.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers provide encouraging injury update on Mike Evans",
+   "summary": "The 49ers won’t have star wide receiver Mike Evans on Sunday against the Cowboys. But coach Kyle Shanahan provided an encouraging injury update on Evans, who has been dealing with...",
+   "published": "2026-11-14T23:01:34Z",
+   "published_at": "2026-11-14T23:01:34Z",
+   "first_seen_at": "2026-11-15T07:06:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "49ers provide encouraging injury update on Mike Evans",
+     "url": "https://sports.yahoo.com/articles/49ers-encouraging-injury-mike-evans-230134353.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow",
+    "Chase Brown"
+   ],
+   "headline": "Steelers' soft zone scheme could have big problems with Bengals QB Joe Burrow",
+   "summary": "Pittsburgh will also need to figure out how to slow down Cincinnati running back Chase Brown, who's beaten them up in recent matchups.",
+   "published": "2026-11-14T23:00:29Z",
+   "published_at": "2026-11-14T23:00:29Z",
+   "first_seen_at": "2026-11-15T07:06:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Steelers' soft zone scheme could have big problems with Bengals QB Joe Burrow",
+     "url": "https://sports.yahoo.com/articles/steelers-soft-zone-scheme-could-230029468.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Jameson Williams"
+   ],
+   "headline": "Best content of the week: Interview with Brad Holmes in Munich",
+   "summary": "It’s official. The Detroit Lions and their fans have taken over Munich, Germany, ahead of their Week 10 matchup against the New England Patriots. Lions legends like Barry Sanders and Calvin Johnson are tapping kegs along with principal owner and chairwoman Sheila Hamp. Big Sean is in town. Lions star wide receiver Jameson Williams is […]",
+   "published": "2026-11-14T22:47:56Z",
+   "published_at": "2026-11-14T22:47:56Z",
+   "first_seen_at": "2026-11-15T07:06:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "Best content of the week: Interview with Brad Holmes in Munich",
+     "url": "https://www.prideofdetroit.com/detroit-lions-news/179957/best-content-of-the-week-interview-with-brad-holmes-in-munich"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Josh Allen",
+    "Garrett Wilson"
+   ],
+   "headline": "Jets Notebook | WR Garrett Wilson Expected to Clear Concussion Protocol and Play Against Bills",
+   "summary": "Green & White Prepare to Face Buffalo Dual Threat QB Josh Allen",
+   "published": "2026-11-14T21:56:00Z",
+   "published_at": "2026-11-14T21:56:00Z",
+   "first_seen_at": "2026-11-15T07:06:39+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Notebook | WR Garrett Wilson Expected to Clear Concussion Protocol and Play Against Bills",
+     "url": "https://www.newyorkjets.com/news/jets-notebook-wr-garrett-wilson-expected-to-clear-concussion-protocol-and-play-against-bills-11-13-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "At 36, Jets QB Geno Smith Is Outperforming All Expectations",
+   "summary": "A Baker’s Dozen of Receivers Have Played a Part in the Passing Game",
+   "published": "2026-11-14T21:54:00Z",
+   "published_at": "2026-11-14T21:54:00Z",
+   "first_seen_at": "2026-11-15T07:06:39+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "At 36, Jets QB Geno Smith Is Outperforming All Expectations",
+     "url": "https://www.newyorkjets.com/news/geno-smith-outperforming-expectations-jets-11-12-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Jeshaun Jones"
+   ],
+   "headline": "Vikings Elevate Jeshaun Jones & Devin Culp for Week 10 at Packers",
+   "summary": "",
+   "published": "2026-11-14T21:30:00Z",
+   "published_at": "2026-11-14T21:30:00Z",
+   "first_seen_at": "2026-11-15T07:06:39+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "MIN official",
+     "title": "Vikings Elevate Jeshaun Jones & Devin Culp for Week 10 at Packers",
+     "url": "https://www.vikings.com/news/jeshaun-jones-devin-culp-packers-week-10-elevate-roster"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Trey McBride"
+   ],
+   "headline": "Seahawks’ Ernest Jones gets NFL’s heaviest fine of Week 9 for illegal hit on Trey McBride",
+   "summary": "After yet another penalty-heavy game involving the Seattle Seahawks, the fines have been issued to both Seattle and the Arizona Cardinals for illegal hits. Seahawks linebacker Ernest Jones IV was docked $23,882 for illegal use of helmet on Cardinals tight end Trey McBride. Jones was flagged for the hit, but the punishment obviously didn’t stop […]",
+   "published": "2026-11-14T21:29:44Z",
+   "published_at": "2026-11-14T21:29:44Z",
+   "first_seen_at": "2026-11-15T07:06:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks’ Ernest Jones gets NFL’s heaviest fine of Week 9 for illegal hit on Trey McBride",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/179872/seahawks-star-ernest-jones-nfl-heaviest-fine-week-9-hit-trey-mcbride"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jameis Winston"
+   ],
+   "headline": "‘Clearly Just Trying to Go Viral’ — 3-Time Pro Bowler Blasts Jameis Winston Over Bizarre ‘Who Let the Dogs Out’ Call in Giants-Commanders",
+   "summary": "",
+   "published": "2026-11-14T21:06:56Z",
+   "published_at": "2026-11-14T21:06:56Z",
+   "first_seen_at": "2026-11-15T07:06:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Clearly Just Trying to Go Viral’ — 3-Time Pro Bowler Blasts Jameis Winston Over Bizarre ‘Who Let the Dogs Out’ Call in Giants-Commanders",
+     "url": "https://www.profootballnetwork.com/pro-bowler-jameis-winston-bizarre-call-giants-commanders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "‘I Just Don’t Think He Belongs in That Top Tier Anymore’ — NFL Analyst Boldly Argues Chiefs Star Patrick Mahomes Is No Longer an Elite QB",
+   "summary": "",
+   "published": "2026-11-14T21:05:47Z",
+   "published_at": "2026-11-14T21:05:47Z",
+   "first_seen_at": "2026-11-15T07:06:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I Just Don’t Think He Belongs in That Top Tier Anymore’ — NFL Analyst Boldly Argues Chiefs Star Patrick Mahomes Is No Longer an Elite QB",
+     "url": "https://www.profootballnetwork.com/rob-pizzola-patrick-mahomes-top-tier"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "‘It’s Like a Breakup’ — Josh Downs Opens Up About Behind-the-Scenes Emotions After Trade to Patrick Mahomes’ Chiefs",
+   "summary": "",
+   "published": "2026-11-14T21:03:31Z",
+   "published_at": "2026-11-14T21:03:31Z",
+   "first_seen_at": "2026-11-15T07:06:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘It’s Like a Breakup’ — Josh Downs Opens Up About Behind-the-Scenes Emotions After Trade to Patrick Mahomes’ Chiefs",
+     "url": "https://www.profootballnetwork.com/josh-downs-trade-to-patrick-mahomes"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Rhamondre Stevenson"
+   ],
+   "headline": "Roster Analysis: Patriots activate FB Reggie Gilliam, OL Greg Van Roten for Sunday's game vs. Lions in Munich",
+   "summary": "The Patriots didn’t elevate a running back for Week 10, suggesting RB Rhamondre Stevenson will play on Sunday.",
+   "published": "2026-11-14T21:01:00Z",
+   "published_at": "2026-11-14T21:01:00Z",
+   "first_seen_at": "2026-11-15T07:06:39+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "Roster Analysis: Patriots activate FB Reggie Gilliam, OL Greg Van Roten for Sunday's game vs. Lions in Munich",
+     "url": "https://www.patriots.com/news/roster-analysis-patriots-activate-fb-reggie-gilliam-ol-greg-van-roten-for-sunday-s-game-vs-lions-in-munich"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "TreVeyon Henderson"
+   ],
+   "headline": "Patriots Activate FB Reggie Gilliam and OL Greg Van Roten to the 53-Man Roster from Injured Reserve; Announce Additional Roster Moves",
+   "summary": "The Patriots announced today that FB Reggie Gilliam and OL Greg Van Roten have been activated to the 53-man roster from injured reserve. The Patriots also placed RB TreVeyon Henderson on injured reserve. In addition, the Patriots elevated G Andrew Rupcich to the active roster.",
+   "published": "2026-11-14T21:00:00Z",
+   "published_at": "2026-11-14T21:00:00Z",
+   "first_seen_at": "2026-11-15T07:06:39+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NE official",
+     "title": "Patriots Activate FB Reggie Gilliam and OL Greg Van Roten to the 53-Man Roster from Injured Reserve; Announce Additional Roster Moves",
+     "url": "https://www.patriots.com/news/patriots-activate-fb-reggie-gilliam-and-ol-greg-van-roten-to-the-53-man-roster-from-injured-reserve-announce-additional-roster-moves"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "‘It’s Gonna Be Tough To Pay Him,’ ‘His Injuries Are Pretty Legitimate’ — NFL Legend Steve Smith Sr. Raises Major Red Flags For Rams’ Puka Nacua",
+   "summary": "",
+   "published": "2026-11-14T20:15:30Z",
+   "published_at": "2026-11-14T20:15:30Z",
+   "first_seen_at": "2026-11-15T07:06:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘It’s Gonna Be Tough To Pay Him,’ ‘His Injuries Are Pretty Legitimate’ — NFL Legend Steve Smith Sr. Raises Major Red Flags For Rams’ Puka Nacua",
+     "url": "https://www.profootballnetwork.com/legend-steve-smith-sr-red-flags-rams-puka-nacua"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "‘Rather Have Josh Allen Any Day,’ ‘We’re Good With Our Guy’ — NFL Fans React As Rex Ryan Claims Bills Almost Drafted Patrick Mahomes",
+   "summary": "",
+   "published": "2026-11-14T19:57:00Z",
+   "published_at": "2026-11-14T19:57:00Z",
+   "first_seen_at": "2026-11-15T07:06:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Rather Have Josh Allen Any Day,’ ‘We’re Good With Our Guy’ — NFL Fans React As Rex Ryan Claims Bills Almost Drafted Patrick Mahomes",
+     "url": "https://www.profootballnetwork.com/rex-ryan-patrick-mahomes-bills-fans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Kenneth Walker III"
+   ],
+   "headline": "‘Welp, It’s Over,’ ‘Upset Alert’ — NFL Fans React As Chiefs Announce Kenneth Walker III Will Miss Falcons Game Due to Injury",
+   "summary": "",
+   "published": "2026-11-14T19:21:48Z",
+   "published_at": "2026-11-14T19:21:48Z",
+   "first_seen_at": "2026-11-15T07:06:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Welp, It’s Over,’ ‘Upset Alert’ — NFL Fans React As Chiefs Announce Kenneth Walker III Will Miss Falcons Game Due to Injury",
+     "url": "https://www.profootballnetwork.com/chiefs-announce-kenneth-walker-iii-miss-falcons-injury"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Fernando Mendoza to face tough task in first start for Raiders against world champion Seahawks",
+   "summary": "“I believe starting an NFL game is a new step, but a whirlwind? No,” said Mendoza after being named the Raiders starting quarterback.",
+   "published": "2026-11-14T19:15:00Z",
+   "published_at": "2026-11-14T19:15:00Z",
+   "first_seen_at": "2026-11-15T07:06:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "Fernando Mendoza to face tough task in first start for Raiders against world champion Seahawks",
+     "url": "https://www.raiders.com/news/fernando-mendoza-face-tough-task-in-first-start-for-raiders-against-world-champion-seahawks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "How Jayden Daniels, Washington Commanders can stay in NFC East race",
+   "summary": "The Commanders emerged with a victory over the Giants on Thursday night in a positively-have-to-have-it moment that saved their season. You’ve probably read that line in every recap/analysis of Washington’s 24-21 win at MetLife Stadium, including my past-midnight musings on this very site. There’s an important clause missing from that first sentence. Let’s try again: […]",
+   "published": "2026-11-14T19:10:54Z",
+   "published_at": "2026-11-14T19:10:54Z",
+   "first_seen_at": "2026-11-15T07:06:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "How Jayden Daniels, Washington Commanders can stay in NFC East race",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/455491/how-jayden-daniels-washington-commanders-can-stay-in-nfc-east-race"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Xavier Legette"
+   ],
+   "headline": "Xavier Legette activated from IR, among other moves",
+   "summary": "The team added the starting receiver back to the active roster, and elevated a pair of cornerbacks from the practice squad for Sunday's game against the Saints",
+   "published": "2026-11-14T18:45:01Z",
+   "published_at": "2026-11-14T18:45:01Z",
+   "first_seen_at": "2026-11-15T07:06:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Xavier Legette activated from IR, among other moves",
+     "url": "https://www.panthers.com/news/xavier-legette-activated-from-ir-among-other-moves-marco-wilson-corey-thornton-panthers-saints-week-10"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Lions vs. Patriots 5 Qs preview: Can Drake Maye clean up turnovers against Detroit in Germany?",
+   "summary": "For their first game in 11 days, the Detroit Lions take their show on the road across the Atlantic for an international Week 10 showdown in Munich, Germany, facing off against the defending AFC Champion New England Patriots. We had the pleasure of connecting with Taylor Kyles, a staff writer for Pats Pulpit, to give […]",
+   "published": "2026-11-14T18:15:00Z",
+   "published_at": "2026-11-14T18:15:00Z",
+   "first_seen_at": "2026-11-15T07:06:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "Lions vs. Patriots 5 Qs preview: Can Drake Maye clean up turnovers against Detroit in Germany?",
+     "url": "https://www.prideofdetroit.com/detroit-lions-analysis/181043/lions-vs-patriots-5-qs-preview-can-drake-maye-clean-up-turnovers-against-detroit-in-germany"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Carsen Ryan"
+   ],
+   "headline": "Browns sign TE Carsen Ryan to active roster",
+   "summary": "Browns also place FB Michael Burton on injured reserve and elevate TE Zaire Mitchell-Paden from the practice squad",
+   "published": "2026-11-14T17:50:12Z",
+   "published_at": "2026-11-14T17:50:12Z",
+   "first_seen_at": "2026-11-15T07:06:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Browns sign TE Carsen Ryan to active roster",
+     "url": "https://www.clevelandbrowns.com/news/browns-sign-te-carsen-ryan-to-active-roster"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Seahawks vs. Raiders: NFL Week 10 TV coverage map and CBS commentators",
+   "summary": "The Seattle Seahawks have one more game before their bye week, traveling to Nevada to play the Las Vegas Raiders. It’s the first time the Seahawks have played a regular season game in Las Vegas, and all eyes will be on No. 1 overall pick Fernando Mendoza and how he fares against the vaunted Seattle […]",
+   "published": "2026-11-14T17:00:00Z",
+   "published_at": "2026-11-14T17:00:00Z",
+   "first_seen_at": "2026-11-15T07:06:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks vs. Raiders: NFL Week 10 TV coverage map and CBS commentators",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-information/179843/seahawks-vs-raiders-nfl-week-10-tv-coverage-map-cbs-commentators"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mac Jones"
+   ],
+   "headline": "49ers checked in on veteran Eagles tight end; Mac Jones asking price was too rich for the Vikings",
+   "summary": "Adam Schefter and Ian Rapoport had a trade notebook, recapping everything related to the deadline. In the article, there’s a section dedicated to San Francisco 49ers backup quarterback Mac Jones: The San Francisco 49ers left no doubt how much they value quarterback Mac Jones. When the Vikings called San Francisco as part of due diligence […]",
+   "published": "2026-11-14T16:38:56Z",
+   "published_at": "2026-11-14T16:38:56Z",
+   "first_seen_at": "2026-11-15T07:06:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers checked in on veteran Eagles tight end; Mac Jones asking price was too rich for the Vikings",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/165724/49ers-checked-in-on-veteran-eagles-tight-end-mac-jones-asking-price-was-too-rich-for-the-vikings"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Kenneth Walker III",
+    "A.J. Brown"
+   ],
+   "headline": "NFL Week 10 injury report: Chiefs' Kenneth Walker III ruled out, Patriots' A.J. Brown questionable",
+   "summary": "The final injury reports for every NFL team playing on Sunday in Week 10",
+   "published": "2026-11-14T16:33:07Z",
+   "published_at": "2026-11-14T16:33:07Z",
+   "first_seen_at": "2026-11-15T07:06:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "NFL Week 10 injury report: Chiefs' Kenneth Walker III ruled out, Patriots' A.J. Brown questionable",
+     "url": "https://www.cbssports.com/nfl/news/nfl-week-10-injury-report-chiefs-kenneth-walker-aj-brown"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Fernando Mendoza picks, predictions, best bets: Props for first NFL start versus Seahawks revealed",
+   "summary": "SportsLine expert Eric Cohen has locked in his best bets for Fernando Mendoza's first NFL start on Sunday for the Las Vegas Raiders against the defending Super Bowl champion Seattle Seahawks",
+   "published": "2026-11-14T15:12:37Z",
+   "published_at": "2026-11-14T15:12:37Z",
+   "first_seen_at": "2026-11-15T07:06:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Fernando Mendoza picks, predictions, best bets: Props for first NFL start versus Seahawks revealed",
+     "url": "https://www.cbssports.com/betting/news/fernando-mendoza-picks-predictions-best-bets-props-for-first-nfl-start-versus-seahawks-revealed"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "C.J. Stroud"
+   ],
+   "headline": "How will the Browns pressure QB C.J. Stroud? | Burning Questions",
+   "summary": "The Browns host the Texans in Week 10 at Huntington Bank Field",
+   "published": "2026-11-14T15:00:03Z",
+   "published_at": "2026-11-14T15:00:03Z",
+   "first_seen_at": "2026-11-15T07:06:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "How will the Browns pressure QB C.J. Stroud? | Burning Questions",
+     "url": "https://www.clevelandbrowns.com/news/how-will-the-browns-pressure-qb-c-j-stroud-burning-questions"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Bryce Young",
+    "Tyler Shough"
+   ],
+   "headline": "5 things to watch as the Panthers take on the Saints in Week 10",
+   "summary": "From Bryce Young's success against single-high coverage, to the trenches battle, stopping Tyler Shough, and more, here are five things to watch as Carolina travels to New Orleans for a divisional matchup.",
+   "published": "2026-11-14T14:03:25Z",
+   "published_at": "2026-11-14T14:03:25Z",
+   "first_seen_at": "2026-11-15T07:06:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "5 things to watch as the Panthers take on the Saints in Week 10",
+     "url": "https://www.panthers.com/news/5-things-to-watch-as-the-panthers-take-on-the-saints-in-week-10-bryce-young-tyler-shough"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Carson Beck",
+    "Ty Simpson"
+   ],
+   "headline": "How will Carson Beck do against Rams on Sunday?",
+   "summary": "The Los Angeles Rams under Sean McVay are 9-2 against rookie quarterbacks and that could be bad news for Carson Beck and the Arizona Cardinals on Sunday. It also could be an awesome opportunity for Beck to show up the Rams and fellow rookie Ty Simpson who will be on the sidelines. If Beck wins, […]",
+   "published": "2026-11-14T14:01:00Z",
+   "published_at": "2026-11-14T14:01:00Z",
+   "first_seen_at": "2026-11-15T07:06:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "How will Carson Beck do against Rams on Sunday?",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-news/155063/rams-carson-beck-rookie-cardinals-mcvay"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Christian McCaffrey"
+   ],
+   "headline": "49ers News: Ground stop? Sounds like the 49ers run defense",
+   "summary": "49ers-Cowboys preview: Christian McCaffrey and the Niners should run wild“When you watch them, the issues stem from getting moved at the point of attack. Ball carriers aren’t getting touched until they cross the line of scrimmage. The eye test matches the stats: Dallas allows the second-most yards before contact per carry this season, at 1.78 […]",
+   "published": "2026-11-14T10:00:00Z",
+   "published_at": "2026-11-14T10:00:00Z",
+   "first_seen_at": "2026-11-15T07:06:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers News: Ground stop? Sounds like the 49ers run defense",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/165715/49ers-news-dallas-cowboys-mike-evans-keenan-allen-ground-stop"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Christian McCaffrey"
+   ],
+   "headline": "49ers-Cowboys preview: Christian McCaffrey and the Niners should run wild",
+   "summary": "History will lead you in the right direction more often than not. The head-to-head matchups between the San Francisco 49ers and Dallas Cowboys have been one-sided. It’s why it’s a rivalry in name only. How the 49ers have fared against the NFC East and the Cowboys versus the NFC West is more evidence of what […]",
+   "published": "2026-11-13T23:59:58Z",
+   "published_at": "2026-11-13T23:59:58Z",
+   "first_seen_at": "2026-11-15T07:06:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers-Cowboys preview: Christian McCaffrey and the Niners should run wild",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/165698/49ers-cowboys-preview-christian-mccaffrey-and-the-niners-should-run-wild"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Bryce Young"
+   ],
+   "headline": "Data-backed NFL Week 10 bet: Why the Panthers could emerge victorious over the Saints",
+   "summary": "The Carolina Panthers make sense as a team to tail during Week 10 of the NFL season, as quarterback Bryce Young has played well against staple components of the Saints' defense.",
+   "published": "2026-11-13T23:04:44Z",
+   "published_at": "2026-11-13T23:04:44Z",
+   "first_seen_at": "2026-11-15T07:06:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Data-backed NFL Week 10 bet: Why the Panthers could emerge victorious over the Saints",
+     "url": "https://www.pff.com/news/data-backed-nfl-week-10-bet-why-the-panthers-could-emerge-victorious-over-the-saints"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "‘There’s a chance’ Mike Evans can return to the 49ers next week",
+   "summary": "The San Francisco 49ers’ final injury report was released. As expected, Mike Evans was ruled out with an Achilles injury. The following players are questionable: CB Renardo Green (back)CB Deommodore Lenoir (foot)CB Upton Stout (shoulder)DT CJ West (ankle)CB Nate HobbsLT Trent Williams (shoulder)LB Dre Greenlaw (knee) Kyle Shanahan said Williams hurt his shoulder and Greenlaw […]",
+   "published": "2026-11-13T22:12:03Z",
+   "published_at": "2026-11-13T22:12:03Z",
+   "first_seen_at": "2026-11-15T07:06:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "‘There’s a chance’ Mike Evans can return to the 49ers next week",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/165708/theres-a-chance-mike-evans-can-return-to-the-49ers-next-week"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "McVay: Rams placed Puka Nacua on IR because they 'needed the roster spot'",
+   "summary": "Initially kept on the active roster, the Rams pivoted Thursday and placed wide receiver Puka Nacua (knee/toe) on Injured Reserve.",
+   "published": "2026-11-13T22:09:25Z",
+   "published_at": "2026-11-13T22:09:25Z",
+   "first_seen_at": "2026-11-15T07:06:39+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "McVay: Rams placed Puka Nacua on IR because they 'needed the roster spot'",
+     "url": "https://www.therams.com/news/mcvay-rams-placed-puka-nacua-on-ir-because-they-needed-the-roster-spot-week-10-2026-cardinals"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Malik Nabers"
+   ],
+   "headline": "Malik Nabers ‘not really aware’ of where Washington DB was on decisive interception",
+   "summary": "New York Giants wide receiver Malik Nabers on Friday responded to criticism of the idea that he could have given a better effort to knock the ball down on a game-ending interception by Rasul Douglas of the Washington Commanders on Thursday night in the Giants’ 24-21 loss. “Seeing the ball go up at the time, […]",
+   "published": "2026-11-13T21:28:28Z",
+   "published_at": "2026-11-13T21:28:28Z",
+   "first_seen_at": "2026-11-15T07:06:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "Malik Nabers ‘not really aware’ of where Washington DB was on decisive interception",
+     "url": "https://www.bigblueview.com/new-york-giants-news/180093/malik-nabers-not-really-aware-of-where-washington-db-was-on-decisive-interception"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Garrett Wilson",
+    "Omar Cooper Jr."
+   ],
+   "headline": "Jets Injury Report | Week 10 vs. Bills - Friday",
+   "summary": "WRs Garrett Wilson (Concussion) & Omar Cooper Jr. (Ankle) Questionable for Sunday's Game",
+   "published": "2026-11-13T21:00:00Z",
+   "published_at": "2026-11-13T21:00:00Z",
+   "first_seen_at": "2026-11-15T07:06:39+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Injury Report | Week 10 vs. Bills - Friday",
+     "url": "https://www.newyorkjets.com/news/jets-injury-report-week-10-vs-bills-friday-11-13-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Zachariah Branch"
+   ],
+   "headline": "Falcons vs. Chiefs injury report: Zachariah Branch, Divine Deablo not practicing on Thursday",
+   "summary": "Greetings, Falcoholics! Thursday is here as the Atlanta Falcons and Kansas City Chiefs both held their second practices of the week. Heading into Friday, the Falcons have a few injuries that we need to keep an eye on as the team prepares to face one of the best teams in the league this year. Let’s […]",
+   "published": "2026-11-13T20:42:51Z",
+   "published_at": "2026-11-13T20:42:51Z",
+   "first_seen_at": "2026-11-15T07:06:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "Falcons vs. Chiefs injury report: Zachariah Branch, Divine Deablo not practicing on Thursday",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-injuries/98347/falcons-vs-chiefs-injury-report-zachariah-branch-divine-deablo-not-practicing-on-thursday"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TEN",
+   "players": [
+    "Carnell Tate"
+   ],
+   "headline": "Revisiting the 2026 NFL Draft: Did the Titans take the right receiver at No. 4 overall?",
+   "summary": "Carnell Tate has given quarterback Cam Ward a reliable target against zone coverage, but ball security issues and questions about his ultimate ceiling complicate the pick",
+   "published": "2026-11-13T20:23:40Z",
+   "published_at": "2026-11-13T20:23:40Z",
+   "first_seen_at": "2026-11-15T07:06:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Revisiting the 2026 NFL Draft: Did the Titans take the right receiver at No. 4 overall?",
+     "url": "https://www.cbssports.com/nfl/news/revisiting-2026-nfl-draft-did-titans-take-right-receiver-4-overall"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "JAX",
+   "players": [
+    "Nate Boerkircher"
+   ],
+   "headline": "Nate Boerkircher Discusses Meshing With the Jaguars' Culture as a Rookie on The O-Zone Podcast",
+   "summary": "TE Nate Boerkircher joined senior writer John Oehser for this 2026 Week 10 O-Zone Podcast as the AFC South-leading Jaguars prepared to play the Tennessee Titans at Nissan Stadium in Nashville, Tenn., Sunday: “I love the culture that they’ve built; it’s from the top down…”",
+   "published": "2026-11-13T20:17:40Z",
+   "published_at": "2026-11-13T20:17:40Z",
+   "first_seen_at": "2026-11-15T07:06:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "JAX official",
+     "title": "Nate Boerkircher Discusses Meshing With the Jaguars' Culture as a Rookie on The O-Zone Podcast",
+     "url": "https://www.jaguars.com/news/nate-boerkircher-discusses-meshing-with-the-jaguars-culture-as-a-rookie-on-the-o-zone-podcast"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jadarian Price"
+   ],
+   "headline": "Seahawks Rookie RB Jadarian Price Finding His Stride In Run & Pass Game",
+   "summary": "Running back Jadarian Price showed he can help in the passing game, as well as contribute to the run game all in the same game.",
+   "published": "2026-11-13T19:38:44Z",
+   "published_at": "2026-11-13T19:38:44Z",
+   "first_seen_at": "2026-11-15T07:06:40+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Seahawks Rookie RB Jadarian Price Finding His Stride In Run & Pass Game",
+     "url": "https://www.seahawks.com/news/seahawks-rookie-rb-jadarian-price-finding-his-stride-in-run-pass-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Rams' defensive duo fuels optimism ahead of Week 10 showdown | Game Preview",
+   "summary": "J.B. Long digs into how outside linebacker Myles Garrett and defensive end Aaron Donald can continue to wreak havoc as a duo, how the offense is staying confident without wide receiver Puka Nacua, and how the Los Angeles Rams can avenge their earlier loss to the ArizonaCardinals.",
+   "published": "2026-11-13T19:30:00Z",
+   "published_at": "2026-11-13T19:30:00Z",
+   "first_seen_at": "2026-11-15T07:06:39+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Rams' defensive duo fuels optimism ahead of Week 10 showdown | Game Preview",
+     "url": "https://www.therams.com/news/rams-defensive-duo-fuels-optimism-ahead-of-week-10-cardinals-showdown-game-preview"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Denzel Boston"
+   ],
+   "headline": "Denzel Boston questionable for Week 10 vs. the Texans | Injury Report",
+   "summary": "Michael Burton and Ronnie Hickman have been ruled out for Week 10",
+   "published": "2026-11-13T19:27:34Z",
+   "published_at": "2026-11-13T19:27:34Z",
+   "first_seen_at": "2026-11-15T07:06:37+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Denzel Boston questionable for Week 10 vs. the Texans | Injury Report",
+     "url": "https://www.clevelandbrowns.com/news/denzel-boston-questionable-for-week-10-vs-the-texans-injury-report"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Brock Purdy",
+    "Drake Maye"
+   ],
+   "headline": "NFL Week 10: Matchups to target for betting",
+   "summary": "PFF's NFL betting analysis identifies opportunities in Patriots-Lions and 49ers-Cowboys using explosive-play rates and offensive line performance. Drake Maye and New England face a Detroit defense vulnerable to deep passes, while Brock Purdy and San Francisco look to capitalize on their league-leading perfect-block rate.",
+   "published": "2026-11-13T19:24:10Z",
+   "published_at": "2026-11-13T19:24:10Z",
+   "first_seen_at": "2026-11-15T07:06:35+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "NFL Week 10: Matchups to target for betting",
+     "url": "https://www.pff.com/news/bet-nfl-week-10-matchups-to-target"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "C.J. Stroud"
+   ],
+   "headline": "Can the Browns Slow Down C.J. Stroud? Texans Roundup: Houston at Cleveland",
+   "summary": "A two-time Player of the Week, a franchise-best road scoring run and four milestones within reach as Houston heads to Cleveland",
+   "published": "2026-11-13T19:23:45Z",
+   "published_at": "2026-11-13T19:23:45Z",
+   "first_seen_at": "2026-11-15T07:06:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "HOU official",
+     "title": "Can the Browns Slow Down C.J. Stroud? Texans Roundup: Houston at Cleveland",
+     "url": "https://www.houstontexans.com/news/can-the-browns-slow-down-c-j-stroud-texans-roundup-houston-at-cleveland"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Which 49ers could be All-Pros in 2026?",
+   "summary": "As the midseason mark approaches, we’re seeing some of the top award races in the NFL start to take shape, and the San Francisco 49ers definitely have a few worthy players in a couple of different spots. Of course, there’s Brock Purdy, who was the MVP frontrunner a few weeks ago and remains playing at […]",
+   "published": "2026-11-13T19:16:17Z",
+   "published_at": "2026-11-13T19:16:17Z",
+   "first_seen_at": "2026-11-15T07:06:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Which 49ers could be All-Pros in 2026?",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/165694/san-francisco-49ers-news-all-pro-candidates-2026-midseason-awards-brock-purdy-mvp-fred-warner-defensive-player-of-year"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Amon-Ra St. Brown"
+   ],
+   "headline": "NOTEBOOK: Playing in Germany 'a dream come true' for St. Brown",
+   "summary": "Tim Twentyman covers all the Detroit Lions news of the day including wide receiver Amon-Ra St. Brown's excitement to play in Germany, opportunities for Detroit's defensive line and more.",
+   "published": "2026-11-13T19:10:27Z",
+   "published_at": "2026-11-13T19:10:27Z",
+   "first_seen_at": "2026-11-15T07:06:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DET official",
+     "title": "NOTEBOOK: Playing in Germany 'a dream come true' for St. Brown",
+     "url": "https://www.detroitlions.com/news/notebook-st-brown-excited-to-play-in-germany-goff-hutchinson-sewell"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Star on the rise: Cowboys' Dak Prescott feels Jason Witten could 'absolutely' be an NFL head coach",
+   "summary": "Dallas' future Hall of Fame tight end has risen quickly from being a Texas high school head coach to being the interim offensive coordinator at the University of Oklahoma",
+   "published": "2026-11-13T19:09:53Z",
+   "published_at": "2026-11-13T19:09:53Z",
+   "first_seen_at": "2026-11-15T07:06:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Star on the rise: Cowboys' Dak Prescott feels Jason Witten could 'absolutely' be an NFL head coach",
+     "url": "https://www.cbssports.com/nfl/news/cowboys-dak-prescott-feels-jason-witten-could-absolutely-be-nfl-head-coach"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Zachariah Branch"
+   ],
+   "headline": "Falcons injury report: Zachariah Branch out; James Pearce Jr. questionable vs. Chiefs",
+   "summary": "Both defensive linemen were held out of practice Wednesday.",
+   "published": "2026-11-13T18:06:34Z",
+   "published_at": "2026-11-13T18:06:34Z",
+   "first_seen_at": "2026-11-15T07:06:36+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ATL official",
+     "title": "Falcons injury report: Zachariah Branch out; James Pearce Jr. questionable vs. Chiefs",
+     "url": "https://www.atlantafalcons.com/news/falcons-injury-report-zachariah-branch-out-james-pearce-jr-questionable-chiefs"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "The 49ers are producing at historic rate in one key category",
+   "summary": "The San Francisco 49ers offense has been humming this season, being in the top five in most efficiency metrics, as well as points per game, thanks to another strong play-calling year from Kyle Shanahan and an MVP-level season from Brock Purdy. Over the years, one area the 49ers have really excelled in has been the […]",
+   "published": "2026-11-13T17:39:22Z",
+   "published_at": "2026-11-13T17:39:22Z",
+   "first_seen_at": "2026-11-15T07:06:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "The 49ers are producing at historic rate in one key category",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/165689/san-francisco-49ers-news-producing-historic-rate-one-category-red-zone-touchdowns-kyle-shanahan-brock-purdy"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Amon-Ra St. Brown"
+   ],
+   "headline": "Lions, Patriots Week 10 injury designations: Amon-Ra St. Brown questionable; sure, ok",
+   "summary": "The Detroit Lions (6-2) and New England Patriots (5-4) have declared their injury designations ahead of their Week 10 matchup in Munich, Germany. Both teams declared three players OUT before traveling overseas, but the rest of Detroit’s injured players will have a chance to play. Note: Any changes from the most recent injury report will […]",
+   "published": "2026-11-13T16:54:16Z",
+   "published_at": "2026-11-13T16:54:16Z",
+   "first_seen_at": "2026-11-15T07:06:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "Lions, Patriots Week 10 injury designations: Amon-Ra St. Brown questionable; sure, ok",
+     "url": "https://www.prideofdetroit.com/detroit-lions-injuries/180824/lions-patriots-injury-designations-amon-ra-st-brown-questionable-sure-ok"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Amon-Ra St. Brown"
+   ],
+   "headline": "What it’s like to witness Dan Campbell win over a room of German reporters",
+   "summary": "Detroit Lions coach Dan Campbell opened his Munich press conference—which was attended by nearly 100 media members—with an off-kilter story. When asked what German he’d learned from Amon-Ra St. Brown, he launched into a tale about wanting to spice up the term “spread your wings” with some good old-fashioned profanity. He wanted the f-word, and […]",
+   "published": "2026-11-13T16:30:00Z",
+   "published_at": "2026-11-13T16:30:00Z",
+   "first_seen_at": "2026-11-15T07:06:45+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "What it’s like to witness Dan Campbell win over a room of German reporters",
+     "url": "https://www.prideofdetroit.com/detroit-lions-analysis/180913/dan-campbell-win-over-german-reporters-munich-game-press-conference"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "Ravens announce Lamar Jackson had surgery on broken and dislocated thumb, will be out 6-10 weeks",
+   "summary": "The Ravens will turn to Jacoby Brissett under center in Jackson's absence",
+   "published": "2026-11-13T15:07:06Z",
+   "published_at": "2026-11-13T15:07:06Z",
+   "first_seen_at": "2026-11-15T07:06:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Ravens announce Lamar Jackson had surgery on broken and dislocated thumb, will be out 6-10 weeks",
+     "url": "https://www.cbssports.com/nfl/news/ravens-announce-lamar-jackson-surgery-broken-dislocated-thumb-out-6-10-weeks"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 24,
+ "feeds_generated_at": "2026-11-15T07:06:35+00:00"
+}
