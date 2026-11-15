@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T01:57:15Z",
+  "generated_at": "2026-11-15T09:29:38Z",
   "season": 2026,
   "week": 10,
   "schedule": {
@@ -17,10 +17,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-11-15T01:57:15Z",
+    "research_as_of": "2026-11-15T09:29:38Z",
     "injuries_as_of": "week 10",
-    "roster_as_of": "2026-11-14T14:07:12Z",
-    "schedule_as_of": "2026-11-15T01:45:18Z"
+    "roster_as_of": "2026-11-15T07:02:31Z",
+    "schedule_as_of": "2026-11-15T09:05:18Z"
   },
   "injury_report": {
     "status": "PUBLISHED",
@@ -262,11 +262,29 @@
       },
       {
         "team": "BAL",
+        "gsis_id": "00-0026190",
+        "full_name": "Calais Campbell",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
+        "gsis_id": "00-0032965",
+        "full_name": "Ronnie Stanley",
+        "position": "T",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "BAL",
         "gsis_id": "00-0036302",
         "full_name": "Jaylinn Hawkins",
         "position": "S",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Knee",
         "practice_status": "Limited Participation in Practice"
       },
       {
@@ -328,8 +346,8 @@
         "gsis_id": "00-0040888",
         "full_name": "Adam Randall",
         "position": "RB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Neck",
         "practice_status": "Full Participation in Practice"
       },
       {
@@ -1345,8 +1363,8 @@
         "gsis_id": "00-0034825",
         "full_name": "Arden Key",
         "position": "DE",
-        "report_status": "Questionable",
-        "report_primary_injury": "Hamstring",
+        "report_status": null,
+        "report_primary_injury": null,
         "practice_status": "Full Participation in Practice"
       },
       {
@@ -1786,8 +1804,8 @@
         "gsis_id": "00-0032103",
         "full_name": "Denzel Perryman",
         "position": "LB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Pectoral",
         "practice_status": "Full Participation in Practice"
       },
       {
@@ -1797,34 +1815,34 @@
         "position": "DE",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "LAC",
         "gsis_id": "00-0033885",
         "full_name": "David Njoku",
         "position": "TE",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Fibula",
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "LAC",
         "gsis_id": "00-0035688",
         "full_name": "Trey Pipkins",
         "position": "T",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Not injury related - personal matter",
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "LAC",
         "gsis_id": "00-0036736",
         "full_name": "Kayode Awosika",
         "position": "G",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Fibula",
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "LAC",
@@ -1840,8 +1858,8 @@
         "gsis_id": "00-0038414",
         "full_name": "Kendall Williamson",
         "position": "S",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Calf",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -1851,7 +1869,7 @@
         "position": "RB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "LAC",
@@ -1876,8 +1894,8 @@
         "gsis_id": "00-0039835",
         "full_name": "Justin Eboigbe",
         "position": "DE",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Ankle",
         "practice_status": "Limited Participation in Practice"
       },
       {
@@ -1885,8 +1903,8 @@
         "gsis_id": "00-0039915",
         "full_name": "Ladd McConkey",
         "position": "WR",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Back",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -1894,8 +1912,8 @@
         "gsis_id": "00-0040065",
         "full_name": "Isas Waxter",
         "position": "CB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Ankle",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -1903,8 +1921,8 @@
         "gsis_id": "00-0040212",
         "full_name": "Branson Taylor",
         "position": "G",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Ankle",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -1932,15 +1950,15 @@
         "position": "CB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "LAC",
         "gsis_id": "00-0041550",
         "full_name": "Brenen Thompson",
         "position": "WR",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Doubtful",
+        "report_primary_injury": "Hamstring",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -3165,11 +3183,11 @@
     ],
     "teams_expected": 28,
     "teams_pending": [],
-    "with_designation": 160
+    "with_designation": 171
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-11-14T14:04:32Z",
+    "effective_at": "2026-11-15T07:01:39Z",
     "teams": 32,
     "kickers": {
       "ARI": {
@@ -17396,16 +17414,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-14T14:04:17Z",
+      "retrieved_at": "2026-11-15T07:01:22Z",
       "status": "OK",
-      "rows": 3166
+      "rows": 3168
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-14T14:04:45Z",
+      "retrieved_at": "2026-11-15T07:01:52Z",
       "status": "OK",
-      "rows": 789449
+      "rows": 791796
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -17429,9 +17447,84 @@
   ],
   "diff": {
     "against": "2026-11-14.json",
-    "new": [],
-    "changed": [],
+    "new": [
+      {
+        "key": "BAL:Calais Campbell",
+        "now": "None"
+      },
+      {
+        "key": "BAL:Ronnie Stanley",
+        "now": "None"
+      }
+    ],
+    "changed": [
+      {
+        "key": "BAL:Jaylinn Hawkins",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "BAL:Adam Randall",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "IND:Arden Key",
+        "was": "Questionable",
+        "now": "None"
+      },
+      {
+        "key": "LAC:Denzel Perryman",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "LAC:David Njoku",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "LAC:Trey Pipkins",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "LAC:Kayode Awosika",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "LAC:Kendall Williamson",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "LAC:Justin Eboigbe",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "LAC:Ladd McConkey",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "LAC:Isas Waxter",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "LAC:Branson Taylor",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "LAC:Brenen Thompson",
+        "was": "None",
+        "now": "Doubtful"
+      }
+    ],
     "removed": [],
-    "unchanged": 377
+    "unchanged": 364
   }
 }
