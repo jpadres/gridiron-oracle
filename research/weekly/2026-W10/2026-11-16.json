@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T07:11:31Z",
+  "generated_at": "2026-11-16T17:22:49Z",
   "season": 2026,
   "week": 10,
   "schedule": {
@@ -17,10 +17,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-11-16T07:11:31Z",
+    "research_as_of": "2026-11-16T17:22:49Z",
     "injuries_as_of": "week 10",
-    "roster_as_of": "2026-11-16T07:03:04Z",
-    "schedule_as_of": "2026-11-16T06:15:21Z"
+    "roster_as_of": "2026-11-16T17:03:21Z",
+    "schedule_as_of": "2026-11-16T17:15:17Z"
   },
   "injury_report": {
     "status": "PUBLISHED",
@@ -3187,8 +3187,8 @@
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-11-16T07:02:23Z",
-    "teams": 32,
+    "effective_at": "2026-11-16T16:58:52Z",
+    "teams": 31,
     "kickers": {
       "ARI": {
         "player_id": "00-0038567",
@@ -3306,12 +3306,6 @@
       "LV": {
         "player_id": "00-0035269",
         "player_name": "Matt Gay",
-        "contested": false,
-        "competition": []
-      },
-      "MIA": {
-        "player_id": "00-0033862",
-        "player_name": "Zane Gonzalez",
         "contested": false,
         "competition": []
       },
@@ -17414,23 +17408,23 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-16T07:01:23Z",
+      "retrieved_at": "2026-11-16T17:00:35Z",
       "status": "OK",
       "rows": 3168
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-16T07:02:34Z",
+      "retrieved_at": "2026-11-16T16:59:03Z",
       "status": "OK",
-      "rows": 796506
+      "rows": 798866
     },
     {
       "source": "snap_counts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-13T12:01:35Z",
+      "retrieved_at": "2026-11-16T12:02:51Z",
       "status": "OK",
-      "rows": 12785
+      "rows": 13913
     },
     {
       "source": "press_feeds",
@@ -17449,7 +17443,12 @@
     "against": "2026-11-15.json",
     "new": [],
     "changed": [],
-    "removed": [],
-    "unchanged": 379
+    "removed": [
+      {
+        "key": "K:MIA",
+        "was": "Zane Gonzalez"
+      }
+    ],
+    "unchanged": 378
   }
 }
