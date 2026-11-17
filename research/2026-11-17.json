@@ -1,0 +1,1350 @@
+{
+ "date": "2026-11-17",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "‘This Team Is Toast,’ ‘Ravens Are In Big Trouble Without Lamar Jackson’ — NFL Analysts Wonder If 2-Time MVP Could Ditch Baltimore",
+   "summary": "",
+   "published": "2026-11-17T08:06:16Z",
+   "published_at": "2026-11-17T08:06:16Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘This Team Is Toast,’ ‘Ravens Are In Big Trouble Without Lamar Jackson’ — NFL Analysts Wonder If 2-Time MVP Could Ditch Baltimore",
+     "url": "https://www.profootballnetwork.com/nfl-analysts-rumor-lamar-jackson-ravens-exit-chargers-week-10"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "‘Dak (Prescott) Was Not the Reason They Lost,’ ‘Don’t Try to Spin This Narrative’ — NFL Fans Push Back on Michael Irvin’s Criticism of Cowboys QB",
+   "summary": "",
+   "published": "2026-11-17T07:37:13Z",
+   "published_at": "2026-11-17T07:37:13Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Dak (Prescott) Was Not the Reason They Lost,’ ‘Don’t Try to Spin This Narrative’ — NFL Fans Push Back on Michael Irvin’s Criticism of Cowboys QB",
+     "url": "https://www.profootballnetwork.com/cowboys-loss-michael-irvin-dak-prescott-fans-react"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Zay Flowers"
+   ],
+   "headline": "The Breakdown: Ravens' Uphill Climb Has Become Steeper",
+   "summary": "Zay Flowers must deal with the aftermath of another crucial fumble. Baltimore must figure out how to revive its rushing attack. The rest of the season will test the Ravens’ fortitude.",
+   "published": "2026-11-17T07:23:31Z",
+   "published_at": "2026-11-17T07:23:31Z",
+   "first_seen_at": "2026-11-17T08:25:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "The Breakdown: Ravens' Uphill Climb Has Become Steeper",
+     "url": "https://www.baltimoreravens.com/news/ravens-chargers-breakdown-game-recap-zay-flowers-derrick-henry-frustration"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "George Kittle"
+   ],
+   "headline": "‘Love It,’ ‘He Was Afraid of Getting Suspended’ — NFL Fans Take Notice as 49ers Star George Kittle Wears Anti-Cowboys T-Shirt Under His Jersey",
+   "summary": "",
+   "published": "2026-11-17T07:14:36Z",
+   "published_at": "2026-11-17T07:14:36Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Love It,’ ‘He Was Afraid of Getting Suspended’ — NFL Fans Take Notice as 49ers Star George Kittle Wears Anti-Cowboys T-Shirt Under His Jersey",
+     "url": "https://www.profootballnetwork.com/george-kittle-anti-cowboys-shirt-fans-49ers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Mark Andrews"
+   ],
+   "headline": "Mark Andrews Prevails After Playing Through Broken Hand",
+   "summary": "Ravens TE Mark Andrews paced Baltimore with eight catches in Monday night’s loss to the Los Angeles Chargers.",
+   "published": "2026-11-17T06:35:06Z",
+   "published_at": "2026-11-17T06:35:06Z",
+   "first_seen_at": "2026-11-17T08:25:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Mark Andrews Prevails After Playing Through Broken Hand",
+     "url": "https://www.baltimoreravens.com/news/mark-andrews-broken-hand-prevails-ravens-chargers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Xavier Worthy"
+   ],
+   "headline": "‘Hope He’s OK,’ ‘Chiefs Can Deactivate His Contract’ — NFL Fans React as Xavier Worthy Disappears From Instagram",
+   "summary": "",
+   "published": "2026-11-17T05:58:46Z",
+   "published_at": "2026-11-17T05:58:46Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Hope He’s OK,’ ‘Chiefs Can Deactivate His Contract’ — NFL Fans React as Xavier Worthy Disappears From Instagram",
+     "url": "https://www.profootballnetwork.com/nfl-fans-chiefs-xavier-worthy-deactivates-instagram-profile"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "‘He’s Gonna Get Punched in the Face’ — Adam Schefter Delivers Blunt Reality Check to Fernando Mendoza Ahead of Raiders’ Brutal Schedule",
+   "summary": "",
+   "published": "2026-11-17T05:39:57Z",
+   "published_at": "2026-11-17T05:39:57Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He’s Gonna Get Punched in the Face’ — Adam Schefter Delivers Blunt Reality Check to Fernando Mendoza Ahead of Raiders’ Brutal Schedule",
+     "url": "https://www.profootballnetwork.com/adam-schefter-blunt-reality-fernando-mendoza-raiders-schedule"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "Justin Herbert, Chargers break through. Ravens run nowhere. MNF winners and losers",
+   "summary": "Justin Herbert helped the Los Angeles Chargers earn their first win of 2026, and dealt the Baltimore Ravens' flickering playoff hopes a fatal blow.",
+   "published": "2026-11-17T04:38:46Z",
+   "published_at": "2026-11-17T04:38:46Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Justin Herbert, Chargers break through. Ravens run nowhere. MNF winners and losers",
+     "url": "https://sports.yahoo.com/articles/justin-herbert-chargers-break-ravens-043846219.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Ladd McConkey"
+   ],
+   "headline": "NFL Week 10 Recap: Immediate fantasy football takeaways from Chargers-Ravens",
+   "summary": "Chargers receiver Tre' Harris enjoying a career-best outing without Ladd McConkey was among the top fantasy football storylines from Week 10's \"Monday Night Football\" matchup.",
+   "published": "2026-11-17T04:25:09Z",
+   "published_at": "2026-11-17T04:25:09Z",
+   "first_seen_at": "2026-11-17T08:25:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "NFL Week 10 Recap: Immediate fantasy football takeaways from Chargers-Ravens",
+     "url": "https://www.pff.com/news/nfl-week-10-recap-immediate-fantasy-football-takeaways-from-chargers-ravens"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Omarion Hampton"
+   ],
+   "headline": "Reactions to Omarion Hampton's Big Rushing Day in Week 10 Win Over Ravens",
+   "summary": "Check out the best Internet reactions from the Chargers 23-20 win over the Ravens at M&T Bank Stadium",
+   "published": "2026-11-17T04:25:00Z",
+   "published_at": "2026-11-17T04:25:00Z",
+   "first_seen_at": "2026-11-17T08:25:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAC official",
+     "title": "Reactions to Omarion Hampton's Big Rushing Day in Week 10 Win Over Ravens",
+     "url": "https://www.chargers.com/news/top-reactions-omarion-hampton-week-10"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Blake Corum",
+    "Kyren Williams"
+   ],
+   "headline": "RAMalytics: How will Rams deploy their new offensive wrinkle?",
+   "summary": "Sean McVay looked at the Los Angeles Rams’ depth chart following their recent rash of injuries and said “I’m just going to put our best remaining players on the field.” At times Sunday against the Arizona Cardinals, that meant deploying both Blake Corum and Kyren Williams at the same time. Two-back sets, commonly referred to […]",
+   "published": "2026-11-17T03:06:45Z",
+   "published_at": "2026-11-17T03:06:45Z",
+   "first_seen_at": "2026-11-17T08:25:16+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "RAMalytics: How will Rams deploy their new offensive wrinkle?",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-analysis/155370/rams-pony-personnel-corum-williams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Christian McCaffrey",
+    "Kaelon Black"
+   ],
+   "headline": "49ers rookie Kaelon Black has developed RB tandem with Christian McCaffrey",
+   "summary": "The San Francisco 49ers' run game is one of the best in the league, thanks to the tandem of Christian McCaffrey and rookie Kaelon Black.",
+   "published": "2026-11-17T02:51:03Z",
+   "published_at": "2026-11-17T02:51:03Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "49ers rookie Kaelon Black has developed RB tandem with Christian McCaffrey",
+     "url": "https://sports.yahoo.com/articles/49ers-rookie-kaelon-black-developed-025103805.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert",
+    "Omarion Hampton"
+   ],
+   "headline": "Monday Night Football: Chargers lead Ravens 17-10 at halftime",
+   "summary": "Justin Herbert and Omarion Hampton have touchdown runs for the winless Chargers.",
+   "published": "2026-11-17T02:49:44Z",
+   "published_at": "2026-11-17T02:49:44Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Monday Night Football: Chargers lead Ravens 17-10 at halftime",
+     "url": "https://sports.yahoo.com/articles/monday-night-football-chargers-lead-024944638.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Christian McCaffrey"
+   ],
+   "headline": "Von Miller blames himself, not the play call, for Christian McCaffrey's late TD",
+   "summary": "The Cowboys pulled within 38-32 of the 49ers with 3:42 left in the fourth quarter on Sunday.",
+   "published": "2026-11-17T02:17:37Z",
+   "published_at": "2026-11-17T02:17:37Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Von Miller blames himself, not the play call, for Christian McCaffrey's late TD",
+     "url": "https://sports.yahoo.com/articles/von-miller-blames-himself-not-021737535.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "By the Numbers: Raiders generate some positives despite negative outcome against Seahawks",
+   "summary": "Fernando Mendoza's first half showing and creating turnovers serve as silver linings in 21-13 loss to Seattle Seahawks.",
+   "published": "2026-11-17T01:45:00Z",
+   "published_at": "2026-11-17T01:45:00Z",
+   "first_seen_at": "2026-11-17T08:25:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "By the Numbers: Raiders generate some positives despite negative outcome against Seahawks",
+     "url": "https://www.raiders.com/news/by-the-numbers-raiders-generate-some-positives-despite-negative-outcome-against-seahawks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "Woody Marks",
+    "David Montgomery"
+   ],
+   "headline": "Texans estimate David Montgomery as a full participant, but Woody Marks doesn't practice",
+   "summary": "The Texans did not practice on Monday, but they were required to release an injury report ahead of Thursday night's game against the Colts.",
+   "published": "2026-11-17T01:37:14Z",
+   "published_at": "2026-11-17T01:37:14Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Texans estimate David Montgomery as a full participant, but Woody Marks doesn't practice",
+     "url": "https://sports.yahoo.com/articles/texans-estimate-david-montgomery-full-013714205.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers make necessary Mike Evans move to play vs Vikings; not what you think",
+   "summary": "49ers coach Kyle Shanahan revealed the team is hopeful to have Mike Evans back on the field for their Mexico City game against the Vikings by having him travel to...",
+   "published": "2026-11-17T01:35:57Z",
+   "published_at": "2026-11-17T01:35:57Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "49ers make necessary Mike Evans move to play vs Vikings; not what you think",
+     "url": "https://sports.yahoo.com/articles/49ers-necessary-mike-evans-move-013557845.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "Justin Herbert runs for 22-yard TD, giving Chargers a 7-0 lead",
+   "summary": "Justin Herbert's left hand seems just fine.",
+   "published": "2026-11-17T01:33:45Z",
+   "published_at": "2026-11-17T01:33:45Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Justin Herbert runs for 22-yard TD, giving Chargers a 7-0 lead",
+     "url": "https://sports.yahoo.com/articles/justin-herbert-runs-22-yard-013345575.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "Tank Dell"
+   ],
+   "headline": "Tank Dell estimated to be at full status for practice",
+   "summary": "Houston Texans wide receiver Tank Dell was estimated as a full participant for practice Monday, after the team conducted a walkthrough.",
+   "published": "2026-11-17T01:20:49Z",
+   "published_at": "2026-11-17T01:20:49Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Tank Dell estimated to be at full status for practice",
+     "url": "https://sports.yahoo.com/articles/tank-dell-estimated-full-status-012049020.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "‘Cowboys Players Don’t Respect Brian Schottenheimer’ — Colin Cowherd Makes Bold Claim About Dak Prescott and Co.’s Relationship With HC",
+   "summary": "",
+   "published": "2026-11-17T00:59:22Z",
+   "published_at": "2026-11-17T00:59:22Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Cowboys Players Don’t Respect Brian Schottenheimer’ — Colin Cowherd Makes Bold Claim About Dak Prescott and Co.’s Relationship With HC",
+     "url": "https://www.profootballnetwork.com/colin-cowherd-bold-claim-brian-schottenheimer-dak-prescott"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes",
+    "Xavier Worthy"
+   ],
+   "headline": "Andy Reid defends Xavier Worthy, who had no catches in 57 snaps",
+   "summary": "Chiefs quarterback Patrick Mahomes completed 22 passes to eight different receivers and threw five touchdowns in Sunday's 35-13 win over the Falcons.",
+   "published": "2026-11-17T00:55:00Z",
+   "published_at": "2026-11-17T00:55:00Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Andy Reid defends Xavier Worthy, who had no catches in 57 snaps",
+     "url": "https://sports.yahoo.com/articles/andy-reid-defends-xavier-worthy-005500666.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "Jets QB Geno Smith avoids major injuries after leaving loss to Bills multiple times with concussion, ankle issue",
+   "summary": "The Jets fell to 2-8 on the season after Sunday's loss to the Bills.",
+   "published": "2026-11-17T00:37:12Z",
+   "published_at": "2026-11-17T00:37:12Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Jets QB Geno Smith avoids major injuries after leaving loss to Bills multiple times with concussion, ankle issue",
+     "url": "https://sports.yahoo.com/nfl/article/jets-qb-geno-smith-avoids-major-injuries-after-leaving-loss-to-bills-multiple-times-with-concussion-ankle-issue-003712686.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "What Happened to Lamar Jackson, and When Will He Return? Latest on Ravens QB’s Injury and Why He’s Out for Week 10 vs. Chargers",
+   "summary": "",
+   "published": "2026-11-17T00:15:29Z",
+   "published_at": "2026-11-17T00:15:29Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "What Happened to Lamar Jackson, and When Will He Return? Latest on Ravens QB’s Injury and Why He’s Out for Week 10 vs. Chargers",
+     "url": "https://www.profootballnetwork.com/what-happened-lamar-jackson-ravens-week-10-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "Cleveland Browns proving that TD passes may be overrated",
+   "summary": "Deshaun Watson has gone 4 straight games without a TD pass, but Cleveland has won three of them. So what’s the problem?",
+   "published": "2026-11-17T00:02:26Z",
+   "published_at": "2026-11-17T00:02:26Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Cleveland Browns proving that TD passes may be overrated",
+     "url": "https://sports.yahoo.com/articles/cleveland-browns-proving-td-passes-000226851.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Mike Macdonald says 'Sam's our quarterback' amid chatter that Drew Lock should start for Seahawks over Darnold",
+   "summary": "The Seahawks are now 4-0 this season with Lock, who's played objectively better than Sam Darnold in place of the injured Seattle starter in four appearances.",
+   "published": "2026-11-17T00:00:21Z",
+   "published_at": "2026-11-17T00:00:21Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Mike Macdonald says 'Sam's our quarterback' amid chatter that Drew Lock should start for Seahawks over Darnold",
+     "url": "https://sports.yahoo.com/nfl/breaking-news/article/mike-macdonald-says-sams-our-quarterback-amid-chatter-that-drew-lock-should-start-for-seahawks-over-darnold-000021021.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Kyle Monangai",
+    "Luther Burden III"
+   ],
+   "headline": "Chicago Bears Injury Update for Kyle Monangai, Luther Burden III, and others",
+   "summary": "No “official” injury updates for the Bears, but there appears to be good news from Halas Hall. @wiltfongjr has details here.",
+   "published": "2026-11-16T23:45:00Z",
+   "published_at": "2026-11-16T23:45:00Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Chicago Bears Injury Update for Kyle Monangai, Luther Burden III, and others",
+     "url": "https://sports.yahoo.com/articles/chicago-bears-injury-kyle-monangai-234500800.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Christian McCaffrey",
+    "George Kittle",
+    "Brock Purdy"
+   ],
+   "headline": "What the 49ers and Cowboys Had to Say After Week 10",
+   "summary": "See what Kyle Shanahan, Brock Purdy, George Kittle, Christian McCaffrey, and Brian Schottenheimer had to say following the Week 10 contest.",
+   "published": "2026-11-16T23:34:28Z",
+   "published_at": "2026-11-16T23:34:28Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SF official",
+     "title": "What the 49ers and Cowboys Had to Say After Week 10",
+     "url": "https://www.49ers.com/news/what-the-49ers-and-cowboys-had-to-say-after-week-10"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "Aaron Glenn emphatically keeps Geno Smith as Jets starter if healthy: ‘Wouldn’t be disrespectful to him’",
+   "summary": "Aaron Glenn did not provide much of an update on the health of Jets quarterback Geno Smith on Monday, but he did make it clear that Smith remains his starter when healthy.",
+   "published": "2026-11-16T23:33:13Z",
+   "published_at": "2026-11-16T23:33:13Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Aaron Glenn emphatically keeps Geno Smith as Jets starter if healthy: ‘Wouldn’t be disrespectful to him’",
+     "url": "https://sports.yahoo.com/articles/aaron-glenn-emphatically-keeps-geno-233313414.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "Sean McVay hypes up Rams’ OC, possibly for head coaching job?",
+   "summary": "The Los Angeles Rams have not had a smooth season, and the offense has under-performed relative to expectations, but Sean McVay was quick to credit offensive coordinator Nate Scheelhaase with helping Matthew Stafford stay on track in Week 10’s win over the Arizona Cardinals. The Rams scored 34 points, had 436 yards of total offense, […]",
+   "published": "2026-11-16T23:32:46Z",
+   "published_at": "2026-11-16T23:32:46Z",
+   "first_seen_at": "2026-11-17T08:25:16+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Sean McVay hypes up Rams’ OC, possibly for head coaching job?",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-coaching-staff/155347/nate-scheelhaase-rams-head-coach-rumors"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "George Kittle"
+   ],
+   "headline": "‘Class Act,’ ‘Love That He Owned It’ — NFL Fans React as 49ers Star George Kittle Apologizes to 22-Year-Old Reporter for ‘Calling Him Out’",
+   "summary": "",
+   "published": "2026-11-16T23:18:05Z",
+   "published_at": "2026-11-16T23:18:05Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Class Act,’ ‘Love That He Owned It’ — NFL Fans React as 49ers Star George Kittle Apologizes to 22-Year-Old Reporter for ‘Calling Him Out’",
+     "url": "https://www.profootballnetwork.com/class-act-49ers-star-george-kittle"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "‘Josh Allen Is Not a Top 3 MVP Candidate’ — Ryan Clark Disputes Bills Star’s Case for Award Despite Buffalo’s 8–1 Start",
+   "summary": "",
+   "published": "2026-11-16T22:58:50Z",
+   "published_at": "2026-11-16T22:58:50Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Josh Allen Is Not a Top 3 MVP Candidate’ — Ryan Clark Disputes Bills Star’s Case for Award Despite Buffalo’s 8–1 Start",
+     "url": "https://www.profootballnetwork.com/josh-allen-ryan-clark-mvp-case"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "‘Delusional,’ ‘Asinine Argument’ — NFL Fans React to Dave Portnoy Crowning Drake Maye As MVP as Patriots Look ‘Inept’ After QB’s Injury",
+   "summary": "",
+   "published": "2026-11-16T22:30:43Z",
+   "published_at": "2026-11-16T22:30:43Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Delusional,’ ‘Asinine Argument’ — NFL Fans React to Dave Portnoy Crowning Drake Maye As MVP as Patriots Look ‘Inept’ After QB’s Injury",
+     "url": "https://www.profootballnetwork.com/fans-react-portnoy-drake-maye-mvp"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Deshaun Watson"
+   ],
+   "headline": "Malachi Corley provides option for Browns' offense | News & Notes",
+   "summary": "Todd Monken believes Deshaun Watson can continue to evolve",
+   "published": "2026-11-16T22:21:12Z",
+   "published_at": "2026-11-16T22:21:12Z",
+   "first_seen_at": "2026-11-17T08:25:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Malachi Corley provides option for Browns' offense | News & Notes",
+     "url": "https://www.clevelandbrowns.com/news/malachi-corley-provides-option-for-browns-offense-news-notes"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Next Gen Stat Of The Week: Seahawks Pressure Makes Life Tough On Rookie QB Fernando Mendoza",
+   "summary": "The Seahawks used a dominant second-half pass rush to shut down Fernando Mendoza and the Raiders offense.",
+   "published": "2026-11-16T21:51:49Z",
+   "published_at": "2026-11-16T21:51:49Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Next Gen Stat Of The Week: Seahawks Pressure Makes Life Tough On Rookie QB Fernando Mendoza",
+     "url": "https://www.seahawks.com/news/next-gen-stat-of-the-week-seahawks-pressure-makes-life-tough-on-rookie-qb-fernando-mendoza"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Derrick Henry",
+    "Zay Flowers",
+    "Justin Herbert"
+   ],
+   "headline": "Chargers vs. Ravens Start 'Em, Sit 'Em: Monday Night Football - Justin Herbert, Jacoby Brissett, Derrick Henry, Zay Flowers, and more",
+   "summary": "",
+   "published": "2026-11-16T21:30:37Z",
+   "published_at": "2026-11-16T21:30:37Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Chargers vs. Ravens Start 'Em, Sit 'Em: Monday Night Football - Justin Herbert, Jacoby Brissett, Derrick Henry, Zay Flowers, and more",
+     "url": "https://www.rotoballer.com/fantasy-football-start-em-sit-em-monday-chargers-vs-ravens-week-10-mnf-2026/1994278"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "QB Maneuvers: Easton Stick Promoted, Cooper Rush to Practice Squad",
+   "summary": "The Buccaneers shored up their quarterback position on Monday with Baker Mayfield reportedly dealing with a new injury, promoting Easton Stick to the active roster and adding Cooper Rush to the practice squad among other roster moves",
+   "published": "2026-11-16T21:00:00Z",
+   "published_at": "2026-11-16T21:00:00Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "QB Maneuvers: Easton Stick Promoted, Cooper Rush to Practice Squad",
+     "url": "https://www.buccaneers.com/news/qb-maneuvers-easton-stick-promoted-cooper-rush-to-practice-squad"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Jahmyr Gibbs"
+   ],
+   "headline": "Alex Anzalone: Bucs Facing \"Alien\" in Jahmyr Gibbs in Week 11",
+   "summary": "Bucs LB Alex Anzalone, a former teammate of Lions RB Jahmyr Gibbs says the fourth-year ballcarrier is a different challenge than most NFL backs, but Tampa Bay's defense still has to stop the run first on Sunday in Detroit",
+   "published": "2026-11-16T20:40:00Z",
+   "published_at": "2026-11-16T20:40:00Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Alex Anzalone: Bucs Facing \"Alien\" in Jahmyr Gibbs in Week 11",
+     "url": "https://www.buccaneers.com/news/alex-anzalone-bucs-facing-alien-in-jahmyr-gibbs-in-week-11"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Joe Burrow Nominated FedEx Air & Ground Player of Week 10",
+   "summary": "Bengals QB Joe Burrow has been nominated for FedEx Air & Ground Player of the Week for Week 10, the NFL announced Monday.",
+   "published": "2026-11-16T20:12:16Z",
+   "published_at": "2026-11-16T20:12:16Z",
+   "first_seen_at": "2026-11-17T08:25:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Joe Burrow Nominated FedEx Air & Ground Player of Week 10",
+     "url": "https://www.bengals.com/news/joe-burrow-fedex-air-ground-player-week-10-2026-nominee"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "Jets Notebook | Rookie CB D'Angelo Ponds Progressing at Nickel",
+   "summary": "HC Aaron Glenn: Geno Smith to Get Imaging on His Ankle",
+   "published": "2026-11-16T20:00:00Z",
+   "published_at": "2026-11-16T20:00:00Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Notebook | Rookie CB D'Angelo Ponds Progressing at Nickel",
+     "url": "https://www.newyorkjets.com/news/jets-notebook-rookie-dangelo-ponds-progressing-at-nickel-11-16-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks Optimistic QB Sam Darnold Will Return After Bye",
+   "summary": "Seahawks coach Mike Macdonald said Monday that Sam Darnold is likely to return for Seattle’s Week 12 game against the 49ers following the bye week.",
+   "published": "2026-11-16T19:56:33Z",
+   "published_at": "2026-11-16T19:56:33Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Seahawks Optimistic QB Sam Darnold Will Return After Bye",
+     "url": "https://www.seahawks.com/news/seahawks-optimistic-qb-sam-darnold-will-return-after-bye"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Mark Andrews",
+    "Derrick Henry",
+    "Keaton Mitchell"
+   ],
+   "headline": "Who Is Scoring Tonight? Finding the best anytime TD bets for Chargers vs. Ravens",
+   "summary": "The Chargers vs. Ravens Monday Night Football matchup features several anytime touchdown betting options, including Derrick Henry, Mark Andrews and Keaton Mitchell. Henry leads Baltimore with 41 red-zone touches, while Andrews has commanded 23.3% of the Ravens' red-zone targets. PFF's Advanced Stats provide context for the touchdown opportunities and betting value ahead of kickoff.",
+   "published": "2026-11-16T19:28:21Z",
+   "published_at": "2026-11-16T19:28:21Z",
+   "first_seen_at": "2026-11-17T08:25:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Who Is Scoring Tonight? Finding the best anytime TD bets for Chargers vs. Ravens",
+     "url": "https://www.pff.com/news/bet-who-is-scoring-tonight-finding-the-best-anytime-td-bets-for-chargers-vs-ravens"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Chiefs besiegen Falcons mit 35:13 – Patrick Mahomes wirft fünf Touchdowns",
+   "summary": "Mahomes verbuchte am Sonntag zum siebten Mal in seiner Karriere ein Spiel mit fünf Touchdown-Pässen",
+   "published": "2026-11-16T19:18:59Z",
+   "published_at": "2026-11-16T19:18:59Z",
+   "first_seen_at": "2026-11-17T08:25:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "KC official",
+     "title": "Chiefs besiegen Falcons mit 35:13 – Patrick Mahomes wirft fünf Touchdowns",
+     "url": "https://www.chiefs.com/news/chiefs-besiegen-falcons-mit-35-13-patrick-mahomes-wirft-fuenf-touchdowns"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Gutierrez: Steep learning curve in first start outlines both potential, inexperience of Fernando Mendoza",
+   "summary": "“It’s good to get punched in the face,” said Mendoza after being sacked six times in his first NFL start.",
+   "published": "2026-11-16T19:00:00Z",
+   "published_at": "2026-11-16T19:00:00Z",
+   "first_seen_at": "2026-11-17T08:25:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "Gutierrez: Steep learning curve in first start outlines both potential, inexperience of Fernando Mendoza",
+     "url": "https://www.raiders.com/news/gutierrez-steep-learning-curve-in-first-start-outlines-both-potential-inexperience-of-fernando-mendoza"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Jordan Addison"
+   ],
+   "headline": "Vikings To Place WR Jordan Addison on Short-Term Injured Reserve",
+   "summary": "",
+   "published": "2026-11-16T18:53:24Z",
+   "published_at": "2026-11-16T18:53:24Z",
+   "first_seen_at": "2026-11-17T08:25:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "MIN official",
+     "title": "Vikings To Place WR Jordan Addison on Short-Term Injured Reserve",
+     "url": "https://www.vikings.com/news/wide-receiver-jordan-addison-short-term-injured-reserve-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Christian McCaffrey"
+   ],
+   "headline": "Christian McCaffrey Keeps the Records Falling in 49ers 46-40 Win over Cowboys",
+   "summary": "Another game, another milestone: RB Christian McCaffrey’s record-setting performance against Dallas kept his remarkable season rolling.",
+   "published": "2026-11-16T18:08:46Z",
+   "published_at": "2026-11-16T18:08:46Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SF official",
+     "title": "Christian McCaffrey Keeps the Records Falling in 49ers 46-40 Win over Cowboys",
+     "url": "https://www.49ers.com/news/christian-mccaffrey-keeps-the-records-falling-in-49ers-46-40-win-over-cowboys"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye",
+    "A.J. Brown"
+   ],
+   "headline": "Drake Maye injury the latest for Patriots amid snakebitten 2026 Super Bowl hangover",
+   "summary": "From Drake Maye to A.J. Brown, injuries have piled up for New England in 2026",
+   "published": "2026-11-16T17:55:34Z",
+   "published_at": "2026-11-16T17:55:34Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Drake Maye injury the latest for Patriots amid snakebitten 2026 Super Bowl hangover",
+     "url": "https://www.cbssports.com/nfl/news/drake-maye-injury-latest-patriots-snakebitten-2026-super-bowl-hangover"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Breece Hall",
+    "Garrett Wilson"
+   ],
+   "headline": "Garrett Wilson & Breece Hall Are 2 of Jets' Movers & Shakers Who Can Help 'Fix' the Offense",
+   "summary": "Team Is on Pace to Challenge Franchise Marks for Most 100-YFS Games Produced by Most Different Players",
+   "published": "2026-11-16T17:37:08Z",
+   "published_at": "2026-11-16T17:37:08Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Garrett Wilson & Breece Hall Are 2 of Jets' Movers & Shakers Who Can Help 'Fix' the Offense",
+     "url": "https://www.newyorkjets.com/news/garrett-wilson-breece-hall-jets-offense-fix-11-16-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Around the AFC North: Joe Burrow on Historic Roll as Bengals Take Division Lead",
+   "summary": "Pittsburgh starting guard Mason McCormick suffers a gruesome-looking ankle injury. Another comeback win leaves the Browns in the thick of postseason contention.",
+   "published": "2026-11-16T16:56:52Z",
+   "published_at": "2026-11-16T16:56:52Z",
+   "first_seen_at": "2026-11-17T08:25:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Around the AFC North: Joe Burrow on Historic Roll as Bengals Take Division Lead",
+     "url": "https://www.baltimoreravens.com/news/around-afc-north-joe-burrow-bengals-mason-mccormick-steelers-browns"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Harold Fannin Jr."
+   ],
+   "headline": "Harold Fannin Jr.'s 30-yard reception sets up go-ahead touchdown in Week 10 | Players of the Game",
+   "summary": "CB Tyson Campbell recorded his first interception of the season",
+   "published": "2026-11-16T16:41:27Z",
+   "published_at": "2026-11-16T16:41:27Z",
+   "first_seen_at": "2026-11-17T08:25:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Harold Fannin Jr.'s 30-yard reception sets up go-ahead touchdown in Week 10 | Players of the Game",
+     "url": "https://www.clevelandbrowns.com/news/harold-fannin-jr-s-30-yard-reception-sets-up-go-ahead-touchdown-in-week-10-players-of-the-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Christian McCaffrey"
+   ],
+   "headline": "We watched vintage Deebo Samuel in the 49ers’ win over the Cowboys",
+   "summary": "If I told you the San Francisco 49ers offense rode Deebo Samuel and Christian McCaffrey en route to a win, you’d probably assume I was talking about the 2023 season. Unfortunately for the Dallas Cowboys, it happened on Sunday, and the 49ers needed every bit of McCaffrey and Samuel, helping the 49ers edge Dallas in […]",
+   "published": "2026-11-16T16:01:00Z",
+   "published_at": "2026-11-16T16:01:00Z",
+   "first_seen_at": "2026-11-17T08:25:15+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "We watched vintage Deebo Samuel in the 49ers’ win over the Cowboys",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/165803/we-watched-vintage-deebo-samuel-in-the-49ers-win-over-the-cowboys"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Sam Darnold or Drew Lock? Breaking down the Seahawks' surprising QB debate",
+   "summary": "Drew Lock is 4-0 as Seattle's primary quarterback and has dramatically outperformed Sam Darnold in several key metric",
+   "published": "2026-11-16T15:59:41Z",
+   "published_at": "2026-11-16T15:59:41Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Sam Darnold or Drew Lock? Breaking down the Seahawks' surprising QB debate",
+     "url": "https://www.cbssports.com/nfl/news/seahawks-starting-qb-sam-darnold-or-drew-lock-battle-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Cade Klubnik"
+   ],
+   "headline": "3 Takeaways | Rookie QB Cade Klubnik Has 'Huge Growth Step'",
+   "summary": "Jets Had Healthy Edge Rush Rotation Back Against Bills",
+   "published": "2026-11-16T15:34:48Z",
+   "published_at": "2026-11-16T15:34:48Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "3 Takeaways | Rookie QB Cade Klubnik Has 'Huge Growth Step'",
+     "url": "https://www.newyorkjets.com/news/3-takeaways-rookie-qb-cade-klubnik-has-huge-growth-step-11-16-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Chiefs Defeat Falcons, 35-13, as Patrick Mahomes Throws Five Touchdowns",
+   "summary": "Mahomes recorded his seventh-career five-touchdown performance on Sunday",
+   "published": "2026-11-16T15:30:32Z",
+   "published_at": "2026-11-16T15:30:32Z",
+   "first_seen_at": "2026-11-17T08:25:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "KC official",
+     "title": "Chiefs Defeat Falcons, 35-13, as Patrick Mahomes Throws Five Touchdowns",
+     "url": "https://www.chiefs.com/news/chiefs-defeat-falcons-35-13-as-patrick-mahomes-throws-five-touchdowns"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Garrett Wilson"
+   ],
+   "headline": "Jets Week 10 Stats & Notes | Garrett Wilson, Olu Fashanu & Armand Membou Stand Out on Offense",
+   "summary": "Wilson Topped 100 Yards for 12th Time in Jets Career",
+   "published": "2026-11-16T15:26:48Z",
+   "published_at": "2026-11-16T15:26:48Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Week 10 Stats & Notes | Garrett Wilson, Olu Fashanu & Armand Membou Stand Out on Offense",
+     "url": "https://www.newyorkjets.com/news/jets-week-10-stats-notes-garrett-wilson-olu-fashanu-armand-membou-11-16-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow",
+    "Ja'Marr Chase"
+   ],
+   "headline": "Quick Hits | Supporting Cast Puts Bengals Over The Top In Win Over Steelers",
+   "summary": "Joe Burrow and Ja'Marr Chase got plenty from their supporting cast Sunday night in the 38-18 victory over the Steelers.",
+   "published": "2026-11-16T15:23:59Z",
+   "published_at": "2026-11-16T15:23:59Z",
+   "first_seen_at": "2026-11-17T08:25:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Quick Hits | Supporting Cast Puts Bengals Over The Top In Win Over Steelers",
+     "url": "https://www.bengals.com/news/quick-hits-jamarr-chase-chase-brown-supporting-cast-puts-bengals-over-the-top-in-win-over-steelers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Antonio Williams"
+   ],
+   "headline": "Washington Commanders News: Antonio Williams should be primary option",
+   "summary": "The Daily Slop Editor’s note: Each day, Hogs Haven compiles a collection of articles, podcasts & tweets from around the web to keep you in touch with the Commanders, the NFC East, the NFL and sports in general, with a sprinkling of other stuff. Enjoy! Commanders links Articles Mark Bullock (paywall) David Blough shows development […]",
+   "published": "2026-11-16T14:45:27Z",
+   "published_at": "2026-11-16T14:45:27Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Washington Commanders News: Antonio Williams should be primary option",
+     "url": "https://www.hogshaven.com/washington-commanders-news/455690/washington-commanders-news-antonio-williams-should-be-primary-option"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Mark Andrews",
+    "Lamar Jackson"
+   ],
+   "headline": "Late for Work: Pundits' Predictions for Ravens-Chargers Game",
+   "summary": "Mark Andrews says ‘there’s a lot more football left in my story.’ A pundit says the Ravens would be Super Bowl contenders if they get in the playoffs with Lamar Jackson.",
+   "published": "2026-11-16T14:31:15Z",
+   "published_at": "2026-11-16T14:31:15Z",
+   "first_seen_at": "2026-11-17T08:25:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Late for Work: Pundits' Predictions for Ravens-Chargers Game",
+     "url": "https://www.baltimoreravens.com/news/predictions-ravens-chargers-monday-night-football-mark-andrews-super-bowl-contenders-lamar-jackson-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Jordyn Tyson"
+   ],
+   "headline": "Morning Break: Saints fall to Panthers on final play, Jordyn Tyson leads receiving effort",
+   "summary": "A collection of headlines and news about the Saints and the NFL for Monday, November 16",
+   "published": "2026-11-16T14:00:31Z",
+   "published_at": "2026-11-16T14:00:31Z",
+   "first_seen_at": "2026-11-17T08:25:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NO official",
+     "title": "Morning Break: Saints fall to Panthers on final play, Jordyn Tyson leads receiving effort",
+     "url": "https://www.neworleanssaints.com/news/morning-break-saints-fall-to-panthers-on-final-play-jordyn-tyson-leads-receiving-effort-new-orleans-news-headlines-11-16-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "3 things we learned from the Bengals’ uplifting win over the Steelers",
+   "summary": "It’s good to sometimes take a step back and appreciate how far the Cincinnati Bengals have come since drafting Joe Burrow. The lead-up to primetime games used to be filled with anxiety. Bengals fans knew the likelihood of getting embarrassed was high, But now, primetime is where the Bengals shine. And last night’s game might […]",
+   "published": "2026-11-16T14:00:00Z",
+   "published_at": "2026-11-16T14:00:00Z",
+   "first_seen_at": "2026-11-17T08:25:15+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cincyjungle.com",
+     "title": "3 things we learned from the Bengals’ uplifting win over the Steelers",
+     "url": "https://www.cincyjungle.com/cincinnati-bengals-analysis/205792/3-things-we-learned-bengals-uplifting-win-steelers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Drake Maye injury update: Patriots reportedly fear QB fractured ankle, could miss rest of season",
+   "summary": "Maye remained in Germany for additional testing after injuring his ankle against the Lions",
+   "published": "2026-11-16T13:37:58Z",
+   "published_at": "2026-11-16T13:37:58Z",
+   "first_seen_at": "2026-11-17T08:25:14+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Drake Maye injury update: Patriots reportedly fear QB fractured ankle, could miss rest of season",
+     "url": "https://www.cbssports.com/nfl/news/drake-maye-injury-update-patriots-qb-ankle-out-for-season"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 21,
+ "feeds_generated_at": "2026-11-17T08:25:09+00:00"
+}
