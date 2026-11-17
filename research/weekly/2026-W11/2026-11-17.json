@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T09:42:32Z",
+  "generated_at": "2026-11-17T19:19:11Z",
   "season": 2026,
   "week": 11,
   "schedule": {
@@ -16,10 +16,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-11-17T09:42:32Z",
+    "research_as_of": "2026-11-17T19:19:11Z",
     "injuries_as_of": "NOT_PUBLISHED_YET",
-    "roster_as_of": "2026-11-17T07:02:42Z",
-    "schedule_as_of": "2026-11-17T09:05:17Z"
+    "roster_as_of": "2026-11-17T16:54:28Z",
+    "schedule_as_of": "2026-11-17T19:15:20Z"
   },
   "injury_report": {
     "status": "NOT_PUBLISHED_YET",
@@ -30,7 +30,7 @@
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-11-17T07:01:41Z",
+    "effective_at": "2026-11-17T16:52:03Z",
     "teams": 31,
     "kickers": {
       "ARI": {
@@ -289,6 +289,16 @@
         "snap_pct_prev": 0.0,
         "delta": 1.0,
         "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Jacoby Brissett",
+        "team": "BAL",
+        "position": "QB",
+        "snap_pct": 1.0,
+        "snap_pct_prev": null,
+        "delta": null,
+        "sample_games": 1,
         "as_of_week": 10
       },
       {
@@ -552,6 +562,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Cole Strange",
+        "team": "LAC",
+        "position": "G",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 0.58,
+        "delta": 0.42,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
         "player": "Brandon Smith",
         "team": "PIT",
         "position": "WR",
@@ -599,6 +619,16 @@
         "snap_pct_prev": 0.33,
         "delta": 0.37,
         "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Chuma Edoga",
+        "team": "BAL",
+        "position": "T",
+        "snap_pct": 0.48,
+        "snap_pct_prev": 0.12,
+        "delta": 0.36,
+        "sample_games": 3,
         "as_of_week": 10
       },
       {
@@ -689,6 +719,16 @@
         "snap_pct_prev": 0.19,
         "delta": 0.3,
         "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Rashod Bateman",
+        "team": "BAL",
+        "position": "WR",
+        "snap_pct": 0.91,
+        "snap_pct_prev": 0.62,
+        "delta": 0.29,
+        "sample_games": 10,
         "as_of_week": 10
       },
       {
@@ -812,6 +852,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Omarion Hampton",
+        "team": "LAC",
+        "position": "RB",
+        "snap_pct": 0.63,
+        "snap_pct_prev": 0.4,
+        "delta": 0.23,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
         "player": "Dalton Schultz",
         "team": "HOU",
         "position": "TE",
@@ -842,6 +892,26 @@
         "as_of_week": 10
       },
       {
+        "player": "Zay Flowers",
+        "team": "BAL",
+        "position": "WR",
+        "snap_pct": 0.88,
+        "snap_pct_prev": 0.66,
+        "delta": 0.22,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Justin Herbert",
+        "team": "LAC",
+        "position": "QB",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 0.79,
+        "delta": 0.21,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
         "player": "Hunter Luepke",
         "team": "DAL",
         "position": "FB",
@@ -859,6 +929,16 @@
         "snap_pct_prev": null,
         "delta": null,
         "sample_games": 1,
+        "as_of_week": 10
+      },
+      {
+        "player": "Derius Davis",
+        "team": "LAC",
+        "position": "WR",
+        "snap_pct": 0.26,
+        "snap_pct_prev": 0.07,
+        "delta": 0.19,
+        "sample_games": 9,
         "as_of_week": 10
       },
       {
@@ -932,6 +1012,16 @@
         "as_of_week": 10
       },
       {
+        "player": "David Njoku",
+        "team": "LAC",
+        "position": "TE",
+        "snap_pct": 0.33,
+        "snap_pct_prev": 0.16,
+        "delta": 0.17,
+        "sample_games": 3,
+        "as_of_week": 10
+      },
+      {
         "player": "John Bates",
         "team": "WAS",
         "position": "TE",
@@ -992,6 +1082,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Ronnie Stanley",
+        "team": "BAL",
+        "position": "T",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 0.84,
+        "delta": 0.16,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
         "player": "Blake Corum",
         "team": "LAR",
         "position": "RB",
@@ -1029,6 +1129,16 @@
         "snap_pct_prev": 0.25,
         "delta": 0.15,
         "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Tre Harris",
+        "team": "LAC",
+        "position": "WR",
+        "snap_pct": 0.98,
+        "snap_pct_prev": 0.83,
+        "delta": 0.15,
+        "sample_games": 8,
         "as_of_week": 10
       },
       {
@@ -1572,6 +1682,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Scott Matlock",
+        "team": "LAC",
+        "position": "FB",
+        "snap_pct": 0.49,
+        "snap_pct_prev": 0.4,
+        "delta": 0.09,
+        "sample_games": 5,
+        "as_of_week": 10
+      },
+      {
         "player": "Seth McLaughlin",
         "team": "DET",
         "position": "C",
@@ -1722,6 +1842,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Charlie Kolar",
+        "team": "LAC",
+        "position": "TE",
+        "snap_pct": 0.72,
+        "snap_pct_prev": 0.65,
+        "delta": 0.07,
+        "sample_games": 7,
+        "as_of_week": 10
+      },
+      {
         "player": "Hunter Henry",
         "team": "NE",
         "position": "TE",
@@ -1749,6 +1879,16 @@
         "snap_pct_prev": null,
         "delta": null,
         "sample_games": 1,
+        "as_of_week": 10
+      },
+      {
+        "player": "Ja'Kobi Lane",
+        "team": "BAL",
+        "position": "WR",
+        "snap_pct": 0.64,
+        "snap_pct_prev": 0.57,
+        "delta": 0.07,
+        "sample_games": 6,
         "as_of_week": 10
       },
       {
@@ -1862,6 +2002,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Joe Alt",
+        "team": "LAC",
+        "position": "T",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 0.94,
+        "delta": 0.06,
+        "sample_games": 7,
+        "as_of_week": 10
+      },
+      {
         "player": "Jordan Mason",
         "team": "MIN",
         "position": "RB",
@@ -1887,6 +2037,16 @@
         "position": "FB",
         "snap_pct": 0.27,
         "snap_pct_prev": 0.22,
+        "delta": 0.05,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Derrick Henry",
+        "team": "BAL",
+        "position": "RB",
+        "snap_pct": 0.55,
+        "snap_pct_prev": 0.5,
         "delta": 0.05,
         "sample_games": 10,
         "as_of_week": 10
@@ -2059,6 +2219,16 @@
         "snap_pct_prev": 0.02,
         "delta": 0.04,
         "sample_games": 6,
+        "as_of_week": 10
+      },
+      {
+        "player": "Jake Slaughter",
+        "team": "LAC",
+        "position": "OL",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 0.96,
+        "delta": 0.04,
+        "sample_games": 9,
         "as_of_week": 10
       },
       {
@@ -2392,6 +2562,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Mark Andrews",
+        "team": "BAL",
+        "position": "TE",
+        "snap_pct": 0.58,
+        "snap_pct_prev": 0.57,
+        "delta": 0.01,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Pat Freiermuth",
         "team": "PIT",
         "position": "TE",
@@ -2517,6 +2697,16 @@
         "position": "T",
         "snap_pct": 1.0,
         "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Akheem Mesidor",
+        "team": "LAC",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 9,
         "as_of_week": 10
@@ -3282,6 +3472,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Broderick Washington Jr.",
+        "team": "BAL",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 10
+      },
+      {
         "player": "Bryan Anger",
         "team": "DAL",
         "position": "P",
@@ -3422,6 +3622,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Calais Campbell",
+        "team": "BAL",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Caleb Banks",
         "team": "MIN",
         "position": "DL",
@@ -3442,6 +3652,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Caleb Murphy",
+        "team": "LAC",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 6,
+        "as_of_week": 10
+      },
+      {
         "player": "Calen Bullock",
         "team": "HOU",
         "position": "S",
@@ -3449,6 +3669,26 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Cam Hart",
+        "team": "LAC",
+        "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Cam Jurgens",
+        "team": "BAL",
+        "position": "C",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 4,
         "as_of_week": 10
       },
       {
@@ -3477,6 +3717,16 @@
         "position": "QB",
         "snap_pct": 1.0,
         "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Cameron Dicker",
+        "team": "LAC",
+        "position": "K",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 9,
         "as_of_week": 10
@@ -3782,6 +4032,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Chidobe Awuzie",
+        "team": "BAL",
+        "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Chop Robinson",
         "team": "MIA",
         "position": "DE",
@@ -3839,6 +4099,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Chris Moore",
+        "team": "BAL",
+        "position": "WR",
+        "snap_pct": 0.09,
+        "snap_pct_prev": 0.09,
+        "delta": 0.0,
+        "sample_games": 5,
         "as_of_week": 10
       },
       {
@@ -4272,6 +4542,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Daiyan Henley",
+        "team": "LAC",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
         "player": "Dak Prescott",
         "team": "DAL",
         "position": "QB",
@@ -4289,6 +4569,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Dalvin Tomlinson",
+        "team": "LAC",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 7,
         "as_of_week": 10
       },
       {
@@ -4632,6 +4922,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Deane Leonard",
+        "team": "LAC",
+        "position": "DB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 5,
+        "as_of_week": 10
+      },
+      {
         "player": "Deatrich Wise Jr.",
         "team": "WAS",
         "position": "DE",
@@ -4669,6 +4969,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 8,
+        "as_of_week": 10
+      },
+      {
+        "player": "Del'Shawn Phillips",
+        "team": "LAC",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
         "as_of_week": 10
       },
       {
@@ -4719,6 +5029,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Denzel Perryman",
+        "team": "LAC",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": null,
+        "delta": null,
+        "sample_games": 1,
         "as_of_week": 10
       },
       {
@@ -4962,6 +5282,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Donte Jackson",
+        "team": "LAC",
+        "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 6,
+        "as_of_week": 10
+      },
+      {
         "player": "Dorance Armstrong Jr.",
         "team": "WAS",
         "position": "LB",
@@ -5152,6 +5482,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Elijah Molden",
+        "team": "LAC",
+        "position": "DB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 7,
+        "as_of_week": 10
+      },
+      {
         "player": "Elijah Ponder",
         "team": "NE",
         "position": "LB",
@@ -5274,6 +5614,16 @@
       {
         "player": "Ernest Jones",
         "team": "SEA",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Ethan Burke",
+        "team": "BAL",
         "position": "LB",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
@@ -5449,6 +5799,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 8,
+        "as_of_week": 10
+      },
+      {
+        "player": "Genesis Smith",
+        "team": "LAC",
+        "position": "S",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
         "as_of_week": 10
       },
       {
@@ -5749,6 +6109,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 5,
+        "as_of_week": 10
+      },
+      {
+        "player": "JK Scott",
+        "team": "LAC",
+        "position": "P",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
         "as_of_week": 10
       },
       {
@@ -6172,6 +6542,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Jamaree Caldwell",
+        "team": "LAC",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 10
+      },
+      {
         "player": "Jamel Dean",
         "team": "PIT",
         "position": "CB",
@@ -6367,6 +6747,16 @@
         "position": "T",
         "snap_pct": 1.0,
         "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Jay Higgins",
+        "team": "BAL",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 10,
         "as_of_week": 10
@@ -6602,6 +6992,16 @@
         "as_of_week": 10
       },
       {
+        "player": "John Jenkins",
+        "team": "BAL",
+        "position": "NT",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "John Ridgeway",
         "team": "NO",
         "position": "DL",
@@ -6609,6 +7009,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 3,
+        "as_of_week": 10
+      },
+      {
+        "player": "John Simpson",
+        "team": "BAL",
+        "position": "G",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 10,
         "as_of_week": 10
       },
       {
@@ -6822,6 +7232,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Josh Cuevas",
+        "team": "BAL",
+        "position": "TE",
+        "snap_pct": 0.16,
+        "snap_pct_prev": 0.16,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Josh Fryar",
         "team": "ARI",
         "position": "OL",
@@ -6829,6 +7249,16 @@
         "snap_pct_prev": 1.0,
         "delta": 0.0,
         "sample_games": 7,
+        "as_of_week": 10
+      },
+      {
+        "player": "Josh Harris",
+        "team": "LAC",
+        "position": "LS",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
         "as_of_week": 10
       },
       {
@@ -7079,6 +7509,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "K'Von Wallace",
+        "team": "BAL",
+        "position": "S",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 6,
         "as_of_week": 10
       },
       {
@@ -7422,6 +7862,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Keondre Jackson",
+        "team": "BAL",
+        "position": "S",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Kevin Byard",
         "team": "NE",
         "position": "S",
@@ -7472,6 +7922,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Keyon Martin",
+        "team": "BAL",
+        "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Khalid Kareem",
         "team": "SF",
         "position": "DL",
@@ -7485,6 +7945,16 @@
         "player": "Khalil Dorsey",
         "team": "DET",
         "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Khalil Mack",
+        "team": "LAC",
+        "position": "LB",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
         "delta": 0.0,
@@ -7605,6 +8075,16 @@
         "player": "Kwity Paye",
         "team": "LV",
         "position": "DE",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Kyle Hamilton",
+        "team": "BAL",
+        "position": "S",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
         "delta": 0.0,
@@ -7772,6 +8252,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Logan Taylor",
+        "team": "LAC",
+        "position": "G",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 7,
+        "as_of_week": 10
+      },
+      {
         "player": "Lorenzo Styles Jr.",
         "team": "NO",
         "position": "DB",
@@ -7855,6 +8345,16 @@
         "player": "Malachi Moore",
         "team": "NYJ",
         "position": "DB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Malaki Starks",
+        "team": "BAL",
+        "position": "S",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
         "delta": 0.0,
@@ -7999,6 +8499,26 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Marlon Humphrey",
+        "team": "BAL",
+        "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Marlowe Wax",
+        "team": "LAC",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
         "as_of_week": 10
       },
       {
@@ -8262,6 +8782,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Mike Green",
+        "team": "BAL",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Mike Hughes",
         "team": "ATL",
         "position": "CB",
@@ -8372,6 +8902,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Myles Adams",
+        "team": "LAC",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": null,
+        "delta": null,
+        "sample_games": 1,
+        "as_of_week": 10
+      },
+      {
         "player": "Myles Garrett",
         "team": "LAR",
         "position": "LB",
@@ -8442,6 +8982,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Nate Wiggins",
+        "team": "BAL",
+        "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
         "player": "Nathan Landman",
         "team": "LAR",
         "position": "LB",
@@ -8499,6 +9049,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 8,
+        "as_of_week": 10
+      },
+      {
+        "player": "Nick Barrett",
+        "team": "LAC",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
         "as_of_week": 10
       },
       {
@@ -8562,6 +9122,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Nick Moore",
+        "team": "BAL",
+        "position": "LS",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Nick Niemann",
         "team": "GB",
         "position": "LB",
@@ -8599,6 +9169,16 @@
         "snap_pct_prev": null,
         "delta": null,
         "sample_games": 1,
+        "as_of_week": 10
+      },
+      {
+        "player": "Nnamdi Madubuike",
+        "team": "BAL",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 10
       },
       {
@@ -8892,9 +9472,29 @@
         "as_of_week": 10
       },
       {
+        "player": "R.J. Mickens",
+        "team": "LAC",
+        "position": "S",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 10
+      },
+      {
         "player": "Rashan Gary",
         "team": "DAL",
         "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Rasheen Ali",
+        "team": "BAL",
+        "position": "RB",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
         "delta": 0.0,
@@ -8982,6 +9582,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Riley Patterson",
+        "team": "BAL",
+        "position": "K",
+        "snap_pct": 0.0,
+        "snap_pct_prev": null,
+        "delta": null,
+        "sample_games": 1,
+        "as_of_week": 10
+      },
+      {
         "player": "Robert Hunt",
         "team": "CAR",
         "position": "G",
@@ -9032,6 +9642,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Rodney Shelley",
+        "team": "LAC",
+        "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 6,
+        "as_of_week": 10
+      },
+      {
         "player": "Rodney Thomas II",
         "team": "SEA",
         "position": "S",
@@ -9052,6 +9672,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Roger Rosengarten",
+        "team": "BAL",
+        "position": "T",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Romello Height",
         "team": "SF",
         "position": "DL",
@@ -9059,6 +9689,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 8,
+        "as_of_week": 10
+      },
+      {
+        "player": "Roquan Smith",
+        "team": "BAL",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
         "as_of_week": 10
       },
       {
@@ -9099,6 +9739,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 5,
+        "as_of_week": 10
+      },
+      {
+        "player": "Ryan Eckley",
+        "team": "BAL",
+        "position": "P",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
         "as_of_week": 10
       },
       {
@@ -9412,6 +10062,16 @@
         "as_of_week": 10
       },
       {
+        "player": "T.J. Tampa",
+        "team": "BAL",
+        "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 4,
+        "as_of_week": 10
+      },
+      {
         "player": "T.J. Watt",
         "team": "PIT",
         "position": "LB",
@@ -9462,6 +10122,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Tarheeb Still",
+        "team": "LAC",
+        "position": "CB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
         "player": "Taron Johnson",
         "team": "LV",
         "position": "CB",
@@ -9469,6 +10139,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Teair Tart",
+        "team": "LAC",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
         "as_of_week": 10
       },
       {
@@ -9489,6 +10169,16 @@
         "snap_pct_prev": 0.0,
         "delta": 0.0,
         "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Teddye Buchanan",
+        "team": "BAL",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
         "as_of_week": 10
       },
       {
@@ -9662,6 +10352,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Tony Jefferson",
+        "team": "LAC",
+        "position": "S",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
         "player": "Toriano Pride",
         "team": "CLE",
         "position": "CB",
@@ -9682,6 +10382,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Travis Burke",
+        "team": "LAC",
+        "position": "T",
+        "snap_pct": 1.0,
+        "snap_pct_prev": 1.0,
+        "delta": 0.0,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
         "player": "Travis Glover",
         "team": "GB",
         "position": "G",
@@ -9689,6 +10399,16 @@
         "snap_pct_prev": 1.0,
         "delta": 0.0,
         "sample_games": 3,
+        "as_of_week": 10
+      },
+      {
+        "player": "Travis Jones",
+        "team": "BAL",
+        "position": "DL",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
         "as_of_week": 10
       },
       {
@@ -9745,6 +10465,16 @@
         "player": "Trent Sieg",
         "team": "DAL",
         "position": "LS",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "Trenton Simpson",
+        "team": "BAL",
+        "position": "LB",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
         "delta": 0.0,
@@ -9812,6 +10542,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Trey Hendrickson",
+        "team": "BAL",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 8,
+        "as_of_week": 10
+      },
+      {
         "player": "Trey McBride",
         "team": "ARI",
         "position": "TE",
@@ -9835,6 +10575,16 @@
         "player": "Treydan Stukes",
         "team": "LV",
         "position": "S",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Troy Dye",
+        "team": "LAC",
+        "position": "LB",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
         "delta": 0.0,
@@ -9875,6 +10625,16 @@
         "player": "Tucker Addington",
         "team": "MIA",
         "position": "LS",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Tuli Tuipulotu",
+        "team": "LAC",
+        "position": "LB",
         "snap_pct": 0.0,
         "snap_pct_prev": 0.0,
         "delta": 0.0,
@@ -10432,6 +11192,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Zion Young",
+        "team": "BAL",
+        "position": "LB",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.0,
+        "delta": 0.0,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Blake Fisher",
         "team": "HOU",
         "position": "T",
@@ -10689,6 +11459,16 @@
         "snap_pct_prev": 0.08,
         "delta": -0.02,
         "sample_games": 3,
+        "as_of_week": 10
+      },
+      {
+        "player": "Keaton Mitchell",
+        "team": "LAC",
+        "position": "RB",
+        "snap_pct": 0.23,
+        "snap_pct_prev": 0.25,
+        "delta": -0.02,
+        "sample_games": 9,
         "as_of_week": 10
       },
       {
@@ -10962,6 +11742,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Justice Hill",
+        "team": "BAL",
+        "position": "RB",
+        "snap_pct": 0.48,
+        "snap_pct_prev": 0.52,
+        "delta": -0.04,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Rachaad White",
         "team": "WAS",
         "position": "RB",
@@ -11109,6 +11899,16 @@
         "snap_pct_prev": 0.55,
         "delta": -0.06,
         "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Quentin Johnston",
+        "team": "LAC",
+        "position": "WR",
+        "snap_pct": 0.77,
+        "snap_pct_prev": 0.83,
+        "delta": -0.06,
+        "sample_games": 8,
         "as_of_week": 10
       },
       {
@@ -11492,6 +12292,16 @@
         "as_of_week": 10
       },
       {
+        "player": "LaJohntay Wester",
+        "team": "BAL",
+        "position": "WR",
+        "snap_pct": 0.01,
+        "snap_pct_prev": 0.11,
+        "delta": -0.1,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Mitchell Tinsley",
         "team": "CIN",
         "position": "WR",
@@ -11652,6 +12462,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Nick Vannett",
+        "team": "BAL",
+        "position": "TE",
+        "snap_pct": 0.2,
+        "snap_pct_prev": 0.32,
+        "delta": -0.12,
+        "sample_games": 6,
+        "as_of_week": 10
+      },
+      {
         "player": "Rashee Rice",
         "team": "KC",
         "position": "WR",
@@ -11689,6 +12509,16 @@
         "snap_pct_prev": 0.64,
         "delta": -0.13,
         "sample_games": 5,
+        "as_of_week": 10
+      },
+      {
+        "player": "Kimani Vidal",
+        "team": "LAC",
+        "position": "RB",
+        "snap_pct": 0.26,
+        "snap_pct_prev": 0.39,
+        "delta": -0.13,
+        "sample_games": 9,
         "as_of_week": 10
       },
       {
@@ -11952,6 +12782,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Carson Vinson",
+        "team": "BAL",
+        "position": "T",
+        "snap_pct": 0.13,
+        "snap_pct_prev": 0.32,
+        "delta": -0.19,
+        "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
         "player": "Demarcus Robinson",
         "team": "SF",
         "position": "WR",
@@ -11992,6 +12832,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Matthew Hibner",
+        "team": "BAL",
+        "position": "TE",
+        "snap_pct": 0.32,
+        "snap_pct_prev": 0.54,
+        "delta": -0.22,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
         "player": "Bo Melton",
         "team": "GB",
         "position": "WR",
@@ -12007,6 +12857,16 @@
         "position": "TE",
         "snap_pct": 0.22,
         "snap_pct_prev": 0.45,
+        "delta": -0.23,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Devontez Walker",
+        "team": "BAL",
+        "position": "WR",
+        "snap_pct": 0.04,
+        "snap_pct_prev": 0.27,
         "delta": -0.23,
         "sample_games": 9,
         "as_of_week": 10
@@ -12049,6 +12909,16 @@
         "snap_pct_prev": 0.49,
         "delta": -0.24,
         "sample_games": 8,
+        "as_of_week": 10
+      },
+      {
+        "player": "Oronde Gadsden II",
+        "team": "LAC",
+        "position": "TE",
+        "snap_pct": 0.21,
+        "snap_pct_prev": 0.46,
+        "delta": -0.25,
+        "sample_games": 9,
         "as_of_week": 10
       },
       {
@@ -12129,6 +12999,16 @@
         "snap_pct_prev": 0.51,
         "delta": -0.37,
         "sample_games": 7,
+        "as_of_week": 10
+      },
+      {
+        "player": "Theo Wease",
+        "team": "LAC",
+        "position": "WR",
+        "snap_pct": 0.09,
+        "snap_pct_prev": 0.47,
+        "delta": -0.38,
+        "sample_games": 3,
         "as_of_week": 10
       },
       {
@@ -12222,6 +13102,16 @@
         "as_of_week": 10
       },
       {
+        "player": "Olaivavega Ioane",
+        "team": "BAL",
+        "position": "G",
+        "snap_pct": 0.52,
+        "snap_pct_prev": 1.0,
+        "delta": -0.48,
+        "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
         "player": "Tyler Allgeier",
         "team": "ARI",
         "position": "RB",
@@ -12249,6 +13139,16 @@
         "snap_pct_prev": 1.0,
         "delta": -0.52,
         "sample_games": 10,
+        "as_of_week": 10
+      },
+      {
+        "player": "KeAndre Lambert-Smith",
+        "team": "LAC",
+        "position": "WR",
+        "snap_pct": 0.02,
+        "snap_pct_prev": 0.56,
+        "delta": -0.54,
+        "sample_games": 5,
         "as_of_week": 10
       },
       {
@@ -12309,6 +13209,16 @@
         "snap_pct_prev": 0.94,
         "delta": -0.72,
         "sample_games": 9,
+        "as_of_week": 10
+      },
+      {
+        "player": "Kayode Awosika",
+        "team": "LAC",
+        "position": "G",
+        "snap_pct": 0.0,
+        "snap_pct_prev": 0.74,
+        "delta": -0.74,
+        "sample_games": 3,
         "as_of_week": 10
       },
       {
@@ -12441,23 +13351,23 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-17T07:01:21Z",
+      "retrieved_at": "2026-11-17T16:50:46Z",
       "status": "OK",
       "rows": 3168
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-17T07:01:48Z",
+      "retrieved_at": "2026-11-17T16:52:14Z",
       "status": "OK",
-      "rows": 801187
+      "rows": 803510
     },
     {
       "source": "snap_counts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-16T12:02:51Z",
+      "retrieved_at": "2026-11-17T12:01:31Z",
       "status": "OK",
-      "rows": 13913
+      "rows": 14004
     },
     {
       "source": "press_feeds",
