@@ -4,7 +4,7 @@
 > arquitectura descrita aquí, y **ya se ha ejecutado contra los datos reales de
 > nflverse**. El backtest reprodujo en su día el recuento de partidos y el MAE
 > del mercado del proyecto original (3.829 y 9.98); la muestra CRECE cada
-> jornada según se juega 2026, y hoy son **3.965** partidos con Brier **0.2127**
+> jornada según se juega 2026, y hoy son **3.979** partidos con Brier **0.2127**
 > frente al 0.2120 del mercado y MAE **10.02** frente a **9.96**. Las diferencias en el tercer decimal son de
 > implementación, no de método: dos implementaciones independientes sobre los
 > mismos datos aterrizan en el mismo sitio, que es la mejor señal de que ninguna
@@ -26,7 +26,7 @@ gratuitos de GitHub y Vercel — coste total del proyecto: 0.
 
 ## Resultado honesto en una línea
 
-**El modelo iguala a la línea de cierre del mercado.** En 3.965 partidos fuera de
+**El modelo iguala a la línea de cierre del mercado.** En 3.979 partidos fuera de
 muestra obtiene un Brier de **0.2127** frente al **0.2120** de las
 casas de apuestas, y un MAE de margen de **10.02** frente a **9.96**.
 

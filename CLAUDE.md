@@ -10,7 +10,7 @@ dueño del repo). Sin cuentas, sin base de datos, sin backend.
 ## Lo primero que hay que entender
 
 **El modelo iguala a la línea de cierre del mercado; no la bate.** Brier **0.2127**
-frente a **0.2120**, MAE **10.02** frente a **9.96**, en 3.965 partidos fuera de
+frente a **0.2120**, MAE **10.02** frente a **9.96**, en 3.979 partidos fuera de
 muestra.
 
 Esas cifras salen de `validation.overall` del payload —lo que este código midió y
@@ -18,7 +18,7 @@ lo que la web publica—, no de una tabla escrita a mano. Durante meses aquí po
 0.2118 / 0.2113 y 10.00 / 9.97, que son las del **proyecto original** del autor y
 nunca se reconciliaron con esta implementación. La corrección va en la dirección
 incómoda: la distancia real al mercado es algo MAYOR que la publicada —0,0007 de
-Brier en vez de 0,0005; 0,064 de MAE en vez de 0,03—. Si vuelves a ver cuatro
+Brier en vez de 0,0005; 0,063 de MAE en vez de 0,03—. Si vuelves a ver cuatro
 cifras de portada que no cuadran con el payload, **el payload manda**.
 
 Ese resultado es correcto y está bien medido. La línea de cierre de la NFL agrega
