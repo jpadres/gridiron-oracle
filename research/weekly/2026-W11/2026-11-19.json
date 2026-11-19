@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T07:29:33Z",
+  "generated_at": "2026-11-19T17:24:10Z",
   "season": 2026,
   "week": 11,
   "schedule": {
@@ -16,10 +16,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-11-19T07:29:33Z",
+    "research_as_of": "2026-11-19T17:24:10Z",
     "injuries_as_of": "week 11 PARTIAL · 24 of 26 clubs filed",
-    "roster_as_of": "2026-11-19T07:09:12Z",
-    "schedule_as_of": "2026-11-19T07:29:31Z"
+    "roster_as_of": "2026-11-19T16:33:59Z",
+    "schedule_as_of": "2026-11-19T17:15:19Z"
   },
   "injury_report": {
     "status": "PARTIALLY_FILED",
@@ -930,8 +930,8 @@
         "gsis_id": "00-0036195",
         "full_name": "Charlie Heck",
         "position": "T",
-        "report_status": "Questionable",
-        "report_primary_injury": "Not injury related - personal matter",
+        "report_status": null,
+        "report_primary_injury": null,
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -2335,11 +2335,11 @@
       "CIN",
       "WAS"
     ],
-    "with_designation": 16
+    "with_designation": 15
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-11-19T07:12:47Z",
+    "effective_at": "2026-11-19T16:30:49Z",
     "teams": 31,
     "kickers": {
       "ARI": {
@@ -15660,16 +15660,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-19T07:11:21Z",
+      "retrieved_at": "2026-11-19T16:30:35Z",
       "status": "OK",
       "rows": 3421
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-19T07:12:58Z",
+      "retrieved_at": "2026-11-19T16:31:01Z",
       "status": "OK",
-      "rows": 810513
+      "rows": 812852
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -16656,11 +16656,6 @@
         "now": "Out"
       },
       {
-        "key": "IND:Charlie Heck",
-        "was": "None",
-        "now": "Questionable"
-      },
-      {
         "key": "IND:Sauce Gardner",
         "was": "None",
         "now": "Questionable"
@@ -16687,6 +16682,6 @@
       }
     ],
     "removed": [],
-    "unchanged": 41
+    "unchanged": 42
   }
 }
