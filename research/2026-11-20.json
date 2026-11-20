@@ -1,0 +1,1342 @@
+{
+ "date": "2026-11-20",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones",
+    "Anthony Richardson"
+   ],
+   "headline": "‘We’ve Seen Enough,’ ‘Bench Daniel Jones’ — Calls Mount for Colts To ‘Start’ Anthony Richardson Sr. After Loss to Texans on TNF",
+   "summary": "",
+   "published": "2026-11-20T05:22:47Z",
+   "published_at": "2026-11-20T05:22:47Z",
+   "first_seen_at": "2026-11-20T07:41:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘We’ve Seen Enough,’ ‘Bench Daniel Jones’ — Calls Mount for Colts To ‘Start’ Anthony Richardson Sr. After Loss to Texans on TNF",
+     "url": "https://www.profootballnetwork.com/bench-daniel-jones-colts-anthony-richardson-texans-week-11"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "Will Colts bench Daniel Jones? Shane Steichen to 'evaluate everything'",
+   "summary": "After the Colts were throttled by the Texans in Week 11, Shane Steichen was noncommittal about Daniel Jones' status as the team's starting QB.",
+   "published": "2026-11-20T05:10:40Z",
+   "published_at": "2026-11-20T05:10:40Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Will Colts bench Daniel Jones? Shane Steichen to 'evaluate everything'",
+     "url": "https://sports.yahoo.com/articles/colts-bench-daniel-jones-shane-051040006.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones",
+    "Anthony Richardson"
+   ],
+   "headline": "After Thursday's loss, will Colts give Anthony Richardson another real shot?",
+   "summary": "Daniel Jones struggled again. Will Anthony Richardson get another chance? Or has that ship mostly sailed?",
+   "published": "2026-11-20T04:50:47Z",
+   "published_at": "2026-11-20T04:50:47Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "After Thursday's loss, will Colts give Anthony Richardson another real shot?",
+     "url": "https://sports.yahoo.com/nfl/article/after-thursdays-loss-will-colts-give-anthony-richardson-another-real-shot-045047816.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "Kayshon Boutte"
+   ],
+   "headline": "Kayshon Boutte injures hip against Colts",
+   "summary": "Houston Texans WR Kayshon Boutte unable to return against Indianapolis",
+   "published": "2026-11-20T04:31:33Z",
+   "published_at": "2026-11-20T04:31:33Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Kayshon Boutte injures hip against Colts",
+     "url": "https://sports.yahoo.com/articles/kayshon-boutte-injures-hip-against-043133193.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "Colts surrender 26 unanswered points as Daniel Jones benched in blowout road loss to Texans",
+   "summary": "Houston, the problem here is the Indianapolis Colts offense is broken and has not reached the end zone in 17 consecutive drives.",
+   "published": "2026-11-20T04:30:22Z",
+   "published_at": "2026-11-20T04:30:22Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Colts surrender 26 unanswered points as Daniel Jones benched in blowout road loss to Texans",
+     "url": "https://sports.yahoo.com/articles/colts-surrender-26-unanswered-points-043022661.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "C.J. Stroud"
+   ],
+   "headline": "C.J. Stroud, Texans take care of business vs. cratering Colts: TNF winners, losers",
+   "summary": "The Texans did what they needed to do Thursday night against the division-rival Colts. Here are the winners and losers of \"TNF.\"",
+   "published": "2026-11-20T04:23:18Z",
+   "published_at": "2026-11-20T04:23:18Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "C.J. Stroud, Texans take care of business vs. cratering Colts: TNF winners, losers",
+     "url": "https://sports.yahoo.com/articles/c-j-stroud-texans-care-042318694.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "David Montgomery"
+   ],
+   "headline": "NFL Week 11 Recap: Immediate fantasy football takeaways from Colts-Texans",
+   "summary": "Texans running back David Montgomery returning to action with a full workload was among the top fantasy football storylines from Week 11's \"Thursday Night Football\" showdown.",
+   "published": "2026-11-20T04:09:25Z",
+   "published_at": "2026-11-20T04:09:25Z",
+   "first_seen_at": "2026-11-20T07:41:38+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "NFL Week 11 Recap: Immediate fantasy football takeaways from Colts-Texans",
+     "url": "https://www.pff.com/news/nfl-week-11-recap-immediate-fantasy-football-takeaways-from-colts-texans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Buccaneers at Lions: Thursday injury report for Week 11",
+   "summary": "The Tampa Bay Buccaneers received some encouraging news Thursday as they continued preparations for their Week 11 matchup against the Detroit Lions. After missing Wednesday’s practice, quarterback Baker Mayfield (foot/right thumb) returned to the practice field Thursday as a limited participant. It’s a positive development for the veteran quarterback, whose availability for Sunday has been […]",
+   "published": "2026-11-20T03:20:01Z",
+   "published_at": "2026-11-20T03:20:01Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Buccaneers at Lions: Thursday injury report for Week 11",
+     "url": "https://sports.yahoo.com/articles/buccaneers-lions-thursday-injury-report-032001150.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Lions' Aidan Hutchinson says his jumping celebration days are over after torn ACL: 'That's the last time I go airborne'",
+   "summary": "Hutchinson suffered the torn ACL while jumping up to celebrate sacking Patriots QB Drake Maye in Detroit's 35-10 win.",
+   "published": "2026-11-20T02:58:43Z",
+   "published_at": "2026-11-20T02:58:43Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Lions' Aidan Hutchinson says his jumping celebration days are over after torn ACL: 'That's the last time I go airborne'",
+     "url": "https://sports.yahoo.com/nfl/article/lions-aidan-hutchinson-says-his-jumping-celebration-days-are-over-after-torn-acl-thats-the-last-time-i-go-airborne-025843386.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "C.J. Stroud"
+   ],
+   "headline": "Thursday Night Football: C.J. Stroud, Texans lead Colts 17-3 at halftime",
+   "summary": "Stroud threw two touchdown passes in the first half.",
+   "published": "2026-11-20T02:54:53Z",
+   "published_at": "2026-11-20T02:54:53Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Thursday Night Football: C.J. Stroud, Texans lead Colts 17-3 at halftime",
+     "url": "https://sports.yahoo.com/articles/thursday-night-football-c-j-025453046.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "Eagles Injury Report: DeVonta Smith on track to play against Steelers",
+   "summary": "Thursday news and updates.",
+   "published": "2026-11-20T02:51:45Z",
+   "published_at": "2026-11-20T02:51:45Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Eagles Injury Report: DeVonta Smith on track to play against Steelers",
+     "url": "https://sports.yahoo.com/articles/eagles-injury-report-devonta-smith-025145076.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Brock Purdy’s MVP chances could disappear sooner than you think",
+   "summary": "49ers quarterback Brock Purdy has made a strong case for winning the NFL’s Most Valuable Player award. But Purdy’s chances of staying in the conversation hinge on how well he...",
+   "published": "2026-11-20T02:47:42Z",
+   "published_at": "2026-11-20T02:47:42Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Brock Purdy’s MVP chances could disappear sooner than you think",
+     "url": "https://sports.yahoo.com/articles/brock-purdy-mvp-chances-could-024742070.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "C.J. Stroud"
+   ],
+   "headline": "C.J. Stroud's second TD gives Texans 14-3 lead",
+   "summary": "The Texans took advantage of Kamari Lassiter's interception of Daniel Jones, driving 85 yards in 12 plays for their second touchdown.",
+   "published": "2026-11-20T02:17:27Z",
+   "published_at": "2026-11-20T02:17:27Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "C.J. Stroud's second TD gives Texans 14-3 lead",
+     "url": "https://sports.yahoo.com/articles/c-j-strouds-second-td-021727683.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Ja'Marr Chase",
+    "Tee Higgins"
+   ],
+   "headline": "Bengals duo could break NFL record that has stood for 31 years: Ja'Marr Chase and Tee Higgins on historic pace",
+   "summary": "Ja'Marr Chase and Tee Higgins could make NFL history for the red hot Bengals",
+   "published": "2026-11-20T02:07:10Z",
+   "published_at": "2026-11-20T02:07:10Z",
+   "first_seen_at": "2026-11-20T07:41:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Bengals duo could break NFL record that has stood for 31 years: Ja'Marr Chase and Tee Higgins on historic pace",
+     "url": "https://www.cbssports.com/nfl/news/bengals-duo-could-break-nfl-record-jamarr-chase-tee-higgins-historic-pace"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "C.J. Stroud",
+    "Nico Collins"
+   ],
+   "headline": "C.J. Stroud connects with Nico Collins to give Texans 7-3 lead",
+   "summary": "The Texans were outplayed for most of the first quarter, but they have a 7-3 lead.",
+   "published": "2026-11-20T02:02:30Z",
+   "published_at": "2026-11-20T02:02:30Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "C.J. Stroud connects with Nico Collins to give Texans 7-3 lead",
+     "url": "https://sports.yahoo.com/articles/c-j-stroud-connects-nico-020230117.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "DK Metcalf"
+   ],
+   "headline": "‘Surprisingly Genuine Advice’ — NFL Fans React to Antonio Brown’s Message for DK Metcalf Amid Steelers WR’s Drop Issue",
+   "summary": "",
+   "published": "2026-11-20T01:52:20Z",
+   "published_at": "2026-11-20T01:52:20Z",
+   "first_seen_at": "2026-11-20T07:41:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Surprisingly Genuine Advice’ — NFL Fans React to Antonio Brown’s Message for DK Metcalf Amid Steelers WR’s Drop Issue",
+     "url": "https://www.profootballnetwork.com/antonio-browns-message-dk-metcalf"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Jaylen Waddle"
+   ],
+   "headline": "Another full practice for Jaylen Waddle",
+   "summary": "Denver Broncos WR Jaylen Waddle fully participates Thursday",
+   "published": "2026-11-20T01:41:46Z",
+   "published_at": "2026-11-20T01:41:46Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Another full practice for Jaylen Waddle",
+     "url": "https://sports.yahoo.com/articles/another-full-practice-jaylen-waddle-014146226.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "DeVonta Smith logs full practice",
+   "summary": "Philadelphia Eagles WR DeVonta Smith fully participates in Thursday's practice",
+   "published": "2026-11-20T01:17:13Z",
+   "published_at": "2026-11-20T01:17:13Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "DeVonta Smith logs full practice",
+     "url": "https://sports.yahoo.com/articles/devonta-smith-logs-full-practice-011713004.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Kyren Williams"
+   ],
+   "headline": "Kyren Williams hopes GTA VI release distracts other NFL teams",
+   "summary": "The release of Grand Theft Auto could be a distraction, Kyren Williams hopes not for the Rams",
+   "published": "2026-11-20T00:59:00Z",
+   "published_at": "2026-11-20T00:59:00Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Kyren Williams hopes GTA VI release distracts other NFL teams",
+     "url": "https://sports.yahoo.com/articles/kyren-williams-hopes-gta-vi-005900801.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Kyren Williams"
+   ],
+   "headline": "Kyren Williams has message for Rams and other teams about GTA VI",
+   "summary": "Kyren Williams made it clear that he does not want the massive release of Grand Theft Auto VI to be a distraction to the Los Angeles Rams as they prepare for perhaps their biggest game of the year against the Green Bay Packers in Week 12, and go from there. Williams was asked on ESPN […]",
+   "published": "2026-11-20T00:59:00Z",
+   "published_at": "2026-11-20T00:59:00Z",
+   "first_seen_at": "2026-11-20T07:41:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Kyren Williams has message for Rams and other teams about GTA VI",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-news/155416/rams-kyren-williams-gta-vi-espn"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Hard-luck Rams catch break in Puka Nacua suspension",
+   "summary": "It figures that in a season this sideways, the best break the Rams have caught in weeks came from the people who just suspended their best player. Somewhere in the...",
+   "published": "2026-11-20T00:47:05Z",
+   "published_at": "2026-11-20T00:47:05Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Hard-luck Rams catch break in Puka Nacua suspension",
+     "url": "https://sports.yahoo.com/articles/hard-luck-rams-catch-break-004705076.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Ja'Marr Chase"
+   ],
+   "headline": "Quick Hits | Jonathan Allen Returns With An Old Move And A New Team That Could Be His Best Yet; Ja'Marr Chase Stacks Another New Number: Nine",
+   "summary": "Bengals defensive tackle Jonathan Allen brings his “hump,” pass rush move back to where he learned it Monday night (8:20-ESPN, Cincinnati’s Channel 5) in Washington and gave him his fourth sack of the season in Sunday night’s win over the Steelers. It turns out the man who helped inspire him to use it is old Bengal Justin Smith.",
+   "published": "2026-11-20T00:41:15Z",
+   "published_at": "2026-11-20T00:41:15Z",
+   "first_seen_at": "2026-11-20T07:41:40+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Quick Hits | Jonathan Allen Returns With An Old Move And A New Team That Could Be His Best Yet; Ja'Marr Chase Stacks Another New Number: Nine",
+     "url": "https://www.bengals.com/news/quick-hits-jonathan-allen-returns-with-an-old-move-and-a-new-team-that-could-be-his-best-yet-joe-burrow-ja-marr-chase-s-newest-number-is-nine"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "Mike Evans limited in his return to practice",
+   "summary": "49ers wide receiver Mike Evans was a limited participant in his return to practice Thursday.",
+   "published": "2026-11-20T00:34:57Z",
+   "published_at": "2026-11-20T00:34:57Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Mike Evans limited in his return to practice",
+     "url": "https://sports.yahoo.com/articles/mike-evans-limited-return-practice-003457607.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Omarion Hampton"
+   ],
+   "headline": "How Chargers RB Omarion Hampton Hopes to Build on 105-Yard Performance",
+   "summary": "The Chargers second-year running back totaled 105 yards in Week 10, the second-most he's had in a game during his young career",
+   "published": "2026-11-20T00:30:00Z",
+   "published_at": "2026-11-20T00:30:00Z",
+   "first_seen_at": "2026-11-20T07:41:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAC official",
+     "title": "How Chargers RB Omarion Hampton Hopes to Build on 105-Yard Performance",
+     "url": "https://www.chargers.com/news/omarion-hampton-mike-mcdaniel-fantasy-week-11"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TEN",
+   "players": [
+    "Carnell Tate"
+   ],
+   "headline": "Another limited practice for Carnell Tate",
+   "summary": "Titans WR Carnell Tate posts back-to-back limited practices ahead of Week 11 game",
+   "published": "2026-11-20T00:29:01Z",
+   "published_at": "2026-11-20T00:29:01Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Another limited practice for Carnell Tate",
+     "url": "https://sports.yahoo.com/articles/another-limited-practice-carnell-tate-002901810.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Jaxson Dart"
+   ],
+   "headline": "‘Jumping the Gun a Little Bit’ — Analyst Calls Out Giants Fans for Wanting J.J. McCarthy To Be the ‘Franchise Quarterback’ Over Jaxson Dart",
+   "summary": "",
+   "published": "2026-11-20T00:20:56Z",
+   "published_at": "2026-11-20T00:20:56Z",
+   "first_seen_at": "2026-11-20T07:41:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Jumping the Gun a Little Bit’ — Analyst Calls Out Giants Fans for Wanting J.J. McCarthy To Be the ‘Franchise Quarterback’ Over Jaxson Dart",
+     "url": "https://www.profootballnetwork.com/jj-mccarthy-franchise-qb-giants"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Brock Purdy’s embarrassing viral moment resurfaces with Vikings twist",
+   "summary": "Brock Purdy this week was reminded of an embarrassing viral moment from the last time he and the San Francisco 49ers played in Mexico City.",
+   "published": "2026-11-20T00:19:15Z",
+   "published_at": "2026-11-20T00:19:15Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Brock Purdy’s embarrassing viral moment resurfaces with Vikings twist",
+     "url": "https://sports.yahoo.com/articles/brock-purdy-embarrassing-viral-moment-001915862.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Carson Beck"
+   ],
+   "headline": "Cardinals’ Carson Beck pops up on injury report in latest QB setback",
+   "summary": "Cardinals fans may be holding their breath going into the weekend over whether Carson Beck will be able to play on Sunday against the Chiefs.",
+   "published": "2026-11-20T00:17:33Z",
+   "published_at": "2026-11-20T00:17:33Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Cardinals’ Carson Beck pops up on injury report in latest QB setback",
+     "url": "https://sports.yahoo.com/articles/cardinals-carson-beck-pops-injury-001733090.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Alec Pierce"
+   ],
+   "headline": "What Happened to Alec Pierce, and When Will He Return? Latest on Colts WR’s Injury and Why He’s Out for Week 11 vs. Texans on TNF",
+   "summary": "",
+   "published": "2026-11-20T00:00:18Z",
+   "published_at": "2026-11-20T00:00:18Z",
+   "first_seen_at": "2026-11-20T07:41:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "What Happened to Alec Pierce, and When Will He Return? Latest on Colts WR’s Injury and Why He’s Out for Week 11 vs. Texans on TNF",
+     "url": "https://www.profootballnetwork.com/alec-pierce-injury-update-colts-texans-week-11-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Aidan Hutchinson shares thoughts on injury: ‘I always come back stronger’",
+   "summary": "Detroit Lions All-Pro defensive end Aidan Hutchinson took to social media to deliver a message to fans for the first time since tearing his ACL in Week 10 against the New England Patriots in Germany. Hutchinson’s injury occurred moments after a drive-ending sack of QB Drake Maye, as the star edge rusher leaped in celebration […]",
+   "published": "2026-11-19T23:52:07Z",
+   "published_at": "2026-11-19T23:52:07Z",
+   "first_seen_at": "2026-11-20T07:41:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "Aidan Hutchinson shares thoughts on injury: ‘I always come back stronger’",
+     "url": "https://www.prideofdetroit.com/detroit-lions-news/181891/aidan-hutchinson-shares-thoughts-on-injury-i-always-come-back-stronger"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones",
+    "Anthony Richardson"
+   ],
+   "headline": "Texans run over ineffective Colts for easy 26-3 victory, winning first home game this season",
+   "summary": "Indianapolis essentially waved its white flag with eight minutes remaining, replacing Daniel Jones with Anthony Richardson.",
+   "published": "2026-11-19T23:47:11Z",
+   "published_at": "2026-11-19T23:47:11Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Texans run over ineffective Colts for easy 26-3 victory, winning first home game this season",
+     "url": "https://sports.yahoo.com/nfl/live/texans-run-over-ineffective-colts-for-easy-26-3-victory-winning-first-home-game-this-season-041509292.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "David Montgomery",
+    "Daniel Jones"
+   ],
+   "headline": "Colts vs. Texans odds, picks, prediction: NFL Week 11 best bets, player props for Thursday Night Football",
+   "summary": "Why backing the under on a 44-point total and targeting rushing props for David Montgomery and Daniel Jones create the best betting value for this divisional clash",
+   "published": "2026-11-19T23:45:47Z",
+   "published_at": "2026-11-19T23:45:47Z",
+   "first_seen_at": "2026-11-20T07:41:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Colts vs. Texans odds, picks, prediction: NFL Week 11 best bets, player props for Thursday Night Football",
+     "url": "https://www.cbssports.com/betting/news/colts-vs-texans-odds-picks-prediction-nfl-week-11-best-bets-player-props-for-thursday-night-football"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Puka Nacua’s 3-game suspension won’t impact his availability for Seahawks games",
+   "summary": "Marred with injuries, it’s been a frustrating season for the Los Angeles Rams’ wide receiver corps thus far and already without its top two pass catchers — their situation nearly just got worse. Puka Nacua has been suspended three games without pay for violating the league’s personal conduct policy, the NFL announced on Thursday. In […]",
+   "published": "2026-11-19T23:37:55Z",
+   "published_at": "2026-11-19T23:37:55Z",
+   "first_seen_at": "2026-11-20T07:41:48+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Puka Nacua’s 3-game suspension won’t impact his availability for Seahawks games",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/180409/nfl-rams-puka-nacua-3-game-suspension-wont-impact-availability-seahawks-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "NFL puts product over principles with Puka Nacua suspension | Opinion",
+   "summary": "The Los Angeles Rams' star wide receiver is taking a $950K hit for a 2025 biting incident, but won't miss time with a suspension overlapping his IR stint.",
+   "published": "2026-11-19T23:37:51Z",
+   "published_at": "2026-11-19T23:37:51Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "NFL puts product over principles with Puka Nacua suspension | Opinion",
+     "url": "https://sports.yahoo.com/articles/nfl-puts-product-over-principles-233751458.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Christian McCaffrey",
+    "Mike Evans"
+   ],
+   "headline": "Mike Evans returns; Jordan James was added to the injury report",
+   "summary": "The San Francisco 49ers injury report is out for Thursday. There were several changes from Wednesday. Christian McCaffrey and Trent Williams practiced in full after a veteran’s day off. Cornerback Renardo Green also practiced in full after being limited with a back injury. That’s a good sign, especially less than a week after Green couldn’t […]",
+   "published": "2026-11-19T23:37:02Z",
+   "published_at": "2026-11-19T23:37:02Z",
+   "first_seen_at": "2026-11-20T07:41:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Mike Evans returns; Jordan James was added to the injury report",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/166005/mike-evans-returns-jordan-james-was-added-to-the-injury-report"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott addresses Cowboys' defensive changes, focused on Week 11 vs. Titans",
+   "summary": "Cowboys QB Dak Prescott addressed Dallas' defensive changes this week, and emphasized the importance of keeping the focus on winning Sunday against the Titans instead of looking too far ahead.",
+   "published": "2026-11-19T22:49:08Z",
+   "published_at": "2026-11-19T22:49:08Z",
+   "first_seen_at": "2026-11-20T07:41:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Dak Prescott addresses Cowboys' defensive changes, focused on Week 11 vs. Titans",
+     "url": "https://www.dallascowboys.com/news/dak-prescott-addresses-cowboys-defensive-changes-focused-on-week-11-vs-titans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Lamar Jackson"
+   ],
+   "headline": "News & Notes: Declan Doyle Discusses Being 'Beat Up Physically' in Run Game",
+   "summary": "Ravens’ run defense made Defensive Coordinator Anthony Weaver ‘sick.’ Quarterbacks Coach Isreal Woolfork says Lamar Jackson remains upbeat after surgery.",
+   "published": "2026-11-19T22:07:52Z",
+   "published_at": "2026-11-19T22:07:52Z",
+   "first_seen_at": "2026-11-20T07:41:40+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "News & Notes: Declan Doyle Discusses Being 'Beat Up Physically' in Run Game",
+     "url": "https://www.baltimoreravens.com/news/declan-doyle-ravens-beat-up-physically-offensive-line-roger-rosengarten-anthony-weaver-defending-carolina-rushing-chuba-hubbard-isreal-woolfork-lamar-jackson-upbeat"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "Jonathan Taylor"
+   ],
+   "headline": "Texans vs. Colts: Six Keys to Avenging Week 3 on Thursday Night",
+   "summary": "Nelson, Buckner, Downs and Allen are gone, but Jonathan Taylor, Grover Stewart and a rising Adetomiwa Adebawore remain as the Colts visit Reliant Stadium on Thursday night.",
+   "published": "2026-11-19T22:05:04Z",
+   "published_at": "2026-11-19T22:05:04Z",
+   "first_seen_at": "2026-11-20T07:41:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "HOU official",
+     "title": "Texans vs. Colts: Six Keys to Avenging Week 3 on Thursday Night",
+     "url": "https://www.houstontexans.com/news/texans-vs-colts-six-keys-to-avenging-week-3-on-thursday-night"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Xavier Legette"
+   ],
+   "headline": "Xavier Legette eager to get back, and back to whatever role",
+   "summary": "The wide receiver said he was hoping for more action last week, and head coach Dave Canales said they want to see him more.",
+   "published": "2026-11-19T21:55:02Z",
+   "published_at": "2026-11-19T21:55:02Z",
+   "first_seen_at": "2026-11-20T07:41:40+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Xavier Legette eager to get back, and back to whatever role",
+     "url": "https://www.panthers.com/news/xavier-legette-eager-to-get-back-and-back-to-whatever-role"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Baker Mayfield Feels Ready for Sunday, Eager to Get Into Rhythm",
+   "summary": "The Buccaneers won't make a decision on their starting quarterback in Week 11 until at least Friday, but Baker Mayfield is working hard to give himself a shot and he's ready to help the passing attack find some sort of groove in the season's second half",
+   "published": "2026-11-19T21:48:00Z",
+   "published_at": "2026-11-19T21:48:00Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Baker Mayfield Feels Ready for Sunday, Eager to Get Into Rhythm",
+     "url": "https://www.buccaneers.com/news/baker-mayfield-feels-ready-for-sunday-eager-to-get-into-rhythm"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Rams' Puka Nacua suspended three games, will serve ban during injured reserve stint",
+   "summary": "The NFL threatened Nacua with potential \"banishment\" from the league for future violations of the personal conduct policy",
+   "published": "2026-11-19T21:46:34Z",
+   "published_at": "2026-11-19T21:46:34Z",
+   "first_seen_at": "2026-11-20T07:41:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Rams' Puka Nacua suspended three games, will serve ban during injured reserve stint",
+     "url": "https://www.cbssports.com/nfl/news/rams-puka-nacua-suspended-three-games-will-serve-ban-during-injured-reserve-stint"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "‘Doesn’t Hold Him Accountable Whatsoever,’ ‘This Is Some BS’ — Outrage Erupts After NFL Suspends Puka Nacua During Rams Star’s IR Stint",
+   "summary": "",
+   "published": "2026-11-19T21:45:26Z",
+   "published_at": "2026-11-19T21:45:26Z",
+   "first_seen_at": "2026-11-20T07:41:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Doesn’t Hold Him Accountable Whatsoever,’ ‘This Is Some BS’ — Outrage Erupts After NFL Suspends Puka Nacua During Rams Star’s IR Stint",
+     "url": "https://www.profootballnetwork.com/puka-nacua-suspension-injured-reserve-reaction"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Buccaneers-Lions Injury Report Nov.19: Baker Mayfield Upgrades to Limited Participation",
+   "summary": "A look at Wednesday's injury report ahead of the Week 11 matchup",
+   "published": "2026-11-19T21:38:37Z",
+   "published_at": "2026-11-19T21:38:37Z",
+   "first_seen_at": "2026-11-20T07:41:44+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Buccaneers-Lions Injury Report Nov.19: Baker Mayfield Upgrades to Limited Participation",
+     "url": "https://www.buccaneers.com/news/buccaneers-lions-injury-report-nov-19-week-11-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "Lions, Bucs injury report: QB Baker Mayfield returns to practice, feels ‘ready’ to play",
+   "summary": "The Detroit Lions (7-2) and the Tampa Bay Buccaneers (3-6) were back on the practice field Thursday, and with the Lions holding a walkthrough Wednesday, this was our first real look at where Detroit’s players stand with injuries. Note: Any changes from the most recent injury report will be bolded. No practice Earlier in the […]",
+   "published": "2026-11-19T21:27:22Z",
+   "published_at": "2026-11-19T21:27:22Z",
+   "first_seen_at": "2026-11-20T07:41:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "Lions, Bucs injury report: QB Baker Mayfield returns to practice, feels ‘ready’ to play",
+     "url": "https://www.prideofdetroit.com/detroit-lions-injuries/181766/lions-bucs-injury-report-qb-baker-mayfield-returns-to-practice-feels-ready-to-play"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Stefon Diggs"
+   ],
+   "headline": "Commanders vs. Bengals Thursday injury report: Lucas Patrick is back",
+   "summary": "Commanders receiver Stefon Diggs missed Thursday’s practice, but his absence was not injury related. It was part of his veteran rest schedule. So Diggs was out…and that’s it. Everyone else on the active roster started practice prep for Monday night’s game against the Cincinnati Bengals. That includes presumptive starting center Lucas Patrick who has been […]",
+   "published": "2026-11-19T21:16:03Z",
+   "published_at": "2026-11-19T21:16:03Z",
+   "first_seen_at": "2026-11-20T07:41:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders vs. Bengals Thursday injury report: Lucas Patrick is back",
+     "url": "https://www.hogshaven.com/washington-commanders-injuries/455165/commanders-vs-bengals-thursday-injury-report-lucas-patrick-is-back"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "C.J. Stroud"
+   ],
+   "headline": "Texans vs. Colts By the Numbers: Can C.J. Stroud Stay Hot on Thursday Night?",
+   "summary": "It's the fifth Thursday night meeting between the Texans and Colts. Here are the numbers that frame Week 11 at Reliant Stadium.",
+   "published": "2026-11-19T21:14:43Z",
+   "published_at": "2026-11-19T21:14:43Z",
+   "first_seen_at": "2026-11-20T07:41:41+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "HOU official",
+     "title": "Texans vs. Colts By the Numbers: Can C.J. Stroud Stay Hot on Thursday Night?",
+     "url": "https://www.houstontexans.com/news/texans-vs-colts-by-the-numbers-can-c-j-stroud-stay-hot-on-thursday-night"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Isaiah Likely"
+   ],
+   "headline": "Players to watch: Isaiah Likely looks to keep rolling",
+   "summary": "The Giants are faced with a tough challenge this week as they look to improve their record to 6-3-1 when taking on the 7-2 Jaguars at MetLife Stadium.",
+   "published": "2026-11-19T21:07:00Z",
+   "published_at": "2026-11-19T21:07:00Z",
+   "first_seen_at": "2026-11-20T07:41:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYG official",
+     "title": "Players to watch: Isaiah Likely looks to keep rolling",
+     "url": "https://www.giants.com/news/week-11-jacksonville-jaguars-jj-mccarthy-malik-nabers-isaiah-likely-arvell-reese-deonte-banks-greg-newsome-john-harbaugh"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "Jets Injury Report | Week 11 vs. Chargers - Thursday",
+   "summary": "QB Geno Smith (Ankle) Limited Participant for Second Straight Day",
+   "published": "2026-11-19T21:00:00Z",
+   "published_at": "2026-11-19T21:00:00Z",
+   "first_seen_at": "2026-11-20T07:41:43+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Injury Report | Week 11 vs. Chargers - Thursday",
+     "url": "https://www.newyorkjets.com/news/jets-injury-report-week-11-vs-chargers-thursday-11-19-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Puka Nacua suspended 3 games by NFL",
+   "summary": "The NFL has suspended Puka Nacua for three games, starting immediately, after a negotiation between the league and the NFL Players Association that came to a conclusion on Thursday. The Los Angeles Rams’ star receiver is already on injured reserve with a knee injury and will serve his suspension while he is unavailable, so it […]",
+   "published": "2026-11-19T20:46:54Z",
+   "published_at": "2026-11-19T20:46:54Z",
+   "first_seen_at": "2026-11-20T07:41:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Puka Nacua suspended 3 games by NFL",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-news/155543/puka-nacua-suspension-rams-nfl"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Shedeur Sanders"
+   ],
+   "headline": "‘It’s Uncertain’ — Browns Analyst Weighs In on Shedeur Sanders’ Future in Cleveland Amid Deshaun Watson’s Successful Run",
+   "summary": "",
+   "published": "2026-11-19T20:23:57Z",
+   "published_at": "2026-11-19T20:23:57Z",
+   "first_seen_at": "2026-11-20T07:41:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘It’s Uncertain’ — Browns Analyst Weighs In on Shedeur Sanders’ Future in Cleveland Amid Deshaun Watson’s Successful Run",
+     "url": "https://www.profootballnetwork.com/browns-analyst-shedeur-sanders-future-deshaun-watson-success"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "‘I’ve Been Real Disrespectful to This Dude’ — Ex-Ravens DE Admits Misjudging Joe Burrow Yet Places Bengals Star Behind 2 Other QBs",
+   "summary": "",
+   "published": "2026-11-19T20:18:27Z",
+   "published_at": "2026-11-19T20:18:27Z",
+   "first_seen_at": "2026-11-20T07:41:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I’ve Been Real Disrespectful to This Dude’ — Ex-Ravens DE Admits Misjudging Joe Burrow Yet Places Bengals Star Behind 2 Other QBs",
+     "url": "https://www.profootballnetwork.com/disrespectful-ex-ravens-de-joe-burrow"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Sam LaPorta"
+   ],
+   "headline": "6 takeaways from Detroit Lions coordinators prior to Bucs game",
+   "summary": "Detroit Lions coordinators met with the media on Thursday in preparation for their big game against the Tampa Bay Buccaneers this week. Here are six takeaways I had from Drew Petzing, Kelvin Sheppard, and Dave Fipp. Offensive coordinator Drew Petzing Kyle Juszczyk inspired how the Lions use Sam LaPorta Recently, the Lions have utilized a […]",
+   "published": "2026-11-19T19:59:33Z",
+   "published_at": "2026-11-19T19:59:33Z",
+   "first_seen_at": "2026-11-20T07:41:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "6 takeaways from Detroit Lions coordinators prior to Bucs game",
+     "url": "https://www.prideofdetroit.com/detroit-lions-news/181831/6-takeaways-detroit-lions-coordinator-bucs-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Darren Waller"
+   ],
+   "headline": "Week 11 Thursday Injury Report: Tight ends back on the field",
+   "summary": "Tommy Tremble and Darren Waller were back to participating after having Wednesday off with knee issues. Plus the rest of the injury report.",
+   "published": "2026-11-19T19:58:07Z",
+   "published_at": "2026-11-19T19:58:07Z",
+   "first_seen_at": "2026-11-20T07:41:40+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Week 11 Thursday Injury Report: Tight ends back on the field",
+     "url": "https://www.panthers.com/news/week-11-thursday-injury-report-tight-ends-back-on-the-field-darren-waller-tommy-tremble"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Dan Quinn, Jayden Daniels talk Bengals, Bill Croskey-Merritt and more",
+   "summary": "The Commanders got back to work on Thursday after what was essentially a second bye. They had a Thursday night game followed by Monday night’s affair creating an extended break from the football field. The Week 10 victory over the Giants gave players more time off, with them reporting back to work on Tuesday and […]",
+   "published": "2026-11-19T19:36:25Z",
+   "published_at": "2026-11-19T19:36:25Z",
+   "first_seen_at": "2026-11-20T07:41:47+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Dan Quinn, Jayden Daniels talk Bengals, Bill Croskey-Merritt and more",
+     "url": "https://www.hogshaven.com/pressers/456190/dan-quinn-jayden-daniels-bengals-bill-croskey-merritt-sam-hartman"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Brock Purdy has golden opportunity to shake up MVP race vs. Vikings",
+   "summary": "The San Francisco 49ers are facing off against the Minnesota Vikings in an NFC heavyweight battle on Sunday night in Mexico, with the No. 1 seed in the NFC on the line. The 49ers have shown several different versions of themselves this year. We’ve seen dominant offensive performances throughout the year, as well as some […]",
+   "published": "2026-11-19T19:21:04Z",
+   "published_at": "2026-11-19T19:21:04Z",
+   "first_seen_at": "2026-11-20T07:41:49+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Brock Purdy has golden opportunity to shake up MVP race vs. Vikings",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/165989/san-francisco-49ers-news-brock-purdy-golden-opportunity-mvp-race-boost-joe-burrow-vs-minnesota-vikings"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Jonathon Brooks"
+   ],
+   "headline": "Is Jonathon Brooks The Starting Running Back For The Panthers When He Returns? (Week 11 Update)",
+   "summary": "",
+   "published": "2026-11-19T18:48:16Z",
+   "published_at": "2026-11-19T18:48:16Z",
+   "first_seen_at": "2026-11-20T07:41:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Is Jonathon Brooks The Starting Running Back For The Panthers When He Returns? (Week 11 Update)",
+     "url": "https://www.rotoballer.com/is-jonathon-brooks-the-starting-running-back-for-the-panthers-when-he-returns-week-11-update-2/1997240"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jacory Croskey-Merritt"
+   ],
+   "headline": "Is Jacory Croskey-Merritt The Starting Running Back For The Commanders When He Returns? (Week 11 Update)",
+   "summary": "",
+   "published": "2026-11-19T18:47:15Z",
+   "published_at": "2026-11-19T18:47:15Z",
+   "first_seen_at": "2026-11-20T07:41:46+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Is Jacory Croskey-Merritt The Starting Running Back For The Commanders When He Returns? (Week 11 Update)",
+     "url": "https://www.rotoballer.com/is-jacory-croskey-merritt-the-starting-running-back-for-the-commanders-when-he-returns-week-11-update/1997262"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Brock Bowers"
+   ],
+   "headline": "Raiders Mailbag: Questions abound over availability of Brock Bowers against Broncos",
+   "summary": "Raiders.com's Levi Edwards answers questions surrounding the team's offense and health concerns heading into Week 11 matchup against Denver Broncos.",
+   "published": "2026-11-19T18:45:00Z",
+   "published_at": "2026-11-19T18:45:00Z",
+   "first_seen_at": "2026-11-20T07:41:42+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "Raiders Mailbag: Questions abound over availability of Brock Bowers against Broncos",
+     "url": "https://www.raiders.com/news/mailbag/raiders-mailbag-questions-abound-over-availability-of-brock-bowers-against-broncos"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Tetairoa McMillan",
+    "Jalen Coker"
+   ],
+   "headline": "Three takeaways from Panthers' coordinators, including getting WRs on track, and respect for Derrick Henry",
+   "summary": "Jalen Coker and Tetairoa McMillan are seeing more press from defenses, but are still impacting the Panthers' offense. Plus stopping Derrick Henry, and Ryan Fitzgerald's confidence.",
+   "published": "2026-11-19T18:14:45Z",
+   "published_at": "2026-11-19T18:14:45Z",
+   "first_seen_at": "2026-11-20T07:41:40+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Three takeaways from Panthers' coordinators, including getting WRs on track, and respect for Derrick Henry",
+     "url": "https://www.panthers.com/news/three-takeaways-from-panthers-coordinators-including-getting-wrs-on-track-and-respect-for-derrick-henry"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Why the Seattle Seahawks should start Drew Lock over Sam Darnold",
+   "summary": "It’s interesting that the Seattle Seahawks first acquired Drew Lock in the Russell Wilson trade on March 8, 2022. That deal sent Wilson from Seattle to the Denver Broncos, along with a 2022 fourth-round draft pick, in exchange for Lock, tight end Noah Fant, defensive lineman Shelby Harris, 2022 and 2023 first-round picks, 2022 and […]",
+   "published": "2026-11-19T18:00:00Z",
+   "published_at": "2026-11-19T18:00:00Z",
+   "first_seen_at": "2026-11-20T07:41:48+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Why the Seattle Seahawks should start Drew Lock over Sam Darnold",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-analysis/180281/drew-lock-sam-darnold-starting-qb"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 20,
+ "feeds_generated_at": "2026-11-20T07:41:38+00:00"
+}
