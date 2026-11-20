@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T10:04:01Z",
+  "generated_at": "2026-11-20T18:38:30Z",
   "season": 2026,
   "week": 11,
   "schedule": {
@@ -16,10 +16,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-11-20T10:04:01Z",
+    "research_as_of": "2026-11-20T18:38:30Z",
     "injuries_as_of": "week 11",
-    "roster_as_of": "2026-11-20T07:04:08Z",
-    "schedule_as_of": "2026-11-20T09:45:17Z"
+    "roster_as_of": "2026-11-20T16:09:30Z",
+    "schedule_as_of": "2026-11-20T18:35:20Z"
   },
   "injury_report": {
     "status": "PUBLISHED",
@@ -1415,7 +1415,25 @@
         "team": "LAC",
         "gsis_id": "00-0031040",
         "full_name": "Khalil Mack",
-        "position": "DE",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "LAC",
+        "gsis_id": "00-0032146",
+        "full_name": "Bud Dupree",
+        "position": "LB",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "LAC",
+        "gsis_id": "00-0033546",
+        "full_name": "Dalvin Tomlinson",
+        "position": "DT",
         "report_status": null,
         "report_primary_injury": null,
         "practice_status": "Did Not Participate In Practice"
@@ -1436,7 +1454,7 @@
         "position": "T",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "LAC",
@@ -1454,7 +1472,7 @@
         "position": "S",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Did Not Participate In Practice"
       },
       {
         "team": "LAC",
@@ -1490,7 +1508,7 @@
         "position": "CB",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "LAC",
@@ -2680,7 +2698,7 @@
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-11-20T07:01:50Z",
+    "effective_at": "2026-11-20T16:05:07Z",
     "teams": 31,
     "kickers": {
       "ARI": {
@@ -16001,23 +16019,23 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-20T07:01:21Z",
+      "retrieved_at": "2026-11-20T16:04:51Z",
       "status": "OK",
-      "rows": 3459
+      "rows": 3461
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-20T07:02:02Z",
+      "retrieved_at": "2026-11-20T16:05:14Z",
       "status": "OK",
-      "rows": 815194
+      "rows": 817536
     },
     {
       "source": "snap_counts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-17T12:01:31Z",
+      "retrieved_at": "2026-11-20T12:01:47Z",
       "status": "OK",
-      "rows": 14004
+      "rows": 14097
     },
     {
       "source": "press_feeds",
@@ -16105,6 +16123,14 @@
       },
       {
         "key": "DAL:Shavon Revel Jr.",
+        "now": "None"
+      },
+      {
+        "key": "LAC:Bud Dupree",
+        "now": "None"
+      },
+      {
+        "key": "LAC:Dalvin Tomlinson",
         "now": "None"
       },
       {
