@@ -1,0 +1,1345 @@
+{
+ "date": "2026-11-21",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "NFL predictions: New York Jets vs Los Angeles Chargers - Battle of the Bottom Dwellers",
+   "summary": "The Jets face Justin Herbert and the Chargers on Sunday",
+   "published": "2026-11-21T05:19:17Z",
+   "published_at": "2026-11-21T05:19:17Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "NFL predictions: New York Jets vs Los Angeles Chargers - Battle of the Bottom Dwellers",
+     "url": "https://sports.yahoo.com/articles/nfl-predictions-york-jets-vs-051917654.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Game Preview: Winning turnover battle, slowing Fernando Mendoza among keys as Broncos face Raiders in Week 11 matchup",
+   "summary": "“I think they understand one thing: To get where we want to go, there has to be improvement,” Head Coach Sean Payton said Friday.",
+   "published": "2026-11-21T03:43:37Z",
+   "published_at": "2026-11-21T03:43:37Z",
+   "first_seen_at": "2026-11-21T07:38:57+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DEN official",
+     "title": "Game Preview: Winning turnover battle, slowing Fernando Mendoza among keys as Broncos face Raiders in Week 11 matchup",
+     "url": "https://www.denverbroncos.com/news/game-preview-winning-turnover-battle-slowing-fernando-mendoza-among-keys-as-broncos-face-raiders-in-week-11-matchup"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "‘Probably Be the Next QB of the Colts’ — Former NFL Scout Names NFC Franchise’s Backup As Indianapolis’ Daniel Jones Replacement in 2027",
+   "summary": "",
+   "published": "2026-11-21T03:03:10Z",
+   "published_at": "2026-11-21T03:03:10Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Probably Be the Next QB of the Colts’ — Former NFL Scout Names NFC Franchise’s Backup As Indianapolis’ Daniel Jones Replacement in 2027",
+     "url": "https://www.profootballnetwork.com/middlekauff-daniel-jones-mac-jones-49ers-colts-replacement"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "Eagles-Steelers Final Injury Report: DeVonta Smith will play, Dontayvion Wicks OUT",
+   "summary": "Week 11 game status updates.",
+   "published": "2026-11-21T02:36:54Z",
+   "published_at": "2026-11-21T02:36:54Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Eagles-Steelers Final Injury Report: DeVonta Smith will play, Dontayvion Wicks OUT",
+     "url": "https://sports.yahoo.com/articles/eagles-steelers-final-injury-report-023654573.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Shedeur Sanders"
+   ],
+   "headline": "‘Need These,’ ‘Love This Color’ — Fans Show Love for Browns QB Shedeur Sanders’ Newly Released Nike Sneakers",
+   "summary": "",
+   "published": "2026-11-21T02:21:21Z",
+   "published_at": "2026-11-21T02:21:21Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Need These,’ ‘Love This Color’ — Fans Show Love for Browns QB Shedeur Sanders’ Newly Released Nike Sneakers",
+     "url": "https://www.profootballnetwork.com/fans-love-shedeur-sanders-nike-sneakers-browns"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Makai Lemon",
+    "Dallas Goedert"
+   ],
+   "headline": "Roob's bye week stats: It's awful but we do have Makai Lemon and Dallas Goedert",
+   "summary": "The Eagles haven't been this statistically bad through nine games in more than 50 years.",
+   "published": "2026-11-21T02:17:00Z",
+   "published_at": "2026-11-21T02:17:00Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Roob's bye week stats: It's awful but we do have Makai Lemon and Dallas Goedert",
+     "url": "https://sports.yahoo.com/articles/roobs-bye-week-stats-awful-070000905.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones",
+    "Anthony Richardson"
+   ],
+   "headline": "Colts release starting QB Daniel Jones less than a year after extending him",
+   "summary": "Indianapolis will turn to former No. 4 overall pick and one-time future face of the franchise in Anthony Richardson.",
+   "published": "2026-11-21T02:17:00Z",
+   "published_at": "2026-11-21T02:17:00Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Colts release starting QB Daniel Jones less than a year after extending him",
+     "url": "https://sports.yahoo.com/articles/colts-release-starting-qb-daniel-144452618.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "Eagles injury update: Offensive reinforcements return after bye week",
+   "summary": "Both DeVonta Smith and Dontayvion Wicks returned to Eagles practice on Wednesday after the bye week.",
+   "published": "2026-11-21T02:17:00Z",
+   "published_at": "2026-11-21T02:17:00Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Eagles injury update: Offensive reinforcements return after bye week",
+     "url": "https://sports.yahoo.com/articles/eagles-injury-offensive-reinforcements-return-154934840.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Rams WR Puka Nacua gets knee surgery, likely out for season",
+   "summary": "Head coach Sean McVay didn't rule out a return by Nacua during the playoffs, but he wouldn't speculate that far ahead.",
+   "published": "2026-11-21T02:17:00Z",
+   "published_at": "2026-11-21T02:17:00Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Rams WR Puka Nacua gets knee surgery, likely out for season",
+     "url": "https://sports.yahoo.com/articles/rams-wr-puka-nacua-gets-144452406.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "If this is the end, it’s a disappointing one",
+   "summary": "If Puka Nacua has played his final game as a member of the Los Angeles Rams, it’s a disappointing end for fans. Nacua elected to have what seems to be season-ending surgery to repair his knee injury in a contract year. The Rams will likely regret not extending his contract before the year started, as […]",
+   "published": "2026-11-21T02:08:57Z",
+   "published_at": "2026-11-21T02:08:57Z",
+   "first_seen_at": "2026-11-21T07:39:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "If this is the end, it’s a disappointing one",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-news/155637/puka-nacua-injury-contract-rams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Breece Hall"
+   ],
+   "headline": "Braelon Allen making case for more touches in Jets’ crowded backfield",
+   "summary": "Jets RB Braelon Allen has rushed for 638 yards this season, but head coach Aaron Glenn says starter Breece Hall remains the team's top option.",
+   "published": "2026-11-21T01:39:35Z",
+   "published_at": "2026-11-21T01:39:35Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Braelon Allen making case for more touches in Jets’ crowded backfield",
+     "url": "https://sports.yahoo.com/articles/braelon-allen-making-case-more-013935099.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones",
+    "Jonathan Taylor"
+   ],
+   "headline": "Colts waive Daniel Jones: Indy not trading QB or Jonathan Taylor at deadline now a major second-guess",
+   "summary": "Indy has put themselves in a very tough spot after sitting on the fence at the deadline.",
+   "published": "2026-11-21T01:37:50Z",
+   "published_at": "2026-11-21T01:37:50Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Colts waive Daniel Jones: Indy not trading QB or Jonathan Taylor at deadline now a major second-guess",
+     "url": "https://www.cbssports.com/nfl/news/colts-daniel-jones-not-trading-qb-jonathan-taylor-deadline-major-second-guess"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "What is fan confidence after the Puka Nacua injury?",
+   "summary": "Fan confidence in the Rams was looking good, now Puka Nacua is really out",
+   "published": "2026-11-21T00:07:00Z",
+   "published_at": "2026-11-21T00:07:00Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "What is fan confidence after the Puka Nacua injury?",
+     "url": "https://sports.yahoo.com/articles/fan-confidence-puka-nacua-injury-000700417.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Rams Reacts: Puka Nacua’s injury should rattle fan confidence",
+   "summary": "Puka Nacua is expected to be out for the next two months, essentially ending his 2026 season, and the news should be a major blow in confidence among the team and their fanbase. The Rams went into the year as favorites to win the Super Bowl by plenty of betting sites, and talking heads. Heading […]",
+   "published": "2026-11-21T00:07:00Z",
+   "published_at": "2026-11-21T00:07:00Z",
+   "first_seen_at": "2026-11-21T07:39:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Rams Reacts: Puka Nacua’s injury should rattle fan confidence",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-odds/155594/rams-fanduel-puka-nacua-injury-confidence"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Raiders have 7 weeks to build foundation for Fernando Mendoza",
+   "summary": "If the Raiders wanted to ease Fernando Mendoza into his new job, they have a peculiar way of showing it. First came the Seahawks, who turned his starting debut into...",
+   "published": "2026-11-21T00:00:00Z",
+   "published_at": "2026-11-21T00:00:00Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Raiders have 7 weeks to build foundation for Fernando Mendoza",
+     "url": "https://sports.yahoo.com/articles/raiders-7-weeks-build-foundation-000000834.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Fernando Mendoza’s tests not getting any easier. Broncos will show how much rookie learned",
+   "summary": "PLAYBOOK: LAS VEGAS RAIDERS (4-6) AT DENVER BRONCOS (7-2), 1:25 P.M. SUNDAY Fernando Mendoza compared what Mike Macdonald did to him Sunday to playing chess. He left out the part...",
+   "published": "2026-11-21T00:00:00Z",
+   "published_at": "2026-11-21T00:00:00Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Fernando Mendoza’s tests not getting any easier. Broncos will show how much rookie learned",
+     "url": "https://sports.yahoo.com/articles/fernando-mendoza-tests-not-getting-000000917.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Quick Hits | Bengals Hope To Handle Commanders' Blitz; Burrow Loves To Watch T. Dex",
+   "summary": "After Joe Burrow confirmed he felt much better, prefers spicy food when he’s ill, and doesn’t seem to be as sick as when Athens High School lost to Wellston in a long-ago basketball game, on Friday the NFL’s hottest quarterback turned his attention to Monday night’s game (8:15-ESPN, Cincinnati’s Channel 5) in Washington.",
+   "published": "2026-11-20T23:48:40Z",
+   "published_at": "2026-11-20T23:48:40Z",
+   "first_seen_at": "2026-11-21T07:38:57+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Quick Hits | Bengals Hope To Handle Commanders' Blitz; Burrow Loves To Watch T. Dex",
+     "url": "https://www.bengals.com/news/quick-hits-bengals-joe-burrow-hope-to-handle-commanders-blitz-burrow-loves-to-watch-t-dex-dexter-lawrence"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "The Colts cut QB Daniel Jones. Should the Cardinals make a claim?",
+   "summary": "Could Jones become the starter going forward?",
+   "published": "2026-11-20T23:23:34Z",
+   "published_at": "2026-11-20T23:23:34Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "The Colts cut QB Daniel Jones. Should the Cardinals make a claim?",
+     "url": "https://sports.yahoo.com/articles/colts-cut-qb-daniel-jones-232334919.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Las Vegas Raiders-Denver Broncos FEED Topic: Kolton Miller, DJ Glaze vs. Nik Bonitto, Jonathon Cooper",
+   "summary": "Facing one of the NFL’s best edge-rush duos, the Raiders’ OTs will must be on point to protect Fernando Mendoza.",
+   "published": "2026-11-20T23:21:00Z",
+   "published_at": "2026-11-20T23:21:00Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Las Vegas Raiders-Denver Broncos FEED Topic: Kolton Miller, DJ Glaze vs. Nik Bonitto, Jonathon Cooper",
+     "url": "https://sports.yahoo.com/articles/las-vegas-raiders-denver-broncos-232100356.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "Daniel Jones has been released by the Colts. Should the Patriots go after him?",
+   "summary": "Why the Patriots should, and shouldn’t, sign Daniel Jones after his release from the Colts.",
+   "published": "2026-11-20T23:17:27Z",
+   "published_at": "2026-11-20T23:17:27Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Daniel Jones has been released by the Colts. Should the Patriots go after him?",
+     "url": "https://sports.yahoo.com/articles/daniel-jones-released-colts-patriots-231727805.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "Giants shocked to learn Colts cut ex-teammate Daniel Jones",
+   "summary": "John Harbaugh’s eyes nearly popped out of his head upon learning that the Colts cut quarterback Daniel Jones.",
+   "published": "2026-11-20T22:39:22Z",
+   "published_at": "2026-11-20T22:39:22Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Giants shocked to learn Colts cut ex-teammate Daniel Jones",
+     "url": "https://sports.yahoo.com/articles/giants-shocked-learn-colts-cut-223922897.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "DK Metcalf",
+    "Pat Freiermuth"
+   ],
+   "headline": "Pat Freiermuth says Steelers still believe in DK Metcalf",
+   "summary": "Steelers TE Pat Freiermuth says team still believes in DK Metcalf.",
+   "published": "2026-11-20T22:30:00Z",
+   "published_at": "2026-11-20T22:30:00Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Pat Freiermuth says Steelers still believe in DK Metcalf",
+     "url": "https://sports.yahoo.com/articles/pat-freiermuth-says-steelers-still-223000127.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Jared Goff"
+   ],
+   "headline": "NFL Week 11: Matchups to target for betting",
+   "summary": "PFF's NFL betting analysis identifies chances in Steelers-Eagles and Buccaneers-Lions given each teams' tendencies. Philadelphia may throw off Pittsburgh's passing game with its man coverage, while Jared Goff and Detroit are in line to attack Tampa's blitzes.",
+   "published": "2026-11-20T22:17:33Z",
+   "published_at": "2026-11-20T22:17:33Z",
+   "first_seen_at": "2026-11-21T07:38:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "NFL Week 11: Matchups to target for betting",
+     "url": "https://www.pff.com/news/nfl-week-11-matchups-to-target-for-betting"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "MIN",
+   "players": [
+    "Aaron Jones"
+   ],
+   "headline": "Aaron Jones, Sr. & Levi Drake Rodriguez Share Excitement for Vikings 1st Game in Mexico",
+   "summary": "",
+   "published": "2026-11-20T22:05:13Z",
+   "published_at": "2026-11-20T22:05:13Z",
+   "first_seen_at": "2026-11-21T07:38:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "MIN official",
+     "title": "Aaron Jones, Sr. & Levi Drake Rodriguez Share Excitement for Vikings 1st Game in Mexico",
+     "url": "https://www.vikings.com/news/aaron-jones-levi-drake-rodriguez-excitement-first-game-mexico"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford"
+   ],
+   "headline": "Jimmy Garoppolo’s reunion may not be with the Rams",
+   "summary": "If the Los Angeles Rams lost Matthew Stafford for any amount of time this season, would you trust the current backup quarterback options? Would you feel any better if an experienced veteran, like Jimmy Garoppolo, could step in? There’s nothing to indicate Stafford is at any increased risk of an injury or missing snaps for […]",
+   "published": "2026-11-20T22:05:00Z",
+   "published_at": "2026-11-20T22:05:00Z",
+   "first_seen_at": "2026-11-21T07:39:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Jimmy Garoppolo’s reunion may not be with the Rams",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-analysis/155565/jimmy-garoppolo-retirement-rams-patriots"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Jaylen Waddle"
+   ],
+   "headline": "S Talanoa Hufanga, WR Jaylen Waddle, CB Riley Moss set to return Sunday",
+   "summary": "The Broncos' injury report Friday was not about who has a status, but who doesn't.",
+   "published": "2026-11-20T22:03:13Z",
+   "published_at": "2026-11-20T22:03:13Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "S Talanoa Hufanga, WR Jaylen Waddle, CB Riley Moss set to return Sunday",
+     "url": "https://sports.yahoo.com/articles/talanoa-hufanga-wr-jaylen-waddle-220313612.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "Colts officially place Daniel Jones on waivers",
+   "summary": "Daniel Jones is officially on the waiver wire.",
+   "published": "2026-11-20T22:00:57Z",
+   "published_at": "2026-11-20T22:00:57Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Colts officially place Daniel Jones on waivers",
+     "url": "https://sports.yahoo.com/articles/colts-officially-place-daniel-jones-220057172.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Ladd McConkey"
+   ],
+   "headline": "Chargers rule out LB Daiyan Henley, list WR Ladd McConkey as questionable",
+   "summary": "Chargers linebacker Daiyan Henley missed practice this week with knee soreness, and the team has ruled him out for Sunday's game against the Jets.",
+   "published": "2026-11-20T21:48:59Z",
+   "published_at": "2026-11-20T21:48:59Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Chargers rule out LB Daiyan Henley, list WR Ladd McConkey as questionable",
+     "url": "https://sports.yahoo.com/articles/chargers-rule-lb-daiyan-henley-214859444.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "Potential landing spots for Daniel Jones after $50 million Colts disaster",
+   "summary": "The eight-year pro will hit waivers Friday afternoon with the opportunity to sign with any team if he's not claimed by Monday.",
+   "published": "2026-11-20T21:48:54Z",
+   "published_at": "2026-11-20T21:48:54Z",
+   "first_seen_at": "2026-11-21T07:38:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Potential landing spots for Daniel Jones after $50 million Colts disaster",
+     "url": "https://sports.yahoo.com/articles/potential-landing-spots-daniel-jones-214854241.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Brock Bowers"
+   ],
+   "headline": "Raiders-Broncos Week 11 Injury Report: Brock Bowers and Matt Gay questionable, Tonka Hemingway ruled out",
+   "summary": "Take a look at the Raiders' injury report as the team prepares to face the Denver Broncos.",
+   "published": "2026-11-20T21:45:00Z",
+   "published_at": "2026-11-20T21:45:00Z",
+   "first_seen_at": "2026-11-21T07:38:57+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "Raiders-Broncos Week 11 Injury Report: Brock Bowers and Matt Gay questionable, Tonka Hemingway ruled out",
+     "url": "https://www.raiders.com/news/raiders-broncos-week-11-injury-report"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Justin Herbert",
+    "Omar Cooper Jr.",
+    "Geno Smith"
+   ],
+   "headline": "Jets Notebook | QB Geno Smith to Start vs. Chargers",
+   "summary": "WR Omar Cooper Jr. & Isaiah Williams Out for Week 11; Defense Prepares for Another Dual Threat in Justin Herbert",
+   "published": "2026-11-20T21:30:00Z",
+   "published_at": "2026-11-20T21:30:00Z",
+   "first_seen_at": "2026-11-21T07:38:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Notebook | QB Geno Smith to Start vs. Chargers",
+     "url": "https://www.newyorkjets.com/news/jets-notebook-qb-geno-smith-looks-solid-ahead-of-chargers-matchup-11-20-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "Steelers vs. Eagles Injury Report",
+   "summary": "Wide receiver DeVonta Smith is good to go for Sunday's game against the Steelers, but Dontayvion Wicks remains out.",
+   "published": "2026-11-20T21:30:00Z",
+   "published_at": "2026-11-20T21:30:00Z",
+   "first_seen_at": "2026-11-21T07:38:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PHI official",
+     "title": "Steelers vs. Eagles Injury Report",
+     "url": "https://www.philadelphiaeagles.com/news/steelers-vs-eagles-injury-report-2026-nfl-week-11-salute-to-service"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "‘Patriots Should Sign Him,’ ‘Wouldn’t Be the Worst Idea’ — NFL World Foresees Daniel Jones Joining New England After Unexpected Release From Colts",
+   "summary": "",
+   "published": "2026-11-20T21:25:08Z",
+   "published_at": "2026-11-20T21:25:08Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Patriots Should Sign Him,’ ‘Wouldn’t Be the Worst Idea’ — NFL World Foresees Daniel Jones Joining New England After Unexpected Release From Colts",
+     "url": "https://www.profootballnetwork.com/daniel-jones-new-england-patriots-unexpected-colts-release"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "What They're Saying: Klint Kubiak, Fernando Mendoza receive praise from Denver Broncos players and staff",
+   "summary": "Here's what the opposing team had to say about the Silver and Black going into this Week 11 matchup.",
+   "published": "2026-11-20T21:24:24Z",
+   "published_at": "2026-11-20T21:24:24Z",
+   "first_seen_at": "2026-11-21T07:38:57+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "What They're Saying: Klint Kubiak, Fernando Mendoza receive praise from Denver Broncos players and staff",
+     "url": "https://www.raiders.com/news/what-they-re-saying-klint-kubiak-fernando-mendoza-receive-praise-from-denver-broncos-players-and-staff"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "‘Brock Purdy Is Really Carrying the Niners’ — Super Bowl Champion Backs 49ers QB Over Joe Burrow in NFL MVP Race",
+   "summary": "",
+   "published": "2026-11-20T21:20:51Z",
+   "published_at": "2026-11-20T21:20:51Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Brock Purdy Is Really Carrying the Niners’ — Super Bowl Champion Backs 49ers QB Over Joe Burrow in NFL MVP Race",
+     "url": "https://www.profootballnetwork.com/lesean-mccoy-brock-purdy-joe-burrow-mvp"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Isaiah Likely"
+   ],
+   "headline": "No NY Giants on final injury report for Week 11 Jacksonville game",
+   "summary": "The New York Giants do not have a single player with an injury designation for Sunday’s key Week 11 game against the Jacksonville Jaguars. The Giants’ final injury report looks like this: Out: NoneDoubtful: NoneQuestionable: None Tight end Isaiah Likely missed practice with a groin injury. Head coach John Harbaugh called it a “minor thing” […]",
+   "published": "2026-11-20T21:19:04Z",
+   "published_at": "2026-11-20T21:19:04Z",
+   "first_seen_at": "2026-11-21T07:39:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "No NY Giants on final injury report for Week 11 Jacksonville game",
+     "url": "https://www.bigblueview.com/new-york-giants-injuries/180669/no-ny-giants-on-final-injury-report-for-week-11-jacksonville-game"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Trey McBride"
+   ],
+   "headline": "Needing More Trey McBride, Hello Josh Johnson, And Friday Before The Chiefs",
+   "summary": "",
+   "published": "2026-11-20T21:10:14Z",
+   "published_at": "2026-11-20T21:10:14Z",
+   "first_seen_at": "2026-11-21T07:38:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "Needing More Trey McBride, Hello Josh Johnson, And Friday Before The Chiefs",
+     "url": "https://www.azcardinals.com/news/needing-more-trey-mcbride-hello-josh-johnson-and-friday-before-the-chiefs"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Kyle Monangai"
+   ],
+   "headline": "Jeffery Simmons, Kyle Monangai good to go against Saints | Injury Update",
+   "summary": "Bears defensive tackle Jeffery Simmons and running back Kyle Monangai were full participants in Friday’s practice and have no injury designations for Sunday’s home game against the Saints, meaning both are expected to play.",
+   "published": "2026-11-20T20:48:54Z",
+   "published_at": "2026-11-20T20:48:54Z",
+   "first_seen_at": "2026-11-21T07:38:57+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "Jeffery Simmons, Kyle Monangai good to go against Saints | Injury Update",
+     "url": "https://www.chicagobears.com/news/jeffery-simmons-kyle-monangai-good-to-go-against-saints-injury-update"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Tony Pollard"
+   ],
+   "headline": "Gut Feeling: Staff predictions for Cowboys-Titans",
+   "summary": "This week features a homecoming for Tony Pollard against a defense in Dallas that just made a drastic change before facing him. The DallasCowboys.com staff makes their picks in this week's Gut Feeling.",
+   "published": "2026-11-20T20:44:16Z",
+   "published_at": "2026-11-20T20:44:16Z",
+   "first_seen_at": "2026-11-21T07:38:57+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Gut Feeling: Staff predictions for Cowboys-Titans",
+     "url": "https://www.dallascowboys.com/news/gut-feeling-staff-predictions-for-cowboys-titans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "Daniel Jones released by Colts: Why QB's contract almost ensures he'll clear waivers, be free agent",
+   "summary": "Indianapolis waived Jones after the club's 26-3 loss to the Texans on Thursday night",
+   "published": "2026-11-20T20:40:41Z",
+   "published_at": "2026-11-20T20:40:41Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Daniel Jones released by Colts: Why QB's contract almost ensures he'll clear waivers, be free agent",
+     "url": "https://www.cbssports.com/nfl/news/daniel-jones-release-colts-why-qbs-contract-ensures-clear-waivers-free-agent"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Geno Smith"
+   ],
+   "headline": "Jets Injury Report | Week 11 vs. Chargers - Friday",
+   "summary": "QB Geno Smith (Ankle) a Full Participant; OL Dylan Parham (Knee) & Edge Joseph Ossai (Foot/Ankle) Questionable for Sunday",
+   "published": "2026-11-20T20:40:00Z",
+   "published_at": "2026-11-20T20:40:00Z",
+   "first_seen_at": "2026-11-21T07:38:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets Injury Report | Week 11 vs. Chargers - Friday",
+     "url": "https://www.newyorkjets.com/news/jets-injury-report-week-11-vs-chargers-friday-11-20-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks restructure Sam Darnold, Julian Love, and Ernest Jones contracts",
+   "summary": "The Seattle Seahawks may have the week off, but they have been busy working the financial books to free up some salary cap space in recent days. OverTheCap, which reviews all NFL contracts, revealed on Friday that the Seahawks restructured three star players, all of whom are impending free agents at the end of the […]",
+   "published": "2026-11-20T20:35:54Z",
+   "published_at": "2026-11-20T20:35:54Z",
+   "first_seen_at": "2026-11-21T07:39:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks restructure Sam Darnold, Julian Love, and Ernest Jones contracts",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-nfl-salary-cap/180459/seahawks-restructure-sam-darnold-julian-love-ernest-jones-contracts-salary-cap"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Derrick Henry"
+   ],
+   "headline": "NFL Week 11: Anytime touchdown bets",
+   "summary": "Ravens running back Derrick Henry is among the NFL players with a strong chance of scoring a touchdown in Week 11.",
+   "published": "2026-11-20T20:32:39Z",
+   "published_at": "2026-11-20T20:32:39Z",
+   "first_seen_at": "2026-11-21T07:38:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "NFL Week 11: Anytime touchdown bets",
+     "url": "https://www.pff.com/news/nfl-week-11-anytime-touchdown-bets"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers final injury report: Mike Evans is ‘going in the right direction’",
+   "summary": "San Francisco 49ers head coach Kyle Shanahan spoke about the final injury report on Friday. The team did not rule out any of the 53-man roster. There are nine players with questionable designations: WR Mike Evans (Achilles)LB Dre Greenlaw (neck)CB Upton Stout (shoulder)RB Jordan James (calf)DT CJ West (knee)CB Nate Hobbs (adductor)DE Khalid Kareem (ankle)QB […]",
+   "published": "2026-11-20T20:26:42Z",
+   "published_at": "2026-11-20T20:26:42Z",
+   "first_seen_at": "2026-11-21T07:39:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers final injury report: Mike Evans is ‘going in the right direction’",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/166044/49ers-final-injury-report-mike-evans-is-officially-questionable"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "Drake Maye"
+   ],
+   "headline": "Drake Maye out indefinitely with fibula: Big picture questions now facing Patriots offseason, beyond",
+   "summary": "The lens of how the Patriots view the rest of 2026 and beyond has now changed",
+   "published": "2026-11-20T20:18:00Z",
+   "published_at": "2026-11-20T20:18:00Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Drake Maye out indefinitely with fibula: Big picture questions now facing Patriots offseason, beyond",
+     "url": "https://www.cbssports.com/nfl/news/drake-maye-suffers-fibula-injury-big-picture-questions-now-facing-patriots-offseason-beyond"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "‘The Biggest Thief in NFL History,’ ‘He Outdid (Kirk) Cousins’ — Fans React to Daniel Jones Collecting Nearly $50M From Colts Before His Release",
+   "summary": "",
+   "published": "2026-11-20T20:09:07Z",
+   "published_at": "2026-11-20T20:09:07Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘The Biggest Thief in NFL History,’ ‘He Outdid (Kirk) Cousins’ — Fans React to Daniel Jones Collecting Nearly $50M From Colts Before His Release",
+     "url": "https://www.profootballnetwork.com/outdid-kirk-cousins-fans-react-daniel-jones-colts-release"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Tony Pollard"
+   ],
+   "headline": "Cowboys-Titans: How to Watch, Listen, Stream in Week 11",
+   "summary": "The Week 11 matchup between the Dallas Cowboys and Tennessee Titans is headlined by not only the defensive change that involves Christian Parker and Mike Pettine, but also the question of if it’s enough to sour the homecoming of Tony Pollard.",
+   "published": "2026-11-20T19:57:00Z",
+   "published_at": "2026-11-20T19:57:00Z",
+   "first_seen_at": "2026-11-21T07:38:57+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Cowboys-Titans: How to Watch, Listen, Stream in Week 11",
+     "url": "https://www.dallascowboys.com/news/cowboys-titans-how-to-watch-listen-stream-in-week-11"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones",
+    "Anthony Richardson"
+   ],
+   "headline": "Indianapolis Colts waive QB Daniel Jones after less than two seasons amid nightmare 2026",
+   "summary": "On Friday, the Colts released Daniel Jones just eight months after signing him to a two-year, $88 million extension. PFF metrics explain the context behind Jones' major struggles in 2026 as well as what we know about new Indianapolis starter Anthony Richardson.",
+   "published": "2026-11-20T19:55:42Z",
+   "published_at": "2026-11-20T19:55:42Z",
+   "first_seen_at": "2026-11-21T07:38:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Indianapolis Colts waive QB Daniel Jones after less than two seasons amid nightmare 2026",
+     "url": "https://www.pff.com/news/indianapolis-colts-release-qb-daniel-jones-after-less-than-two-seasons-amid-nightmare-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "Colts release Daniel Jones: Landing spots for QB include Patriots, Ravens, Eagles",
+   "summary": "Jones just completed his sixth straight game with an interception, the longest streak by a Colts player since Curtis Painter in 2011",
+   "published": "2026-11-20T19:48:53Z",
+   "published_at": "2026-11-20T19:48:53Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Colts release Daniel Jones: Landing spots for QB include Patriots, Ravens, Eagles",
+     "url": "https://www.cbssports.com/nfl/news/colts-release-qb-daniel-jones-possible-landing-spots"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Did Puka Nacua shut himself down to get a new contract?",
+   "summary": "If the Los Angeles Rams had extended Puka Nacua during the offseason instead of waiting out a long-term commitment, it’s possible that their best offensive weapon wouldn’t have made the decision to get potential season-ending knee surgery this week. That’s one way to interpret Sean McVay’s comments announcing the news — “Puka Nacua decided to […]",
+   "published": "2026-11-20T19:43:30Z",
+   "published_at": "2026-11-20T19:43:30Z",
+   "first_seen_at": "2026-11-21T07:39:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Did Puka Nacua shut himself down to get a new contract?",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-injuries/155602/puka-nacua-injury-contract-rams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NE",
+   "players": [
+    "A.J. Brown"
+   ],
+   "headline": "Patriots WR A.J. Brown expected to miss multiple weeks due to hamstring injury, per report",
+   "summary": "Brown has already missed multiple games this season and is now expected to miss at least the next few contests",
+   "published": "2026-11-20T19:38:23Z",
+   "published_at": "2026-11-20T19:38:23Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Patriots WR A.J. Brown expected to miss multiple weeks due to hamstring injury, per report",
+     "url": "https://www.cbssports.com/nfl/news/patriots-wr-aj-brown-hamstring-injury-update"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones",
+    "Anthony Richardson"
+   ],
+   "headline": "Shane Steichen explains Colts' decision to start Anthony Richardson Sr., waive Daniel Jones",
+   "summary": "Colts head coach Shane Steichen answered questions on Friday about the move from Daniel Jones to Anthony Richardson Sr.",
+   "published": "2026-11-20T19:14:49Z",
+   "published_at": "2026-11-20T19:14:49Z",
+   "first_seen_at": "2026-11-21T07:38:57+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "IND official",
+     "title": "Shane Steichen explains Colts' decision to start Anthony Richardson Sr., waive Daniel Jones",
+     "url": "https://www.colts.com/news/shane-steichen-explains-colts-decision-to-start-anthony-richardson-sr-waive-daniel-jones"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "‘Absolute Mess of an Organization,’ ‘Unserious Franchise’ — NFL World Rips Colts for Releasing Daniel Jones After Rejecting Trade Inquiries",
+   "summary": "",
+   "published": "2026-11-20T19:00:33Z",
+   "published_at": "2026-11-20T19:00:33Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Absolute Mess of an Organization,’ ‘Unserious Franchise’ — NFL World Rips Colts for Releasing Daniel Jones After Rejecting Trade Inquiries",
+     "url": "https://www.profootballnetwork.com/colts-release-daniel-jones-reaction"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Carson Beck"
+   ],
+   "headline": "Carson Beck back spasms could force Cardinals to start fourth quarterback in five weeks",
+   "summary": "Carson Beck did not practice Friday due to a back injury",
+   "published": "2026-11-20T18:44:46Z",
+   "published_at": "2026-11-20T18:44:46Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Carson Beck back spasms could force Cardinals to start fourth quarterback in five weeks",
+     "url": "https://www.cbssports.com/nfl/news/carson-beck-back-spasms-could-force-cardinals-to-start-fourth-quarterback-in-five-weeks"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua",
+    "Davante Adams"
+   ],
+   "headline": "Injury Updates: Puka Nacua out for 'couple months' as he will undergo MCL surgery; Kobie Turner expected to return to practice; latest on Terrance Ferguson, Davante Adams and Justin Dedich",
+   "summary": "Rams head coach Sean McVay provides injury updates on wide receiver Puka Nacua (MCL), defensive end Kobie Turner (groin), tight end Terrance Ferguson (ankle/hamstring), wide receiver Davante Adams (hamstring) and offensive lineman Justin Dedich (hand) for Week 12 against Packers.",
+   "published": "2026-11-20T18:39:49Z",
+   "published_at": "2026-11-20T18:39:49Z",
+   "first_seen_at": "2026-11-21T07:38:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Injury Updates: Puka Nacua out for 'couple months' as he will undergo MCL surgery; Kobie Turner expected to return to practice; latest on Terrance Ferguson, Davante Adams and Justin Dedich",
+     "url": "https://www.therams.com/news/injury-updates-puka-nacua-out-for-couple-months-as-he-will-undergo-mcl-surgery-kobie-turner-expected-to-return-to-practice-latest-on-terrance-ferguson-davante-adams-and-justin-dedich"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones"
+   ],
+   "headline": "Indianapolis Colts release QB Daniel Jones",
+   "summary": "Mike Garafolo of the NFL Network is reporting that the Indianapolis Colts released quarterback Daniel Jones on Friday. Jones has played very poorly since returning from the torn Achilles that ended his 2025 season, prompting the release As pretty much everyone will remember, the New York Giants drafted Jones out of Duke with the sixth […]",
+   "published": "2026-11-20T18:30:42Z",
+   "published_at": "2026-11-20T18:30:42Z",
+   "first_seen_at": "2026-11-21T07:39:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "Indianapolis Colts release QB Daniel Jones",
+     "url": "https://www.bigblueview.com/new-york-giants-discussion/180648/indianapolis-colts-release-qb-daniel-jones"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "C.J. Stroud"
+   ],
+   "headline": "'Will Is a Dog': Why Will Anderson Jr. Sets the Tone for the Texans Defense",
+   "summary": "DeMeco Ryans called Will Anderson Jr. one of the best players he has been around. C.J. Stroud called him a dog. Even the Colts' head coach called him a problem after the Texans defense kept Indianapolis out of the end zone.",
+   "published": "2026-11-20T18:29:09Z",
+   "published_at": "2026-11-20T18:29:09Z",
+   "first_seen_at": "2026-11-21T07:38:57+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "HOU official",
+     "title": "'Will Is a Dog': Why Will Anderson Jr. Sets the Tone for the Texans Defense",
+     "url": "https://www.houstontexans.com/news/will-anderson-jr-texans-defense-colts-demeco-ryans-cj-stroud"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Jonathon Brooks"
+   ],
+   "headline": "Three takeaways from Friday, including Mike Jackson ready to roll",
+   "summary": "The veteran corner is set to return from IR Sunday against the Ravens. Plus more from Friday, including the status of the tight ends, and how they're weighing when to bring back Jonathon Brooks.",
+   "published": "2026-11-20T18:18:54Z",
+   "published_at": "2026-11-20T18:18:54Z",
+   "first_seen_at": "2026-11-21T07:38:56+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Three takeaways from Friday, including Mike Jackson ready to roll",
+     "url": "https://www.panthers.com/news/three-takeaways-from-friday-including-mike-jackson-ready-to-roll"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Daniel Jones",
+    "Anthony Richardson"
+   ],
+   "headline": "Colts to start Anthony Richardson Sr. at quarterback, release Daniel Jones",
+   "summary": "Head coach Shane Steichen made the announcement Friday.",
+   "published": "2026-11-20T18:05:14Z",
+   "published_at": "2026-11-20T18:05:14Z",
+   "first_seen_at": "2026-11-21T07:38:57+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "IND official",
+     "title": "Colts to start Anthony Richardson Sr. at quarterback, release Daniel Jones",
+     "url": "https://www.colts.com/news/colts-to-start-anthony-richardson-sr-at-quarterback-release-daniel-jones"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NO",
+   "players": [
+    "Tyler Shough",
+    "Jordyn Tyson"
+   ],
+   "headline": "Revisiting 2026 NFL Draft: Were the Saints wise in taking a chance on injury-prone Jordyn Tyson?",
+   "summary": "New Orleans took a gamble on the explosive wideout at No. 8 overall, and his early impact alongside Tyler Shough is proving the top-10 talent was worth the durability concerns",
+   "published": "2026-11-20T18:01:03Z",
+   "published_at": "2026-11-20T18:01:03Z",
+   "first_seen_at": "2026-11-21T07:39:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Revisiting 2026 NFL Draft: Were the Saints wise in taking a chance on injury-prone Jordyn Tyson?",
+     "url": "https://www.cbssports.com/nfl/news/revisiting-2026-nfl-draft-saints-took-chance-on-jordyn-tyson"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 21,
+ "feeds_generated_at": "2026-11-21T07:38:55+00:00"
+}
