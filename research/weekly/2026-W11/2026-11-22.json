@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T06:52:59Z",
+  "generated_at": "2026-11-22T16:18:31Z",
   "season": 2026,
   "week": 11,
   "schedule": {
@@ -16,10 +16,10 @@
     ]
   },
   "clocks": {
-    "research_as_of": "2026-11-22T06:52:59Z",
+    "research_as_of": "2026-11-22T16:18:31Z",
     "injuries_as_of": "week 11",
-    "roster_as_of": "2026-11-21T15:20:42Z",
-    "schedule_as_of": "2026-11-22T06:35:18Z"
+    "roster_as_of": "2026-11-22T15:17:14Z",
+    "schedule_as_of": "2026-11-22T16:15:18Z"
   },
   "injury_report": {
     "status": "PUBLISHED",
@@ -554,15 +554,15 @@
         "position": "DT",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "practice_status": "Limited Participation in Practice"
       },
       {
         "team": "CIN",
         "gsis_id": "00-0034446",
         "full_name": "Jalen Davis",
         "position": "CB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Doubtful",
+        "report_primary_injury": "Hamstring",
         "practice_status": "Full Participation in Practice"
       },
       {
@@ -570,8 +570,8 @@
         "gsis_id": "00-0034754",
         "full_name": "Oren Burks",
         "position": "LB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Groin",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -585,11 +585,20 @@
       },
       {
         "team": "CIN",
+        "gsis_id": "00-0035683",
+        "full_name": "Dexter Lawrence",
+        "position": "DT",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Did Not Participate In Practice"
+      },
+      {
+        "team": "CIN",
         "gsis_id": "00-0035702",
         "full_name": "Dalton Risner",
         "position": "G",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Out",
+        "report_primary_injury": "Knee",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -597,8 +606,8 @@
         "gsis_id": "00-0036231",
         "full_name": "Kyle Dugger",
         "position": "S",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Quadricep",
         "practice_status": "Full Participation in Practice"
       },
       {
@@ -624,8 +633,8 @@
         "gsis_id": "00-0037743",
         "full_name": "Daxton Hill",
         "position": "CB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Illness",
         "practice_status": "Did Not Participate In Practice"
       },
       {
@@ -633,8 +642,8 @@
         "gsis_id": "00-0038619",
         "full_name": "Andrei Iosivas",
         "position": "WR",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Doubtful",
+        "report_primary_injury": "Thumb",
         "practice_status": "Full Participation in Practice"
       },
       {
@@ -642,8 +651,8 @@
         "gsis_id": "00-0039313",
         "full_name": "Swayze Bozeman",
         "position": "LB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Forearm",
         "practice_status": "Full Participation in Practice"
       },
       {
@@ -669,17 +678,17 @@
         "gsis_id": "00-0040140",
         "full_name": "Dylan Fairchild",
         "position": "G",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Oblique",
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "CIN",
         "gsis_id": "00-0041098",
         "full_name": "Brian Parker II",
         "position": "G",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Knee",
         "practice_status": "Full Participation in Practice"
       },
       {
@@ -2712,8 +2721,8 @@
         "gsis_id": "00-0033082",
         "full_name": "Lucas Patrick",
         "position": "C",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Concussion",
         "practice_status": "Full Participation in Practice"
       },
       {
@@ -2727,12 +2736,30 @@
       },
       {
         "team": "WAS",
+        "gsis_id": "00-0033947",
+        "full_name": "Deatrich Wise",
+        "position": "DE",
+        "report_status": null,
+        "report_primary_injury": null,
+        "practice_status": "Limited Participation in Practice"
+      },
+      {
+        "team": "WAS",
         "gsis_id": "00-0035149",
         "full_name": "Nick Allegretti",
         "position": "G",
         "report_status": null,
         "report_primary_injury": null,
         "practice_status": "Full Participation in Practice"
+      },
+      {
+        "team": "WAS",
+        "gsis_id": "00-0036375",
+        "full_name": "Amik Robertson",
+        "position": "CB",
+        "report_status": "Questionable",
+        "report_primary_injury": "Ankle",
+        "practice_status": "Did Not Participate In Practice"
       },
       {
         "team": "WAS",
@@ -2748,9 +2775,9 @@
         "gsis_id": "00-0037256",
         "full_name": "Rachaad White",
         "position": "RB",
-        "report_status": null,
-        "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "report_status": "Questionable",
+        "report_primary_injury": "Heel",
+        "practice_status": "Did Not Participate In Practice"
       },
       {
         "team": "WAS",
@@ -2759,7 +2786,7 @@
         "position": "WR",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Did Not Participate In Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "WAS",
@@ -2777,7 +2804,7 @@
         "position": "S",
         "report_status": null,
         "report_primary_injury": null,
-        "practice_status": "Limited Participation in Practice"
+        "practice_status": "Full Participation in Practice"
       },
       {
         "team": "WAS",
@@ -2811,8 +2838,8 @@
         "gsis_id": "00-0040242",
         "full_name": "Jacory Croskey-Merritt",
         "position": "RB",
-        "report_status": null,
-        "report_primary_injury": null,
+        "report_status": "Questionable",
+        "report_primary_injury": "Groin",
         "practice_status": "Full Participation in Practice"
       }
     ],
@@ -2847,12 +2874,12 @@
     ],
     "teams_expected": 26,
     "teams_pending": [],
-    "with_designation": 130
+    "with_designation": 143
   },
   "jobs": {
     "status": "PUBLISHED",
-    "effective_at": "2026-11-21T15:17:24Z",
-    "teams": 31,
+    "effective_at": "2026-11-22T15:12:52Z",
+    "teams": 32,
     "kickers": {
       "ARI": {
         "player_id": "00-0038567",
@@ -2970,6 +2997,12 @@
       "LV": {
         "player_id": "00-0035269",
         "player_name": "Matt Gay",
+        "contested": false,
+        "competition": []
+      },
+      "MIA": {
+        "player_id": "00-0034161",
+        "player_name": "Daniel Carlson",
         "contested": false,
         "competition": []
       },
@@ -16172,16 +16205,16 @@
     {
       "source": "injuries_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-21T15:16:44Z",
+      "retrieved_at": "2026-11-22T15:13:18Z",
       "status": "OK",
-      "rows": 3478
+      "rows": 3481
     },
     {
       "source": "depth_charts_2026.parquet",
       "kind": "NFLVERSE_FILE",
-      "retrieved_at": "2026-11-21T15:17:37Z",
+      "retrieved_at": "2026-11-22T15:12:59Z",
       "status": "OK",
-      "rows": 822208
+      "rows": 826942
     },
     {
       "source": "snap_counts_2026.parquet",
@@ -16205,9 +16238,87 @@
   ],
   "diff": {
     "against": "2026-11-21.json",
-    "new": [],
-    "changed": [],
+    "new": [
+      {
+        "key": "CIN:Dexter Lawrence",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Deatrich Wise",
+        "now": "None"
+      },
+      {
+        "key": "WAS:Amik Robertson",
+        "now": "Questionable"
+      },
+      {
+        "key": "K:MIA",
+        "now": "Daniel Carlson"
+      }
+    ],
+    "changed": [
+      {
+        "key": "CIN:Jalen Davis",
+        "was": "None",
+        "now": "Doubtful"
+      },
+      {
+        "key": "CIN:Oren Burks",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "CIN:Dalton Risner",
+        "was": "None",
+        "now": "Out"
+      },
+      {
+        "key": "CIN:Kyle Dugger",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "CIN:Daxton Hill",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "CIN:Andrei Iosivas",
+        "was": "None",
+        "now": "Doubtful"
+      },
+      {
+        "key": "CIN:Swayze Bozeman",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "CIN:Dylan Fairchild",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "CIN:Brian Parker II",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "WAS:Lucas Patrick",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "WAS:Rachaad White",
+        "was": "None",
+        "now": "Questionable"
+      },
+      {
+        "key": "WAS:Jacory Croskey-Merritt",
+        "was": "None",
+        "now": "Questionable"
+      }
+    ],
     "removed": [],
-    "unchanged": 341
+    "unchanged": 329
   }
 }
