@@ -1,0 +1,1345 @@
+{
+ "date": "2026-11-23",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Bryce Young"
+   ],
+   "headline": "'Locked into the moment,' Young rallies first-place Panthers past Ravens",
+   "summary": "In a back-and-forth game laced with lead changes, Bryce Young rallied the Panthers to a 35-33 home win over the Baltimore Ravens on Sunday at Bank of America Stadium, a second straight victory for the 5-5 Panthers that padded lead in the NFC South.",
+   "published": "2026-11-23T07:27:25Z",
+   "published_at": "2026-11-23T07:27:25Z",
+   "first_seen_at": "2026-11-23T08:07:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "'Locked into the moment,' Young rallies first-place Panthers past Ravens",
+     "url": "https://www.espn.com/nfl/story/_/id/50567146/young-authors-game-winning-drive-first-place-panthers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Prescott stays hot, salutes offense after 51-point day: 'It's all working'",
+   "summary": "Dak Prescott completed 28 of 33 passes for 325 yards with four TDs, no interceptions and a rushing score in the Cowboys' 51-30 win against the Titans.",
+   "published": "2026-11-23T07:27:24Z",
+   "published_at": "2026-11-23T07:27:24Z",
+   "first_seen_at": "2026-11-23T08:07:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Prescott stays hot, salutes offense after 51-point day: 'It's all working'",
+     "url": "https://www.espn.com/nfl/story/_/id/50566873/dak-prescott-continues-hot-streak-leads-cowboys-titans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "Chargers QB Herbert lands in concussion protocol",
+   "summary": "Quarterback Justin Herbert is in the concussion protocol, the Chargers said after Sunday's 27-24 loss to the Jets in Inglewood, California.",
+   "published": "2026-11-23T07:27:24Z",
+   "published_at": "2026-11-23T07:27:24Z",
+   "first_seen_at": "2026-11-23T08:07:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Chargers QB Herbert lands in concussion protocol",
+     "url": "https://www.espn.com/nfl/story/_/id/50567478/chargers-justin-herbert-lands-concussion-protocol"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Cam Skattebo"
+   ],
+   "headline": "Giants' Skattebo surprises with backflip: 'I have to bring the juice'",
+   "summary": "Cam Skattebo's pledge to nix his trademark backflip didn't last long. Not even a week.",
+   "published": "2026-11-23T07:26:53Z",
+   "published_at": "2026-11-23T07:26:53Z",
+   "first_seen_at": "2026-11-23T08:07:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Giants' Skattebo surprises with backflip: 'I have to bring the juice'",
+     "url": "https://www.espn.com/nfl/story/_/id/50569390/rb-cam-skattebo-backflips-again-pledging-nix-celebration"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Purdy beats Vikings blitz as 49ers say QB 'best player in the game right now'",
+   "summary": "Quarterback Brock Purdy heard \"MVP\" chants in Mexico City and continued to earn praise from his teammates as he led the 49ers to a statement victory against the top-ranked Vikings defense on Sunday night",
+   "published": "2026-11-23T07:26:53Z",
+   "published_at": "2026-11-23T07:26:53Z",
+   "first_seen_at": "2026-11-23T08:07:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Purdy beats Vikings blitz as 49ers say QB 'best player in the game right now'",
+     "url": "https://www.espn.com/nfl/story/_/id/50571034/49ers-brock-purdy-beats-vikings-blitz-hears-mvp-chants-mexico-city"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "JAX",
+   "players": [
+    "Parker Washington"
+   ],
+   "headline": "No-TD call for WR Washington in Jaguars' loss was correct, NFL says",
+   "summary": "The NFL said Sunday that on-field officials were correct in ruling that Parker Washington did not make a critical touchdown catch in the fourth quarter.",
+   "published": "2026-11-23T07:26:53Z",
+   "published_at": "2026-11-23T07:26:53Z",
+   "first_seen_at": "2026-11-23T08:07:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "No-TD call for WR Washington in Jaguars' loss was correct, NFL says",
+     "url": "https://www.espn.com/nfl/story/_/id/50569248/nfl-no-td-call-jaguars-parker-washington-was-correct"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "DK Metcalf"
+   ],
+   "headline": "Steelers Metcalf ejected for trying to poke Eagles' DeJean in eye",
+   "summary": "Steelers wide receiver DK Metcalf was ejected in the third quarter of Sunday's game against the Eagles for unsportsmanlike conduct.",
+   "published": "2026-11-23T07:26:53Z",
+   "published_at": "2026-11-23T07:26:53Z",
+   "first_seen_at": "2026-11-23T08:07:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Steelers Metcalf ejected for trying to poke Eagles' DeJean in eye",
+     "url": "https://www.espn.com/nfl/story/_/id/50564475/steelers-wr-dk-metcalf-ejected-game-eagles"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Despite loss, Mendoza 'felt more comfortable' in 2nd start for Raiders",
+   "summary": "Fernando Mendoza, making his second start for the Raiders, had good and bad moments Sunday at Denver. He completed 18 of 37 passes for 267 yards and three touchdowns but was sacked five times and pressured 16 times, and threw a game-sealing pick-six.",
+   "published": "2026-11-23T07:26:53Z",
+   "published_at": "2026-11-23T07:26:53Z",
+   "first_seen_at": "2026-11-23T08:07:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Despite loss, Mendoza 'felt more comfortable' in 2nd start for Raiders",
+     "url": "https://www.espn.com/nfl/story/_/id/50569797/fernando-mendoza-settling-raiders-starting-quarterback"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "CeeDee Lamb",
+    "Dak Prescott"
+   ],
+   "headline": "Cowboys put up points, no rushing attempts for Allen: Week 11's winners and losers",
+   "summary": "Dak Prescott, CeeDee Lamb and Jonah Coleman put fantasy teams on their backs in Week 11, while Josh Allen, Jonathan Taylor and Tony Pollard disappointed.",
+   "published": "2026-11-23T06:32:33Z",
+   "published_at": "2026-11-23T06:32:33Z",
+   "first_seen_at": "2026-11-23T08:07:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Cowboys put up points, no rushing attempts for Allen: Week 11's winners and losers",
+     "url": "https://www.espn.com/fantasy/football/story/_/page/FFSundayHighLows-50564270/nfl-week-11-fantasy-football-winners-losers-injuries-rankings-more"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Buzz: Leading fantasy scorers for Week 11 through Sunday's early games",
+   "summary": "A closer look at the top 10 fantasy scorers in Week 11, including Cowboys QB Dak Prescott.",
+   "published": "2026-11-23T06:32:33Z",
+   "published_at": "2026-11-23T06:32:33Z",
+   "first_seen_at": "2026-11-23T08:07:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ESPN",
+     "title": "Buzz: Leading fantasy scorers for Week 11 through Sunday's early games",
+     "url": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Evan Engram"
+   ],
+   "headline": "Broncos Postgame Notebook: Evan Engram, Marvin Mims Jr. make key plays, Ja'Quan McMillian seals win vs. Raiders",
+   "summary": "\"We don’t win without guys like that,” quarterback Bo Nix said of Engram. “Guys that just keep stepping up and they may not be able to do it every week just because we have a lot of guys that we want to get involved. On a day like today against a key opponent, a divisional rival, his number was called and he answered really well.”",
+   "published": "2026-11-23T06:25:01Z",
+   "published_at": "2026-11-23T06:25:01Z",
+   "first_seen_at": "2026-11-23T08:07:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DEN official",
+     "title": "Broncos Postgame Notebook: Evan Engram, Marvin Mims Jr. make key plays, Ja'Quan McMillian seals win vs. Raiders",
+     "url": "https://www.denverbroncos.com/news/broncos-postgame-notebook-evan-engram-marvin-mims-jr-make-key-plays-ja-quan-mcmillian-seals-win-vs-raiders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Malik Nabers"
+   ],
+   "headline": "Malik Nabers finally has breakout Giants performance after tumultuous stretch",
+   "summary": "Malik Nabers got the chance to show off his good side.",
+   "published": "2026-11-23T05:58:45Z",
+   "published_at": "2026-11-23T05:58:45Z",
+   "first_seen_at": "2026-11-23T08:07:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Malik Nabers finally has breakout Giants performance after tumultuous stretch",
+     "url": "https://sports.yahoo.com/articles/malik-nabers-finally-breakout-giants-055845999.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "JAX",
+   "players": [
+    "Trevor Lawrence"
+   ],
+   "headline": "As Liam Coen explains Jaguars' late field-goal decision, Giants take offense: 'Disrespectful as hell'",
+   "summary": "A pressure-happy Giants defense kept Trevor Lawrence from ever finding a rhythm.",
+   "published": "2026-11-23T05:49:08Z",
+   "published_at": "2026-11-23T05:49:08Z",
+   "first_seen_at": "2026-11-23T08:07:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "As Liam Coen explains Jaguars' late field-goal decision, Giants take offense: 'Disrespectful as hell'",
+     "url": "https://sports.yahoo.com/nfl/article/as-liam-coen-explains-jaguars-late-field-goal-decision-giants-take-offense-disrespectful-as-hell-054908407.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "MVP Brock Purdy? 49ers next Super Bowl champions? It's all on the table now for San Francisco",
+   "summary": "San Francisco threw around Minnesota on Sunday night, and the road to the Super Bowl is wide open now for the 49ers.",
+   "published": "2026-11-23T05:17:51Z",
+   "published_at": "2026-11-23T05:17:51Z",
+   "first_seen_at": "2026-11-23T08:07:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "MVP Brock Purdy? 49ers next Super Bowl champions? It's all on the table now for San Francisco",
+     "url": "https://sports.yahoo.com/nfl/article/mvp-brock-purdy-49ers-next-super-bowl-champions-its-all-on-the-table-now-for-san-francisco-061109556.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Javonte Williams"
+   ],
+   "headline": "Javonte Williams makes a pair of visits to the end zone in Week 11",
+   "summary": "Javonte Williams scored once on the ground and through the air in Week 11 as the Cowboys rolled past Tennessee.",
+   "published": "2026-11-23T04:53:38Z",
+   "published_at": "2026-11-23T04:53:38Z",
+   "first_seen_at": "2026-11-23T08:07:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Javonte Williams makes a pair of visits to the end zone in Week 11",
+     "url": "https://sports.yahoo.com/articles/javonte-williams-makes-pair-visits-045338691.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Cam Skattebo"
+   ],
+   "headline": "‘He’s Insane,’ ‘Couldn’t Help Himself, Could He?’ — John Harbaugh, NFL Fans React As Giants RB Cam Skattebo Breaks Backflip Retirement Vow",
+   "summary": "",
+   "published": "2026-11-23T04:41:51Z",
+   "published_at": "2026-11-23T04:41:51Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He’s Insane,’ ‘Couldn’t Help Himself, Could He?’ — John Harbaugh, NFL Fans React As Giants RB Cam Skattebo Breaks Backflip Retirement Vow",
+     "url": "https://www.profootballnetwork.com/john-harbaugh-nfl-fans-react-cam-skattebo-backflip-vow"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy",
+    "Mike Evans",
+    "George Kittle"
+   ],
+   "headline": "Brock Purdy and Mike Evans overwhelm the Vikings in a 49ers blowout win",
+   "summary": "The matchup featuring Brian Flores against Kyle Shanahan was all everybody talked about leading up to the week. Brock Purdy went 4-for-4 on his first drive with three double-digit gains to Mike Evans, George Kittle, and Deebo Samuel. Kittle caught a touchdown to cap off a 7-play, 72-yard drive that saw the Niners offense move […]",
+   "published": "2026-11-23T04:27:30Z",
+   "published_at": "2026-11-23T04:27:30Z",
+   "first_seen_at": "2026-11-23T08:07:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Brock Purdy and Mike Evans overwhelm the Vikings in a 49ers blowout win",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-scores-results/166145/brock-purdy-and-mike-evans-overwhelm-the-vikings-in-a-49ers-blowout-win"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "George Pickens"
+   ],
+   "headline": "‘We’re Not Really Riding Too High,’ ‘We’ve Lost a Few Before’ — George Pickens Reveals What Cowboys’ Locker Room Feels Like After 51-30 Win",
+   "summary": "",
+   "published": "2026-11-23T04:26:58Z",
+   "published_at": "2026-11-23T04:26:58Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘We’re Not Really Riding Too High,’ ‘We’ve Lost a Few Before’ — George Pickens Reveals What Cowboys’ Locker Room Feels Like After 51-30 Win",
+     "url": "https://www.profootballnetwork.com/george-pickens-cowboys-locker-room-win-titans-week-11"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "NFC Playoff Picture: Seahawks’ division hopes are grim after 49ers win again",
+   "summary": "The Seattle Seahawks are realistically out of the NFC West race after the San Francisco 49ers walloped the Minnesota Vikings 35-10 in Mexico City. Minnesota’s vaunted defense was shredded by a big Brock Purdy performance, while the Vikings offense committed some costly turnovers and was never really comfortable dealing with the 49ers defensive front. You […]",
+   "published": "2026-11-23T04:26:03Z",
+   "published_at": "2026-11-23T04:26:03Z",
+   "first_seen_at": "2026-11-23T08:07:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "NFC Playoff Picture: Seahawks’ division hopes are grim after 49ers win again",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-nfl-playoffs/180554/nfc-playoff-picture-seattle-seahawks-nfc-west-standings"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Mike Washington Jr."
+   ],
+   "headline": "Mike Washington Jr. totals nine carries in Week 11",
+   "summary": "Las Vegas Raiders running back Mike Washington Jr. ran nine times for 42 yards in Week 11",
+   "published": "2026-11-23T04:03:08Z",
+   "published_at": "2026-11-23T04:03:08Z",
+   "first_seen_at": "2026-11-23T08:07:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Mike Washington Jr. totals nine carries in Week 11",
+     "url": "https://sports.yahoo.com/articles/mike-washington-jr-totals-nine-040308301.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Cam Skattebo"
+   ],
+   "headline": "Cam Skattebo held in check in Week 11",
+   "summary": "New York Giants RB Cam Skattebo finishes with 41 total yards in Week 11",
+   "published": "2026-11-23T03:50:18Z",
+   "published_at": "2026-11-23T03:50:18Z",
+   "first_seen_at": "2026-11-23T08:07:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Cam Skattebo held in check in Week 11",
+     "url": "https://sports.yahoo.com/articles/cam-skattebo-held-check-week-035018961.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "DK Metcalf"
+   ],
+   "headline": "‘He’s Hurting the Team’ — Former Steelers CB Unleashes on DK Metcalf Over Bizarre On-Field Antics Leading to Ejection vs. Eagles",
+   "summary": "",
+   "published": "2026-11-23T03:45:51Z",
+   "published_at": "2026-11-23T03:45:51Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He’s Hurting the Team’ — Former Steelers CB Unleashes on DK Metcalf Over Bizarre On-Field Antics Leading to Ejection vs. Eagles",
+     "url": "https://www.profootballnetwork.com/former-steelers-cb-unleashes-on-dk-metcalf-ejection-eagles"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Jonah Coleman"
+   ],
+   "headline": "'The way he played today was special': RB Jonah Coleman posts historic 111-yard, 3 touchdown rushing performance vs. Raiders",
+   "summary": "“As long as we’ve got him running the ball like he did today, I think we’ll be in a pretty good place,” wide receiver Marvin Mims Jr. said of Jonah Coleman following Sunday’s win.",
+   "published": "2026-11-23T03:45:35Z",
+   "published_at": "2026-11-23T03:45:35Z",
+   "first_seen_at": "2026-11-23T08:07:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DEN official",
+     "title": "'The way he played today was special': RB Jonah Coleman posts historic 111-yard, 3 touchdown rushing performance vs. Raiders",
+     "url": "https://www.denverbroncos.com/news/the-way-he-played-today-was-special-rb-jonah-coleman-posts-historic-111-yard-3-touchdown-rushing-performance-vs-raiders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "George Kittle"
+   ],
+   "headline": "Fantasy Football: George Kittle, 49ers offense win the day versus Vikings' league-best defense",
+   "summary": "Fantasy football analyst Chris Allen examines Sunday's major storylines in Week 11.",
+   "published": "2026-11-23T03:42:09Z",
+   "published_at": "2026-11-23T03:42:09Z",
+   "first_seen_at": "2026-11-23T08:07:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Fantasy Football: George Kittle, 49ers offense win the day versus Vikings' league-best defense",
+     "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-george-kittle-49ers-offense-win-the-day-versus-vikings-league-best-defense-045617436.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Fernando Mendoza"
+   ],
+   "headline": "Game Recap: Fernando Mendoza flashes brilliance, but Raiders fade late against Broncos",
+   "summary": "Mendoza's three passing touchdowns not enough to complete comeback bid against Denver, as the 2026 No. 1 pick is still working out the kinks to start his NFL career.",
+   "published": "2026-11-23T03:30:00Z",
+   "published_at": "2026-11-23T03:30:00Z",
+   "first_seen_at": "2026-11-23T08:07:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "Game Recap: Fernando Mendoza flashes brilliance, but Raiders fade late against Broncos",
+     "url": "https://www.raiders.com/news/nfl-game-recap-fernando-mendoza-flashes-brilliance-but-raiders-fade-late-against-broncos"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "Jets-Chargers Game Recap | Offense Powers Green & White to 27-24 Victory in Los Angeles",
+   "summary": "Defense Sacks Justin Herbert 6-Times, Week 11 Practice Squad Call-Up WR Sterling Shepard Scores Twice",
+   "published": "2026-11-23T03:00:00Z",
+   "published_at": "2026-11-23T03:00:00Z",
+   "first_seen_at": "2026-11-23T08:07:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets-Chargers Game Recap | Offense Powers Green & White to 27-24 Victory in Los Angeles",
+     "url": "https://www.newyorkjets.com/news/jets-chargers-game-recap-11-22-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Breece Hall",
+    "Geno Smith"
+   ],
+   "headline": "QB Geno Smith Engineers 3 Long Drives, All Ending in TDs in Jets Victory",
+   "summary": "2 Scoring Tosses to Veteran WR Sterling Shepard and 1 to RB Breece Hall",
+   "published": "2026-11-23T02:59:00Z",
+   "published_at": "2026-11-23T02:59:00Z",
+   "first_seen_at": "2026-11-23T08:07:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "QB Geno Smith Engineers 3 Long Drives, All Ending in TDs in Jets Victory",
+     "url": "https://www.newyorkjets.com/news/geno-smith-jets-engineers-3-touchdown-drives-in-victory-over-chargers-11-22-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Christian McCaffrey"
+   ],
+   "headline": "49ers right tackle Colton McKivitz carted off in win over Vikings due to gruesome lower leg injury",
+   "summary": "McKivitz's left leg got pinned under multiple players at the end of a Christian McCaffrey run. When McKivitz pulled his leg from underneath the pile of players, his foot was twisted in the wrong direction.",
+   "published": "2026-11-23T02:38:48Z",
+   "published_at": "2026-11-23T02:38:48Z",
+   "first_seen_at": "2026-11-23T08:07:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "49ers right tackle Colton McKivitz carted off in win over Vikings due to gruesome lower leg injury",
+     "url": "https://sports.yahoo.com/nfl/breaking-news/article/49ers-right-tackle-colton-mckivitz-carted-off-in-win-over-vikings-due-to-gruesome-lower-leg-injury-042725922.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "DK Metcalf"
+   ],
+   "headline": "‘Doing More Harm Than Good’ — Steelers Legend Takes Shot at DK Metcalf After Mercurial WR’s Ejection in Loss to Eagles",
+   "summary": "",
+   "published": "2026-11-23T01:41:50Z",
+   "published_at": "2026-11-23T01:41:50Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Doing More Harm Than Good’ — Steelers Legend Takes Shot at DK Metcalf After Mercurial WR’s Ejection in Loss to Eagles",
+     "url": "https://www.profootballnetwork.com/leveon-bell-dk-metcalf-ejection-steelers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYG",
+   "players": [
+    "Cam Skattebo"
+   ],
+   "headline": "Cam Skattebo flips: Giants RB celebrates game-clinching drive with backflip days after retiring it",
+   "summary": "Skattebo said he'd retire his celebration in the wake of Aidan Hutchinson's injury",
+   "published": "2026-11-23T01:40:02Z",
+   "published_at": "2026-11-23T01:40:02Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Cam Skattebo flips: Giants RB celebrates game-clinching drive with backflip days after retiring it",
+     "url": "https://www.cbssports.com/nfl/news/cam-skattebo-giants-celebrates-game-clinching-drive-with-backflip"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Bryce Young",
+    "Jalen Coker"
+   ],
+   "headline": "Play of the Day: Panthers' trick play starts an onslaught of scoring in Week 11 win",
+   "summary": "A direct snap to Jalen Coker resulted in a long touchdown pass from Bryce Young to Mitchell Evans, on an early trick play that put the Panthers on the board in a shootout win.",
+   "published": "2026-11-23T01:25:47Z",
+   "published_at": "2026-11-23T01:25:47Z",
+   "first_seen_at": "2026-11-23T08:07:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Play of the Day: Panthers' trick play starts an onslaught of scoring in Week 11 win",
+     "url": "https://www.panthers.com/news/play-of-the-day-panthers-trick-play-starts-jalen-coker-mitchell-evans-bryce-young"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "JAX",
+   "players": [
+    "Parker Washington"
+   ],
+   "headline": "‘Refs Are Out of Control,’ ‘Parker Washington Just Got Robbed’ — Outrage Erupts After Jaguars Star Controversially Gets Denied TD vs. Giants",
+   "summary": "",
+   "published": "2026-11-23T01:25:27Z",
+   "published_at": "2026-11-23T01:25:27Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Refs Are Out of Control,’ ‘Parker Washington Just Got Robbed’ — Outrage Erupts After Jaguars Star Controversially Gets Denied TD vs. Giants",
+     "url": "https://www.profootballnetwork.com/parker-washington-denied-td-jaguars-giants"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "DK Metcalf"
+   ],
+   "headline": "DK Metcalf's bad season just got worse. What happens now for Steelers embattled receiver?",
+   "summary": "It's safe for Metcalf to be considered the worst trade acquisition in Steelers history. Now he faces a possible suspension and an uncertain future in Pittsburgh",
+   "published": "2026-11-23T01:12:30Z",
+   "published_at": "2026-11-23T01:12:30Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "DK Metcalf's bad season just got worse. What happens now for Steelers embattled receiver?",
+     "url": "https://www.cbssports.com/nfl/news/what-happens-now-steelers-embattled-receiver-dk-metcalf"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "Justin Herbert in concussion protocol after loss to Jets: Chargers QB played entire game",
+   "summary": "Herbert took some big shots late in the game but did not exit",
+   "published": "2026-11-23T01:05:39Z",
+   "published_at": "2026-11-23T01:05:39Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Justin Herbert in concussion protocol after loss to Jets: Chargers QB played entire game",
+     "url": "https://www.cbssports.com/nfl/news/justin-herbert-concussion-protocol-update-jets"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "DK Metcalf"
+   ],
+   "headline": "‘Such a Cry Baby,’ ‘What a Loser’ — NFL Fans Rip Steelers WR DK Metcalf for Leaving Without Addressing Media After Getting Ejected vs. Eagles",
+   "summary": "",
+   "published": "2026-11-23T00:48:11Z",
+   "published_at": "2026-11-23T00:48:11Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Such a Cry Baby,’ ‘What a Loser’ — NFL Fans Rip Steelers WR DK Metcalf for Leaving Without Addressing Media After Getting Ejected vs. Eagles",
+     "url": "https://www.profootballnetwork.com/steelers-dk-metcalf-leaving-without-media"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Chuba Hubbard"
+   ],
+   "headline": "Chuba Hubbard does it again, and gets a little help",
+   "summary": "The team captain and workhorse running back had his second straight two-touchdown day, scored a key two-point conversion, and helped the Panthers build a two-game lead in the NFC South. And he got a little breather along the way.",
+   "published": "2026-11-23T00:26:45Z",
+   "published_at": "2026-11-23T00:26:45Z",
+   "first_seen_at": "2026-11-23T08:07:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Chuba Hubbard does it again, and gets a little help",
+     "url": "https://www.panthers.com/news/chuba-hubbard-does-it-again-and-gets-a-little-help-trevor-etienne"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "George Kittle",
+    "Justin Jefferson"
+   ],
+   "headline": "Vikings vs. 49ers picks, predictions, player props: Expert's best bets for NFL Week 11 Sunday Night Football",
+   "summary": "Brian Flores brings a 5-0 mark against Kyle Shanahan into Mexico City as an underdog gets the nod to win outright, alongside prime targets for George Kittle and Justin Jefferson",
+   "published": "2026-11-23T00:01:44Z",
+   "published_at": "2026-11-23T00:01:44Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Vikings vs. 49ers picks, predictions, player props: Expert's best bets for NFL Week 11 Sunday Night Football",
+     "url": "https://www.cbssports.com/betting/news/vikings-vs-49ers-picks-predictions-player-props-experts-best-bets-for-nfl-week-11-sunday-night-football"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "49ers inactive list: Dre Greenlaw is out; veteran wide receiver is a healthy scratch",
+   "summary": "The San Francisco 49ers inactive list is out. As expected, wide receiver Mike Evans is active. He’ll suit up for the first time in over a month. Evans raises the ceiling of the Niners’ offense. He takes them from a contender to a favorite. Here’s the inactive list: QB Kurtis RourkeOT Enrique CruzDE Khalid KareemWR […]",
+   "published": "2026-11-23T00:01:06Z",
+   "published_at": "2026-11-23T00:01:06Z",
+   "first_seen_at": "2026-11-23T08:07:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers inactive list: Dre Greenlaw is out; veteran wide receiver is a healthy scratch",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/166136/49ers-inactive-list-dre-greenlaw-is-out-veteran-wide-receiver-is-a-healthy-scratch"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mike Evans"
+   ],
+   "headline": "Mike Evans Active, Dre Greenlaw OUT vs. Vikings; Inactives Week 11 #MINvsSF",
+   "summary": "Take a look at players who have been ruled out for the San Francisco 49ers Week 11 matchup against the Minnesota Vikings in Mexico.",
+   "published": "2026-11-22T23:50:10Z",
+   "published_at": "2026-11-22T23:50:10Z",
+   "first_seen_at": "2026-11-23T08:07:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SF official",
+     "title": "Mike Evans Active, Dre Greenlaw OUT vs. Vikings; Inactives Week 11 #MINvsSF",
+     "url": "https://www.49ers.com/news/mike-evans-active-dre-greenlaw-out-vs-vikings-inactives-week-11-minvssf"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CAR",
+   "players": [
+    "Bryce Young"
+   ],
+   "headline": "Bryce Young leads another game-winning drive, and doesn't back down",
+   "summary": "His teammates already respected his cool demeanor in pressure situations. But standing up to Ravens pass-rusher Trey Hendrickson earned him a little more street cred in a place he already has plenty.",
+   "published": "2026-11-22T23:46:05Z",
+   "published_at": "2026-11-22T23:46:05Z",
+   "first_seen_at": "2026-11-23T08:07:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CAR official",
+     "title": "Bryce Young leads another game-winning drive, and doesn't back down",
+     "url": "https://www.panthers.com/news/bryce-young-leads-another-game-winning-drive-and-doesn-t-back-down-ravens-panthers-trey-hendrickson"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "CeeDee Lamb",
+    "George Pickens"
+   ],
+   "headline": "George Pickens joins CeeDee Lamb in topping 100 yards",
+   "summary": "George Pickens and CeeDee Lamb each eclipsed 100 receiving yards as the Cowboys’ explosive passing attack overwhelmed Tennessee and powered a 51-point offensive outburst.",
+   "published": "2026-11-22T23:44:45Z",
+   "published_at": "2026-11-22T23:44:45Z",
+   "first_seen_at": "2026-11-23T08:07:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "George Pickens joins CeeDee Lamb in topping 100 yards",
+     "url": "https://www.dallascowboys.com/news/george-pickens-joins-ceedee-lamb-in-topping-100-yards"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott, Cowboys offense find rhythm, answers for everything vs. Titans",
+   "summary": "Regardless of what the Titans did on defense, Cowboys QB Dak Prescott and the offense had an answer with six different players recording a touchdown on Sunday.",
+   "published": "2026-11-22T23:21:36Z",
+   "published_at": "2026-11-22T23:21:36Z",
+   "first_seen_at": "2026-11-23T08:07:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Dak Prescott, Cowboys offense find rhythm, answers for everything vs. Titans",
+     "url": "https://www.dallascowboys.com/news/dak-prescott-cowboys-offense-find-rhythm-answers-for-everything-vs-titans"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Jahmyr Gibbs",
+    "Baker Mayfield"
+   ],
+   "headline": "Lions Pull Away in Fourth Quarter, Deny Bucs' Upset Bid in Detroit",
+   "summary": "The Bucs drew within three points of the Lions heading into the final period but two fourth-quarter touchdown runs by Jahmyr Gibbs and four sacks of Baker Mayfield helped home team finish strong in a 31-21 decision",
+   "published": "2026-11-22T23:00:00Z",
+   "published_at": "2026-11-22T23:00:00Z",
+   "first_seen_at": "2026-11-23T08:07:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Lions Pull Away in Fourth Quarter, Deny Bucs' Upset Bid in Detroit",
+     "url": "https://www.buccaneers.com/news/bucs-lions-week-11-recap-postgame-report-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "How to watch Commanders vs Bengals on MNF: TV, radio, streaming, Week 11 injury report",
+   "summary": "The Washington Commanders are back home in primetime and are hosting the Cincinnati Bengals. Joe Burrow is having an MVP-caliber season leading the Bengals to a 7-2 record. The Commanders are 3-5-1 and very much alive in a weak NFC East division race. The Commanders are coming off a big road victory over the division-leading […]",
+   "published": "2026-11-22T23:00:00Z",
+   "published_at": "2026-11-22T23:00:00Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "How to watch Commanders vs Bengals on MNF: TV, radio, streaming, Week 11 injury report",
+     "url": "https://www.hogshaven.com/washington-commanders-game-information/456082/how-to-watch-commanders-vs-bengals-on-mnf-tv-radio-streaming-week-11-injury-report"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "CeeDee Lamb"
+   ],
+   "headline": "CeeDee Lamb on career milestone, Cowboys staying focused",
+   "summary": "The First-team All-Pro receiver hit yet another career milestone as the Cowboys offense demolished the Titans, and while he's thankful, he's still focused on the bigger picture.",
+   "published": "2026-11-22T22:50:52Z",
+   "published_at": "2026-11-22T22:50:52Z",
+   "first_seen_at": "2026-11-23T08:07:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "CeeDee Lamb on career milestone, Cowboys staying focused",
+     "url": "https://www.dallascowboys.com/news/ceedee-lamb-on-career-milestone-cowboys-staying-focused"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "DK Metcalf"
+   ],
+   "headline": "DK Metcalf ejected: Steelers WR tossed after poking Cooper DeJean in the eye, could face suspension",
+   "summary": "Metcalf had more penalty than receiving yards against the Eagles, in jeopardy of suspension as repeat offender",
+   "published": "2026-11-22T22:45:03Z",
+   "published_at": "2026-11-22T22:45:03Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "DK Metcalf ejected: Steelers WR tossed after poking Cooper DeJean in the eye, could face suspension",
+     "url": "https://www.cbssports.com/nfl/news/dk-metcalf-ejected-steelers-receiver-tossed-after-poking-cooper-dejean-eye"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Blake Corum"
+   ],
+   "headline": "Blake Corum sparking Rams' second-half offense in past four games amid six-game scrimmage touchdown streak",
+   "summary": "Running back Blake Corum has a scrimmage touchdown in each of the last six games, the longest streak in his career, and has also sparked the Rams' second-half offense in their current four-game win streak.",
+   "published": "2026-11-22T22:31:24Z",
+   "published_at": "2026-11-22T22:31:24Z",
+   "first_seen_at": "2026-11-23T08:07:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Blake Corum sparking Rams' second-half offense in past four games amid six-game scrimmage touchdown streak",
+     "url": "https://www.therams.com/news/blake-corum-sparking-rams-second-half-offense-in-past-four-games-amid-six-game-scrimmage-touchdown-streak"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Baker Mayfield"
+   ],
+   "headline": "13 winners, 4 losers from Detroit Lions’ win over the Tampa Bay Buccaneers",
+   "summary": "There was no jet lag for the Detroit Lions. A week after their overseas tilt in Munich, Germany, the Lions returned to home turf to host the Tampa Bay Buccaneers. The Buccaneers were projected to be a Minnesota Vikings-esque team—a stout defense offset by a lackluster offense. However, with Baker Mayfield healthy enough to start […]",
+   "published": "2026-11-22T22:27:01Z",
+   "published_at": "2026-11-22T22:27:01Z",
+   "first_seen_at": "2026-11-23T08:07:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "13 winners, 4 losers from Detroit Lions’ win over the Tampa Bay Buccaneers",
+     "url": "https://www.prideofdetroit.com/detroit-lions-analysis/182144/13-winners-4-losers-from-detroit-lions-win-over-the-tampa-bay-buccaneers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Derrick Henry"
+   ],
+   "headline": "Derrick Henry injury: Ravens star RB clears concussion protocol after leaving game post-TD",
+   "summary": "Baltimore avoids yet another key loss to injury",
+   "published": "2026-11-22T22:09:15Z",
+   "published_at": "2026-11-22T22:09:15Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Derrick Henry injury: Ravens star RB clears concussion protocol after leaving game post-TD",
+     "url": "https://www.cbssports.com/nfl/news/derrick-henry-injury-ravens-star-rb-leaves-evaluated-concussion-after-scoring-touchdown"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "CeeDee Lamb",
+    "George Pickens",
+    "Emmett Johnson"
+   ],
+   "headline": "NFL Week 11 Recap: Immediate fantasy football takeaways from Sunday’s games",
+   "summary": "Cowboys receivers CeeDee Lamb and George Pickens both thriving and Chiefs rookie Emmett Johnson enjoying another big day in a starting role were among the top fantasy football storylines from NFL Week 11 action.",
+   "published": "2026-11-22T21:36:11Z",
+   "published_at": "2026-11-22T21:36:11Z",
+   "first_seen_at": "2026-11-23T08:07:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "NFL Week 11 Recap: Immediate fantasy football takeaways from Sunday’s games",
+     "url": "https://www.pff.com/news/nfl-week-11-recap-immediate-fantasy-football-takeaways-from-sundays-games"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "James Cook",
+    "Josh Allen"
+   ],
+   "headline": "Bills 26, Dolphins 9 | Final Score, recap + highlights",
+   "summary": "James Cook III and Josh Allen are the first pair of teammates in NFL history with at least 10 rushing touchdowns in three consecutive seasons",
+   "published": "2026-11-22T21:26:15Z",
+   "published_at": "2026-11-22T21:26:15Z",
+   "first_seen_at": "2026-11-23T08:07:06+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BUF official",
+     "title": "Bills 26, Dolphins 9 | Final Score, recap + highlights",
+     "url": "https://www.buffalobills.com/news/bills-26-dolphins-9-final-score-recap-highlights"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Game Recap: Offense dominates in 51-30 win",
+   "summary": "After a week of uncertainty surrounding the Dallas defense, Dak Prescott and the offense came out and took care of business in a dominating 51-30 win over the Titans.",
+   "published": "2026-11-22T21:19:30Z",
+   "published_at": "2026-11-22T21:19:30Z",
+   "first_seen_at": "2026-11-23T08:07:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Game Recap: Offense dominates in 51-30 win",
+     "url": "https://www.dallascowboys.com/news/game-recap-offense-dominates-in-51-30-win"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "DK Metcalf"
+   ],
+   "headline": "DK Metcalf’s asinine eye poke ejection sums up disastrous Steelers tenure",
+   "summary": "The Seattle Seahawks won last year’s Super Bowl in part because they turned the draft pick they received for DK Metcalf was packaged to get Nick Emmanwori. Metcalf, meanwhile, got a big contract extension from the Pittsburgh Steelers and the opportunity to be the unquestioned top option on a playoff team. Well, it’s not worked […]",
+   "published": "2026-11-22T21:12:43Z",
+   "published_at": "2026-11-22T21:12:43Z",
+   "first_seen_at": "2026-11-23T08:07:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "DK Metcalf’s asinine eye poke ejection sums up disastrous Steelers tenure",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/180530/ex-seahawks-dk-metcalf-asinine-eye-poke-ejection-disastrous-steelers-tenure"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Jalen Hurts"
+   ],
+   "headline": "Eagles' Jalen Hurts update: Super Bowl MVP QB has been in team facility, 'in good spirits'",
+   "summary": "Hurts has stayed close with his teammates and coaches despite being sidelined with blood clots",
+   "published": "2026-11-22T21:09:22Z",
+   "published_at": "2026-11-22T21:09:22Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Eagles' Jalen Hurts update: Super Bowl MVP QB has been in team facility, 'in good spirits'",
+     "url": "https://www.cbssports.com/nfl/news/eagles-jalen-hurts-update-super-bowl-mvp-qb-team-facility-good-spirits"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PIT",
+   "players": [
+    "DK Metcalf"
+   ],
+   "headline": "‘What a Joke of a Player,’ ‘Sabotaging His Own Offense’ — Calls Mount for Steelers To ‘Cut’ DK Metcalf After WR’s Ejection vs. Eagles",
+   "summary": "",
+   "published": "2026-11-22T20:53:04Z",
+   "published_at": "2026-11-22T20:53:04Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘What a Joke of a Player,’ ‘Sabotaging His Own Offense’ — Calls Mount for Steelers To ‘Cut’ DK Metcalf After WR’s Ejection vs. Eagles",
+     "url": "https://www.profootballnetwork.com/calls-mount-steelers-cut-dk-metcalf"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TEN",
+   "players": [
+    "Carnell Tate"
+   ],
+   "headline": "Titans' Carnell Tate stuns Cowboys with one of NFL season's strangest touchdowns",
+   "summary": "The Titans rookie appeared to be down after catching a pass from Cam Ward, but he got back up and sprinted to the end zone",
+   "published": "2026-11-22T20:32:23Z",
+   "published_at": "2026-11-22T20:32:23Z",
+   "first_seen_at": "2026-11-23T08:07:11+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Titans' Carnell Tate stuns Cowboys with one of NFL season's strangest touchdowns",
+     "url": "https://www.cbssports.com/nfl/news/titans-carnell-tate-touchdown-cowboys"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Ladd McConkey"
+   ],
+   "headline": "Chargers-Jets Week 11 Inactives: Ladd McConkey Active, Tarheeb Still Won't Play Against New York",
+   "summary": "Here is who won't play Sunday for the Chargers against the Jets",
+   "published": "2026-11-22T19:50:00Z",
+   "published_at": "2026-11-22T19:50:00Z",
+   "first_seen_at": "2026-11-23T08:07:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAC official",
+     "title": "Chargers-Jets Week 11 Inactives: Ladd McConkey Active, Tarheeb Still Won't Play Against New York",
+     "url": "https://www.chargers.com/news/jets-inactives-week-11-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Omar Cooper Jr."
+   ],
+   "headline": "Jets List 6 Inactives Against Los Angeles Chargers",
+   "summary": "Jarvis Brownlee Jr., Omar Cooper Jr., Nate Lynn, Trevin Wallace, Isaiah Williams and Jelani Woods Inactive for Week 11",
+   "published": "2026-11-22T19:35:00Z",
+   "published_at": "2026-11-22T19:35:00Z",
+   "first_seen_at": "2026-11-23T08:07:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Jets List 6 Inactives Against Los Angeles Chargers",
+     "url": "https://www.newyorkjets.com/news/jets-vs-chargers-nfl-game-inactives-11-22-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Jacoby Brissett"
+   ],
+   "headline": "Week 11 live discussion: Which games will you be watching today?",
+   "summary": "The Week 11 morning matchups aren’t the greatest, but it’s still football, so we will watch. The Kansas City Chiefs are hosting the Arizona Cardinals. Josh Johnson gets the start for Arizona in a game that shouldn’t be close. Jacoby Brissett and the Baltimore Ravens look to keep their playoff hopes alive against the Carolina […]",
+   "published": "2026-11-22T18:11:01Z",
+   "published_at": "2026-11-22T18:11:01Z",
+   "first_seen_at": "2026-11-23T08:07:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Week 11 live discussion: Which games will you be watching today?",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-discussion/166128/week-11-live-discussion-which-games-will-you-be-watching-today"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Jared Goff"
+   ],
+   "headline": "Lions vs. Bucs recap, highlights: Detroit wins 6th straight with strong performance",
+   "summary": "The Detroit Lions’ win streak is now at six after they disposed of the Tampa Bay Buccaneers on Sunday, 31-21. It was a strong day from the Lions offense, as they only punted twice all game. Jared Goff was excellent, completing 20-of-28 passes for 279 yards and two touchdowns. And while the Lions’ run game […]",
+   "published": "2026-11-22T17:45:00Z",
+   "published_at": "2026-11-22T17:45:00Z",
+   "first_seen_at": "2026-11-23T08:07:12+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "Lions vs. Bucs recap, highlights: Detroit wins 6th straight with strong performance",
+     "url": "https://www.prideofdetroit.com/detroit-lions-game-recaps/182120/detroit-lions-vs-tampa-bay-buccaneers-live-score-updates-highlights-injury-news"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 49,
+ "outlets_unique": 19,
+ "feeds_generated_at": "2026-11-23T08:07:04+00:00"
+}
