@@ -1,0 +1,1352 @@
+{
+ "date": "2026-11-25",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Josh Allen",
+    "Patrick Mahomes"
+   ],
+   "headline": "‘No Game in Which I Would Pick Josh Allen Over Patrick Mahomes’ – NFL Analyst Makes Feelings Clear on Heated QB Debate Ahead of Chiefs-Bills",
+   "summary": "",
+   "published": "2026-11-25T09:00:22Z",
+   "published_at": "2026-11-25T09:00:22Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘No Game in Which I Would Pick Josh Allen Over Patrick Mahomes’ – NFL Analyst Makes Feelings Clear on Heated QB Debate Ahead of Chiefs-Bills",
+     "url": "https://www.profootballnetwork.com/josh-allen-patrick-mahomes-chris-broussard-chiefs-bills-qb-debate"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Anthony Richardson"
+   ],
+   "headline": "‘Can’t Wait For This Coaching Staff To Be Out’ — Irritated Colts Fans Question Harsh Film Room Treatment of Anthony Richardson",
+   "summary": "",
+   "published": "2026-11-25T06:53:07Z",
+   "published_at": "2026-11-25T06:53:07Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Can’t Wait For This Coaching Staff To Be Out’ — Irritated Colts Fans Question Harsh Film Room Treatment of Anthony Richardson",
+     "url": "https://www.profootballnetwork.com/colts-fans-coaching-staff-anthony-richardson-film-room-week-12"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "‘I Owe You an Apology, But You’re Not Getting One’ — 3-Time Super Bowl Champ Warns Bengals HC His Joe Burrow Plan Will Just Not Work in the Playoffs",
+   "summary": "",
+   "published": "2026-11-25T06:19:06Z",
+   "published_at": "2026-11-25T06:19:06Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘I Owe You an Apology, But You’re Not Getting One’ — 3-Time Super Bowl Champ Warns Bengals HC His Joe Burrow Plan Will Just Not Work in the Playoffs",
+     "url": "https://www.profootballnetwork.com/mark-schlereth-bengals-zac-taylor-joe-burrow-playoffs"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jaxon Smith-Njigba"
+   ],
+   "headline": "NFL rescinds fine for Malik Mustapha’s controversial hit on Jaxon Smith-Njigba",
+   "summary": "The Seattle Seahawks and San Francisco 49ers will renew their rivalry this Sunday in a game that has massive implications for Seattle’s playoff hopes and San Francisco’s bid for the No. 1 seed in the NFC. San Francisco finds itself in the NFC West driver’s seat in large part due to its 32-29 win at […]",
+   "published": "2026-11-25T05:23:50Z",
+   "published_at": "2026-11-25T05:23:50Z",
+   "first_seen_at": "2026-11-25T09:03:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "NFL rescinds fine for Malik Mustapha’s controversial hit on Jaxon Smith-Njigba",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/180699/nfl-rescinds-fine-49ers-malik-mustapha-controversial-hit-seahawks-jaxon-smith-njigba"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "J.K. Dobbins"
+   ],
+   "headline": "‘Buddy Got Benched and Threw a Temper Tantrum,’ ‘Dude Is a Clown’ — NFL Fans Slam J.K. Dobbins As Broncos Announce Suspension for $16 Million RB",
+   "summary": "",
+   "published": "2026-11-25T05:16:11Z",
+   "published_at": "2026-11-25T05:16:11Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Buddy Got Benched and Threw a Temper Tantrum,’ ‘Dude Is a Clown’ — NFL Fans Slam J.K. Dobbins As Broncos Announce Suspension for $16 Million RB",
+     "url": "https://www.profootballnetwork.com/broncos-jk-dobbins-suspended-fans-react"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "‘He Didn’t Wanna Miss (Patrick) Mahomes’ — NFL World Takes Notice As NBC Switches Cris Collinsworth’s SNF Assignment for Chiefs-Bills on Thanksgiving",
+   "summary": "",
+   "published": "2026-11-25T04:24:08Z",
+   "published_at": "2026-11-25T04:24:08Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He Didn’t Wanna Miss (Patrick) Mahomes’ — NFL World Takes Notice As NBC Switches Cris Collinsworth’s SNF Assignment for Chiefs-Bills on Thanksgiving",
+     "url": "https://www.profootballnetwork.com/nfl-world-nbc-cris-collinsworth-chiefs-bills"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "‘That’s Reckless,’ ‘Can’t Do This Thursday Night’ — ESPN’s Dan Orlovsky Warns Josh Allen Ahead of Thanksgiving Battle vs. Patrick Mahomes’ Chiefs",
+   "summary": "",
+   "published": "2026-11-25T03:46:11Z",
+   "published_at": "2026-11-25T03:46:11Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘That’s Reckless,’ ‘Can’t Do This Thursday Night’ — ESPN’s Dan Orlovsky Warns Josh Allen Ahead of Thanksgiving Battle vs. Patrick Mahomes’ Chiefs",
+     "url": "https://www.profootballnetwork.com/espn-dan-orlovsky-josh-allen-warning-chiefs-thanksgiving"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Anthony Richardson"
+   ],
+   "headline": "Colts coaches weigh in on Anthony Richardson’s abrupt return to the starting lineup",
+   "summary": "Colts QB Anthony Richardson will be reinserted into a challenging starting situation, but will get an opportunity to prove himself again—and his complete story in Indianapolis still remains unwritten.",
+   "published": "2026-11-25T03:19:56Z",
+   "published_at": "2026-11-25T03:19:56Z",
+   "first_seen_at": "2026-11-25T09:03:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Colts coaches weigh in on Anthony Richardson’s abrupt return to the starting lineup",
+     "url": "https://sports.yahoo.com/nfl/articles/colts-coaches-weigh-anthony-richardson-031956872.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brandon Aiyuk"
+   ],
+   "headline": "‘They Can’t Be This Desperate,’ ‘Bad Teammate Mojo’ — NFL Fans React As Brandon Aiyuk Schedules Free-Agent Visit With Commanders After 49ers Breakup",
+   "summary": "",
+   "published": "2026-11-25T03:16:51Z",
+   "published_at": "2026-11-25T03:16:51Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘They Can’t Be This Desperate,’ ‘Bad Teammate Mojo’ — NFL Fans React As Brandon Aiyuk Schedules Free-Agent Visit With Commanders After 49ers Breakup",
+     "url": "https://www.profootballnetwork.com/fans-react-brandon-aiyuk-free-agent-meeting-commanders-nov-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "‘Let’s Be Real About Who the Bengals Really Are’ – Ex-NFL LB Highlights Major Red Flag About Joe Burrow and Co. While Pumping The Brakes on Cincinnati Hype",
+   "summary": "",
+   "published": "2026-11-25T03:00:54Z",
+   "published_at": "2026-11-25T03:00:54Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Let’s Be Real About Who the Bengals Really Are’ – Ex-NFL LB Highlights Major Red Flag About Joe Burrow and Co. While Pumping The Brakes on Cincinnati Hype",
+     "url": "https://www.profootballnetwork.com/emmanuel-acho-joe-burrow-bengals-loss-commanders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "‘Talk Salad With No Substance,’ ‘Clown Take’ — NFL Fans Rip Former Patriots RB Over ‘Win-or-Bust’ Stance on Bills QB Josh Allen",
+   "summary": "",
+   "published": "2026-11-25T02:19:25Z",
+   "published_at": "2026-11-25T02:19:25Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Talk Salad With No Substance,’ ‘Clown Take’ — NFL Fans Rip Former Patriots RB Over ‘Win-or-Bust’ Stance on Bills QB Josh Allen",
+     "url": "https://www.profootballnetwork.com/damien-harris-josh-allen-fan-reaction"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Matthew Stafford",
+    "Puka Nacua",
+    "Davante Adams"
+   ],
+   "headline": "Which Rams pass catcher will stand out versus Packers?",
+   "summary": "With Puka Nacua, Davante Adams, and Terrance Ferguson all out for the Los Angeles Rams in a highly anticipated Wednesday night clash against the Green Bay Packers, fans and fantasy players are asking themselves which LA pass catcher will step up for Matthew Stafford. The Rams are about to play an all-important game without the […]",
+   "published": "2026-11-25T01:44:45Z",
+   "published_at": "2026-11-25T01:44:45Z",
+   "first_seen_at": "2026-11-25T09:03:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Which Rams pass catcher will stand out versus Packers?",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-depth-chart/155908/rams-packers-wednesday-mumpfield-higbee-parkinson"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "DeVonta Smith practices fully on Tuesday",
+   "summary": "DeVonta Smith progressing to play in Week 12 for the Eagles.",
+   "published": "2026-11-25T00:26:40Z",
+   "published_at": "2026-11-25T00:26:40Z",
+   "first_seen_at": "2026-11-25T09:03:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "DeVonta Smith practices fully on Tuesday",
+     "url": "https://sports.yahoo.com/nfl/articles/devonta-smith-practices-fully-tuesday-002640658.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "J.K. Dobbins"
+   ],
+   "headline": "Has J.K. Dobbins played his final game for the Broncos?",
+   "summary": "How rare is it for the Denver Broncos to suspend its own player for conduct detrimental to the team? The last such case I could find of this happening was back in August 2009 when Brandon Marshall was suspended by Josh McDaniels. If memory serves me, he punted the football out of practice to show […]",
+   "published": "2026-11-25T00:11:57Z",
+   "published_at": "2026-11-25T00:11:57Z",
+   "first_seen_at": "2026-11-25T09:03:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Has J.K. Dobbins played his final game for the Broncos?",
+     "url": "https://sports.yahoo.com/nfl/articles/j-k-dobbins-played-final-001157955.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "Thanksgiving showdown will be a full-circle moment for Caleb Williams",
+   "summary": "Preparing to lead the Bears against the Lions on Thanksgiving Day, Caleb Williams reminisced about watching games on the holiday as a kid, saying: “It’s great memories; now I get to be a part of making memories for somebody else.”",
+   "published": "2026-11-25T00:04:19Z",
+   "published_at": "2026-11-25T00:04:19Z",
+   "first_seen_at": "2026-11-25T09:03:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "Thanksgiving showdown will be a full-circle moment for Caleb Williams",
+     "url": "https://www.chicagobears.com/news/thanksgiving-showdown-will-be-a-full-circle-moment-for-caleb-williams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "Eli Stowers"
+   ],
+   "headline": "Eagles snap counts: Eli Stowers doesn't play on offense vs. Steelers",
+   "summary": "Here's a look at how the Eagles divvied up snaps for five tight ends against the Steelers",
+   "published": "2026-11-24T23:43:38Z",
+   "published_at": "2026-11-24T23:43:38Z",
+   "first_seen_at": "2026-11-25T09:03:05+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Eagles snap counts: Eli Stowers doesn't play on offense vs. Steelers",
+     "url": "https://sports.yahoo.com/articles/eagles-snap-counts-eli-stowers-070000388.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brandon Aiyuk"
+   ],
+   "headline": "Brandon Aiyuk clears waivers, to visit Commanders on Wednesday",
+   "summary": "Former San Francisco 49ers wide receiver Brandon Aiyuk cleared waivers on Tuesday morning after being waived by the team this weekend, and it looks like he’s already got his eyes on his next destination. Aiyuk is now scheduled to visit with the Washington Commanders this Wednesday, per ESPN’s Adam Schefter, as he looks to find […]",
+   "published": "2026-11-24T23:40:54Z",
+   "published_at": "2026-11-24T23:40:54Z",
+   "first_seen_at": "2026-11-25T09:03:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Brandon Aiyuk clears waivers, to visit Commanders on Wednesday",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/166258/san-francisco-49ers-news-brandon-aiyuk-clears-waivers-to-visit-washington-commanders-wednesday-adam-schefter"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Jayden Daniels",
+    "Brandon Aiyuk"
+   ],
+   "headline": "Brandon Aiyuk to meet with Commanders, per report: Free agent WR seeks reunion with Jayden Daniels",
+   "summary": "Aiyuk may already have a destination lined up shortly after his release from the 49ers and waiver clearance.",
+   "published": "2026-11-24T23:04:41Z",
+   "published_at": "2026-11-24T23:04:41Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Brandon Aiyuk to meet with Commanders, per report: Free agent WR seeks reunion with Jayden Daniels",
+     "url": "https://www.cbssports.com/nfl/news/brandon-aiyuk-meeting-commanders-report-free-agent-wr-reunion-jayden-daniels"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brandon Aiyuk"
+   ],
+   "headline": "Commanders reportedly set to meet with free-agent WR Brandon Aiyuk",
+   "summary": "The Commanders will meet with receiver Brandon Aiyuk on Wednesday, according to a report from ESPN’s Adam Schefter. Citing the information from agent Drew Rosenhaus, Schefter says Aiyuk will meet with Washington brass on Wednesday. This meeting comes after the 49ers released him on Monday, and Aiyuk then cleared waivers on Tuesday. A long dispute […]",
+   "published": "2026-11-24T23:02:49Z",
+   "published_at": "2026-11-24T23:02:49Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders reportedly set to meet with free-agent WR Brandon Aiyuk",
+     "url": "https://www.hogshaven.com/washington-commanders-news/457314/commanders-brandon-aiyuk-meeting-49ers-adam-schefter-nfl-free-agency"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Jordan Love",
+    "Christian Watson",
+    "Blake Corum",
+    "Matthew Stafford",
+    "Kyren Williams",
+    "Tucker Kraft"
+   ],
+   "headline": "Packers vs. Rams Start 'Em, Sit 'Em: Wednesday Night - Jordan Love, Christian Watson, Matthew Golden, Tucker Kraft, Matthew Stafford, Kyren Williams, Blake Corum, Tyler Higbee, more",
+   "summary": "",
+   "published": "2026-11-24T22:31:06Z",
+   "published_at": "2026-11-24T22:31:06Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Packers vs. Rams Start 'Em, Sit 'Em: Wednesday Night - Jordan Love, Christian Watson, Matthew Golden, Tucker Kraft, Matthew Stafford, Kyren Williams, Blake Corum, Tyler Higbee, more",
+     "url": "https://www.rotoballer.com/packers-vs-rams-start-em-sit-em-wednesday-night-jordan-love-christian-watson-matthew-golden-tucker-kraft-matthew-stafford-kyren-williams-blake-corum-tyler-higbee-more/2001930"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Puka Nacua injury details reveal ‘completely torn’ MCL",
+   "summary": "Puka Nacua may have a hard time trusting Sean McVay after his latest injury. The Los Angeles Rams’ top receiver’s decision to get knee surgery was not a hasty one after all, as Nacua’s MCL was “completely torn” off of his tibia, making it a Grade 3 strain, according to ESPN’s Adam Schefter. Nacua is […]",
+   "published": "2026-11-24T22:29:28Z",
+   "published_at": "2026-11-24T22:29:28Z",
+   "first_seen_at": "2026-11-25T09:03:10+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Puka Nacua injury details reveal ‘completely torn’ MCL",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-injuries/155892/puka-nacua-injury-details-timeline"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Sam LaPorta"
+   ],
+   "headline": "Lions, Bears Week 12 injury report: Sam LaPorta, Chuck Clark upgraded on Tuesday",
+   "summary": "The Detroit Lions (8-2) and Chicago Bears (8-2) will square off in this year’s Thanksgiving Day battle, and for the second straight day, the Lions and Bears have opted for walkthrough practices. A walkthrough practice means that all participation levels are estimates from the coaching staff based on how the player would have participated in […]",
+   "published": "2026-11-24T22:21:13Z",
+   "published_at": "2026-11-24T22:21:13Z",
+   "first_seen_at": "2026-11-25T09:03:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "Lions, Bears Week 12 injury report: Sam LaPorta, Chuck Clark upgraded on Tuesday",
+     "url": "https://www.prideofdetroit.com/detroit-lions-injuries/182466/lions-bears-week-12-injury-report-sam-laporta-chuck-clark-upgraded-on-tuesday"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "J.K. Dobbins"
+   ],
+   "headline": "Broncos suspend RB J.K. Dobbins one game for conduct detrimental to team",
+   "summary": "Dobbins will not play against the Steelers on Friday as Denver holds a slight lead over Kansas City in the AFC West race",
+   "published": "2026-11-24T22:07:45Z",
+   "published_at": "2026-11-24T22:07:45Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Broncos suspend RB J.K. Dobbins one game for conduct detrimental to team",
+     "url": "https://www.cbssports.com/nfl/news/broncos-suspend-rb-j-k-dobbins-one-game-conduct-detrimental-team"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "NYJ",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "Film Breakdown | Jets Defense Sacks Chargers QB Justin Herbert 6 Times in 27-24 Victory",
+   "summary": "Rookie David Bailey Continues to Thrive; A 4-Edge Package Unleashed in California",
+   "published": "2026-11-24T21:47:00Z",
+   "published_at": "2026-11-24T21:47:00Z",
+   "first_seen_at": "2026-11-25T09:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "NYJ official",
+     "title": "Film Breakdown | Jets Defense Sacks Chargers QB Justin Herbert 6 Times in 27-24 Victory",
+     "url": "https://www.newyorkjets.com/news/film-breakdown-jets-defense-sacks-chargers-qb-justin-herbert-6-times-in-27-24-victory-11-24-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Anthony Richardson"
+   ],
+   "headline": "‘A Colossal Failure,’ ‘They Couldn’t Get Anything for Him’ — Vikings’ Hall of Famer Believes the Colts Have Already ‘Moved On’ From Anthony Richardson Sr.",
+   "summary": "",
+   "published": "2026-11-24T21:21:53Z",
+   "published_at": "2026-11-24T21:21:53Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘A Colossal Failure,’ ‘They Couldn’t Get Anything for Him’ — Vikings’ Hall of Famer Believes the Colts Have Already ‘Moved On’ From Anthony Richardson Sr.",
+     "url": "https://www.profootballnetwork.com/vikings-hof-colts-have-already-moved-on-anthony-richardson"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott: Cowboys 'absolutely' in playoff mode, QB approaches all-time Thanksgiving record",
+   "summary": "Last week was a must-win, and so is their matchup on Thanksgiving Day against the Eagles, meaning, yes, the Cowboys are in playoff mode already — Dak Prescott agrees.",
+   "published": "2026-11-24T21:13:09Z",
+   "published_at": "2026-11-24T21:13:09Z",
+   "first_seen_at": "2026-11-25T09:03:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Dak Prescott: Cowboys 'absolutely' in playoff mode, QB approaches all-time Thanksgiving record",
+     "url": "https://www.dallascowboys.com/news/dak-prescott-cowboys-absolutely-in-playoff-mode-right-now"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "‘Most Concerning Game I’ve Seen From Josh (Allen) in 2-3 Seasons,’ ‘I’ve Been Concerned for a Couple Weeks’ — ESPN’s Dan Orlovsky Sounds Alarm on Bills QB",
+   "summary": "",
+   "published": "2026-11-24T21:07:23Z",
+   "published_at": "2026-11-24T21:07:23Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘Most Concerning Game I’ve Seen From Josh (Allen) in 2-3 Seasons,’ ‘I’ve Been Concerned for a Couple Weeks’ — ESPN’s Dan Orlovsky Sounds Alarm on Bills QB",
+     "url": "https://www.profootballnetwork.com/concerning-josh-allen-dan-orlovsky"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "‘The Cowboys Are Pretenders,’ ‘They Too Up-And-Down’ — Patriots Legend Rob Gronkowski Outlines Why He’s Not Buying Stock in Dak Prescott and Crew",
+   "summary": "",
+   "published": "2026-11-24T19:41:19Z",
+   "published_at": "2026-11-24T19:41:19Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘The Cowboys Are Pretenders,’ ‘They Too Up-And-Down’ — Patriots Legend Rob Gronkowski Outlines Why He’s Not Buying Stock in Dak Prescott and Crew",
+     "url": "https://www.profootballnetwork.com/patriots-legend-rob-gronkowski-dak-prescott-cowboys"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Michael Penix Jr."
+   ],
+   "headline": "What do we need to see from the Falcons over the final games of 2026?",
+   "summary": "The Falcons exit their bye week at 3-7 and staring down a series of matchups with NFC contenders. With Atlanta’s playoff hopes dwindling, what do we need to see from the team over the final seven games? Kevin Knight brings you his list, including Michael Penix Jr., young offensive linemen, Avieon Terrell and A.J. Terrell, […]",
+   "published": "2026-11-24T19:22:58Z",
+   "published_at": "2026-11-24T19:22:58Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "thefalcoholic.com",
+     "title": "What do we need to see from the Falcons over the final games of 2026?",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-analysis/98697/what-do-we-need-to-see-from-the-falcons-over-the-final-games-of-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Mac Jones"
+   ],
+   "headline": "DeForest Buckner, Mac Jones, Others Enjoy Off Day in Colorado Springs | Off the Field",
+   "summary": "49ers players made the most of their off day in Colorado, going fly-fishing, visiting the zoo, and stopping for a meal at a local spot.",
+   "published": "2026-11-24T19:00:07Z",
+   "published_at": "2026-11-24T19:00:07Z",
+   "first_seen_at": "2026-11-25T09:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SF official",
+     "title": "DeForest Buckner, Mac Jones, Others Enjoy Off Day in Colorado Springs | Off the Field",
+     "url": "https://www.49ers.com/news/deforest-buckner-mac-jones-others-enjoy-off-day-in-colorado-springs-off-the-field"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Jayden Daniels",
+    "Joe Burrow",
+    "Antonio Williams"
+   ],
+   "headline": "Washington Commanders vs. Cincinnati Bengals – Studs and Duds",
+   "summary": "Washington debuted their new Hail Raiser all-blacks on Monday night at home against Cincinnati in a must-win, primetime clash. The uniform, and the performance, DID NOT DISAPPOINT! MVP frontrunner Joe Burrow came to the nation’s capital looking to extend the Bengals’ five-game winning streak. Instead, it was Jayden Daniels, Antonio Williams and Drew Stevens who […]",
+   "published": "2026-11-24T18:27:48Z",
+   "published_at": "2026-11-24T18:27:48Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Washington Commanders vs. Cincinnati Bengals – Studs and Duds",
+     "url": "https://www.hogshaven.com/washington-commanders-analysis/456817/washington-commanders-cincinnati-bengals-studs-duds-antonio-williams-jayden-daniels-drew-stevens"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Josh Jacobs"
+   ],
+   "headline": "Packers list eight questionable vs. Rams | Week 12 Injury Report",
+   "summary": "EDGE Micah Parsons, RB Josh Jacobs among those questionable for Thanksgiving Eve",
+   "published": "2026-11-24T18:00:00Z",
+   "published_at": "2026-11-24T18:00:00Z",
+   "first_seen_at": "2026-11-25T09:03:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Packers list eight questionable vs. Rams | Week 12 Injury Report",
+     "url": "https://www.packers.com/news/packers-list-eight-questionable-vs-rams-week-12-injury-report"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Kenny Gainwell"
+   ],
+   "headline": "Bucs' Release Week 12 Depth Chart: Kenny Gainwell Picks Up Snaps",
+   "summary": "RB Kenny Gainwell played 41% of the offensive snaps in Detroit and for the fourth game in a row produced 50-plus yards from scrimmage…David Walker once again made the most of limited snaps",
+   "published": "2026-11-24T17:56:00Z",
+   "published_at": "2026-11-24T17:56:00Z",
+   "first_seen_at": "2026-11-25T09:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Bucs' Release Week 12 Depth Chart: Kenny Gainwell Picks Up Snaps",
+     "url": "https://www.buccaneers.com/news/bucs-release-week-12-depth-chart-kenny-gainwell-picks-up-snaps"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "DK Metcalf"
+   ],
+   "headline": "Around the AFC North: DK Metcalf's Struggles Are Concern for Steelers",
+   "summary": "Cincinnati's last-second loss to Washington keeps the AFC North race tight. Deshaun Watson is leaving the door open for a contract extension with Cleveland.",
+   "published": "2026-11-24T17:03:11Z",
+   "published_at": "2026-11-24T17:03:11Z",
+   "first_seen_at": "2026-11-25T09:03:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Around the AFC North: DK Metcalf's Struggles Are Concern for Steelers",
+     "url": "https://www.baltimoreravens.com/news/dk-metcalf-struggles-steelers-concern-commanders-snap-bengals-winning-streak-deshaun-watson-talks-next-contract-around-afc-north"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Jahmyr Gibbs"
+   ],
+   "headline": "Film study: Jahmyr Gibbs in motion creates space for teammates",
+   "summary": "All Grit. The Detroit Lions won their 6th straight game, knocking off the Tampa Bay Buccaneers, maintaining the top spot in the NFC North. Let’s take a look at those standings. Breathe it in. It feels good. It feels like everything is exactly as it should be. Ben Johnson makes his second return to Ford […]",
+   "published": "2026-11-24T17:00:00Z",
+   "published_at": "2026-11-24T17:00:00Z",
+   "first_seen_at": "2026-11-25T09:03:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "prideofdetroit.com",
+     "title": "Film study: Jahmyr Gibbs in motion creates space for teammates",
+     "url": "https://www.prideofdetroit.com/detroit-lions-analysis/182487/film-study-jahmyr-gibbs-in-motion-creates-space-for-teammates"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Puka Nacua"
+   ],
+   "headline": "Sean McVay on Puka Nacua: 'Can't say for certain' what his Rams future will be amid pending free agency",
+   "summary": "Nacua is set to hit free agency this offseason",
+   "published": "2026-11-24T16:52:09Z",
+   "published_at": "2026-11-24T16:52:09Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Sean McVay on Puka Nacua: 'Can't say for certain' what his Rams future will be amid pending free agency",
+     "url": "https://www.cbssports.com/nfl/news/sean-mcvay-on-puka-nacua-cant-say-for-certain-rams-future-free-agency"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Jonah Coleman"
+   ],
+   "headline": "Broncos RB Jonah Coleman nominated for NFL Rookie of the Week following Week 11 win vs. Raiders",
+   "summary": "Running back Jonah Coleman is up for another league-wide award.",
+   "published": "2026-11-24T16:20:56Z",
+   "published_at": "2026-11-24T16:20:56Z",
+   "first_seen_at": "2026-11-25T09:03:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DEN official",
+     "title": "Broncos RB Jonah Coleman nominated for NFL Rookie of the Week following Week 11 win vs. Raiders",
+     "url": "https://www.denverbroncos.com/news/broncos-rb-jonah-coleman-nominated-for-nfl-rookie-of-the-week-following-week-11-win-vs-raiders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Raheim Sanders"
+   ],
+   "headline": "Raheim Sanders eligible to return to practice",
+   "summary": "Sanders was initially placed on injured reserve on Oct. 13 with a hip injury",
+   "published": "2026-11-24T15:51:53Z",
+   "published_at": "2026-11-24T15:51:53Z",
+   "first_seen_at": "2026-11-25T09:03:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CLE official",
+     "title": "Raheim Sanders eligible to return to practice",
+     "url": "https://www.clevelandbrowns.com/news/raheim-sanders-eligible-to-return-to-practice"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Justin Herbert"
+   ],
+   "headline": "5 Takeaways: Chargers HC Jim Harbaugh Provides Injury Update on Justin Herbert",
+   "summary": "The Chargers quarterback entered the league's concussion protocol after Sunday's game against the Jets",
+   "published": "2026-11-24T15:30:00Z",
+   "published_at": "2026-11-24T15:30:00Z",
+   "first_seen_at": "2026-11-25T09:03:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAC official",
+     "title": "5 Takeaways: Chargers HC Jim Harbaugh Provides Injury Update on Justin Herbert",
+     "url": "https://www.chargers.com/news/justin-herbert-injury-update-nfl-protocol-week-12"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Mailbag: Thoughts on criticism towards Dak",
+   "summary": "The Cowboys again have a bad defense, yet people blame Dak Prescott. I was just curious if that drives you guys as crazy as it drives me. Dak has had his bad moments this season, but he's the absolute least of this team's problems.",
+   "published": "2026-11-24T15:00:32Z",
+   "published_at": "2026-11-24T15:00:32Z",
+   "first_seen_at": "2026-11-25T09:03:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Mailbag: Thoughts on criticism towards Dak",
+     "url": "https://www.dallascowboys.com/news/mailbag-thoughts-on-criticism-towards-dak"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brandon Aiyuk"
+   ],
+   "headline": "Controversy and all, the Seahawks must consider a Brandon Aiyuk signing",
+   "summary": "Brandon Aiyuk has finally been released from the San Francisco 49ers, his strange feud with those in leadership there meeting a final bitter end. His social media tirades had people speculating about his mental health, and teammates giving cold responses to his mention. Go ahead and call me a madman for what I’m about to […]",
+   "published": "2026-11-24T15:00:00Z",
+   "published_at": "2026-11-24T15:00:00Z",
+   "first_seen_at": "2026-11-25T09:03:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Controversy and all, the Seahawks must consider a Brandon Aiyuk signing",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-game-analysis/180611/nfl-opinion-controversy-and-all-seahawks-must-consider-brandon-aiyuk-signing"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BAL",
+   "players": [
+    "Mark Andrews"
+   ],
+   "headline": "Late for Work: Mark Andrews Listed Among Players With Most at Stake Over Rest of Season",
+   "summary": "Jeff Zrebiec looks at whether the Ravens should pursue Daniel Jones. T.J. Tampa and Devontez Walker make Pro Football Focus’ Team of the Week.",
+   "published": "2026-11-24T14:38:32Z",
+   "published_at": "2026-11-24T14:38:32Z",
+   "first_seen_at": "2026-11-25T09:03:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BAL official",
+     "title": "Late for Work: Mark Andrews Listed Among Players With Most at Stake Over Rest of Season",
+     "url": "https://www.baltimoreravens.com/news/mark-andrews-most-at-stake-daniel-jones-tj-tampa-devontez-walker-ravens"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Antonio Williams"
+   ],
+   "headline": "Commanders News: Rookies Antonio Williams & Drew Stevens for the win",
+   "summary": "The Daily Slop – 24 November 2026 Editor’s note: Each day, Hogs Haven compiles a collection of articles, podcasts & tweets from around the web to keep you in touch with the Commanders, the NFC East, the NFL and sports in general, with a sprinkling of other stuff. Enjoy! Commanders links Articles The Athletic (paywall) […]",
+   "published": "2026-11-24T14:05:23Z",
+   "published_at": "2026-11-24T14:05:23Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Commanders News: Rookies Antonio Williams & Drew Stevens for the win",
+     "url": "https://www.hogshaven.com/washington-commanders-news/456795/rookies-antonio-williams-drew-stevens-for-the-win-monday-night-football"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks News: Sam Darnold gets back to work",
+   "summary": "In Today’s Links: Seaside Joe discusses reader-generated Seattle Seahawks player rankings, why the ‘Hawks could go on a run, a look at the remaining schedule, another Coach Macdonald interview, and a bit more. Whether you look at the numbers, or just use your eyeballs, most likely you could assess that Sam Darnold came back from […]",
+   "published": "2026-11-24T14:00:00Z",
+   "published_at": "2026-11-24T14:00:00Z",
+   "first_seen_at": "2026-11-25T09:03:09+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks News: Sam Darnold gets back to work",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/180664/seahawks-news-sam-darnold-gets-back-to-work"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Jayden Daniels leads Commanders past Bengals on MNF; Florida State hires coach Glenn Schumann",
+   "summary": "Plus, the SEC has taken another step toward expelling LSU",
+   "published": "2026-11-24T13:41:23Z",
+   "published_at": "2026-11-24T13:41:23Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Jayden Daniels leads Commanders past Bengals on MNF; Florida State hires coach Glenn Schumann",
+     "url": "https://www.cbssports.com/nfl/news/jayden-daniels-commanders-bengals-nfl-mnf-florida-state-coach-glenn-schumann"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TB",
+   "players": [
+    "Ted Hurst III"
+   ],
+   "headline": "Ted Hurst III Shows Resilience in Career Day vs. Detroit",
+   "summary": "Ted Hurst III’s two-touchdown day in Detroit points to a potential second-half surge for the third-round rookie",
+   "published": "2026-11-24T13:32:14Z",
+   "published_at": "2026-11-24T13:32:14Z",
+   "first_seen_at": "2026-11-25T09:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "TB official",
+     "title": "Ted Hurst III Shows Resilience in Career Day vs. Detroit",
+     "url": "https://www.buccaneers.com/news/ted-hurst-iii-shows-resilience-in-career-day-vs-detroit"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "NFL power rankings: Nick’s picks for how teams stack up before Week 12",
+   "summary": "No. 1 — San Fransico 49ers (9-1) | (3rd) 📈 2 spots The San Francisco 49ers dismantled Brian Flores’ defense in Mexico City on Sunday Night Football. Kyle Shanahan’s team dominated every phase of the game in their 35-10 victory over Minnesota. Brock Purdy is playing out of his mind and the defense is exceptional. […]",
+   "published": "2026-11-24T12:47:55Z",
+   "published_at": "2026-11-24T12:47:55Z",
+   "first_seen_at": "2026-11-25T09:03:08+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "bigblueview.com",
+     "title": "NFL power rankings: Nick’s picks for how teams stack up before Week 12",
+     "url": "https://www.bigblueview.com/new-york-giants-power-rankings/181299/nfl-power-rankings-nicks-picks-for-how-teams-stack-up-before-week-12"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CLE",
+   "players": [
+    "Quinshon Judkins"
+   ],
+   "headline": "It wouldn't shock me if ... for NFL Week 12: Colston Loveland feasts on Thanksgiving, Browns RB shines",
+   "summary": "Our five bold calls for Week 12 include a career day for Quinshon Judkins and mounting pressure on the Seahawks to play Drew Lock",
+   "published": "2026-11-24T12:42:05Z",
+   "published_at": "2026-11-24T12:42:05Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "It wouldn't shock me if ... for NFL Week 12: Colston Loveland feasts on Thanksgiving, Browns RB shines",
+     "url": "https://www.cbssports.com/nfl/news/nfl-week-12-predictions-colston-loveland-thanksgiving"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DET",
+   "players": [
+    "Jared Goff"
+   ],
+   "headline": "Jared Goff’s deep passing unlocking new elements within dynamic Lions offense",
+   "summary": "Lions quarterback Jared Goff has notched a perfect PFF passing grade on deep attempts in 2026, a marked improvement from years prior — and presenting new obstacles in defending Detroit's offense.",
+   "published": "2026-11-24T12:00:00Z",
+   "published_at": "2026-11-24T12:00:00Z",
+   "first_seen_at": "2026-11-25T09:02:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Jared Goff’s deep passing unlocking new elements within dynamic Lions offense",
+     "url": "https://www.pff.com/news/jared-goffs-deep-passing-unlocking-new-elements-within-dynamic-lions-offense"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Brock Purdy’s dismantling of Minnesota was a masterclass in quarterback execution",
+   "summary": "San Francisco 49ers quarterback Brock Purdy delivered a masterclass in efficiency and accuracy against the Minnesota Vikings in Week 11, earning a 90.8 PFF passing grade. His ability to neutralize Minnesota's aggressive blitz packages helped San Francisco generate 0.613 EPA per dropback against one of the NFL's most efficient defenses. Purdy's performance reinforced the value he brings to Kyle Shanahan's offense amid a career-best season from a PFF grading standpoint.",
+   "published": "2026-11-24T10:50:00Z",
+   "published_at": "2026-11-24T10:50:00Z",
+   "first_seen_at": "2026-11-25T09:02:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Brock Purdy’s dismantling of Minnesota was a masterclass in quarterback execution",
+     "url": "https://www.pff.com/news/nfl-brock-purdy-49ers-vs-minnesota"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Javonte Williams",
+    "Bhayshul Tuten",
+    "Chris Rodriguez Jr."
+   ],
+   "headline": "Fantasy Football Waiver Wire Week 12: 5 to add, drop, buy low, sell high",
+   "summary": "Jaguars running back Chris Rodriguez Jr. is a waiver-wire target given injuries to Bhayshul Tuten, while Cowboys running back Javonte Williams is a sell-high candidate given his challenging upcoming slate.",
+   "published": "2026-11-24T10:00:00Z",
+   "published_at": "2026-11-24T10:00:00Z",
+   "first_seen_at": "2026-11-25T09:02:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Fantasy Football Waiver Wire Week 12: 5 to add, drop, buy low, sell high",
+     "url": "https://www.pff.com/news/fantasy-football-waiver-wire-week-12-5-to-add-drop-buy-low-sell-high"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "WAS",
+   "players": [
+    "Jayden Daniels"
+   ],
+   "headline": "Jayden Daniels 2-0 vs Joe Burrow on Monday Night Football – All aTwitter",
+   "summary": "All aTwitter – 24 November 2026 We follow Twitter so you don’t have to The goal of All aTwitter is to give readers a detailed or quirky look, through the unique lens of Twitter, at the Commanders, the NFL, and sports in general, along with a smattering of other things. Commanders beat writers Live reporting, […]",
+   "published": "2026-11-24T10:00:00Z",
+   "published_at": "2026-11-24T10:00:00Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "hogshaven.com",
+     "title": "Jayden Daniels 2-0 vs Joe Burrow on Monday Night Football – All aTwitter",
+     "url": "https://www.hogshaven.com/washington-commanders-discussion/456878/jayden-daniels-2-0-vs-joe-burrow-on-monday-night-football-all-atwitter"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Jacory Croskey-Merritt",
+    "Colbie Young"
+   ],
+   "headline": "NFL Week 11 Recap: Immediate fantasy football takeaways from Bengals-Commanders",
+   "summary": "Bengals receiver Colbie Young becoming more of the team's third receiver and Commanders running back Jacory Croskey-Merritt making his return stood out during Week 11's \"Monday Night Football\" action.",
+   "published": "2026-11-24T04:23:09Z",
+   "published_at": "2026-11-24T04:23:09Z",
+   "first_seen_at": "2026-11-25T09:02:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "NFL Week 11 Recap: Immediate fantasy football takeaways from Bengals-Commanders",
+     "url": "https://www.pff.com/news/nfl-week-11-recap-immediate-fantasy-football-takeaways-from-bengals-commanders"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy",
+    "Christian McCaffrey",
+    "George Kittle"
+   ],
+   "headline": "What the 49ers and Vikings Had to Say After Week 11",
+   "summary": "See what Kyle Shanahan, Brock Purdy, George Kittle, Christian McCaffrey, and Kevin O'Connell had to say following the Week 11 contest.",
+   "published": "2026-11-24T02:35:53Z",
+   "published_at": "2026-11-24T02:35:53Z",
+   "first_seen_at": "2026-11-25T09:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SF official",
+     "title": "What the 49ers and Vikings Had to Say After Week 11",
+     "url": "https://www.49ers.com/news/what-the-49ers-and-vikings-had-to-say-after-week-11"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Zach Charbonnet"
+   ],
+   "headline": "Zach Charbonnet 'Playing Some Of His Best Football' & Other Updates From Mike Macdonald's Monday Press Conference",
+   "summary": "Seahawks head coach Mike Macdonald met with the media on Monday following Seattle’s bye week.",
+   "published": "2026-11-24T02:18:19Z",
+   "published_at": "2026-11-24T02:18:19Z",
+   "first_seen_at": "2026-11-25T09:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Zach Charbonnet 'Playing Some Of His Best Football' & Other Updates From Mike Macdonald's Monday Press Conference",
+     "url": "https://www.seahawks.com/news/zach-charbonnet-playing-some-of-his-best-football-other-updates-from-mike-macdonald-s-monday-press-conference"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Brock Bowers",
+    "Ashton Jeanty"
+   ],
+   "headline": "By the Numbers: Ashton Jeanty, Jack Bech step up against Broncos to overcome absence of Brock Bowers",
+   "summary": "A look back at the Raiders’ Week 11 showing, with some statistics to highlight the good and the bad of the contest against the Broncos.",
+   "published": "2026-11-24T01:30:00Z",
+   "published_at": "2026-11-24T01:30:00Z",
+   "first_seen_at": "2026-11-25T09:03:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "By the Numbers: Ashton Jeanty, Jack Bech step up against Broncos to overcome absence of Brock Bowers",
+     "url": "https://www.raiders.com/news/by-the-numbers-ashton-jeanty-jack-bech-step-up-against-broncos-to-overcome-absence-of-brock-bowers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks QB Sam Darnold 'Took A Ton Of Reps' Monday As He Works His Way Back From Injuries",
+   "summary": "Seahawks coach Mike Macdonald provided an update on Sam Darnold and other injuries following Monday’s practice.",
+   "published": "2026-11-24T00:55:26Z",
+   "published_at": "2026-11-24T00:55:26Z",
+   "first_seen_at": "2026-11-25T09:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Seahawks QB Sam Darnold 'Took A Ton Of Reps' Monday As He Works His Way Back From Injuries",
+     "url": "https://www.seahawks.com/news/seahawks-qb-sam-darnold-took-a-ton-of-reps-monday-as-he-works-his-way-back-from-injuries"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Beating the Blitz: Brock Purdy Commands against the Rush",
+   "summary": "QB Brock Purdy torched the NFL's most blitz-heavy defense for 255 yards and three touchdowns in the 49ers 35-10 win over the Minnesota Vikings.",
+   "published": "2026-11-24T00:40:08Z",
+   "published_at": "2026-11-24T00:40:08Z",
+   "first_seen_at": "2026-11-25T09:03:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SF official",
+     "title": "Beating the Blitz: Brock Purdy Commands against the Rush",
+     "url": "https://www.49ers.com/news/beating-the-blitz-brock-purdy-commands-against-the-rush"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Jayden Daniels",
+    "Brandon Aiyuk"
+   ],
+   "headline": "Brandon Aiyuk landing spots: Commanders, Steelers among four potential fits for former 49ers star",
+   "summary": "A reunion with Jayden Daniels, an NFC West revenge tour and two potential AFC opportunities headline Aiyuk's most intriguing options",
+   "published": "2026-11-23T23:06:20Z",
+   "published_at": "2026-11-23T23:06:20Z",
+   "first_seen_at": "2026-11-25T09:03:07+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Brandon Aiyuk landing spots: Commanders, Steelers among four potential fits for former 49ers star",
+     "url": "https://www.cbssports.com/nfl/news/brandon-aiyuk-landing-spots-commanders-steelers-49ers"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Zavion Thomas"
+   ],
+   "headline": "Bears rookie Zavion Thomas displays triple-threat ability",
+   "summary": "Bears receiver Zavion Thomas delivered the most impactful game of his rookie season in Sunday’s 21-13 victory over the Saints.",
+   "published": "2026-11-23T22:05:39Z",
+   "published_at": "2026-11-23T22:05:39Z",
+   "first_seen_at": "2026-11-25T09:03:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "Bears rookie Zavion Thomas displays triple-threat ability",
+     "url": "https://www.chicagobears.com/news/bears-rookie-zavion-thomas-displays-triple-threat-ability"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 24,
+ "feeds_generated_at": "2026-11-25T09:02:59+00:00"
+}
