@@ -1,0 +1,1356 @@
+{
+ "date": "2026-11-27",
+ "schema_version": 2,
+ "items": [
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "‘He Should Straight-Up Refuse to Play Unless They Trade Him’ — Cowboys Fans React as Former QB Questions If Dak Prescott Should Pull an Aaron Rodgers",
+   "summary": "",
+   "published": "2026-11-27T07:45:21Z",
+   "published_at": "2026-11-27T07:45:21Z",
+   "first_seen_at": "2026-11-27T09:00:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘He Should Straight-Up Refuse to Play Unless They Trade Him’ — Cowboys Fans React as Former QB Questions If Dak Prescott Should Pull an Aaron Rodgers",
+     "url": "https://www.profootballnetwork.com/ben-dinucci-dak-prescott-aaron-rodgers-cowboys-eagles-thanksgiving"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Patrick Mahomes’ Trainer Fires Off 7-Word Message on Officiating Controversy in Chiefs-Bills Thanksgiving Thriller",
+   "summary": "",
+   "published": "2026-11-27T07:15:29Z",
+   "published_at": "2026-11-27T07:15:29Z",
+   "first_seen_at": "2026-11-27T09:00:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "Patrick Mahomes’ Trainer Fires Off 7-Word Message on Officiating Controversy in Chiefs-Bills Thanksgiving Thriller",
+     "url": "https://www.profootballnetwork.com/patrick-mahomes-bobby-stroupe-chiefs-bills-controversy"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Rashee Rice",
+    "Patrick Mahomes"
+   ],
+   "headline": "‘What A Joke’ — Patrick Mahomes’ Wife Brittany Unleashes Furious Rant Against NFL Refs Over Controversial Rashee Rice Call in Chiefs’ Loss to Bills",
+   "summary": "",
+   "published": "2026-11-27T06:12:15Z",
+   "published_at": "2026-11-27T06:12:15Z",
+   "first_seen_at": "2026-11-27T09:00:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘What A Joke’ — Patrick Mahomes’ Wife Brittany Unleashes Furious Rant Against NFL Refs Over Controversial Rashee Rice Call in Chiefs’ Loss to Bills",
+     "url": "https://www.profootballnetwork.com/patrick-mahomes-wife-brittany-nfl-referees-chiefs-bills-thanksgiving-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Rashee Rice"
+   ],
+   "headline": "Andy Reid disagrees with overturned Rashee Rice catch after Chiefs' loss to Bills: 'That was not clear and obvious'",
+   "summary": "We may never know what a catch is in the NFL.",
+   "published": "2026-11-27T05:38:46Z",
+   "published_at": "2026-11-27T05:38:46Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Andy Reid disagrees with overturned Rashee Rice catch after Chiefs' loss to Bills: 'That was not clear and obvious'",
+     "url": "https://sports.yahoo.com/nfl/breaking-news/article/andy-reid-disagrees-with-overturned-rashee-rice-catch-after-chiefs-loss-to-bills-that-was-not-clear-and-obvious-053846493.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams",
+    "Rome Odunze"
+   ],
+   "headline": "NFL Week 12 grades for Thanksgiving: Cowboys choke their way to a 'D,' Bears earn 'B' for big win",
+   "summary": "Caleb Williams delivers late magic to Rome Odunze in a wild shootout, while Detroit's defense collapses and Jordan Love struggles without Christian Watson",
+   "published": "2026-11-27T05:13:44Z",
+   "published_at": "2026-11-27T05:13:44Z",
+   "first_seen_at": "2026-11-27T09:00:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "NFL Week 12 grades for Thanksgiving: Cowboys choke their way to a 'D,' Bears earn 'B' for big win",
+     "url": "https://www.cbssports.com/nfl/news/nfl-week-12-grades-thanksgiving-bears-earn-b-packers-get-d"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "James Cook"
+   ],
+   "headline": "Bills 13, Chiefs 10 | Final Score, recap + highlights",
+   "summary": "James Cook III has 32 carries for 117 yards and a touchdown on the ground. Cook’s total was the most rushing yards any player has had against Kansas City this season,",
+   "published": "2026-11-27T05:08:18Z",
+   "published_at": "2026-11-27T05:08:18Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BUF official",
+     "title": "Bills 13, Chiefs 10 | Final Score, recap + highlights",
+     "url": "https://www.buffalobills.com/news/bills-13-chiefs-10-final-score-recap-highlights"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Patrick Mahomes"
+   ],
+   "headline": "Patrick Mahomes has quiet Week 12 performance",
+   "summary": "Kansas City Chiefs QB Patrick Mahomes battles elements in loss to Buffalo",
+   "published": "2026-11-27T04:47:12Z",
+   "published_at": "2026-11-27T04:47:12Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Patrick Mahomes has quiet Week 12 performance",
+     "url": "https://sports.yahoo.com/nfl/articles/patrick-mahomes-quiet-week-12-044712300.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "Monster performance for DeVonta Smith in Week 12",
+   "summary": "Philadelphia Eagles WR DeVonta Smith finishes with 200 yards in Week 12",
+   "published": "2026-11-27T03:53:30Z",
+   "published_at": "2026-11-27T03:53:30Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Monster performance for DeVonta Smith in Week 12",
+     "url": "https://sports.yahoo.com/nfl/articles/monster-performance-devonta-smith-week-035330982.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "James Cook"
+   ],
+   "headline": "James Cook makes NFL history on Thanksgiving night",
+   "summary": "Buffalo Bills RB James Cook III has rushed for at least 75 yards and a touchdown in 10 consecutive games, tying Terry Allen’s NFL record.",
+   "published": "2026-11-27T03:46:10Z",
+   "published_at": "2026-11-27T03:46:10Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "James Cook makes NFL history on Thanksgiving night",
+     "url": "https://sports.yahoo.com/nfl/articles/james-cook-makes-nfl-history-034610876.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Dak Prescott"
+   ],
+   "headline": "Dak Prescott speaks on 'stunning' loss to Eagles on Thanksgiving",
+   "summary": "Dak Prescott and the Cowboys were dominating the Eagles on Thanksgiving, until they weren't, and the All-Pro spoke after another heartbreaking loss at home.",
+   "published": "2026-11-27T03:15:45Z",
+   "published_at": "2026-11-27T03:15:45Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DAL official",
+     "title": "Dak Prescott speaks on 'stunning' loss to Eagles on Thanksgiving",
+     "url": "https://www.dallascowboys.com/news/dak-prescott-speaks-on-stunning-loss-to-eagles-on-thanksgiving"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "Javonte Williams"
+   ],
+   "headline": "Javonte Williams scores three times in Week 12",
+   "summary": "Dallas Cowboys RB Javonte Williams logs 123 total yards, three TDs against Philadelphia",
+   "published": "2026-11-27T02:59:44Z",
+   "published_at": "2026-11-27T02:59:44Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Javonte Williams scores three times in Week 12",
+     "url": "https://sports.yahoo.com/nfl/articles/javonte-williams-scores-three-times-025944711.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Rome Odunze"
+   ],
+   "headline": "Jeffery Simmons: I didn't simulate snap count on false starts, Lions are \"crying\" about a them problem",
+   "summary": "Long before the Bears beat the Lions on a last-second touchdown catch by wide receiver Rome Odunze, one of the storylines of the game was a run of false start penalties by the Lions.",
+   "published": "2026-11-27T02:48:15Z",
+   "published_at": "2026-11-27T02:48:15Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Jeffery Simmons: I didn't simulate snap count on false starts, Lions are \"crying\" about a them problem",
+     "url": "https://sports.yahoo.com/nfl/articles/jeffery-simmons-didnt-simulate-snap-024815815.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Jaxon Smith-Njigba"
+   ],
+   "headline": "Jaxon Smith-Njigba limited on Thursday",
+   "summary": "The Seahawks top wide receiver was limited in practice again on Thursday.",
+   "published": "2026-11-27T02:34:46Z",
+   "published_at": "2026-11-27T02:34:46Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Jaxon Smith-Njigba limited on Thursday",
+     "url": "https://sports.yahoo.com/nfl/articles/jaxon-smith-njigba-limited-thursday-023446436.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "TEN",
+   "players": [
+    "Carnell Tate"
+   ],
+   "headline": "Carnell Tate logs full practice Thursday",
+   "summary": "Tennessee Titans WR Carnell Tate full practices Thursday",
+   "published": "2026-11-27T02:22:48Z",
+   "published_at": "2026-11-27T02:22:48Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Carnell Tate logs full practice Thursday",
+     "url": "https://sports.yahoo.com/nfl/articles/carnell-tate-logs-full-practice-022248555.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "Brock Purdy misses practice again on Thursday",
+   "summary": "The 49ers remained without the leader of their offense at Thursday's practice.",
+   "published": "2026-11-27T02:22:42Z",
+   "published_at": "2026-11-27T02:22:42Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Brock Purdy misses practice again on Thursday",
+     "url": "https://sports.yahoo.com/nfl/articles/brock-purdy-misses-practice-again-022242718.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "James Cook"
+   ],
+   "headline": "James Cook touchdown gives Bills 7-0 lead over Chiefs",
+   "summary": "There is some nasty weather in Western New York on Thanksgiving night.",
+   "published": "2026-11-27T02:12:32Z",
+   "published_at": "2026-11-27T02:12:32Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "James Cook touchdown gives Bills 7-0 lead over Chiefs",
+     "url": "https://sports.yahoo.com/nfl/articles/james-cook-touchdown-gives-bills-021232631.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Jonah Coleman",
+    "Evan Engram",
+    "Jaylen Waddle",
+    "DK Metcalf",
+    "Jaylen Warren",
+    "Pat Freiermuth"
+   ],
+   "headline": "Broncos vs. Steelers Start 'Em, Sit 'Em (Black Friday) - Jaylen Warren, DK Metcalf, Jaylen Waddle, Jonah Coleman, Bo Nix, Mason Rudolph, Evan Engram, Pat Bryant, Pat Freiermuth",
+   "summary": "",
+   "published": "2026-11-27T01:46:17Z",
+   "published_at": "2026-11-27T01:46:17Z",
+   "first_seen_at": "2026-11-27T09:00:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "rotoballer.com",
+     "title": "Broncos vs. Steelers Start 'Em, Sit 'Em (Black Friday) - Jaylen Warren, DK Metcalf, Jaylen Waddle, Jonah Coleman, Bo Nix, Mason Rudolph, Evan Engram, Pat Bryant, Pat Freiermuth",
+     "url": "https://www.rotoballer.com/fantasy-football-start-em-sit-em-black-friday-broncos-vs-steelers-week-12-2026/2004684"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Rome Odunze"
+   ],
+   "headline": "'Jaw-dropping': Inside Rome Odunze's game-winning touchdown catch in Detroit",
+   "summary": "Remarkable. Unbelievable. Spectacular. Elite. Insane. Rome Odunze's 6-yard touchdown reception in the final seconds of the Bears' 39-35 comeback win over the Lions left his teammates and coaches in awe and put the Bears atop the NFC North.",
+   "published": "2026-11-27T01:30:00Z",
+   "published_at": "2026-11-27T01:30:00Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "'Jaw-dropping': Inside Rome Odunze's game-winning touchdown catch in Detroit",
+     "url": "https://www.chicagobears.com/news/jaw-dropping-inside-rome-odunze-game-winning-touchdown-catch-detroit"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Kenneth Walker III"
+   ],
+   "headline": "Kenneth Walker III Injury Update: Chiefs Rule Out Star RB vs. Bills on Thanksgiving With Groin Injury",
+   "summary": "",
+   "published": "2026-11-27T00:22:25Z",
+   "published_at": "2026-11-27T00:22:25Z",
+   "first_seen_at": "2026-11-27T09:00:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "Kenneth Walker III Injury Update: Chiefs Rule Out Star RB vs. Bills on Thanksgiving With Groin Injury",
+     "url": "https://www.profootballnetwork.com/kenneth-walker-iii-injury-update-chiefs-bills-thanksgiving-week-12-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "‘We Regathered Ourselves’ — Caleb Williams Reveals How Wu-Tang Clan’s Halftime Show Helped Bears in Comeback Win vs. Lions",
+   "summary": "",
+   "published": "2026-11-27T00:22:16Z",
+   "published_at": "2026-11-27T00:22:16Z",
+   "first_seen_at": "2026-11-27T09:00:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "profootballnetwork.com",
+     "title": "‘We Regathered Ourselves’ — Caleb Williams Reveals How Wu-Tang Clan’s Halftime Show Helped Bears in Comeback Win vs. Lions",
+     "url": "https://www.profootballnetwork.com/caleb-williams-wu-tang-clan"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Patrick Mahomes",
+    "Josh Allen"
+   ],
+   "headline": "Bills beat Chiefs on deflected punt, Tyler Bass' 57-yard field goal at the buzzer",
+   "summary": "Patrick Mahomes and Josh Allen meet again in Week 12.",
+   "published": "2026-11-26T23:55:00Z",
+   "published_at": "2026-11-26T23:55:00Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "sports.yahoo.com",
+     "title": "Bills beat Chiefs on deflected punt, Tyler Bass' 57-yard field goal at the buzzer",
+     "url": "https://sports.yahoo.com/nfl/live/chiefs-bills-score-live-updates-inactives-highlights-stats-where-to-watch-week-12-thanksgiving-235500403.html"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Brock Bowers"
+   ],
+   "headline": "Key Matchups: Raiders hopeful for Brock Bowers' return in Sunday night showdown",
+   "summary": "If the Raiders tight end can play this Sunday, he'll have a tough task ahead across the line of the scrimmage.",
+   "published": "2026-11-26T23:45:07Z",
+   "published_at": "2026-11-26T23:45:07Z",
+   "first_seen_at": "2026-11-27T09:00:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "Key Matchups: Raiders hopeful for Brock Bowers' return in Sunday night showdown",
+     "url": "https://www.raiders.com/news/key-matchups-raiders-hopeful-for-brock-bowers-return-in-sunday-night-showdown"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks-49ers Thursday injury report: Charles Cross, Sam Darnold a full go",
+   "summary": "Ahead of a must-win NFC West rematch, the Seattle Seahawks’ offense appears set to get their starting left tackle, Charles Cross, back. Cross has been out since the Week 7 game against the Kansas City Chiefs with an ankle injury, but was a full participant in practice on Thursday. Cross’ return could come at a […]",
+   "published": "2026-11-26T22:33:29Z",
+   "published_at": "2026-11-26T22:33:29Z",
+   "first_seen_at": "2026-11-27T09:00:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks-49ers Thursday injury report: Charles Cross, Sam Darnold a full go",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-injury-report/180815/seahawks-49ers-thursday-injury-report-charles-cross-sam-darnold-full-go"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy",
+    "Christian McCaffrey"
+   ],
+   "headline": "Brock Purdy misses practice for the second straight day",
+   "summary": "The San Francisco 49ers injury report is out for Thursday. Let’s go over the changes from Wednesday. Keenan Allen, Christian McCaffrey, and Trent Williams returned after missing Wednesday with a veteran’s day off. Here is who sat out of Thursday’s practice: QB Brock Purdy (ankle)S Siran Neal (knee/foot)WR Jordan Watkins (groin) No Purdy for the […]",
+   "published": "2026-11-26T22:18:46Z",
+   "published_at": "2026-11-26T22:18:46Z",
+   "first_seen_at": "2026-11-27T09:00:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "Brock Purdy misses practice for the second straight day",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-injuries/166336/brock-purdy-misses-practice-for-the-second-straight-day"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams",
+    "Rome Odunze"
+   ],
+   "headline": "Game Recap: Bears move into first place in NFC North with thrilling comeback win over Lions",
+   "summary": "In a battle for first place in the NFC North that more than lived up to its billing, the Bears rallied in dramatic fashion for a thrilling 39-35 victory on Caleb Williams’ 6-yard touchdown pass to Rome Odunze with just :03 remaining.",
+   "published": "2026-11-26T21:59:00Z",
+   "published_at": "2026-11-26T21:59:00Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "Game Recap: Bears move into first place in NFC North with thrilling comeback win over Lions",
+     "url": "https://www.chicagobears.com/news/bears-move-into-first-place-in-nfc-north-with-thrilling-comeback-win-over-lions-game-recap"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Patrick Mahomes",
+    "Josh Allen"
+   ],
+   "headline": "Bills vs. Chiefs prediction: Which team wins latest chapter of Josh Allen-Patrick Mahomes saga?",
+   "summary": "Legendary quarterbacks close out the holiday slate in one of the biggest games of the season",
+   "published": "2026-11-26T21:30:35Z",
+   "published_at": "2026-11-26T21:30:35Z",
+   "first_seen_at": "2026-11-27T09:00:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Bills vs. Chiefs prediction: Which team wins latest chapter of Josh Allen-Patrick Mahomes saga?",
+     "url": "https://www.cbssports.com/nfl/news/bills-vs-chiefs-prediction-odds-how-to-watch-thanksgiving"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Deion Burks"
+   ],
+   "headline": "Practice Notebook: Thanksgiving practice sees multiple players sidelined",
+   "summary": "TE Drew Ogletree (knee) and WR Deion Burks (personal) returned in full Thursday.",
+   "published": "2026-11-26T19:19:30Z",
+   "published_at": "2026-11-26T19:19:30Z",
+   "first_seen_at": "2026-11-27T09:00:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "IND official",
+     "title": "Practice Notebook: Thanksgiving practice sees multiple players sidelined",
+     "url": "https://www.colts.com/news/practice-notebook-thanksgiving-practice-sees-multiple-players-sidelined"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Jonah Coleman"
+   ],
+   "headline": "Jonah Coleman named NFL Rookie of the Week for Week 11 performance",
+   "summary": "Coleman was also named AFC Offensive Player of the Week and FedEx Air & Ground Player of the Week for his effort vs. the Raiders.",
+   "published": "2026-11-26T18:50:41Z",
+   "published_at": "2026-11-26T18:50:41Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DEN official",
+     "title": "Jonah Coleman named NFL Rookie of the Week for Week 11 performance",
+     "url": "https://www.denverbroncos.com/news/jonah-coleman-named-nfl-rookie-of-the-week-for-week-11-performance"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ATL",
+   "players": [
+    "Zachariah Branch"
+   ],
+   "headline": "Falcons injury report: S DeMarcco Hellams, LG Matthew Bergeron miss second consecutive practice",
+   "summary": "So, too, did wide receivers Jahan Dotson and Zachariah Branch.",
+   "published": "2026-11-26T18:14:02Z",
+   "published_at": "2026-11-26T18:14:02Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ATL official",
+     "title": "Falcons injury report: S DeMarcco Hellams, LG Matthew Bergeron miss second consecutive practice",
+     "url": "https://www.atlantafalcons.com/news/falcons-injury-report-s-demarcco-hellams-lg-matthew-bergeron-miss-second-consecutive-practice"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LV",
+   "players": [
+    "Brock Bowers"
+   ],
+   "headline": "Raiders Mailbag: Cornerback spot remains unsettled heading into matchup with Browns",
+   "summary": "Raiders.com's Levi Edwards answers questions on the team's secondary and Brock Bowers' availability heading into Sunday Night Football.",
+   "published": "2026-11-26T18:00:20Z",
+   "published_at": "2026-11-26T18:00:20Z",
+   "first_seen_at": "2026-11-27T09:00:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LV official",
+     "title": "Raiders Mailbag: Cornerback spot remains unsettled heading into matchup with Browns",
+     "url": "https://www.raiders.com/news/mailbag/raiders-mailbag-cornerback-spot-remains-unsettled-heading-into-matchup-with-browns"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Blake Corum"
+   ],
+   "headline": "Blake Corum is the Rams’ best running back",
+   "summary": "Blake Corum was incredible for the Los Angeles Rams in their Week 12 win over the Green Bay Packers. He was nearly unstoppable as he gashed through the Green Bay defense, carrying the offense in a 26-13 victory. Not only was Corum the best player in the game, he solidified himself as RB1 for the […]",
+   "published": "2026-11-26T17:00:00Z",
+   "published_at": "2026-11-26T17:00:00Z",
+   "first_seen_at": "2026-11-27T09:00:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "Blake Corum is the Rams’ best running back",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-analysis/156104/blake-corum-rams-best-running-back"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Blake Corum"
+   ],
+   "headline": "RAMalytics: 3 stats that defined Rams’ win over Packers",
+   "summary": "A 26-13 win isn’t exactly a blowout. Then again, the Los Angeles Rams completely suffocated the Green Bay Packers by dominating time of possession—especially in the second half. Blake Corum was the boa constrictor. He amassed over 200 total yards on the game with at least 180 and a score on the ground alone. The […]",
+   "published": "2026-11-26T15:54:08Z",
+   "published_at": "2026-11-26T15:54:08Z",
+   "first_seen_at": "2026-11-27T09:00:04+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "turfshowtimes.com",
+     "title": "RAMalytics: 3 stats that defined Rams’ win over Packers",
+     "url": "https://www.turfshowtimes.com/los-angeles-rams-analysis/156127/rams-beat-packers-stats-blake-corum"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CHI",
+   "players": [
+    "Caleb Williams"
+   ],
+   "headline": "Thanksgiving showdown will be a full-circle moment for Caleb Williams",
+   "summary": "Preparing to lead the Bears against the Lions on Thanksgiving Day, Caleb Williams reminisced about watching games on the holiday as a kid, saying: “It’s great memories; now I get to be a part of making memories for somebody else.”",
+   "published": "2026-11-26T14:31:00Z",
+   "published_at": "2026-11-26T14:31:00Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CHI official",
+     "title": "Thanksgiving showdown will be a full-circle moment for Caleb Williams",
+     "url": "https://www.chicagobears.com/news/thanksgiving-showdown-will-be-a-full-circle-moment-for-caleb-williams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Blake Corum"
+   ],
+   "headline": "Steelers cut Aaron Rodgers after McCarthy blowup; Blake Corum and Rams run wild vs. Packers",
+   "summary": "Plus, NFL Thanksgiving picks and the college football rivalries that could shake up the CFP race",
+   "published": "2026-11-26T13:50:16Z",
+   "published_at": "2026-11-26T13:50:16Z",
+   "first_seen_at": "2026-11-27T09:00:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Steelers cut Aaron Rodgers after McCarthy blowup; Blake Corum and Rams run wild vs. Packers",
+     "url": "https://www.cbssports.com/nfl/news/steelers-aaron-rodgers-mccarthy-corum-rams-packers-thanksgiving-nfl"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "BUF",
+   "players": [
+    "Josh Allen"
+   ],
+   "headline": "'We've got to be at our best' | Buffalo's offense gears up to take on the Kansas City Chiefs' stifling defense",
+   "summary": "Josh Allen and the Bills look for a statement win on Thanksgiving Night",
+   "published": "2026-11-26T13:45:00Z",
+   "published_at": "2026-11-26T13:45:00Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "BUF official",
+     "title": "'We've got to be at our best' | Buffalo's offense gears up to take on the Kansas City Chiefs' stifling defense",
+     "url": "https://www.buffalobills.com/news/we-ve-got-to-be-at-our-best-buffalo-s-offense-gears-up-to-take-on-the-kansas-city-chiefs-stifling-defense"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DAL",
+   "players": [
+    "CeeDee Lamb"
+   ],
+   "headline": "The 10 best NFL player matchups to watch in Week 12",
+   "summary": "Cowboys receiver CeeDee Lamb vs. Eagles cornerback Quinyon Mitchell highlights the best player matchups to watch during a feast-worthy Week 12 NFL schedule.",
+   "published": "2026-11-26T10:30:44Z",
+   "published_at": "2026-11-26T10:30:44Z",
+   "first_seen_at": "2026-11-27T08:59:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "The 10 best NFL player matchups to watch in Week 12",
+     "url": "https://www.pff.com/news/the-10-best-nfl-player-matchups-to-watch-in-week-12-2"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SF",
+   "players": [
+    "Brock Purdy"
+   ],
+   "headline": "49ers News: Thankful for this team",
+   "summary": "49ers QB Brock Purdy has ankle injury, sits out practice Wednesday“A review of the game showed that Purdy had his foot and ankles spatted (athletic taped wrapped over a player’s sock and cleat over the ankle to add extra support) for the final two quarters.” 49ers activate veteran cornerback from the IR; Brandin Cook joins […]",
+   "published": "2026-11-26T10:13:00Z",
+   "published_at": "2026-11-26T10:13:00Z",
+   "first_seen_at": "2026-11-27T09:00:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ninersnation.com",
+     "title": "49ers News: Thankful for this team",
+     "url": "https://www.ninersnation.com/san-francisco-49ers-news/166319/49ers-news-thanksgiving-brock-purdy-mac-jones-nick-bosa"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Blake Corum"
+   ],
+   "headline": "Blake Corum sets career-high 32 rushes for career-high 184 yards in Rams win over Packers on Thanksgiving Eve",
+   "summary": "Running back Blake Corum had a career night on Thanksgiving Eve against the Packers, rushing 32 times for 184 yards and a touchdown.",
+   "published": "2026-11-26T07:27:52Z",
+   "published_at": "2026-11-26T07:27:52Z",
+   "first_seen_at": "2026-11-27T09:00:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Blake Corum sets career-high 32 rushes for career-high 184 yards in Rams win over Packers on Thanksgiving Eve",
+     "url": "https://www.therams.com/news/blake-corum-sets-career-high-32-rushes-for-career-high-184-yards-in-rams-win-over-packers-on-thanksgiving-eve"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Blake Corum",
+    "Matthew Stafford"
+   ],
+   "headline": "From the Podium: Sean McVay, Matthew Stafford, Blake Corum and Myles Garret detail Rams' win over Packers on Thanksgiving Eve",
+   "summary": "Head coach Sean McVay, quarterback Matthew Stafford, running back Blake Corum and outside linebacker Myles Garret talk through the Rams' win over the Packers on Wednesday night at SoFi Stadium.",
+   "published": "2026-11-26T06:41:02Z",
+   "published_at": "2026-11-26T06:41:02Z",
+   "first_seen_at": "2026-11-27T09:00:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "From the Podium: Sean McVay, Matthew Stafford, Blake Corum and Myles Garret detail Rams' win over Packers on Thanksgiving Eve",
+     "url": "https://www.therams.com/news/from-the-podium-head-coach-sean-mcvay-quarterback-matthew-stafford-running-back-blake-corum-outside-linebacker-myles-garret-rams-win-over-packers-on-thanksgiving-eve-2026-press-conference"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAC",
+   "players": [
+    "Omarion Hampton"
+   ],
+   "headline": "Fantasy Football Week 12: 3 players to flex",
+   "summary": "Chargers running back Omarion Hampton is a shrewd flex play for fantasy football lineups in Week 12, pairing a good matchup against the Patriots with an amplified workload in recent weeks.",
+   "published": "2026-11-26T06:32:21Z",
+   "published_at": "2026-11-26T06:32:21Z",
+   "first_seen_at": "2026-11-27T08:59:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Fantasy Football Week 12: 3 players to flex",
+     "url": "https://www.pff.com/news/fantasy-football-week-12-3-players-to-flex"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Christian Watson"
+   ],
+   "headline": "Game notes: Grateful to be back, Micah Parsons addresses disappointing defeat in L.A.",
+   "summary": "Packers struggle to stop Blake Corum, lose WR Christian Watson to concussion",
+   "published": "2026-11-26T06:30:00Z",
+   "published_at": "2026-11-26T06:30:00Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Game notes: Grateful to be back, Micah Parsons addresses disappointing defeat in L.A.",
+     "url": "https://www.packers.com/news/game-notes-grateful-to-be-back-micah-parsons-addresses-disappointing-defeat-in-l-a-week-12-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "PHI",
+   "players": [
+    "DeVonta Smith"
+   ],
+   "headline": "Fantasy Football Week 12: 3 WR/CB matchups to target and avoid",
+   "summary": "Eagles receiver DeVonta Smith is set up to find plenty of footing against Cowboys cornerback Cobie Durant on Thanksgiving.",
+   "published": "2026-11-26T06:23:25Z",
+   "published_at": "2026-11-26T06:23:25Z",
+   "first_seen_at": "2026-11-27T08:59:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Fantasy Football Week 12: 3 WR/CB matchups to target and avoid",
+     "url": "https://www.pff.com/news/fantasy-football-week-12-3-wr-cb-matchups-to-target-and-avoid"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Rashee Rice",
+    "Patrick Mahomes"
+   ],
+   "headline": "Thanksgiving Same-Game Parlay: Kansas City Chiefs vs. Buffalo Bills best bets",
+   "summary": "The Kansas City Chiefs and Buffalo Bills close out the NFL Thanksgiving Day slate with a matchup featuring a three-leg same-game parlay at +435 odds. Patrick Mahomes' recent passing production and Rashee Rice's involvement in Kansas City's screen game provide the foundation for two of the selections. Buffalo wide receiver DJ Moore rounds out the parlay with a receiving yardage prop supported by his recent production and matchup against the Chiefs.",
+   "published": "2026-11-26T05:03:28Z",
+   "published_at": "2026-11-26T05:03:28Z",
+   "first_seen_at": "2026-11-27T08:59:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Thanksgiving Same-Game Parlay: Kansas City Chiefs vs. Buffalo Bills best bets",
+     "url": "https://www.pff.com/news/bet-chiefs-bills-thanksgiving-same-game-parlay"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Saquon Barkley",
+    "Ryan Flournoy"
+   ],
+   "headline": "Thanksgiving Same-Game Parlay: Philadelphia Eagles vs. Dallas Cowboys best bets",
+   "summary": "The Philadelphia Eagles and Dallas Cowboys renew their NFC East rivalry on Thanksgiving Day, presenting a three-leg same-game parlay at +395 odds. Saquon Barkley's recent touchdown streak and favorable matchup against Dallas' struggling run defense provide the foundation for two of the selections. Cowboys wide receiver Ryan Flournoy rounds out the parlay with a receiving yardage prop backed by his consistent production.",
+   "published": "2026-11-26T04:50:54Z",
+   "published_at": "2026-11-26T04:50:54Z",
+   "first_seen_at": "2026-11-27T08:59:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Thanksgiving Same-Game Parlay: Philadelphia Eagles vs. Dallas Cowboys best bets",
+     "url": "https://www.pff.com/news/bet-eagles-cowboys-thanksgiving-same-game-parlay"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Amon-Ra St. Brown",
+    "Caleb Williams",
+    "Rome Odunze",
+    "Luther Burden III"
+   ],
+   "headline": "Thanksgiving Same-Game Parlay: Chicago Bears vs. Detroit Lions best bets",
+   "summary": "The Bears and Lions open the NFL Thanksgiving Day slate with a divisional matchup that presents several favorable player prop opportunities. This four-leg same-game parlay at +550 odds targets Caleb Williams' passing touchdowns, receiving yards for Amon-Ra St. Brown and Rome Odunze, and receptions for Luther Burden III. PFF matchup data and historical production provide the foundation for each selection.",
+   "published": "2026-11-26T04:40:42Z",
+   "published_at": "2026-11-26T04:40:42Z",
+   "first_seen_at": "2026-11-27T08:59:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Thanksgiving Same-Game Parlay: Chicago Bears vs. Detroit Lions best bets",
+     "url": "https://www.pff.com/news/bet-bears-lions-thanksgiving-same-game-parlay"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Christian Watson",
+    "Blake Corum"
+   ],
+   "headline": "NFL Week 12 Recap: Immediate fantasy football takeaways from Packers-Rams",
+   "summary": "Rams running back Blake Corum taking over the spotlight and Packers receiver Christian Watson suffering a concussion were storylines to follow from Packers-Rams in Week 12.",
+   "published": "2026-11-26T04:33:19Z",
+   "published_at": "2026-11-26T04:33:19Z",
+   "first_seen_at": "2026-11-27T08:59:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "NFL Week 12 Recap: Immediate fantasy football takeaways from Packers-Rams",
+     "url": "https://www.pff.com/news/nfl-week-12-recap-immediate-fantasy-football-takeaways-from-packers-rams"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "LAR",
+   "players": [
+    "Blake Corum"
+   ],
+   "headline": "Game Recap: Blake Corum's 184 rushing yards, defense's timely playmaking lift Rams to 26-13 win over Packers on Thanksgiving Eve",
+   "summary": "Rams lean on run game, defense to extend win streak to five games.",
+   "published": "2026-11-26T04:30:00Z",
+   "published_at": "2026-11-26T04:30:00Z",
+   "first_seen_at": "2026-11-27T09:00:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "LAR official",
+     "title": "Game Recap: Blake Corum's 184 rushing yards, defense's timely playmaking lift Rams to 26-13 win over Packers on Thanksgiving Eve",
+     "url": "https://www.therams.com/news/game-recap-blake-corum-s-184-rushing-yards-defense-s-timely-playmaking-lift-rams-to-26-13-win-over-packers-on-thanksgiving-eve"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "KC",
+   "players": [
+    "Emmett Johnson"
+   ],
+   "headline": "NFL rookie rankings: Highest-graded players after Week 10",
+   "summary": "The 2026 NFL rookie rankings through Week 11 feature Cleveland Browns safety Emmanuel McNeil-Warren at No. 1 with an 86.7 overall PFF grade. Kansas City Chiefs cornerback Mansoor Delane and New York Giants linebacker Arvell Reese round out the top three, while Chiefs running back Emmett Johnson enters the rankings at No. 6. The rankings highlight the 15 highest-graded NFL rookies who have logged at least 220 snaps this season.",
+   "published": "2026-11-26T04:10:00Z",
+   "published_at": "2026-11-26T04:10:00Z",
+   "first_seen_at": "2026-11-27T08:59:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "NFL rookie rankings: Highest-graded players after Week 10",
+     "url": "https://www.pff.com/news/nfl-rookie-rankings"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": null,
+   "players": [
+    "Quinshon Judkins",
+    "Tyler Warren",
+    "Anthony Richardson",
+    "Denzel Boston"
+   ],
+   "headline": "Fantasy Football Week 12: Start ’em, sit ’em",
+   "summary": "Browns players like Quinshon Judkins and Denzel Boston are more starting-viable against the Raiders in Week 12, while Colts such as Tyler Warren carry high risk with Anthony Richardson making his first start of the season.",
+   "published": "2026-11-26T04:00:00Z",
+   "published_at": "2026-11-26T04:00:00Z",
+   "first_seen_at": "2026-11-27T08:59:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "PFF",
+     "title": "Fantasy Football Week 12: Start ’em, sit ’em",
+     "url": "https://www.pff.com/news/fantasy-football-week-12-start-em-sit-em"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Seahawks-49ers Wednesday injury report: Sam Darnold practices in full",
+   "summary": "Coming off two consecutive wins and their bye, there’s plenty working in favor of the Seattle Seahawks as they head into a pivotal matchup against the NFC-leading San Francisco 49ers on Sunday, but Wednesday’s injury report wasn’t exactly promising. Seahawks Nov. 25 practice report Did not participate: Limited participant: Full participant With the status of […]",
+   "published": "2026-11-26T02:19:59Z",
+   "published_at": "2026-11-26T02:19:59Z",
+   "first_seen_at": "2026-11-27T09:00:03+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "fieldgulls.com",
+     "title": "Seahawks-49ers Wednesday injury report: Sam Darnold practices in full",
+     "url": "https://www.fieldgulls.com/seattle-seahawks-news/180756/seahawks-49ers-wednesday-injury-report-sam-darnold-practices-in-full"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "DEN",
+   "players": [
+    "Jonah Coleman"
+   ],
+   "headline": "RB Jonah Coleman named FedEx Air & Ground Player of the Week for Week 11 performance",
+   "summary": "Jonah Coleman has added a second league-wide recognition.",
+   "published": "2026-11-26T02:07:33Z",
+   "published_at": "2026-11-26T02:07:33Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "DEN official",
+     "title": "RB Jonah Coleman named FedEx Air & Ground Player of the Week for Week 11 performance",
+     "url": "https://www.denverbroncos.com/news/rb-jonah-coleman-named-fedex-air-ground-player-of-the-week-for-week-11-performance"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "CIN",
+   "players": [
+    "Joe Burrow"
+   ],
+   "headline": "Quick Hits | Joe Burrow Keeps Throwing; D.J. Turner II's Short Memory",
+   "summary": "A vignette: This is why Joe Burrow is Joe Burrow.",
+   "published": "2026-11-26T02:02:48Z",
+   "published_at": "2026-11-26T02:02:48Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "CIN official",
+     "title": "Quick Hits | Joe Burrow Keeps Throwing; D.J. Turner II's Short Memory",
+     "url": "https://www.bengals.com/news/quick-hits-joe-burrow-keeps-throwing-d-j-turner-ii-s-short-memory"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Zach Charbonnet",
+    "Jadarian Price"
+   ],
+   "headline": "Seahawks RBs Zach Charbonnet, Jadarian Price Have Been A 'Great One, Two Punch'",
+   "summary": "The Seahawks’ run game has been “improving over the last few weeks.”",
+   "published": "2026-11-26T00:54:52Z",
+   "published_at": "2026-11-26T00:54:52Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Seahawks RBs Zach Charbonnet, Jadarian Price Have Been A 'Great One, Two Punch'",
+     "url": "https://www.seahawks.com/news/zach-charbonnet-jadarian-price-have-been-a-great-one-two-punch"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Christian Watson"
+   ],
+   "headline": "Packers vs. Rams first touchdown scorer odds for NFL Thanksgiving Eve game: Picks include Christian Watson",
+   "summary": "Here's a look at first touchdown scorer prediction markets available at Kalshi for Packers vs. Rams NFL Week 12 on Thanksgiving Eve",
+   "published": "2026-11-25T23:45:33Z",
+   "published_at": "2026-11-25T23:45:33Z",
+   "first_seen_at": "2026-11-27T09:00:02+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "cbssports.com",
+     "title": "Packers vs. Rams first touchdown scorer odds for NFL Thanksgiving Eve game: Picks include Christian Watson",
+     "url": "https://www.cbssports.com/prediction/news/packers-vs-rams-first-touchdown-scorer-odds-for-nfl-thanksgiving-eve-game-picks-include-christian-watson"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "GB",
+   "players": [
+    "Josh Jacobs"
+   ],
+   "headline": "Micah Parsons active for Green Bay | Packers-Rams inactives",
+   "summary": "LB Zaire Franklin, RB Josh Jacobs will not play in LA",
+   "published": "2026-11-25T23:45:00Z",
+   "published_at": "2026-11-25T23:45:00Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "GB official",
+     "title": "Micah Parsons active for Green Bay | Packers-Rams inactives",
+     "url": "https://www.packers.com/news/packers-rams-week-12-inactives-nov-25-2026"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "SEA",
+   "players": [
+    "Sam Darnold"
+   ],
+   "headline": "Updates On Sam Darnold, O-Line & Other Seahawks Injuries From Mike Macdonald's Wednesday Press Conference",
+   "summary": "Updates from Seahawks coach Mike Macdonald on his team’s health heading into Week 12.",
+   "published": "2026-11-25T22:55:56Z",
+   "published_at": "2026-11-25T22:55:56Z",
+   "first_seen_at": "2026-11-27T09:00:01+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "SEA official",
+     "title": "Updates On Sam Darnold, O-Line & Other Seahawks Injuries From Mike Macdonald's Wednesday Press Conference",
+     "url": "https://www.seahawks.com/news/updates-on-sam-darnold-the-o-line-other-seahawks-injuries-from-mike-macdonald-s-wednesday-press-conference"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "HOU",
+   "players": [
+    "Woody Marks"
+   ],
+   "headline": "Why Woody Marks Is the Texans' Pick for Salute to Service Award",
+   "summary": "Woody's family ties to the military led him to host a free football camp for military kids at Fort Hood. Now fans can help vote him into the finalists through Nov. 30.",
+   "published": "2026-11-25T22:09:56Z",
+   "published_at": "2026-11-25T22:09:56Z",
+   "first_seen_at": "2026-11-27T08:59:59+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "HOU official",
+     "title": "Why Woody Marks Is the Texans' Pick for Salute to Service Award",
+     "url": "https://www.houstontexans.com/news/woody-marks-texans-2026-salute-to-service-award-nominee-vote"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "JAX",
+   "players": [
+    "Trevor Lawrence"
+   ],
+   "headline": "Wednesday Insider: \"You Move On…\"",
+   "summary": "QB Trevor Lawrence on Wednesday as the AFC South-leading Jaguars (7-3) prepared to play the Tennessee Titans (1-9) at EverBank Stadium Sunday after his first multi-interception game of the season: “You watch the tape, make the corrections and you move on…”",
+   "published": "2026-11-25T22:08:30Z",
+   "published_at": "2026-11-25T22:08:30Z",
+   "first_seen_at": "2026-11-27T09:00:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "JAX official",
+     "title": "Wednesday Insider: \"You Move On…\"",
+     "url": "https://www.jaguars.com/news/wednesday-insider-you-move-on"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "IND",
+   "players": [
+    "Alec Pierce"
+   ],
+   "headline": "Alec Pierce addresses injury recovery, feelings on missing most of Colts' 2026 season: 'It's been really difficult'",
+   "summary": "Pierce, who led the NFL in yards per catch in 2024 and 2025, was placed on injured reserve September.",
+   "published": "2026-11-25T21:39:55Z",
+   "published_at": "2026-11-25T21:39:55Z",
+   "first_seen_at": "2026-11-27T09:00:00+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "IND official",
+     "title": "Alec Pierce addresses injury recovery, feelings on missing most of Colts' 2026 season: 'It's been really difficult'",
+     "url": "https://www.colts.com/news/alec-pierce-addresses-injury-recovery-feelings-on-missing-most-of-colts-2026-season-it-s-been-really-difficult"
+    }
+   ]
+  },
+  {
+   "beat": "Feeds",
+   "team": "ARI",
+   "players": [
+    "Kedon Slovis"
+   ],
+   "headline": "Cardinals Awarded Claim Of Kedon Slovis Off Waivers",
+   "summary": "Quarterback returns after being released before season",
+   "published": "2026-11-25T21:33:15Z",
+   "published_at": "2026-11-25T21:33:15Z",
+   "first_seen_at": "2026-11-27T08:59:58+00:00",
+   "source_type": "RSS",
+   "method": "DETERMINISTIC_FEEDS",
+   "schema_version": 2,
+   "sources": [
+    {
+     "outlet": "ARI official",
+     "title": "Cardinals Awarded Claim Of Kedon Slovis Off Waivers",
+     "url": "https://www.azcardinals.com/news/cardinals-awarded-claim-of-kedon-slovis-off-waivers"
+    }
+   ]
+  }
+ ],
+ "method": "DETERMINISTIC_FEEDS",
+ "model": "deterministic feed ingest (no model)",
+ "beats": [
+  "Feeds"
+ ],
+ "sources_unique": 48,
+ "outlets_unique": 22,
+ "feeds_generated_at": "2026-11-27T08:59:58+00:00"
+}
